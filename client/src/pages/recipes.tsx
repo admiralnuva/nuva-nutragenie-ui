@@ -31,6 +31,49 @@ const cuisineTypes = [
   { label: '🇮🇳 Indian', value: 'indian' }
 ];
 
+// Trending dishes for Create Recipe mode
+const trendingDishes = {
+  american: [
+    { name: 'Nashville Hot Chicken', calories: 520, protein: 35, image: '🍗', trending: true },
+    { name: 'Birria Tacos', calories: 450, protein: 28, image: '🌮', trending: true },
+    { name: 'Smash Burger', calories: 580, protein: 32, image: '🍔', trending: true },
+    { name: 'Korean Corn Dogs', calories: 380, protein: 18, image: '🌭', trending: true },
+    { name: 'Cloud Bread', calories: 180, protein: 12, image: '🍞', trending: true }
+  ],
+  chinese: [
+    { name: 'Mapo Tofu', calories: 320, protein: 22, image: '🥘', trending: true },
+    { name: 'Dan Dan Noodles', calories: 480, protein: 18, image: '🍜', trending: true },
+    { name: 'Xiaolongbao', calories: 280, protein: 16, image: '🥟', trending: true },
+    { name: 'Hot Pot', calories: 420, protein: 35, image: '🍲', trending: true },
+    { name: 'Tea Eggs', calories: 150, protein: 12, image: '🥚', trending: true }
+  ],
+  italian: [
+    { name: 'Truffle Risotto', calories: 520, protein: 18, image: '🍚', trending: true },
+    { name: 'Cacio e Pepe', calories: 480, protein: 20, image: '🍝', trending: true },
+    { name: 'Focaccia', calories: 220, protein: 8, image: '🫓', trending: true },
+    { name: 'Arancini', calories: 350, protein: 15, image: '🍚', trending: true },
+    { name: 'Tiramisu', calories: 380, protein: 8, image: '🍰', trending: true }
+  ]
+};
+
+// Previous dishes for Create Recipe mode
+const previousDishes = {
+  american: [
+    { name: 'Classic Burger', calories: 520, protein: 28, image: '🍔', lastMade: '2 days ago' },
+    { name: 'BBQ Ribs', calories: 680, protein: 42, image: '🍖', lastMade: '1 week ago' },
+    { name: 'Mac & Cheese', calories: 420, protein: 18, image: '🧀', lastMade: '3 days ago' },
+    { name: 'Fried Chicken', calories: 480, protein: 32, image: '🍗', lastMade: '5 days ago' },
+    { name: 'Apple Pie', calories: 320, protein: 4, image: '🥧', lastMade: '1 week ago' }
+  ],
+  chinese: [
+    { name: 'Sweet & Sour Pork', calories: 480, protein: 24, image: '🍖', lastMade: '4 days ago' },
+    { name: 'Kung Pao Chicken', calories: 420, protein: 32, image: '🍗', lastMade: '6 days ago' },
+    { name: 'Fried Rice', calories: 380, protein: 16, image: '🍚', lastMade: '2 days ago' },
+    { name: 'Dumplings', calories: 320, protein: 18, image: '🥟', lastMade: '1 week ago' },
+    { name: 'Hot & Sour Soup', calories: 180, protein: 12, image: '🍲', lastMade: '3 days ago' }
+  ]
+};
+
 const suggestedDishes = {
   american: [
     { name: 'Classic Burger', calories: 520, protein: 28, image: '🍔', popular: true },
@@ -73,13 +116,19 @@ export default function RecipesScreen() {
   const [, setLocation] = useLocation();
   const [currentUser] = useLocalStorage("nutragenie_user", null);
   
+  // Card 1 - Meal Type & Spice Level
+  const [mealType, setMealType] = useState('');
+  const [spiceLevel, setSpiceLevel] = useState('');
+  const [soupReason, setSoupReason] = useState('');
+  
   // Card 2 - Recipe Options Toggle
   const [recipeMode, setRecipeMode] = useState<'pantry' | 'create'>('pantry');
   
-  // Card 3 - Pantry Ingredients
+  // Card 3 - Dynamic Content (Pantry/Create)
   const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
   const [otherIngredients, setOtherIngredients] = useState("");
   const [recentIngredients] = useState<string[]>(['Chicken Breast', 'Bell Peppers', 'Onions', 'Olive Oil']);
+  const [recipeName, setRecipeName] = useState("");
   
   // Smart defaults based on user preferences
   const getSmartDefaults = () => {
@@ -92,13 +141,12 @@ export default function RecipesScreen() {
     return defaults;
   };
   
-  // Card 3 - Create Recipe
-  const [recipeName, setRecipeName] = useState("");
+  // Card 4 - Cuisine & Serving Size
   const [selectedCuisine, setSelectedCuisine] = useState("");
   const [servingSize, setServingSize] = useState("");
   const [selectedDish, setSelectedDish] = useState("");
   
-  // Card 4 - Nutritional Values
+  // Card 5 - Nutritional Values
   const [calories, setCalories] = useState([400]);
   const [protein, setProtein] = useState([25]);
   const [carbs, setCarbs] = useState([45]);
@@ -189,23 +237,68 @@ export default function RecipesScreen() {
       </div>
 
       <div className="p-4 space-y-3">
-        {/* Card 1 - Dietary Preferences */}
+        {/* Card 1 - Meal Type & Spice Level */}
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-base">Your Dietary Profile</CardTitle>
+            <CardTitle className="text-base">Meal Type & Preferences</CardTitle>
           </CardHeader>
-          <CardContent className="pt-0">
-            <div className="flex flex-wrap gap-1 text-sm text-gray-600">
-              {currentUser?.dietaryRestrictions?.map((restriction: string) => (
-                <span key={restriction}>{restriction}</span>
-              ))}
-              {currentUser?.healthGoals?.map((goal: string) => (
-                <span key={goal}>{goal}</span>
-              ))}
-              {(!currentUser?.dietaryRestrictions?.length && !currentUser?.healthGoals?.length) && (
-                <span className="text-gray-500">No dietary preferences set</span>
-              )}
+          <CardContent className="pt-0 space-y-4">
+            {/* Meal Type Selection */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Meal Type
+              </label>
+              <Select value={mealType} onValueChange={setMealType}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select meal type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="breakfast">🌅 Breakfast</SelectItem>
+                  <SelectItem value="lunch">☀️ Lunch</SelectItem>
+                  <SelectItem value="dinner">🌙 Dinner</SelectItem>
+                  <SelectItem value="snack">🍪 Snack & Pastry</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
+
+            {/* Spice Level Selection */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Spice Level
+              </label>
+              <Select value={spiceLevel} onValueChange={setSpiceLevel}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select spice level" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="none">🥛 No Spice</SelectItem>
+                  <SelectItem value="mild">🌶️ Mild</SelectItem>
+                  <SelectItem value="medium">🌶️🌶️ Medium</SelectItem>
+                  <SelectItem value="spicy">🌶️🌶️🌶️ Spicy</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Soup Reasons (when applicable) */}
+            {(mealType === 'lunch' || mealType === 'dinner') && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Soup Preferences (Optional)
+                </label>
+                <Select value={soupReason} onValueChange={setSoupReason}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select soup reason" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="cold">🤧 Fever, Cold & Cough</SelectItem>
+                    <SelectItem value="allergies">🤲 Allergies</SelectItem>
+                    <SelectItem value="spring">🌸 Spring</SelectItem>
+                    <SelectItem value="summer">☀️ Summer</SelectItem>
+                    <SelectItem value="winter">❄️ Winter</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
           </CardContent>
         </Card>
 
@@ -398,10 +491,11 @@ export default function RecipesScreen() {
               </div>
             ) : (
               <div className="space-y-4">
+                {/* Recipe Name Input */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Recipe Name</label>
                   <Input
-                    placeholder="Enter recipe name"
+                    placeholder="Enter your recipe name..."
                     value={recipeName}
                     onChange={(e) => setRecipeName(e.target.value)}
                   />
@@ -409,10 +503,14 @@ export default function RecipesScreen() {
 
                 {selectedCuisine && (
                   <>
+                    {/* Trending Dishes */}
                     <div>
-                      <h4 className="font-medium text-gray-700 mb-3">Suggested Dishes</h4>
+                      <h4 className="font-medium text-gray-700 mb-3 flex items-center gap-2">
+                        🔥 Trending Dishes
+                        <Badge variant="secondary" className="text-xs">Fast Decisions</Badge>
+                      </h4>
                       <div className="grid grid-cols-1 gap-2">
-                        {suggestedDishes[selectedCuisine as keyof typeof suggestedDishes]?.map((dish) => (
+                        {trendingDishes[selectedCuisine as keyof typeof trendingDishes]?.map((dish) => (
                           <div
                             key={dish.name}
                             className={`p-3 border rounded-lg cursor-pointer transition-colors relative ${
@@ -420,18 +518,20 @@ export default function RecipesScreen() {
                             }`}
                             onClick={() => setSelectedDish(dish.name)}
                           >
-                            {dish.popular && (
-                              <Badge className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs px-2 py-0.5">
-                                Popular
-                              </Badge>
-                            )}
+                            <Badge className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-2 py-0.5">
+                              Trending
+                            </Badge>
                             <div className="flex items-center justify-between">
                               <div className="flex items-center gap-2">
-                                <span className="text-lg">{dish.image}</span>
-                                <span className="font-medium">{dish.name}</span>
+                                <span className="text-2xl">{dish.image}</span>
+                                <div>
+                                  <span className="font-medium block">{dish.name}</span>
+                                  <span className="text-xs text-gray-500">Popular choice</span>
+                                </div>
                               </div>
-                              <div className="text-sm text-gray-500">
-                                {dish.calories} cal • {dish.protein}g protein
+                              <div className="text-sm text-gray-500 text-right">
+                                <div>{dish.calories} cal</div>
+                                <div>{dish.protein}g protein</div>
                               </div>
                             </div>
                           </div>
@@ -439,10 +539,36 @@ export default function RecipesScreen() {
                       </div>
                     </div>
 
+                    {/* Previous Dishes */}
                     <div>
-                      <h4 className="font-medium text-gray-700 mb-3">Previous Dishes</h4>
-                      <div className="text-sm text-gray-500">
-                        No previous dishes for this cuisine yet.
+                      <h4 className="font-medium text-gray-700 mb-3 flex items-center gap-2">
+                        🔄 Previous Dishes
+                        <Badge variant="secondary" className="text-xs">Your Favorites</Badge>
+                      </h4>
+                      <div className="grid grid-cols-1 gap-2">
+                        {previousDishes[selectedCuisine as keyof typeof previousDishes]?.map((dish) => (
+                          <div
+                            key={dish.name}
+                            className={`p-3 border rounded-lg cursor-pointer transition-colors relative ${
+                              selectedDish === dish.name ? 'border-brand-green-500 bg-brand-green-50' : 'hover:bg-gray-50'
+                            }`}
+                            onClick={() => setSelectedDish(dish.name)}
+                          >
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-2">
+                                <span className="text-2xl">{dish.image}</span>
+                                <div>
+                                  <span className="font-medium block">{dish.name}</span>
+                                  <span className="text-xs text-gray-500">Last made: {dish.lastMade}</span>
+                                </div>
+                              </div>
+                              <div className="text-sm text-gray-500 text-right">
+                                <div>{dish.calories} cal</div>
+                                <div>{dish.protein}g protein</div>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   </>
