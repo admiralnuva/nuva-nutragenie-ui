@@ -169,7 +169,7 @@ export default function ReviewRecipesScreen() {
   // State management
   const [selectedDishes, setSelectedDishes] = useState([1]); // Start with first dish selected
   const [expandedDishes, setExpandedDishes] = useState([]); // Which dishes are expanded in Card 2
-  const [selectedSubstitutions, setSelectedSubstitutions] = useState({}); // Track substitution selections
+  const [selectedIngredients, setSelectedIngredients] = useState({}); // Track multiple ingredient selections per dish-ingredient
   const [shoppingCart, setShoppingCart] = useState([]);
   const [ingredientQuantities, setIngredientQuantities] = useState({});
 
@@ -180,26 +180,30 @@ export default function ReviewRecipesScreen() {
       const dish = generatedDishes.find(d => d.id === dishId);
       dish?.ingredients.forEach(ingredient => {
         if (!pantryItems.includes(ingredient.name)) {
-          const substitution = selectedSubstitutions[`${dishId}-${ingredient.name}`];
-          const finalIngredient = substitution || ingredient;
+          const selectedOptions = selectedIngredients[`${dishId}-${ingredient.name}`] || ['original'];
+          // Add all selected ingredients/substitutions to cart
+          selectedOptions.forEach(option => {
+            const finalIngredient = option === 'original' ? ingredient : 
+              ingredient.substitutions.find(sub => sub.name === option) || ingredient;
           
-          const existingItem = cartItems.find(item => item.name === finalIngredient.name);
-          if (existingItem) {
-            existingItem.dishes.push(dish.name);
-          } else {
-            cartItems.push({
-              name: finalIngredient.name,
-              quantity: finalIngredient.quantity,
-              nutrition: finalIngredient.nutrition,
-              dishes: [dish.name],
-              inPantry: false
-            });
-          }
+            const existingItem = cartItems.find(item => item.name === finalIngredient.name);
+            if (existingItem) {
+              existingItem.dishes.push(dish.name);
+            } else {
+              cartItems.push({
+                name: finalIngredient.name,
+                quantity: finalIngredient.quantity,
+                nutrition: finalIngredient.nutrition,
+                dishes: [dish.name],
+                inPantry: false
+              });
+            }
+          });
         }
       });
     });
     setShoppingCart(cartItems);
-  }, [selectedDishes, selectedSubstitutions]);
+  }, [selectedDishes, selectedIngredients]);
 
   // Toggle dish selection
   const toggleDishSelection = (dishId) => {
@@ -230,13 +234,35 @@ export default function ReviewRecipesScreen() {
     );
   };
 
-  // Handle substitution selection
-  const handleSubstitutionChange = (dishId, ingredientName, substitution) => {
+  // Handle ingredient selection (multiple selections allowed)
+  const handleIngredientSelection = (dishId, ingredientName, option) => {
     const key = `${dishId}-${ingredientName}`;
-    setSelectedSubstitutions(prev => ({
-      ...prev,
-      [key]: substitution
-    }));
+    setSelectedIngredients(prev => {
+      const currentSelections = prev[key] || [];
+      const isSelected = currentSelections.includes(option);
+      
+      if (isSelected) {
+        // Remove the option
+        const newSelections = currentSelections.filter(item => item !== option);
+        return {
+          ...prev,
+          [key]: newSelections.length > 0 ? newSelections : ['original'] // Always keep at least original
+        };
+      } else {
+        // Add the option and remove 'original' if selecting substitution
+        let newSelections;
+        if (option === 'original') {
+          newSelections = ['original']; // Only original selected
+        } else {
+          newSelections = currentSelections.filter(item => item !== 'original');
+          newSelections.push(option);
+        }
+        return {
+          ...prev,
+          [key]: newSelections
+        };
+      }
+    });
   };
 
   // Calculate total nutrition for selected dishes
@@ -381,21 +407,19 @@ export default function ReviewRecipesScreen() {
                   {(!shouldCollapse || isExpanded) && (
                     <div className="mt-3 space-y-3">
                       {dish.ingredients.map((ingredient, idx) => {
-                        const selectedSub = selectedSubstitutions[`${dishId}-${ingredient.name}`];
-                        const currentIngredient = selectedSub || ingredient;
+                        const selectedOptions = selectedIngredients[`${dishId}-${ingredient.name}`] || ['original'];
+                        const isOriginalSelected = selectedOptions.includes('original');
 
                         return (
                           <div key={idx} className="bg-gray-50 p-3 rounded-lg">
                             {/* Main Ingredient */}
-                            <div className={`flex items-center justify-between mb-2 p-2 rounded ${
-                              !selectedSub ? 'bg-brand-green-100 border border-brand-green-300' : 'hover:bg-gray-100'
-                            }`}>
-                              <div 
-                                className="flex items-center gap-2 cursor-pointer flex-1"
-                                onClick={() => handleSubstitutionChange(dishId, ingredient.name, null)}
-                              >
+                            <div className={`flex items-center justify-between mb-2 p-2 rounded cursor-pointer transition-colors ${
+                              isOriginalSelected ? 'bg-brand-green-100 border border-brand-green-300' : 'hover:bg-gray-100'
+                            }`}
+                            onClick={() => handleIngredientSelection(dishId, ingredient.name, 'original')}>
+                              <div className="flex items-center gap-2 flex-1">
                                 <Checkbox
-                                  checked={!selectedSub}
+                                  checked={isOriginalSelected}
                                   onChange={() => {}}
                                   className="pointer-events-none"
                                 />
@@ -413,31 +437,30 @@ export default function ReviewRecipesScreen() {
                             {/* Substitutions */}
                             <div className="space-y-2">
                               <p className="text-xs font-medium text-gray-700">Substitutions:</p>
-                              {ingredient.substitutions.map((sub, subIdx) => (
-                                <div 
-                                  key={subIdx} 
-                                  className={`flex items-center gap-2 p-2 rounded cursor-pointer transition-colors ${
-                                    selectedSub === sub ? 'bg-brand-green-100 border border-brand-green-300' : 'hover:bg-gray-100'
-                                  }`}
-                                  onClick={() => handleSubstitutionChange(
-                                    dishId, 
-                                    ingredient.name, 
-                                    selectedSub === sub ? null : sub
-                                  )}
-                                >
-                                  <Checkbox
-                                    checked={selectedSub === sub}
-                                    onChange={() => {}}
-                                    className="pointer-events-none"
-                                  />
-                                  <div className="flex-1 flex justify-between">
-                                    <span className="text-sm">{sub.name} ({sub.quantity})</span>
-                                    <span className="text-sm text-gray-500">
-                                      {sub.nutrition.calories} cal • {sub.nutrition.protein}g protein
-                                    </span>
+                              {ingredient.substitutions.map((sub, subIdx) => {
+                                const isSubSelected = selectedOptions.includes(sub.name);
+                                return (
+                                  <div 
+                                    key={subIdx} 
+                                    className={`flex items-center gap-2 p-2 rounded cursor-pointer transition-colors ${
+                                      isSubSelected ? 'bg-brand-green-100 border border-brand-green-300' : 'hover:bg-gray-100'
+                                    }`}
+                                    onClick={() => handleIngredientSelection(dishId, ingredient.name, sub.name)}
+                                  >
+                                    <Checkbox
+                                      checked={isSubSelected}
+                                      onChange={() => {}}
+                                      className="pointer-events-none"
+                                    />
+                                    <div className="flex-1 flex justify-between">
+                                      <span className="text-sm">{sub.name} ({sub.quantity})</span>
+                                      <span className="text-sm text-gray-500">
+                                        {sub.nutrition.calories} cal • {sub.nutrition.protein}g protein
+                                      </span>
+                                    </div>
                                   </div>
-                                </div>
-                              ))}
+                                );
+                              })}
                             </div>
                           </div>
                         );
@@ -479,53 +502,33 @@ export default function ReviewRecipesScreen() {
           </CardContent>
         </Card>
 
-        {/* Card 3 - Grocery List */}
+        {/* Card 3 - Compact Grocery List */}
         <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-lg flex items-center gap-2">
-              🛒 Grocery List
-              <Badge variant="secondary" className="text-xs">
-                {shoppingCart.length} items
+          <CardContent className="pt-4 space-y-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="text-2xl">🛒</span>
+                <div>
+                  <h3 className="font-semibold text-gray-800">Grocery List</h3>
+                  <p className="text-sm text-gray-600">
+                    {shoppingCart.length} items selected
+                  </p>
+                </div>
+              </div>
+              <Badge variant="secondary" className="text-lg px-3 py-1">
+                {shoppingCart.length}
               </Badge>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="pt-0 space-y-4">
-            {/* Grocery List */}
-            <div className="space-y-1">
-              {shoppingCart.map((item, idx) => (
-                <div key={idx} className="flex items-center justify-between py-1 border-b border-gray-100 last:border-b-0">
-                  <div className="flex-1">
-                    <span className="text-sm font-medium">{item.name}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Input
-                      value={item.quantity}
-                      onChange={(e) => updateCartQuantity(item.name, e.target.value)}
-                      className="w-16 h-7 text-xs text-center"
-                    />
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => removeFromCart(item.name)}
-                      className="h-7 w-7 p-0"
-                    >
-                      <Minus className="w-3 h-3" />
-                    </Button>
-                  </div>
-                </div>
-              ))}
-              {shoppingCart.length === 0 && (
-                <div className="text-center text-gray-500 text-sm py-4">
-                  Select dishes to generate grocery list
-                </div>
-              )}
             </div>
 
             {/* Action Buttons */}
             <div className="grid grid-cols-2 gap-2">
-              <Button variant="outline" className="flex items-center gap-1 text-xs h-8">
+              <Button 
+                variant="outline" 
+                className="flex items-center gap-1 text-xs h-8"
+                onClick={() => setLocation("/grocery-list")}
+              >
                 <List className="w-3 h-3" />
-                Print Grocery List
+                View Grocery List
               </Button>
               <Button variant="outline" className="flex items-center gap-1 text-xs h-8">
                 <ShoppingCart className="w-3 h-3" />
