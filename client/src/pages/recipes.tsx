@@ -384,6 +384,9 @@ export default function RecipesScreen() {
   // Card 3 - Pantry Ingredients view state
   const [pantryView, setPantryView] = useState('ingredients'); // 'ingredients' or 'recommendations'
   
+  // Smart recommendations expand/collapse state
+  const [smartRecsExpanded, setSmartRecsExpanded] = useState(true);
+  
   // Card 5 - Nutritional Values
   const [calories, setCalories] = useState([400]);
   const [protein, setProtein] = useState([25]);
@@ -808,15 +811,21 @@ export default function RecipesScreen() {
                   <>
                     {/* Smart Filtered Trending Dishes */}
                     <div>
-                      <h4 className="font-medium text-gray-700 mb-3 flex items-center gap-2">
-                        🔥 Smart Recommendations
-                        <Badge variant="secondary" className="text-xs">
-                          {getFilteredDishes().length} matches
-                        </Badge>
-                        {getCurrentSeason() === 'winter' && <Badge className="text-xs bg-blue-100 text-blue-800">❄️ Winter</Badge>}
-                      </h4>
-                      <div className="grid grid-cols-1 gap-2">
-                        {getFilteredDishes().slice(0, 5).map((dish) => (
+                      <div 
+                        className="flex items-center justify-between mb-3 cursor-pointer"
+                        onClick={() => setSmartRecsExpanded(!smartRecsExpanded)}
+                      >
+                        <h4 className="font-medium text-gray-700 flex items-center gap-2">
+                          🔥 Smart Recommendations
+                          {getCurrentSeason() === 'winter' && <Badge className="text-xs bg-blue-100 text-blue-800">❄️ Winter</Badge>}
+                        </h4>
+                        <button className="text-gray-500 hover:text-gray-700">
+                          {smartRecsExpanded ? '−' : '+'}
+                        </button>
+                      </div>
+                      {smartRecsExpanded && (
+                        <div className="grid grid-cols-1 gap-2">
+                          {getFilteredDishes().slice(0, 5).map((dish) => (
                           <div
                             key={dish.name}
                             className={`p-3 border rounded-lg cursor-pointer transition-colors relative ${
@@ -843,10 +852,11 @@ export default function RecipesScreen() {
                               </div>
                             </div>
                           </div>
-                        ))}
-                      </div>
+                          ))}
+                        </div>
+                      )}
                       
-                      {getFilteredDishes().length === 0 && (
+                      {smartRecsExpanded && getFilteredDishes().length === 0 && (
                         <div className="text-center py-4 text-gray-500 text-sm">
                           No dishes match your current preferences.<br/>
                           Try adjusting meal type or spice level.
