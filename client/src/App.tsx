@@ -1,26 +1,62 @@
-import { Switch, Route } from "wouter";
+import { Switch, Route, useLocation } from "wouter";
+import { queryClient } from "./lib/queryClient";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { Toaster } from "@/components/ui/toaster";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { BottomNavigation } from "@/components/ui/bottom-navigation";
+import NotFound from "@/pages/not-found";
+import SplashScreen from "@/pages/splash";
+import SignupScreen from "@/pages/signup";
+import DietaryScreen from "@/pages/dietary";
+import RecipesScreen from "@/pages/recipes";
+import CookingScreen from "@/pages/cooking";
+import ProfileScreen from "@/pages/profile";
+import HealthAnalyticsScreen from "@/pages/health";
+import HomeScreen from "@/pages/home";
+import CookScreen from "@/pages/cook";
+import TakeOutScreen from "@/pages/takeout";
 
-function SplashTest() {
+function Router() {
   return (
-    <div className="h-screen bg-gradient-to-br from-green-500 to-emerald-600 flex flex-col items-center justify-center p-8">
-      <div className="text-center">
-        <h1 className="text-5xl font-bold mb-4 text-white drop-shadow-lg">NutraGenie</h1>
-        <p className="text-white mb-8 text-xl">Your AI nutrition platform</p>
-        <div className="space-y-4 w-full max-w-xs">
-          <button className="w-full bg-white text-green-600 py-4 px-6 rounded-xl font-semibold text-lg">
-            Start Account Creation
-          </button>
-        </div>
-      </div>
+    <Switch>
+      <Route path="/" component={SplashScreen} />
+      <Route path="/signup" component={SignupScreen} />
+      <Route path="/dietary" component={DietaryScreen} />
+      <Route path="/home" component={HomeScreen} />
+      <Route path="/recipes" component={RecipesScreen} />
+      <Route path="/cook" component={CookScreen} />
+      <Route path="/takeout" component={TakeOutScreen} />
+      <Route path="/cooking/:recipeId?" component={CookingScreen} />
+      <Route path="/profile" component={ProfileScreen} />
+      <Route path="/health" component={HealthAnalyticsScreen} />
+      <Route component={NotFound} />
+    </Switch>
+  );
+}
+
+function AppContent() {
+  const [location] = useLocation();
+  
+  // Pages that should NOT show bottom navigation
+  const hideBottomNav = ['/', '/signup', '/dietary', '/health'];
+  const showBottomNav = !hideBottomNav.includes(location);
+
+  return (
+    <div className="mobile-container bg-white shadow-2xl">
+      <Toaster />
+      <Router />
+      {showBottomNav && <BottomNavigation />}
     </div>
   );
 }
 
 function App() {
   return (
-    <Switch>
-      <Route path="/" component={SplashTest} />
-    </Switch>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <AppContent />
+      </TooltipProvider>
+    </QueryClientProvider>
   );
 }
 
