@@ -35,17 +35,10 @@ function Router() {
 }
 
 function AppContent() {
-  const [location] = useLocation();
-  
-  // Pages that should NOT show bottom navigation
-  const hideBottomNav = ['/', '/signup', '/dietary', '/health'];
-  const showBottomNav = !hideBottomNav.includes(location);
-
   return (
     <div className="mobile-container bg-white shadow-2xl">
       <Toaster />
       <Router />
-      {showBottomNav && <BottomNavigation />}
     </div>
   );
 }
