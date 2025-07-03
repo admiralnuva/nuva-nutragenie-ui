@@ -9,6 +9,7 @@ import SplashScreen from "@/pages/splash";
 import SignupScreen from "@/pages/signup";
 import DietaryScreen from "@/pages/dietary";
 import RecipesScreen from "@/pages/recipes";
+import ReviewRecipesScreen from "@/pages/review-recipes";
 import CookingScreen from "@/pages/cooking";
 import ProfileScreen from "@/pages/profile";
 import HealthAnalyticsScreen from "@/pages/health";
@@ -24,6 +25,7 @@ function Router() {
       <Route path="/dietary" component={DietaryScreen} />
       <Route path="/home" component={HomeScreen} />
       <Route path="/recipes" component={RecipesScreen} />
+      <Route path="/review-recipes" component={ReviewRecipesScreen} />
       <Route path="/cook" component={CookScreen} />
       <Route path="/takeout" component={TakeOutScreen} />
       <Route path="/cooking/:recipeId?" component={CookingScreen} />
