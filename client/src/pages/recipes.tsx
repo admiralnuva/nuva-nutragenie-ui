@@ -312,11 +312,31 @@ export default function RecipesScreen() {
 
   // Smart filtering function
   const getFilteredDishes = () => {
-    return enhancedTrendingDishes.filter(dish => {
+    // Get dishes that match current preferences
+    const perfectMatches = enhancedTrendingDishes.filter(dish => {
       const mealTypeMatch = dish.mealType === mealType;
       const spiceLevelMatch = dish.spiceLevel === spiceLevel || spiceLevel === 'none';
       return mealTypeMatch && spiceLevelMatch;
     }).sort((a, b) => b.popularity - a.popularity);
+
+    // If we have fewer than 5 perfect matches, add partial matches
+    if (perfectMatches.length < 5) {
+      const partialMatches = enhancedTrendingDishes.filter(dish => {
+        const mealTypeMatch = dish.mealType === mealType;
+        const spiceLevelMatch = dish.spiceLevel === spiceLevel || spiceLevel === 'none';
+        // Get dishes that don't match perfectly but are similar
+        return !(mealTypeMatch && spiceLevelMatch) && (mealTypeMatch || spiceLevelMatch);
+      }).sort((a, b) => b.popularity - a.popularity);
+
+      // If still fewer than 5, add popular dishes as fallback
+      const fallbackDishes = enhancedTrendingDishes.filter(dish => 
+        !perfectMatches.includes(dish) && !partialMatches.includes(dish)
+      ).sort((a, b) => b.popularity - a.popularity);
+
+      return [...perfectMatches, ...partialMatches, ...fallbackDishes].slice(0, Math.max(5, perfectMatches.length));
+    }
+
+    return perfectMatches;
   };
 
   // Get current season for seasonal recommendations
@@ -721,35 +741,34 @@ export default function RecipesScreen() {
                     </div>
                     
                     <div className="grid grid-cols-1 gap-2">
-                      {selectedIngredients.length > 0 ? (
-                        pantryRecommendedDishes
-                          .filter((dish) => {
-                            // Only show dishes where all ingredients match selected ingredients
-                            return dish.ingredients.every(ing => selectedIngredients.includes(ing));
-                          })
-                          .slice(0, 5)
-                          .map((dish) => (
-                            <div
-                              key={dish.name}
-                              className={`p-3 border rounded-lg cursor-pointer transition-colors ${
-                                selectedDish === dish.name ? 'border-brand-green-500 bg-brand-green-50' : 'hover:bg-gray-50'
-                              }`}
-                              onClick={() => setSelectedDish(dish.name)}
-                            >
-                              <div className="flex items-center gap-2">
-                                <span className="text-2xl">🍽️</span>
-                                <div>
-                                  <p className="font-medium text-gray-800">{dish.name}</p>
-                                  <p className="text-xs text-gray-500">
-                                    🕒 {dish.cookTime}min • {dish.calories} cal • {dish.protein}g protein
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-                          ))
-                      ) : (
-                        // Show 5 sample dishes when no ingredients selected
-                        pantryRecommendedDishes.slice(0, 5).map((dish) => (
+                      {(() => {
+                        // Get perfect matches first (all ingredients match)
+                        const perfectMatches = pantryRecommendedDishes.filter((dish) => 
+                          selectedIngredients.length > 0 && 
+                          dish.ingredients.every(ing => selectedIngredients.includes(ing))
+                        );
+                        
+                        // Get partial matches (at least one ingredient matches)
+                        const partialMatches = pantryRecommendedDishes.filter((dish) => 
+                          selectedIngredients.length > 0 && 
+                          dish.ingredients.some(ing => selectedIngredients.includes(ing)) &&
+                          !dish.ingredients.every(ing => selectedIngredients.includes(ing))
+                        );
+                        
+                        // Get fallback dishes (remaining dishes)
+                        const fallbackDishes = pantryRecommendedDishes.filter((dish) => 
+                          selectedIngredients.length === 0 || 
+                          !dish.ingredients.some(ing => selectedIngredients.includes(ing))
+                        );
+                        
+                        // Combine to ensure minimum 5 dishes
+                        const combinedDishes = [
+                          ...perfectMatches,
+                          ...partialMatches,
+                          ...fallbackDishes
+                        ].slice(0, Math.max(5, perfectMatches.length + partialMatches.length));
+                        
+                        return combinedDishes.map((dish) => (
                           <div
                             key={dish.name}
                             className={`p-3 border rounded-lg cursor-pointer transition-colors ${
@@ -767,17 +786,8 @@ export default function RecipesScreen() {
                               </div>
                             </div>
                           </div>
-                        ))
-                      )}
-                      
-                      {selectedIngredients.length > 0 && pantryRecommendedDishes.filter((dish) => 
-                        dish.ingredients.every(ing => selectedIngredients.includes(ing))
-                      ).length === 0 && (
-                        <div className="text-center py-4 text-gray-500 text-sm">
-                          No dishes match all selected ingredients.<br/>
-                          Try selecting different combinations.
-                        </div>
-                      )}
+                        ));
+                      })()}
                     </div>
                   </div>
                 )}
