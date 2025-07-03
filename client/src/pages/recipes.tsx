@@ -31,6 +31,98 @@ const cuisineTypes = [
   { label: '🇮🇳 Indian', value: 'indian' }
 ];
 
+// Enhanced trending dishes with time estimates, nutrition, and compatibility
+const enhancedTrendingDishes = [
+  {
+    name: 'Tom Yum Soup',
+    cuisine: 'chinese',
+    mealType: 'soup',
+    spiceLevel: 'medium',
+    prepTime: 15,
+    cookTime: 20,
+    totalTime: 35,
+    nutrition: { calories: 180, protein: 12, carbs: 8 },
+    badges: ['Low-Carb', 'High-Protein'],
+    seasonal: true,
+    popularity: 95
+  },
+  {
+    name: 'Chicken Noodle Soup',
+    cuisine: 'american',
+    mealType: 'soup',
+    spiceLevel: 'none',
+    prepTime: 10,
+    cookTime: 25,
+    totalTime: 35,
+    nutrition: { calories: 220, protein: 18, carbs: 15 },
+    badges: ['Comfort Food', 'High-Protein'],
+    seasonal: true,
+    popularity: 88
+  },
+  {
+    name: 'Miso Ramen',
+    cuisine: 'japanese',
+    mealType: 'soup',
+    spiceLevel: 'mild',
+    prepTime: 20,
+    cookTime: 15,
+    totalTime: 35,
+    nutrition: { calories: 340, protein: 16, carbs: 32 },
+    badges: ['Umami-Rich'],
+    seasonal: false,
+    popularity: 82
+  },
+  {
+    name: 'Avocado Toast',
+    cuisine: 'american',
+    mealType: 'breakfast',
+    spiceLevel: 'none',
+    prepTime: 5,
+    cookTime: 3,
+    totalTime: 8,
+    nutrition: { calories: 280, protein: 8, carbs: 24 },
+    badges: ['Keto-Friendly', 'Plant-Based'],
+    seasonal: false,
+    popularity: 90
+  },
+  {
+    name: 'Pad Thai',
+    cuisine: 'chinese',
+    mealType: 'lunch',
+    spiceLevel: 'medium',
+    prepTime: 15,
+    cookTime: 12,
+    totalTime: 27,
+    nutrition: { calories: 450, protein: 20, carbs: 58 },
+    badges: ['High-Protein'],
+    seasonal: false,
+    popularity: 85
+  },
+  {
+    name: 'Caesar Salad',
+    cuisine: 'american',
+    mealType: 'lunch',
+    spiceLevel: 'none',
+    prepTime: 10,
+    cookTime: 0,
+    totalTime: 10,
+    nutrition: { calories: 320, protein: 12, carbs: 8 },
+    badges: ['Low-Carb', 'Quick'],
+    seasonal: false,
+    popularity: 78
+  }
+];
+
+// Ingredient suggestions for autocomplete
+const commonIngredients = [
+  'chicken breast', 'ground beef', 'salmon', 'shrimp', 'tofu',
+  'onions', 'garlic', 'ginger', 'bell peppers', 'tomatoes',
+  'broccoli', 'spinach', 'mushrooms', 'carrots', 'potatoes',
+  'rice', 'pasta', 'quinoa', 'bread', 'noodles',
+  'olive oil', 'soy sauce', 'salt', 'pepper', 'herbs',
+  'coconut milk', 'chicken broth', 'vegetable broth', 'lime', 'lemon'
+];
+
 // Trending dishes for Create Recipe mode
 const trendingDishes = {
   american: [
@@ -120,6 +212,66 @@ export default function RecipesScreen() {
   const [mealType, setMealType] = useState('soup');
   const [spiceLevel, setSpiceLevel] = useState('mild');
   const [soupReason, setSoupReason] = useState('');
+  
+  // Template management
+  const [savedTemplates, setSavedTemplates] = useLocalStorage('recipe_templates', []);
+  const [showTemplates, setShowTemplates] = useState(false);
+  
+  // Ingredient autocomplete
+  const [ingredientSearch, setIngredientSearch] = useState('');
+  const [showIngredientSuggestions, setShowIngredientSuggestions] = useState(false);
+
+  // Template functions
+  const saveTemplate = () => {
+    const template = {
+      id: Date.now(),
+      name: `${mealType.charAt(0).toUpperCase() + mealType.slice(1)} Template`,
+      cuisine: selectedCuisine,
+      mealType,
+      spiceLevel,
+      servingSize,
+      soupReason,
+      ingredients: selectedIngredients,
+      createdAt: new Date().toISOString()
+    };
+    setSavedTemplates([...savedTemplates, template]);
+  };
+
+  const loadTemplate = (template: any) => {
+    setSelectedCuisine(template.cuisine);
+    setMealType(template.mealType);
+    setSpiceLevel(template.spiceLevel);
+    setServingSize(template.servingSize);
+    setSoupReason(template.soupReason);
+    setSelectedIngredients(template.ingredients || []);
+    setShowTemplates(false);
+  };
+
+  // Smart filtering function
+  const getFilteredDishes = () => {
+    return enhancedTrendingDishes.filter(dish => {
+      const mealTypeMatch = dish.mealType === mealType;
+      const spiceLevelMatch = dish.spiceLevel === spiceLevel || spiceLevel === 'none';
+      return mealTypeMatch && spiceLevelMatch;
+    }).sort((a, b) => b.popularity - a.popularity);
+  };
+
+  // Get current season for seasonal recommendations
+  const getCurrentSeason = () => {
+    const month = new Date().getMonth();
+    if (month >= 2 && month <= 4) return 'spring';
+    if (month >= 5 && month <= 7) return 'summer';
+    if (month >= 8 && month <= 10) return 'fall';
+    return 'winter';
+  };
+
+  // Ingredient autocomplete filtering
+  const getFilteredIngredients = () => {
+    if (!ingredientSearch) return [];
+    return commonIngredients.filter(ingredient =>
+      ingredient.toLowerCase().includes(ingredientSearch.toLowerCase())
+    ).slice(0, 5);
+  };
   
   // Card 2 - Recipe Options Toggle
   const [recipeMode, setRecipeMode] = useState<'pantry' | 'create'>('pantry');
@@ -325,6 +477,46 @@ export default function RecipesScreen() {
                 </Select>
                 </div>
             </div>
+
+            {/* Template Actions */}
+            <div className="flex gap-2">
+              <Button 
+                variant="outline" 
+                size="sm" 
+                onClick={() => setShowTemplates(!showTemplates)}
+                className="flex-1 text-xs h-7"
+              >
+                📋 Templates
+              </Button>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                onClick={saveTemplate}
+                className="flex-1 text-xs h-7"
+              >
+                💾 Save
+              </Button>
+            </div>
+
+            {/* Template Selection */}
+            {showTemplates && savedTemplates.length > 0 && (
+              <div className="space-y-1">
+                <label className="block text-xs font-medium text-gray-700">Quick Load:</label>
+                <div className="grid grid-cols-2 gap-1">
+                  {savedTemplates.slice(0, 4).map((template: any) => (
+                    <Button
+                      key={template.id}
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => loadTemplate(template)}
+                      className="text-xs h-6 p-1 justify-start"
+                    >
+                      {template.name}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+            )}
           </CardContent>
         </Card>
 
@@ -409,6 +601,48 @@ export default function RecipesScreen() {
                   </div>
                 </div>
 
+                {/* Ingredient Autocomplete */}
+                <div className="bg-blue-50 rounded-lg p-3 border-l-4 border-blue-500">
+                  <h4 className="font-medium text-gray-700 text-sm mb-2">Add Custom Ingredient</h4>
+                  <div className="relative">
+                    <Input
+                      type="text"
+                      placeholder="Start typing ingredient name..."
+                      value={ingredientSearch}
+                      onChange={(e) => {
+                        setIngredientSearch(e.target.value);
+                        setShowIngredientSuggestions(true);
+                      }}
+                      onFocus={() => setShowIngredientSuggestions(true)}
+                      className="text-sm"
+                    />
+                    {showIngredientSuggestions && getFilteredIngredients().length > 0 && (
+                      <div className="absolute top-full left-0 right-0 bg-white border border-gray-200 rounded-md shadow-md z-10 mt-1">
+                        {getFilteredIngredients().map((ingredient) => (
+                          <button
+                            key={ingredient}
+                            className="w-full text-left px-3 py-2 text-sm hover:bg-gray-50 border-b last:border-b-0"
+                            onClick={() => {
+                              if (!selectedIngredients.includes(ingredient)) {
+                                setSelectedIngredients(prev => [...prev, ingredient]);
+                              }
+                              setIngredientSearch('');
+                              setShowIngredientSuggestions(false);
+                            }}
+                          >
+                            {ingredient}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  {ingredientSearch && getFilteredIngredients().length === 0 && (
+                    <div className="text-xs text-gray-500 mt-1">
+                      No suggestions found. Press Enter to add "{ingredientSearch}" as custom ingredient.
+                    </div>
+                  )}
+                </div>
+
                 {/* Ingredient Categories */}
                 {Object.entries(pantryIngredients).map(([category, ingredients]) => (
                   <div key={category} className="border-b border-gray-100 pb-3 last:border-b-0">
@@ -490,14 +724,17 @@ export default function RecipesScreen() {
 
                 {selectedCuisine && (
                   <>
-                    {/* Trending Dishes */}
+                    {/* Smart Filtered Trending Dishes */}
                     <div>
                       <h4 className="font-medium text-gray-700 mb-3 flex items-center gap-2">
-                        🔥 Trending Dishes
-                        <Badge variant="secondary" className="text-xs">Fast Decisions</Badge>
+                        🔥 Smart Recommendations
+                        <Badge variant="secondary" className="text-xs">
+                          {getFilteredDishes().length} matches
+                        </Badge>
+                        {getCurrentSeason() === 'winter' && <Badge className="text-xs bg-blue-100 text-blue-800">❄️ Winter</Badge>}
                       </h4>
                       <div className="grid grid-cols-1 gap-2">
-                        {trendingDishes[selectedCuisine as keyof typeof trendingDishes]?.map((dish) => (
+                        {getFilteredDishes().slice(0, 4).map((dish) => (
                           <div
                             key={dish.name}
                             className={`p-3 border rounded-lg cursor-pointer transition-colors relative ${
@@ -505,25 +742,71 @@ export default function RecipesScreen() {
                             }`}
                             onClick={() => setSelectedDish(dish.name)}
                           >
-                            <Badge className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-2 py-0.5">
-                              Trending
-                            </Badge>
-                            <div className="flex items-center justify-between">
-                              <div className="flex items-center gap-2">
-                                <span className="text-2xl">{dish.image}</span>
-                                <div>
-                                  <span className="font-medium block">{dish.name}</span>
-                                  <span className="text-xs text-gray-500">Popular choice</span>
+                            {/* Seasonal Badge */}
+                            {dish.seasonal && (
+                              <Badge className="absolute -top-2 -right-2 bg-green-500 text-white text-xs px-2 py-0.5">
+                                Seasonal
+                              </Badge>
+                            )}
+                            
+                            <div className="space-y-2">
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-2">
+                                  <span className="text-2xl">🍲</span>
+                                  <div>
+                                    <p className="font-medium text-gray-800">{dish.name}</p>
+                                    <p className="text-xs text-gray-500">
+                                      🕒 {dish.totalTime}min • {dish.nutrition.calories} cal
+                                    </p>
+                                  </div>
+                                </div>
+                                <div className="text-right text-xs text-gray-500">
+                                  Prep: {dish.prepTime}m<br/>
+                                  Cook: {dish.cookTime}m
                                 </div>
                               </div>
-                              <div className="text-sm text-gray-500 text-right">
-                                <div>{dish.calories} cal</div>
-                                <div>{dish.protein}g protein</div>
+                              
+                              {/* Nutritional Quick View */}
+                              <div className="flex gap-2 text-xs">
+                                <Badge variant="outline" className="bg-blue-50 text-blue-700">
+                                  {dish.nutrition.protein}g protein
+                                </Badge>
+                                <Badge variant="outline" className="bg-orange-50 text-orange-700">
+                                  {dish.nutrition.carbs}g carbs
+                                </Badge>
+                                <Badge variant="outline" className="bg-red-50 text-red-700">
+                                  {dish.nutrition.calories} cal
+                                </Badge>
+                              </div>
+                              
+                              {/* Dietary Compatibility Badges */}
+                              <div className="flex gap-1 flex-wrap">
+                                {dish.badges.map((badge, index) => (
+                                  <Badge 
+                                    key={index}
+                                    className={`text-xs ${
+                                      badge.includes('Keto') ? 'bg-purple-100 text-purple-800' :
+                                      badge.includes('High-Protein') ? 'bg-green-100 text-green-800' :
+                                      badge.includes('Low-Carb') ? 'bg-blue-100 text-blue-800' :
+                                      badge.includes('Plant-Based') ? 'bg-emerald-100 text-emerald-800' :
+                                      'bg-gray-100 text-gray-800'
+                                    }`}
+                                  >
+                                    {badge}
+                                  </Badge>
+                                ))}
                               </div>
                             </div>
                           </div>
                         ))}
                       </div>
+                      
+                      {getFilteredDishes().length === 0 && (
+                        <div className="text-center py-4 text-gray-500 text-sm">
+                          No dishes match your current preferences.<br/>
+                          Try adjusting meal type or spice level.
+                        </div>
+                      )}
                     </div>
 
                     {/* Previous Dishes */}
