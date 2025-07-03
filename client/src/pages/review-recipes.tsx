@@ -168,7 +168,7 @@ export default function ReviewRecipesScreen() {
 
   // State management
   const [selectedDishes, setSelectedDishes] = useState([1, 2, 3, 4]); // Start with all dishes selected
-  const [expandedDishes, setExpandedDishes] = useState([1]); // Which dishes are expanded in Card 2
+  const [expandedDishes, setExpandedDishes] = useState([]); // Which dishes are expanded in Card 2
   const [selectedSubstitutions, setSelectedSubstitutions] = useState({}); // Track substitution selections
   const [shoppingCart, setShoppingCart] = useState([]);
   const [ingredientQuantities, setIngredientQuantities] = useState({});
@@ -209,6 +209,17 @@ export default function ReviewRecipesScreen() {
         : [...prev, dishId]
     );
   };
+
+  // Auto expand/collapse dishes in Card 2 based on Card 1 selections
+  useEffect(() => {
+    if (selectedDishes.length === 1) {
+      // If only one dish selected, expand it
+      setExpandedDishes([selectedDishes[0]]);
+    } else {
+      // If multiple or no dishes selected, collapse all
+      setExpandedDishes([]);
+    }
+  }, [selectedDishes]);;
 
   // Toggle dish expansion in Card 2
   const toggleDishExpansion = (dishId) => {
@@ -332,10 +343,10 @@ export default function ReviewRecipesScreen() {
           </CardContent>
         </Card>
 
-        {/* Card 2 - Dish Details & Substitutions */}
+        {/* Card 2 - Ingredients & Substitutions */}
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-lg">🍽️ Recipe Details & Substitutions</CardTitle>
+            <CardTitle className="text-lg">🥬 Ingredients & Substitutions</CardTitle>
           </CardHeader>
           <CardContent className="pt-0 space-y-3">
             {selectedDishes.map((dishId) => {
@@ -419,24 +430,28 @@ export default function ReviewRecipesScreen() {
 
             {/* Nutrition Summary */}
             {selectedDishes.length > 0 && (
-              <div className="bg-brand-green-50 p-4 rounded-lg border border-brand-green-200">
-                <h4 className="font-semibold text-brand-green-800 mb-2">Total Nutrition Summary</h4>
-                <div className="grid grid-cols-2 gap-4 text-sm">
-                  <div>
-                    <span className="text-gray-600">Calories:</span>
-                    <span className="font-medium ml-2">{calculateTotalNutrition().calories}</span>
+              <div className="bg-brand-green-50 p-3 rounded-lg border border-brand-green-200">
+                <h4 className="font-semibold text-brand-green-800 mb-2 text-sm">Total Summary</h4>
+                <div className="grid grid-cols-5 gap-2 text-xs">
+                  <div className="text-center">
+                    <div className="text-gray-600">Cal</div>
+                    <div className="font-medium">{calculateTotalNutrition().calories}</div>
                   </div>
-                  <div>
-                    <span className="text-gray-600">Protein:</span>
-                    <span className="font-medium ml-2">{calculateTotalNutrition().protein}g</span>
+                  <div className="text-center">
+                    <div className="text-gray-600">Protein</div>
+                    <div className="font-medium">{calculateTotalNutrition().protein}g</div>
                   </div>
-                  <div>
-                    <span className="text-gray-600">Carbs:</span>
-                    <span className="font-medium ml-2">{calculateTotalNutrition().carbs}g</span>
+                  <div className="text-center">
+                    <div className="text-gray-600">Carbs</div>
+                    <div className="font-medium">{calculateTotalNutrition().carbs}g</div>
                   </div>
-                  <div>
-                    <span className="text-gray-600">Fat:</span>
-                    <span className="font-medium ml-2">{calculateTotalNutrition().fat}g</span>
+                  <div className="text-center">
+                    <div className="text-gray-600">Fat</div>
+                    <div className="font-medium">{calculateTotalNutrition().fat}g</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-gray-600">Fiber</div>
+                    <div className="font-medium">{calculateTotalNutrition().fiber}g</div>
                   </div>
                 </div>
               </div>
