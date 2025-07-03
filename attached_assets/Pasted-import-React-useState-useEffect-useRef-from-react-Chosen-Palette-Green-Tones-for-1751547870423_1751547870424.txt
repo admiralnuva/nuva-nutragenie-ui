@@ -1,0 +1,1204 @@
+import React, { useState, useEffect, useRef } from 'react';
+
+// <!-- Chosen Palette: Green Tones for splash, define dish, recipe; Warm Neutrals for Sign Up, Dietary Profile -->
+// <!-- Application Structure Plan: The mobile app mockup is structured into distinct, navigable screens: Splash, SignUp, DietaryProfile, DefineRecipeInputs, GeneratedRecipeDisplay, Roadmap, Metrics, and Tech Stack. This sequential, screen-based navigation is typical for mobile applications, providing clear user pathways for onboarding (Splash -> SignUp -> DietaryProfile) and then moving into core app features. The "Define Recipe Inputs" screen focuses on setting parameters, and "Generated Recipe Display" makes the AI's capabilities tangible through dynamic output. The "Roadmap," "Metrics," and "Tech Stack" screens provide concise, scannable information, designed for quick consumption on a mobile device. -->
+// <!-- Visualization & Content Choices: 1. Splash Screen -> Inform -> Text and Logo -> Immediate brand recognition and welcome, now with light green theme. 2. Sign Up Screen -> Collect Data/Interact -> Form inputs (text, number) and clickable avatar icons -> Guides user through data entry and personalization. Validation removed as per user request. 3. Dietary Profile Screen -> Collect Data/Interact -> Multi-select buttons for diet and health, textareas for preferences -> Captures detailed user requirements efficiently. 4. Define Recipe Inputs -> Interact/Collect Data -> Interactive form elements (text input, sliders) -> Simulates core AI input, now with updated green color scheme. 5. Generated Recipe Display -> Inform/Interact -> Displays detailed recipe with substitutions and shopping cart options, now with updated green color scheme and new rectangular buttons for 'Buy Ingredients', 'Order your Dish', 'Cook'. 6. Chef Avatars -> Interact -> Clickable icons -> Allows user choice. 7. Roadmap -> Inform -> Simple list of phases -> Clear, sequential information. 8. Metrics -> Inform -> Static text summaries -> Provides key data points in a mobile-friendly format without complex charts. 9. Tech Stack -> Inform -> Text list with emojis -> Presents technical info concisely. All visual elements adhere to a mobile-first design, prioritizing touch-friendly components and clear typography. -->
+// <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+const ProgressBar = ({ value, max, color, label }) => (
+    <div>
+        <div className="flex justify-between text-xs text-gray-600 mb-1">
+            <span>{label}</span>
+            <span>{value}/{max}</span>
+        </div>
+        <div className="w-full bg-gray-200 rounded-full h-2.5">
+            <div className={`${color} h-2.5 rounded-full`} style={{ width: `${(value / max) * 100}%` }}></div>
+        </div>
+    </div>
+);
+
+const PrestigeBoard = () => {
+    // Mock data for prestige board
+    const cookingPoints = { current: 5, total: 100, monthly: [15, 20, 18, 16] };
+    const purchasePoints = { current: 5, total: 100, monthly: [10, 15, 12, 20] };
+    const streaks = { currentMonth: 4, lastMonth: 3 };
+    const challenges = { completed: 9, total: 10, caps: ['#3b82f6', '#10b981', '#ef4444', '#8b5cf6', '#FFD700'] }; // Blue, Green, Red, Purple, Gold
+    const publish = { completed: 5, total: 20 };
+
+    return (
+        <div className="space-y-4">
+            <h2 className="text-xl font-bold text-center text-gray-800">Prestige Board</h2>
+            
+            {/* Cooking Points */}
+            <div className="bg-green-50 p-3 rounded-lg shadow-sm">
+                <h4 className="font-bold text-green-700 mb-2">Cooking Points</h4>
+                <div className="flex items-center gap-4">
+                    <div className="text-4xl">⭐</div>
+                    <div className="flex-grow">
+                        <ProgressBar value={cookingPoints.current} max={cookingPoints.total} color="bg-yellow-400" label="Journey to next Star" />
+                        <p className="text-xs text-gray-500 mt-1">Earn 5 points per recipe cooked. You have {cookingPoints.current} points!</p>
+                    </div>
+                </div>
+            </div>
+
+            {/* Purchase History */}
+            <div className="bg-blue-50 p-3 rounded-lg shadow-sm">
+                <h4 className="font-bold text-blue-700 mb-2">Purchase Points</h4>
+                 <div className="flex items-center gap-4">
+                    <div className="text-4xl">🎖️</div>
+                    <div className="flex-grow">
+                        <ProgressBar value={purchasePoints.current} max={purchasePoints.total} color="bg-blue-400" label="Journey to next Badge" />
+                        <p className="text-xs text-gray-500 mt-1">Earn 5 points per purchase. You have {purchasePoints.current} points!</p>
+                    </div>
+                </div>
+            </div>
+
+            {/* Streaks */}
+            <div className="bg-orange-50 p-3 rounded-lg shadow-sm">
+                <h4 className="font-bold text-orange-700 mb-2">Weekly Streaks</h4>
+                <div className="flex justify-around">
+                    <div className="text-center">
+                        <div className="flex justify-center gap-1">
+                            {Array(4).fill(0).map((_, i) => <div key={i} className={`w-3 h-3 rounded-full ${i < streaks.currentMonth ? 'bg-orange-500' : 'bg-gray-200'}`}></div>)}
+                        </div>
+                        <p className="text-xs text-gray-500 mt-1">4 weeks this month!</p>
+                    </div>
+                     <div className="text-center">
+                        <div className="flex justify-center gap-1">
+                             {Array(4).fill(0).map((_, i) => <div key={i} className={`w-3 h-3 rounded-full ${i < streaks.lastMonth ? 'bg-orange-500' : 'bg-gray-200'}`}></div>)}
+                        </div>
+                        <p className="text-xs text-gray-500 mt-1">3 weeks last month</p>
+                    </div>
+                </div>
+                 <p className="text-xs text-center text-gray-500 mt-2">Complete a 4-week streak to earn a streak coin!</p>
+            </div>
+
+            {/* Chef's Challenge */}
+            <div className="bg-purple-50 p-3 rounded-lg shadow-sm">
+                <h4 className="font-bold text-purple-700 mb-2">Chef's Challenge</h4>
+                <div className="flex items-center gap-4">
+                     <div className="flex gap-1">
+                        {challenges.caps.map((capColor, index) => (
+                           <div key={index} className={`text-2xl ${index < Math.floor(challenges.completed / 10) ? '' : 'opacity-20'}`} style={{color: capColor}}>🧢</div>
+                        ))}
+                    </div>
+                    <div className="flex-grow">
+                         <ProgressBar value={challenges.completed % 10} max={10} color="bg-purple-400" label="Journey to next Cap" />
+                         <p className="text-xs text-gray-500 mt-1">You have completed {challenges.completed} challenges. Complete 1 more for the next cap!</p>
+                    </div>
+                </div>
+            </div>
+
+            {/* Publish Recipes */}
+            <div className="bg-indigo-50 p-3 rounded-lg shadow-sm">
+                <h4 className="font-bold text-indigo-700 mb-2">Publish Your Recipes</h4>
+                 <div className="flex items-center gap-4">
+                    <div className="text-4xl">📖</div>
+                    <div className="flex-grow">
+                         <ProgressBar value={publish.completed} max={publish.total} color="bg-indigo-400" label="Journey to Publish" />
+                         <p className="text-xs text-gray-500 mt-1">You have cooked {publish.completed} unique recipes. Cook {publish.total - publish.completed} more to publish your own recipe book!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+const ProfileCard = ({ appState, setAppState }) => {
+    const { userNickname, userAvatar, userAgeGroup, userStreetAddress, userCity, userState, userZipCode, phoneNumber, verificationCode, selectedChef } = appState;
+    const { setUserNickname, setUserAvatar, setUserAgeGroup, setUserStreetAddress, setUserCity, setUserState, setUserZipCode, setPhoneNumber, setVerificationCode, setSelectedChef } = setAppState;
+    
+    const usStates = ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"];
+    const chefs = [ { name: 'Chef Antoine', personality: 'Precise & Classic', emoji: '👨‍🍳' }, { name: 'Chef Sofia', personality: 'Friendly & Vibrant', emoji: '👩‍🍳' }, { name: 'Chef Ravi', personality: 'Bold & Spicy', emoji: '🧑‍🍳' }, { name: 'Chef Sakura', personality: 'Zen & Delicate', emoji: '🍜' } ];
+    const userAvatars = ['😀', '👩', '👨', '🧑‍🦰', '🧑‍🦱'];
+
+    const challenges = { completed: 9, caps: ['#3b82f6', '#10b981', '#ef4444', '#8b5cf6', '#FFD700'] };
+
+    return (
+        <div className="space-y-4">
+            <h2 className="text-xl font-bold text-center text-gray-800">Profile</h2>
+
+            {/* Prestige Board Summary */}
+            <div className="bg-gray-100 p-3 rounded-lg shadow-sm">
+                 <div className="space-y-3 text-xs">
+                    <p><strong>Recipes Generated:</strong> 68</p>
+                    <ProgressBar value={5} max={100} color="bg-yellow-400" label="Points to next Star" />
+                    <ProgressBar value={5} max={100} color="bg-blue-400" label="Points to next Badge" />
+                    <div className="flex items-center"><strong>Streaks Earned:</strong><div className="flex ml-2">{Array(4).fill('🪙')}</div></div>
+                    <div className="flex items-center"><strong>Caps Earned:</strong><div className="flex ml-2">{Array(1).fill(0).map((_, i) => <div key={i} className={`text-lg`} style={{color: challenges.caps[i]}}>🧢</div>)}</div></div>
+                 </div>
+            </div>
+
+            {/* Edit User Profile Card */}
+            <div className="bg-green-50 p-3 rounded-lg shadow-sm">
+                <div className="space-y-3">
+                    <div className="flex items-end gap-2 mb-3">
+                        <div className="flex-grow">
+                            <label className="block text-sm font-medium text-gray-700">Nickname</label>
+                            <input type="text" value={userNickname} onChange={e => setUserNickname(e.target.value)} className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md p-2" />
+                        </div>
+                        <div className="w-1/3">
+                             <label htmlFor="ageGroup" className="block text-sm font-medium text-gray-700">Age</label>
+                            <select id="ageGroup" value={userAgeGroup} onChange={(e) => setUserAgeGroup(e.target.value)} className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                                <option value="<16">&lt; 16</option>
+                                <option value="17-30">17-30</option>
+                                <option value="31-50">31-50</option>
+                                <option value=">50">&gt;50</option>
+                            </select>
+                        </div>
+                    </div>
+                     <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Avatar</label>
+                        <div className="flex justify-between items-center space-x-2">
+                            <div className="flex gap-2">
+                                {userAvatars.map(avatar => (<button key={avatar} onClick={() => setUserAvatar(avatar)} className={`flex items-center justify-center w-12 h-12 rounded-full border-2 ${userAvatar === avatar ? 'border-blue-500' : 'border-transparent'} transition-all text-3xl`}>{avatar}</button>))}
+                            </div>
+                             <button className="p-2 rounded-full bg-green-200 text-green-800 hover:bg-green-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Edit Chef Profile Card */}
+            <div className="bg-blue-50 p-3 rounded-lg shadow-sm">
+                <div className="space-y-3">
+                     <div>
+                        <label className="block text-sm font-medium text-gray-700">Chef's Name</label>
+                        <input type="text" value={selectedChef.name} onChange={e => setSelectedChef(prev => ({...prev, name: e.target.value}))} className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md p-2" />
+                    </div>
+                     <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Chef's Avatar</label>
+                        <div className="flex justify-between items-center space-x-2">
+                             <div className="flex gap-2">
+                                {chefs.map(chef => (<button key={chef.name} onClick={() => setSelectedChef(chef)} className={`flex items-center justify-center w-12 h-12 rounded-full border-2 ${selectedChef.emoji === chef.emoji ? 'border-green-500' : 'border-transparent'} transition-all text-3xl`}>{chef.emoji}</button>))}
+                            </div>
+                             <button className="p-2 rounded-full bg-blue-200 text-blue-800 hover:bg-blue-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Address Card */}
+            <div className="bg-yellow-50 p-3 rounded-lg shadow-sm">
+                <div className="space-y-2">
+                    <input type="text" value={userStreetAddress} onChange={e => setUserStreetAddress(e.target.value)} className="block w-full shadow-sm sm:text-sm border-gray-300 rounded-md p-2" placeholder="Street Address" />
+                    <div className="flex gap-2">
+                        <input type="text" value={userCity} onChange={e => setUserCity(e.target.value)} className="flex-grow block w-full shadow-sm sm:text-sm border-gray-300 rounded-md p-2" placeholder="City" />
+                        <select value={userState} onChange={e => setUserState(e.target.value)} className="block w-1/4 shadow-sm sm:text-sm border-gray-300 rounded-md p-2">
+                            {usStates.map(s => <option key={s}>{s}</option>)}
+                        </select>
+                         <input type="text" value={userZipCode} onChange={e => setUserZipCode(e.target.value)} className="block w-1/4 shadow-sm sm:text-sm border-gray-300 rounded-md p-2" placeholder="Zip" />
+                    </div>
+                </div>
+                 <div className="flex justify-end mt-2">
+                    <button className="p-2 rounded-full bg-yellow-200 text-yellow-800 hover:bg-yellow-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            {/* Phone Number Card */}
+            <div className="bg-purple-50 p-3 rounded-lg shadow-sm">
+                 <div className="flex items-center space-x-2">
+                    <input type="tel" value={phoneNumber} onChange={e => setPhoneNumber(e.target.value)} className="flex-grow block w-full shadow-sm sm:text-sm border-gray-300 rounded-md p-2" placeholder="Phone Number" />
+                    <button className="bg-purple-200 text-purple-800 px-3 py-1 text-sm rounded-md hover:bg-purple-300">Send Code</button>
+                </div>
+                <div className="mt-2 flex items-center space-x-2">
+                     <input type="text" value={verificationCode} onChange={e => setVerificationCode(e.target.value)} className="block w-full shadow-sm sm:text-sm border-gray-300 rounded-md p-2" placeholder="Verification Code" />
+                     <button className={`p-2 rounded-full text-white ${verificationCode.length > 0 ? 'bg-green-500' : 'bg-gray-300'}`}>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+const PantryCategory = ({ title, items, pantryState, onToggle }) => {
+    const [isOpen, setIsOpen] = useState(true);
+
+    return (
+        <div className="mb-2">
+            <button onClick={() => setIsOpen(!isOpen)} className="w-full flex justify-between items-center text-left font-semibold text-gray-700 bg-gray-100 p-2 rounded-lg">
+                <span>{title}</span>
+                <span className="text-green-700 font-bold">{isOpen ? '−' : '+'}</span>
+            </button>
+            {isOpen && (
+                <div className="grid grid-cols-2 gap-2 p-2">
+                    {items.map(item => (
+                        <div key={item} className="flex items-center">
+                            <input type="checkbox" id={item} checked={pantryState[item] || false} onChange={() => onToggle(item)} className="h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-500"/>
+                            <label htmlFor={item} className="ml-2 block text-xs font-medium text-gray-700">{item}</label>
+                        </div>
+                    ))}
+                </div>
+            )}
+        </div>
+    );
+};
+
+
+function App() {
+    // State for managing current screen view
+    const [currentScreen, setCurrentScreen] = useState('splash');
+    const [activeProfileTab, setActiveProfileTab] = useState('prestige');
+    const [recipeCreationMode, setRecipeCreationMode] = useState('pantry');
+
+
+    // State for Sign Up screen
+    const [userNickname, setUserNickname] = useState('HealthNut');
+    const [userAvatar, setUserAvatar] = useState('😀'); // Default user avatar
+    const [userAgeGroup, setUserAgeGroup] = useState(''); // New state for age group dropdown
+    const [userStreetAddress, setUserStreetAddress] = useState(''); // New state for street address
+    const [userCity, setUserCity] = useState(''); // New state for city
+    const [userState, setUserState] = useState(''); // New state for state
+    const [userZipCode, setUserZipCode] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [verificationCode, setVerificationCode] = useState('');
+    const [codeSent, setCodeSent] = useState(false);
+    const [selectedChef, setSelectedChef] = useState({ name: 'Chef Antoine', personality: 'Precise & Classic', emoji: '👨‍🍳' });
+
+    // State for Dietary Preferences screen
+    const [selectedDietaryRequirements, setSelectedDietaryRequirements] = useState(['Keto']);
+    const [selectedHealthConditions, setSelectedHealthConditions] = useState(['Diabetes']);
+    const [allergiesText, setAllergiesText] = useState('Peanuts');
+    const [preferencesText, setPreferencesText] = useState('');
+    const [exclusionsText, setExclusionsText] = useState('');
+
+    // State for Define Recipe Inputs screen
+    const [mealRequest, setMealRequest] = useState('');
+    const [servings, setServings] = useState(2);
+    const [pantryIngredients, setPantryIngredients] = useState({
+        'Chicken': true, 'Beef': false, 'Turkey': false,
+        'Salmon': true, 'Cod': false, 'Shrimp': true,
+        'Broccoli': true, 'Carrots': true, 'Spinach': true,
+        'Onion': true, 'Potato': true, 'Garlic': true,
+        'Milk': true, 'Cheese': true, 'Yogurt': false,
+        'Apple': true, 'Banana': false, 'Berries': true,
+        'Flour': true, 'Sugar': true, 'Eggs': true,
+        'Salt': true, 'Pepper': true, 'Paprika': false,
+    });
+    const [otherPantryItem, setOtherPantryItem] = useState('');
+    const [selectedDish, setSelectedDish] = useState('');
+    const [calorificValue, setCalorificValue] = useState(2000);
+    const [proteinContent, setProteinContent] = useState(50); // in grams
+    const [carbsValue, setCarbsValue] = useState(200); // in grams
+    const [fiberContent, setFiberContent] = useState(30); // in grams
+    const [generatedRecipe, setGeneratedRecipe] = useState(null); // This will hold the full generated recipe object
+
+    // State for Buy Ingredients screen
+    const [cartItems, setCartItems] = useState([]); // This will hold ingredients with calculated prices for the cart
+    const [checkoutComplete, setCheckoutComplete] = useState(false); // State for simulated checkout success
+
+    // State for Cook Screen (shared between text and voice modes)
+    const [currentStepIndex, setCurrentStepIndex] = useState(0); // This now mostly tracks which step the chef is referring to for voice/initial text
+    const [conversationHistory, setConversationHistory] = useState([]);
+    const conversationRef = useRef(null); // Ref for scrolling chat
+    const [completedSteps, setCompletedSteps] = useState({}); // Stores completion status of each step, initialized empty
+
+    // Dummy data for recipes (updated with basePrice and cooking steps)
+    const recipesData = {
+        "pizza": {
+            title: "Keto Supreme Pizza",
+            description: "A delicious low-carb pizza fitting your preferences.",
+            ingredients: [
+                { name: "Cauliflower Crust", quantity: "1 (10-inch)", shoppingQuantity: "1 crust", basePrice: 4.99, cal: 150, protein: 5, carbs: 10, fiber: 5,
+                    substitutions: [
+                        { name: "Almond Flour Crust", cal: 200, protein: 7, carbs: 8, fiber: 4 },
+                        { name: "Chicken Crust", cal: 180, protein: 25, carbs: 2, fiber: 0 }
+                    ]
+                },
+                { name: "Mozzarella Cheese", quantity: "1 cup shredded", shoppingQuantity: "1 pack (8 oz)", basePrice: 5.49, cal: 300, protein: 25, carbs: 3, fiber: 0,
+                    substitutions: [
+                        { name: "Provolone Cheese", cal: 280, protein: 23, carbs: 2, fiber: 0 },
+                        { name: "Nutritional Yeast (Vegan)", cal: 80, protein: 10, carbs: 5, fiber: 3 }
+                    ]
+                },
+                { name: "Pepperoni Slices", quantity: "2 oz", shoppingQuantity: "1 pack (3 oz)", basePrice: 3.79, cal: 280, protein: 12, carbs: 0, fiber: 0,
+                    substitutions: [
+                        { name: "Salami", cal: 250, protein: 10, carbs: 1, fiber: 0 },
+                        { name: "Turkey Pepperoni", cal: 180, protein: 15, carbs: 1, fiber: 0 }
+                    ]
+                },
+                { name: "Bell Peppers", quantity: "1/2 cup sliced", shoppingQuantity: "1 large pepper", basePrice: 1.29, cal: 20, protein: 1, carbs: 4, fiber: 1.5,
+                    substitutions: [
+                        { name: "Mushrooms", cal: 15, protein: 1, carbs: 3, fiber: 1 },
+                        { name: "Onions", cal: 25, protein: 0.5, carbs: 6, fiber: 1 }
+                    ]
+                },
+                { name: "Olive Oil", quantity: "1 tbsp", shoppingQuantity: "1 bottle (500ml)", basePrice: 8.99, cal: 120, protein: 0, carbs: 0, fiber: 0,
+                    substitutions: [
+                        { name: "Avocado Oil", cal: 120, protein: 0, carbs: 0, fiber: 0 },
+                        { name: "Coconut Oil", cal: 117, protein: 0, carbs: 0, fiber: 0 }
+                    ]
+                }
+            ],
+            cookingSteps: [
+                "Preheat Oven & Prepare Crust. Preheat your oven to 400°F (200°C). Carefully unroll your cauliflower crust onto a baking sheet. Ensure it lays flat to cook evenly. This foundational step is crucial for an evenly cooked pizza.",
+                "Apply Sauce & Cheese Base. Evenly spread 1/4 cup of your favorite low-sugar marinara sauce over the cauliflower crust, leaving a small border (approximately 1/2 inch) for the crust. Then, sprinkle 1/2 cup of shredded mozzarella cheese over the sauce, ensuring an even layer to create a delicious base for your toppings. Use a spoon or spatula to spread the sauce gently from the center outwards.",
+                "Add Toppings. Now it's time for your toppings! Arrange the pepperoni slices evenly across the cheese. Scatter the sliced bell peppers over the pepperoni. Remember, you can substitute with mushrooms or onions if you prefer. Ensure toppings are not piled too high to allow for even cooking.",
+                "Final Cheese & Bake Prep. Sprinkle the remaining 1/2 cup of mozzarella cheese over all the toppings, ensuring good coverage. Drizzle 1 tablespoon of olive oil lightly over the entire pizza. Carefully transfer the baking sheet with the prepared pizza into the preheated oven. Use oven mitts for safety.",
+                "Bake Until Golden. Bake for 12-15 minutes, or until the crust is golden brown and the cheese is bubbly and slightly browned. Cooking times may vary depending on your oven, so keep an eye on it to prevent burning. The cheese should be fully melted and showing some golden spots.",
+                "Cool & Serve. Carefully remove the pizza from the oven using oven mitts. Let it cool on the baking sheet for 2-3 minutes before slicing. This resting period helps the cheese set and prevents the toppings from sliding off when you cut it. Slice into desired portions and enjoy your delicious Keto Supreme Pizza!"
+            ]
+        },
+        "default": {
+            title: "Balanced Chicken Stir-fry",
+            description: "A customizable stir-fry packed with lean protein and fresh vegetables.",
+            ingredients: [
+                { name: "Chicken Breast", quantity: "6 oz", shoppingQuantity: "1 pack (1.5 lbs)", basePrice: 7.99, cal: 250, protein: 45, carbs: 0, fiber: 0,
+                    substitutions: [
+                        { name: "Tofu", cal: 150, protein: 15, carbs: 4, fiber: 2 },
+                        { name: "Beef Sirloin", cal: 280, protein: 40, carbs: 0, fiber: 0 }
+                    ]
+                },
+                { name: "Broccoli Florets", quantity: "1 cup", shoppingQuantity: "1 bunch", basePrice: 2.49, cal: 55, protein: 4, carbs: 11, fiber: 5,
+                    substitutions: [
+                        { name: "Asparagus", cal: 27, protein: 3, carbs: 5, fiber: 3 },
+                        { name: "Bell Peppers (mixed)", cal: 30, protein: 1, carbs: 7, fiber: 2.5 }
+                    ]
+                },
+                { name: "Brown Rice", quantity: "1 cup cooked", shoppingQuantity: "1 bag (1 lb)", basePrice: 3.29, cal: 215, protein: 5, carbs: 45, fiber: 3.5,
+                    substitutions: [
+                        { name: "Quinoa", cal: 222, protein: 8, carbs: 39, fiber: 5 },
+                        { name: "Cauliflower Rice", cal: 25, protein: 1, carbs: 5, fiber: 2 }
+                    ]
+                },
+                { name: "Soy Sauce (low sodium)", quantity: "2 tbsp", shoppingQuantity: "1 bottle (small)", basePrice: 4.00, cal: 20, protein: 2, carbs: 2, fiber: 0,
+                    substitutions: [
+                        { name: "Tamari (Gluten-Free)", cal: 25, protein: 2, carbs: 3, fiber: 0 },
+                        { name: "Coconut Aminos", cal: 10, protein: 0, carbs: 2, fiber: 0 }
+                    ]
+                },
+                { name: "Ginger (grated)", quantity: "1 tsp", shoppingQuantity: "1 knob (approx 2 inch)", basePrice: 1.99, cal: 5, protein: 0, carbs: 1, fiber: 0,
+                    substitutions: [
+                        { name: "Garlic (minced)", cal: 4, protein: 0, carbs: 1, fiber: 0 },
+                        { name: "Chili Flases", cal: 5, protein: 0, carbs: 1, fiber: 0 }
+                    ]
+                }
+            ],
+            cookingSteps: [
+                "Prepare Chicken and Vegetables. Cut the chicken breast into 1-inch pieces. Chop broccoli florets and bell peppers into bite-sized pieces. Mince the garlic and grate the ginger if not using pre-prepared versions. Ensure all ingredients are ready before cooking to facilitate a smooth stir-fry process.",
+                "Cook Chicken. Heat 1 tablespoon of olive oil in a large skillet or wok over medium-high heat. Add the chicken pieces and stir-fry until fully cooked through and lightly browned, about 5-7 minutes. Remove chicken from the skillet and set aside, leaving any drippings in the pan.",
+                "Stir-fry Vegetables. Add another teaspoon of olive oil to the same skillet if needed. Add the broccoli florets, bell peppers, minced garlic, and grated ginger. Stir-fry for 3-5 minutes until vegetables are crisp-tender. They should still have a slight bite to them.",
+                "Combine and Sauce. Return the cooked chicken to the skillet with the vegetables. Pour in the low-sodium soy sauce (or chosen substitute) and stir well to coat all ingredients evenly. Cook for an additional 1-2 minutes, allowing the flavors to meld and the sauce to slightly thicken. Ensure all ingredients are well combined.",
+                "Serve with Rice. Serve the balanced chicken stir-fry immediately over a bed of cooked brown rice or quinoa. Garnish with a sprinkle of sesame seeds or fresh cilantro if desired. Enjoy your nutritious and delicious meal!"
+            ]
+        }
+    };
+
+    // Available AI Chef avatars and personalities
+    const chefs = [
+        { name: 'Chef Antoine', personality: 'Precise & Classic', emoji: '👨‍🍳' },
+        { name: 'Chef Sofia', personality: 'Friendly & Vibrant', emoji: '👩‍🍳' },
+        { name: 'Chef Ravi', personality: 'Bold & Spicy', emoji: '🧑‍🍳' },
+        { name: 'Chef Sakura', personality: 'Zen & Delicate', emoji: '🍜' }
+    ];
+
+    // Available user avatars
+    const userAvatars = ['😀', '👩', '👨', '🧑‍🦰', '🧑‍🦱'];
+
+    // Scrolls conversation history to the bottom when new messages are added
+    useEffect(() => {
+        if (conversationRef.current) {
+            conversationRef.current.scrollTop = conversationRef.current.scrollHeight;
+        }
+    }, [conversationHistory]);
+
+
+    // Helper function to calculate nutritional totals from ingredients
+    const calculateTotals = (ingredients) => {
+        let totalCal = 0;
+        let totalProtein = 0;
+        let totalCarbs = 0;
+        let totalFiber = 0;
+
+        ingredients.forEach(item => {
+            totalCal += item.cal || 0;
+            totalProtein += item.protein || 0;
+            totalCarbs += item.carbs || 0;
+            totalFiber += item.fiber || 0;
+        });
+
+        return { totalCal, totalProtein, totalCarbs, totalFiber };
+    };
+
+    // Toggle logic for dietary requirements buttons
+    const toggleDietaryRequirement = (diet) => {
+        setSelectedDietaryRequirements(prev =>
+            prev.includes(diet) ? prev.filter(d => d !== diet) : [...prev, diet]
+        );
+    };
+
+    // Toggle logic for health conditions buttons
+    const toggleHealthCondition = (condition) => {
+        setSelectedHealthConditions(prev =>
+            prev.includes(condition) ? prev.filter(d => d !== condition) : [...prev, condition]
+        );
+    };
+
+    const handlePantryToggle = (ingredient) => {
+        setPantryIngredients(prev => ({...prev, [ingredient]: !prev[ingredient]}));
+    }
+    
+    const handleDishSelect = (dishName) => {
+        const newSelectedDish = selectedDish === dishName ? '' : dishName;
+        setSelectedDish(newSelectedDish);
+        setMealRequest(newSelectedDish);
+    }
+
+    // Handles generating a recipe based on user input and preferences
+    const handleGenerateRecipe = () => {
+        const lowerCaseRequest = mealRequest.toLowerCase();
+        let recipeKey = 'default';
+        if (lowerCaseRequest.includes('pizza')) {
+            recipeKey = 'pizza';
+        }
+        // In a real application, an LLM call would be made here with the mealRequest and slider values
+        setGeneratedRecipe(recipesData[recipeKey]); // Using dummy data for mockup
+        setCurrentScreen('generatedRecipeDisplay'); // Navigate to the display screen after generation
+    };
+
+    // Handles sending a verification code for phone number
+    const handleSendCode = () => {
+        if (phoneNumber.length === 10) { // Simple 10-digit validation
+            setCodeSent(true);
+            // In a real app, this would trigger an SMS service
+            console.log("Verification code sent to " + phoneNumber);
+        } else {
+            console.error("Please enter a valid 10-digit phone number.");
+        }
+    };
+
+    // Handles submission of the Sign Up form and navigates to Dietary Profile
+    const handleSubmitSignUp = () => {
+        // Validation logic can be added here if needed
+        setCurrentScreen('dietaryProfile');
+    };
+
+    // Handles completion of Dietary Profile and navigates to the new Define Recipe Inputs screen
+    const handleCompleteDietaryProfile = () => {
+        setCurrentScreen('defineRecipeInputs');
+    };
+
+    // Function to prepare cart items when navigating to buy ingredients screen
+    const prepareCartForPurchase = () => {
+        if (generatedRecipe && generatedRecipe.ingredients) {
+            const items = generatedRecipe.ingredients.map(item => ({
+                ...item,
+                price: item.basePrice || 0, // Default to basePrice
+                selected: true // Assume all are selected by default for purchase
+            }));
+            setCartItems(items);
+            setCheckoutComplete(false); // Reset checkout status
+        }
+        setCurrentScreen('buyIngredients');
+    };
+
+    // Calculate total price for cart items (no store modifier needed for single Instacart)
+    const calculateCartTotal = () => {
+        if (cartItems.length === 0) return 0;
+
+        let total = 0;
+        cartItems.forEach(item => {
+            if (item.selected) {
+                total += item.basePrice; // Use basePrice directly for Instacart simulation
+            }
+        });
+        return total;
+    };
+
+    // Simulate placing an order
+    const handlePlaceOrder = () => {
+        console.log("Proceeding to Instacart Checkout...");
+        // Simulate Apple Pay processing for Instacart
+        setTimeout(() => {
+            setCheckoutComplete(true);
+            // In a real app, you'd integrate with Instacart's API and payment gateway
+        }, 2000);
+    };
+
+    // Cook Screen Functions
+    const startCookingTextMode = (recipe) => {
+        setGeneratedRecipe(recipe);
+        setCurrentStepIndex(0);
+        setCompletedSteps({});
+        setCurrentScreen('cookTextOnly');
+    };
+
+    const startCookingVoiceMode = () => {
+        const recipeToUse = generatedRecipe || recipesData['default'];
+        if (!recipeToUse) return;
+
+        const fullConversation = [
+            { speaker: 'chef', text: `Hello ${userNickname}! I'm ${selectedChef.name}. Ready to cook the ${recipeToUse.title}?` },
+            { speaker: 'user', text: `Yes, I'm ready!` }
+        ];
+    
+        const finalCompletedSteps = {};
+    
+        recipeToUse.cookingSteps.forEach((step, index) => {
+            // Chef presents the step
+            fullConversation.push({ speaker: 'chef', text: step, isStep: true, stepIndex: index });
+            
+            // User confirms completion
+            fullConversation.push({ speaker: 'user', text: `Okay, Step ${index + 1} is done!` });
+            
+            // Mark step as completed for visualization
+            finalCompletedSteps[index] = true;
+    
+            // Chef gives encouragement and introduces next step (if not the last one)
+            if (index < recipeToUse.cookingSteps.length - 1) {
+                fullConversation.push({ speaker: 'chef', text: `Great job! Here is the next step.`, isStep: false });
+            }
+        });
+    
+        // Final congratulatory message from the chef
+        fullConversation.push({
+            speaker: 'chef',
+            text: `Fantastic work, ${userNickname}! You've successfully prepared the ${recipeToUse.title}! Enjoy your delicious meal.`
+        });
+    
+        setCurrentStepIndex(recipeToUse.cookingSteps.length - 1); // Set index to the last step
+        setCompletedSteps(finalCompletedSteps); // Set all steps as completed for the visual mockup
+        setConversationHistory(fullConversation); // Set the full conversation
+        setGeneratedRecipe(recipeToUse); // Ensure recipe is set
+        setCurrentScreen('cookVoiceOnly');
+    }
+
+    const handleToggleStepCompletion = (stepIndex) => {
+        const isCompleted = !completedSteps[stepIndex];
+        setCompletedSteps(prev => ({
+            ...prev,
+            [stepIndex]: isCompleted
+        }));
+
+        if (isCompleted) {
+            // Add a confirmation from the user
+            setConversationHistory(prev => [
+                ...prev,
+                { speaker: 'user', text: `Okay, Step ${stepIndex + 1} is done!` }
+            ]);
+
+            // Chef introduces the next step or concludes
+            setTimeout(() => {
+                if (stepIndex + 1 < generatedRecipe.cookingSteps.length) {
+                    setConversationHistory(prev => [
+                        ...prev,
+                        { speaker: 'chef', text: `Great job! Here is the next step.`, isStep: false },
+                        { speaker: 'chef', text: generatedRecipe.cookingSteps[stepIndex + 1], isStep: true, stepIndex: stepIndex + 1 }
+                    ]);
+                    setCurrentStepIndex(stepIndex + 1);
+                } else {
+                    setConversationHistory(prev => [
+                        ...prev,
+                        { speaker: 'chef', text: `Fantastic work, ${userNickname}! You've successfully prepared the ${generatedRecipe.title}! Enjoy your delicious meal.` }
+                    ]);
+                }
+            }, 1000); // Delay for realism
+        }
+    };
+
+    const handleChefSpeak = (text) => {
+        // In a real app, this would trigger a text-to-speech API call
+        console.log(`Chef ${selectedChef.name} says: "${text}"`);
+    };
+
+    const handleUserSpeak = () => {
+        // Simulate user speaking
+        const userQuery = "What should I do next?"; // Hardcoded for simplicity
+        if (userQuery) {
+            setConversationHistory(prev => [
+                ...prev,
+                { speaker: 'user', text: userQuery }
+            ]);
+            // Simulate chef response
+            setTimeout(() => {
+                setConversationHistory(prev => [
+                    ...prev,
+                    { speaker: 'chef', text: "Hmm, that's a great question! For now, let's stick to the current step." } // Placeholder response
+                ]);
+            }, 1000);
+        }
+    };
+
+    const handleRestartCooking = () => {
+        if (!generatedRecipe) return;
+        setCurrentStepIndex(0); // Reset chef's focus to the first step
+        setCompletedSteps({}); // Reset all steps as incomplete
+        setConversationHistory([
+            { speaker: 'chef', text: `Alright ${userNickname}, let's restart from the top!` },
+            { speaker: 'chef', text: generatedRecipe.cookingSteps[0], isStep: true, stepIndex: 0 }
+        ]);
+    };
+
+    const handleSaveRecipe = () => {
+        console.log("Recipe saved to your favorites!");
+    };
+
+    const handleShareRecipe = () => {
+        console.log("Recipe shared! Remember, after creating 10 recipes, you can publish a book or video to gift to family and friends!");
+    };
+
+    // Renders the common header for most screens
+    const renderHeader = (title, showAvatarsAndIcons = false) => (
+        <div className="bg-[#E6F4EA] p-4 border-b border-gray-200 flex items-center justify-between relative">
+            {currentScreen !== 'home' && currentScreen !== 'splash' && (
+                <button
+                    onClick={() => {
+                        // Dynamic back navigation based on current screen
+                        if (currentScreen === 'cookTextOnly' || currentScreen === 'cookVoiceOnly' || currentScreen === 'profile') setCurrentScreen('defineRecipeInputs');
+                        else if (currentScreen === 'buyIngredients') setCurrentScreen('generatedRecipeDisplay');
+                        else if (currentScreen === 'generatedRecipeDisplay') setCurrentScreen('defineRecipeInputs');
+                        else if (currentScreen === 'defineRecipeInputs') setCurrentScreen('dietaryProfile');
+                        else if (currentScreen === 'dietaryProfile') setCurrentScreen('signup');
+                        else if (currentScreen === 'signup') setCurrentScreen('splash');
+                    }}
+                    className="absolute left-4 text-[#4A4A4A] text-2xl"
+                >
+                    &#x2190;
+                </button>
+            )}
+            {showAvatarsAndIcons && (
+                <div className="flex items-center space-x-2 mr-auto ml-4"> {/* User on left */}
+                    <button onClick={handleUserSpeak} className="text-[#2E8B57] flex items-center space-x-1">
+                        <span className="text-2xl">{userAvatar}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 4c0-1.66-1.34-3-3-3S9 2.34 9 4v7c0 1.66 1.34 3 3 3zm5.3-3c0 3.9-3.22 7.1-7.29 7.21V21h2v-2.09c3.9-.11 7-3.35 7-7.26h-2zM12 17c-2.76 0-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2c0 2.76-2.24 5-5 5z"/>
+                        </svg>
+                    </button>
+                </div>
+            )}
+            <h1 className="text-xl font-bold text-[#4A4A4A] text-center flex-grow">{title}</h1>
+            {showAvatarsAndIcons && (
+                <div className="flex items-center space-x-2 ml-auto mr-4"> {/* Chef on right */}
+                    <button onClick={() => handleChefSpeak(generatedRecipe?.cookingSteps[currentStepIndex] || (Object.keys(completedSteps).length === generatedRecipe?.cookingSteps.length && generatedRecipe?.cookingSteps.length > 0 ? "Cooking is complete!" : ""))} className="text-[#2E8B57] flex items-center space-x-1">
+                        <span className="text-2xl">{selectedChef.emoji}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14.5c-.83 0-1.5-.67-1.5-1.5h3c0 .83-.67 1.5-1.5 1.5zm-2.5-4h-1c-.55 0-1-.45-1-1V9c0-.55.45-1 1-1h1c.55 0 1 .45 1 1v2.5c0 .55-.45 1-1 1zm4 0h-1c-.55 0-1-.45-1-1V9c0-.55.45-1 1-1h1c.55 0 1 .45 1 1v2.5c0 .55-.45 1-1 1zm-4-4.5h-1V7h1v-.5c0-.28.22-.5.5-.5s.5.22.5.5V7h1V5h-1v-.5c0-.28-.22-.5-.5-.5s-.5.22-.5.5V5h-1zm4 0h-1V7h1v-.5c0-.28.22-.5.5-.5s.5.22.5.5V7h1V5h-1v-.5c0-.28-.22-.5-.5-.5s-.5.22-.5.5V5h-1z"/>
+                            </svg>
+                        </button>
+                </div>
+            )}
+        </div>
+    );
+
+    // Renders the bottom navigation bar
+    const renderNavBar = () => (
+        <div className="flex justify-around items-center bg-[#E6F4EA] p-3 border-t border-gray-200 w-full">
+            <button onClick={() => setCurrentScreen('defineRecipeInputs')} className="flex flex-col items-center text-[#2E8B57] hover:text-[#3D9970] text-sm">
+                <span className="text-xl">🎨</span>
+                <span>Recipes</span>
+            </button>
+            <button onClick={() => console.log('Navigating to Take-Out!')} className="flex flex-col items-center text-[#2E8B57] hover:text-[#3D9970] text-sm">
+                <span className="text-xl">📦</span>
+                <span>Take-Out</span>
+            </button>
+            <button onClick={() => console.log('Navigating to Orders!')} className="flex flex-col items-center text-[#2E8B57] hover:text-[#3D9970] text-sm">
+                <span className="text-xl">🛒</span>
+                <span>Orders</span>
+            </button>
+            <button onClick={startCookingVoiceMode} className="flex flex-col items-center text-[#2E8B57] hover:text-[#3D9970] text-sm">
+                <span className="text-xl">👨‍🍳</span>
+                <span>Nuva</span>
+            </button>
+            <button onClick={() => setCurrentScreen('profile')} className="flex flex-col items-center text-[#2E8B57] hover:text-[#3D9970] text-sm">
+                <span className="text-xl">👤</span>
+                <span>Profile</span>
+            </button>
+        </div>
+    );
+
+    const NutrientInput = ({ label, value, onIncrement, onDecrement }) => (
+        <div className="flex items-center justify-between text-xs">
+            <span className="font-normal text-gray-600">{label}</span>
+            <div className="flex items-center gap-1">
+                <button onClick={onDecrement} className="w-5 h-5 bg-gray-200 rounded-full text-lg flex items-center justify-center">-</button>
+                <span className="font-normal text-green-700 w-12 text-center">{value}</span>
+                <button onClick={onIncrement} className="w-5 h-5 bg-gray-200 rounded-full text-lg flex items-center justify-center">+</button>
+            </div>
+        </div>
+    );
+
+    // Main screen rendering logic based on currentScreen state
+    const renderScreen = () => {
+        switch (currentScreen) {
+            case 'splash':
+                return (
+                    <div className="flex flex-col items-center justify-center h-full p-4" style={{ backgroundColor: '#E6F4EA' }}>
+                        <h1 className="text-4xl font-bold text-[#2E8B57] mb-2">NutraGenie</h1>
+                        <div className="text-7xl mb-6">✨</div>
+                        <h2 className="text-3xl font-bold text-[#3D9970] mb-2">Welcome to NutraGenie</h2>
+                        <p className="text-[#4A4A4A] mb-8 max-w-xs text-center">Your Personal AI Nutritionist and Chef</p>
+                        <button
+                            onClick={() => setCurrentScreen('signup')}
+                            className="bg-[#3D9970] text-white font-semibold px-8 py-3 rounded-lg shadow-md text-lg hover:opacity-90 transition-opacity"
+                        >
+                            Start Your Journey
+                        </button>
+                    </div>
+                );
+            case 'signup':
+                const usStates = ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"];
+                return (
+                    <div className="p-4 flex flex-col h-full">
+                        <h2 className="text-2xl font-bold text-[#2E8B57] mb-3 text-center">Create Your Account</h2>
+                        <div className="bg-[#F7FDF8] p-3 rounded-lg shadow-md mb-2">
+                            <h3 className="text-xl font-semibold text-[#3D9970] mb-2">Your Profile & AI Chef:</h3>
+                            <div className="flex space-x-2 mb-2">
+                                <div className="flex-1">
+                                    <label htmlFor="nickname" className="block text-gray-700 font-semibold text-sm mb-0.5">Nickname:</label>
+                                    <input type="text" id="nickname" value={userNickname} onChange={(e) => setUserNickname(e.target.value)} className="w-full p-1.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#66BB6A] outline-none text-xs" placeholder="e.g., HealthNut"/>
+                                </div>
+                                <div className="w-1/3">
+                                    <label htmlFor="ageGroup" className="block text-gray-700 font-semibold text-sm mb-0.5">Age Group:</label>
+                                    <select id="ageGroup" value={userAgeGroup} onChange={(e) => setUserAgeGroup(e.target.value)} className="w-full p-1.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#66BB6A] outline-none text-xs">
+                                        <option value="">Select</option>
+                                        <option value="<16">&lt; 16</option>
+                                        <option value="17-30">17 to 30</option>
+                                        <option value="31-50">31 to 50</option>
+                                        <option value=">50">50 & &gt;</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div className="mb-2">
+                                <label className="block text-gray-700 font-semibold text-sm mb-0.5">Select Your Avatar:</label>
+                                <div className="flex justify-center items-center space-x-2">
+                                    {userAvatars.map(avatar => (<button key={avatar} onClick={() => setUserAvatar(avatar)} className={`flex flex-col items-center justify-center w-12 h-12 rounded-full border-2 ${userAvatar === avatar ? 'border-[#3D9970]' : 'border-transparent'} transition-all text-3xl`}>{avatar}</button>))}
+                                </div>
+                            </div>
+                            <div className="mb-0">
+                                <label htmlFor="chefName" className="block text-gray-700 font-semibold text-sm mb-0.5">Name Your AI Chef:</label>
+                                <input type="text" id="chefName" value={selectedChef.name} onChange={(e) => setSelectedChef(prev => ({ ...prev, name: e.target.value }))} className="w-full p-1.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#66BB6A] outline-none mb-2 text-xs" placeholder="e.g., Chef Gordon"/>
+                                <label className="block text-gray-700 font-semibold text-sm mb-0.5">Select AI Chef Avatar:</label>
+                                <div className="flex justify-center items-center space-x-2">
+                                    {chefs.map(chef => (<button key={chef.name} onClick={() => setSelectedChef(chef)} className={`flex flex-col items-center justify-center w-12 h-12 rounded-full border-2 ${selectedChef.name === chef.name ? 'border-[#3D9970]' : 'border-transparent'} transition-all text-3xl`}>{chef.emoji}</button>))}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="bg-[#FDFBF7] p-3 rounded-lg shadow-md mb-2">
+                            <h3 className="text-xl font-semibold text-[#3D9970] mb-2">Address Details:</h3>
+                            <div className="mb-2">
+                                <label htmlFor="streetAddress" className="block text-gray-700 font-semibold text-sm mb-0.5">Street Address:</label>
+                                <input type="text" id="streetAddress" value={userStreetAddress} onChange={(e) => setUserStreetAddress(e.target.value)} className="w-full p-1.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#66BB6A] outline-none text-xs" placeholder="e.g., 123 Main St"/>
+                            </div>
+                            <div className="flex space-x-2">
+                                <div className="flex-1">
+                                    <label htmlFor="city" className="block text-gray-700 font-semibold text-sm mb-0.5">City:</label>
+                                    <input type="text" id="city" value={userCity} onChange={(e) => setUserCity(e.target.value)} className="w-full p-1.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#66BB6A] outline-none text-xs" placeholder="e.g., Anytown"/>
+                                </div>
+                                <div className="w-16">
+                                    <label htmlFor="state" className="block text-gray-700 font-semibold text-sm mb-0.5">State:</label>
+                                    <select id="state" value={userState} onChange={(e) => setUserState(e.target.value)} className="w-full p-1.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#66BB6A] outline-none text-xs">
+                                        <option value="">N/A</option>
+                                        {usStates.map(state => (<option key={state} value={state}>{state}</option>))}
+                                    </select>
+                                </div>
+                                <div className="w-20">
+                                    <label htmlFor="zipCode" className="block text-gray-700 font-semibold text-sm mb-0.5">Zip Code:</label>
+                                    <input type="text" id="zipCode" value={userZipCode} onChange={(e) => setUserZipCode(e.target.value)} className="w-full p-1.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#66BB6A] outline-none text-xs" placeholder="e.g., 90210" maxLength="7"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="bg-[#F8F7FD] p-3 rounded-lg shadow-md mb-2 flex-grow">
+                            <h3 className="text-xl font-semibold text-[#3D9970] mb-2">Phone Verification:</h3>
+                            <div className="mb-2">
+                                <label htmlFor="phoneNumber" className="block text-gray-700 font-semibold text-sm mb-0.5">Phone Number:</label>
+                                <div className="flex">
+                                    <input type="tel" id="phoneNumber" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} className="flex-grow p-1.5 rounded-l-lg border border-gray-300 focus:ring-2 focus:ring-[#66BB6A] outline-none text-xs" placeholder="e.g., 555-123-4567" maxLength="10"/>
+                                    <button onClick={handleSendCode} className="bg-[#66BB6A] text-white font-semibold px-2 py-1.5 rounded-r-lg hover:opacity-90 transition-opacity text-xs">Send Code</button>
+                                </div>
+                            </div>
+                            <div className="mb-0">
+                                <label htmlFor="verificationCode" className="block text-gray-700 font-semibold text-sm mb-0.5">Enter Verification Code:</label>
+                                <input type="text" id="verificationCode" value={verificationCode} onChange={(e) => setVerificationCode(e.target.value)} className="w-full p-1.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#66BB6A] outline-none text-xs" placeholder="e.g., 123456" maxLength="6"/>
+                            </div>
+                        </div>
+                        <button onClick={handleSubmitSignUp} className="bg-[#3D9970] text-white font-semibold px-6 py-2.5 rounded-lg shadow-md text-base hover:opacity-90 transition-opacity mt-auto mb-[3px]">Submit & Next</button>
+                    </div>
+                );
+            case 'dietaryProfile':
+                return (
+                    <div className="p-4 flex flex-col h-full overflow-y-auto" style={{ backgroundColor: '#F0FDF4' }}>
+                        <h2 className="text-2xl font-bold text-[#2E8B57] mb-3 text-center">Dietary Preferences</h2>
+                        <div className="bg-[#F0FDF4] p-3 rounded-lg shadow-md mb-2">
+                            <h3 className="text-xl font-semibold text-[#3D9970] mb-2">Dietary Preferences:</h3>
+                            <div className="grid grid-cols-3 gap-x-1 gap-y-1">
+                                {['Keto', 'Vegan', 'Gluten Free', 'Vegetarian', 'None'].map(diet => (<div key={diet} className="flex items-center"><button onClick={() => toggleDietaryRequirement(diet)} className={`p-1.5 rounded-full transition-all duration-300 mr-1 flex-shrink-0 ${selectedDietaryRequirements.includes(diet) ? 'bg-[#2E8B57] text-white' : 'bg-gray-200 text-gray-500'} hover:bg-[#3D9970] hover:text-white`} title={selectedDietaryRequirements.includes(diet) ? "Deselect" : "Select"}><svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></button><span className="text-gray-700 text-xs">{diet}</span></div>))}
+                            </div>
+                        </div>
+                        <div className="bg-[#FEFBF6] p-3 rounded-lg shadow-md mb-2">
+                            <h3 className="text-xl font-semibold text-[#3D9970] mb-2">Health Conditions:</h3>
+                            <div className="grid grid-cols-2 gap-x-1 gap-y-1">
+                                {['Diabetes', 'Blood Pressure', 'Cardio Vascular', 'Kidney issues'].map(condition => (<div key={condition} className="flex items-center"><button onClick={() => toggleHealthCondition(condition)} className={`p-1.5 rounded-full transition-all duration-300 mr-1 flex-shrink-0 ${selectedHealthConditions.includes(condition) ? 'bg-[#2E8B57] text-white' : 'bg-gray-200 text-gray-500'} hover:bg-[#3D9970] hover:text-white`} title={selectedHealthConditions.includes(condition) ? "Deselect" : "Select"}><svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></button><span className="text-gray-700 text-xs">{condition}</span></div>))}
+                            </div>
+                        </div>
+                        <div className="bg-[#FBF7FD] p-3 rounded-lg shadow-md mb-2">
+                            <h3 className="text-xl font-semibold text-[#3D9970] mb-2">Ingredient Details:</h3>
+                            <div className="mb-1">
+                                <label htmlFor="allergies" className="block text-gray-700 font-semibold text-sm mb-0.5">Allergies:</label>
+                                <textarea id="allergies" value={allergiesText} onChange={(e) => setAllergiesText(e.target.value)} className="w-full p-1.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#66BB6A] outline-none h-14 text-xs" placeholder="Enter any food allergies, separated by commas."></textarea>
+                            </div>
+                            <div className="mb-1">
+                                <label htmlFor="preferences" className="block text-gray-700 font-semibold text-sm mb-0.5">Ingredient Preferences:</label>
+                                <textarea id="preferences" value={preferencesText} onChange={(e) => setPreferencesText(e.target.value)} className="w-full p-1.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#66BB6A] outline-none h-14 text-xs" placeholder="Any specific ingredients or qualities you prefer."></textarea>
+                            </div>
+                            <div>
+                                <label htmlFor="exclusions" className="block text-gray-700 font-semibold text-sm mb-0.5">Ingredient Exclusions:</label>
+                                <textarea id="exclusions" value={exclusionsText} onChange={(e) => setExclusionsText(e.target.value)} className="w-full p-1.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#66BB6A] outline-none h-14 text-xs" placeholder="Any ingredients you wish to avoid."></textarea>
+                            </div>
+                        </div>
+                        <div className="bg-[#E0FFE0] p-3 rounded-lg shadow-md mb-2 flex flex-col justify-center items-start space-x-2 flex-grow mt-[3px]">
+                            <div className="flex items-center space-x-2 w-full">
+                                <span className="text-2xl text-[#2E8B57]">💡</span>
+                                <h3 className="text-xl font-semibold text-[#3D9970]">Tips:</h3>
+                            </div>
+                            <p className="text-gray-700 text-sm mt-1">40% of the US population is either Pre-Diabetic and Diabetic.</p>
+                        </div>
+                        <button onClick={handleCompleteDietaryProfile} className="bg-[#3D9970] text-white font-semibold px-6 py-2.5 rounded-lg shadow-md text-base hover:opacity-90 transition-opacity mt-auto mb-[5px]">Submit & Next</button>
+                    </div>
+                );
+            case 'defineRecipeInputs':
+                const pantryData = {
+                    "Meat": ["Chicken", "Beef", "Turkey", "Pork"],
+                    "Fish": ["Salmon", "Cod", "Shrimp", "Tuna"],
+                    "Vegetables": ["Broccoli", "Carrots", "Spinach", "Bell Peppers"],
+                    "Root Vegetables": ["Potato", "Onion", "Garlic", "Sweet Potato"],
+                    "Leafy Vegetables": ["Lettuce", "Kale", "Arugula", "Cabbage"],
+                    "Dairy": ["Milk", "Cheese", "Yogurt", "Butter"],
+                    "Fruits": ["Apple", "Banana", "Berries", "Orange"],
+                    "Bake": ["Flour", "Sugar", "Eggs", "Baking Soda"],
+                    "Spices": ["Salt", "Pepper", "Paprika", "Oregano"],
+                };
+                const suggestedDishes = ['Chicken & Broccoli', 'Garlic Chicken Rice', 'Simple Stir-fry', 'Keto Chicken Bowl', 'Broccoli Rice Medley', 'Quick Chicken Skillet'];
+                const previousDishes = [ { name: 'Keto Pizza', status: 'cooked' }, { name: 'Chicken Stir-fry', status: 'ordered' }, { name: 'Lentil Soup', status: 'cooked' }];
+
+                return (
+                    <div className="p-4 flex flex-col h-full" style={{ backgroundColor: '#F0FDF4' }}>
+                        <h2 className="text-2xl font-bold text-[#2E8B57] mb-3 text-center">Create a Recipe</h2>
+                        
+                        <div className="bg-white p-2 rounded-lg shadow-sm mb-3">
+                            <h3 className="text-md font-semibold text-[#3D9970] mb-2">Dietary Preferences</h3>
+                            <div className="flex flex-wrap gap-x-4 gap-y-2 text-xs">
+                                <span className="font-normal text-gray-600">{selectedDietaryRequirements.join(', ') || 'None'}</span>
+                                <span className="font-normal text-gray-600">{selectedHealthConditions.join(', ') || 'None'}</span>
+                                {allergiesText && <span className="font-normal text-gray-600">Allergy: {allergiesText}</span>}
+                            </div>
+                        </div>
+
+                        <div className="bg-white p-3 rounded-lg shadow-sm mb-3">
+                             <div className="flex justify-around">
+                                <button onClick={() => setRecipeCreationMode('pantry')} className="flex items-center space-x-2">
+                                    <div className={`p-1.5 rounded-full ${recipeCreationMode === 'pantry' ? 'bg-orange-500' : 'bg-gray-200'}`}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" className={`h-4 w-4 ${recipeCreationMode === 'pantry' ? 'text-white' : 'text-gray-400'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" /></svg>
+                                    </div>
+                                    <span className="text-sm font-semibold">Pantry Recipe</span>
+                                </button>
+                                <button onClick={() => setRecipeCreationMode('create')} className="flex items-center space-x-2">
+                                     <div className={`p-1.5 rounded-full ${recipeCreationMode === 'create' ? 'bg-orange-500' : 'bg-gray-200'}`}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" className={`h-4 w-4 ${recipeCreationMode === 'create' ? 'text-white' : 'text-gray-400'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" /></svg>
+                                    </div>
+                                    <span className="text-sm font-semibold">Create Recipe</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div className="bg-white p-3 rounded-lg shadow-sm mb-3 flex-grow overflow-y-auto">
+                            {recipeCreationMode === 'pantry' ? (
+                                <>
+                                    <h3 className="text-lg font-semibold text-[#3D9970] mb-2">Pantry Ingredients</h3>
+                                    {Object.entries(pantryData).map(([category, items]) => (
+                                        <PantryCategory key={category} title={category} items={items} pantryState={pantryIngredients} onToggle={handlePantryToggle} />
+                                    ))}
+                                     <div>
+                                        <label className="block text-sm font-medium text-gray-700 mt-4">Other</label>
+                                        <input type="text" value={otherPantryItem} onChange={e => setOtherPantryItem(e.target.value)} className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md p-2" placeholder="Add custom ingredient"/>
+                                    </div>
+                                </>
+                            ) : (
+                                <div className="space-y-4">
+                                    <div>
+                                        <h3 className="text-lg font-semibold text-[#3D9970] mb-2">Create a dish/recipe:</h3>
+                                        <div className="flex items-center space-x-2 mb-3">
+                                            <input type="text" value={mealRequest} onChange={(e) => setMealRequest(e.target.value)} className="w-full p-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#66BB6A] outline-none text-sm" placeholder="e.g., Create a Pizza"/>
+                                            <select value={servings} onChange={(e) => setServings(e.target.value)} className="p-2 rounded-lg border border-gray-300 text-sm">
+                                                {[...Array(9).keys()].map(i => <option key={i+2}>{i+2}</option>)}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h4 className="text-md font-semibold text-[#3D9970] mb-2">Suggested Recipes:</h4>
+                                        <div className="space-y-2">
+                                            {suggestedDishes.map(dish => (
+                                                <div key={dish} className="flex items-center justify-between p-2 rounded-lg">
+                                                    <span className="text-gray-800 text-xs font-semibold">{dish}</span>
+                                                    <button onClick={() => handleDishSelect(dish)} className={`p-1.5 rounded-full transition-all duration-300 shadow-inner ${selectedDish === dish ? 'bg-green-500 text-white' : 'bg-gray-200 text-gray-500'}`}><svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></button>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h4 className="text-md font-semibold text-[#3D9970] mt-4 mb-2">Previous Recipes:</h4>
+                                        <div className="space-y-2">
+                                            {previousDishes.map((dish, index) => (
+                                                <div key={index} className="flex items-center justify-between p-2 rounded-lg">
+                                                    <div className="flex items-center"><span className={`p-1 mr-2 rounded-full ${dish.status === 'cooked' ? 'bg-green-500' : 'bg-orange-500'}`}></span><span className="text-gray-700 text-xs">{dish.name}</span></div>
+                                                    <button onClick={() => handleDishSelect(dish.name)} className={`p-1.5 rounded-full transition-all duration-300 shadow-inner ${selectedDish === dish.name ? 'bg-green-500 text-white' : 'bg-gray-200 text-gray-500'}`}><svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></button>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                        
+                        <div className="bg-white p-3 rounded-lg shadow-sm mt-auto">
+                            <h3 className="text-lg font-semibold text-[#3D9970] mb-2">Adjust Nutritional Values:</h3>
+                            <div className="grid grid-cols-2 gap-2">
+                                <NutrientInput label="Calories" value={`${calorificValue} kcal`} onIncrement={() => setCalorificValue(v => v + 50)} onDecrement={() => setCalorificValue(v => v - 50)} />
+                                <NutrientInput label="Protein" value={`${proteinContent} g`} onIncrement={() => setProteinContent(v => v + 5)} onDecrement={() => setProteinContent(v => v - 5)} />
+                                <NutrientInput label="Carbs" value={`${carbsValue} g`} onIncrement={() => setCarbsValue(v => v + 10)} onDecrement={() => setCarbsValue(v => v - 10)} />
+                                <NutrientInput label="Fiber" value={`${fiberContent} g`} onIncrement={() => setFiberContent(v => v + 1)} onDecrement={() => setFiberContent(v => v - 1)} />
+                            </div>
+                        </div>
+
+                        <div className="flex-shrink-0 pt-2">
+                            <button onClick={handleGenerateRecipe} className="w-full bg-[#3D9970] text-white font-semibold px-8 py-3 rounded-lg shadow-md text-lg hover:opacity-90 transition-opacity">Generate Recipe</button>
+                        </div>
+                    </div>
+                );
+            case 'generatedRecipeDisplay':
+                if (!generatedRecipe) return <div className="p-4 text-center">Loading...</div>;
+                const totals = calculateTotals(generatedRecipe.ingredients);
+                return (
+                    <div className="p-4 flex flex-col h-full overflow-y-auto" style={{ backgroundColor: '#E8F8EE' }}>
+                        <h2 className="text-2xl font-bold text-[#2E8B57] mb-4 text-center">Your Recipe</h2>
+                        <div className="bg-[#F7FDF8] p-4 rounded-lg shadow-md mb-4">
+                            <h3 className="text-xl font-bold text-[#2E8B57] mb-2">{generatedRecipe.title}</h3>
+                            <p className="text-gray-600">{generatedRecipe.description}</p>
+                        </div>
+                        <h4 className="font-semibold text-[#3D9970] mb-3">Ingredients Breakdown:</h4>
+                        {generatedRecipe.ingredients.map((ingredient, index) => (
+                            <div key={index} className="bg-white p-3 rounded-lg shadow-sm mb-3">
+                                <p className="font-bold text-[#4A4A4A]">{ingredient.name} - {ingredient.quantity}</p>
+                                <p className="text-sm text-gray-600 mb-2">(Cal: {ingredient.cal} | Protein: {ingredient.protein}g | Carbs: {ingredient.carbs}g | Fiber: {ingredient.fiber}g)</p>
+                                {ingredient.substitutions && (<div className="text-sm"><p className="font-medium text-gray-700">Substitutions:</p>{ingredient.substitutions.map((sub, subIndex) => (<div key={subIndex} className="flex items-center space-x-2 mt-1"><input type="checkbox" id={`sub-${index}-${subIndex}`} name={`sub-${index}`} className="form-checkbox text-[#66BB6A] rounded" /><label htmlFor={`sub-${index}-${subIndex}`} className="text-gray-600">{sub.name} (Cal: {sub.cal}, P: {sub.protein}g, C: {sub.carbs}g, F: {sub.fiber}g)</label></div>))}</div>)}
+                            </div>
+                        ))}
+                        <div className="bg-[#F0FDF4] p-4 rounded-lg shadow-md mb-4">
+                            <h3 className="text-xl font-bold text-[#4A4A4A] mb-2">Finalized Recipe:</h3>
+                            <p className="text-gray-600 mb-4">If you have the above ingredients, let's start to cook! If not, add them to your shopping cart.</p>
+                            <div className="p-3 bg-gray-100 rounded-lg text-sm text-gray-700">
+                                <h4 className="font-bold text-[#3D9970] mb-2">Subtotals:</h4>
+                                <div className="flex flex-wrap justify-between items-center text-center">
+                                    <p className="w-1/2 md:w-auto p-1">Calories: <span className="font-semibold">{totals.totalCal}</span> kcal</p>
+                                    <p className="w-1/2 md:w-auto p-1">Protein: <span className="font-semibold">{totals.totalProtein}</span> g</p>
+                                    <p className="w-1/2 md:w-auto p-1">Carbs: <span className="font-semibold">{totals.totalCarbs}</span> g</p>
+                                    <p className="w-1/2 md:w-auto p-1">Fiber: <span className="font-semibold">{totals.totalFiber}</span> g</p>
+                                </div>
+                                <p className="mt-2"><strong className="text-[#3D9970]">We have excluded:</strong> {exclusionsText || 'None'}</p>
+                            </div>
+                        </div>
+                        <div className="bg-[#FEFBF6] p-4 rounded-lg shadow-md mb-4">
+                            <h4 className="font-semibold text-[#3D9970] mb-3">Shopping List:</h4>
+                            <div className="p-3 rounded-lg bg-white/50">
+                                {generatedRecipe.ingredients.map((ingredient, index) => (<div key={`cart-${index}`} className="flex items-center justify-between py-2 border-b border-gray-100 last:border-b-0"><span className="text-gray-700">{ingredient.name} - {ingredient.shoppingQuantity}</span><input type="checkbox" className="form-checkbox text-[#66BB6A] rounded" /></div>))}
+                            </div>
+                        </div>
+                        <div className="flex justify-around space-x-2 mt-auto pt-4 pb-1">
+                            <button onClick={prepareCartForPurchase} className="flex items-center justify-center bg-[#66BB6A] text-white font-semibold rounded-lg shadow-md hover:opacity-90 transition-opacity w-24 h-9"><span className="text-xl">🛒</span></button>
+                            <button onClick={() => startCookingTextMode(generatedRecipe)} className="flex items-center justify-center bg-[#4CAF50] text-white font-semibold rounded-lg shadow-md hover:opacity-90 transition-opacity w-24 h-9"><span className="text-xl">🍳</span></button>
+                            <button onClick={() => console.log('Ordering take-out!')} className="flex items-center justify-center bg-[#2E8B57] text-white font-semibold rounded-lg shadow-md hover:opacity-90 transition-opacity w-24 h-9"><span className="text-xl">🥡</span></button>
+                        </div>
+                        <div style={{ height: '3px' }}></div>
+                    </div>
+                );
+            case 'buyIngredients':
+                const totalAmount = calculateCartTotal();
+                return (
+                    <div className="p-4 flex flex-col h-full overflow-y-auto" style={{ backgroundColor: '#F0FDF4' }}>
+                        <h2 className="text-2xl font-bold text-[#2E8B57] mb-6 text-center">Buy Ingredients via Instacart</h2>
+                        {checkoutComplete ? (<div className="flex flex-col items-center justify-center h-full text-center"><span className="text-6xl mb-4">✅</span><h3 className="text-xl font-bold text-[#3D9970] mb-2">Instacart Order Placed!</h3><p className="text-gray-600 mb-4">Your groceries will be delivered to: <br/>{userStreetAddress}<br/>{userCity}, {userState} {userZipCode}.</p><button onClick={() => setCurrentScreen('home')} className="bg-[#3D9970] text-white font-semibold px-8 py-3 rounded-lg shadow-md text-lg hover:opacity-90 transition-opacity">Back to Home</button></div>) : (<>
+                            <div className="bg-white p-4 rounded-lg shadow-sm mb-6">
+                                <h4 className="font-semibold text-[#4A4A4A] mb-3">Your Instacart Shopping Cart:</h4>
+                                <p className="text-sm text-gray-500 mb-3"><span className="font-bold">Estimated prices. Final price may vary based on Instacart's selected store.</span></p>
+                                {cartItems.map((item, index) => (<div key={index} className="flex justify-between items-center py-2 border-b border-gray-100 last:border-b-0"><span className="text-gray-700">{item.name} - {item.shoppingQuantity}</span><span className="font-semibold text-[#2E8B57]">${item.basePrice.toFixed(2)}</span></div>))}
+                                <div className="flex justify-between items-center pt-4 font-bold text-lg"><span>Total:</span><span className="text-[#2E8B57]">${totalAmount.toFixed(2)}</span></div>
+                            </div>
+                            <div className="mb-6">
+                                <h3 className="text-xl font-semibold text-[#3D9970] mb-3">Delivery Details:</h3>
+                                <div className="bg-white p-4 rounded-lg shadow-sm"><p className="text-gray-700">Deliver to: <br/>{userStreetAddress}<br/>{userCity}, {userState} {userZipCode}.</p><p className="text-gray-700">Delivery Time: Approx. 1-2 hours (Instacart)</p></div>
+                            </div>
+                            <button onClick={handlePlaceOrder} className="bg-[#3D9970] text-white font-semibold px-8 py-3 rounded-lg shadow-md text-lg hover:opacity-90 transition-opacity mb-4 flex items-center justify-center space-x-2" disabled={cartItems.length === 0}><span>Pay with</span><span className="text-2xl font-bold tracking-tight"> Pay</span></button>
+                        </>)}
+                        <div className="h-4"></div>
+                    </div>
+                );
+            case 'cookTextOnly':
+                if (!generatedRecipe) return <div className="p-4 text-center">Loading...</div>;
+                const allStepsCompleted = generatedRecipe.cookingSteps.every((_, index) => completedSteps[index]);
+                const stepCardColors = ['bg-white', 'bg-green-50', 'bg-yellow-50', 'bg-blue-50', 'bg-purple-50', 'bg-pink-50'];
+                return (
+                    <div className="p-4 flex flex-col h-full bg-[#F0FDF4]">
+                        <div className="bg-[#E0FFE0] p-3 rounded-lg shadow-md mb-4 flex-shrink-0">
+                            <p className="text-lg font-bold text-[#2E8B57] text-left">{generatedRecipe.title}</p>
+                            <p className="text-gray-700 text-sm text-left overflow-hidden whitespace-normal leading-tight">Ingredients: {generatedRecipe.ingredients.map(ing => ing.name).join(', ')}</p>
+                        </div>
+                        <div className="flex-grow overflow-y-auto" style={{ maxHeight: 'calc(100vh - 220px)' }}>
+                            <h3 className="text-lg font-bold text-[#2E8B57] mb-3">Cooking Instructions:</h3>
+                            {generatedRecipe.cookingSteps.map((step, index) => (
+                                <div key={index} className={`p-3 rounded-lg shadow-md mb-3 flex items-start ${stepCardColors[index % stepCardColors.length]}`}>
+                                    <button onClick={() => handleToggleStepCompletion(index)} className={`p-2 rounded-full transition-all duration-300 mr-3 mt-1 flex-shrink-0 ${completedSteps[index] ? 'bg-[#2E8B57] text-white' : 'bg-gray-200 text-gray-500'} hover:bg-[#3D9970] hover:text-white`} title={completedSteps[index] ? "Mark as Incomplete" : "Mark as Complete"}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                                    </button>
+                                    <p className={`text-gray-700 text-base leading-relaxed ${completedSteps[index] ? 'line-through text-gray-500' : ''}`}>{`Step ${index + 1}: ${step}`}</p>
+                                </div>
+                            ))}
+                            {allStepsCompleted && (<p className="text-xl font-bold text-[#3D9970] text-center mt-6">Cooking Complete!</p>)}
+                        </div>
+                        <div className="flex justify-around space-x-2 mt-auto pt-4 pb-1">
+                            <button onClick={handleSaveRecipe} className="flex items-center justify-center bg-[#66BB6A] text-white font-semibold rounded-lg shadow-md hover:opacity-90 transition-opacity w-24 h-9"><span className="text-base">💾</span></button>
+                            <button onClick={handleShareRecipe} className="flex items-center justify-center bg-[#4CAF50] text-white font-semibold rounded-lg shadow-md hover:opacity-90 transition-opacity w-24 h-9"><span className="text-base">↗️</span></button>
+                            <button onClick={startCookingVoiceMode} className="flex items-center justify-center bg-[#2E8B57] text-white font-semibold rounded-lg shadow-md hover:opacity-90 transition-opacity w-24 h-9"><span className="text-base">🎤</span></button>
+                        </div>
+                        <div style={{ height: '3px' }}></div>
+                    </div>
+                );
+            case 'cookVoiceOnly':
+                 if (!generatedRecipe) return <div className="p-4 text-center">Loading...</div>;
+                 return (
+                    <div className="p-4 flex flex-col h-full bg-[#F0FDF4]">
+                        <div ref={conversationRef} className="flex-grow overflow-y-auto space-y-4 pr-2">
+                            {conversationHistory.map((msg, index) => (
+                                <div key={index} className={`flex items-end gap-2 ${msg.speaker === 'user' ? 'justify-end' : 'justify-start'}`}>
+                                    {msg.speaker === 'chef' && <span className="text-2xl">{selectedChef.emoji}</span>}
+                                    
+                                    {msg.isStep ? (
+                                        <div className="w-10/12 bg-white p-3 rounded-lg shadow-md">
+                                            <p className="text-gray-800 font-semibold mb-2">{`Step ${msg.stepIndex + 1}`}</p>
+                                            <p className={`text-gray-700 ${completedSteps[msg.stepIndex] ? 'line-through text-gray-400' : ''}`}>{msg.text}</p>
+                                            <div className="flex justify-end mt-2">
+                                                <button onClick={() => handleToggleStepCompletion(msg.stepIndex)} className={`p-2 rounded-full transition-all duration-300 ${completedSteps[msg.stepIndex] ? 'bg-green-500 text-white' : 'bg-gray-200 text-gray-500'}`}>
+                                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <div className={`w-10/12 p-3 rounded-lg ${msg.speaker === 'user' ? 'bg-blue-100 text-blue-900' : 'bg-green-100 text-green-900'}`}>
+                                            <p>{msg.text}</p>
+                                        </div>
+                                    )}
+
+                                    {msg.speaker === 'user' && <span className="text-2xl">{userAvatar}</span>}
+                                </div>
+                            ))}
+                        </div>
+                        <div className="flex justify-around space-x-2 mt-auto pt-4 pb-1">
+                            <button onClick={handleRestartCooking} className="flex items-center justify-center bg-[#66BB6A] text-white font-semibold rounded-lg shadow-md hover:opacity-90 transition-opacity w-1/4 h-9"><span className="text-base">🔄</span></button>
+                            <button onClick={handleSaveRecipe} className="flex items-center justify-center bg-[#4CAF50] text-white font-semibold rounded-lg shadow-md hover:opacity-90 transition-opacity w-1/4 h-9"><span className="text-base">💾</span></button>
+                            <button onClick={handleShareRecipe} className="flex items-center justify-center bg-[#2E8B57] text-white font-semibold rounded-lg shadow-md hover:opacity-90 transition-opacity w-1/4 h-9"><span className="text-base">↗️</span></button>
+                            <button onClick={() => setCurrentScreen('cookTextOnly')} className="flex items-center justify-center bg-[#2E8B57] text-white font-semibold rounded-lg shadow-md hover:opacity-90 transition-opacity w-1/4 h-9"><span className="text-base">📝</span></button>
+                        </div>
+                    </div>
+                 );
+            case 'profile':
+                const profileTabs = [
+                    { id: 'prestige', label: 'Prestige' },
+                    { id: 'profile', label: 'Profile' },
+                    { id: 'cooking', label: 'Cooking' },
+                    { id: 'purchase', label: 'Purchases' },
+                    { id: 'challenge', label: "Challenge" },
+                ];
+                const appState = { userNickname, userAvatar, userAgeGroup, userStreetAddress, userCity, userState, userZipCode, phoneNumber, verificationCode, selectedChef };
+                const setAppState = { setUserNickname, setUserAvatar, setUserAgeGroup, setUserStreetAddress, setUserCity, setUserState, setUserZipCode, setPhoneNumber, setVerificationCode, setSelectedChef };
+
+                return (
+                    <div className="p-4 bg-gray-50 flex flex-col h-full">
+                        <div className="bg-white p-3 rounded-lg shadow-md mb-4 flex-shrink-0">
+                             <div className="flex justify-around items-end">
+                                {profileTabs.map(tab => (
+                                    <button key={tab.id} onClick={() => setActiveProfileTab(tab.id)} className="flex flex-col items-center space-y-1 w-1/5">
+                                        <span className={`text-xs font-semibold text-center h-8 flex items-center justify-center ${activeProfileTab === tab.id ? 'text-green-600' : 'text-gray-500'}`}>{tab.label}</span>
+                                        <div className={`p-1.5 rounded-full transition-all duration-300 ${activeProfileTab === tab.id ? 'bg-green-500 text-white' : 'bg-gray-200 text-gray-400'}`}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                                        </div>
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                        <div className="flex-grow overflow-y-auto">
+                            {activeProfileTab === 'prestige' && <PrestigeBoard />}
+                            {activeProfileTab === 'profile' && <ProfileCard appState={appState} setAppState={setAppState} />}
+                            {activeProfileTab === 'cooking' && <div>Cooking History Content</div>}
+                            {activeProfileTab === 'purchase' && <div>Purchase History Content</div>}
+                            {activeProfileTab === 'challenge' && <div>Chef's Challenge Content</div>}
+                        </div>
+                    </div>
+                );
+            default:
+                return <div className="p-4 text-center">Unknown screen state.</div>;
+        }
+    };
+
+    return (
+        <div className="min-h-screen bg-[#E6F4EA] flex items-center justify-center p-4 font-sans">
+            <div className="relative w-full max-w-sm h-[90vh] bg-white rounded-3xl shadow-xl overflow-hidden flex flex-col">
+                {currentScreen !== 'splash' && renderHeader(
+                    currentScreen === 'signup' ? 'Create Your Account' :
+                    currentScreen === 'dietaryProfile' ? 'Profile Setup' :
+                    currentScreen === 'defineRecipeInputs' ? 'Create a Recipe' :
+                    currentScreen === 'generatedRecipeDisplay' ? 'Your Recipe' :
+                    currentScreen === 'buyIngredients' ? 'Buy Ingredients via Instacart' :
+                    currentScreen === 'cookTextOnly' ? 'Let\'s Start Cooking!' :
+                    currentScreen === 'cookVoiceOnly' ? 'Voice Interaction' : 
+                    currentScreen === 'profile' ? 'Your Profile' : 'NutraGenie',
+                    currentScreen === 'cookTextOnly' || currentScreen === 'cookVoiceOnly'
+                )}
+                <div className="flex-grow overflow-y-auto">
+                    {renderScreen()}
+                </div>
+                {currentScreen !== 'splash' && renderNavBar()}
+            </div>
+            {/* Custom CSS for slider thumb */}
+            <style>
+                {`
+                .custom-slider::-webkit-slider-thumb {
+                    -webkit-appearance: none;
+                    appearance: none;
+                    width: 28px;
+                    height: 28px;
+                    background: #FF8C00;
+                    cursor: pointer;
+                    border-radius: 50%;
+                    box-shadow: 0 0 2px rgba(0,0,0,0.3);
+                    margin-top: -8px;
+                }
+
+                .custom-slider::-moz-range-thumb {
+                    width: 28px;
+                    height: 28px;
+                    background: #FF8C00;
+                    cursor: pointer;
+                    border-radius: 50%;
+                    box-shadow: 0 0 2px rgba(0,0,0,0.3);
+                }
+
+                .custom-slider::-ms-thumb {
+                    width: 28px;
+                    height: 28px;
+                    background: #FF8C00;
+                    cursor: pointer;
+                    border-radius: 50%;
+                    box-shadow: 0 0 2px rgba(0,0,0,0.3);
+                }
+                `}
+            </style>
+        </div>
+    );
+}
+
+export default App;
