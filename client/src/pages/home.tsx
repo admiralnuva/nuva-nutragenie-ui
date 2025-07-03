@@ -9,7 +9,7 @@ export default function HomeScreen() {
       {/* Header */}
       <div className="bg-white border-b border-gray-200 px-4 py-4 flex items-center gap-3">
         <BackButton to="/" />
-        <h1 className="text-lg font-semibold text-gray-800">Home Dashboard</h1>
+        <h1 className="text-lg font-semibold text-gray-800">NutraGenie</h1>
       </div>
 
       <div className="p-4 space-y-4">

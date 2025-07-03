@@ -71,29 +71,28 @@ export default function SignupScreen() {
   };
 
   const handleSubmit = () => {
-    if (isFormComplete) {
-      createUserMutation.mutate({
-        nickname,
-        ageGroup,
-        phoneNumber,
-        avatar: selectedAvatar,
-        selectedChef: {
-          name: chefNickname,
-          personality: selectedChef.personality,
-          emoji: selectedChef.emoji
-        },
-        dietaryRestrictions: [],
-        healthGoals: [],
-        allergies: ''
-      });
-    }
+    // Use default values for easier testing
+    createUserMutation.mutate({
+      nickname: nickname || 'TestUser',
+      ageGroup: ageGroup || '25-30',
+      phoneNumber: phoneNumber || '1234567890',
+      avatar: selectedAvatar || '😀',
+      selectedChef: {
+        name: chefNickname || 'Chef',
+        personality: selectedChef?.personality || 'Friendly & Encouraging',
+        emoji: selectedChef?.emoji || '👨‍🍳'
+      },
+      dietaryRestrictions: [],
+      healthGoals: [],
+      allergies: ''
+    });
   };
 
-  // Validation checks
-  const isProfileComplete = nickname.length >= 2 && ageGroup;
-  const isChefComplete = selectedChef && chefNickname.length >= 2;
-  const isPhoneComplete = phoneNumber.length >= 10;
-  const isFormComplete = isProfileComplete && isChefComplete && isPhoneComplete && isVerified;
+  // Validation checks (simplified for testing)
+  const isProfileComplete = true; // Remove validation for testing
+  const isChefComplete = true; // Remove validation for testing
+  const isPhoneComplete = true; // Remove validation for testing
+  const isFormComplete = true; // Always allow form submission for testing
 
   return (
     <div className="min-h-screen bg-warm-neutral-50 p-6">

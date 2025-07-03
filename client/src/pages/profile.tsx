@@ -95,7 +95,7 @@ export default function ProfileScreen() {
       {/* Header */}
       <div className="bg-white shadow-sm p-4 flex items-center justify-between">
         <BackButton to="/home" />
-        <h2 className="font-bold text-lg text-gray-800">Profile & Progress</h2>
+        <h2 className="font-bold text-lg text-gray-800">NutraGenie Profile</h2>
         <Button
           variant="ghost"
           size="icon"

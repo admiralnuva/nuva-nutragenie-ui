@@ -477,7 +477,7 @@ export default function RecipesScreen() {
       {/* Header */}
       <div className="bg-white shadow-sm p-4 flex items-center gap-3">
         <BackButton to="/home" />
-        <h1 className="text-2xl font-bold text-gray-800">Explore Recipes</h1>
+        <h1 className="text-2xl font-bold text-gray-800">NutraGenie</h1>
       </div>
 
       <div className="p-4 space-y-3">
