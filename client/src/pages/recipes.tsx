@@ -137,26 +137,22 @@ export default function RecipesScreen() {
         <h1 className="text-2xl font-bold text-gray-800">Explore Recipes</h1>
       </div>
 
-      <div className="p-4 space-y-4">
+      <div className="p-4 space-y-3">
         {/* Card 1 - Dietary Preferences */}
         <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-lg">Your Dietary Profile</CardTitle>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-base">Your Dietary Profile</CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="flex flex-wrap gap-2">
+          <CardContent className="pt-0">
+            <div className="flex flex-wrap gap-1 text-sm text-gray-600">
               {currentUser?.dietaryRestrictions?.map((restriction: string) => (
-                <Badge key={restriction} variant="outline" className="text-xs">
-                  {restriction}
-                </Badge>
+                <span key={restriction}>{restriction}</span>
               ))}
               {currentUser?.healthGoals?.map((goal: string) => (
-                <Badge key={goal} variant="secondary" className="text-xs">
-                  {goal}
-                </Badge>
+                <span key={goal}>{goal}</span>
               ))}
               {(!currentUser?.dietaryRestrictions?.length && !currentUser?.healthGoals?.length) && (
-                <p className="text-sm text-gray-500">No dietary preferences set</p>
+                <span className="text-gray-500">No dietary preferences set</span>
               )}
             </div>
           </CardContent>
@@ -164,10 +160,10 @@ export default function RecipesScreen() {
 
         {/* Card 2 - Recipe Options Toggle */}
         <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-lg">Recipe Options</CardTitle>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-base">Recipe Options</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-0">
             <div className="flex gap-2">
               <Button
                 variant={recipeMode === 'pantry' ? 'default' : 'outline'}
@@ -191,10 +187,10 @@ export default function RecipesScreen() {
 
         {/* Card 3 - Cuisine & Serving Selection */}
         <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-lg">Cuisine & Serving Size</CardTitle>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-base">Cuisine & Serving Size</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-0">
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Cuisine</label>
@@ -233,12 +229,12 @@ export default function RecipesScreen() {
 
         {/* Card 4 - Dynamic Content */}
         <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-lg">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-base">
               {recipeMode === 'pantry' ? 'Pantry Ingredients' : 'Recipe Details'}
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-0">
             {recipeMode === 'pantry' ? (
               <div className="space-y-4">
                 {Object.entries(pantryIngredients).map(([category, ingredients]) => (
@@ -327,10 +323,10 @@ export default function RecipesScreen() {
 
         {/* Card 5 - Nutritional Adjustments */}
         <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-lg">Adjust Nutritional Values</CardTitle>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-base">Adjust Nutritional Values</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="pt-0 space-y-3">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Calories: {calories[0]}
