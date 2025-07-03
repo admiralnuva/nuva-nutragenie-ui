@@ -200,6 +200,17 @@ const trendingDishes = {
   ]
 };
 
+// Recommended dishes based on pantry ingredients
+const pantryRecommendedDishes = [
+  { name: 'Chicken Stir Fry', cookTime: 15, calories: 320, protein: 28, ingredients: ['Chicken Breast', 'Bell Peppers', 'Onions'] },
+  { name: 'Pasta Primavera', cookTime: 20, calories: 380, protein: 16, ingredients: ['Pasta', 'Bell Peppers', 'Spinach', 'Olive Oil'] },
+  { name: 'Garlic Rice', cookTime: 12, calories: 280, protein: 8, ingredients: ['Rice', 'Garlic', 'Olive Oil', 'Onions'] },
+  { name: 'Vegetable Soup', cookTime: 25, calories: 180, protein: 6, ingredients: ['Carrots', 'Onions', 'Celery', 'Spinach'] },
+  { name: 'Egg Fried Rice', cookTime: 10, calories: 350, protein: 18, ingredients: ['Rice', 'Eggs', 'Onions', 'Olive Oil'] },
+  { name: 'Herb Chicken', cookTime: 30, calories: 420, protein: 35, ingredients: ['Chicken Breast', 'Herbs', 'Olive Oil', 'Garlic'] },
+  { name: 'Cheese Omelette', cookTime: 8, calories: 280, protein: 22, ingredients: ['Eggs', 'Cheese', 'Bell Peppers'] }
+];
+
 // Previous dishes for Create Recipe mode
 const previousDishes = {
   american: [
@@ -349,6 +360,9 @@ export default function RecipesScreen() {
   const [selectedCuisine, setSelectedCuisine] = useState("american");
   const [servingSize, setServingSize] = useState("3");
   const [selectedDish, setSelectedDish] = useState("");
+  
+  // Card 3 - Pantry Ingredients view state
+  const [pantryView, setPantryView] = useState('ingredients'); // 'ingredients' or 'recommendations'
   
   // Card 5 - Nutritional Values
   const [calories, setCalories] = useState([400]);
@@ -569,96 +583,44 @@ export default function RecipesScreen() {
           <CardContent className="pt-0">
             {recipeMode === 'pantry' ? (
               <div className="space-y-4">
-                {/* Ingredient Count & Quick Actions */}
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600">
-                    {selectedIngredients.length} ingredients selected • Est. {getEstimatedTime()}min
-                  </span>
-                  <Button 
-                    variant="outline" 
+                {/* Pantry View Toggle */}
+                <div className="flex gap-2">
+                  <Button
+                    variant={pantryView === 'ingredients' ? 'default' : 'outline'}
+                    onClick={() => setPantryView('ingredients')}
                     size="sm"
-                    onClick={() => setSelectedIngredients([])}
-                    className="text-xs"
+                    className="flex-1 text-xs"
                   >
-                    Clear All
+                    Pantry Ingredients
+                  </Button>
+                  <Button
+                    variant={pantryView === 'recommendations' ? 'default' : 'outline'}
+                    onClick={() => setPantryView('recommendations')}
+                    size="sm"
+                    className="flex-1 text-xs"
+                  >
+                    Recommended Dishes
                   </Button>
                 </div>
 
-                {/* Recent Ingredients */}
-                <div className="bg-gray-50 rounded-lg p-3 border-l-4 border-brand-green-500">
-                  <div className="flex justify-between items-center mb-2">
-                    <h4 className="font-medium text-gray-700 text-sm">Recent Ingredients</h4>
-                    <Button 
-                      variant="ghost" 
-                      size="sm"
-                      onClick={() => setSelectedIngredients(prev => Array.from(new Set([...prev, ...recentIngredients])))}
-                      className="text-xs"
-                    >
-                      Add All
-                    </Button>
-                  </div>
-                  <div className="grid grid-cols-2 gap-2">
-                    {recentIngredients.map((ingredient) => (
-                      <div key={ingredient} className="flex items-center space-x-2">
-                        <Checkbox
-                          id={`recent-${ingredient}`}
-                          checked={selectedIngredients.includes(ingredient)}
-                          onCheckedChange={() => toggleIngredient(ingredient)}
-                        />
-                        <label
-                          htmlFor={`recent-${ingredient}`}
-                          className="text-sm font-medium leading-none cursor-pointer"
-                        >
-                          {ingredient}
-                        </label>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Ingredient Autocomplete */}
-                <div className="bg-blue-50 rounded-lg p-3 border-l-4 border-blue-500">
-                  <h4 className="font-medium text-gray-700 text-sm mb-2">Add Custom Ingredient</h4>
-                  <div className="relative">
-                    <Input
-                      type="text"
-                      placeholder="Start typing ingredient name..."
-                      value={ingredientSearch}
-                      onChange={(e) => {
-                        setIngredientSearch(e.target.value);
-                        setShowIngredientSuggestions(true);
-                      }}
-                      onFocus={() => setShowIngredientSuggestions(true)}
-                      className="text-sm"
-                    />
-                    {showIngredientSuggestions && getFilteredIngredients().length > 0 && (
-                      <div className="absolute top-full left-0 right-0 bg-white border border-gray-200 rounded-md shadow-md z-10 mt-1">
-                        {getFilteredIngredients().map((ingredient) => (
-                          <button
-                            key={ingredient}
-                            className="w-full text-left px-3 py-2 text-sm hover:bg-gray-50 border-b last:border-b-0"
-                            onClick={() => {
-                              if (!selectedIngredients.includes(ingredient)) {
-                                setSelectedIngredients(prev => [...prev, ingredient]);
-                              }
-                              setIngredientSearch('');
-                              setShowIngredientSuggestions(false);
-                            }}
-                          >
-                            {ingredient}
-                          </button>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                  {ingredientSearch && getFilteredIngredients().length === 0 && (
-                    <div className="text-xs text-gray-500 mt-1">
-                      No suggestions found. Press Enter to add "{ingredientSearch}" as custom ingredient.
+                {pantryView === 'ingredients' ? (
+                  <>
+                    {/* Ingredient Count & Quick Actions */}
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">
+                        {selectedIngredients.length} ingredients selected • Est. {getEstimatedTime()}min
+                      </span>
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => setSelectedIngredients([])}
+                        className="text-xs"
+                      >
+                        Clear All
+                      </Button>
                     </div>
-                  )}
-                </div>
 
-                {/* Ingredient Categories */}
+                    {/* Clickable Pantry Ingredients */}
                 {Object.entries(pantryIngredients).map(([category, ingredients]) => (
                   <div key={category} className="border-b border-gray-100 pb-3 last:border-b-0">
                     <div className="flex justify-between items-center mb-2">
@@ -714,16 +676,52 @@ export default function RecipesScreen() {
                     </div>
                   </div>
                 ))}
+                  </>
+                ) : (
+                  // Recommended Dishes View
+                  <div className="space-y-3">
+                    <div className="text-sm text-gray-600 mb-3">
+                      Based on your selected ingredients: {selectedIngredients.join(', ') || 'No ingredients selected'}
+                    </div>
+                    
+                    <div className="grid grid-cols-1 gap-2">
+                      {pantryRecommendedDishes.slice(0, 5).map((dish) => {
+                        const matchingIngredients = dish.ingredients.filter(ing => 
+                          selectedIngredients.includes(ing)
+                        ).length;
+                        const matchPercentage = selectedIngredients.length > 0 ? 
+                          Math.round((matchingIngredients / dish.ingredients.length) * 100) : 0;
 
-                {/* Custom Ingredients */}
-                <div>
-                  <h4 className="font-medium text-gray-700 mb-2">Other Ingredients</h4>
-                  <Input
-                    placeholder="Add custom ingredients..."
-                    value={otherIngredients}
-                    onChange={(e) => setOtherIngredients(e.target.value)}
-                  />
-                </div>
+                        return (
+                          <div
+                            key={dish.name}
+                            className={`p-3 border rounded-lg cursor-pointer transition-colors ${
+                              selectedDish === dish.name ? 'border-brand-green-500 bg-brand-green-50' : 'hover:bg-gray-50'
+                            }`}
+                            onClick={() => setSelectedDish(dish.name)}
+                          >
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-2">
+                                <span className="text-2xl">🍽️</span>
+                                <div>
+                                  <p className="font-medium text-gray-800">{dish.name}</p>
+                                  <p className="text-xs text-gray-500">
+                                    🕒 {dish.cookTime}min • {dish.calories} cal • {dish.protein}g protein
+                                  </p>
+                                </div>
+                              </div>
+                              {matchPercentage > 0 && (
+                                <Badge className="text-xs bg-green-100 text-green-800">
+                                  {matchPercentage}% match
+                                </Badge>
+                              )}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
               </div>
             ) : (
               <div className="space-y-4">
