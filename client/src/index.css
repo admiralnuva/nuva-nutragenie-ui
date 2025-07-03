@@ -1,0 +1,165 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(20, 14.3%, 4.1%);
+  --muted: hsl(60, 4.8%, 95.9%);
+  --muted-foreground: hsl(25, 5.3%, 44.7%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(20, 14.3%, 4.1%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(20, 14.3%, 4.1%);
+  --border: hsl(20, 5.9%, 90%);
+  --input: hsl(20, 5.9%, 90%);
+  --primary: hsl(207, 90%, 54%);
+  --primary-foreground: hsl(211, 100%, 99%);
+  --secondary: hsl(60, 4.8%, 95.9%);
+  --secondary-foreground: hsl(24, 9.8%, 10%);
+  --accent: hsl(60, 4.8%, 95.9%);
+  --accent-foreground: hsl(24, 9.8%, 10%);
+  --destructive: hsl(0, 84.2%, 60.2%);
+  --destructive-foreground: hsl(60, 9.1%, 97.8%);
+  --ring: hsl(20, 14.3%, 4.1%);
+  --radius: 0.5rem;
+  
+  /* Custom NutraGenie colors */
+  --brand-green-50: hsl(122, 100%, 97%);
+  --brand-green-100: hsl(122, 100%, 93%);
+  --brand-green-200: hsl(122, 84%, 85%);
+  --brand-green-300: hsl(122, 69%, 74%);
+  --brand-green-400: hsl(122, 60%, 60%);
+  --brand-green-500: hsl(142, 71%, 45%);
+  --brand-green-600: hsl(142, 76%, 36%);
+  --brand-green-700: hsl(142, 72%, 29%);
+  --brand-green-800: hsl(142, 64%, 24%);
+  --brand-green-900: hsl(142, 61%, 20%);
+  
+  --warm-neutral-50: hsl(60, 9%, 98%);
+  --warm-neutral-100: hsl(60, 8%, 95%);
+  --warm-neutral-200: hsl(20, 6%, 90%);
+  --warm-neutral-300: hsl(24, 6%, 83%);
+  --warm-neutral-400: hsl(24, 5%, 64%);
+  --warm-neutral-500: hsl(25, 5%, 45%);
+  --warm-neutral-600: hsl(33, 5%, 32%);
+  --warm-neutral-700: hsl(30, 6%, 25%);
+  --warm-neutral-800: hsl(12, 6%, 15%);
+  --warm-neutral-900: hsl(24, 10%, 10%);
+}
+
+.dark {
+  --background: hsl(240, 10%, 3.9%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(240, 3.7%, 15.9%);
+  --muted-foreground: hsl(240, 5%, 64.9%);
+  --popover: hsl(240, 10%, 3.9%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(240, 10%, 3.9%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(240, 3.7%, 15.9%);
+  --input: hsl(240, 3.7%, 15.9%);
+  --primary: hsl(207, 90%, 54%);
+  --primary-foreground: hsl(211, 100%, 99%);
+  --secondary: hsl(240, 3.7%, 15.9%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --accent: hsl(240, 3.7%, 15.9%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(240, 4.9%, 83.9%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+}
+
+@layer utilities {
+  .mobile-container {
+    max-width: 393px;
+    min-height: 852px;
+    margin: 0 auto;
+    background: #ffffff;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .fade-in {
+    animation: fadeIn 0.6s ease-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .bounce {
+    animation: bounce 0.6s ease-out;
+  }
+  
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+  }
+  
+  .chat-bubble {
+    animation: chatBubble 0.3s ease-out;
+  }
+  
+  @keyframes chatBubble {
+    from { opacity: 0; transform: scale(0.8) translateY(10px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  /* Custom brand colors */
+  .bg-brand-green-50 { background-color: var(--brand-green-50); }
+  .bg-brand-green-100 { background-color: var(--brand-green-100); }
+  .bg-brand-green-200 { background-color: var(--brand-green-200); }
+  .bg-brand-green-300 { background-color: var(--brand-green-300); }
+  .bg-brand-green-400 { background-color: var(--brand-green-400); }
+  .bg-brand-green-500 { background-color: var(--brand-green-500); }
+  .bg-brand-green-600 { background-color: var(--brand-green-600); }
+  .bg-brand-green-700 { background-color: var(--brand-green-700); }
+  .bg-brand-green-800 { background-color: var(--brand-green-800); }
+  .bg-brand-green-900 { background-color: var(--brand-green-900); }
+
+  .text-brand-green-50 { color: var(--brand-green-50); }
+  .text-brand-green-100 { color: var(--brand-green-100); }
+  .text-brand-green-200 { color: var(--brand-green-200); }
+  .text-brand-green-300 { color: var(--brand-green-300); }
+  .text-brand-green-400 { color: var(--brand-green-400); }
+  .text-brand-green-500 { color: var(--brand-green-500); }
+  .text-brand-green-600 { color: var(--brand-green-600); }
+  .text-brand-green-700 { color: var(--brand-green-700); }
+  .text-brand-green-800 { color: var(--brand-green-800); }
+  .text-brand-green-900 { color: var(--brand-green-900); }
+
+  .border-brand-green-500 { border-color: var(--brand-green-500); }
+  .border-brand-green-600 { border-color: var(--brand-green-600); }
+
+  .bg-warm-neutral-50 { background-color: var(--warm-neutral-50); }
+  .bg-warm-neutral-100 { background-color: var(--warm-neutral-100); }
+  .bg-warm-neutral-200 { background-color: var(--warm-neutral-200); }
+  .bg-warm-neutral-300 { background-color: var(--warm-neutral-300); }
+  
+  .text-warm-neutral-600 { color: var(--warm-neutral-600); }
+  .text-warm-neutral-700 { color: var(--warm-neutral-700); }
+  .text-warm-neutral-800 { color: var(--warm-neutral-800); }
+  
+  .border-warm-neutral-300 { border-color: var(--warm-neutral-300); }
+
+  .hover\:bg-brand-green-600:hover { background-color: var(--brand-green-600); }
+  .hover\:bg-brand-green-300:hover { background-color: var(--brand-green-300); }
+  .hover\:bg-brand-green-200:hover { background-color: var(--brand-green-200); }
+  .hover\:bg-brand-green-50:hover { background-color: var(--brand-green-50); }
+  .hover\:border-brand-green-500:hover { border-color: var(--brand-green-500); }
+  .hover\:bg-warm-neutral-200:hover { background-color: var(--warm-neutral-200); }
+}
