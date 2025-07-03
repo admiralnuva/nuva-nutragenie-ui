@@ -143,6 +143,15 @@ Changelog:
   * Popular badges on suggested dishes and dietary restriction warnings
   * "Save as Template" functionality for future quick recipe generation
   * Context-aware nutritional guidance based on user's health goals (keto, muscle building, weight loss)
+- July 03, 2025. Major Card 3 redesign and smart recommendations improvements:
+  * Removed Recent Ingredients and Add Custom sections from Card 3 (data capture moved to bottom)
+  * Added pantry view toggle between "Pantry Ingredients" and "Recommended Dishes"
+  * Implemented smart recommended dishes with 100% ingredient matching priority
+  * Added custom ingredients input with autocomplete at bottom of Card 3
+  * Enhanced smart recommendations with fallback logic ensuring minimum 5 dishes always displayed
+  * Added expand/collapse functionality to Smart Recommendations for space optimization
+  * Removed match count display for cleaner interface
+  * Added fiber parameter to nutritional adjustments (5-25g range)
 ```
 
 ## User Preferences
