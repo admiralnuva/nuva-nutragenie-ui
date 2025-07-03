@@ -132,6 +132,17 @@ Required environment variables:
 Changelog:
 - July 03, 2025. Initial setup
 - July 03, 2025. Updated splash screen with NutraGenie branding, AI+Health logo placeholder, and 2-line app description explaining the AI nutrition platform vision
+- July 03, 2025. Enhanced recipes screen with comprehensive UX improvements:
+  * Smart defaults based on dietary preferences (vegetarian/vegan get plant-based ingredients pre-selected)
+  * Visual hierarchy with ingredient category separators and selection counters
+  * Interactive feedback showing estimated recipe generation time and ingredient counts
+  * Recent ingredients section with quick "Add All" functionality for faster selection
+  * Ingredient pairing suggestions with sparkle indicators for compatible items
+  * "Select All" toggles for each ingredient category with progress tracking
+  * Enhanced nutritional adjustments with real-time goal alignment feedback
+  * Popular badges on suggested dishes and dietary restriction warnings
+  * "Save as Template" functionality for future quick recipe generation
+  * Context-aware nutritional guidance based on user's health goals (keto, muscle building, weight loss)
 ```
 
 ## User Preferences
