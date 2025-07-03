@@ -167,7 +167,7 @@ export default function ReviewRecipesScreen() {
   const [currentUser] = useLocalStorage("nutragenie_user", null);
 
   // State management
-  const [selectedDishes, setSelectedDishes] = useState([1, 2, 3, 4]); // Start with all dishes selected
+  const [selectedDishes, setSelectedDishes] = useState([]); // Start with no dishes selected
   const [expandedDishes, setExpandedDishes] = useState([]); // Which dishes are expanded in Card 2
   const [selectedSubstitutions, setSelectedSubstitutions] = useState({}); // Track substitution selections
   const [shoppingCart, setShoppingCart] = useState([]);
@@ -459,67 +459,71 @@ export default function ReviewRecipesScreen() {
           </CardContent>
         </Card>
 
-        {/* Card 3 - Shopping Cart & Actions */}
+        {/* Card 3 - Grocery List */}
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-lg flex items-center gap-2">
-              🛒 Shopping List & Actions
+              🛒 Grocery List
               <Badge variant="secondary" className="text-xs">
                 {shoppingCart.length} items
               </Badge>
             </CardTitle>
           </CardHeader>
           <CardContent className="pt-0 space-y-4">
-            {/* Shopping List */}
-            <div className="space-y-2">
-              <h4 className="font-medium text-gray-700">Items to Purchase:</h4>
+            {/* Grocery List */}
+            <div className="space-y-1">
               {shoppingCart.map((item, idx) => (
-                <div key={idx} className="flex items-center gap-3 p-2 bg-gray-50 rounded-lg">
+                <div key={idx} className="flex items-center justify-between py-1 border-b border-gray-100 last:border-b-0">
                   <div className="flex-1">
-                    <div className="flex items-center justify-between">
-                      <span className="font-medium">{item.name}</span>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => removeFromCart(item.name)}
-                      >
-                        <Minus className="w-4 h-4" />
-                      </Button>
-                    </div>
-                    <div className="flex items-center gap-2 mt-1">
-                      <Input
-                        value={item.quantity}
-                        onChange={(e) => updateCartQuantity(item.name, e.target.value)}
-                        className="w-20 h-8 text-xs"
-                      />
-                      <span className="text-xs text-gray-500">
-                        for: {item.dishes.join(", ")}
-                      </span>
-                    </div>
+                    <span className="text-sm font-medium">{item.name}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Input
+                      value={item.quantity}
+                      onChange={(e) => updateCartQuantity(item.name, e.target.value)}
+                      className="w-16 h-7 text-xs text-center"
+                    />
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => removeFromCart(item.name)}
+                      className="h-7 w-7 p-0"
+                    >
+                      <Minus className="w-3 h-3" />
+                    </Button>
                   </div>
                 </div>
               ))}
+              {shoppingCart.length === 0 && (
+                <div className="text-center text-gray-500 text-sm py-4">
+                  Select dishes to generate grocery list
+                </div>
+              )}
             </div>
 
             {/* Action Buttons */}
             <div className="grid grid-cols-2 gap-2">
-              <Button variant="outline" className="flex items-center gap-2">
-                <List className="w-4 h-4" />
-                Generate Shopping List
+              <Button variant="outline" className="flex items-center gap-1 text-xs h-8">
+                <List className="w-3 h-3" />
+                Print Grocery List
               </Button>
-              <Button variant="outline" className="flex items-center gap-2">
-                <ShoppingCart className="w-4 h-4" />
+              <Button variant="outline" className="flex items-center gap-1 text-xs h-8">
+                <ShoppingCart className="w-3 h-3" />
                 Add to Instacart
               </Button>
               <Button 
-                className="bg-brand-green-500 hover:bg-brand-green-600 text-white flex items-center gap-2"
+                className="bg-brand-green-500 hover:bg-brand-green-600 text-white flex items-center gap-1 text-xs h-8"
                 onClick={() => setLocation("/cooking")}
               >
-                <ChefHat className="w-4 h-4" />
+                <ChefHat className="w-3 h-3" />
                 Start Cooking
               </Button>
-              <Button variant="outline" className="flex items-center gap-2">
-                <Utensils className="w-4 h-4" />
+              <Button 
+                variant="outline" 
+                className="flex items-center gap-1 text-xs h-8"
+                onClick={() => setLocation("/takeout")}
+              >
+                <Utensils className="w-3 h-3" />
                 Order Takeout
               </Button>
             </div>
