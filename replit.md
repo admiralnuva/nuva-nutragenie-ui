@@ -31,7 +31,13 @@ NutraGenie is a mobile-first web application that serves as a personal AI chef a
 
 ### User Management
 - User registration with nickname, age group, phone number, and avatar selection
-- Dietary restrictions and health goals tracking
+- Comprehensive dietary profile with:
+  - Dietary restrictions (vegetarian, vegan, gluten-free, keto, etc.)
+  - Health conditions (diabetes, cardiovascular, kidney, blood pressure, cancer, bone health)
+  - Fitness goals (build muscle, lose weight, endurance, wellness)
+  - Food dislikes and preferences
+  - Allergies and serious restrictions
+  - Additional notes for personalized nutrition
 - Chef personality selection (e.g., Chef Antoine - Precise & Classic)
 - Progress tracking with cooking points, purchase points, and streak counters
 

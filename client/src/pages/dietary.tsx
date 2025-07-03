@@ -7,22 +7,45 @@ import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { ArrowLeft } from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { ArrowLeft, Heart, Target, Shield, ThumbsUp, ThumbsDown } from "lucide-react";
 
-const dietaryOptions = [
+const dietaryRestrictions = [
   { label: '🥬 Vegetarian', value: 'vegetarian' },
   { label: '🌱 Vegan', value: 'vegan' },
   { label: '🚫🌾 Gluten-Free', value: 'gluten-free' },
   { label: '🥛 Dairy-Free', value: 'dairy-free' },
   { label: '🥜 Nut-Free', value: 'nut-free' },
-  { label: '🐟 Pescatarian', value: 'pescatarian' }
+  { label: '🐟 Pescatarian', value: 'pescatarian' },
+  { label: '🥩 Keto', value: 'keto' },
+  { label: '🌾 Low-Carb', value: 'low-carb' }
 ];
 
-const healthGoals = [
+const healthConditions = [
+  { label: '🩺 Diabetes', value: 'diabetes', icon: '🩺' },
+  { label: '❤️ Cardiovascular', value: 'cardiovascular', icon: '❤️' },
+  { label: '🫘 Kidney Disease', value: 'kidney', icon: '🫘' },
+  { label: '🩸 Blood Pressure', value: 'blood-pressure', icon: '🩸' },
+  { label: '🎗️ Cancer', value: 'cancer', icon: '🎗️' },
+  { label: '🦴 Bone Health', value: 'bone-health', icon: '🦴' }
+];
+
+const fitnessGoals = [
   { label: '💪 Build Muscle', value: 'build-muscle' },
   { label: '⚖️ Lose Weight', value: 'lose-weight' },
-  { label: '❤️ Heart Health', value: 'heart-health' },
-  { label: '🧠 Brain Health', value: 'brain-health' }
+  { label: '🏃 Improve Endurance', value: 'endurance' },
+  { label: '🧘 General Wellness', value: 'wellness' }
+];
+
+const commonDislikes = [
+  { label: '🧄 Garlic', value: 'garlic' },
+  { label: '🧅 Onions', value: 'onions' },
+  { label: '🌶️ Spicy Food', value: 'spicy' },
+  { label: '🐟 Fish/Seafood', value: 'seafood' },
+  { label: '🥬 Bitter Greens', value: 'bitter-greens' },
+  { label: '🍄 Mushrooms', value: 'mushrooms' },
+  { label: '🥥 Coconut', value: 'coconut' },
+  { label: '🫒 Olives', value: 'olives' }
 ];
 
 export default function DietaryScreen() {
@@ -32,10 +55,14 @@ export default function DietaryScreen() {
   
   const [selectedDietary, setSelectedDietary] = useState<string[]>([]);
   const [selectedHealth, setSelectedHealth] = useState<string[]>([]);
+  const [selectedFitness, setSelectedFitness] = useState<string[]>([]);
+  const [selectedDislikes, setSelectedDislikes] = useState<string[]>([]);
   const [allergies, setAllergies] = useState("");
+  const [additionalNotes, setAdditionalNotes] = useState("");
 
   const updateUserMutation = useMutation({
     mutationFn: async (updates: any) => {
+      if (!currentUser?.id) throw new Error('User not found');
       const response = await apiRequest("PATCH", `/api/users/${currentUser.id}`, updates);
       return response.json();
     },
@@ -49,16 +76,8 @@ export default function DietaryScreen() {
     }
   });
 
-  const toggleDietary = (value: string) => {
-    setSelectedDietary(prev => 
-      prev.includes(value) 
-        ? prev.filter(item => item !== value)
-        : [...prev, value]
-    );
-  };
-
-  const toggleHealth = (value: string) => {
-    setSelectedHealth(prev => 
+  const toggleSelection = (setState: React.Dispatch<React.SetStateAction<string[]>>, value: string) => {
+    setState(prev => 
       prev.includes(value) 
         ? prev.filter(item => item !== value)
         : [...prev, value]
@@ -69,14 +88,19 @@ export default function DietaryScreen() {
     e.preventDefault();
     updateUserMutation.mutate({
       dietaryRestrictions: selectedDietary,
-      healthGoals: selectedHealth,
-      allergies
+      healthGoals: [...selectedHealth, ...selectedFitness],
+      allergies,
+      foodDislikes: selectedDislikes,
+      additionalNotes
     });
   };
 
+  const isFormValid = selectedDietary.length > 0 || selectedHealth.length > 0 || selectedFitness.length > 0;
+
   return (
-    <div className="h-screen bg-warm-neutral-50 p-6">
-      <div className="h-full flex flex-col">
+    <div className="min-h-screen bg-warm-neutral-50 p-6">
+      <div className="max-w-md mx-auto">
+        {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <Button
             variant="ghost"
@@ -86,26 +110,32 @@ export default function DietaryScreen() {
           >
             <ArrowLeft className="h-6 w-6 text-warm-neutral-700" />
           </Button>
-          <h2 className="text-xl font-bold text-warm-neutral-800">Dietary Profile</h2>
+          <h1 className="text-xl font-bold text-warm-neutral-800">Dietary Profile</h1>
           <div className="w-10"></div>
         </div>
 
-        <div className="flex-1 space-y-6">
-          <div className="text-center mb-6">
-            <p className="text-warm-neutral-600">Help us personalize your cooking experience</p>
-          </div>
+        <div className="text-center mb-8">
+          <p className="text-warm-neutral-600">Help us create personalized nutrition for your health needs</p>
+        </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Dietary Restrictions */}
-            <div>
-              <Label className="block text-sm font-medium text-warm-neutral-700 mb-3">Dietary Restrictions</Label>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Dietary Restrictions */}
+          <Card>
+            <CardHeader className="pb-4">
+              <CardTitle className="flex items-center gap-2 text-lg">
+                <Shield className="w-5 h-5" />
+                Dietary Restrictions
+              </CardTitle>
+              <CardDescription>Select any dietary restrictions you follow</CardDescription>
+            </CardHeader>
+            <CardContent>
               <div className="grid grid-cols-2 gap-3">
-                {dietaryOptions.map(option => (
+                {dietaryRestrictions.map(option => (
                   <button
                     key={option.value}
                     type="button"
-                    onClick={() => toggleDietary(option.value)}
-                    className={`px-4 py-3 rounded-xl border-2 font-medium transition-all ${
+                    onClick={() => toggleSelection(setSelectedDietary, option.value)}
+                    className={`px-3 py-2 rounded-lg border-2 font-medium transition-all text-sm ${
                       selectedDietary.includes(option.value)
                         ? 'border-brand-green-500 bg-brand-green-50 text-brand-green-700'
                         : 'border-warm-neutral-300 text-warm-neutral-700 hover:border-brand-green-500 hover:bg-brand-green-50'
@@ -115,19 +145,56 @@ export default function DietaryScreen() {
                   </button>
                 ))}
               </div>
-            </div>
+            </CardContent>
+          </Card>
 
-            {/* Health Goals */}
-            <div>
-              <Label className="block text-sm font-medium text-warm-neutral-700 mb-3">Health Goals</Label>
+          {/* Health Conditions */}
+          <Card>
+            <CardHeader className="pb-4">
+              <CardTitle className="flex items-center gap-2 text-lg">
+                <Heart className="w-5 h-5" />
+                Health Considerations
+              </CardTitle>
+              <CardDescription>Select any health conditions we should consider</CardDescription>
+            </CardHeader>
+            <CardContent>
               <div className="grid grid-cols-2 gap-3">
-                {healthGoals.map(goal => (
+                {healthConditions.map(condition => (
+                  <button
+                    key={condition.value}
+                    type="button"
+                    onClick={() => toggleSelection(setSelectedHealth, condition.value)}
+                    className={`px-3 py-2 rounded-lg border-2 font-medium transition-all text-sm ${
+                      selectedHealth.includes(condition.value)
+                        ? 'border-brand-green-500 bg-brand-green-50 text-brand-green-700'
+                        : 'border-warm-neutral-300 text-warm-neutral-700 hover:border-brand-green-500 hover:bg-brand-green-50'
+                    }`}
+                  >
+                    {condition.label}
+                  </button>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Fitness Goals */}
+          <Card>
+            <CardHeader className="pb-4">
+              <CardTitle className="flex items-center gap-2 text-lg">
+                <Target className="w-5 h-5" />
+                Fitness Goals
+              </CardTitle>
+              <CardDescription>What are your fitness and wellness goals?</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 gap-3">
+                {fitnessGoals.map(goal => (
                   <button
                     key={goal.value}
                     type="button"
-                    onClick={() => toggleHealth(goal.value)}
-                    className={`px-4 py-3 rounded-xl border-2 font-medium transition-all ${
-                      selectedHealth.includes(goal.value)
+                    onClick={() => toggleSelection(setSelectedFitness, goal.value)}
+                    className={`px-3 py-2 rounded-lg border-2 font-medium transition-all text-sm ${
+                      selectedFitness.includes(goal.value)
                         ? 'border-brand-green-500 bg-brand-green-50 text-brand-green-700'
                         : 'border-warm-neutral-300 text-warm-neutral-700 hover:border-brand-green-500 hover:bg-brand-green-50'
                     }`}
@@ -136,33 +203,85 @@ export default function DietaryScreen() {
                   </button>
                 ))}
               </div>
-            </div>
+            </CardContent>
+          </Card>
 
-            {/* Allergies */}
-            <div>
-              <Label htmlFor="allergies" className="block text-sm font-medium text-warm-neutral-700 mb-2">
-                Allergies & Additional Notes
-              </Label>
+          {/* Food Dislikes */}
+          <Card>
+            <CardHeader className="pb-4">
+              <CardTitle className="flex items-center gap-2 text-lg">
+                <ThumbsDown className="w-5 h-5" />
+                Food Dislikes
+              </CardTitle>
+              <CardDescription>Ingredients you prefer to avoid</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 gap-3">
+                {commonDislikes.map(dislike => (
+                  <button
+                    key={dislike.value}
+                    type="button"
+                    onClick={() => toggleSelection(setSelectedDislikes, dislike.value)}
+                    className={`px-3 py-2 rounded-lg border-2 font-medium transition-all text-sm ${
+                      selectedDislikes.includes(dislike.value)
+                        ? 'border-orange-500 bg-orange-50 text-orange-700'
+                        : 'border-warm-neutral-300 text-warm-neutral-700 hover:border-orange-500 hover:bg-orange-50'
+                    }`}
+                  >
+                    {dislike.label}
+                  </button>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Allergies */}
+          <Card>
+            <CardHeader className="pb-4">
+              <CardTitle className="text-lg">Allergies & Serious Restrictions</CardTitle>
+              <CardDescription>List any food allergies or severe restrictions</CardDescription>
+            </CardHeader>
+            <CardContent>
               <Textarea
-                id="allergies"
-                placeholder="List any allergies or special dietary needs..."
+                placeholder="e.g., Severe peanut allergy, shellfish allergy..."
                 value={allergies}
                 onChange={(e) => setAllergies(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-green-500 focus:border-transparent h-24 resize-none"
+                className="w-full px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-green-500 focus:border-transparent h-20 resize-none"
               />
-            </div>
+            </CardContent>
+          </Card>
 
-            <div className="mt-8">
-              <Button
-                type="submit"
-                disabled={updateUserMutation.isPending}
-                className="w-full bg-brand-green-500 text-white py-4 px-6 rounded-xl font-semibold text-lg hover:bg-brand-green-600 transition-all duration-200"
-              >
-                {updateUserMutation.isPending ? "Saving..." : "Start Cooking!"}
-              </Button>
-            </div>
-          </form>
-        </div>
+          {/* Additional Notes */}
+          <Card>
+            <CardHeader className="pb-4">
+              <CardTitle className="text-lg">Additional Notes</CardTitle>
+              <CardDescription>Any other preferences or requirements</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Textarea
+                placeholder="e.g., I love spicy food, prefer organic ingredients, cooking for family of 4..."
+                value={additionalNotes}
+                onChange={(e) => setAdditionalNotes(e.target.value)}
+                className="w-full px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-green-500 focus:border-transparent h-20 resize-none"
+              />
+            </CardContent>
+          </Card>
+
+          {/* Submit Button */}
+          <Button
+            type="submit"
+            disabled={!isFormValid || updateUserMutation.isPending}
+            className="w-full bg-brand-green-500 text-white py-4 px-6 rounded-xl font-semibold text-lg disabled:bg-warm-neutral-300 disabled:cursor-not-allowed hover:bg-brand-green-600 transition-all duration-200"
+          >
+            {updateUserMutation.isPending ? "Saving Profile..." : "Start Cooking Journey!"}
+          </Button>
+
+          {!isFormValid && (
+            <p className="text-center text-sm text-warm-neutral-500">
+              Please select at least one dietary restriction, health condition, or fitness goal
+            </p>
+          )}
+        </form>
       </div>
     </div>
   );
