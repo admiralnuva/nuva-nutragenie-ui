@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { Input } from "@/components/ui/input";
@@ -33,11 +33,11 @@ const cuisineTypes = [
 
 const suggestedDishes = {
   american: [
-    { name: 'Classic Burger', calories: 520, protein: 28, image: '🍔' },
-    { name: 'BBQ Ribs', calories: 680, protein: 42, image: '🍖' },
-    { name: 'Mac & Cheese', calories: 420, protein: 18, image: '🧀' },
-    { name: 'Fried Chicken', calories: 480, protein: 32, image: '🍗' },
-    { name: 'Apple Pie', calories: 320, protein: 4, image: '🥧' }
+    { name: 'Classic Burger', calories: 520, protein: 28, image: '🍔', popular: true },
+    { name: 'BBQ Ribs', calories: 680, protein: 42, image: '🍖', popular: false },
+    { name: 'Mac & Cheese', calories: 420, protein: 18, image: '🧀', popular: true },
+    { name: 'Fried Chicken', calories: 480, protein: 32, image: '🍗', popular: false },
+    { name: 'Apple Pie', calories: 320, protein: 4, image: '🥧', popular: false }
   ],
   chinese: [
     { name: 'Kung Pao Chicken', calories: 380, protein: 26, image: '🥘' },
@@ -79,6 +79,18 @@ export default function RecipesScreen() {
   // Card 3 - Pantry Ingredients
   const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
   const [otherIngredients, setOtherIngredients] = useState("");
+  const [recentIngredients] = useState<string[]>(['Chicken Breast', 'Bell Peppers', 'Onions', 'Olive Oil']);
+  
+  // Smart defaults based on user preferences
+  const getSmartDefaults = () => {
+    const defaults: string[] = [];
+    if (currentUser?.dietaryRestrictions?.includes('vegetarian')) {
+      defaults.push('Bell Peppers', 'Onions', 'Spinach', 'Cheese');
+    } else {
+      defaults.push('Chicken Breast', 'Onions', 'Garlic', 'Olive Oil');
+    }
+    return defaults;
+  };
   
   // Card 3 - Create Recipe
   const [recipeName, setRecipeName] = useState("");
@@ -92,12 +104,51 @@ export default function RecipesScreen() {
   const [carbs, setCarbs] = useState([45]);
   const [fat, setFat] = useState([15]);
 
+  // Initialize with smart defaults
+  useEffect(() => {
+    setSelectedIngredients(getSmartDefaults());
+  }, []);
+
   const toggleIngredient = (ingredient: string) => {
     setSelectedIngredients(prev => 
       prev.includes(ingredient) 
         ? prev.filter(i => i !== ingredient)
         : [...prev, ingredient]
     );
+  };
+
+  const toggleSelectAllCategory = (category: string, ingredients: string[]) => {
+    const allSelected = ingredients.every(ing => selectedIngredients.includes(ing));
+    if (allSelected) {
+      setSelectedIngredients(prev => prev.filter(ing => !ingredients.includes(ing)));
+    } else {
+      setSelectedIngredients(prev => Array.from(new Set([...prev, ...ingredients])));
+    }
+  };
+
+  // Ingredient pairing suggestions
+  const getCompatibleIngredients = (ingredient: string): string[] => {
+    const pairings: { [key: string]: string[] } = {
+      'Chicken Breast': ['Garlic', 'Onions', 'Bell Peppers', 'Olive Oil'],
+      'Salmon': ['Lemon', 'Garlic', 'Spinach', 'Olive Oil'],
+      'Bell Peppers': ['Onions', 'Garlic', 'Olive Oil'],
+      'Spinach': ['Garlic', 'Cheese', 'Olive Oil'],
+    };
+    return pairings[ingredient] || [];
+  };
+
+  const getEstimatedTime = () => {
+    const baseTime = recipeMode === 'pantry' ? 15 : 20;
+    const ingredientBonus = Math.floor(selectedIngredients.length / 3) * 5;
+    return baseTime + ingredientBonus;
+  };
+
+  const getNutritionalImpact = () => {
+    const total = calories[0] + protein[0] + carbs[0] + fat[0];
+    if (total < 200) return { color: 'text-blue-600', text: 'Light meal' };
+    if (total < 400) return { color: 'text-green-600', text: 'Balanced meal' };
+    if (total < 600) return { color: 'text-orange-600', text: 'Hearty meal' };
+    return { color: 'text-red-600', text: 'High-calorie meal' };
   };
 
   const BottomNavigation = () => (
@@ -231,30 +282,111 @@ export default function RecipesScreen() {
           <CardContent className="pt-0">
             {recipeMode === 'pantry' ? (
               <div className="space-y-4">
+                {/* Ingredient Count & Quick Actions */}
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-600">
+                    {selectedIngredients.length} ingredients selected • Est. {getEstimatedTime()}min
+                  </span>
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => setSelectedIngredients([])}
+                    className="text-xs"
+                  >
+                    Clear All
+                  </Button>
+                </div>
+
+                {/* Recent Ingredients */}
+                <div className="bg-gray-50 rounded-lg p-3 border-l-4 border-brand-green-500">
+                  <div className="flex justify-between items-center mb-2">
+                    <h4 className="font-medium text-gray-700 text-sm">Recent Ingredients</h4>
+                    <Button 
+                      variant="ghost" 
+                      size="sm"
+                      onClick={() => setSelectedIngredients(prev => Array.from(new Set([...prev, ...recentIngredients])))}
+                      className="text-xs"
+                    >
+                      Add All
+                    </Button>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    {recentIngredients.map((ingredient) => (
+                      <div key={ingredient} className="flex items-center space-x-2">
+                        <Checkbox
+                          id={`recent-${ingredient}`}
+                          checked={selectedIngredients.includes(ingredient)}
+                          onCheckedChange={() => toggleIngredient(ingredient)}
+                        />
+                        <label
+                          htmlFor={`recent-${ingredient}`}
+                          className="text-sm font-medium leading-none cursor-pointer"
+                        >
+                          {ingredient}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Ingredient Categories */}
                 {Object.entries(pantryIngredients).map(([category, ingredients]) => (
-                  <div key={category}>
-                    <h4 className="font-medium text-gray-700 mb-2 capitalize">
-                      {category.replace(/([A-Z])/g, ' $1').trim()}
-                    </h4>
+                  <div key={category} className="border-b border-gray-100 pb-3 last:border-b-0">
+                    <div className="flex justify-between items-center mb-2">
+                      <h4 className="font-medium text-gray-700 capitalize">
+                        {category.replace(/([A-Z])/g, ' $1').trim()}
+                        <span className="text-xs text-gray-500 ml-2">
+                          ({ingredients.filter(ing => selectedIngredients.includes(ing)).length}/{ingredients.length})
+                        </span>
+                      </h4>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => toggleSelectAllCategory(category, ingredients)}
+                        className="text-xs"
+                      >
+                        {ingredients.every(ing => selectedIngredients.includes(ing)) ? 'Deselect All' : 'Select All'}
+                      </Button>
+                    </div>
                     <div className="grid grid-cols-2 gap-2">
-                      {ingredients.map((ingredient) => (
-                        <div key={ingredient} className="flex items-center space-x-2">
-                          <Checkbox
-                            id={ingredient}
-                            checked={selectedIngredients.includes(ingredient)}
-                            onCheckedChange={() => toggleIngredient(ingredient)}
-                          />
-                          <label
-                            htmlFor={ingredient}
-                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                          >
-                            {ingredient}
-                          </label>
-                        </div>
-                      ))}
+                      {ingredients.map((ingredient) => {
+                        const isSelected = selectedIngredients.includes(ingredient);
+                        const isCompatible = selectedIngredients.some(selected => 
+                          getCompatibleIngredients(selected).includes(ingredient)
+                        );
+                        const isDietaryRestricted = 
+                          (currentUser?.dietaryRestrictions?.includes('vegetarian') && 
+                           ['meat', 'fish'].includes(category)) ||
+                          (currentUser?.dietaryRestrictions?.includes('vegan') && 
+                           ['meat', 'fish', 'dairy'].includes(category));
+
+                        return (
+                          <div key={ingredient} className="flex items-center space-x-2">
+                            <Checkbox
+                              id={ingredient}
+                              checked={isSelected}
+                              onCheckedChange={() => toggleIngredient(ingredient)}
+                              disabled={isDietaryRestricted}
+                            />
+                            <label
+                              htmlFor={ingredient}
+                              className={`text-sm leading-none cursor-pointer ${
+                                isSelected ? 'font-semibold text-brand-green-700' :
+                                isDietaryRestricted ? 'text-gray-400 line-through' :
+                                isCompatible ? 'text-blue-600 font-medium' : 'font-medium'
+                              }`}
+                            >
+                              {ingredient}
+                              {isCompatible && !isSelected && <span className="text-blue-500 ml-1">✨</span>}
+                            </label>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                 ))}
+
+                {/* Custom Ingredients */}
                 <div>
                   <h4 className="font-medium text-gray-700 mb-2">Other Ingredients</h4>
                   <Input
@@ -283,11 +415,16 @@ export default function RecipesScreen() {
                         {suggestedDishes[selectedCuisine as keyof typeof suggestedDishes]?.map((dish) => (
                           <div
                             key={dish.name}
-                            className={`p-3 border rounded-lg cursor-pointer transition-colors ${
+                            className={`p-3 border rounded-lg cursor-pointer transition-colors relative ${
                               selectedDish === dish.name ? 'border-brand-green-500 bg-brand-green-50' : 'hover:bg-gray-50'
                             }`}
                             onClick={() => setSelectedDish(dish.name)}
                           >
+                            {dish.popular && (
+                              <Badge className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs px-2 py-0.5">
+                                Popular
+                              </Badge>
+                            )}
                             <div className="flex items-center justify-between">
                               <div className="flex items-center gap-2">
                                 <span className="text-lg">{dish.image}</span>
@@ -321,10 +458,26 @@ export default function RecipesScreen() {
             <CardTitle className="text-base">Adjust Nutritional Values</CardTitle>
           </CardHeader>
           <CardContent className="pt-0 space-y-3">
+            {/* Nutritional Impact Display */}
+            <div className="flex justify-between items-center mb-3">
+              <span className={`text-sm font-medium ${getNutritionalImpact().color}`}>
+                {getNutritionalImpact().text}
+              </span>
+              <span className="text-xs text-gray-500">
+                Total: {calories[0] + protein[0] + carbs[0] + fat[0]}
+              </span>
+            </div>
+
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Calories: {calories[0]}
-              </label>
+              <div className="flex justify-between items-center mb-2">
+                <label className="text-sm font-medium text-gray-700">
+                  Calories: {calories[0]}
+                </label>
+                <span className="text-xs text-gray-500">
+                  {currentUser?.healthGoals?.includes('lose weight') ? 'Low cal recommended' : 
+                   currentUser?.healthGoals?.includes('build muscle') ? 'High cal recommended' : ''}
+                </span>
+              </div>
               <Slider
                 value={calories}
                 onValueChange={setCalories}
@@ -336,9 +489,14 @@ export default function RecipesScreen() {
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Protein: {protein[0]}g
-              </label>
+              <div className="flex justify-between items-center mb-2">
+                <label className="text-sm font-medium text-gray-700">
+                  Protein: {protein[0]}g
+                </label>
+                <span className="text-xs text-gray-500">
+                  {currentUser?.healthGoals?.includes('build muscle') ? 'High protein recommended' : ''}
+                </span>
+              </div>
               <Slider
                 value={protein}
                 onValueChange={setProtein}
@@ -350,9 +508,14 @@ export default function RecipesScreen() {
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Carbs: {carbs[0]}g
-              </label>
+              <div className="flex justify-between items-center mb-2">
+                <label className="text-sm font-medium text-gray-700">
+                  Carbs: {carbs[0]}g
+                </label>
+                <span className="text-xs text-gray-500">
+                  {currentUser?.dietaryRestrictions?.includes('keto') ? 'Keep low for keto' : ''}
+                </span>
+              </div>
               <Slider
                 value={carbs}
                 onValueChange={setCarbs}
@@ -364,9 +527,14 @@ export default function RecipesScreen() {
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Fat: {fat[0]}g
-              </label>
+              <div className="flex justify-between items-center mb-2">
+                <label className="text-sm font-medium text-gray-700">
+                  Fat: {fat[0]}g
+                </label>
+                <span className="text-xs text-gray-500">
+                  {currentUser?.dietaryRestrictions?.includes('keto') ? 'High fat for keto' : ''}
+                </span>
+              </div>
               <Slider
                 value={fat}
                 onValueChange={setFat}
@@ -380,12 +548,41 @@ export default function RecipesScreen() {
         </Card>
 
         {/* Generate Recipe Button */}
-        <Button 
-          className="w-full bg-brand-green-500 hover:bg-brand-green-600 text-white py-4 text-lg font-semibold"
-          onClick={() => setLocation('/review-recipes')}
-        >
-          Generate Recipe
-        </Button>
+        <div className="space-y-2">
+          <Button 
+            className="w-full bg-brand-green-500 hover:bg-brand-green-600 text-white py-4 text-lg font-semibold"
+            onClick={() => setLocation('/review-recipes')}
+          >
+            Generate Recipe • {getEstimatedTime()}min
+          </Button>
+          <div className="flex justify-between text-xs text-gray-500">
+            <span>
+              {recipeMode === 'pantry' ? `${selectedIngredients.length} ingredients` : selectedDish || 'No dish selected'}
+            </span>
+            <span>
+              {selectedCuisine ? cuisineTypes.find(c => c.value === selectedCuisine)?.label : 'No cuisine'}
+            </span>
+          </div>
+          
+          {/* Save Template Option */}
+          <Button 
+            variant="outline" 
+            className="w-full text-sm"
+            onClick={() => {
+              // Save current selections as template
+              localStorage.setItem('nutragenie_recipe_template', JSON.stringify({
+                mode: recipeMode,
+                ingredients: selectedIngredients,
+                cuisine: selectedCuisine,
+                servings: servingSize,
+                dish: selectedDish,
+                nutrition: { calories: calories[0], protein: protein[0], carbs: carbs[0], fat: fat[0] }
+              }));
+            }}
+          >
+            Save as Template
+          </Button>
+        </div>
       </div>
 
       <BottomNavigation />
