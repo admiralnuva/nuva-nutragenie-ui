@@ -1,35 +1,104 @@
 import { useState } from "react";
 import { useLocation } from "wouter";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
-import { useQuery } from "@tanstack/react-query";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Search, Star, Clock, Users, Flame, User, MessageCircle, BookOpen } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Slider } from "@/components/ui/slider";
+import { User, MessageCircle, BookOpen, ChefHat, Utensils } from "lucide-react";
 
-const filterCategories = [
-  { label: 'All', value: 'all' },
-  { label: 'Quick (15min)', value: 'quick' },
-  { label: 'Healthy', value: 'healthy' },
-  { label: 'Desserts', value: 'dessert' }
+// Pantry ingredients by category
+const pantryIngredients = {
+  meat: ['Chicken Breast', 'Ground Beef', 'Turkey', 'Pork Chops', 'Bacon', 'Ground Turkey'],
+  fish: ['Salmon', 'Cod', 'Shrimp', 'Tuna', 'Tilapia', 'Crab'],
+  vegetables: ['Bell Peppers', 'Tomatoes', 'Cucumber', 'Broccoli', 'Cauliflower', 'Zucchini'],
+  rootVegetables: ['Onions', 'Garlic', 'Carrots', 'Potatoes', 'Sweet Potatoes', 'Ginger'],
+  leafyVegetables: ['Spinach', 'Lettuce', 'Kale', 'Arugula', 'Basil', 'Cilantro'],
+  dairy: ['Milk', 'Eggs', 'Butter', 'Cheese', 'Greek Yogurt', 'Cream'],
+  fruits: ['Apples', 'Bananas', 'Lemons', 'Limes', 'Berries', 'Avocado'],
+  baking: ['Flour', 'Sugar', 'Baking Powder', 'Vanilla Extract', 'Olive Oil', 'Salt'],
+  spices: ['Black Pepper', 'Paprika', 'Cumin', 'Oregano', 'Thyme', 'Garlic Powder']
+};
+
+const cuisineTypes = [
+  { label: '🇺🇸 American', value: 'american' },
+  { label: '🇨🇳 Chinese', value: 'chinese' },
+  { label: '🇲🇽 Mexican', value: 'mexican' },
+  { label: '🇯🇵 Japanese', value: 'japanese' },
+  { label: '🇮🇳 Indian', value: 'indian' }
 ];
+
+const suggestedDishes = {
+  american: [
+    { name: 'Classic Burger', calories: 520, protein: 28, image: '🍔' },
+    { name: 'BBQ Ribs', calories: 680, protein: 42, image: '🍖' },
+    { name: 'Mac & Cheese', calories: 420, protein: 18, image: '🧀' },
+    { name: 'Fried Chicken', calories: 480, protein: 32, image: '🍗' },
+    { name: 'Apple Pie', calories: 320, protein: 4, image: '🥧' }
+  ],
+  chinese: [
+    { name: 'Kung Pao Chicken', calories: 380, protein: 26, image: '🥘' },
+    { name: 'Sweet & Sour Pork', calories: 420, protein: 24, image: '🍖' },
+    { name: 'Fried Rice', calories: 340, protein: 12, image: '🍚' },
+    { name: 'Dumplings', calories: 280, protein: 14, image: '🥟' },
+    { name: 'Hot Pot', calories: 450, protein: 28, image: '🍲' }
+  ],
+  mexican: [
+    { name: 'Tacos al Pastor', calories: 320, protein: 18, image: '🌮' },
+    { name: 'Chicken Burrito', calories: 480, protein: 26, image: '🌯' },
+    { name: 'Guacamole Bowl', calories: 220, protein: 8, image: '🥑' },
+    { name: 'Quesadilla', calories: 380, protein: 22, image: '🧀' },
+    { name: 'Enchiladas', calories: 420, protein: 24, image: '🌶️' }
+  ],
+  japanese: [
+    { name: 'Salmon Teriyaki', calories: 360, protein: 32, image: '🐟' },
+    { name: 'Chicken Katsu', calories: 440, protein: 28, image: '🍗' },
+    { name: 'Ramen Bowl', calories: 480, protein: 20, image: '🍜' },
+    { name: 'Sushi Roll', calories: 280, protein: 16, image: '🍣' },
+    { name: 'Tempura', calories: 320, protein: 14, image: '🍤' }
+  ],
+  indian: [
+    { name: 'Butter Chicken', calories: 420, protein: 28, image: '🍛' },
+    { name: 'Biryani', calories: 480, protein: 22, image: '🍚' },
+    { name: 'Dal Curry', calories: 280, protein: 16, image: '🍲' },
+    { name: 'Tandoori Chicken', calories: 360, protein: 32, image: '🍗' },
+    { name: 'Naan Bread', calories: 240, protein: 8, image: '🫓' }
+  ]
+};
 
 export default function RecipesScreen() {
   const [, setLocation] = useLocation();
   const [currentUser] = useLocalStorage("nutragenie_user", null);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedFilter, setSelectedFilter] = useState("all");
+  
+  // Card 2 - Recipe Options Toggle
+  const [recipeMode, setRecipeMode] = useState<'pantry' | 'create'>('pantry');
+  
+  // Card 3 - Pantry Ingredients
+  const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
+  const [otherIngredients, setOtherIngredients] = useState("");
+  
+  // Card 3 - Create Recipe
+  const [recipeName, setRecipeName] = useState("");
+  const [selectedCuisine, setSelectedCuisine] = useState("");
+  const [servingSize, setServingSize] = useState("");
+  const [selectedDish, setSelectedDish] = useState("");
+  
+  // Card 4 - Nutritional Values
+  const [calories, setCalories] = useState([400]);
+  const [protein, setProtein] = useState([25]);
+  const [carbs, setCarbs] = useState([45]);
+  const [fat, setFat] = useState([15]);
 
-  const { data: recipes = [], isLoading } = useQuery({
-    queryKey: ["/api/recipes", selectedFilter],
-    enabled: !!currentUser
-  });
-
-  const filteredRecipes = recipes.filter((recipe: any) =>
-    recipe.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    recipe.description.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const toggleIngredient = (ingredient: string) => {
+    setSelectedIngredients(prev => 
+      prev.includes(ingredient) 
+        ? prev.filter(i => i !== ingredient)
+        : [...prev, ingredient]
+    );
+  };
 
   const BottomNavigation = () => (
     <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-[393px] bg-white border-t border-gray-200 px-4 py-2">
@@ -62,138 +131,263 @@ export default function RecipesScreen() {
   }
 
   return (
-    <div className="h-screen bg-brand-green-50">
+    <div className="min-h-screen bg-warm-neutral-50 pb-20">
       {/* Header */}
-      <div className="bg-white shadow-sm p-4 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-brand-green-500 flex items-center justify-center text-white text-lg">
-            {currentUser.avatar}
-          </div>
-          <div>
-            <p className="font-semibold text-gray-800">{currentUser.nickname}</p>
-            <p className="text-xs text-gray-500">Ready to cook?</p>
-          </div>
-        </div>
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => setLocation("/profile")}
-          className="rounded-full hover:bg-gray-100"
-        >
-          <User className="w-6 h-6 text-gray-600" />
-        </Button>
+      <div className="bg-white shadow-sm p-4 text-center">
+        <h1 className="text-2xl font-bold text-gray-800">Explore Recipes</h1>
       </div>
 
-      {/* Search & Filters */}
       <div className="p-4 space-y-4">
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-          <Input
-            placeholder="What do you want to cook?"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-green-500"
-          />
-        </div>
-
-        <div className="flex gap-2 overflow-x-auto pb-2">
-          {filterCategories.map(category => (
-            <Button
-              key={category.value}
-              variant={selectedFilter === category.value ? "default" : "outline"}
-              onClick={() => setSelectedFilter(category.value)}
-              className={`px-4 py-2 rounded-full font-medium whitespace-nowrap ${
-                selectedFilter === category.value
-                  ? 'bg-brand-green-500 text-white hover:bg-brand-green-600'
-                  : 'bg-white border border-gray-200 text-gray-700 hover:bg-brand-green-50'
-              }`}
-            >
-              {category.label}
-            </Button>
-          ))}
-        </div>
-      </div>
-
-      {/* Recipe Cards */}
-      <div className="px-4 pb-24 space-y-4">
-        {isLoading ? (
-          <div className="text-center py-8">
-            <div className="animate-spin rounded-full h-8 w-8 border-2 border-brand-green-500 border-t-transparent mx-auto"></div>
-            <p className="text-gray-500 mt-2">Loading delicious recipes...</p>
-          </div>
-        ) : filteredRecipes.length === 0 ? (
-          <div className="text-center py-8">
-            <p className="text-gray-500">No recipes found. Try adjusting your search or filters.</p>
-          </div>
-        ) : (
-          <>
-            {/* Featured Recipe */}
-            {filteredRecipes[0] && (
-              <Card className="bg-white rounded-2xl shadow-sm overflow-hidden">
-                <img 
-                  src={filteredRecipes[0].imageUrl || "https://images.unsplash.com/photo-1467003909585-2f8a72700288?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=200"} 
-                  alt={filteredRecipes[0].title}
-                  className="w-full h-48 object-cover"
-                />
-                <CardContent className="p-4">
-                  <div className="flex items-start justify-between mb-2">
-                    <h3 className="font-bold text-lg text-gray-800">{filteredRecipes[0].title}</h3>
-                    <div className="flex items-center gap-1 text-yellow-500">
-                      <Star className="w-4 h-4 fill-current" />
-                      <span className="text-sm text-gray-600">{filteredRecipes[0].rating}</span>
-                    </div>
-                  </div>
-                  <p className="text-gray-600 text-sm mb-3">{filteredRecipes[0].description}</p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4 text-sm text-gray-500">
-                      <span className="flex items-center gap-1">
-                        <Clock className="w-4 h-4" />
-                        {filteredRecipes[0].cookTime} min
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Users className="w-4 h-4" />
-                        {filteredRecipes[0].servings} servings
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Flame className="w-4 h-4" />
-                        {filteredRecipes[0].calories} cal
-                      </span>
-                    </div>
-                    <Button
-                      onClick={() => setLocation(`/cooking/${filteredRecipes[0].id}`)}
-                      className="bg-brand-green-500 text-white px-4 py-2 rounded-xl font-medium hover:bg-brand-green-600 transition-all"
-                    >
-                      Cook Now
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
-
-            {/* Recipe Grid */}
-            <div className="grid grid-cols-2 gap-4">
-              {filteredRecipes.slice(1).map((recipe: any) => (
-                <Card key={recipe.id} className="bg-white rounded-xl shadow-sm overflow-hidden">
-                  <img 
-                    src={recipe.imageUrl || "https://images.unsplash.com/photo-1512058564366-18510be2db19?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=120"} 
-                    alt={recipe.title}
-                    className="w-full h-24 object-cover"
-                  />
-                  <CardContent className="p-3">
-                    <h4 className="font-semibold text-sm text-gray-800">{recipe.title}</h4>
-                    <p className="text-xs text-gray-500 mb-2">{recipe.cookTime} min • {recipe.calories} cal</p>
-                    <Button
-                      onClick={() => setLocation(`/cooking/${recipe.id}`)}
-                      className="w-full bg-brand-green-100 text-brand-green-700 py-2 rounded-lg text-sm font-medium hover:bg-brand-green-200 transition-all"
-                    >
-                      Cook
-                    </Button>
-                  </CardContent>
-                </Card>
+        {/* Card 1 - Dietary Preferences */}
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-lg">Your Dietary Profile</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-wrap gap-2">
+              {currentUser?.dietaryRestrictions?.map((restriction: string) => (
+                <Badge key={restriction} variant="outline" className="text-xs">
+                  {restriction}
+                </Badge>
               ))}
+              {currentUser?.healthGoals?.map((goal: string) => (
+                <Badge key={goal} variant="secondary" className="text-xs">
+                  {goal}
+                </Badge>
+              ))}
+              {(!currentUser?.dietaryRestrictions?.length && !currentUser?.healthGoals?.length) && (
+                <p className="text-sm text-gray-500">No dietary preferences set</p>
+              )}
             </div>
-          </>
-        )}
+          </CardContent>
+        </Card>
+
+        {/* Card 2 - Recipe Options Toggle */}
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-lg">Recipe Options</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex gap-2">
+              <Button
+                variant={recipeMode === 'pantry' ? 'default' : 'outline'}
+                onClick={() => setRecipeMode('pantry')}
+                className="flex-1"
+              >
+                <ChefHat className="w-4 h-4 mr-2" />
+                Pantry Recipes
+              </Button>
+              <Button
+                variant={recipeMode === 'create' ? 'default' : 'outline'}
+                onClick={() => setRecipeMode('create')}
+                className="flex-1"
+              >
+                <Utensils className="w-4 h-4 mr-2" />
+                Create Recipe
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Card 3 - Dynamic Content */}
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-lg">
+              {recipeMode === 'pantry' ? 'Pantry Ingredients' : 'Recipe Details'}
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            {recipeMode === 'pantry' ? (
+              <div className="space-y-4">
+                {Object.entries(pantryIngredients).map(([category, ingredients]) => (
+                  <div key={category}>
+                    <h4 className="font-medium text-gray-700 mb-2 capitalize">
+                      {category.replace(/([A-Z])/g, ' $1').trim()}
+                    </h4>
+                    <div className="grid grid-cols-2 gap-2">
+                      {ingredients.map((ingredient) => (
+                        <div key={ingredient} className="flex items-center space-x-2">
+                          <Checkbox
+                            id={ingredient}
+                            checked={selectedIngredients.includes(ingredient)}
+                            onCheckedChange={() => toggleIngredient(ingredient)}
+                          />
+                          <label
+                            htmlFor={ingredient}
+                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                          >
+                            {ingredient}
+                          </label>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+                <div>
+                  <h4 className="font-medium text-gray-700 mb-2">Other Ingredients</h4>
+                  <Input
+                    placeholder="Add custom ingredients..."
+                    value={otherIngredients}
+                    onChange={(e) => setOtherIngredients(e.target.value)}
+                  />
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Recipe Name</label>
+                  <Input
+                    placeholder="Enter recipe name"
+                    value={recipeName}
+                    onChange={(e) => setRecipeName(e.target.value)}
+                  />
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Cuisine</label>
+                    <Select value={selectedCuisine} onValueChange={setSelectedCuisine}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select cuisine" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {cuisineTypes.map((cuisine) => (
+                          <SelectItem key={cuisine.value} value={cuisine.value}>
+                            {cuisine.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Servings</label>
+                    <Select value={servingSize} onValueChange={setServingSize}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Servings" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {[1, 2, 3, 4, 5].map((size) => (
+                          <SelectItem key={size} value={size.toString()}>
+                            {size} {size === 1 ? 'person' : 'people'}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+
+                {selectedCuisine && (
+                  <>
+                    <div>
+                      <h4 className="font-medium text-gray-700 mb-3">Suggested Dishes</h4>
+                      <div className="grid grid-cols-1 gap-2">
+                        {suggestedDishes[selectedCuisine as keyof typeof suggestedDishes]?.map((dish) => (
+                          <div
+                            key={dish.name}
+                            className={`p-3 border rounded-lg cursor-pointer transition-colors ${
+                              selectedDish === dish.name ? 'border-brand-green-500 bg-brand-green-50' : 'hover:bg-gray-50'
+                            }`}
+                            onClick={() => setSelectedDish(dish.name)}
+                          >
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-2">
+                                <span className="text-lg">{dish.image}</span>
+                                <span className="font-medium">{dish.name}</span>
+                              </div>
+                              <div className="text-sm text-gray-500">
+                                {dish.calories} cal • {dish.protein}g protein
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div>
+                      <h4 className="font-medium text-gray-700 mb-3">Previous Dishes</h4>
+                      <div className="text-sm text-gray-500">
+                        No previous dishes for this cuisine yet.
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        {/* Card 4 - Nutritional Adjustments */}
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-lg">Adjust Nutritional Values</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Calories: {calories[0]}
+              </label>
+              <Slider
+                value={calories}
+                onValueChange={setCalories}
+                max={800}
+                min={200}
+                step={50}
+                className="w-full"
+              />
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Protein: {protein[0]}g
+              </label>
+              <Slider
+                value={protein}
+                onValueChange={setProtein}
+                max={50}
+                min={10}
+                step={5}
+                className="w-full"
+              />
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Carbs: {carbs[0]}g
+              </label>
+              <Slider
+                value={carbs}
+                onValueChange={setCarbs}
+                max={80}
+                min={20}
+                step={5}
+                className="w-full"
+              />
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Fat: {fat[0]}g
+              </label>
+              <Slider
+                value={fat}
+                onValueChange={setFat}
+                max={40}
+                min={5}
+                step={5}
+                className="w-full"
+              />
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Generate Recipe Button */}
+        <Button 
+          className="w-full bg-brand-green-500 hover:bg-brand-green-600 text-white py-4 text-lg font-semibold"
+          onClick={() => setLocation('/review-recipes')}
+        >
+          Generate Recipe
+        </Button>
       </div>
 
       <BottomNavigation />
