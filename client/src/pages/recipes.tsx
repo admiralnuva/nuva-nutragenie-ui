@@ -721,14 +721,35 @@ export default function RecipesScreen() {
                     </div>
                     
                     <div className="grid grid-cols-1 gap-2">
-                      {pantryRecommendedDishes
-                        .filter((dish) => {
-                          // Only show dishes where all ingredients match selected ingredients
-                          return selectedIngredients.length > 0 && 
-                                 dish.ingredients.every(ing => selectedIngredients.includes(ing));
-                        })
-                        .slice(0, 5)
-                        .map((dish) => (
+                      {selectedIngredients.length > 0 ? (
+                        pantryRecommendedDishes
+                          .filter((dish) => {
+                            // Only show dishes where all ingredients match selected ingredients
+                            return dish.ingredients.every(ing => selectedIngredients.includes(ing));
+                          })
+                          .slice(0, 5)
+                          .map((dish) => (
+                            <div
+                              key={dish.name}
+                              className={`p-3 border rounded-lg cursor-pointer transition-colors ${
+                                selectedDish === dish.name ? 'border-brand-green-500 bg-brand-green-50' : 'hover:bg-gray-50'
+                              }`}
+                              onClick={() => setSelectedDish(dish.name)}
+                            >
+                              <div className="flex items-center gap-2">
+                                <span className="text-2xl">🍽️</span>
+                                <div>
+                                  <p className="font-medium text-gray-800">{dish.name}</p>
+                                  <p className="text-xs text-gray-500">
+                                    🕒 {dish.cookTime}min • {dish.calories} cal • {dish.protein}g protein
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          ))
+                      ) : (
+                        // Show 5 sample dishes when no ingredients selected
+                        pantryRecommendedDishes.slice(0, 5).map((dish) => (
                           <div
                             key={dish.name}
                             className={`p-3 border rounded-lg cursor-pointer transition-colors ${
@@ -746,12 +767,7 @@ export default function RecipesScreen() {
                               </div>
                             </div>
                           </div>
-                        ))}
-                      
-                      {selectedIngredients.length === 0 && (
-                        <div className="text-center py-4 text-gray-500 text-sm">
-                          Select ingredients to see matching dishes
-                        </div>
+                        ))
                       )}
                       
                       {selectedIngredients.length > 0 && pantryRecommendedDishes.filter((dish) => 
