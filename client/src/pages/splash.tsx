@@ -20,8 +20,8 @@ export default function SplashScreen() {
           <div className="text-xl ml-1">❤️</div>
         </div>
         <h1 className="text-4xl font-bold mb-4">NutraGenie</h1>
-        <p className="text-green-100 mb-2 text-lg leading-relaxed">Your AI nutrition platform that bridges cooking and convenience</p>
-        <p className="text-green-200 mb-8 text-base">Personalized recipes, health tracking, and marketplace integration</p>
+        <p className="text-white mb-2 text-lg leading-relaxed font-medium">Your AI nutrition platform that bridges cooking and convenience</p>
+        <p className="text-green-50 mb-8 text-base font-normal">Personalized recipes, health tracking, and marketplace integration</p>
         
         <div className="space-y-4 w-full max-w-xs">
           <button 
