@@ -360,6 +360,14 @@ export default function RecipesScreen() {
   // Card 2 - Recipe Options Toggle
   const [recipeMode, setRecipeMode] = useState<'pantry' | 'create'>('pantry');
   
+  // Pantry view toggle - always defaults to 'ingredients'
+  const [pantryView, setPantryView] = useState<'ingredients' | 'recommendations'>('ingredients');
+  
+  // Reset pantry view to ingredients whenever we navigate back or change modes
+  useEffect(() => {
+    setPantryView('ingredients');
+  }, [recipeMode]);
+  
   // Card 3 - Dynamic Content (Pantry/Create)
   const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
   const [otherIngredients, setOtherIngredients] = useState("");
@@ -381,9 +389,6 @@ export default function RecipesScreen() {
   const [selectedCuisine, setSelectedCuisine] = useState("american");
   const [servingSize, setServingSize] = useState("3");
   const [selectedDish, setSelectedDish] = useState("");
-  
-  // Card 3 - Pantry Ingredients view state
-  const [pantryView, setPantryView] = useState('ingredients'); // 'ingredients' or 'recommendations'
   
   // Smart recommendations expand/collapse state
   const [smartRecsExpanded, setSmartRecsExpanded] = useState(true);
@@ -812,16 +817,16 @@ export default function RecipesScreen() {
                 {selectedCuisine && (
                   <>
                     {/* Smart Filtered Trending Dishes */}
-                    <div>
+                    <div className="bg-gradient-to-r from-brand-green-50 to-green-100 p-4 rounded-lg border-l-4 border-brand-green-500 mt-6">
                       <div 
                         className="flex items-center justify-between mb-3 cursor-pointer"
                         onClick={() => setSmartRecsExpanded(!smartRecsExpanded)}
                       >
-                        <h4 className="font-medium text-gray-700 flex items-center gap-2">
-                          🔥 Smart Recommendations
+                        <h4 className="font-semibold text-brand-green-700 flex items-center gap-2">
+                          ✨ Smart Recommendations
                           {getCurrentSeason() === 'winter' && <Badge className="text-xs bg-blue-100 text-blue-800">❄️ Winter</Badge>}
                         </h4>
-                        <button className="text-gray-500 hover:text-gray-700">
+                        <button className="text-brand-green-600 hover:text-brand-green-800 font-bold text-lg">
                           {smartRecsExpanded ? '−' : '+'}
                         </button>
                       </div>
@@ -1025,7 +1030,7 @@ export default function RecipesScreen() {
             className="w-full bg-brand-green-500 hover:bg-brand-green-600 text-white py-4 text-lg font-semibold"
             onClick={() => setLocation('/review-recipes')}
           >
-            Generate Recipe • {getEstimatedTime()}min
+            Generate Recipe
           </Button>
           <div className="flex justify-between text-xs text-gray-500">
             <span>
@@ -1035,25 +1040,6 @@ export default function RecipesScreen() {
               {selectedCuisine ? cuisineTypes.find(c => c.value === selectedCuisine)?.label : 'No cuisine'}
             </span>
           </div>
-          
-          {/* Save Template Option */}
-          <Button 
-            variant="outline" 
-            className="w-full text-sm"
-            onClick={() => {
-              // Save current selections as template
-              localStorage.setItem('nutragenie_recipe_template', JSON.stringify({
-                mode: recipeMode,
-                ingredients: selectedIngredients,
-                cuisine: selectedCuisine,
-                servings: servingSize,
-                dish: selectedDish,
-                nutrition: { calories: calories[0], protein: protein[0], carbs: carbs[0], fat: fat[0] }
-              }));
-            }}
-          >
-            Save as Template
-          </Button>
         </div>
       </div>
 
