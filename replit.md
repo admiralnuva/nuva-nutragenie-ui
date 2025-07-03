@@ -131,6 +131,7 @@ Required environment variables:
 ```
 Changelog:
 - July 03, 2025. Initial setup
+- July 03, 2025. Updated splash screen with NutraGenie branding, AI+Health logo placeholder, and 2-line app description explaining the AI nutrition platform vision
 ```
 
 ## User Preferences

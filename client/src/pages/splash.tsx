@@ -14,9 +14,14 @@ export default function SplashScreen() {
   return (
     <div className="h-screen bg-gradient-to-br from-brand-green-400 to-brand-green-600 flex flex-col items-center justify-center p-8 text-white">
       <div className="text-center fade-in">
-        <div className="text-6xl mb-6 bounce">🧑‍🍳</div>
-        <h1 className="text-3xl font-bold mb-2">NutraGenie</h1>
-        <p className="text-green-100 mb-8 text-lg">Your Personal AI Chef</p>
+        {/* AI Health Logo - Placeholder */}
+        <div className="w-20 h-20 mx-auto mb-6 bg-white/20 rounded-2xl flex items-center justify-center border-2 border-white/30">
+          <div className="text-2xl">🤖</div>
+          <div className="text-xl ml-1">❤️</div>
+        </div>
+        <h1 className="text-4xl font-bold mb-4">NutraGenie</h1>
+        <p className="text-green-100 mb-2 text-lg leading-relaxed">Your AI nutrition platform that bridges cooking and convenience</p>
+        <p className="text-green-200 mb-8 text-base">Personalized recipes, health tracking, and marketplace integration</p>
         
         <div className="space-y-4 w-full max-w-xs">
           <button 
