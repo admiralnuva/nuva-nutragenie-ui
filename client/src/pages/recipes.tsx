@@ -605,21 +605,6 @@ export default function RecipesScreen() {
 
                 {pantryView === 'ingredients' ? (
                   <>
-                    {/* Ingredient Count & Quick Actions */}
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-600">
-                        {selectedIngredients.length} ingredients selected • Est. {getEstimatedTime()}min
-                      </span>
-                      <Button 
-                        variant="outline" 
-                        size="sm"
-                        onClick={() => setSelectedIngredients([])}
-                        className="text-xs"
-                      >
-                        Clear All
-                      </Button>
-                    </div>
-
                     {/* Clickable Pantry Ingredients */}
                 {Object.entries(pantryIngredients).map(([category, ingredients]) => (
                   <div key={category} className="border-b border-gray-100 pb-3 last:border-b-0">
@@ -676,6 +661,57 @@ export default function RecipesScreen() {
                     </div>
                   </div>
                 ))}
+
+                    {/* Custom Ingredients Input */}
+                    <div className="bg-blue-50 rounded-lg p-3 border-l-4 border-blue-500">
+                      <h4 className="font-medium text-gray-700 text-sm mb-2">Add Custom Ingredient</h4>
+                      <div className="relative">
+                        <Input
+                          type="text"
+                          placeholder="Start typing ingredient name..."
+                          value={ingredientSearch}
+                          onChange={(e) => {
+                            setIngredientSearch(e.target.value);
+                            setShowIngredientSuggestions(true);
+                          }}
+                          onFocus={() => setShowIngredientSuggestions(true)}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter' && ingredientSearch.trim()) {
+                              if (!selectedIngredients.includes(ingredientSearch.trim())) {
+                                setSelectedIngredients(prev => [...prev, ingredientSearch.trim()]);
+                              }
+                              setIngredientSearch('');
+                              setShowIngredientSuggestions(false);
+                            }
+                          }}
+                          className="text-sm"
+                        />
+                        {showIngredientSuggestions && getFilteredIngredients().length > 0 && (
+                          <div className="absolute top-full left-0 right-0 bg-white border border-gray-200 rounded-md shadow-md z-10 mt-1">
+                            {getFilteredIngredients().map((ingredient) => (
+                              <button
+                                key={ingredient}
+                                className="w-full text-left px-3 py-2 text-sm hover:bg-gray-50 border-b last:border-b-0"
+                                onClick={() => {
+                                  if (!selectedIngredients.includes(ingredient)) {
+                                    setSelectedIngredients(prev => [...prev, ingredient]);
+                                  }
+                                  setIngredientSearch('');
+                                  setShowIngredientSuggestions(false);
+                                }}
+                              >
+                                {ingredient}
+                              </button>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                      {ingredientSearch && getFilteredIngredients().length === 0 && (
+                        <div className="text-xs text-gray-500 mt-1">
+                          Press Enter to add "{ingredientSearch}" as custom ingredient.
+                        </div>
+                      )}
+                    </div>
                   </>
                 ) : (
                   // Recommended Dishes View
