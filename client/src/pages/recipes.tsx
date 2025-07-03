@@ -160,10 +160,7 @@ export default function RecipesScreen() {
 
         {/* Card 2 - Recipe Options Toggle */}
         <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-base">Recipe Options</CardTitle>
-          </CardHeader>
-          <CardContent className="pt-0">
+          <CardContent className="p-4">
             <div className="flex gap-2">
               <Button
                 variant={recipeMode === 'pantry' ? 'default' : 'outline'}
@@ -187,10 +184,7 @@ export default function RecipesScreen() {
 
         {/* Card 3 - Cuisine & Serving Selection */}
         <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-base">Cuisine & Serving Size</CardTitle>
-          </CardHeader>
-          <CardContent className="pt-0">
+          <CardContent className="p-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Cuisine</label>
