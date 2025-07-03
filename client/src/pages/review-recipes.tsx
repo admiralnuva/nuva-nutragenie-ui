@@ -167,7 +167,7 @@ export default function ReviewRecipesScreen() {
   const [currentUser] = useLocalStorage("nutragenie_user", null);
 
   // State management
-  const [selectedDishes, setSelectedDishes] = useState([]); // Start with no dishes selected
+  const [selectedDishes, setSelectedDishes] = useState([1]); // Start with first dish selected
   const [expandedDishes, setExpandedDishes] = useState([]); // Which dishes are expanded in Card 2
   const [selectedSubstitutions, setSelectedSubstitutions] = useState({}); // Track substitution selections
   const [shoppingCart, setShoppingCart] = useState([]);
@@ -307,11 +307,14 @@ export default function ReviewRecipesScreen() {
           <CardHeader className="pb-2">
             <CardTitle className="text-lg flex items-center gap-2">
               <ChefHat className="w-5 h-5" />
-              AI Generated Dishes
+              Chef Recommends
               <Badge variant="secondary" className="text-xs">
                 {selectedDishes.length} selected
               </Badge>
             </CardTitle>
+            <div className="text-sm text-gray-600 mt-1">
+              Select dishes to see ingredients and substitutions
+            </div>
           </CardHeader>
           <CardContent className="pt-0">
             <div className="grid grid-cols-1 gap-3">
