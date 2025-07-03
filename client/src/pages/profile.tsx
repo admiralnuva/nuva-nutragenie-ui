@@ -43,7 +43,7 @@ const achievements = [
 
 export default function ProfileScreen() {
   const [, setLocation] = useLocation();
-  const [currentUser, setCurrentUser] = useLocalStorage("nutragenie_user", null);
+  const [currentUser, setCurrentUser] = useLocalStorage<any>("nutragenie_user", null);
   const queryClient = useQueryClient();
   const { toast } = useToast();
 

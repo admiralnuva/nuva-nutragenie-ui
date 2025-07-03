@@ -270,7 +270,7 @@ const suggestedDishes = {
 
 export default function RecipesScreen() {
   const [, setLocation] = useLocation();
-  const [currentUser] = useLocalStorage("nutragenie_user", null);
+  const [currentUser] = useLocalStorage<any>("nutragenie_user", null);
   
   // Card 1 - Meal Type & Spice Level (with defaults)
   const [mealType, setMealType] = useState('soup');
@@ -278,7 +278,7 @@ export default function RecipesScreen() {
   const [soupReason, setSoupReason] = useState('');
   
   // Template management
-  const [savedTemplates, setSavedTemplates] = useLocalStorage('recipe_templates', []);
+  const [savedTemplates, setSavedTemplates] = useLocalStorage<any[]>('recipe_templates', []);
   const [showTemplates, setShowTemplates] = useState(false);
   
   // Ingredient autocomplete

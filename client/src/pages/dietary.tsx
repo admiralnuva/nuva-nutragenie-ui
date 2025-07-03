@@ -39,7 +39,7 @@ const fitnessGoals = [
 
 export default function DietaryScreen() {
   const [, setLocation] = useLocation();
-  const [currentUser, setCurrentUser] = useLocalStorage("nutragenie_user", null);
+  const [currentUser, setCurrentUser] = useLocalStorage<any>("nutragenie_user", null);
   const { toast } = useToast();
   
   const [selectedDietary, setSelectedDietary] = useState<string[]>([]);
