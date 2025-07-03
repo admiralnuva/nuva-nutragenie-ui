@@ -11,15 +11,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowLeft, Check, User, ChefHat, Phone, Shield } from "lucide-react";
 
-const userAvatars = ['😀', '👩', '👨', '🧑‍🦰', '🧑‍🦱', '👦', '👧', '🧓', '👴', '👵'];
+const userAvatars = ['😀', '👩', '👨', '🧑‍🦰'];
 
 const chefs = [
   { name: 'Chef Antoine', personality: 'Precise & Classic', emoji: '👨‍🍳' },
   { name: 'Chef Sofia', personality: 'Friendly & Vibrant', emoji: '👩‍🍳' },
   { name: 'Chef Ravi', personality: 'Bold & Spicy', emoji: '🧑‍🍳' },
-  { name: 'Chef Sakura', personality: 'Zen & Delicate', emoji: '🍜' },
-  { name: 'Chef Marco', personality: 'Traditional & Warm', emoji: '👨‍🍳' },
-  { name: 'Chef Elena', personality: 'Creative & Fun', emoji: '👩‍🍳' }
+  { name: 'Chef Sakura', personality: 'Zen & Delicate', emoji: '🍜' }
 ];
 
 export default function SignupScreen() {
@@ -126,13 +124,13 @@ export default function SignupScreen() {
                 Your Profile
                 {isProfileComplete && <Check className="w-5 h-5 text-brand-green-600" />}
               </CardTitle>
-              <CardDescription>Choose your avatar, nickname, and age group</CardDescription>
+              <CardDescription>Choose avatar, nickname, & age</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               {/* Avatar Selection */}
               <div>
                 <Label className="block text-sm font-medium text-warm-neutral-700 mb-3">Avatar</Label>
-                <div className="grid grid-cols-5 gap-2">
+                <div className="grid grid-cols-4 gap-2">
                   {userAvatars.map(avatar => (
                     <button
                       key={avatar}
@@ -197,7 +195,7 @@ export default function SignupScreen() {
               {/* Chef Avatar Selection */}
               <div>
                 <Label className="block text-sm font-medium text-warm-neutral-700 mb-3">Chef Avatar</Label>
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-4 gap-2">
                   {chefs.map(chef => (
                     <button
                       key={chef.name}
@@ -206,11 +204,11 @@ export default function SignupScreen() {
                         setSelectedChef(chef);
                         setChefNickname(chef.name);
                       }}
-                      className={`flex flex-col items-center justify-center p-3 rounded-lg border-2 ${
+                      className={`flex flex-col items-center justify-center p-2 rounded-lg border-2 ${
                         selectedChef.emoji === chef.emoji ? 'border-brand-green-500 bg-brand-green-100' : 'border-warm-neutral-300'
                       } bg-warm-neutral-100 hover:border-brand-green-500 transition-all`}
                     >
-                      <span className="text-2xl mb-1">{chef.emoji}</span>
+                      <span className="text-xl mb-1">{chef.emoji}</span>
                       <span className="text-xs text-warm-neutral-600 text-center leading-tight">{chef.personality.split(' ')[0]}</span>
                     </button>
                   ))}
