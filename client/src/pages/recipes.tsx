@@ -243,8 +243,8 @@ export default function RecipesScreen() {
             <CardTitle className="text-base">Meal Preferences</CardTitle>
           </CardHeader>
           <CardContent className="pt-0 space-y-2">
-            {/* Row 1: Cuisine, Meal Type, Spice Level */}
-            <div className="grid grid-cols-3 gap-2">
+            {/* Row 1: Cuisine & Meal Type */}
+            <div className="grid grid-cols-2 gap-2">
               <div>
                 <label className="block text-xs font-medium text-gray-700 mb-1">Cuisine</label>
                 <Select value={selectedCuisine} onValueChange={setSelectedCuisine}>
@@ -275,7 +275,27 @@ export default function RecipesScreen() {
                   </SelectContent>
                 </Select>
               </div>
+            </div>
+
+            {/* Row 2: Servings (smaller), Spice Level & Soup Reason */}
+            <div className="grid grid-cols-5 gap-2">
               <div>
+                <label className="block text-xs font-medium text-gray-700 mb-1">Servings</label>
+                <Select value={servingSize} onValueChange={setServingSize}>
+                  <SelectTrigger className="h-8 text-xs">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="1">1</SelectItem>
+                    <SelectItem value="2">2</SelectItem>
+                    <SelectItem value="3">3</SelectItem>
+                    <SelectItem value="4">4</SelectItem>
+                    <SelectItem value="6">6</SelectItem>
+                    <SelectItem value="8">8+</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="col-span-2">
                 <label className="block text-xs font-medium text-gray-700 mb-1">Spice Level</label>
                 <Select value={spiceLevel} onValueChange={setSpiceLevel}>
                   <SelectTrigger className="h-8 text-xs">
@@ -289,27 +309,7 @@ export default function RecipesScreen() {
                   </SelectContent>
                 </Select>
               </div>
-            </div>
-
-            {/* Row 2: Servings & Soup Reason */}
-            <div className="grid grid-cols-2 gap-2">
-              <div>
-                <label className="block text-xs font-medium text-gray-700 mb-1">Servings</label>
-                <Select value={servingSize} onValueChange={setServingSize}>
-                  <SelectTrigger className="h-8 text-xs">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="1">1 person</SelectItem>
-                    <SelectItem value="2">2 people</SelectItem>
-                    <SelectItem value="3">3 people</SelectItem>
-                    <SelectItem value="4">4 people</SelectItem>
-                    <SelectItem value="6">6 people</SelectItem>
-                    <SelectItem value="8">8+ people</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div>
+              <div className="col-span-2">
                 <label className="block text-xs font-medium text-gray-700 mb-1">Soup Reason</label>
                 <Select value={soupReason} onValueChange={setSoupReason}>
                   <SelectTrigger className="h-8 text-xs">
@@ -323,7 +323,7 @@ export default function RecipesScreen() {
                     <SelectItem value="winter">❄️ Winter</SelectItem>
                   </SelectContent>
                 </Select>
-              </div>
+                </div>
             </div>
           </CardContent>
         </Card>
