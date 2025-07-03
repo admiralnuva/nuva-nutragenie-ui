@@ -1,15 +1,7 @@
 import { useLocation } from "wouter";
-import { useLocalStorage } from "@/hooks/useLocalStorage";
-import { useEffect } from "react";
 
 export default function SplashScreen() {
   const [, setLocation] = useLocation();
-  const [currentUser, setCurrentUser] = useLocalStorage("nutragenie_user", null);
-
-  // Clear any existing user data for fresh testing
-  useEffect(() => {
-    setCurrentUser(null);
-  }, [setCurrentUser]);
 
   return (
     <div className="h-screen bg-gradient-to-br from-green-500 to-emerald-600 flex flex-col items-center justify-center p-8">
