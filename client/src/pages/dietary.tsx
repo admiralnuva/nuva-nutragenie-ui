@@ -5,10 +5,9 @@ import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, Heart, Target, Shield, ThumbsUp, ThumbsDown } from "lucide-react";
+import { ArrowLeft, Heart, Target, Shield, ThumbsDown } from "lucide-react";
 
 const dietaryRestrictions = [
   { label: '🥬 Vegetarian', value: 'vegetarian' },
@@ -22,12 +21,12 @@ const dietaryRestrictions = [
 ];
 
 const healthConditions = [
-  { label: '🩺 Diabetes', value: 'diabetes', icon: '🩺' },
-  { label: '❤️ Cardiovascular', value: 'cardiovascular', icon: '❤️' },
-  { label: '🫘 Kidney Disease', value: 'kidney', icon: '🫘' },
-  { label: '🩸 Blood Pressure', value: 'blood-pressure', icon: '🩸' },
-  { label: '🎗️ Cancer', value: 'cancer', icon: '🎗️' },
-  { label: '🦴 Bone Health', value: 'bone-health', icon: '🦴' }
+  { label: '🩺 Diabetes', value: 'diabetes' },
+  { label: '❤️ Cardiovascular', value: 'cardiovascular' },
+  { label: '🫘 Kidney Disease', value: 'kidney' },
+  { label: '🩸 Blood Pressure', value: 'blood-pressure' },
+  { label: '🎗️ Cancer', value: 'cancer' },
+  { label: '✅ None', value: 'none' }
 ];
 
 const fitnessGoals = [
@@ -35,17 +34,6 @@ const fitnessGoals = [
   { label: '⚖️ Lose Weight', value: 'lose-weight' },
   { label: '🏃 Improve Endurance', value: 'endurance' },
   { label: '🧘 General Wellness', value: 'wellness' }
-];
-
-const commonDislikes = [
-  { label: '🧄 Garlic', value: 'garlic' },
-  { label: '🧅 Onions', value: 'onions' },
-  { label: '🌶️ Spicy Food', value: 'spicy' },
-  { label: '🐟 Fish/Seafood', value: 'seafood' },
-  { label: '🥬 Bitter Greens', value: 'bitter-greens' },
-  { label: '🍄 Mushrooms', value: 'mushrooms' },
-  { label: '🥥 Coconut', value: 'coconut' },
-  { label: '🫒 Olives', value: 'olives' }
 ];
 
 export default function DietaryScreen() {
@@ -56,7 +44,7 @@ export default function DietaryScreen() {
   const [selectedDietary, setSelectedDietary] = useState<string[]>([]);
   const [selectedHealth, setSelectedHealth] = useState<string[]>([]);
   const [selectedFitness, setSelectedFitness] = useState<string[]>([]);
-  const [selectedDislikes, setSelectedDislikes] = useState<string[]>([]);
+  const [foodDislikes, setFoodDislikes] = useState("");
   const [allergies, setAllergies] = useState("");
   const [additionalNotes, setAdditionalNotes] = useState("");
 
@@ -90,7 +78,7 @@ export default function DietaryScreen() {
       dietaryRestrictions: selectedDietary,
       healthGoals: [...selectedHealth, ...selectedFitness],
       allergies,
-      foodDislikes: selectedDislikes,
+      foodDislikes,
       additionalNotes
     });
   };
@@ -213,25 +201,15 @@ export default function DietaryScreen() {
                 <ThumbsDown className="w-5 h-5" />
                 Food Dislikes
               </CardTitle>
-              <CardDescription>Ingredients you prefer to avoid</CardDescription>
+              <CardDescription>List ingredients or foods you prefer to avoid</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-2 gap-3">
-                {commonDislikes.map(dislike => (
-                  <button
-                    key={dislike.value}
-                    type="button"
-                    onClick={() => toggleSelection(setSelectedDislikes, dislike.value)}
-                    className={`px-3 py-2 rounded-lg border-2 font-medium transition-all text-sm ${
-                      selectedDislikes.includes(dislike.value)
-                        ? 'border-orange-500 bg-orange-50 text-orange-700'
-                        : 'border-warm-neutral-300 text-warm-neutral-700 hover:border-orange-500 hover:bg-orange-50'
-                    }`}
-                  >
-                    {dislike.label}
-                  </button>
-                ))}
-              </div>
+              <Textarea
+                placeholder="e.g., garlic, onions, mushrooms, spicy food, seafood..."
+                value={foodDislikes}
+                onChange={(e) => setFoodDislikes(e.target.value)}
+                className="w-full px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-green-500 focus:border-transparent h-20 resize-none"
+              />
             </CardContent>
           </Card>
 
