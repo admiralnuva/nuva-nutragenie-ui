@@ -110,6 +110,58 @@ const enhancedTrendingDishes = [
     badges: ['Low-Carb', 'Quick'],
     seasonal: false,
     popularity: 78
+  },
+  {
+    name: 'Vegetable Broth',
+    cuisine: 'american',
+    mealType: 'soup',
+    spiceLevel: 'none',
+    prepTime: 15,
+    cookTime: 30,
+    totalTime: 45,
+    nutrition: { calories: 120, protein: 4, carbs: 12 },
+    badges: ['Low-Calorie', 'Plant-Based'],
+    seasonal: true,
+    popularity: 85
+  },
+  {
+    name: 'Spicy Ramen',
+    cuisine: 'japanese',
+    mealType: 'soup',
+    spiceLevel: 'spicy',
+    prepTime: 10,
+    cookTime: 15,
+    totalTime: 25,
+    nutrition: { calories: 420, protein: 18, carbs: 45 },
+    badges: ['High-Carb'],
+    seasonal: false,
+    popularity: 89
+  },
+  {
+    name: 'Pancakes',
+    cuisine: 'american',
+    mealType: 'breakfast',
+    spiceLevel: 'none',
+    prepTime: 10,
+    cookTime: 15,
+    totalTime: 25,
+    nutrition: { calories: 350, protein: 12, carbs: 45 },
+    badges: ['Quick', 'Comfort Food'],
+    seasonal: false,
+    popularity: 92
+  },
+  {
+    name: 'Green Smoothie Bowl',
+    cuisine: 'american',
+    mealType: 'breakfast',
+    spiceLevel: 'none',
+    prepTime: 8,
+    cookTime: 0,
+    totalTime: 8,
+    nutrition: { calories: 250, protein: 15, carbs: 28 },
+    badges: ['Plant-Based', 'High-Protein'],
+    seasonal: false,
+    popularity: 87
   }
 ];
 
@@ -303,6 +355,7 @@ export default function RecipesScreen() {
   const [protein, setProtein] = useState([25]);
   const [carbs, setCarbs] = useState([45]);
   const [fat, setFat] = useState([15]);
+  const [fiber, setFiber] = useState([10]);
 
   // Initialize with smart defaults
   useEffect(() => {
@@ -344,10 +397,10 @@ export default function RecipesScreen() {
   };
 
   const getNutritionalImpact = () => {
-    const total = calories[0] + protein[0] + carbs[0] + fat[0];
-    if (total < 200) return { color: 'text-blue-600', text: 'Light meal' };
-    if (total < 400) return { color: 'text-green-600', text: 'Balanced meal' };
-    if (total < 600) return { color: 'text-orange-600', text: 'Hearty meal' };
+    const total = calories[0] + protein[0] + carbs[0] + fat[0] + fiber[0];
+    if (total < 250) return { color: 'text-blue-600', text: 'Light meal' };
+    if (total < 450) return { color: 'text-green-600', text: 'Balanced meal' };
+    if (total < 650) return { color: 'text-orange-600', text: 'Hearty meal' };
     return { color: 'text-red-600', text: 'High-calorie meal' };
   };
 
@@ -478,45 +531,7 @@ export default function RecipesScreen() {
                 </div>
             </div>
 
-            {/* Template Actions */}
-            <div className="flex gap-2">
-              <Button 
-                variant="outline" 
-                size="sm" 
-                onClick={() => setShowTemplates(!showTemplates)}
-                className="flex-1 text-xs h-7"
-              >
-                📋 Templates
-              </Button>
-              <Button 
-                variant="outline" 
-                size="sm" 
-                onClick={saveTemplate}
-                className="flex-1 text-xs h-7"
-              >
-                💾 Save
-              </Button>
-            </div>
 
-            {/* Template Selection */}
-            {showTemplates && savedTemplates.length > 0 && (
-              <div className="space-y-1">
-                <label className="block text-xs font-medium text-gray-700">Quick Load:</label>
-                <div className="grid grid-cols-2 gap-1">
-                  {savedTemplates.slice(0, 4).map((template: any) => (
-                    <Button
-                      key={template.id}
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => loadTemplate(template)}
-                      className="text-xs h-6 p-1 justify-start"
-                    >
-                      {template.name}
-                    </Button>
-                  ))}
-                </div>
-              </div>
-            )}
           </CardContent>
         </Card>
 
@@ -734,7 +749,7 @@ export default function RecipesScreen() {
                         {getCurrentSeason() === 'winter' && <Badge className="text-xs bg-blue-100 text-blue-800">❄️ Winter</Badge>}
                       </h4>
                       <div className="grid grid-cols-1 gap-2">
-                        {getFilteredDishes().slice(0, 4).map((dish) => (
+                        {getFilteredDishes().slice(0, 5).map((dish) => (
                           <div
                             key={dish.name}
                             className={`p-3 border rounded-lg cursor-pointer transition-colors relative ${
@@ -749,52 +764,15 @@ export default function RecipesScreen() {
                               </Badge>
                             )}
                             
-                            <div className="space-y-2">
-                              <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-2">
-                                  <span className="text-2xl">🍲</span>
-                                  <div>
-                                    <p className="font-medium text-gray-800">{dish.name}</p>
-                                    <p className="text-xs text-gray-500">
-                                      🕒 {dish.totalTime}min • {dish.nutrition.calories} cal
-                                    </p>
-                                  </div>
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-2">
+                                <span className="text-2xl">🍲</span>
+                                <div>
+                                  <p className="font-medium text-gray-800">{dish.name}</p>
+                                  <p className="text-xs text-gray-500">
+                                    🕒 {dish.totalTime}min • {dish.nutrition.calories} cal • {dish.nutrition.protein}g protein
+                                  </p>
                                 </div>
-                                <div className="text-right text-xs text-gray-500">
-                                  Prep: {dish.prepTime}m<br/>
-                                  Cook: {dish.cookTime}m
-                                </div>
-                              </div>
-                              
-                              {/* Nutritional Quick View */}
-                              <div className="flex gap-2 text-xs">
-                                <Badge variant="outline" className="bg-blue-50 text-blue-700">
-                                  {dish.nutrition.protein}g protein
-                                </Badge>
-                                <Badge variant="outline" className="bg-orange-50 text-orange-700">
-                                  {dish.nutrition.carbs}g carbs
-                                </Badge>
-                                <Badge variant="outline" className="bg-red-50 text-red-700">
-                                  {dish.nutrition.calories} cal
-                                </Badge>
-                              </div>
-                              
-                              {/* Dietary Compatibility Badges */}
-                              <div className="flex gap-1 flex-wrap">
-                                {dish.badges.map((badge, index) => (
-                                  <Badge 
-                                    key={index}
-                                    className={`text-xs ${
-                                      badge.includes('Keto') ? 'bg-purple-100 text-purple-800' :
-                                      badge.includes('High-Protein') ? 'bg-green-100 text-green-800' :
-                                      badge.includes('Low-Carb') ? 'bg-blue-100 text-blue-800' :
-                                      badge.includes('Plant-Based') ? 'bg-emerald-100 text-emerald-800' :
-                                      'bg-gray-100 text-gray-800'
-                                    }`}
-                                  >
-                                    {badge}
-                                  </Badge>
-                                ))}
                               </div>
                             </div>
                           </div>
@@ -860,7 +838,7 @@ export default function RecipesScreen() {
                 {getNutritionalImpact().text}
               </span>
               <span className="text-xs text-gray-500">
-                Total: {calories[0] + protein[0] + carbs[0] + fat[0]}
+                Total: {calories[0] + protein[0] + carbs[0] + fat[0] + fiber[0]}
               </span>
             </div>
 
@@ -937,6 +915,25 @@ export default function RecipesScreen() {
                 max={40}
                 min={5}
                 step={5}
+                className="w-full"
+              />
+            </div>
+            
+            <div>
+              <div className="flex justify-between items-center mb-2">
+                <label className="text-sm font-medium text-gray-700">
+                  Fiber: {fiber[0]}g
+                </label>
+                <span className="text-xs text-gray-500">
+                  High fiber aids digestion
+                </span>
+              </div>
+              <Slider
+                value={fiber}
+                onValueChange={setFiber}
+                max={25}
+                min={5}
+                step={2}
                 className="w-full"
               />
             </div>
