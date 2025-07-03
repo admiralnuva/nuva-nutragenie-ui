@@ -1,4 +1,9 @@
-import { users, recipes, chatMessages, type User, type InsertUser, type Recipe, type InsertRecipe, type ChatMessage, type InsertChatMessage } from "@shared/schema";
+import { 
+  users, recipes, chatMessages, nutritionEntries, healthMetrics, nutritionGoals,
+  type User, type InsertUser, type Recipe, type InsertRecipe, type ChatMessage, type InsertChatMessage,
+  type NutritionEntry, type InsertNutritionEntry, type HealthMetric, type InsertHealthMetric,
+  type NutritionGoal, type InsertNutritionGoal
+} from "@shared/schema";
 
 export interface IStorage {
   // User operations
@@ -16,23 +21,52 @@ export interface IStorage {
   // Chat operations
   getChatMessages(userId: number, recipeId: number): Promise<ChatMessage[]>;
   addChatMessage(message: InsertChatMessage): Promise<ChatMessage>;
+  
+  // Nutrition tracking operations
+  getNutritionEntries(userId: number, date?: string): Promise<NutritionEntry[]>;
+  addNutritionEntry(entry: InsertNutritionEntry): Promise<NutritionEntry>;
+  updateNutritionEntry(id: number, updates: Partial<NutritionEntry>): Promise<NutritionEntry>;
+  deleteNutritionEntry(id: number): Promise<void>;
+  
+  // Health metrics operations
+  getHealthMetrics(userId: number, dateRange?: { start: string; end: string }): Promise<HealthMetric[]>;
+  addHealthMetric(metric: InsertHealthMetric): Promise<HealthMetric>;
+  updateHealthMetric(id: number, updates: Partial<HealthMetric>): Promise<HealthMetric>;
+  getLatestHealthMetric(userId: number): Promise<HealthMetric | undefined>;
+  
+  // Nutrition goals operations
+  getNutritionGoals(userId: number): Promise<NutritionGoal | undefined>;
+  setNutritionGoals(goals: InsertNutritionGoal): Promise<NutritionGoal>;
+  updateNutritionGoals(userId: number, updates: Partial<NutritionGoal>): Promise<NutritionGoal>;
 }
 
 export class MemStorage implements IStorage {
   private users: Map<number, User>;
   private recipes: Map<number, Recipe>;
   private chatMessages: Map<number, ChatMessage>;
+  private nutritionEntries: Map<number, NutritionEntry>;
+  private healthMetrics: Map<number, HealthMetric>;
+  private nutritionGoals: Map<number, NutritionGoal>;
   private currentUserId: number;
   private currentRecipeId: number;
   private currentChatId: number;
+  private currentNutritionEntryId: number;
+  private currentHealthMetricId: number;
+  private currentNutritionGoalId: number;
 
   constructor() {
     this.users = new Map();
     this.recipes = new Map();
     this.chatMessages = new Map();
+    this.nutritionEntries = new Map();
+    this.healthMetrics = new Map();
+    this.nutritionGoals = new Map();
     this.currentUserId = 1;
     this.currentRecipeId = 1;
     this.currentChatId = 1;
+    this.currentNutritionEntryId = 1;
+    this.currentHealthMetricId = 1;
+    this.currentNutritionGoalId = 1;
     
     this.initializeRecipes();
   }
@@ -188,6 +222,85 @@ export class MemStorage implements IStorage {
     };
     this.chatMessages.set(id, message);
     return message;
+  }
+
+  // Nutrition tracking operations
+  async getNutritionEntries(userId: number, date?: string): Promise<NutritionEntry[]> {
+    const entries = Array.from(this.nutritionEntries.values()).filter(entry => entry.userId === userId);
+    if (date) {
+      return entries.filter(entry => entry.date === date);
+    }
+    return entries;
+  }
+
+  async addNutritionEntry(insertEntry: InsertNutritionEntry): Promise<NutritionEntry> {
+    const id = this.currentNutritionEntryId++;
+    const entry: NutritionEntry = { ...insertEntry, id };
+    this.nutritionEntries.set(id, entry);
+    return entry;
+  }
+
+  async updateNutritionEntry(id: number, updates: Partial<NutritionEntry>): Promise<NutritionEntry> {
+    const existing = this.nutritionEntries.get(id);
+    if (!existing) throw new Error('Nutrition entry not found');
+    const updated: NutritionEntry = { ...existing, ...updates };
+    this.nutritionEntries.set(id, updated);
+    return updated;
+  }
+
+  async deleteNutritionEntry(id: number): Promise<void> {
+    this.nutritionEntries.delete(id);
+  }
+
+  // Health metrics operations
+  async getHealthMetrics(userId: number, dateRange?: { start: string; end: string }): Promise<HealthMetric[]> {
+    const metrics = Array.from(this.healthMetrics.values()).filter(metric => metric.userId === userId);
+    if (dateRange) {
+      return metrics.filter(metric => 
+        metric.date >= dateRange.start && metric.date <= dateRange.end
+      );
+    }
+    return metrics.sort((a, b) => b.date.localeCompare(a.date));
+  }
+
+  async addHealthMetric(insertMetric: InsertHealthMetric): Promise<HealthMetric> {
+    const id = this.currentHealthMetricId++;
+    const metric: HealthMetric = { ...insertMetric, id };
+    this.healthMetrics.set(id, metric);
+    return metric;
+  }
+
+  async updateHealthMetric(id: number, updates: Partial<HealthMetric>): Promise<HealthMetric> {
+    const existing = this.healthMetrics.get(id);
+    if (!existing) throw new Error('Health metric not found');
+    const updated: HealthMetric = { ...existing, ...updates };
+    this.healthMetrics.set(id, updated);
+    return updated;
+  }
+
+  async getLatestHealthMetric(userId: number): Promise<HealthMetric | undefined> {
+    const metrics = await this.getHealthMetrics(userId);
+    return metrics[0]; // Already sorted by date desc
+  }
+
+  // Nutrition goals operations
+  async getNutritionGoals(userId: number): Promise<NutritionGoal | undefined> {
+    return Array.from(this.nutritionGoals.values()).find(goal => goal.userId === userId);
+  }
+
+  async setNutritionGoals(insertGoals: InsertNutritionGoal): Promise<NutritionGoal> {
+    const id = this.currentNutritionGoalId++;
+    const goals: NutritionGoal = { ...insertGoals, id };
+    this.nutritionGoals.set(id, goals);
+    return goals;
+  }
+
+  async updateNutritionGoals(userId: number, updates: Partial<NutritionGoal>): Promise<NutritionGoal> {
+    const existing = Array.from(this.nutritionGoals.values()).find(goal => goal.userId === userId);
+    if (!existing) throw new Error('Nutrition goals not found');
+    const updated: NutritionGoal = { ...existing, ...updates };
+    this.nutritionGoals.set(existing.id, updated);
+    return updated;
   }
 }
 

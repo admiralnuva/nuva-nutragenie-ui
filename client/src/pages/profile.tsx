@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Settings, User, MessageCircle, BookOpen, Edit } from "lucide-react";
+import { ArrowLeft, Settings, User, MessageCircle, BookOpen, Edit, BarChart3 } from "lucide-react";
 
 const achievements = [
   {
@@ -256,6 +256,18 @@ export default function ProfileScreen() {
                 <div className="flex items-center gap-3">
                   <Settings className="w-5 h-5 text-gray-500" />
                   <span>Dietary Preferences</span>
+                </div>
+                <Edit className="w-5 h-5 text-gray-400" />
+              </Button>
+
+              <Button
+                variant="outline"
+                className="w-full flex items-center justify-between p-3 rounded-lg border border-gray-200 hover:bg-gray-50 transition-all"
+                onClick={() => setLocation("/health")}
+              >
+                <div className="flex items-center gap-3">
+                  <BarChart3 className="w-5 h-5 text-gray-500" />
+                  <span>Health Analytics</span>
                 </div>
                 <Edit className="w-5 h-5 text-gray-400" />
               </Button>

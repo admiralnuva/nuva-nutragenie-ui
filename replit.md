@@ -53,6 +53,14 @@ NutraGenie is a mobile-first web application that serves as a personal AI chef a
 - Real-time cooking assistance and guidance
 - Message history persistence
 
+### Health Analytics & Nutrition Tracking
+- Comprehensive nutrition logging by meal type (breakfast, lunch, dinner, snack)
+- Detailed macro and micronutrient tracking (calories, protein, carbs, fat, fiber, sugar, sodium)
+- Health metrics monitoring (weight, blood pressure, blood sugar, energy level, sleep, water intake, exercise)
+- Personalized nutrition goals and daily progress tracking
+- Health trend analysis and visualization over time
+- Integration with dietary restrictions and health conditions
+
 ### Gamification Features
 - Cooking points system (5 points per completed recipe)
 - Purchase tracking and badges

@@ -10,6 +10,7 @@ import DietaryScreen from "@/pages/dietary";
 import RecipesScreen from "@/pages/recipes";
 import CookingScreen from "@/pages/cooking";
 import ProfileScreen from "@/pages/profile";
+import HealthAnalyticsScreen from "@/pages/health";
 
 function Router() {
   return (
@@ -20,6 +21,7 @@ function Router() {
       <Route path="/recipes" component={RecipesScreen} />
       <Route path="/cooking/:recipeId?" component={CookingScreen} />
       <Route path="/profile" component={ProfileScreen} />
+      <Route path="/health" component={HealthAnalyticsScreen} />
       <Route component={NotFound} />
     </Switch>
   );

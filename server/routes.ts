@@ -131,6 +131,128 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Health Analytics Routes
+
+  // Nutrition entries
+  app.get("/api/nutrition-entries", async (req, res) => {
+    try {
+      const { userId, date } = req.query;
+      if (!userId) {
+        return res.status(400).json({ message: "userId is required" });
+      }
+      const entries = await storage.getNutritionEntries(Number(userId), date as string);
+      res.json(entries);
+    } catch (error) {
+      res.status(500).json({ message: "Error fetching nutrition entries", error: error.message });
+    }
+  });
+
+  app.post("/api/nutrition-entries", async (req, res) => {
+    try {
+      const entry = await storage.addNutritionEntry(req.body);
+      res.json(entry);
+    } catch (error) {
+      res.status(400).json({ message: "Error adding nutrition entry", error: error.message });
+    }
+  });
+
+  app.patch("/api/nutrition-entries/:id", async (req, res) => {
+    try {
+      const entry = await storage.updateNutritionEntry(Number(req.params.id), req.body);
+      res.json(entry);
+    } catch (error) {
+      res.status(400).json({ message: "Error updating nutrition entry", error: error.message });
+    }
+  });
+
+  app.delete("/api/nutrition-entries/:id", async (req, res) => {
+    try {
+      await storage.deleteNutritionEntry(Number(req.params.id));
+      res.json({ message: "Nutrition entry deleted" });
+    } catch (error) {
+      res.status(400).json({ message: "Error deleting nutrition entry", error: error.message });
+    }
+  });
+
+  // Health metrics
+  app.get("/api/health-metrics", async (req, res) => {
+    try {
+      const { userId, start, end } = req.query;
+      if (!userId) {
+        return res.status(400).json({ message: "userId is required" });
+      }
+      
+      let dateRange;
+      if (start && end) {
+        dateRange = { start: start as string, end: end as string };
+      }
+      
+      const metrics = await storage.getHealthMetrics(Number(userId), dateRange);
+      res.json(metrics);
+    } catch (error) {
+      res.status(500).json({ message: "Error fetching health metrics", error: error.message });
+    }
+  });
+
+  app.post("/api/health-metrics", async (req, res) => {
+    try {
+      const metric = await storage.addHealthMetric(req.body);
+      res.json(metric);
+    } catch (error) {
+      res.status(400).json({ message: "Error adding health metric", error: error.message });
+    }
+  });
+
+  app.patch("/api/health-metrics/:id", async (req, res) => {
+    try {
+      const metric = await storage.updateHealthMetric(Number(req.params.id), req.body);
+      res.json(metric);
+    } catch (error) {
+      res.status(400).json({ message: "Error updating health metric", error: error.message });
+    }
+  });
+
+  app.get("/api/health-metrics/latest/:userId", async (req, res) => {
+    try {
+      const metric = await storage.getLatestHealthMetric(Number(req.params.userId));
+      res.json(metric);
+    } catch (error) {
+      res.status(500).json({ message: "Error fetching latest health metric", error: error.message });
+    }
+  });
+
+  // Nutrition goals
+  app.get("/api/nutrition-goals", async (req, res) => {
+    try {
+      const { userId } = req.query;
+      if (!userId) {
+        return res.status(400).json({ message: "userId is required" });
+      }
+      const goals = await storage.getNutritionGoals(Number(userId));
+      res.json(goals);
+    } catch (error) {
+      res.status(500).json({ message: "Error fetching nutrition goals", error: error.message });
+    }
+  });
+
+  app.post("/api/nutrition-goals", async (req, res) => {
+    try {
+      const goals = await storage.setNutritionGoals(req.body);
+      res.json(goals);
+    } catch (error) {
+      res.status(400).json({ message: "Error setting nutrition goals", error: error.message });
+    }
+  });
+
+  app.patch("/api/nutrition-goals/:userId", async (req, res) => {
+    try {
+      const goals = await storage.updateNutritionGoals(Number(req.params.userId), req.body);
+      res.json(goals);
+    } catch (error) {
+      res.status(400).json({ message: "Error updating nutrition goals", error: error.message });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
