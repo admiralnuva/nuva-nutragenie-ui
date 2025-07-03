@@ -189,7 +189,49 @@ export default function RecipesScreen() {
           </CardContent>
         </Card>
 
-        {/* Card 3 - Dynamic Content */}
+        {/* Card 3 - Cuisine & Serving Selection */}
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-lg">Cuisine & Serving Size</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Cuisine</label>
+                <Select value={selectedCuisine} onValueChange={setSelectedCuisine}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select cuisine" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {cuisineTypes.map((cuisine) => (
+                      <SelectItem key={cuisine.value} value={cuisine.value}>
+                        {cuisine.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Servings</label>
+                <Select value={servingSize} onValueChange={setServingSize}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Servings" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {[1, 2, 3, 4, 5].map((size) => (
+                      <SelectItem key={size} value={size.toString()}>
+                        {size} {size === 1 ? 'person' : 'people'}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Card 4 - Dynamic Content */}
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-lg">
@@ -242,40 +284,6 @@ export default function RecipesScreen() {
                     onChange={(e) => setRecipeName(e.target.value)}
                   />
                 </div>
-                
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Cuisine</label>
-                    <Select value={selectedCuisine} onValueChange={setSelectedCuisine}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select cuisine" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {cuisineTypes.map((cuisine) => (
-                          <SelectItem key={cuisine.value} value={cuisine.value}>
-                            {cuisine.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Servings</label>
-                    <Select value={servingSize} onValueChange={setServingSize}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Servings" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {[1, 2, 3, 4, 5].map((size) => (
-                          <SelectItem key={size} value={size.toString()}>
-                            {size} {size === 1 ? 'person' : 'people'}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
 
                 {selectedCuisine && (
                   <>
@@ -317,7 +325,7 @@ export default function RecipesScreen() {
           </CardContent>
         </Card>
 
-        {/* Card 4 - Nutritional Adjustments */}
+        {/* Card 5 - Nutritional Adjustments */}
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-lg">Adjust Nutritional Values</CardTitle>
