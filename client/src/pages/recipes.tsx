@@ -237,60 +237,88 @@ export default function RecipesScreen() {
       </div>
 
       <div className="p-4 space-y-3">
-        {/* Card 1 - Meal Type & Spice Level */}
+        {/* Card 1 - Meal Preferences (Compact) */}
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-base">Meal Type & Preferences</CardTitle>
+            <CardTitle className="text-base">Meal Preferences</CardTitle>
           </CardHeader>
-          <CardContent className="pt-0 space-y-4">
-            {/* Meal Type Selection */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Meal Type
-              </label>
-              <Select value={mealType} onValueChange={setMealType}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select meal type" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="breakfast">🌅 Breakfast</SelectItem>
-                  <SelectItem value="lunch">☀️ Lunch</SelectItem>
-                  <SelectItem value="dinner">🌙 Dinner</SelectItem>
-                  <SelectItem value="snack">🍪 Snack & Pastry</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            {/* Spice Level Selection */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Spice Level
-              </label>
-              <Select value={spiceLevel} onValueChange={setSpiceLevel}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select spice level" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="none">🥛 No Spice</SelectItem>
-                  <SelectItem value="mild">🌶️ Mild</SelectItem>
-                  <SelectItem value="medium">🌶️🌶️ Medium</SelectItem>
-                  <SelectItem value="spicy">🌶️🌶️🌶️ Spicy</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            {/* Soup Reasons (when applicable) */}
-            {(mealType === 'lunch' || mealType === 'dinner') && (
+          <CardContent className="pt-0 space-y-3">
+            {/* Row 1: Cuisine & Meal Type */}
+            <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Soup Preferences (Optional)
-                </label>
-                <Select value={soupReason} onValueChange={setSoupReason}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select soup reason" />
+                <label className="block text-xs font-medium text-gray-700 mb-1">Cuisine</label>
+                <Select value={selectedCuisine} onValueChange={setSelectedCuisine}>
+                  <SelectTrigger className="h-9">
+                    <SelectValue placeholder="Select cuisine" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="cold">🤧 Fever, Cold & Cough</SelectItem>
+                    {cuisineTypes.map((cuisine) => (
+                      <SelectItem key={cuisine.value} value={cuisine.value}>
+                        {cuisine.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-gray-700 mb-1">Meal Type</label>
+                <Select value={mealType} onValueChange={setMealType}>
+                  <SelectTrigger className="h-9">
+                    <SelectValue placeholder="Select meal" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="breakfast">🌅 Breakfast</SelectItem>
+                    <SelectItem value="lunch">☀️ Lunch</SelectItem>
+                    <SelectItem value="dinner">🌙 Dinner</SelectItem>
+                    <SelectItem value="snack">🍪 Snack</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            {/* Row 2: Spice Level & Servings */}
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="block text-xs font-medium text-gray-700 mb-1">Spice Level</label>
+                <Select value={spiceLevel} onValueChange={setSpiceLevel}>
+                  <SelectTrigger className="h-9">
+                    <SelectValue placeholder="Spice level" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="none">🥛 None</SelectItem>
+                    <SelectItem value="mild">🌶️ Mild</SelectItem>
+                    <SelectItem value="medium">🌶️🌶️ Medium</SelectItem>
+                    <SelectItem value="spicy">🌶️🌶️🌶️ Spicy</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-gray-700 mb-1">Servings</label>
+                <Select value={servingSize} onValueChange={setServingSize}>
+                  <SelectTrigger className="h-9">
+                    <SelectValue placeholder="Servings" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="1">1 person</SelectItem>
+                    <SelectItem value="2">2 people</SelectItem>
+                    <SelectItem value="4">4 people</SelectItem>
+                    <SelectItem value="6">6 people</SelectItem>
+                    <SelectItem value="8">8+ people</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            {/* Soup Reasons (conditional) */}
+            {(mealType === 'lunch' || mealType === 'dinner') && (
+              <div>
+                <label className="block text-xs font-medium text-gray-700 mb-1">Soup Reason (Optional)</label>
+                <Select value={soupReason} onValueChange={setSoupReason}>
+                  <SelectTrigger className="h-9">
+                    <SelectValue placeholder="Why soup?" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="cold">🤧 Cold & Cough</SelectItem>
                     <SelectItem value="allergies">🤲 Allergies</SelectItem>
                     <SelectItem value="spring">🌸 Spring</SelectItem>
                     <SelectItem value="summer">☀️ Summer</SelectItem>
@@ -326,46 +354,7 @@ export default function RecipesScreen() {
           </CardContent>
         </Card>
 
-        {/* Card 3 - Cuisine & Serving Selection */}
-        <Card>
-          <CardContent className="p-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Cuisine</label>
-                <Select value={selectedCuisine} onValueChange={setSelectedCuisine}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select cuisine" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {cuisineTypes.map((cuisine) => (
-                      <SelectItem key={cuisine.value} value={cuisine.value}>
-                        {cuisine.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Servings</label>
-                <Select value={servingSize} onValueChange={setServingSize}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Servings" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {[1, 2, 3, 4, 5].map((size) => (
-                      <SelectItem key={size} value={size.toString()}>
-                        {size} {size === 1 ? 'person' : 'people'}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Card 4 - Dynamic Content */}
+        {/* Card 3 - Dynamic Content */}
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-base">
@@ -578,7 +567,7 @@ export default function RecipesScreen() {
           </CardContent>
         </Card>
 
-        {/* Card 5 - Nutritional Adjustments */}
+        {/* Card 4 - Nutritional Adjustments */}
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-base">Adjust Nutritional Values</CardTitle>
