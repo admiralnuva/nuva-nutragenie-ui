@@ -167,7 +167,7 @@ export default function ReviewRecipesScreen() {
   const [currentUser] = useLocalStorage("nutragenie_user", null);
 
   // State management
-  const [selectedDishes, setSelectedDishes] = useState([1]); // Start with first dish selected
+  const [selectedDishes, setSelectedDishes] = useState([1, 2, 3, 4]); // Start with all dishes selected
   const [expandedDishes, setExpandedDishes] = useState([1]); // Which dishes are expanded in Card 2
   const [selectedSubstitutions, setSelectedSubstitutions] = useState({}); // Track substitution selections
   const [shoppingCart, setShoppingCart] = useState([]);
@@ -291,18 +291,19 @@ export default function ReviewRecipesScreen() {
       </div>
 
       <div className="p-4 space-y-4">
-        {/* Card 1 - Dish Selection (Weekly Planner) */}
+        {/* Card 1 - AI Generated Dishes */}
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-lg flex items-center gap-2">
-              📅 Weekly Meal Planner
+              <ChefHat className="w-5 h-5" />
+              AI Generated Dishes
               <Badge variant="secondary" className="text-xs">
                 {selectedDishes.length} selected
               </Badge>
             </CardTitle>
           </CardHeader>
           <CardContent className="pt-0">
-            <div className="grid grid-cols-1 gap-2">
+            <div className="grid grid-cols-1 gap-3">
               {generatedDishes.map((dish) => (
                 <div
                   key={dish.id}
@@ -313,22 +314,16 @@ export default function ReviewRecipesScreen() {
                   }`}
                   onClick={() => toggleDishSelection(dish.id)}
                 >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <Checkbox 
-                        checked={selectedDishes.includes(dish.id)}
-                        onChange={() => toggleDishSelection(dish.id)}
-                      />
-                      <div>
-                        <h4 className="font-medium text-gray-800">{dish.name}</h4>
-                        <p className="text-xs text-gray-500">
-                          🕒 {dish.cookTime}min • {dish.servings} servings • {dish.nutrition.calories} cal
-                        </p>
+                  <div className="flex items-center gap-3">
+                    <Checkbox 
+                      checked={selectedDishes.includes(dish.id)}
+                      onChange={() => toggleDishSelection(dish.id)}
+                    />
+                    <div className="flex-1">
+                      <h4 className="font-medium text-gray-800 mb-1">{dish.name}</h4>
+                      <div className="text-sm text-gray-600">
+                        {dish.nutrition.protein}g protein • {dish.nutrition.carbs}g carbs • {dish.nutrition.fat}g fat • {dish.nutrition.fiber}g fiber • {dish.nutrition.calories} cal
                       </div>
-                    </div>
-                    <div className="text-right text-sm text-gray-600">
-                      <div>{dish.nutrition.protein}g protein</div>
-                      <div>{dish.nutrition.carbs}g carbs</div>
                     </div>
                   </div>
                 </div>
