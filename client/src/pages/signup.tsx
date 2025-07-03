@@ -111,8 +111,12 @@ export default function SignupScreen() {
           <div className="w-10"></div>
         </div>
 
+        {/* Add NutraGenie Logo */}
         <div className="text-center mb-8">
-          <p className="text-warm-neutral-600">Complete all sections to get started</p>
+          <div className="w-16 h-16 mx-auto mb-4 bg-brand-green-500 rounded-2xl flex items-center justify-center">
+            <div className="text-2xl">🤖</div>
+            <div className="text-xl ml-1">❤️</div>
+          </div>
         </div>
 
         <div className="space-y-6">
@@ -146,8 +150,8 @@ export default function SignupScreen() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div>
+              <div className="grid grid-cols-3 gap-4">
+                <div className="col-span-2">
                   <Label htmlFor="nickname" className="block text-sm font-medium text-warm-neutral-700 mb-2">
                     Nickname
                   </Label>
@@ -161,13 +165,13 @@ export default function SignupScreen() {
                   />
                 </div>
 
-                <div>
+                <div className="col-span-1">
                   <Label htmlFor="ageGroup" className="block text-sm font-medium text-warm-neutral-700 mb-2">
-                    Age Group
+                    Age
                   </Label>
                   <Select value={ageGroup} onValueChange={setAgeGroup}>
                     <SelectTrigger className="w-full px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-green-500 focus:border-transparent">
-                      <SelectValue placeholder="Select" />
+                      <SelectValue placeholder="Age" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="<16">&lt; 16</SelectItem>
