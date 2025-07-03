@@ -5,7 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { BottomNavigation } from "@/components/ui/bottom-navigation";
 import NotFound from "@/pages/not-found";
-import SplashScreen from "@/pages/test-splash";
+import SplashScreen from "@/pages/splash";
 import SignupScreen from "@/pages/signup";
 import DietaryScreen from "@/pages/dietary";
 import RecipesScreen from "@/pages/recipes";
