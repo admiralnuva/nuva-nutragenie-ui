@@ -55,7 +55,14 @@ NutraGenie is a mobile-first web application that serves as a personal AI chef a
 
 ## Data Flow
 
-1. **User Registration Flow**: Splash → Signup → Dietary Preferences → Recipe Dashboard
+1. **User Registration Flow**: 
+   - Splash Screen → Create Account (4 steps)
+   - Step 1: Avatar Selection + Nickname + Age Group
+   - Step 2: Chef Avatar Selection + Chef Nickname
+   - Step 3: Phone Number Entry 
+   - Step 4: Phone Verification (auto-validates with code 1234)
+   - Then → Dietary Preferences → Recipe Dashboard
+
 2. **Recipe Discovery**: Browse by category → Filter/Search → Recipe Details → Start Cooking
 3. **Cooking Assistance**: Recipe Instructions → AI Chat Support → Progress Tracking → Completion
 4. **Profile Management**: View achievements → Track progress → Update preferences
