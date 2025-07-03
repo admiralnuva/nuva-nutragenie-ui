@@ -1,55 +1,8 @@
-import { Switch, Route, useLocation } from "wouter";
-import { queryClient } from "./lib/queryClient";
-import { QueryClientProvider } from "@tanstack/react-query";
-import { Toaster } from "@/components/ui/toaster";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { BottomNavigation } from "@/components/ui/bottom-navigation";
-import NotFound from "@/pages/not-found";
-import SplashScreen from "@/pages/splash";
-import SignupScreen from "@/pages/signup";
-import DietaryScreen from "@/pages/dietary";
-import RecipesScreen from "@/pages/recipes";
-import CookingScreen from "@/pages/cooking";
-import ProfileScreen from "@/pages/profile";
-import HealthAnalyticsScreen from "@/pages/health";
-import HomeScreen from "@/pages/home";
-import CookScreen from "@/pages/cook";
-import TakeOutScreen from "@/pages/takeout";
-
-function Router() {
-  return (
-    <Switch>
-      <Route path="/" component={SplashScreen} />
-      <Route path="/signup" component={SignupScreen} />
-      <Route path="/dietary" component={DietaryScreen} />
-      <Route path="/home" component={HomeScreen} />
-      <Route path="/recipes" component={RecipesScreen} />
-      <Route path="/cook" component={CookScreen} />
-      <Route path="/takeout" component={TakeOutScreen} />
-      <Route path="/cooking/:recipeId?" component={CookingScreen} />
-      <Route path="/profile" component={ProfileScreen} />
-      <Route path="/health" component={HealthAnalyticsScreen} />
-      <Route component={NotFound} />
-    </Switch>
-  );
-}
-
-function AppContent() {
-  return (
-    <div className="mobile-container bg-white shadow-2xl">
-      <Toaster />
-      <Router />
-    </div>
-  );
-}
-
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <AppContent />
-      </TooltipProvider>
-    </QueryClientProvider>
+    <div className="h-screen bg-green-500 flex items-center justify-center">
+      <h1 className="text-white text-4xl font-bold">NutraGenie Test</h1>
+    </div>
   );
 }
 
