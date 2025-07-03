@@ -164,7 +164,7 @@ const pantryItems = ["Olive Oil", "Salt", "Black Pepper", "Garlic", "Onions"];
 
 export default function ReviewRecipesScreen() {
   const [, setLocation] = useLocation();
-  const [currentUser] = useLocalStorage("currentUser", null);
+  const [currentUser] = useLocalStorage("nutragenie_user", null);
 
   // State management
   const [selectedDishes, setSelectedDishes] = useState([1]); // Start with first dish selected
@@ -271,8 +271,14 @@ export default function ReviewRecipesScreen() {
     setShoppingCart(prev => prev.filter(item => item.name !== itemName));
   };
 
+  // Handle authentication check
+  useEffect(() => {
+    if (!currentUser) {
+      setLocation("/");
+    }
+  }, [currentUser, setLocation]);
+
   if (!currentUser) {
-    setLocation("/");
     return null;
   }
 

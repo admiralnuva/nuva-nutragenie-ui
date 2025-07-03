@@ -58,7 +58,7 @@ export default function DietaryScreen() {
     onSuccess: (updatedUser) => {
       setCurrentUser(updatedUser);
       toast({ title: "Profile Updated!", description: "Your dietary preferences have been saved." });
-      setLocation("/recipes");
+      setLocation("/review-recipes");
     },
     onError: (error: any) => {
       toast({ title: "Error", description: error.message, variant: "destructive" });
