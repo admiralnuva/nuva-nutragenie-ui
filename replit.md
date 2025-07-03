@@ -157,6 +157,7 @@ Changelog:
   * Implemented 5-tab bottom navigation: Home, Recipes, Cook, Take-Out, Profile
   * Created placeholder screens for Cook and Take-Out features with "coming soon" content
   * Updated all screen headers to consistently display "NutraGenie" branding
+  * Fixed splash screen text visibility issues by switching to standard Tailwind colors with drop shadows
   * Simplified Create Account form validation for easier testing (removed all required field restrictions)
   * Configured conditional bottom navigation (hidden on onboarding screens, visible on main app)
 ```
