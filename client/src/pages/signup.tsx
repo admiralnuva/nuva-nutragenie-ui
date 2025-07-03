@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { BackButton } from "@/components/ui/back-button";
 import { ArrowLeft, Check, User, ChefHat, Phone, Shield } from "lucide-react";
 
 const userAvatars = ['😀', '👩', '👨', '🧑‍🦰'];
@@ -99,14 +100,7 @@ export default function SignupScreen() {
       <div className="max-w-md mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setLocation("/")}
-            className="rounded-full hover:bg-warm-neutral-200"
-          >
-            <ArrowLeft className="h-6 w-6 text-warm-neutral-700" />
-          </Button>
+          <BackButton to="/" />
           <h1 className="text-xl font-bold text-warm-neutral-800">Create Account</h1>
           <div className="w-10"></div>
         </div>

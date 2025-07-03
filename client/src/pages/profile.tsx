@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
+import { BackButton } from "@/components/ui/back-button";
 import { ArrowLeft, Settings, User, MessageCircle, BookOpen, Edit, BarChart3 } from "lucide-react";
 
 const achievements = [
@@ -93,14 +94,7 @@ export default function ProfileScreen() {
     <div className="h-screen bg-gray-50 pb-20">
       {/* Header */}
       <div className="bg-white shadow-sm p-4 flex items-center justify-between">
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => setLocation("/recipes")}
-          className="rounded-full hover:bg-gray-100"
-        >
-          <ArrowLeft className="w-6 h-6 text-gray-600" />
-        </Button>
+        <BackButton to="/home" />
         <h2 className="font-bold text-lg text-gray-800">Profile & Progress</h2>
         <Button
           variant="ghost"

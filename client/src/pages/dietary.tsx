@@ -7,6 +7,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { BackButton } from "@/components/ui/back-button";
 import { ArrowLeft, Heart, Target, Shield, ThumbsDown } from "lucide-react";
 
 const dietaryRestrictions = [
@@ -90,14 +91,7 @@ export default function DietaryScreen() {
       <div className="max-w-md mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setLocation("/signup")}
-            className="rounded-full hover:bg-warm-neutral-200"
-          >
-            <ArrowLeft className="h-6 w-6 text-warm-neutral-700" />
-          </Button>
+          <BackButton to="/signup" />
           <h1 className="text-xl font-bold text-warm-neutral-800">Dietary Profile</h1>
           <div className="w-10"></div>
         </div>

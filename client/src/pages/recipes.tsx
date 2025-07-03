@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Slider } from "@/components/ui/slider";
+import { BackButton } from "@/components/ui/back-button";
 import { User, MessageCircle, BookOpen, ChefHat, Utensils } from "lucide-react";
 
 // Pantry ingredients by category
@@ -474,7 +475,8 @@ export default function RecipesScreen() {
   return (
     <div className="min-h-screen bg-warm-neutral-50 pb-20">
       {/* Header */}
-      <div className="bg-white shadow-sm p-4 text-center">
+      <div className="bg-white shadow-sm p-4 flex items-center gap-3">
+        <BackButton to="/home" />
         <h1 className="text-2xl font-bold text-gray-800">Explore Recipes</h1>
       </div>
 
