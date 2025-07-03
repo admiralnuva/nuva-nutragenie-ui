@@ -387,10 +387,22 @@ export default function ReviewRecipesScreen() {
                         return (
                           <div key={idx} className="bg-gray-50 p-3 rounded-lg">
                             {/* Main Ingredient */}
-                            <div className="flex items-center justify-between mb-2">
-                              <div>
-                                <h5 className="font-medium text-gray-800">{ingredient.name}</h5>
-                                <p className="text-sm text-gray-600">{ingredient.quantity}</p>
+                            <div className={`flex items-center justify-between mb-2 p-2 rounded ${
+                              !selectedSub ? 'bg-brand-green-100 border border-brand-green-300' : 'hover:bg-gray-100'
+                            }`}>
+                              <div 
+                                className="flex items-center gap-2 cursor-pointer flex-1"
+                                onClick={() => handleSubstitutionChange(dishId, ingredient.name, null)}
+                              >
+                                <Checkbox
+                                  checked={!selectedSub}
+                                  onChange={() => {}}
+                                  className="pointer-events-none"
+                                />
+                                <div>
+                                  <h5 className="font-medium text-gray-800">{ingredient.name}</h5>
+                                  <p className="text-sm text-gray-600">{ingredient.quantity}</p>
+                                </div>
                               </div>
                               <div className="text-right text-sm text-gray-600">
                                 <div>{ingredient.nutrition.calories} cal</div>
@@ -402,16 +414,21 @@ export default function ReviewRecipesScreen() {
                             <div className="space-y-2">
                               <p className="text-xs font-medium text-gray-700">Substitutions:</p>
                               {ingredient.substitutions.map((sub, subIdx) => (
-                                <div key={subIdx} className="flex items-center gap-2">
+                                <div 
+                                  key={subIdx} 
+                                  className={`flex items-center gap-2 p-2 rounded cursor-pointer transition-colors ${
+                                    selectedSub === sub ? 'bg-brand-green-100 border border-brand-green-300' : 'hover:bg-gray-100'
+                                  }`}
+                                  onClick={() => handleSubstitutionChange(
+                                    dishId, 
+                                    ingredient.name, 
+                                    selectedSub === sub ? null : sub
+                                  )}
+                                >
                                   <Checkbox
                                     checked={selectedSub === sub}
-                                    onChange={(checked) => 
-                                      handleSubstitutionChange(
-                                        dishId, 
-                                        ingredient.name, 
-                                        checked ? sub : null
-                                      )
-                                    }
+                                    onChange={() => {}}
+                                    className="pointer-events-none"
                                   />
                                   <div className="flex-1 flex justify-between">
                                     <span className="text-sm">{sub.name} ({sub.quantity})</span>
