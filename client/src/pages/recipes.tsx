@@ -116,9 +116,9 @@ export default function RecipesScreen() {
   const [, setLocation] = useLocation();
   const [currentUser] = useLocalStorage("nutragenie_user", null);
   
-  // Card 1 - Meal Type & Spice Level
-  const [mealType, setMealType] = useState('');
-  const [spiceLevel, setSpiceLevel] = useState('');
+  // Card 1 - Meal Type & Spice Level (with defaults)
+  const [mealType, setMealType] = useState('dinner');
+  const [spiceLevel, setSpiceLevel] = useState('mild');
   const [soupReason, setSoupReason] = useState('');
   
   // Card 2 - Recipe Options Toggle
@@ -141,9 +141,9 @@ export default function RecipesScreen() {
     return defaults;
   };
   
-  // Card 4 - Cuisine & Serving Size
-  const [selectedCuisine, setSelectedCuisine] = useState("");
-  const [servingSize, setServingSize] = useState("");
+  // Card 4 - Cuisine & Serving Size (with defaults)
+  const [selectedCuisine, setSelectedCuisine] = useState("american");
+  const [servingSize, setServingSize] = useState("3");
   const [selectedDish, setSelectedDish] = useState("");
   
   // Card 5 - Nutritional Values
