@@ -358,7 +358,7 @@ export default function ReviewRecipesScreen() {
                   className={`p-3 border rounded-lg cursor-pointer transition-colors ${
                     selectedDishes.includes(dish.id) 
                       ? 'border-brand-indigo-500 bg-brand-indigo-50' 
-                      : 'border-gray-200 hover:bg-gray-50'
+                      : 'border-gray-200 hover:bg-white'
                   }`}
                   onClick={() => toggleDishSelection(dish.id)}
                 >
@@ -419,7 +419,7 @@ export default function ReviewRecipesScreen() {
                         const isOriginalSelected = selectedOptions.includes('original');
 
                         return (
-                          <div key={idx} className="bg-gray-50 p-3 rounded-lg">
+                          <div key={idx} className="bg-white p-3 rounded-lg">
                             {/* Main Ingredient */}
                             <div className={`flex items-center justify-between mb-2 p-2 rounded cursor-pointer transition-colors ${
                               isOriginalSelected ? 'bg-brand-indigo-100 border border-brand-indigo-300' : 'hover:bg-gray-100'
@@ -529,7 +529,7 @@ export default function ReviewRecipesScreen() {
             </div>
 
             {/* Helper Text */}
-            <div className="text-sm text-gray-600 bg-gray-50 p-3 rounded-lg">
+            <div className="text-sm text-gray-600 bg-white p-3 rounded-lg">
               You can print or add items to Instacart using View Grocery List
             </div>
 

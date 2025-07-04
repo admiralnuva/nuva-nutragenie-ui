@@ -745,7 +745,7 @@ export default function RecipesScreen() {
                             {getFilteredIngredients().map((ingredient) => (
                               <button
                                 key={ingredient}
-                                className="w-full text-left px-3 py-2 text-sm hover:bg-gray-50 border-b last:border-b-0"
+                                className="w-full text-left px-3 py-2 text-sm hover:bg-white border-b last:border-b-0"
                                 onClick={() => {
                                   if (!selectedIngredients.includes(ingredient)) {
                                     setSelectedIngredients(prev => [...prev, ingredient]);
@@ -826,7 +826,7 @@ export default function RecipesScreen() {
                           <div
                             key={dish.name}
                             className={`p-3 border rounded-lg cursor-pointer transition-colors ${
-                              selectedDish === dish.name ? 'border-brand-indigo-500 bg-brand-indigo-50' : 'hover:bg-gray-50'
+                              selectedDish === dish.name ? 'border-brand-indigo-500 bg-brand-indigo-50' : 'hover:bg-white'
                             }`}
                             onClick={() => setSelectedDish(dish.name)}
                           >
@@ -880,7 +880,7 @@ export default function RecipesScreen() {
                           <div
                             key={dish.name}
                             className={`p-3 border rounded-lg cursor-pointer transition-colors relative ${
-                              selectedDish === dish.name ? 'border-brand-indigo-500 bg-brand-indigo-50' : 'hover:bg-gray-50'
+                              selectedDish === dish.name ? 'border-brand-indigo-500 bg-brand-indigo-50' : 'hover:bg-white'
                             }`}
                             onClick={() => setSelectedDish(dish.name)}
                           >
@@ -926,7 +926,7 @@ export default function RecipesScreen() {
                           <div
                             key={dish.name}
                             className={`p-3 border rounded-lg cursor-pointer transition-colors relative ${
-                              selectedDish === dish.name ? 'border-brand-indigo-500 bg-brand-indigo-50' : 'hover:bg-gray-50'
+                              selectedDish === dish.name ? 'border-brand-indigo-500 bg-brand-indigo-50' : 'hover:bg-white'
                             }`}
                             onClick={() => setSelectedDish(dish.name)}
                           >

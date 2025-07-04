@@ -236,6 +236,10 @@ Changelog:
   * Updated global CSS variables and theme definitions to maintain consistency
   * Applied new color scheme to all pages: splash, signup, recipes, profile, cooking, health, grocery, takeout, voice-cooking, ai-video-cooking
   * Enhanced button colors, borders, backgrounds, and accent colors throughout the application
+  * Fixed button visibility by updating primary CSS variables to use indigo theme
+  * Standardized all card backgrounds to consistent white across entire application
+  * Replaced gray card backgrounds (bg-gray-50) with proper white card styling
+  * Updated purple accent colors to match indigo theme for consistency
 ```
 
 ## User Preferences

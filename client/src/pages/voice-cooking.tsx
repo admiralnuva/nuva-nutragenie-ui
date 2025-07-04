@@ -431,7 +431,7 @@ export default function VoiceCookingScreen() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       {/* Header */}
       <div className="bg-white shadow-sm p-4">
         <div className="flex items-center justify-between">
@@ -698,7 +698,7 @@ export default function VoiceCookingScreen() {
                             key={step.id}
                             className={`border rounded-lg p-3 ${
                               completedSteps[index] 
-                                ? 'bg-gray-50 border-gray-300' 
+                                ? 'bg-white border-border' 
                                 : index === currentStep 
                                   ? 'bg-white border-green-300' 
                                   : 'bg-white border-gray-200'
@@ -812,7 +812,7 @@ export default function VoiceCookingScreen() {
                             key={step.id}
                             className={`border rounded-lg p-3 ${
                               completedSteps[index] 
-                                ? 'bg-gray-50 border-gray-300' 
+                                ? 'bg-white border-border' 
                                 : index === currentStep 
                                   ? 'bg-white border-green-300' 
                                   : 'bg-white border-gray-200'

@@ -134,7 +134,7 @@ export default function CookScreen() {
 
             <Card className="p-4 opacity-75">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center">
                   ⏱️
                 </div>
                 <div className="flex-1">

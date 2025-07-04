@@ -164,7 +164,7 @@ export default function AIVideoCookingScreen() {
       playful: {
         voice: "fun and energetic",
         style: "🎉 Playful", 
-        color: "bg-purple-500"
+        color: "bg-indigo-500"
       }
     };
     return personalities[chefPersonality as keyof typeof personalities];
@@ -175,7 +175,7 @@ export default function AIVideoCookingScreen() {
       case "detected": return "border-indigo-500 bg-indigo-50";
       case "confirmed": return "border-blue-500 bg-blue-50";
       case "warning": return "border-yellow-500 bg-yellow-50";
-      default: return "border-gray-300 bg-gray-50";
+      default: return "border-gray-300 bg-background";
     }
   };
 
@@ -189,7 +189,7 @@ export default function AIVideoCookingScreen() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       {/* Header */}
       <div className="bg-white shadow-sm p-4">
         <div className="flex items-center gap-3 mb-3">
@@ -272,7 +272,7 @@ export default function AIVideoCookingScreen() {
                     <Camera className="w-16 h-16 text-purple-600 mx-auto mb-3" />
                     <h3 className="text-lg font-semibold text-purple-800 mb-1">AI Visual Assistant</h3>
                     <p className="text-purple-600 text-sm mb-3">Get real-time cooking guidance</p>
-                    <Badge className="bg-purple-600 text-white">
+                    <Badge className="bg-indigo-600 text-white">
                       <Star className="w-3 h-3 mr-1" />
                       Premium Feature
                     </Badge>
