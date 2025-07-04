@@ -125,6 +125,7 @@ export default function SignupScreen() {
   const isAddressComplete = true; // Remove validation for testing
   const isChefComplete = true; // Remove validation for testing
   const isPhoneComplete = true; // Remove validation for testing
+  const isVerifiedComplete = true; // Remove validation for testing
   const isFormComplete = true; // Always allow form submission for testing
 
   return (
@@ -385,12 +386,12 @@ export default function SignupScreen() {
           </Card>
 
           {/* Phone Verification Section */}
-          <Card className={`transition-all ${isVerified ? 'ring-2 ring-brand-indigo-500' : ''}`}>
+          <Card className={`transition-all ${isVerifiedComplete ? 'ring-2 ring-brand-indigo-500' : ''}`}>
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-2 text-lg">
                 <Phone className="w-5 h-5" />
                 Phone Verification
-                {isVerified && <Check className="w-5 h-5 text-brand-indigo-600" />}
+                {isVerifiedComplete && <Check className="w-5 h-5 text-brand-indigo-600" />}
               </CardTitle>
               <CardDescription>Verify your phone number for security</CardDescription>
             </CardHeader>
