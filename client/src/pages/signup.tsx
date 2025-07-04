@@ -239,7 +239,7 @@ export default function SignupScreen() {
               </div>
 
               {/* City, State, Zip Row */}
-              <div className="grid grid-cols-6 gap-3">
+              <div className="grid grid-cols-7 gap-3">
                 <div className="col-span-3">
                   <Label htmlFor="city" className="block text-sm font-medium text-warm-neutral-700 mb-2">
                     City
@@ -315,7 +315,7 @@ export default function SignupScreen() {
                     </SelectContent>
                   </Select>
                 </div>
-                <div>
+                <div className="col-span-2">
                   <Label htmlFor="zipCode" className="block text-sm font-medium text-warm-neutral-700 mb-2">
                     Zip
                   </Label>
