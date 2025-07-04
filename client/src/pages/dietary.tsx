@@ -101,7 +101,7 @@ export default function DietaryScreen() {
           Dietary Preferences
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-3">
           {/* Dietary Restrictions */}
           <Card>
             <CardHeader className="pb-4">

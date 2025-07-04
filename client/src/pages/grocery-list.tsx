@@ -171,7 +171,7 @@ export default function GroceryListScreen() {
       </div>
 
       {/* Content */}
-      <div className="max-w-md mx-auto p-4 space-y-4 pb-20">
+      <div className="max-w-md mx-auto p-4 space-y-3 pb-20">
         {/* Grocery Items */}
         <Card>
           <CardHeader className="pb-2">

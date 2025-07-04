@@ -162,7 +162,7 @@ export default function InstacartScreen() {
       </div>
 
       {/* Content */}
-      <div className="max-w-md mx-auto p-4 space-y-4 pb-20">
+      <div className="max-w-md mx-auto p-4 space-y-3 pb-20">
         {/* Cart Items */}
         <Card>
           <CardHeader className="pb-3 space-y-3">

@@ -144,7 +144,7 @@ export default function SignupScreen() {
 
 
 
-        <div className="space-y-6">
+        <div className="space-y-3">
           {/* Profile Section */}
           <Card className={`transition-all ${isProfileComplete ? 'ring-2 ring-brand-green-500 bg-brand-green-50' : ''}`}>
             <CardHeader className="pb-4">

@@ -469,8 +469,8 @@ export default function ProfileScreen() {
       </div>
 
       {/* Card 1: Navigation Buttons */}
-      <div className="max-w-md mx-auto p-4">
-        <Card className="mb-4">
+      <div className="max-w-md mx-auto p-4 space-y-3">
+        <Card>
           <CardContent className="p-4">
             <div className="grid grid-cols-2 gap-3">
               {sections.map((section) => (
