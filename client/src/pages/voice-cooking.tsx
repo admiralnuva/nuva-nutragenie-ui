@@ -374,8 +374,8 @@ export default function VoiceCookingScreen() {
         <div className="flex items-center justify-between">
           <BackButton to="/recipes" />
           <div className="flex-1 text-center">
-            <h1 className="text-xl font-bold text-gray-800">Interactive Cooking</h1>
-            <p className="text-sm text-gray-600">{recipe.name} • {recipe.difficulty}</p>
+            <h1 className="text-xl font-bold text-gray-800">NutraGenie</h1>
+            <div className="text-lg font-semibold text-brand-green-600">Let's Cook</div>
             {isOfflineMode && (
               <div className="text-xs text-orange-600 mt-1">📶 Offline Mode Active</div>
             )}
@@ -489,6 +489,12 @@ export default function VoiceCookingScreen() {
                 </div>
               </div>
             )}
+
+            {/* Dish Name */}
+            <div className="text-center py-3">
+              <h2 className="text-xl font-bold text-gray-800">{recipe.name}</h2>
+              <p className="text-sm text-gray-600">Currently cooking • {recipe.difficulty}</p>
+            </div>
 
             {!isCooking ? (
               <div className="space-y-4 flex flex-col h-full">
