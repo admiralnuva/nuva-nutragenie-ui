@@ -1,0 +1,71 @@
+Requirements 
+Navigation
+User can navigate to this page from 
+1) Start Cooking button ( From Chef Recommends Page)
+Or on clicking the bottom tabs cook
+
+
+Title the Page Voice interaction Cooking : The goal is that user can cook via voice or text instructions on this page-
+
+Voice cooking Assistant/ Chef
+For Phase 1 MVP we have only Voice Cooking Assistant ( Chat with Chef)
+This a realtime interaction like in a normal conversation- User does not have to activate the microphone and talk-
+By default we activate microphone
+I want it to look and feel like user is speaking to someone over the phone experience, so some level of cross talk should be ok - 
+
+Voice choices - We give the user a choices for voices, 
+Male Chef :  sets of voice choices like 1) Energetic 2) Calm, 3) Playful   4) Encouraging
+Female Chef: 4 sets of voice choices 1) Energetic 2) Calm, 3) Playful & 4) Encouraging
+By default select the calm voice -
+User can change it while cooking or during a conversation
+Find a way to gamify the voice 
+
+Text based instructions:We provide step by step text based instructions
+All the steps and the instructions should be available for viewing without actually cooking step by step
+At an average we will have 8 to 10 steps per dish- we should make them collapsable or view all 
+User will be able to mute the check and cook at their own pace
+Some folks would just create a recipe and plan to cook later so we give them an option to download or print recipe
+ 
+
+Impacts to Profile Page
+By default we save the instructions and recipes etc that should be available somewhere on the profile page to view them later - The summary will be available user can later view all steps 
+
+
+Another thought is to gamify this - If user uses the voice assistant cooks 15 dishes and shares pics of the on social media - We can allow them to publish it as a book or audio book from the profile Page ( Analytics and visualization of this would be great) We can show this on one of the cards in the voice cooking page 
+
+
+You have already laid out a framework, we can work on it to add my thoughts and then we can optimize it 
+
+Card 1- 
+Add avatars of the user and Chef medium to large size so its looks realistic ( At some point of time, I will share with you the avatars I would like to use, for now use the one we already based on user selection)
+
+Give options for voices as described 
+Voice choices - We give the user a choices for voices, 
+Male Chef : 4 sets of voice choices like 1) Energetic 2) Calm, 3) Playful &  4) therapeutic
+Female Chef: 4 sets of voice choices 1) Energetic 2) Calm, 3) Playful & therapeutic 
+By default select the calm voice -
+User can change it while cooking or during a conversation
+Find a way to gamify the voice 
+Add text : AI video cooking coming shortly , Get visual guidance and feedback on your technique
+
+
+Card 2 : Remove the current card 
+Instead display Cooking steps with button to Mark Complete
+User can cook here, with start cooking button and when user enters mark complete the next step is displayed while cooking
+User should be able to view all cooking steps at one go so all the steps should be in a collapsable form that can be collapsed or extended - 
+User should also have the ability to save these steps
+User can cook here based on voice instructions and user can respond as complete and the button can be marked as complete- 
+
+
+Card 3  Continue cooking you can keep it same - as we do not have video for this phase remove all video icons for now
+
+Remove Card coming features
+
+In quick actions:  
+Photo Progress ( able to take a pic and post it on social media)
+Add Missing items to the cart ( This should lead to the cart page) 
+
+What happens once all the cooking steps are done ?
+Gamify here- give badge, store and allow pics to be uploaded to social media
+
+Let me know if I am clear or confused you
