@@ -298,7 +298,7 @@ export default function VoiceCookingScreen() {
         <div className="flex items-center gap-3">
           <BackButton to="/recipes" />
           <div className="flex-1">
-            <h1 className="text-xl font-bold text-gray-800">Voice Interaction Cooking</h1>
+            <h1 className="text-xl font-bold text-gray-800">Interactive Cooking</h1>
             <p className="text-sm text-gray-600">{recipe.name} • {recipe.difficulty}</p>
           </div>
           <Badge variant="secondary">{completedSteps.filter(Boolean).length}/{recipe.totalSteps}</Badge>
@@ -700,68 +700,7 @@ export default function VoiceCookingScreen() {
           </CardContent>
         </Card>
 
-        {/* Card 2: Continue Cooking (from Cook Screen) */}
-        <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-lg">Continue Cooking</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <div className="flex items-center gap-3">
-              <div className="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center text-xl">
-                🍜
-              </div>
-              <div className="flex-1">
-                <h4 className="font-medium text-gray-800">Creamy Tomato Soup</h4>
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <Timer className="w-3 h-3" />
-                  <span>Step 3 of 8</span>
-                  <span>•</span>
-                  <span>3 servings</span>
-                </div>
-              </div>
-              <Badge className="bg-orange-100 text-orange-800">In Progress</Badge>
-            </div>
-            
-            <div className="space-y-3">
-              <div className="flex gap-2">
-                <Button className="flex-1 bg-orange-600 hover:bg-orange-700">
-                  <Play className="w-4 h-4 mr-2" />
-                  Continue Cooking
-                </Button>
-              </div>
-              
-              <div className="text-sm text-gray-600">
-                <div className="font-medium mb-1">Current Step:</div>
-                <div>"Add the diced tomatoes and let them simmer for 5 minutes until they start to break down..."</div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Card 3: Quick Actions */}
-        <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-lg">Quick Actions</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-2 gap-3">
-              <Button variant="outline" className="flex items-center gap-2">
-                <Camera className="w-4 h-4" />
-                Photo Progress
-              </Button>
-              <Button 
-                variant="outline" 
-                className="flex items-center gap-2"
-                onClick={() => setLocation("/grocery-list")}
-              >
-                <ShoppingCart className="w-4 h-4" />
-                Add Missing Items
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Conversation History */}
+        {/* Card 2: Voice Conversation History */}
         {conversation.length > 0 && (
           <Card>
             <CardHeader className="pb-3">
@@ -789,45 +728,39 @@ export default function VoiceCookingScreen() {
           </Card>
         )}
 
-        {/* Gamification Progress - Only show when significant progress */}
-        {userProgress.dishesCooked > 10 && (
-          <Card className="bg-gradient-to-r from-yellow-50 to-orange-50 border-yellow-200">
-            <CardHeader className="pb-3">
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Trophy className="w-5 h-5 text-yellow-600" />
-                Cooking Achievements
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <div className="grid grid-cols-3 gap-4 text-center">
-                <div>
-                  <div className="text-2xl font-bold text-yellow-600">{userProgress.dishesCooked}</div>
-                  <div className="text-xs text-gray-600">Dishes Cooked</div>
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-yellow-600">{userProgress.cookingBadges}</div>
-                  <div className="text-xs text-gray-600">Badges Earned</div>
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-yellow-600">{userProgress.socialShares}</div>
-                  <div className="text-xs text-gray-600">Social Shares</div>
-                </div>
-              </div>
-              
-              {userProgress.canPublishBook && (
-                <div className="bg-yellow-100 border border-yellow-300 rounded-lg p-3 text-center">
-                  <p className="text-yellow-800 font-medium mb-2">Congratulations!</p>
-                  <p className="text-yellow-700 text-sm mb-3">You've cooked 15+ dishes! You can now publish your cookbook.</p>
-                  <Button size="sm" className="bg-yellow-600 hover:bg-yellow-700">
-                    <Share2 className="w-3 h-3 mr-1" />
-                    Publish Cookbook
-                  </Button>
-                </div>
-              )}
-            </CardContent>
-          </Card>
-        )}
+        {/* Card 3: Continue Cooking (Compact) */}
+        <Card>
+          <CardContent className="pt-4 pb-3">
+            <div className="space-y-2">
+              <h4 className="font-medium text-gray-800">Creamy Tomato Soup</h4>
+              <div className="text-sm text-gray-600">Step 3 of 8 • 3 servings</div>
+            </div>
+            <Button className="w-full bg-orange-600 hover:bg-orange-700 mt-3">
+              Continue Cooking
+            </Button>
+          </CardContent>
+        </Card>
 
+        {/* Card 4: Quick Actions (Compact) */}
+        <Card>
+          <CardContent className="pt-4 pb-3">
+            <div className="grid grid-cols-2 gap-2">
+              <Button variant="outline" size="sm" className="flex items-center gap-2">
+                <Camera className="w-4 h-4" />
+                Photo Progress
+              </Button>
+              <Button 
+                variant="outline" 
+                size="sm"
+                className="flex items-center gap-2"
+                onClick={() => setLocation("/grocery-list")}
+              >
+                <ShoppingCart className="w-4 h-4" />
+                Add Missing Items
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
