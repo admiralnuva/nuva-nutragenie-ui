@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { BackButton } from "@/components/ui/back-button";
-import { ArrowLeft, Check, User, ChefHat, Phone, Shield } from "lucide-react";
+import { ArrowLeft, Check, User, ChefHat, MapPin, Phone, Shield } from "lucide-react";
 
 const userAvatars = ['😀', '👩', '👨', '🧑‍🦰'];
 
@@ -29,7 +29,10 @@ export default function SignupScreen() {
   const [nickname, setNickname] = useState("");
   const [ageGroup, setAgeGroup] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [address, setAddress] = useState("");
+  const [streetAddress, setStreetAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zipCode, setZipCode] = useState("");
   const [verificationCode, setVerificationCode] = useState("");
   const [selectedAvatar, setSelectedAvatar] = useState('😀');
   const [selectedChef, setSelectedChef] = useState(chefs[0]);
@@ -81,7 +84,7 @@ export default function SignupScreen() {
             nickname: nickname || 'TestUser',
             ageGroup: ageGroup || '25-30',
             phoneNumber: phoneNumber || '1234567890',
-            address: address || '',
+            address: `${streetAddress || ''}, ${city || ''}, ${state || ''} ${zipCode || ''}`.replace(/^,\s*/, '').replace(/,\s*,/g, ',').trim(),
             avatar: selectedAvatar || '😀',
             selectedChef: {
               name: chefNickname || 'Chef',
@@ -119,6 +122,7 @@ export default function SignupScreen() {
 
   // Validation checks (simplified for testing)
   const isProfileComplete = true; // Remove validation for testing
+  const isAddressComplete = true; // Remove validation for testing
   const isChefComplete = true; // Remove validation for testing
   const isPhoneComplete = true; // Remove validation for testing
   const isFormComplete = true; // Always allow form submission for testing
@@ -204,19 +208,127 @@ export default function SignupScreen() {
                 </div>
               </div>
 
-              {/* Address Field */}
+
+            </CardContent>
+          </Card>
+
+          {/* Address Section */}
+          <Card className={`transition-all ${isAddressComplete ? 'ring-2 ring-brand-green-500 bg-brand-green-50' : ''}`}>
+            <CardHeader className="pb-4">
+              <CardTitle className="flex items-center gap-2 text-lg">
+                <MapPin className="w-5 h-5" />
+                Your Address
+                {isAddressComplete && <Check className="w-5 h-5 text-brand-green-600" />}
+              </CardTitle>
+              <CardDescription>Delivery and location details</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {/* Street Address */}
               <div>
-                <Label htmlFor="address" className="block text-sm font-medium text-warm-neutral-700 mb-2">
-                  Address
+                <Label htmlFor="streetAddress" className="block text-sm font-medium text-warm-neutral-700 mb-2">
+                  Street Address
                 </Label>
                 <Input
-                  id="address"
+                  id="streetAddress"
                   type="text"
-                  placeholder="Your address"
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
+                  placeholder="123 Main Street"
+                  value={streetAddress}
+                  onChange={(e) => setStreetAddress(e.target.value)}
                   className="w-full px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-green-500 focus:border-transparent"
                 />
+              </div>
+
+              {/* City, State, Zip Row */}
+              <div className="grid grid-cols-5 gap-3">
+                <div className="col-span-2">
+                  <Label htmlFor="city" className="block text-sm font-medium text-warm-neutral-700 mb-2">
+                    City
+                  </Label>
+                  <Input
+                    id="city"
+                    type="text"
+                    placeholder="San Francisco"
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                    className="w-full px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-green-500 focus:border-transparent"
+                  />
+                </div>
+                <div className="col-span-2">
+                  <Label htmlFor="state" className="block text-sm font-medium text-warm-neutral-700 mb-2">
+                    State
+                  </Label>
+                  <Select value={state} onValueChange={setState}>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="CA" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="AL">AL</SelectItem>
+                      <SelectItem value="AK">AK</SelectItem>
+                      <SelectItem value="AZ">AZ</SelectItem>
+                      <SelectItem value="AR">AR</SelectItem>
+                      <SelectItem value="CA">CA</SelectItem>
+                      <SelectItem value="CO">CO</SelectItem>
+                      <SelectItem value="CT">CT</SelectItem>
+                      <SelectItem value="DE">DE</SelectItem>
+                      <SelectItem value="FL">FL</SelectItem>
+                      <SelectItem value="GA">GA</SelectItem>
+                      <SelectItem value="HI">HI</SelectItem>
+                      <SelectItem value="ID">ID</SelectItem>
+                      <SelectItem value="IL">IL</SelectItem>
+                      <SelectItem value="IN">IN</SelectItem>
+                      <SelectItem value="IA">IA</SelectItem>
+                      <SelectItem value="KS">KS</SelectItem>
+                      <SelectItem value="KY">KY</SelectItem>
+                      <SelectItem value="LA">LA</SelectItem>
+                      <SelectItem value="ME">ME</SelectItem>
+                      <SelectItem value="MD">MD</SelectItem>
+                      <SelectItem value="MA">MA</SelectItem>
+                      <SelectItem value="MI">MI</SelectItem>
+                      <SelectItem value="MN">MN</SelectItem>
+                      <SelectItem value="MS">MS</SelectItem>
+                      <SelectItem value="MO">MO</SelectItem>
+                      <SelectItem value="MT">MT</SelectItem>
+                      <SelectItem value="NE">NE</SelectItem>
+                      <SelectItem value="NV">NV</SelectItem>
+                      <SelectItem value="NH">NH</SelectItem>
+                      <SelectItem value="NJ">NJ</SelectItem>
+                      <SelectItem value="NM">NM</SelectItem>
+                      <SelectItem value="NY">NY</SelectItem>
+                      <SelectItem value="NC">NC</SelectItem>
+                      <SelectItem value="ND">ND</SelectItem>
+                      <SelectItem value="OH">OH</SelectItem>
+                      <SelectItem value="OK">OK</SelectItem>
+                      <SelectItem value="OR">OR</SelectItem>
+                      <SelectItem value="PA">PA</SelectItem>
+                      <SelectItem value="RI">RI</SelectItem>
+                      <SelectItem value="SC">SC</SelectItem>
+                      <SelectItem value="SD">SD</SelectItem>
+                      <SelectItem value="TN">TN</SelectItem>
+                      <SelectItem value="TX">TX</SelectItem>
+                      <SelectItem value="UT">UT</SelectItem>
+                      <SelectItem value="VT">VT</SelectItem>
+                      <SelectItem value="VA">VA</SelectItem>
+                      <SelectItem value="WA">WA</SelectItem>
+                      <SelectItem value="WV">WV</SelectItem>
+                      <SelectItem value="WI">WI</SelectItem>
+                      <SelectItem value="WY">WY</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label htmlFor="zipCode" className="block text-sm font-medium text-warm-neutral-700 mb-2">
+                    Zip
+                  </Label>
+                  <Input
+                    id="zipCode"
+                    type="text"
+                    placeholder="94102"
+                    maxLength={6}
+                    value={zipCode}
+                    onChange={(e) => setZipCode(e.target.value)}
+                    className="w-full px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-green-500 focus:border-transparent"
+                  />
+                </div>
               </div>
             </CardContent>
           </Card>
