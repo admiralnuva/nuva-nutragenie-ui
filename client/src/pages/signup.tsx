@@ -12,13 +12,30 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { BackButton } from "@/components/ui/back-button";
 import { ArrowLeft, Check, User, ChefHat, MapPin, Phone, Shield } from "lucide-react";
 
-const userAvatars = ['😀', '👩', '👨', '🧑‍🦰'];
+// Import user avatar images
+import userAvatar1 from "@/assets/avatars/user/user1.png";
+import userAvatar2 from "@/assets/avatars/user/user2.png";
+import userAvatar3 from "@/assets/avatars/user/user3.png";
+import userAvatar4 from "@/assets/avatars/user/user4.png";
+
+// Import chef avatar images
+import chefAvatar1 from "@/assets/avatars/chef/chef1.png";
+import chefAvatar2 from "@/assets/avatars/chef/chef2.png";
+import chefAvatar3 from "@/assets/avatars/chef/chef3.png";
+import chefAvatar4 from "@/assets/avatars/chef/chef4.png";
+
+const userAvatars = [
+  { id: 'user1', src: userAvatar1, alt: 'User Avatar 1' },
+  { id: 'user2', src: userAvatar2, alt: 'User Avatar 2' },
+  { id: 'user3', src: userAvatar3, alt: 'User Avatar 3' },
+  { id: 'user4', src: userAvatar4, alt: 'User Avatar 4' }
+];
 
 const chefs = [
-  { name: 'Chef Antoine', personality: 'Precise & Classic', emoji: '👨‍🍳' },
-  { name: 'Chef Sofia', personality: 'Friendly & Vibrant', emoji: '👩‍🍳' },
-  { name: 'Chef Ravi', personality: 'Bold & Spicy', emoji: '🧑‍🍳' },
-  { name: 'Chef Sakura', personality: 'Zen & Delicate', emoji: '🍜' }
+  { name: 'Chef Antoine', personality: 'Precise & Classic', avatar: chefAvatar1 },
+  { name: 'Chef Sofia', personality: 'Friendly & Vibrant', avatar: chefAvatar2 },
+  { name: 'Chef Ravi', personality: 'Bold & Spicy', avatar: chefAvatar3 },
+  { name: 'Chef Sakura', personality: 'Zen & Delicate', avatar: chefAvatar4 }
 ];
 
 export default function SignupScreen() {
@@ -34,7 +51,7 @@ export default function SignupScreen() {
   const [state, setState] = useState("");
   const [zipCode, setZipCode] = useState("");
   const [verificationCode, setVerificationCode] = useState("");
-  const [selectedAvatar, setSelectedAvatar] = useState('😀');
+  const [selectedAvatar, setSelectedAvatar] = useState(userAvatars[0]);
   const [selectedChef, setSelectedChef] = useState(chefs[0]);
   const [chefNickname, setChefNickname] = useState(chefs[0].name);
   const [isVerifying, setIsVerifying] = useState(false);
@@ -85,11 +102,11 @@ export default function SignupScreen() {
             ageGroup: ageGroup || '25-30',
             phoneNumber: phoneNumber || '1234567890',
             address: `${streetAddress || ''}, ${city || ''}, ${state || ''} ${zipCode || ''}`.replace(/^,\s*/, '').replace(/,\s*,/g, ',').trim(),
-            avatar: selectedAvatar || '😀',
+            avatar: selectedAvatar?.id || 'user1',
             selectedChef: {
               name: chefNickname || 'Chef',
               personality: selectedChef?.personality || 'Friendly & Encouraging',
-              emoji: selectedChef?.emoji || '👨‍🍳'
+              avatar: selectedChef?.avatar || chefAvatar1
             },
             dietaryRestrictions: [],
             healthGoals: [],
@@ -108,11 +125,11 @@ export default function SignupScreen() {
       nickname: nickname || 'TestUser',
       ageGroup: ageGroup || '25-30',
       phoneNumber: phoneNumber || '1234567890',
-      avatar: selectedAvatar || '😀',
+      avatar: selectedAvatar?.id || 'user1',
       selectedChef: {
         name: chefNickname || 'Chef',
         personality: selectedChef?.personality || 'Friendly & Encouraging',
-        emoji: selectedChef?.emoji || '👨‍🍳'
+        avatar: selectedChef?.avatar || chefAvatar1
       },
       dietaryRestrictions: [],
       healthGoals: [],
@@ -163,14 +180,18 @@ export default function SignupScreen() {
                 <div className="grid grid-cols-4 gap-3">
                   {userAvatars.map(avatar => (
                     <button
-                      key={avatar}
+                      key={avatar.id}
                       type="button"
                       onClick={() => setSelectedAvatar(avatar)}
                       className={`flex items-center justify-center w-16 h-16 rounded-lg border-2 ${
-                        selectedAvatar === avatar ? 'border-indigo-500 bg-indigo-500 text-white shadow-md scale-105' : 'border-gray-300'
-                      } bg-white text-2xl hover:border-indigo-400 hover:bg-indigo-50 transition-all`}
+                        selectedAvatar.id === avatar.id ? 'border-indigo-500 bg-indigo-50 shadow-md scale-105' : 'border-gray-300'
+                      } bg-white hover:border-indigo-400 hover:bg-indigo-50 transition-all overflow-hidden`}
                     >
-                      {avatar}
+                      <img 
+                        src={avatar.src} 
+                        alt={avatar.alt}
+                        className="w-full h-full object-cover rounded-md"
+                      />
                     </button>
                   ))}
                 </div>
@@ -357,14 +378,15 @@ export default function SignupScreen() {
                         setSelectedChef(chef);
                         setChefNickname(chef.name);
                       }}
-                      className={`flex flex-col items-center justify-center w-16 h-16 rounded-lg border-2 ${
-                        selectedChef.emoji === chef.emoji ? 'border-indigo-500 bg-indigo-500 text-white shadow-md scale-105' : 'border-gray-300'
-                      } bg-white hover:border-indigo-400 hover:bg-indigo-50 transition-all`}
+                      className={`flex items-center justify-center w-16 h-16 rounded-lg border-2 ${
+                        selectedChef.name === chef.name ? 'border-indigo-500 bg-indigo-50 shadow-md scale-105' : 'border-gray-300'
+                      } bg-white hover:border-indigo-400 hover:bg-indigo-50 transition-all overflow-hidden`}
                     >
-                      <span className="text-2xl mb-1">{chef.emoji}</span>
-                      <span className={`text-xs text-center leading-tight ${
-                        selectedChef.emoji === chef.emoji ? 'text-white' : 'text-warm-neutral-600'
-                      }`}>{chef.personality.split(' ')[0]}</span>
+                      <img 
+                        src={chef.avatar} 
+                        alt={chef.name}
+                        className="w-full h-full object-cover rounded-md"
+                      />
                     </button>
                   ))}
                 </div>
