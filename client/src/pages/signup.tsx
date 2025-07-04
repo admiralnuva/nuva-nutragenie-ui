@@ -239,8 +239,8 @@ export default function SignupScreen() {
               </div>
 
               {/* City, State, Zip Row */}
-              <div className="grid grid-cols-5 gap-3">
-                <div className="col-span-2">
+              <div className="grid grid-cols-6 gap-3">
+                <div className="col-span-3">
                   <Label htmlFor="city" className="block text-sm font-medium text-warm-neutral-700 mb-2">
                     City
                   </Label>
@@ -323,7 +323,7 @@ export default function SignupScreen() {
                     id="zipCode"
                     type="text"
                     placeholder="94102"
-                    maxLength={6}
+                    maxLength={5}
                     value={zipCode}
                     onChange={(e) => setZipCode(e.target.value)}
                     className="w-full px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-green-500 focus:border-transparent"
