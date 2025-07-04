@@ -1,284 +1,381 @@
 import { useState } from "react";
 import { useLocation } from "wouter";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { apiRequest } from "@/lib/queryClient";
-import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
 import { BackButton } from "@/components/ui/back-button";
-import { ArrowLeft, Settings, User, MessageCircle, BookOpen, Edit, BarChart3 } from "lucide-react";
+import { BottomNavigation } from "@/components/ui/bottom-navigation";
+import { 
+  User, 
+  Edit, 
+  Apple, 
+  ShoppingCart, 
+  FileText, 
+  BarChart3, 
+  Calendar,
+  DollarSign,
+  Clock,
+  TrendingUp,
+  TrendingDown,
+  Target
+} from "lucide-react";
 
-const achievements = [
-  {
-    id: 1,
-    title: "First Recipe!",
-    description: "Completed your first recipe",
-    icon: "🏆",
-    bgColor: "bg-yellow-50",
-    textColor: "text-yellow-800",
-    descColor: "text-yellow-600"
-  },
-  {
-    id: 2,
-    title: "Healthy Eater",
-    description: "Cooked 5 healthy recipes",
-    icon: "🌱",
-    bgColor: "bg-green-50",
-    textColor: "text-green-800",
-    descColor: "text-green-600"
-  },
-  {
-    id: 3,
-    title: "Speed Chef",
-    description: "Completed a 15-minute recipe",
-    icon: "⚡",
-    bgColor: "bg-blue-50",
-    textColor: "text-blue-800",
-    descColor: "text-blue-600"
-  }
+// Mock data for demonstration
+const mockOrderHistory = [
+  { id: "IC123456", date: "2025-01-03", store: "Whole Foods", items: 12, total: 89.47, status: "Delivered" },
+  { id: "IC123455", date: "2025-01-01", store: "Safeway", items: 8, total: 67.23, status: "Delivered" },
+  { id: "IC123454", date: "2024-12-29", store: "Costco", items: 15, total: 124.99, status: "Delivered" }
 ];
+
+const mockGroceryHistory = [
+  { id: 1, date: "2025-01-03", items: 12, printed: true },
+  { id: 2, date: "2025-01-01", items: 8, printed: false },
+  { id: 3, date: "2024-12-29", items: 15, printed: true }
+];
+
+const mockAnalytics = {
+  totalOrders: 23,
+  totalSpent: 1847.32,
+  avgOrderValue: 80.32,
+  favoriteStore: "Whole Foods",
+  monthlySpending: [120, 150, 180, 210, 185, 165],
+  nutritionGoals: {
+    calories: { target: 2000, actual: 1850, percentage: 92 },
+    protein: { target: 150, actual: 142, percentage: 95 },
+    carbs: { target: 250, actual: 210, percentage: 84 },
+    fat: { target: 67, actual: 71, percentage: 106 }
+  }
+};
 
 export default function ProfileScreen() {
   const [, setLocation] = useLocation();
   const [currentUser, setCurrentUser] = useLocalStorage<any>("nutragenie_user", null);
-  const queryClient = useQueryClient();
-  const { toast } = useToast();
+  const [activeSection, setActiveSection] = useState("account");
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedUser, setEditedUser] = useState(currentUser || {});
 
-  // Mock progress data - in real app, this would come from the user object
-  const progressData = {
-    cookingPoints: { current: 5, total: 100 },
-    purchasePoints: { current: 5, total: 100 },
-    weekStreak: 4,
-    completedChallenges: 9,
-    totalChallenges: 10,
-    recipesCompleted: 68,
-    level: 3
+  const handleSaveProfile = () => {
+    setCurrentUser(editedUser);
+    setIsEditing(false);
   };
 
-  const capColors = ['#3b82f6', '#10b981', '#ef4444', '#8b5cf6', '#FFD700'];
+  const sections = [
+    { id: "account", title: "Account Information", icon: User },
+    { id: "dietary", title: "Dietary Preferences", icon: Apple },
+    { id: "grocery", title: "Grocery List History", icon: FileText },
+    { id: "orders", title: "Instacart Orders", icon: ShoppingCart },
+    { id: "analytics", title: "Analytics Dashboard", icon: BarChart3 }
+  ];
 
-  const BottomNavigation = () => (
-    <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-[393px] bg-white border-t border-gray-200 px-4 py-2">
-      <div className="flex justify-around">
-        <button 
-          onClick={() => setLocation("/recipes")}
-          className="flex flex-col items-center gap-1 py-2 px-3 text-gray-400 hover:text-brand-green-500 transition-colors"
+  const renderAccountSection = () => (
+    <Card>
+      <CardHeader className="flex flex-row items-center justify-between">
+        <CardTitle className="flex items-center gap-2">
+          <User className="w-5 h-5" />
+          Account Information
+        </CardTitle>
+        <Button 
+          variant="ghost" 
+          size="sm"
+          onClick={() => setIsEditing(!isEditing)}
         >
-          <BookOpen className="w-6 h-6" />
-          <span className="text-xs font-medium">Recipes</span>
-        </button>
-        <button 
-          onClick={() => setLocation("/cooking")}
-          className="flex flex-col items-center gap-1 py-2 px-3 text-gray-400 hover:text-brand-green-500 transition-colors"
+          <Edit className="w-4 h-4" />
+        </Button>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        {isEditing ? (
+          <>
+            <div className="space-y-2">
+              <Label>Avatar</Label>
+              <div className="flex gap-2">
+                {["😀", "👩", "👨", "🧑", "👩‍🦱", "👨‍🦱"].map((emoji) => (
+                  <Button
+                    key={emoji}
+                    variant={editedUser.avatar === emoji ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setEditedUser({...editedUser, avatar: emoji})}
+                  >
+                    {emoji}
+                  </Button>
+                ))}
+              </div>
+            </div>
+            <div className="space-y-2">
+              <Label>Nickname</Label>
+              <Input
+                value={editedUser.nickname || ""}
+                onChange={(e) => setEditedUser({...editedUser, nickname: e.target.value})}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label>Age Group</Label>
+              <div className="flex gap-2">
+                {["18-24", "25-30", "31-40", "41-50", "51+"].map((age) => (
+                  <Button
+                    key={age}
+                    variant={editedUser.ageGroup === age ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setEditedUser({...editedUser, ageGroup: age})}
+                  >
+                    {age}
+                  </Button>
+                ))}
+              </div>
+            </div>
+            <div className="space-y-2">
+              <Label>Phone Number</Label>
+              <Input
+                value={editedUser.phoneNumber || ""}
+                onChange={(e) => setEditedUser({...editedUser, phoneNumber: e.target.value})}
+                placeholder="(555) 123-4567"
+              />
+            </div>
+            <Button onClick={handleSaveProfile} className="w-full">
+              Save Changes
+            </Button>
+          </>
+        ) : (
+          <div className="space-y-3">
+            <div className="flex items-center gap-3">
+              <span className="text-2xl">{currentUser?.avatar || "👤"}</span>
+              <div>
+                <div className="font-medium">{currentUser?.nickname || "User"}</div>
+                <div className="text-sm text-gray-600">{currentUser?.ageGroup || "Age not set"}</div>
+              </div>
+            </div>
+            <div className="text-sm text-gray-600">
+              <div>Phone: {currentUser?.phoneNumber || "Not provided"}</div>
+              <div>Member since: January 2025</div>
+            </div>
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  );
+
+  const renderDietarySection = () => (
+    <Card>
+      <CardHeader className="flex flex-row items-center justify-between">
+        <CardTitle className="flex items-center gap-2">
+          <Apple className="w-5 h-5" />
+          Dietary Preferences
+        </CardTitle>
+        <Button 
+          variant="ghost" 
+          size="sm"
+          onClick={() => setLocation("/dietary")}
         >
-          <MessageCircle className="w-6 h-6" />
-          <span className="text-xs font-medium">Chef AI</span>
-        </button>
-        <button className="flex flex-col items-center gap-1 py-2 px-3 text-brand-green-500">
-          <User className="w-6 h-6 fill-current" />
-          <span className="text-xs font-medium">Profile</span>
-        </button>
-      </div>
+          <Edit className="w-4 h-4" />
+        </Button>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <div>
+          <h4 className="font-medium mb-2">Dietary Restrictions</h4>
+          <div className="flex flex-wrap gap-2">
+            {(currentUser?.dietaryRestrictions || ["Vegetarian"]).map((restriction: string) => (
+              <Badge key={restriction} variant="secondary">{restriction}</Badge>
+            ))}
+          </div>
+        </div>
+        <div>
+          <h4 className="font-medium mb-2">Health Conditions</h4>
+          <div className="flex flex-wrap gap-2">
+            {(currentUser?.healthConditions || ["None"]).map((condition: string) => (
+              <Badge key={condition} variant="outline">{condition}</Badge>
+            ))}
+          </div>
+        </div>
+        <div>
+          <h4 className="font-medium mb-2">Fitness Goals</h4>
+          <div className="flex flex-wrap gap-2">
+            {(currentUser?.fitnessGoals || ["Wellness"]).map((goal: string) => (
+              <Badge key={goal} className="bg-green-100 text-green-800">{goal}</Badge>
+            ))}
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+
+  const renderGroceryHistory = () => (
+    <Card>
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          <FileText className="w-5 h-5" />
+          Grocery List History
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-3">
+        {mockGroceryHistory.map((list) => (
+          <div key={list.id} className="flex items-center justify-between p-3 border rounded-lg">
+            <div>
+              <div className="font-medium">{list.date}</div>
+              <div className="text-sm text-gray-600">{list.items} items</div>
+            </div>
+            <div className="flex gap-2">
+              {list.printed && <Badge variant="secondary">Printed</Badge>}
+              <Button size="sm" variant="outline">
+                Print
+              </Button>
+            </div>
+          </div>
+        ))}
+      </CardContent>
+    </Card>
+  );
+
+  const renderOrderHistory = () => (
+    <Card>
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          <ShoppingCart className="w-5 h-5" />
+          Instacart Order History
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-3">
+        {mockOrderHistory.map((order) => (
+          <div key={order.id} className="p-3 border rounded-lg">
+            <div className="flex justify-between items-start mb-2">
+              <div>
+                <div className="font-medium">Order #{order.id}</div>
+                <div className="text-sm text-gray-600">{order.store}</div>
+              </div>
+              <Badge variant={order.status === "Delivered" ? "default" : "secondary"}>
+                {order.status}
+              </Badge>
+            </div>
+            <div className="flex justify-between text-sm">
+              <span>{order.date}</span>
+              <span>{order.items} items • ${order.total}</span>
+            </div>
+          </div>
+        ))}
+      </CardContent>
+    </Card>
+  );
+
+  const renderAnalytics = () => (
+    <div className="space-y-4">
+      {/* Overview Stats */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <BarChart3 className="w-5 h-5" />
+            Analytics Overview
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="text-center">
+              <div className="text-2xl font-bold text-green-600">{mockAnalytics.totalOrders}</div>
+              <div className="text-sm text-gray-600">Total Orders</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-green-600">${mockAnalytics.totalSpent}</div>
+              <div className="text-sm text-gray-600">Total Spent</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-green-600">${mockAnalytics.avgOrderValue}</div>
+              <div className="text-sm text-gray-600">Avg Order</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-green-600">{mockAnalytics.favoriteStore}</div>
+              <div className="text-sm text-gray-600">Favorite Store</div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Nutrition Goals */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Target className="w-5 h-5" />
+            Nutrition Goals Progress
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          {Object.entries(mockAnalytics.nutritionGoals).map(([key, data]) => (
+            <div key={key}>
+              <div className="flex justify-between text-sm mb-1">
+                <span className="capitalize">{key}</span>
+                <span>{data.actual}/{data.target}g</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="flex-1 bg-gray-200 rounded-full h-2">
+                  <div 
+                    className={`h-2 rounded-full ${data.percentage > 100 ? 'bg-red-500' : 'bg-green-500'}`}
+                    style={{width: `${Math.min(data.percentage, 100)}%`}}
+                  />
+                </div>
+                <span className="text-xs text-gray-600">{data.percentage}%</span>
+              </div>
+            </div>
+          ))}
+        </CardContent>
+      </Card>
     </div>
   );
 
+  const renderActiveSection = () => {
+    switch (activeSection) {
+      case "account": return renderAccountSection();
+      case "dietary": return renderDietarySection();
+      case "grocery": return renderGroceryHistory();
+      case "orders": return renderOrderHistory();
+      case "analytics": return renderAnalytics();
+      default: return renderAccountSection();
+    }
+  };
+
   if (!currentUser) {
-    setLocation("/");
-    return null;
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+        <Card className="w-full max-w-md">
+          <CardContent className="pt-6 text-center">
+            <h2 className="text-xl font-bold mb-4">Please Sign In</h2>
+            <Button onClick={() => setLocation("/signup")} className="w-full">
+              Go to Sign Up
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    );
   }
 
   return (
-    <div className="h-screen bg-gray-50 pb-20">
+    <div className="min-h-screen bg-gray-50 pb-20">
       {/* Header */}
-      <div className="bg-white shadow-sm p-4 flex items-center justify-between">
-        <BackButton to="/home" />
-        <h2 className="font-bold text-lg text-gray-800">NutraGenie Profile</h2>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="rounded-full hover:bg-gray-100"
-        >
-          <Settings className="w-6 h-6 text-gray-600" />
-        </Button>
+      <div className="bg-white shadow-sm p-4">
+        <div className="flex items-center gap-3 mb-4">
+          <BackButton to="/home" />
+          <h1 className="text-2xl font-bold text-gray-800">Profile</h1>
+        </div>
+        
+        {/* Section Navigation */}
+        <div className="flex gap-2 overflow-x-auto pb-2">
+          {sections.map((section) => (
+            <Button
+              key={section.id}
+              variant={activeSection === section.id ? "default" : "outline"}
+              size="sm"
+              onClick={() => setActiveSection(section.id)}
+              className="flex items-center gap-2 whitespace-nowrap"
+            >
+              <section.icon className="w-4 h-4" />
+              {section.title}
+            </Button>
+          ))}
+        </div>
       </div>
 
-      <div className="p-4 space-y-6">
-        {/* Profile Summary */}
-        <Card className="shadow-sm">
-          <CardContent className="p-4">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="w-16 h-16 rounded-full bg-brand-green-500 flex items-center justify-center text-white text-2xl">
-                {currentUser.avatar}
-              </div>
-              <div>
-                <h3 className="font-bold text-lg text-gray-800">{currentUser.nickname}</h3>
-                <p className="text-gray-600">Home Chef • Level {progressData.level}</p>
-                <div className="flex items-center gap-2 mt-1">
-                  <div className="flex text-yellow-500">
-                    {Array(3).fill(0).map((_, i) => (
-                      <span key={i} className="text-sm">⭐</span>
-                    ))}
-                  </div>
-                  <span className="text-sm text-gray-500">{progressData.recipesCompleted} recipes completed</span>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Progress Stats */}
-        <div className="grid grid-cols-2 gap-4">
-          <Card className="bg-brand-green-50">
-            <CardContent className="p-4">
-              <div className="text-2xl mb-2">⭐</div>
-              <div className="text-2xl font-bold text-brand-green-700">{progressData.cookingPoints.current}</div>
-              <p className="text-sm text-brand-green-600">Cooking Points</p>
-              <Progress 
-                value={(progressData.cookingPoints.current / progressData.cookingPoints.total) * 100} 
-                className="mt-2 h-2"
-              />
-              <p className="text-xs text-brand-green-600 mt-1">
-                {progressData.cookingPoints.total - progressData.cookingPoints.current} to next star
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-blue-50">
-            <CardContent className="p-4">
-              <div className="text-2xl mb-2">🎖️</div>
-              <div className="text-2xl font-bold text-blue-700">{progressData.purchasePoints.current}</div>
-              <p className="text-sm text-blue-600">Purchase Points</p>
-              <Progress 
-                value={(progressData.purchasePoints.current / progressData.purchasePoints.total) * 100} 
-                className="mt-2 h-2"
-              />
-              <p className="text-xs text-blue-600 mt-1">
-                {progressData.purchasePoints.total - progressData.purchasePoints.current} to next badge
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-orange-50">
-            <CardContent className="p-4">
-              <div className="text-2xl mb-2">🔥</div>
-              <div className="text-2xl font-bold text-orange-700">{progressData.weekStreak}</div>
-              <p className="text-sm text-orange-600">Week Streak</p>
-              <div className="flex gap-1 mt-2">
-                {Array(4).fill(0).map((_, i) => (
-                  <div 
-                    key={i} 
-                    className={`w-3 h-3 rounded-full ${
-                      i < progressData.weekStreak ? 'bg-orange-500' : 'bg-orange-200'
-                    }`}
-                  ></div>
-                ))}
-              </div>
-              <p className="text-xs text-orange-600 mt-1">This month!</p>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-purple-50">
-            <CardContent className="p-4">
-              <div className="text-2xl mb-2">🧢</div>
-              <div className="text-2xl font-bold text-purple-700">
-                {Math.floor(progressData.completedChallenges / 10)}
-              </div>
-              <p className="text-sm text-purple-600">Chef Caps</p>
-              <div className="flex gap-1 mt-2">
-                {capColors.slice(0, 3).map((color, i) => (
-                  <div 
-                    key={i} 
-                    className={`text-lg ${
-                      i < Math.floor(progressData.completedChallenges / 10) ? '' : 'opacity-20'
-                    }`}
-                    style={{ color }}
-                  >
-                    🧢
-                  </div>
-                ))}
-              </div>
-              <p className="text-xs text-purple-600 mt-1">
-                {progressData.completedChallenges}/{progressData.totalChallenges} challenges
-              </p>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Achievements */}
-        <Card className="shadow-sm">
-          <CardContent className="p-4">
-            <h4 className="font-bold text-gray-800 mb-3">Recent Achievements</h4>
-            <div className="space-y-3">
-              {achievements.map(achievement => (
-                <div key={achievement.id} className={`flex items-center gap-3 p-3 ${achievement.bgColor} rounded-lg`}>
-                  <div className="text-2xl">{achievement.icon}</div>
-                  <div>
-                    <p className={`font-semibold ${achievement.textColor}`}>{achievement.title}</p>
-                    <p className={`text-sm ${achievement.descColor}`}>{achievement.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Profile Settings */}
-        <Card className="shadow-sm">
-          <CardContent className="p-4">
-            <h4 className="font-bold text-gray-800 mb-3">Profile Settings</h4>
-            <div className="space-y-3">
-              <Button
-                variant="outline"
-                className="w-full flex items-center justify-between p-3 rounded-lg border border-gray-200 hover:bg-gray-50 transition-all"
-                onClick={() => setLocation("/signup")}
-              >
-                <div className="flex items-center gap-3">
-                  <User className="w-5 h-5 text-gray-500" />
-                  <span>Edit Profile</span>
-                </div>
-                <Edit className="w-5 h-5 text-gray-400" />
-              </Button>
-              
-              <Button
-                variant="outline"
-                className="w-full flex items-center justify-between p-3 rounded-lg border border-gray-200 hover:bg-gray-50 transition-all"
-                onClick={() => setLocation("/dietary")}
-              >
-                <div className="flex items-center gap-3">
-                  <Settings className="w-5 h-5 text-gray-500" />
-                  <span>Dietary Preferences</span>
-                </div>
-                <Edit className="w-5 h-5 text-gray-400" />
-              </Button>
-
-              <Button
-                variant="outline"
-                className="w-full flex items-center justify-between p-3 rounded-lg border border-gray-200 hover:bg-gray-50 transition-all"
-                onClick={() => setLocation("/health")}
-              >
-                <div className="flex items-center gap-3">
-                  <BarChart3 className="w-5 h-5 text-gray-500" />
-                  <span>Health Analytics</span>
-                </div>
-                <Edit className="w-5 h-5 text-gray-400" />
-              </Button>
-              
-              <Button
-                variant="outline"
-                className="w-full flex items-center justify-between p-3 rounded-lg border border-gray-200 hover:bg-gray-50 transition-all"
-              >
-                <div className="flex items-center gap-3">
-                  <span className="text-lg">👨‍🍳</span>
-                  <span>Choose Your Chef</span>
-                </div>
-                <Edit className="w-5 h-5 text-gray-400" />
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+      {/* Content */}
+      <div className="max-w-md mx-auto p-4">
+        {renderActiveSection()}
       </div>
 
       <BottomNavigation />

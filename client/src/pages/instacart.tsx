@@ -38,6 +38,8 @@ export default function InstacartScreen() {
   const [cartItems, setCartItems] = useState(baseCartItems);
   const [serviceFee] = useState(5.00);
   const [tip, setTip] = useState(6.00);
+  const [orderPlaced, setOrderPlaced] = useState(false);
+  const [orderNumber] = useState(`IC${Math.floor(Math.random() * 1000000)}`);
 
   // Get current store data
   const currentStore = stores.find(store => store.id === selectedStore)!;
@@ -70,9 +72,63 @@ export default function InstacartScreen() {
 
   // Handle checkout
   const handleCheckout = () => {
-    alert(`Order placed successfully at ${currentStore.name}! Your groceries will be delivered in 1-2 hours.`);
-    setLocation("/home");
+    setOrderPlaced(true);
   };
+
+  // If order is placed, show confirmation
+  if (orderPlaced) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+        <Card className="w-full max-w-md">
+          <CardContent className="pt-6 text-center space-y-4">
+            <div className="text-6xl mb-4">✅</div>
+            <h2 className="text-2xl font-bold text-green-600">Order Confirmed!</h2>
+            <div className="space-y-2">
+              <p className="text-lg font-semibold">Order #{orderNumber}</p>
+              <p className="text-gray-600">Your order from {currentStore.name} has been placed successfully.</p>
+              <div className="bg-green-50 border border-green-200 rounded-lg p-3 mt-4">
+                <div className="flex items-center gap-2 text-green-700">
+                  <Clock className="w-4 h-4" />
+                  <span className="font-medium">Estimated Delivery: 1-2 hours</span>
+                </div>
+                <div className="flex items-center gap-2 text-green-700 mt-1">
+                  <MapPin className="w-4 h-4" />
+                  <span>123 Main Street, Apt 2B</span>
+                </div>
+              </div>
+              <div className="bg-gray-50 rounded-lg p-3 mt-4">
+                <div className="text-sm space-y-1">
+                  <div className="flex justify-between">
+                    <span>Items:</span>
+                    <span>{cartItems.length}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Total:</span>
+                    <span className="font-semibold">${total.toFixed(2)}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="space-y-3 pt-4">
+              <Button 
+                onClick={() => setLocation("/profile")}
+                className="w-full bg-green-600 hover:bg-green-700"
+              >
+                View Order History
+              </Button>
+              <Button 
+                variant="outline"
+                onClick={() => setLocation("/home")}
+                className="w-full"
+              >
+                Back to Home
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -89,49 +145,53 @@ export default function InstacartScreen() {
               <div className="text-sm font-semibold">${total.toFixed(2)}</div>
             </div>
           </div>
-          {/* Store Selector */}
-          <Select value={selectedStore} onValueChange={setSelectedStore}>
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Select a store" />
-            </SelectTrigger>
-            <SelectContent>
-              {stores.map((store) => (
-                <SelectItem key={store.id} value={store.id}>
-                  {store.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          {/* Delivery Info */}
+          <div className="space-y-2">
+            <div className="flex items-center gap-2 text-sm">
+              <MapPin className="w-4 h-4 text-green-600" />
+              <span>123 Main Street, Apt 2B</span>
+              <Button variant="ghost" size="sm" className="text-green-600 h-6 px-2 text-xs">Edit</Button>
+            </div>
+            <div className="flex items-center gap-2 text-sm">
+              <Clock className="w-4 h-4 text-green-600" />
+              <span>Delivery in 1-2 hours (1:00-3:00 PM)</span>
+              <Button variant="ghost" size="sm" className="text-green-600 h-6 px-2 text-xs">Change</Button>
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Content */}
       <div className="max-w-md mx-auto p-4 space-y-4 pb-20">
-        {/* Delivery Info */}
-        <Card>
-          <CardContent className="pt-4">
-            <div className="flex items-center gap-3 mb-3">
-              <MapPin className="w-5 h-5 text-green-600" />
-              <div className="flex-1">
-                <div className="font-medium">123 Main Street</div>
-                <div className="text-sm text-gray-600">Apartment 2B</div>
-              </div>
-              <Button variant="ghost" size="sm" className="text-green-600">Edit</Button>
-            </div>
-            <div className="flex items-center gap-3">
-              <Clock className="w-5 h-5 text-green-600" />
-              <div className="flex-1">
-                <div className="font-medium">Delivery in 1-2 hours</div>
-                <div className="text-sm text-gray-600">Between 1:00 PM - 3:00 PM</div>
-              </div>
-              <Button variant="ghost" size="sm" className="text-green-600">Change</Button>
-            </div>
-          </CardContent>
-        </Card>
-
         {/* Cart Items */}
         <Card>
-          <CardHeader className="pb-3">
+          <CardHeader className="pb-3 space-y-3">
+            {/* Row 1: Store Selection */}
+            <div>
+              <Select value={selectedStore} onValueChange={setSelectedStore}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select a store" />
+                </SelectTrigger>
+                <SelectContent>
+                  {stores.map((store) => (
+                    <SelectItem key={store.id} value={store.id}>
+                      {store.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Row 2: Summary Info */}
+            <div className="flex justify-between items-center text-sm bg-gray-50 p-3 rounded-lg">
+              <div className="flex gap-4">
+                <span>Subtotal: ${subtotal.toFixed(2)}</span>
+                <span>Delivery: ${currentStore.deliveryFee.toFixed(2)}</span>
+                <span>Service: ${serviceFee.toFixed(2)}</span>
+              </div>
+            </div>
+
+            {/* Row 3: Cart Title */}
             <CardTitle className="text-lg flex items-center gap-2">
               <ShoppingCart className="w-5 h-5" />
               Your Cart ({cartItems.length} items)
