@@ -4,32 +4,48 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { BackButton } from "@/components/ui/back-button";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Plus, Minus, Trash2, ShoppingCart, MapPin, Clock, CreditCard } from "lucide-react";
 
-// Mock Instacart cart items (these would come from the grocery list)
-const initialCartItems = [
-  { id: 1, name: "Chicken Breast", price: 8.99, quantity: 2, unit: "lbs", category: "Meat & Seafood", inStock: true },
-  { id: 2, name: "Mixed Greens", price: 4.49, quantity: 1, unit: "bag", category: "Produce", inStock: true },
-  { id: 3, name: "Bell Peppers", price: 1.99, quantity: 3, unit: "pieces", category: "Produce", inStock: true },
-  { id: 4, name: "Soy Sauce", price: 3.29, quantity: 1, unit: "bottle", category: "Pantry", inStock: true },
-  { id: 5, name: "Salmon Fillet", price: 12.99, quantity: 1.5, unit: "lbs", category: "Meat & Seafood", inStock: true },
-  { id: 6, name: "Quinoa", price: 5.99, quantity: 1, unit: "bag", category: "Pantry", inStock: true },
-  { id: 7, name: "Red Lentils", price: 4.49, quantity: 1, unit: "bag", category: "Pantry", inStock: true },
-  { id: 8, name: "Coconut Milk", price: 2.99, quantity: 2, unit: "cans", category: "Pantry", inStock: true },
-  { id: 9, name: "Ground Turkey", price: 6.99, quantity: 1.5, unit: "lbs", category: "Meat & Seafood", inStock: true },
-  { id: 10, name: "Breadcrumbs", price: 2.49, quantity: 1, unit: "package", category: "Pantry", inStock: true },
-  { id: 11, name: "Tomatoes", price: 0.99, quantity: 6, unit: "pieces", category: "Produce", inStock: true },
-  { id: 12, name: "Cucumber", price: 0.79, quantity: 2, unit: "pieces", category: "Produce", inStock: true }
+// Store options with different pricing multipliers
+const stores = [
+  { id: "wholefood", name: "Whole Foods Market", multiplier: 1.0, deliveryFee: 3.99 },
+  { id: "safeway", name: "Safeway", multiplier: 0.85, deliveryFee: 2.99 },
+  { id: "costco", name: "Costco", multiplier: 0.75, deliveryFee: 5.99 },
+  { id: "walmart", name: "Walmart", multiplier: 0.70, deliveryFee: 1.99 }
+];
+
+// Base cart items with Whole Foods pricing
+const baseCartItems = [
+  { id: 1, name: "Chicken Breast", basePrice: 8.99, quantity: 2, unit: "lbs", inStock: true },
+  { id: 2, name: "Mixed Greens", basePrice: 4.49, quantity: 1, unit: "bag", inStock: true },
+  { id: 3, name: "Bell Peppers", basePrice: 1.99, quantity: 3, unit: "pieces", inStock: true },
+  { id: 4, name: "Soy Sauce", basePrice: 3.29, quantity: 1, unit: "bottle", inStock: true },
+  { id: 5, name: "Salmon Fillet", basePrice: 12.99, quantity: 1.5, unit: "lbs", inStock: true },
+  { id: 6, name: "Quinoa", basePrice: 5.99, quantity: 1, unit: "bag", inStock: true },
+  { id: 7, name: "Red Lentils", basePrice: 4.49, quantity: 1, unit: "bag", inStock: true },
+  { id: 8, name: "Coconut Milk", basePrice: 2.99, quantity: 2, unit: "cans", inStock: true },
+  { id: 9, name: "Ground Turkey", basePrice: 6.99, quantity: 1.5, unit: "lbs", inStock: true },
+  { id: 10, name: "Breadcrumbs", basePrice: 2.49, quantity: 1, unit: "package", inStock: true },
+  { id: 11, name: "Tomatoes", basePrice: 0.99, quantity: 6, unit: "pieces", inStock: true },
+  { id: 12, name: "Cucumber", basePrice: 0.79, quantity: 2, unit: "pieces", inStock: true }
 ];
 
 export default function InstacartScreen() {
   const [, setLocation] = useLocation();
-  const [cartItems, setCartItems] = useState(initialCartItems);
-  const [deliveryFee] = useState(3.99);
+  const [selectedStore, setSelectedStore] = useState("wholefood");
+  const [cartItems, setCartItems] = useState(baseCartItems);
   const [serviceFee] = useState(5.00);
   const [tip, setTip] = useState(6.00);
+
+  // Get current store data
+  const currentStore = stores.find(store => store.id === selectedStore)!;
+  
+  // Calculate price for each item based on selected store
+  const getItemPrice = (basePrice: number) => {
+    return basePrice * currentStore.multiplier;
+  };
 
   // Update item quantity
   const updateQuantity = (itemId: number, newQuantity: number) => {
@@ -49,12 +65,12 @@ export default function InstacartScreen() {
   };
 
   // Calculate totals
-  const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-  const total = subtotal + deliveryFee + serviceFee + tip;
+  const subtotal = cartItems.reduce((sum, item) => sum + (getItemPrice(item.basePrice) * item.quantity), 0);
+  const total = subtotal + currentStore.deliveryFee + serviceFee + tip;
 
   // Handle checkout
   const handleCheckout = () => {
-    alert("Order placed successfully! Your groceries will be delivered in 1-2 hours.");
+    alert(`Order placed successfully at ${currentStore.name}! Your groceries will be delivered in 1-2 hours.`);
     setLocation("/home");
   };
 
@@ -63,17 +79,29 @@ export default function InstacartScreen() {
       {/* Header */}
       <div className="bg-white border-b sticky top-0 z-10">
         <div className="max-w-md mx-auto px-4 py-3">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 mb-3">
             <BackButton to="/grocery-list" />
             <div className="flex-1">
               <h1 className="text-xl font-bold text-green-600">Instacart</h1>
-              <p className="text-sm text-gray-600">Whole Foods Market</p>
             </div>
             <div className="text-right">
               <div className="text-sm text-gray-600">Items: {cartItems.length}</div>
               <div className="text-sm font-semibold">${total.toFixed(2)}</div>
             </div>
           </div>
+          {/* Store Selector */}
+          <Select value={selectedStore} onValueChange={setSelectedStore}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Select a store" />
+            </SelectTrigger>
+            <SelectContent>
+              {stores.map((store) => (
+                <SelectItem key={store.id} value={store.id}>
+                  {store.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
       </div>
 
@@ -109,17 +137,13 @@ export default function InstacartScreen() {
               Your Cart ({cartItems.length} items)
             </CardTitle>
           </CardHeader>
-          <CardContent className="pt-0 space-y-3">
+          <CardContent className="pt-0 space-y-2">
             {cartItems.map((item) => (
-              <div key={item.id} className="flex items-center gap-3 py-3 border-b border-gray-100 last:border-b-0">
-                <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
-                  <span className="text-lg">🥗</span>
-                </div>
+              <div key={item.id} className="flex items-center gap-3 py-2 border-b border-gray-100 last:border-b-0">
                 <div className="flex-1 min-w-0">
                   <div className="font-medium text-sm">{item.name}</div>
-                  <div className="text-xs text-gray-500">{item.category}</div>
                   <div className="text-sm font-semibold text-green-600">
-                    ${item.price.toFixed(2)} per {item.unit}
+                    ${getItemPrice(item.basePrice).toFixed(2)} per {item.unit}
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
@@ -127,23 +151,23 @@ export default function InstacartScreen() {
                     variant="outline"
                     size="sm"
                     onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                    className="h-8 w-8 p-0"
+                    className="h-7 w-7 p-0"
                     disabled={item.quantity <= 0}
                   >
                     <Minus className="w-3 h-3" />
                   </Button>
-                  <div className="w-12 text-center">
+                  <div className="w-10 text-center">
                     <Input
                       value={item.quantity}
                       onChange={(e) => updateQuantity(item.id, parseFloat(e.target.value) || 0)}
-                      className="w-12 h-8 text-center text-xs p-1"
+                      className="w-10 h-7 text-center text-xs p-1"
                     />
                   </div>
                   <Button
                     variant="outline"
                     size="sm"
                     onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                    className="h-8 w-8 p-0"
+                    className="h-7 w-7 p-0"
                   >
                     <Plus className="w-3 h-3" />
                   </Button>
@@ -151,7 +175,7 @@ export default function InstacartScreen() {
                     variant="ghost"
                     size="sm"
                     onClick={() => removeItem(item.id)}
-                    className="h-8 w-8 p-0 text-red-500 hover:text-red-700 ml-2"
+                    className="h-7 w-7 p-0 text-red-500 hover:text-red-700 ml-1"
                   >
                     <Trash2 className="w-3 h-3" />
                   </Button>
@@ -173,7 +197,7 @@ export default function InstacartScreen() {
             </div>
             <div className="flex justify-between">
               <span>Delivery Fee</span>
-              <span>${deliveryFee.toFixed(2)}</span>
+              <span>${currentStore.deliveryFee.toFixed(2)}</span>
             </div>
             <div className="flex justify-between">
               <span>Service Fee</span>
