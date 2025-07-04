@@ -31,7 +31,8 @@ import {
 export default function VoiceCookingScreen() {
   const [, setLocation] = useLocation();
   const [currentUser] = useLocalStorage<any>("nutragenie_user", null);
-  const [isListening, setIsListening] = useState(true); // Always listening by default
+  const [cookingMode, setCookingMode] = useState<"voice" | "text">("voice"); // Default to voice
+  const [isListening, setIsListening] = useState(true);
   const [isMuted, setIsMuted] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [transcript, setTranscript] = useState("");
@@ -122,9 +123,9 @@ export default function VoiceCookingScreen() {
     }
   };
 
-  // Mock voice recognition - always listening
+  // Mock voice recognition - only in voice mode when cooking
   useEffect(() => {
-    if (isListening && isCooking && !isMuted) {
+    if (isListening && isCooking && !isMuted && cookingMode === "voice") {
       const timer = setTimeout(() => {
         const responses = [
           "How much quinoa should I use?",
@@ -150,7 +151,7 @@ export default function VoiceCookingScreen() {
       }, 4000 + Math.random() * 3000); // Varying response times
       return () => clearTimeout(timer);
     }
-  }, [isListening, currentStep, isCooking, isMuted]);
+  }, [isListening, currentStep, isCooking, isMuted, cookingMode]);
 
   const handleVoiceCommand = (userMessage: string) => {
     const voicePersonality = getVoicePersonality();
@@ -268,110 +269,137 @@ export default function VoiceCookingScreen() {
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <div className="bg-white shadow-sm p-4">
-        <div className="flex items-center gap-3 mb-3">
-          <BackButton to="/cook" />
+        <div className="flex items-center gap-3">
+          <BackButton to="/recipes" />
           <div className="flex-1">
             <h1 className="text-xl font-bold text-gray-800">Voice Interaction Cooking</h1>
             <p className="text-sm text-gray-600">{recipe.name} • {recipe.difficulty}</p>
           </div>
           <Badge variant="secondary">{completedSteps.filter(Boolean).length}/{recipe.totalSteps}</Badge>
         </div>
-        
-        {/* Progress */}
-        <div className="space-y-2">
-          <div className="flex justify-between text-sm">
-            <span>Progress</span>
-            <span>{Math.round((completedSteps.filter(Boolean).length / recipe.totalSteps) * 100)}%</span>
-          </div>
-          <Progress value={(completedSteps.filter(Boolean).length / recipe.totalSteps) * 100} className="h-2" />
-        </div>
       </div>
 
       <div className="max-w-md mx-auto p-4 space-y-4">
         
-        {/* Card 1: Cooking Steps with Voice Controls (Main Focus) */}
+        {/* Card 1: Enhanced Cooking Interface (Main Focus) */}
         <Card className="border-2 border-green-300 bg-green-50">
           <CardHeader className="pb-3">
-            <CardTitle className="flex items-center gap-2 text-lg">
-              <ChefHat className="w-5 h-5" />
-              Cooking Steps
-            </CardTitle>
-            
-            {/* Compact Voice Controls Row */}
-            <div className="mt-3 space-y-2">
-              {/* Chef Avatar & Voice Selection */}
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-lg">
-                  {chefGender === "female" ? "👩‍🍳" : "👨‍🍳"}
-                </div>
-                
-                {/* Gender Radio Buttons */}
-                <div className="flex gap-2">
-                  <label className="flex items-center gap-1 text-xs">
-                    <input
-                      type="radio"
-                      name="gender"
-                      checked={chefGender === "female"}
-                      onChange={() => setChefGender("female")}
-                      className="w-3 h-3"
-                    />
-                    Female
-                  </label>
-                  <label className="flex items-center gap-1 text-xs">
-                    <input
-                      type="radio"
-                      name="gender"
-                      checked={chefGender === "male"}
-                      onChange={() => setChefGender("male")}
-                      className="w-3 h-3"
-                    />
-                    Male
-                  </label>
-                </div>
-                
-                {/* Voice Waves */}
-                <div className="flex items-center gap-1">
-                  {[1, 2, 3].map((i) => (
-                    <div
-                      key={i}
-                      className={`w-1 bg-green-500 rounded-full ${isListening && !isMuted ? 'animate-pulse' : ''}`}
-                      style={{
-                        height: `${Math.random() * 12 + 6}px`,
-                        animationDelay: `${i * 0.1}s`
-                      }}
-                    />
-                  ))}
-                </div>
-                
-                {/* Mute Button */}
-                <Button
-                  onClick={() => setIsMuted(!isMuted)}
-                  variant={isMuted ? "destructive" : "outline"}
-                  size="sm"
-                  className="ml-auto"
-                >
-                  {isMuted ? <VolumeX className="w-3 h-3" /> : <Volume2 className="w-3 h-3" />}
-                </Button>
+            <CardTitle className="flex items-center justify-between text-lg">
+              <div className="flex items-center gap-2">
+                <ChefHat className="w-5 h-5" />
+                Cooking Steps
               </div>
               
-              {/* Voice Personality Options in one row */}
-              <div className="flex gap-1">
-                {Object.entries(voiceOptions[chefGender as keyof typeof voiceOptions]).map(([voice, label]) => (
-                  <Button
-                    key={voice}
-                    variant={chefVoice === voice ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => setChefVoice(voice)}
-                    className="text-xs flex-1"
-                  >
-                    {label.split(' ')[1]} {/* Just the text, no emoji */}
-                  </Button>
-                ))}
+              {/* Cooking Mode Toggle */}
+              <div className="flex gap-1 bg-white rounded-lg p-1">
+                <Button
+                  variant={cookingMode === "voice" ? "default" : "ghost"}
+                  size="sm"
+                  onClick={() => setCookingMode("voice")}
+                  className="text-xs"
+                >
+                  <Mic className="w-3 h-3 mr-1" />
+                  Voice
+                </Button>
+                <Button
+                  variant={cookingMode === "text" ? "default" : "ghost"}
+                  size="sm"
+                  onClick={() => setCookingMode("text")}
+                  className="text-xs"
+                >
+                  📝 Text Only
+                </Button>
               </div>
+            </CardTitle>
+            
+            {/* Step Progress Dots */}
+            <div className="flex items-center justify-center gap-1 mt-3">
+              {recipe.steps.map((_, index) => (
+                <div
+                  key={index}
+                  className={`w-2 h-2 rounded-full ${
+                    completedSteps[index] 
+                      ? 'bg-green-500' 
+                      : index === currentStep && isCooking
+                        ? 'bg-blue-500'
+                        : 'bg-gray-300'
+                  }`}
+                />
+              ))}
             </div>
           </CardHeader>
           
           <CardContent className="space-y-4">
+            {/* Voice Mode Controls */}
+            {cookingMode === "voice" && (
+              <div className="bg-white rounded-lg p-3 border border-green-200">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-lg">
+                    {chefGender === "female" ? "👩‍🍳" : "👨‍🍳"}
+                  </div>
+                  
+                  <div className="flex gap-2">
+                    <label className="flex items-center gap-1 text-xs">
+                      <input
+                        type="radio"
+                        name="gender"
+                        checked={chefGender === "female"}
+                        onChange={() => setChefGender("female")}
+                        className="w-3 h-3"
+                      />
+                      Female
+                    </label>
+                    <label className="flex items-center gap-1 text-xs">
+                      <input
+                        type="radio"
+                        name="gender"
+                        checked={chefGender === "male"}
+                        onChange={() => setChefGender("male")}
+                        className="w-3 h-3"
+                      />
+                      Male
+                    </label>
+                  </div>
+                  
+                  <div className="flex items-center gap-1">
+                    {[1, 2, 3].map((i) => (
+                      <div
+                        key={i}
+                        className={`w-1 bg-green-500 rounded-full ${isListening && !isMuted && isCooking ? 'animate-pulse' : ''}`}
+                        style={{
+                          height: `${Math.random() * 12 + 6}px`,
+                          animationDelay: `${i * 0.1}s`
+                        }}
+                      />
+                    ))}
+                  </div>
+                  
+                  <Button
+                    onClick={() => setIsMuted(!isMuted)}
+                    variant={isMuted ? "destructive" : "outline"}
+                    size="sm"
+                    className="ml-auto"
+                  >
+                    {isMuted ? <VolumeX className="w-3 h-3" /> : <Volume2 className="w-3 h-3" />}
+                  </Button>
+                </div>
+                
+                <div className="flex gap-1">
+                  {Object.entries(voiceOptions[chefGender as keyof typeof voiceOptions]).map(([voice, label]) => (
+                    <Button
+                      key={voice}
+                      variant={chefVoice === voice ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => setChefVoice(voice)}
+                      className="text-xs flex-1"
+                    >
+                      {label.split(' ')[1]}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {!isCooking ? (
               <div className="space-y-3">
                 <div className="bg-white border border-green-200 rounded-lg p-4">
@@ -391,88 +419,147 @@ export default function VoiceCookingScreen() {
                   className="w-full bg-green-600 hover:bg-green-700 text-lg py-3"
                 >
                   <Play className="w-4 h-4 mr-2" />
-                  Start Cooking
+                  {cookingMode === "voice" ? "Start Voice Cooking" : "Start Text Cooking"}
                 </Button>
               </div>
             ) : (
               <>
-                {/* Current Step Highlight */}
-                {!showAllSteps && (
-                  <div className="bg-white border border-green-200 rounded-lg p-4">
-                    <div className="flex items-center justify-between mb-2">
-                      <Badge className="bg-green-600">Step {currentStep + 1}</Badge>
-                      <span className="text-sm text-gray-600 flex items-center gap-1">
-                        <Timer className="w-3 h-3" />
-                        {recipe.steps[currentStep]?.duration}
-                      </span>
-                    </div>
-                    <p className="font-medium mb-2">{recipe.steps[currentStep]?.instruction}</p>
-                    <p className="text-sm text-green-700 mb-3">💡 {recipe.steps[currentStep]?.tips}</p>
-                    <Button
-                      onClick={() => markStepComplete(currentStep)}
-                      disabled={completedSteps[currentStep]}
-                      className="w-full text-lg py-3"
-                    >
-                      {completedSteps[currentStep] ? (
-                        <>
-                          <CheckCircle className="w-4 h-4 mr-2" />
-                          Completed
-                        </>
-                      ) : (
-                        "Mark Complete"
-                      )}
-                    </Button>
-                  </div>
-                )}
-
-                {/* View All Steps Toggle */}
-                <div className="text-center">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => setShowAllSteps(!showAllSteps)}
-                  >
-                    {showAllSteps ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-                    {showAllSteps ? "Collapse All Steps" : "View All Steps"}
-                  </Button>
-                </div>
-
-                {/* All Steps View */}
-                <Collapsible open={showAllSteps} onOpenChange={setShowAllSteps}>
-                  <CollapsibleContent className="space-y-3">
-                    {recipe.steps.map((step, index) => (
-                      <div
-                        key={step.id}
-                        className={`border rounded-lg p-3 ${
-                          completedSteps[index] 
-                            ? 'bg-gray-50 border-gray-300' 
-                            : index === currentStep 
-                              ? 'bg-white border-green-300' 
-                              : 'bg-white border-gray-200'
-                        }`}
-                      >
-                        <div className="flex items-center justify-between mb-2">
-                          <Badge 
-                            variant={completedSteps[index] ? "secondary" : index === currentStep ? "default" : "outline"}
+                {/* Voice Mode Display */}
+                {cookingMode === "voice" ? (
+                  <div className="space-y-4">
+                    {/* Current Step with Voice Bubbles */}
+                    <div className="bg-white border border-green-200 rounded-lg p-4">
+                      <div className="flex items-center justify-between mb-3">
+                        <Badge className="bg-green-600">Step {currentStep + 1}</Badge>
+                        <span className="text-sm text-gray-600 flex items-center gap-1">
+                          <Timer className="w-3 h-3" />
+                          {recipe.steps[currentStep]?.duration}
+                        </span>
+                      </div>
+                      <p className="font-medium mb-4">{recipe.steps[currentStep]?.instruction}</p>
+                      
+                      {/* Voice Conversation Bubbles */}
+                      <div className="space-y-2 mb-4 max-h-40 overflow-y-auto">
+                        {conversation.slice(-3).map((msg, index) => (
+                          <div
+                            key={index}
+                            className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                           >
-                            Step {index + 1}
-                          </Badge>
+                            <div
+                              className={`max-w-xs px-3 py-2 rounded-lg text-sm ${
+                                msg.sender === 'user' 
+                                  ? 'bg-blue-500 text-white' 
+                                  : 'bg-green-100 text-green-800'
+                              }`}
+                            >
+                              <p>{msg.message}</p>
+                              <p className="text-xs opacity-75 mt-1">
+                                {msg.timestamp.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+                              </p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                      
+                      <Button
+                        onClick={() => markStepComplete(currentStep)}
+                        disabled={completedSteps[currentStep]}
+                        className="w-full text-lg py-3"
+                      >
+                        {completedSteps[currentStep] ? (
+                          <>
+                            <CheckCircle className="w-4 h-4 mr-2" />
+                            Completed
+                          </>
+                        ) : (
+                          "Mark Complete"
+                        )}
+                      </Button>
+                    </div>
+
+                    {/* View All Steps for Voice Mode */}
+                    <div className="text-center">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setShowAllSteps(!showAllSteps)}
+                      >
+                        {showAllSteps ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                        {showAllSteps ? "Hide All Steps" : "View All Steps"}
+                      </Button>
+                    </div>
+
+                    {/* All Steps View with Recipe Actions */}
+                    <Collapsible open={showAllSteps} onOpenChange={setShowAllSteps}>
+                      <CollapsibleContent className="space-y-3">
+                        {recipe.steps.map((step, index) => (
+                          <div
+                            key={step.id}
+                            className={`border rounded-lg p-3 ${
+                              completedSteps[index] 
+                                ? 'bg-gray-50 border-gray-300' 
+                                : index === currentStep 
+                                  ? 'bg-white border-green-300' 
+                                  : 'bg-white border-gray-200'
+                            }`}
+                          >
+                            <div className="flex items-center justify-between mb-2">
+                              <Badge 
+                                variant={completedSteps[index] ? "secondary" : index === currentStep ? "default" : "outline"}
+                              >
+                                Step {index + 1}
+                              </Badge>
+                              <span className="text-sm text-gray-600 flex items-center gap-1">
+                                <Timer className="w-3 h-3" />
+                                {step.duration}
+                              </span>
+                            </div>
+                            <p className={`font-medium mb-2 ${completedSteps[index] ? 'line-through text-gray-500' : ''}`}>
+                              {step.instruction}
+                            </p>
+                            <p className="text-sm text-gray-600">💡 {step.tips}</p>
+                          </div>
+                        ))}
+                        
+                        {/* Recipe Actions */}
+                        <div className="grid grid-cols-3 gap-2 pt-3 border-t border-green-200">
+                          <Button variant="outline" size="sm" onClick={saveRecipe}>
+                            <Star className="w-3 h-3 mr-1" />
+                            Save
+                          </Button>
+                          <Button variant="outline" size="sm" onClick={downloadRecipe}>
+                            <Download className="w-3 h-3 mr-1" />
+                            Download
+                          </Button>
+                          <Button variant="outline" size="sm" onClick={printRecipe}>
+                            <Printer className="w-3 h-3 mr-1" />
+                            Print
+                          </Button>
+                        </div>
+                      </CollapsibleContent>
+                    </Collapsible>
+                  </div>
+                ) : (
+                  /* Text Mode Display */
+                  <div className="space-y-4">
+                    {/* Current Step for Text Mode */}
+                    {!showAllSteps && (
+                      <div className="bg-white border border-green-200 rounded-lg p-4">
+                        <div className="flex items-center justify-between mb-2">
+                          <Badge className="bg-green-600">Step {currentStep + 1}</Badge>
                           <span className="text-sm text-gray-600 flex items-center gap-1">
                             <Timer className="w-3 h-3" />
-                            {step.duration}
+                            {recipe.steps[currentStep]?.duration}
                           </span>
                         </div>
-                        <p className={`font-medium mb-2 ${completedSteps[index] ? 'line-through text-gray-500' : ''}`}>
-                          {step.instruction}
-                        </p>
-                        <p className="text-sm text-gray-600 mb-3">💡 {step.tips}</p>
+                        <p className="font-medium mb-2">{recipe.steps[currentStep]?.instruction}</p>
+                        <p className="text-sm text-green-700 mb-3">💡 {recipe.steps[currentStep]?.tips}</p>
                         <Button
-                          onClick={() => markStepComplete(index)}
-                          disabled={completedSteps[index]}
-                          size="sm"
-                          className="w-full"
+                          onClick={() => markStepComplete(currentStep)}
+                          disabled={completedSteps[currentStep]}
+                          className="w-full text-lg py-3"
                         >
-                          {completedSteps[index] ? (
+                          {completedSteps[currentStep] ? (
                             <>
                               <CheckCircle className="w-4 h-4 mr-2" />
                               Completed
@@ -482,33 +569,86 @@ export default function VoiceCookingScreen() {
                           )}
                         </Button>
                       </div>
-                    ))}
-                  </CollapsibleContent>
-                </Collapsible>
+                    )}
 
-                {/* Recipe Actions */}
-                <div className="grid grid-cols-3 gap-2 pt-3 border-t border-green-200">
-                  <Button variant="outline" size="sm" onClick={saveRecipe}>
-                    <Star className="w-3 h-3 mr-1" />
-                    Save
-                  </Button>
-                  <Button variant="outline" size="sm" onClick={downloadRecipe}>
-                    <Download className="w-3 h-3 mr-1" />
-                    Download
-                  </Button>
-                  <Button variant="outline" size="sm" onClick={printRecipe}>
-                    <Printer className="w-3 h-3 mr-1" />
-                    Print
-                  </Button>
-                </div>
-                
-                {/* AI Video Note */}
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
-                  <p className="text-blue-800 text-sm">
-                    💡 <strong>AI video cooking coming shortly</strong><br/>
-                    Get visual guidance and feedback on your technique
-                  </p>
-                </div>
+                    {/* View All Steps Toggle */}
+                    <div className="text-center">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setShowAllSteps(!showAllSteps)}
+                      >
+                        {showAllSteps ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                        {showAllSteps ? "Collapse All Steps" : "View All Steps"}
+                      </Button>
+                    </div>
+
+                    {/* All Steps View */}
+                    <Collapsible open={showAllSteps} onOpenChange={setShowAllSteps}>
+                      <CollapsibleContent className="space-y-3">
+                        {recipe.steps.map((step, index) => (
+                          <div
+                            key={step.id}
+                            className={`border rounded-lg p-3 ${
+                              completedSteps[index] 
+                                ? 'bg-gray-50 border-gray-300' 
+                                : index === currentStep 
+                                  ? 'bg-white border-green-300' 
+                                  : 'bg-white border-gray-200'
+                            }`}
+                          >
+                            <div className="flex items-center justify-between mb-2">
+                              <Badge 
+                                variant={completedSteps[index] ? "secondary" : index === currentStep ? "default" : "outline"}
+                              >
+                                Step {index + 1}
+                              </Badge>
+                              <span className="text-sm text-gray-600 flex items-center gap-1">
+                                <Timer className="w-3 h-3" />
+                                {step.duration}
+                              </span>
+                            </div>
+                            <p className={`font-medium mb-2 ${completedSteps[index] ? 'line-through text-gray-500' : ''}`}>
+                              {step.instruction}
+                            </p>
+                            <p className="text-sm text-gray-600 mb-3">💡 {step.tips}</p>
+                            <Button
+                              onClick={() => markStepComplete(index)}
+                              disabled={completedSteps[index]}
+                              size="sm"
+                              className="w-full"
+                            >
+                              {completedSteps[index] ? (
+                                <>
+                                  <CheckCircle className="w-4 h-4 mr-2" />
+                                  Completed
+                                </>
+                              ) : (
+                                "Mark Complete"
+                              )}
+                            </Button>
+                          </div>
+                        ))}
+                        
+                        {/* Recipe Actions */}
+                        <div className="grid grid-cols-3 gap-2 pt-3 border-t border-green-200">
+                          <Button variant="outline" size="sm" onClick={saveRecipe}>
+                            <Star className="w-3 h-3 mr-1" />
+                            Save
+                          </Button>
+                          <Button variant="outline" size="sm" onClick={downloadRecipe}>
+                            <Download className="w-3 h-3 mr-1" />
+                            Download
+                          </Button>
+                          <Button variant="outline" size="sm" onClick={printRecipe}>
+                            <Printer className="w-3 h-3 mr-1" />
+                            Print
+                          </Button>
+                        </div>
+                      </CollapsibleContent>
+                    </Collapsible>
+                  </div>
+                )}
               </>
             )}
           </CardContent>
