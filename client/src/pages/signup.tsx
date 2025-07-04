@@ -32,10 +32,10 @@ const userAvatars = [
 ];
 
 const chefs = [
-  { name: 'Chef Antoine', personality: 'Precise & Classic', avatar: chefAvatar1 },
-  { name: 'Chef Sofia', personality: 'Friendly & Vibrant', avatar: chefAvatar2 },
-  { name: 'Chef Ravi', personality: 'Bold & Spicy', avatar: chefAvatar3 },
-  { name: 'Chef Sakura', personality: 'Zen & Delicate', avatar: chefAvatar4 }
+  { name: 'Chef Marcus', personality: 'Precise & Classic', avatar: chefAvatar1 },
+  { name: 'Chef Luna', personality: 'Friendly & Vibrant', avatar: chefAvatar2 },
+  { name: 'Chef Blaze', personality: 'Bold & Spicy', avatar: chefAvatar3 },
+  { name: 'Chef Harmony', personality: 'Zen & Delicate', avatar: chefAvatar4 }
 ];
 
 export default function SignupScreen() {
