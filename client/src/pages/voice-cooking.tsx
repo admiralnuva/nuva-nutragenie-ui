@@ -25,7 +25,8 @@ import {
   ChevronDown,
   ChevronUp,
   Play,
-  Pause
+  Pause,
+  ArrowLeft
 } from "lucide-react";
 
 export default function VoiceCookingScreen() {
@@ -38,7 +39,7 @@ export default function VoiceCookingScreen() {
   const [transcript, setTranscript] = useState("");
   const [chefResponse, setChefResponse] = useState("");
   const [chefGender, setChefGender] = useState("female");
-  const [chefVoice, setChefVoice] = useState("calm");
+  const [chefVoice, setChefVoice] = useState("energetic");
   const [showAllSteps, setShowAllSteps] = useState(false);
   const [completedSteps, setCompletedSteps] = useState<boolean[]>(new Array(8).fill(false));
   const [isCooking, setIsCooking] = useState(false);
@@ -110,16 +111,14 @@ export default function VoiceCookingScreen() {
 
   const voiceOptions = {
     male: {
-      energetic: "🔥 Energetic",
-      calm: "😌 Calm", 
-      playful: "🎉 Playful",
-      therapeutic: "🌿 Therapeutic"
+      energetic: "Energetic",
+      calm: "Calm", 
+      playful: "Playful"
     },
     female: {
-      energetic: "⚡ Energetic",
-      calm: "💫 Calm",
-      playful: "🌟 Playful", 
-      therapeutic: "🧘‍♀️ Therapeutic"
+      energetic: "Energetic",
+      calm: "Calm",
+      playful: "Playful"
     }
   };
 
@@ -148,7 +147,7 @@ export default function VoiceCookingScreen() {
         }]);
         
         handleVoiceCommand(userMessage);
-      }, 4000 + Math.random() * 3000); // Varying response times
+      }, 1500 + Math.random() * 1000); // Faster response times
       return () => clearTimeout(timer);
     }
   }, [isListening, currentStep, isCooking, isMuted, cookingMode]);
@@ -282,14 +281,23 @@ export default function VoiceCookingScreen() {
       <div className="max-w-md mx-auto p-4 space-y-4">
         
         {/* Card 1: Enhanced Cooking Interface (Main Focus) */}
-        <Card className="border-2 border-green-300 bg-green-50">
+        <Card className="border-2 border-green-300 bg-green-50 min-h-[600px]">
           <CardHeader className="pb-3">
             <CardTitle className="flex items-center justify-between text-lg">
               <div className="flex items-center gap-2">
+                {cookingMode === "text" && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setLocation("/recipes")}
+                    className="p-1"
+                  >
+                    <ArrowLeft className="w-4 h-4" />
+                  </Button>
+                )}
                 <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center text-sm">
                   {chefGender === "female" ? "👩‍🍳" : "👨‍🍳"}
                 </div>
-                Cooking Steps
               </div>
               
               {/* Cooking Mode Toggle */}
@@ -297,15 +305,21 @@ export default function VoiceCookingScreen() {
                 <Button
                   variant={cookingMode === "voice" ? "default" : "ghost"}
                   size="sm"
-                  onClick={() => setCookingMode("voice")}
+                  onClick={() => {
+                    setCookingMode("voice");
+                    setIsMuted(false);
+                  }}
                   className="text-xs"
                 >
-                  Voice
+                  <Mic className="w-3 h-3" />
                 </Button>
                 <Button
                   variant={cookingMode === "text" ? "default" : "ghost"}
                   size="sm"
-                  onClick={() => setCookingMode("text")}
+                  onClick={() => {
+                    setCookingMode("text");
+                    setIsMuted(true);
+                  }}
                   className="text-xs"
                 >
                   Text Only
@@ -329,7 +343,7 @@ export default function VoiceCookingScreen() {
                       onClick={() => setChefVoice(voice)}
                       className="text-xs flex-1"
                     >
-                      {label.split(' ')[1]}
+                      {label}
                     </Button>
                   ))}
                 </div>
@@ -403,27 +417,26 @@ export default function VoiceCookingScreen() {
                       <p className="font-medium mb-4">{recipe.steps[currentStep]?.instruction}</p>
                       
                       {/* Voice Conversation Bubbles */}
-                      <div className="space-y-2 mb-4 max-h-40 overflow-y-auto">
-                        {conversation.slice(-3).map((msg, index) => (
-                          <div
-                            key={index}
-                            className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
-                          >
+                      {conversation.length > 0 && (
+                        <div className="space-y-2 mb-4 max-h-32 overflow-y-auto">
+                          {conversation.slice(-2).map((msg, index) => (
                             <div
-                              className={`max-w-xs px-3 py-2 rounded-lg text-sm ${
-                                msg.sender === 'user' 
-                                  ? 'bg-blue-500 text-white' 
-                                  : 'bg-green-100 text-green-800'
-                              }`}
+                              key={`${msg.timestamp.getTime()}-${index}`}
+                              className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                             >
-                              <p>{msg.message}</p>
-                              <p className="text-xs opacity-75 mt-1">
-                                {msg.timestamp.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
-                              </p>
+                              <div
+                                className={`max-w-xs px-3 py-2 rounded-lg text-sm ${
+                                  msg.sender === 'user' 
+                                    ? 'bg-blue-500 text-white' 
+                                    : 'bg-green-100 text-green-800'
+                                }`}
+                              >
+                                <p>{msg.message}</p>
+                              </div>
                             </div>
-                          </div>
-                        ))}
-                      </div>
+                          ))}
+                        </div>
+                      )}
                       
                       <Button
                         onClick={() => markStepComplete(currentStep)}
