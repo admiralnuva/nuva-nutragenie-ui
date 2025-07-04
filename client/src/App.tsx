@@ -17,7 +17,6 @@ import ProfileScreen from "@/pages/profile";
 import HealthAnalyticsScreen from "@/pages/health";
 import HomeScreen from "@/pages/home";
 
-import TakeOutScreen from "@/pages/takeout";
 import GroceryListScreen from "@/pages/grocery-list";
 import InstacartScreen from "@/pages/instacart";
 
@@ -33,7 +32,7 @@ function Router() {
       <Route path="/grocery-list" component={GroceryListScreen} />
       <Route path="/instacart" component={InstacartScreen} />
 
-      <Route path="/takeout" component={TakeOutScreen} />
+
       <Route path="/cooking/:recipeId?" component={CookingScreen} />
       <Route path="/voice-cooking" component={VoiceCookingScreen} />
       <Route path="/ai-video-cooking" component={AIVideoCookingScreen} />
