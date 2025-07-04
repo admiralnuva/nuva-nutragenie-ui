@@ -854,7 +854,14 @@ export default function VoiceCookingScreen() {
               <h4 className="font-medium text-gray-800">Creamy Tomato Soup</h4>
               <div className="text-sm text-gray-600">Step 3 of 8 • 3 servings</div>
             </div>
-            <Button className="w-full bg-orange-600 hover:bg-orange-700 mt-3">
+            <Button 
+              className="w-full bg-orange-600 hover:bg-orange-700 mt-3"
+              onClick={() => {
+                // Resume cooking from where we left off
+                setCurrentStep(Math.max(0, currentStep - 1)); // Go back to previous step for continuity
+                setActiveMode('voice'); // Switch to voice mode for cooking
+              }}
+            >
               Continue Cooking
             </Button>
           </CardContent>

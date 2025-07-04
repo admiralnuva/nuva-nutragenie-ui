@@ -90,14 +90,15 @@ export default function DietaryScreen() {
     <div className="min-h-screen bg-warm-neutral-50 p-6">
       <div className="max-w-md mx-auto">
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-4">
           <BackButton to="/signup" />
-          <h1 className="text-xl font-bold text-warm-neutral-800">Dietary Profile</h1>
-          <div className="w-10"></div>
+          <div className="flex-1 text-center">
+            <h1 className="text-2xl font-bold text-gray-800">NutraGenie</h1>
+          </div>
+          <div className="w-8"></div>
         </div>
-
-        <div className="text-center mb-8">
-          <p className="text-warm-neutral-600">Help us create personalized nutrition for your health needs</p>
+        <div className="text-lg font-semibold text-brand-green-600 text-center mb-6">
+          Dietary Preferences
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -108,7 +109,7 @@ export default function DietaryScreen() {
                 <Shield className="w-5 h-5" />
                 Dietary Restrictions
               </CardTitle>
-              <CardDescription>Select any dietary restrictions you follow</CardDescription>
+              <CardDescription>Help us create personalized nutrition<br />Select any dietary restrictions you follow</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 gap-3">
@@ -137,7 +138,7 @@ export default function DietaryScreen() {
                 <Heart className="w-5 h-5" />
                 Health Considerations
               </CardTitle>
-              <CardDescription>Select any health conditions we should consider</CardDescription>
+              <CardDescription>Select health conditions to consider</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 gap-3">

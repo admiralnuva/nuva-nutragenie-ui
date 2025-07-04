@@ -13,7 +13,9 @@ import {
   Edit, 
   Apple, 
   ShoppingCart, 
-  FileText
+  FileText,
+  BookOpen,
+  ChefHat
 } from "lucide-react";
 
 
@@ -34,7 +36,9 @@ export default function ProfileScreen() {
     { id: "account", title: "Account", icon: User },
     { id: "dietary", title: "Dietary Needs", icon: Apple },
     { id: "grocery", title: "Grocery List", icon: FileText },
-    { id: "orders", title: "Instacart Orders", icon: ShoppingCart }
+    { id: "orders", title: "Instacart Orders", icon: ShoppingCart },
+    { id: "recipes", title: "Recipes Created", icon: BookOpen },
+    { id: "cooking", title: "Cooking History", icon: ChefHat }
   ];
 
   const renderAccountSection = () => (
@@ -328,12 +332,110 @@ export default function ProfileScreen() {
 
 
 
+  const renderRecipesCreated = () => {
+    const recipes = Array.from({ length: 15 }, (_, i) => ({
+      id: i + 1,
+      name: `Recipe ${i + 1}`,
+      date: new Date(Date.now() - Math.random() * 90 * 24 * 60 * 60 * 1000).toLocaleDateString(),
+      category: ['Soup', 'Salad', 'Main Course', 'Dessert'][Math.floor(Math.random() * 4)]
+    }));
+
+    return (
+      <CardContent className="p-6 space-y-6">
+        <div className="flex items-center justify-between">
+          <h3 className="text-lg font-semibold text-gray-800">Recipes Created</h3>
+        </div>
+
+        {/* Progress Bar */}
+        <div className="bg-gray-200 rounded-full h-4 relative">
+          <div className="bg-green-500 h-4 rounded-full" style={{ width: `${(recipes.length / 15) * 100}%` }} />
+          <div className="absolute inset-0 flex items-center justify-center text-xs font-medium text-white">
+            {recipes.length}/15 recipes
+          </div>
+        </div>
+
+        {recipes.length >= 15 && (
+          <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+            <p className="text-green-700 font-medium mb-2">🎉 Congratulations! You can now publish your recipe book!</p>
+            <Button className="w-full bg-green-600 hover:bg-green-700">
+              Print Online Recipe Book
+            </Button>
+          </div>
+        )}
+
+        <div className="space-y-2 max-h-64 overflow-y-auto">
+          {recipes.map((recipe) => (
+            <div key={recipe.id} className="flex items-center justify-between py-2 border-b border-gray-100 last:border-b-0">
+              <div>
+                <div className="font-medium text-gray-800">{recipe.name}</div>
+                <div className="text-sm text-gray-600">{recipe.date} • {recipe.category}</div>
+              </div>
+              <Button size="sm" variant="outline" className="h-8">
+                View Recipe
+              </Button>
+            </div>
+          ))}
+        </div>
+      </CardContent>
+    );
+  };
+
+  const renderCookingHistory = () => {
+    const dishes = Array.from({ length: 12 }, (_, i) => ({
+      id: i + 1,
+      name: `Dish ${i + 1}`,
+      date: new Date(Date.now() - Math.random() * 60 * 24 * 60 * 60 * 1000).toLocaleDateString(),
+      notes: `Cooking notes for dish ${i + 1} - timing and techniques used.`
+    }));
+
+    return (
+      <CardContent className="p-6 space-y-6">
+        <div className="flex items-center justify-between">
+          <h3 className="text-lg font-semibold text-gray-800">Cooking History</h3>
+        </div>
+
+        {/* Progress Bar */}
+        <div className="bg-gray-200 rounded-full h-4 relative">
+          <div className="bg-orange-500 h-4 rounded-full" style={{ width: `${(dishes.length / 15) * 100}%` }} />
+          <div className="absolute inset-0 flex items-center justify-center text-xs font-medium text-white">
+            {dishes.length}/15 dishes
+          </div>
+        </div>
+
+        {dishes.length >= 15 && (
+          <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">
+            <p className="text-orange-700 font-medium mb-2">🍳 Amazing! You can now publish your cooking journey book!</p>
+            <Button className="w-full bg-orange-600 hover:bg-orange-700">
+              Print Cooking Journey Book
+            </Button>
+          </div>
+        )}
+
+        <div className="space-y-2 max-h-64 overflow-y-auto">
+          {dishes.map((dish) => (
+            <div key={dish.id} className="flex items-center justify-between py-2 border-b border-gray-100 last:border-b-0">
+              <div className="flex-1">
+                <div className="font-medium text-gray-800">{dish.name}</div>
+                <div className="text-sm text-gray-600">{dish.date}</div>
+              </div>
+              <Button size="sm" variant="outline" className="h-8">
+                View
+              </Button>
+            </div>
+          ))}
+        </div>
+      </CardContent>
+    );
+  };
+
   const renderActiveSection = () => {
     switch (activeSection) {
       case "account": return renderAccountSection();
       case "dietary": return renderDietarySection();
       case "grocery": return renderGroceryHistory();
       case "orders": return renderOrderHistory();
+      case "recipes": return renderRecipesCreated();
+      case "cooking": return renderCookingHistory();
       default: return renderAccountSection();
     }
   };
@@ -376,7 +478,7 @@ export default function ProfileScreen() {
                   key={section.id}
                   variant={activeSection === section.id ? "default" : "outline"}
                   onClick={() => setActiveSection(section.id)}
-                  className="flex items-center gap-2 h-12"
+                  className="flex items-center gap-2 h-12 text-sm"
                 >
                   <section.icon className="w-4 h-4" />
                   {section.title}

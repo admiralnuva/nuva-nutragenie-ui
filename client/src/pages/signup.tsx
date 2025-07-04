@@ -65,6 +65,24 @@ export default function SignupScreen() {
     if (verificationCode === "1234") {
       setIsVerified(true);
       toast({ title: "Phone Verified!", description: "Your phone number has been verified successfully." });
+      
+      // Auto-create user and navigate to dietary preferences
+      setTimeout(() => {
+        createUserMutation.mutate({
+          nickname: nickname || 'TestUser',
+          ageGroup: ageGroup || '25-30',
+          phoneNumber: phoneNumber || '1234567890',
+          avatar: selectedAvatar || '😀',
+          selectedChef: {
+            name: chefNickname || 'Chef',
+            personality: selectedChef?.personality || 'Friendly & Encouraging',
+            emoji: selectedChef?.emoji || '👨‍🍳'
+          },
+          dietaryRestrictions: [],
+          healthGoals: [],
+          allergies: ''
+        });
+      }, 1500);
     } else {
       toast({ title: "Invalid Code", description: "Please enter the correct verification code.", variant: "destructive" });
     }
@@ -98,10 +116,15 @@ export default function SignupScreen() {
     <div className="min-h-screen bg-warm-neutral-50 p-6">
       <div className="max-w-md mx-auto">
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-4">
           <BackButton to="/" />
-          <h1 className="text-xl font-bold text-warm-neutral-800">Create Account</h1>
-          <div className="w-10"></div>
+          <div className="flex-1 text-center">
+            <h1 className="text-2xl font-bold text-gray-800">NutraGenie</h1>
+          </div>
+          <div className="w-8"></div>
+        </div>
+        <div className="text-lg font-semibold text-brand-green-600 text-center mb-6">
+          Create Account
         </div>
 
         {/* Add NutraGenie Logo */}
@@ -127,15 +150,15 @@ export default function SignupScreen() {
               {/* Avatar Selection */}
               <div>
                 <Label className="block text-sm font-medium text-warm-neutral-700 mb-3">Avatar</Label>
-                <div className="grid grid-cols-4 gap-2">
+                <div className="grid grid-cols-4 gap-3">
                   {userAvatars.map(avatar => (
                     <button
                       key={avatar}
                       type="button"
                       onClick={() => setSelectedAvatar(avatar)}
-                      className={`flex items-center justify-center w-12 h-12 rounded-full border-2 ${
+                      className={`flex items-center justify-center w-16 h-16 rounded-lg border-2 ${
                         selectedAvatar === avatar ? 'border-brand-green-500 bg-brand-green-100' : 'border-warm-neutral-300'
-                      } bg-warm-neutral-100 text-xl hover:border-brand-green-500 transition-all`}
+                      } bg-warm-neutral-100 text-2xl hover:border-brand-green-500 transition-all`}
                     >
                       {avatar}
                     </button>
@@ -192,7 +215,7 @@ export default function SignupScreen() {
               {/* Chef Avatar Selection */}
               <div>
                 <Label className="block text-sm font-medium text-warm-neutral-700 mb-3">Chef Avatar</Label>
-                <div className="grid grid-cols-4 gap-2">
+                <div className="grid grid-cols-4 gap-3">
                   {chefs.map(chef => (
                     <button
                       key={chef.name}
@@ -201,11 +224,11 @@ export default function SignupScreen() {
                         setSelectedChef(chef);
                         setChefNickname(chef.name);
                       }}
-                      className={`flex flex-col items-center justify-center p-2 rounded-lg border-2 ${
+                      className={`flex flex-col items-center justify-center w-16 h-16 rounded-lg border-2 ${
                         selectedChef.emoji === chef.emoji ? 'border-brand-green-500 bg-brand-green-100' : 'border-warm-neutral-300'
                       } bg-warm-neutral-100 hover:border-brand-green-500 transition-all`}
                     >
-                      <span className="text-xl mb-1">{chef.emoji}</span>
+                      <span className="text-2xl mb-1">{chef.emoji}</span>
                       <span className="text-xs text-warm-neutral-600 text-center leading-tight">{chef.personality.split(' ')[0]}</span>
                     </button>
                   ))}
@@ -301,14 +324,12 @@ export default function SignupScreen() {
             </CardContent>
           </Card>
 
-          {/* Submit Button */}
-          <Button
-            onClick={handleSubmit}
-            disabled={!isFormComplete || createUserMutation.isPending}
-            className="w-full bg-brand-green-500 text-white py-4 px-6 rounded-xl font-semibold text-lg disabled:bg-warm-neutral-300 disabled:cursor-not-allowed hover:bg-brand-green-600 transition-all duration-200"
-          >
-            {createUserMutation.isPending ? "Creating Account..." : "Create Account & Continue"}
-          </Button>
+          {/* Status Message for Account Creation */}
+          {createUserMutation.isPending && (
+            <div className="w-full bg-brand-green-100 text-brand-green-700 py-4 px-6 rounded-xl font-semibold text-lg text-center">
+              Creating Account...
+            </div>
+          )}
 
           {/* Progress Indicator */}
           <div className="flex justify-center gap-2 mt-4">

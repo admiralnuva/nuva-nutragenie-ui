@@ -125,25 +125,33 @@ export default function CookingScreen() {
   return (
     <div className="h-screen bg-brand-green-50 flex flex-col">
       {/* Header */}
-      <div className="bg-white shadow-sm p-4 flex items-center justify-between">
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => setLocation("/recipes")}
-          className="rounded-full hover:bg-gray-100"
-        >
-          <ArrowLeft className="w-6 h-6 text-gray-600" />
-        </Button>
-        <h2 className="font-bold text-lg text-gray-800">
+      <div className="bg-white shadow-sm p-4">
+        <div className="flex items-center justify-between mb-2">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setLocation("/recipes")}
+            className="rounded-full hover:bg-gray-100"
+          >
+            <ArrowLeft className="w-6 h-6 text-gray-600" />
+          </Button>
+          <div className="flex-1 text-center">
+            <h1 className="text-2xl font-bold text-gray-800">NutraGenie</h1>
+          </div>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="rounded-full hover:bg-gray-100"
+          >
+            <Heart className="w-6 h-6 text-gray-600" />
+          </Button>
+        </div>
+        <div className="text-lg font-semibold text-brand-green-600 text-center">
+          Interactive Cooking
+        </div>
+        <div className="text-center mt-2 text-gray-600">
           {(recipe as any)?.title || "Cooking with Chef"}
-        </h2>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="rounded-full hover:bg-gray-100"
-        >
-          <Heart className="w-6 h-6 text-gray-600" />
-        </Button>
+        </div>
       </div>
 
       {/* Timer & Progress */}

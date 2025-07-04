@@ -480,9 +480,17 @@ export default function RecipesScreen() {
   return (
     <div className="min-h-screen bg-warm-neutral-50 pb-20">
       {/* Header */}
-      <div className="bg-white shadow-sm p-4 flex items-center gap-3">
-        <BackButton to="/home" />
-        <h1 className="text-2xl font-bold text-gray-800">NutraGenie</h1>
+      <div className="bg-white shadow-sm p-4">
+        <div className="flex items-center justify-between mb-2">
+          <BackButton to="/home" />
+          <div className="flex-1 text-center">
+            <h1 className="text-2xl font-bold text-gray-800">NutraGenie</h1>
+          </div>
+          <div className="w-8"></div>
+        </div>
+        <div className="text-lg font-semibold text-brand-green-600 text-center">
+          Create a Recipe
+        </div>
       </div>
 
       <div className="p-4 space-y-3">
@@ -1030,7 +1038,7 @@ export default function RecipesScreen() {
             className="w-full bg-brand-green-500 hover:bg-brand-green-600 text-white py-4 text-lg font-semibold"
             onClick={() => setLocation('/review-recipes')}
           >
-            Generate Recipe
+            Create Recipe
           </Button>
           <div className="flex justify-between text-xs text-gray-500">
             <span>
