@@ -9,6 +9,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Slider } from "@/components/ui/slider";
 import { BackButton } from "@/components/ui/back-button";
+import { OnboardingTooltip } from "@/components/ui/onboarding-tooltip";
+import { ProgressIndicator } from "@/components/ui/progress-indicator";
 import { User, MessageCircle, BookOpen, ChefHat, Utensils } from "lucide-react";
 
 // Pantry ingredients by category
@@ -284,6 +286,16 @@ export default function RecipesScreen() {
   // Ingredient autocomplete
   const [ingredientSearch, setIngredientSearch] = useState('');
   const [showIngredientSuggestions, setShowIngredientSuggestions] = useState(false);
+  
+  // Progress indicator
+  const [isGenerating, setIsGenerating] = useState(false);
+  
+  const generationSteps = [
+    { id: 'analyzing', title: 'Analyzing Preferences', description: 'Processing your dietary needs and ingredients', duration: 2000 },
+    { id: 'matching', title: 'Finding Recipes', description: 'Matching your criteria with our recipe database', duration: 2500 },
+    { id: 'customizing', title: 'Personalizing', description: 'Tailoring recipes to your taste preferences', duration: 2000 },
+    { id: 'finalizing', title: 'Final Touches', description: 'Adding cooking tips and nutritional info', duration: 1500 }
+  ];
 
   // Template functions
   const saveTemplate = () => {
@@ -1068,14 +1080,35 @@ export default function RecipesScreen() {
           </CardContent>
         </Card>
 
+        {/* Progress Indicator */}
+        <ProgressIndicator 
+          steps={generationSteps}
+          isActive={isGenerating}
+          onComplete={() => {
+            setIsGenerating(false);
+            setLocation('/review-recipes');
+          }}
+          className="mb-4"
+        />
+
         {/* Generate Recipe Button */}
         <div className="space-y-2">
-          <Button 
-            className="w-full py-4 text-lg font-semibold"
-            onClick={() => setLocation('/review-recipes')}
+          <OnboardingTooltip
+            id="generate-recipe-button"
+            title="Generate Your Recipe"
+            description="Click here to create personalized recipes based on your ingredient selections and dietary preferences. The AI will suggest dishes that match your criteria."
+            position="top"
           >
-            Create Recipe
-          </Button>
+            <Button 
+              className="w-full py-4 text-lg font-semibold"
+              onClick={() => {
+                setIsGenerating(true);
+              }}
+              disabled={isGenerating}
+            >
+              {isGenerating ? 'Generating...' : 'Create Recipe'}
+            </Button>
+          </OnboardingTooltip>
           <div className="flex justify-between text-xs text-gray-500">
             <span>
               {recipeMode === 'pantry' ? `${selectedIngredients.length} ingredients` : selectedDish || 'No dish selected'}

@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { BackButton } from "@/components/ui/back-button";
+import { OnboardingTooltip } from "@/components/ui/onboarding-tooltip";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { 
   Mic, 
@@ -55,6 +56,11 @@ export default function VoiceCookingScreen() {
   const [showCelebration, setShowCelebration] = useState(false);
   const [isOfflineMode, setIsOfflineMode] = useState(false);
   const [emergencyStop, setEmergencyStop] = useState(false);
+  
+  // Visual feedback states
+  const [voiceCommandDetected, setVoiceCommandDetected] = useState<string | null>(null);
+  const [aiProcessing, setAiProcessing] = useState(false);
+  const [lastVoiceCommand, setLastVoiceCommand] = useState<{command: string, timestamp: number} | null>(null);
   const [cookingTimer, setCookingTimer] = useState<{minutes: number, seconds: number, isActive: boolean}>({
     minutes: 0,
     seconds: 0,
@@ -213,6 +219,13 @@ export default function VoiceCookingScreen() {
         const userMessage = responses[Math.floor(Math.random() * responses.length)];
         setTranscript(userMessage);
         
+        // Visual feedback for voice command detection
+        setVoiceCommandDetected(userMessage);
+        setLastVoiceCommand({command: userMessage, timestamp: Date.now()});
+        
+        // Clear voice command feedback after 2 seconds
+        setTimeout(() => setVoiceCommandDetected(null), 2000);
+        
         // Add to conversation
         setConversation(prev => [...prev, {
           sender: 'user',
@@ -227,6 +240,9 @@ export default function VoiceCookingScreen() {
   }, [isListening, currentStep, isCooking, isMuted, cookingMode]);
 
   const handleVoiceCommand = (userMessage: string) => {
+    // Show AI processing feedback
+    setAiProcessing(true);
+    
     const voicePersonality = getVoicePersonality();
     const chefResponses = [
       `${voicePersonality.greeting} You'll need exactly 1 cup of quinoa. You're doing fantastic!`,
@@ -238,17 +254,19 @@ export default function VoiceCookingScreen() {
       `${voicePersonality.guidance} Yes, move to the next step when you feel confident about this one.`
     ];
     
-    const chefMessage = chefResponses[Math.floor(Math.random() * chefResponses.length)];
-    setChefResponse(chefMessage);
-    
-    // Add chef response to conversation
+    // Simulate AI processing time
     setTimeout(() => {
+      const chefMessage = chefResponses[Math.floor(Math.random() * chefResponses.length)];
+      setChefResponse(chefMessage);
+      setAiProcessing(false);
+      
+      // Add chef response to conversation after processing
       setConversation(prev => [...prev, {
         sender: 'chef',
         message: chefMessage,
         timestamp: new Date()
       }]);
-    }, 800);
+    }, 800 + Math.random() * 400); // Realistic AI processing time
   };
 
   const getVoicePersonality = () => {
@@ -445,14 +463,21 @@ export default function VoiceCookingScreen() {
           </div>
           <div className="flex items-center gap-2">
             <Badge variant="secondary">{completedSteps.filter(Boolean).length}/{recipe.totalSteps}</Badge>
-            <Button 
-              size="sm" 
-              variant="destructive"
-              onClick={handleEmergencyStop}
-              className="px-2 py-1 text-xs"
+            <OnboardingTooltip
+              id="emergency-stop"
+              title="Emergency Stop"
+              description="Instantly pause all cooking activities if you need to step away or handle an emergency situation. You can resume cooking anytime."
+              position="left"
             >
-              🚨 STOP
-            </Button>
+              <Button 
+                size="sm" 
+                variant="destructive"
+                onClick={handleEmergencyStop}
+                className="px-2 py-1 text-xs"
+              >
+                🚨 STOP
+              </Button>
+            </OnboardingTooltip>
           </div>
         </div>
       </div>
@@ -503,18 +528,25 @@ export default function VoiceCookingScreen() {
               
               {/* Cooking Mode Toggle */}
               <div className="flex gap-1 bg-white rounded-lg p-1">
-                <Button
-                  variant={cookingMode === "voice" ? "default" : "ghost"}
-                  size="sm"
-                  onClick={() => {
-                    handleModeSwitch("voice");
-                    setIsMuted(false);
-                  }}
-                  className={`text-xs transition-all duration-200 ${modeTransition ? 'scale-95 opacity-50' : ''}`}
-                  disabled={modeTransition}
+                <OnboardingTooltip
+                  id="voice-cooking-mode"
+                  title="Voice Cooking Assistant"
+                  description="Switch to voice mode for hands-free cooking guidance. Chef Antoine will listen to your questions and provide audio responses. Perfect when your hands are busy!"
+                  position="bottom"
                 >
-                  {cookingMode === "voice" ? <Mic className="w-3 h-3" /> : <MicOff className="w-3 h-3" />}
-                </Button>
+                  <Button
+                    variant={cookingMode === "voice" ? "default" : "ghost"}
+                    size="sm"
+                    onClick={() => {
+                      handleModeSwitch("voice");
+                      setIsMuted(false);
+                    }}
+                    className={`text-xs transition-all duration-200 ${modeTransition ? 'scale-95 opacity-50' : ''}`}
+                    disabled={modeTransition}
+                  >
+                    {cookingMode === "voice" ? <Mic className="w-3 h-3" /> : <MicOff className="w-3 h-3" />}
+                  </Button>
+                </OnboardingTooltip>
                 <Button
                   variant={cookingMode === "text" ? "default" : "ghost"}
                   size="sm"
@@ -597,6 +629,30 @@ export default function VoiceCookingScreen() {
                 {/* Voice Mode Display */}
                 {cookingMode === "voice" ? (
                   <div className="space-y-4">
+                    {/* Voice Command Feedback */}
+                    {voiceCommandDetected && (
+                      <div className="bg-blue-50 border-l-4 border-blue-400 p-3 animate-pulse">
+                        <div className="flex items-center">
+                          <Mic className="w-4 h-4 text-blue-600 mr-2" />
+                          <span className="text-sm font-medium text-blue-800">
+                            Heard: "{voiceCommandDetected}"
+                          </span>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* AI Processing Feedback */}
+                    {aiProcessing && (
+                      <div className="bg-indigo-50 border-l-4 border-indigo-400 p-3">
+                        <div className="flex items-center">
+                          <div className="w-4 h-4 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin mr-2"></div>
+                          <span className="text-sm font-medium text-indigo-800">
+                            Chef Antoine is thinking...
+                          </span>
+                        </div>
+                      </div>
+                    )}
+
                     {/* Current Step with Voice Bubbles */}
                     <div className="bg-white border border-indigo-200 rounded-lg p-4">
                       <div className="flex items-center justify-between mb-3">
