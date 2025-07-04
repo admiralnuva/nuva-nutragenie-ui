@@ -25,16 +25,72 @@ const mockGroceryItems = [
   },
   {
     name: "Bell Peppers",
-    quantity: "3 large",
+    quantity: "3 pieces",
     nutrition: { calories: 37, protein: 1 },
     dishes: ["Vegetable Stir Fry"],
     inPantry: false
   },
   {
     name: "Soy Sauce",
-    quantity: "3 tbsp",
+    quantity: "1 bottle",
     nutrition: { calories: 11, protein: 2 },
     dishes: ["Vegetable Stir Fry"],
+    inPantry: false
+  },
+  {
+    name: "Salmon Fillet",
+    quantity: "1.5 lbs",
+    nutrition: { calories: 412, protein: 58 },
+    dishes: ["Salmon with Quinoa"],
+    inPantry: false
+  },
+  {
+    name: "Quinoa",
+    quantity: "1 bag",
+    nutrition: { calories: 626, protein: 24 },
+    dishes: ["Salmon with Quinoa"],
+    inPantry: false
+  },
+  {
+    name: "Red Lentils",
+    quantity: "1 bag",
+    nutrition: { calories: 679, protein: 49 },
+    dishes: ["Lentil Curry"],
+    inPantry: false
+  },
+  {
+    name: "Coconut Milk",
+    quantity: "2 cans",
+    nutrition: { calories: 445, protein: 5 },
+    dishes: ["Lentil Curry"],
+    inPantry: false
+  },
+  {
+    name: "Ground Turkey",
+    quantity: "1.5 lbs",
+    nutrition: { calories: 640, protein: 89 },
+    dishes: ["Turkey Meatballs"],
+    inPantry: false
+  },
+  {
+    name: "Breadcrumbs",
+    quantity: "1 package",
+    nutrition: { calories: 110, protein: 4 },
+    dishes: ["Turkey Meatballs"],
+    inPantry: false
+  },
+  {
+    name: "Tomatoes",
+    quantity: "6 pieces",
+    nutrition: { calories: 22, protein: 1 },
+    dishes: ["Garden Salad"],
+    inPantry: false
+  },
+  {
+    name: "Cucumber",
+    quantity: "2 pieces",
+    nutrition: { calories: 16, protein: 1 },
+    dishes: ["Garden Salad"],
     inPantry: false
   }
 ];
@@ -118,79 +174,53 @@ export default function GroceryListScreen() {
       <div className="max-w-md mx-auto p-4 space-y-4">
         {/* Date and Summary */}
         <Card>
-          <CardContent className="pt-4">
-            <div className="flex items-center justify-between mb-3">
-              <div>
-                <h2 className="font-semibold text-gray-800">Shopping List</h2>
-                <p className="text-sm text-gray-600">{getCurrentDate()}</p>
-              </div>
-              <Badge variant="secondary" className="text-lg px-3 py-1">
-                {groceryItems.length} items
-              </Badge>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="grid grid-cols-2 gap-2">
-              <Button 
-                variant="outline" 
-                className="flex items-center gap-2"
-                onClick={handlePrint}
-              >
-                <Printer className="w-4 h-4" />
-                Print List
-              </Button>
-              <Button 
-                className="bg-brand-green-500 hover:bg-brand-green-600 text-white flex items-center gap-2"
-                onClick={handleInstacart}
-              >
-                <ShoppingCart className="w-4 h-4" />
-                Add to Instacart
-              </Button>
+          <CardContent className="pt-3 pb-3">
+            <div className="text-center">
+              <h2 className="font-semibold text-gray-800">Shopping List</h2>
+              <p className="text-sm text-gray-600">{getCurrentDate()}</p>
             </div>
           </CardContent>
         </Card>
 
         {/* Grocery Items */}
         <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-lg">Items</CardTitle>
+          <CardHeader className="pb-2">
+            <div className="flex items-center justify-between">
+              <CardTitle className="text-lg">Items</CardTitle>
+              <Badge variant="secondary" className="text-sm px-2 py-1">
+                {groceryItems.length} items
+              </Badge>
+            </div>
           </CardHeader>
-          <CardContent className="pt-0 space-y-3">
+          <CardContent className="pt-0 space-y-1">
             {groceryItems.map((item, idx) => (
-              <div key={idx} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-                <div className="flex-1">
-                  <div className="font-medium text-gray-800">{item.name}</div>
-                  <div className="text-sm text-gray-600">
-                    For: {item.dishes.join(", ")}
-                  </div>
-                  <div className="text-xs text-gray-500">
-                    {item.nutrition.calories} cal • {item.nutrition.protein}g protein
-                  </div>
+              <div key={idx} className="flex items-center gap-2 py-1 border-b border-gray-100 last:border-b-0">
+                <div className="flex-1 min-w-0">
+                  <div className="font-medium text-gray-800 text-sm truncate">{item.name}</div>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1">
                   <Input
                     value={item.quantity}
                     onChange={(e) => updateQuantity(item.name, e.target.value)}
-                    className="w-20 h-8 text-center text-sm"
+                    className="w-16 h-7 text-center text-xs"
                     placeholder="Qty"
                   />
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={() => removeItem(item.name)}
-                    className="h-8 w-8 p-0 text-red-500 hover:text-red-700"
+                    className="h-7 w-7 p-0 text-red-500 hover:text-red-700"
                   >
-                    <Trash2 className="w-4 h-4" />
+                    <Trash2 className="w-3 h-3" />
                   </Button>
                 </div>
               </div>
             ))}
 
             {groceryItems.length === 0 && (
-              <div className="text-center text-gray-500 py-8">
-                <ShoppingCart className="w-12 h-12 mx-auto mb-3 text-gray-300" />
-                <p>No items in your grocery list</p>
-                <p className="text-sm">Add items below or go back to select recipes</p>
+              <div className="text-center text-gray-500 py-4">
+                <p className="text-sm">No items in your grocery list</p>
+                <p className="text-xs">Add items below or go back to select recipes</p>
               </div>
             )}
           </CardContent>
@@ -198,32 +228,52 @@ export default function GroceryListScreen() {
 
         {/* Add New Item */}
         <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-lg">Add Custom Item</CardTitle>
-          </CardHeader>
-          <CardContent className="pt-0 space-y-3">
+          <CardContent className="pt-3 pb-3">
             <div className="space-y-2">
-              <Input
-                placeholder="Item name (e.g., Bananas)"
-                value={newItemName}
-                onChange={(e) => setNewItemName(e.target.value)}
-              />
-              <Input
-                placeholder="Quantity (e.g., 6 pieces)"
-                value={newItemQuantity}
-                onChange={(e) => setNewItemQuantity(e.target.value)}
-              />
+              <h3 className="font-medium text-gray-800 text-sm">Add Custom Item</h3>
+              <div className="flex gap-2">
+                <Input
+                  placeholder="Item name"
+                  value={newItemName}
+                  onChange={(e) => setNewItemName(e.target.value)}
+                  className="flex-1 h-8 text-sm"
+                />
+                <Input
+                  placeholder="Qty"
+                  value={newItemQuantity}
+                  onChange={(e) => setNewItemQuantity(e.target.value)}
+                  className="w-20 h-8 text-sm"
+                />
+                <Button 
+                  onClick={addNewItem}
+                  disabled={!newItemName.trim() || !newItemQuantity.trim()}
+                  className="h-8 w-8 p-0 bg-brand-green-500 hover:bg-brand-green-600 text-white"
+                >
+                  <Plus className="w-4 h-4" />
+                </Button>
+              </div>
             </div>
-            <Button 
-              onClick={addNewItem}
-              disabled={!newItemName.trim() || !newItemQuantity.trim()}
-              className="w-full bg-brand-green-500 hover:bg-brand-green-600 text-white"
-            >
-              <Plus className="w-4 h-4 mr-2" />
-              Add Item
-            </Button>
           </CardContent>
         </Card>
+
+        {/* Action Buttons - Moved to Bottom */}
+        <div className="grid grid-cols-2 gap-3 pt-2">
+          <Button 
+            variant="outline" 
+            className="flex items-center gap-2"
+            onClick={handlePrint}
+          >
+            <Printer className="w-4 h-4" />
+            Print List
+          </Button>
+          <Button 
+            className="bg-brand-green-500 hover:bg-brand-green-600 text-white flex items-center gap-2"
+            onClick={handleInstacart}
+          >
+            <ShoppingCart className="w-4 h-4" />
+            Add to Instacart
+          </Button>
+        </div>
       </div>
     </div>
   );

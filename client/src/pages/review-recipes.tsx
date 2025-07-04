@@ -249,12 +249,16 @@ export default function ReviewRecipesScreen() {
           [key]: newSelections.length > 0 ? newSelections : ['original'] // Always keep at least original
         };
       } else {
-        // Add the option and remove 'original' if selecting substitution
+        // Add the option - original stays selected when adding substitutions
         let newSelections;
         if (option === 'original') {
-          newSelections = ['original']; // Only original selected
+          newSelections = ['original']; // Only original selected, clear substitutions
         } else {
-          newSelections = currentSelections.filter(item => item !== 'original');
+          // Keep original selected and add substitution
+          newSelections = [...currentSelections];
+          if (!newSelections.includes('original')) {
+            newSelections.push('original');
+          }
           newSelections.push(option);
         }
         return {

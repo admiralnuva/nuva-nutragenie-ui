@@ -177,6 +177,15 @@ Changelog:
   * Integrated smart shopping cart that excludes pantry items and combines duplicate ingredients
   * Real-time nutrition summary calculations with goal comparison
   * Connected to existing navigation flow from recipes screen Generate Recipe button
+- July 03, 2025. Enhanced substitution selection and grocery list workflow:
+  * Fixed multiple selection in Card 2 - original ingredient stays selected when substitutions are chosen
+  * Multiple checkboxes now work properly for ingredients and substitutions with automatic grocery list updates
+  * Redesigned Card 3 as compact grocery list display showing only item count with large badge
+  * Changed "Print Grocery List" button to "View Grocery List" linking to dedicated screen
+  * Created comprehensive grocery list screen with date display, CRUD operations, print and Instacart integration
+  * Implemented ultra-compact list design showing 12-15 items without scroll, practical quantities (bottles vs tbsp)
+  * Moved action buttons to bottom, streamlined add item interface with inline plus button
+  * Removed nutritional values and dish information from grocery list for cleaner, more practical shopping experience
 ```
 
 ## User Preferences
