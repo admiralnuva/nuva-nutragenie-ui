@@ -491,12 +491,12 @@ export default function VoiceCookingScreen() {
             )}
 
             {/* Dish Name */}
-            <div className="text-center py-1">
+            <div className="text-center -mb-1">
               <h2 className="text-base font-normal text-gray-700">{recipe.name}</h2>
             </div>
 
             {!isCooking ? (
-              <div className="space-y-4 flex flex-col h-full">
+              <div className="space-y-4 flex flex-col h-full -mt-1">
                 <div className="bg-white border border-green-200 rounded-lg p-6 flex-1">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-2 flex-1">
