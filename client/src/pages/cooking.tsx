@@ -147,7 +147,7 @@ export default function CookingScreen() {
           </Button>
         </div>
         <div className="text-lg font-semibold text-brand-green-600 text-center">
-          Interactive Cooking
+          Let's Cook
         </div>
       </div>
 
