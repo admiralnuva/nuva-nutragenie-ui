@@ -322,9 +322,14 @@ export default function ReviewRecipesScreen() {
   return (
     <div className="min-h-screen bg-warm-neutral-50 pb-20">
       {/* Header */}
-      <div className="bg-white shadow-sm p-4 flex items-center gap-3">
-        <BackButton to="/recipes" />
-        <h1 className="text-2xl font-bold text-gray-800">NutraGenie</h1>
+      <div className="bg-white shadow-sm p-4">
+        <div className="flex items-center gap-3 mb-2">
+          <BackButton to="/recipes" />
+          <h1 className="text-2xl font-bold text-gray-800">NutraGenie</h1>
+        </div>
+        <div className="text-lg font-semibold text-brand-green-600">
+          Recommendations & Substitutions
+        </div>
       </div>
 
       <div className="p-4 space-y-4">
@@ -520,34 +525,27 @@ export default function ReviewRecipesScreen() {
               </Badge>
             </div>
 
+            {/* Helper Text */}
+            <div className="text-sm text-gray-600 bg-gray-50 p-3 rounded-lg">
+              You can print or add items to Instacart using View Grocery List
+            </div>
+
             {/* Action Buttons */}
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 gap-3">
               <Button 
                 variant="outline" 
-                className="flex items-center gap-1 text-xs h-8"
+                className="flex items-center gap-2 h-10"
                 onClick={() => setLocation("/grocery-list")}
               >
-                <List className="w-3 h-3" />
+                <List className="w-4 h-4" />
                 View Grocery List
               </Button>
-              <Button variant="outline" className="flex items-center gap-1 text-xs h-8">
-                <ShoppingCart className="w-3 h-3" />
-                Add to Instacart
-              </Button>
               <Button 
-                className="bg-brand-green-500 hover:bg-brand-green-600 text-white flex items-center gap-1 text-xs h-8"
+                className="bg-brand-green-500 hover:bg-brand-green-600 text-white flex items-center gap-2 h-10"
                 onClick={() => setLocation("/cooking")}
               >
-                <ChefHat className="w-3 h-3" />
+                <ChefHat className="w-4 h-4" />
                 Start Cooking
-              </Button>
-              <Button 
-                variant="outline" 
-                className="flex items-center gap-1 text-xs h-8"
-                onClick={() => setLocation("/takeout")}
-              >
-                <Utensils className="w-3 h-3" />
-                Order Takeout
               </Button>
             </div>
           </CardContent>
