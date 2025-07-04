@@ -163,10 +163,16 @@ export default function GroceryListScreen() {
             <BackButton to="/review-recipes" />
             <div className="flex-1 text-center">
               <h1 className="text-xl font-bold text-gray-900">NutraGenie</h1>
-              <p className="text-sm text-gray-600">Grocery List</p>
             </div>
             <div className="w-8"></div>
           </div>
+        </div>
+      </div>
+
+      {/* Page Title */}
+      <div className="max-w-md mx-auto px-4 pb-2">
+        <div className="text-lg font-semibold text-brand-green-600 text-center">
+          Grocery List
         </div>
       </div>
 

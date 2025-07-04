@@ -347,7 +347,7 @@ export default function ReviewRecipesScreen() {
               </Badge>
             </CardTitle>
             <div className="text-sm text-gray-600 mt-1">
-              Select dishes to see ingredients and substitutions
+              Select all five dishes to create your personalized weekly meal planner with perfectly balanced nutrition and variety.
             </div>
           </CardHeader>
           <CardContent className="pt-0">

@@ -88,7 +88,7 @@ export default function DietaryScreen() {
 
   return (
     <div className="min-h-screen bg-warm-neutral-50 p-6">
-      <div className="max-w-md mx-auto">
+      <div className="max-w-md mx-auto pt-2">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
           <BackButton to="/signup" />

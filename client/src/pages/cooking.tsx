@@ -149,9 +149,6 @@ export default function CookingScreen() {
         <div className="text-lg font-semibold text-brand-green-600 text-center">
           Interactive Cooking
         </div>
-        <div className="text-center mt-2 text-gray-600">
-          {(recipe as any)?.title || "Cooking with Chef"}
-        </div>
       </div>
 
       {/* Timer & Progress */}
@@ -199,6 +196,14 @@ export default function CookingScreen() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Dish Name */}
+      <div className="mx-4 my-3 text-center">
+        <h2 className="text-xl font-bold text-gray-800">
+          {(recipe as any)?.title || "Mediterranean Quinoa Bowl"}
+        </h2>
+        <p className="text-sm text-gray-600">Currently cooking</p>
+      </div>
 
       {/* Chat Interface */}
       <div className="flex-1 p-4 pb-32 overflow-hidden">

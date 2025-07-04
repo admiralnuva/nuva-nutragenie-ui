@@ -766,6 +766,26 @@ export default function RecipesScreen() {
                         </div>
                       )}
                     </div>
+
+                    {/* Selected Ingredients Display */}
+                    {selectedIngredients.length > 0 && (
+                      <div className="bg-green-50 rounded-lg p-3 border border-green-200">
+                        <h4 className="font-medium text-gray-700 text-sm mb-2">Selected Ingredients ({selectedIngredients.length})</h4>
+                        <div className="flex flex-wrap gap-1">
+                          {selectedIngredients.map((ingredient) => (
+                            <Badge 
+                              key={ingredient} 
+                              variant="secondary" 
+                              className="text-xs cursor-pointer"
+                              onClick={() => toggleIngredient(ingredient)}
+                            >
+                              {ingredient} ×
+                            </Badge>
+                          ))}
+                        </div>
+                        <div className="text-xs text-gray-500 mt-1">Click any ingredient to remove it</div>
+                      </div>
+                    )}
                   </>
                 ) : (
                   // Recommended Dishes View
