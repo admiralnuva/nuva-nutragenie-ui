@@ -825,8 +825,8 @@ export default function RecipesScreen() {
                         return combinedDishes.map((dish) => (
                           <div
                             key={dish.name}
-                            className={`p-3 border rounded-lg cursor-pointer transition-colors ${
-                              selectedDish === dish.name ? 'border-brand-indigo-500 bg-brand-indigo-50' : 'hover:bg-white'
+                            className={`p-3 border rounded-lg cursor-pointer transition-all ${
+                              selectedDish === dish.name ? 'border-indigo-500 bg-indigo-500 text-white shadow-md scale-105' : 'border-gray-300 hover:border-indigo-400 hover:bg-indigo-50'
                             }`}
                             onClick={() => setSelectedDish(dish.name)}
                           >
@@ -880,7 +880,7 @@ export default function RecipesScreen() {
                           <div
                             key={dish.name}
                             className={`p-3 border rounded-lg cursor-pointer transition-colors relative ${
-                              selectedDish === dish.name ? 'border-brand-indigo-500 bg-brand-indigo-50' : 'hover:bg-white'
+                              selectedDish === dish.name ? 'border-indigo-500 bg-indigo-500 text-white shadow-md scale-105' : 'hover:bg-white'
                             }`}
                             onClick={() => setSelectedDish(dish.name)}
                           >
@@ -926,7 +926,7 @@ export default function RecipesScreen() {
                           <div
                             key={dish.name}
                             className={`p-3 border rounded-lg cursor-pointer transition-colors relative ${
-                              selectedDish === dish.name ? 'border-brand-indigo-500 bg-brand-indigo-50' : 'hover:bg-white'
+                              selectedDish === dish.name ? 'border-indigo-500 bg-indigo-500 text-white shadow-md scale-105' : 'hover:bg-white'
                             }`}
                             onClick={() => setSelectedDish(dish.name)}
                           >

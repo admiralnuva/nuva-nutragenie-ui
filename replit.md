@@ -243,6 +243,10 @@ Changelog:
   * Fixed button visibility issues across all pages by removing custom brand-indigo classes
   * Standardized all buttons to use proper Button component with primary theme colors
   * Updated signup page card styling for consistent borders and completion indicators
+  * Enhanced selection visual feedback across all pages with prominent indigo styling
+  * Applied consistent selection patterns: indigo background, white text, shadow, and scale effects
+  * Updated dietary preferences, signup avatar/chef selection, and recipe dish selection
+  * Improved visual prominence of selected states from subtle to clearly visible
 ```
 
 ## User Preferences

@@ -167,8 +167,8 @@ export default function SignupScreen() {
                       type="button"
                       onClick={() => setSelectedAvatar(avatar)}
                       className={`flex items-center justify-center w-16 h-16 rounded-lg border-2 ${
-                        selectedAvatar === avatar ? 'border-brand-indigo-500 bg-brand-indigo-100' : 'border-warm-neutral-300'
-                      } bg-warm-neutral-100 text-2xl hover:border-brand-indigo-500 transition-all`}
+                        selectedAvatar === avatar ? 'border-indigo-500 bg-indigo-500 text-white shadow-md scale-105' : 'border-gray-300'
+                      } bg-white text-2xl hover:border-indigo-400 hover:bg-indigo-50 transition-all`}
                     >
                       {avatar}
                     </button>
@@ -358,11 +358,13 @@ export default function SignupScreen() {
                         setChefNickname(chef.name);
                       }}
                       className={`flex flex-col items-center justify-center w-16 h-16 rounded-lg border-2 ${
-                        selectedChef.emoji === chef.emoji ? 'border-brand-indigo-500 bg-brand-indigo-100' : 'border-warm-neutral-300'
-                      } bg-warm-neutral-100 hover:border-brand-indigo-500 transition-all`}
+                        selectedChef.emoji === chef.emoji ? 'border-indigo-500 bg-indigo-500 text-white shadow-md scale-105' : 'border-gray-300'
+                      } bg-white hover:border-indigo-400 hover:bg-indigo-50 transition-all`}
                     >
                       <span className="text-2xl mb-1">{chef.emoji}</span>
-                      <span className="text-xs text-warm-neutral-600 text-center leading-tight">{chef.personality.split(' ')[0]}</span>
+                      <span className={`text-xs text-center leading-tight ${
+                        selectedChef.emoji === chef.emoji ? 'text-white' : 'text-warm-neutral-600'
+                      }`}>{chef.personality.split(' ')[0]}</span>
                     </button>
                   ))}
                 </div>
