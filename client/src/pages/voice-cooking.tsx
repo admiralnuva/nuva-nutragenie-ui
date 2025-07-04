@@ -26,7 +26,8 @@ import {
   ChevronUp,
   Play,
   Pause,
-  ArrowLeft
+  ArrowLeft,
+  ArrowRight
 } from "lucide-react";
 
 export default function VoiceCookingScreen() {
@@ -264,6 +265,18 @@ export default function VoiceCookingScreen() {
     window.print();
   };
 
+  const goToPreviousStep = () => {
+    if (currentStep > 0) {
+      setCurrentStep(currentStep - 1);
+    }
+  };
+
+  const goToNextStep = () => {
+    if (currentStep < recipe.steps.length - 1) {
+      setCurrentStep(currentStep + 1);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -285,17 +298,7 @@ export default function VoiceCookingScreen() {
           <CardHeader className="pb-3">
             <CardTitle className="flex items-center justify-between text-lg">
               <div className="flex items-center gap-2">
-                {cookingMode === "text" && (
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => setLocation("/recipes")}
-                    className="p-1"
-                  >
-                    <ArrowLeft className="w-4 h-4" />
-                  </Button>
-                )}
-                <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center text-sm">
+                <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center text-lg">
                   {chefGender === "female" ? "👩‍🍳" : "👨‍🍳"}
                 </div>
               </div>
@@ -351,16 +354,16 @@ export default function VoiceCookingScreen() {
             )}
 
             {!isCooking ? (
-              <div className="space-y-3">
-                <div className="bg-white border border-green-200 rounded-lg p-4">
-                  <div className="flex items-center justify-between mb-2">
+              <div className="space-y-4 flex flex-col h-full">
+                <div className="bg-white border border-green-200 rounded-lg p-6 flex-1">
+                  <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-2 flex-1">
-                      <span className="font-semibold text-green-600">Step 1</span>
+                      <span className="font-semibold text-green-600 text-lg">Step 1</span>
                       <div className="flex gap-1">
                         {recipe.steps.map((_, index) => (
                           <div
                             key={index}
-                            className={`w-1 h-1 rounded-full ${
+                            className={`w-1.5 h-1.5 rounded-full ${
                               index === 0 ? 'bg-blue-500' : 'bg-gray-300'
                             }`}
                           />
@@ -372,13 +375,13 @@ export default function VoiceCookingScreen() {
                       {recipe.steps[0]?.duration}
                     </span>
                   </div>
-                  <p className="font-medium mb-2">{recipe.steps[0]?.instruction}</p>
-                  <p className="text-sm text-green-700 mb-3">💡 {recipe.steps[0]?.tips}</p>
+                  <p className="font-medium mb-4 text-lg leading-relaxed">{recipe.steps[0]?.instruction}</p>
+                  <p className="text-sm text-green-700">💡 {recipe.steps[0]?.tips}</p>
                 </div>
                 
                 <Button 
                   onClick={() => setIsCooking(true)}
-                  className="w-full bg-green-600 hover:bg-green-700 text-lg py-3"
+                  className="w-full bg-green-600 hover:bg-green-700 text-lg py-4 mt-auto"
                 >
                   <Play className="w-4 h-4 mr-2" />
                   {cookingMode === "voice" ? "Start Voice Cooking" : "Start Text Cooking"}
@@ -521,15 +524,15 @@ export default function VoiceCookingScreen() {
                   <div className="space-y-4">
                     {/* Current Step for Text Mode */}
                     {!showAllSteps && (
-                      <div className="bg-white border border-green-200 rounded-lg p-4">
-                        <div className="flex items-center justify-between mb-2">
+                      <div className="bg-white border border-green-200 rounded-lg p-6 flex-1">
+                        <div className="flex items-center justify-between mb-4">
                           <div className="flex items-center gap-2 flex-1">
-                            <span className="font-semibold text-green-600">Step {currentStep + 1}</span>
+                            <span className="font-semibold text-green-600 text-lg">Step {currentStep + 1}</span>
                             <div className="flex gap-1">
                               {recipe.steps.map((_, index) => (
                                 <div
                                   key={index}
-                                  className={`w-1 h-1 rounded-full ${
+                                  className={`w-1.5 h-1.5 rounded-full ${
                                     completedSteps[index] 
                                       ? 'bg-green-500' 
                                       : index === currentStep
@@ -545,22 +548,46 @@ export default function VoiceCookingScreen() {
                             {recipe.steps[currentStep]?.duration}
                           </span>
                         </div>
-                        <p className="font-medium mb-2">{recipe.steps[currentStep]?.instruction}</p>
-                        <p className="text-sm text-green-700 mb-3">💡 {recipe.steps[currentStep]?.tips}</p>
-                        <Button
-                          onClick={() => markStepComplete(currentStep)}
-                          disabled={completedSteps[currentStep]}
-                          className="w-full text-lg py-3"
-                        >
-                          {completedSteps[currentStep] ? (
-                            <>
-                              <CheckCircle className="w-4 h-4 mr-2" />
-                              Completed
-                            </>
-                          ) : (
-                            "Mark Complete"
-                          )}
-                        </Button>
+                        <p className="font-medium mb-4 text-lg leading-relaxed">{recipe.steps[currentStep]?.instruction}</p>
+                        <p className="text-sm text-green-700 mb-6">💡 {recipe.steps[currentStep]?.tips}</p>
+                        
+                        {/* Step Navigation Controls */}
+                        <div className="flex items-center gap-3 mb-4">
+                          <Button
+                            onClick={goToPreviousStep}
+                            disabled={currentStep === 0}
+                            variant="outline"
+                            size="sm"
+                            className="flex-1"
+                          >
+                            <ArrowLeft className="w-4 h-4 mr-1" />
+                            Previous
+                          </Button>
+                          <Button
+                            onClick={() => markStepComplete(currentStep)}
+                            disabled={completedSteps[currentStep]}
+                            className="flex-1"
+                          >
+                            {completedSteps[currentStep] ? (
+                              <>
+                                <CheckCircle className="w-4 h-4 mr-2" />
+                                Done
+                              </>
+                            ) : (
+                              "Complete"
+                            )}
+                          </Button>
+                          <Button
+                            onClick={goToNextStep}
+                            disabled={currentStep === recipe.steps.length - 1}
+                            variant="outline"
+                            size="sm"
+                            className="flex-1"
+                          >
+                            Next
+                            <ArrowRight className="w-4 h-4 ml-1" />
+                          </Button>
+                        </div>
                       </div>
                     )}
 
