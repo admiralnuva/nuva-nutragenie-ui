@@ -29,6 +29,7 @@ export default function SignupScreen() {
   const [nickname, setNickname] = useState("");
   const [ageGroup, setAgeGroup] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [address, setAddress] = useState("");
   const [verificationCode, setVerificationCode] = useState("");
   const [selectedAvatar, setSelectedAvatar] = useState('😀');
   const [selectedChef, setSelectedChef] = useState(chefs[0]);
@@ -44,8 +45,12 @@ export default function SignupScreen() {
     },
     onSuccess: (user) => {
       setCurrentUser(user);
-      toast({ title: "Welcome to NutraGenie!", description: "Your account has been created successfully." });
-      setLocation("/dietary");
+      toast({ title: "Account created successfully!", description: "Redirecting to dietary preferences..." });
+      
+      // Smooth transition to dietary preferences
+      setTimeout(() => {
+        setLocation("/dietary");
+      }, 1500);
     },
     onError: (error: any) => {
       toast({ title: "Error", description: error.message, variant: "destructive" });
@@ -66,23 +71,29 @@ export default function SignupScreen() {
       setIsVerified(true);
       toast({ title: "Phone Verified!", description: "Your phone number has been verified successfully." });
       
-      // Auto-create user and navigate to dietary preferences
+      // Show success message first, then create user after a brief pause
       setTimeout(() => {
-        createUserMutation.mutate({
-          nickname: nickname || 'TestUser',
-          ageGroup: ageGroup || '25-30',
-          phoneNumber: phoneNumber || '1234567890',
-          avatar: selectedAvatar || '😀',
-          selectedChef: {
-            name: chefNickname || 'Chef',
-            personality: selectedChef?.personality || 'Friendly & Encouraging',
-            emoji: selectedChef?.emoji || '👨‍🍳'
-          },
-          dietaryRestrictions: [],
-          healthGoals: [],
-          allergies: ''
-        });
-      }, 1500);
+        toast({ title: "Setting up your profile...", description: "This will only take a moment." });
+        
+        // Create user after success feedback
+        setTimeout(() => {
+          createUserMutation.mutate({
+            nickname: nickname || 'TestUser',
+            ageGroup: ageGroup || '25-30',
+            phoneNumber: phoneNumber || '1234567890',
+            address: address || '',
+            avatar: selectedAvatar || '😀',
+            selectedChef: {
+              name: chefNickname || 'Chef',
+              personality: selectedChef?.personality || 'Friendly & Encouraging',
+              emoji: selectedChef?.emoji || '👨‍🍳'
+            },
+            dietaryRestrictions: [],
+            healthGoals: [],
+            allergies: ''
+          });
+        }, 1000);
+      }, 1000);
     } else {
       toast({ title: "Invalid Code", description: "Please enter the correct verification code.", variant: "destructive" });
     }
@@ -127,13 +138,7 @@ export default function SignupScreen() {
           Create Account
         </div>
 
-        {/* Add NutraGenie Logo */}
-        <div className="text-center mb-8">
-          <div className="w-16 h-16 mx-auto mb-4 bg-brand-green-500 rounded-2xl flex items-center justify-center">
-            <div className="text-2xl">🤖</div>
-            <div className="text-xl ml-1">❤️</div>
-          </div>
-        </div>
+
 
         <div className="space-y-6">
           {/* Profile Section */}
@@ -197,6 +202,21 @@ export default function SignupScreen() {
                     </SelectContent>
                   </Select>
                 </div>
+              </div>
+
+              {/* Address Field */}
+              <div>
+                <Label htmlFor="address" className="block text-sm font-medium text-warm-neutral-700 mb-2">
+                  Address
+                </Label>
+                <Input
+                  id="address"
+                  type="text"
+                  placeholder="Your address"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                  className="w-full px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-green-500 focus:border-transparent"
+                />
               </div>
             </CardContent>
           </Card>

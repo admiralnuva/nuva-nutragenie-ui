@@ -859,7 +859,7 @@ export default function VoiceCookingScreen() {
               onClick={() => {
                 // Resume cooking from where we left off
                 setCurrentStep(Math.max(0, currentStep - 1)); // Go back to previous step for continuity
-                setActiveMode('voice'); // Switch to voice mode for cooking
+                // Resume voice cooking mode
               }}
             >
               Continue Cooking
