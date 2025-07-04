@@ -53,6 +53,14 @@ export default function VoiceCookingScreen() {
   });
   const [stepCompletionStreak, setStepCompletionStreak] = useState(0);
   const [showCelebration, setShowCelebration] = useState(false);
+  const [isOfflineMode, setIsOfflineMode] = useState(false);
+  const [emergencyStop, setEmergencyStop] = useState(false);
+  const [cookingTimer, setCookingTimer] = useState<{minutes: number, seconds: number, isActive: boolean}>({
+    minutes: 0,
+    seconds: 0,
+    isActive: false
+  });
+  const [modeTransition, setModeTransition] = useState(false);
 
   const recipe = {
     name: "Mediterranean Quinoa Bowl",
@@ -214,6 +222,74 @@ export default function VoiceCookingScreen() {
     return personalities[chefVoice as keyof typeof personalities];
   };
 
+  // Timer functionality
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (cookingTimer.isActive) {
+      interval = setInterval(() => {
+        setCookingTimer(prev => {
+          if (prev.seconds > 0) {
+            return { ...prev, seconds: prev.seconds - 1 };
+          } else if (prev.minutes > 0) {
+            return { ...prev, minutes: prev.minutes - 1, seconds: 59 };
+          } else {
+            // Timer finished - trigger notification
+            if ('Notification' in window && Notification.permission === 'granted') {
+              new Notification('Cooking Timer', { body: 'Timer finished! Check your food.' });
+            }
+            return { ...prev, isActive: false };
+          }
+        });
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [cookingTimer.isActive]);
+
+  // Offline mode detection
+  useEffect(() => {
+    const handleOnline = () => setIsOfflineMode(false);
+    const handleOffline = () => setIsOfflineMode(true);
+    
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+    
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
+
+  // Mode transition animation
+  const handleModeSwitch = (mode: "voice" | "text") => {
+    setModeTransition(true);
+    setTimeout(() => {
+      setCookingMode(mode);
+      setModeTransition(false);
+    }, 150);
+  };
+
+  // Emergency stop function
+  const handleEmergencyStop = () => {
+    setEmergencyStop(true);
+    setIsCooking(false);
+    setCookingTimer(prev => ({ ...prev, isActive: false }));
+    setConversation(prev => [...prev, {
+      sender: 'chef',
+      message: 'Emergency stop activated. Stay safe! When you\'re ready, you can resume cooking.',
+      timestamp: new Date()
+    }]);
+  };
+
+  // Start timer function
+  const startTimer = (minutes: number) => {
+    setCookingTimer({ minutes, seconds: 0, isActive: true });
+    
+    // Request notification permission
+    if ('Notification' in window && Notification.permission === 'default') {
+      Notification.requestPermission();
+    }
+  };
+
   const markStepComplete = (stepIndex: number) => {
     const updatedSteps = [...completedSteps];
     updatedSteps[stepIndex] = true;
@@ -300,8 +376,21 @@ export default function VoiceCookingScreen() {
           <div className="flex-1">
             <h1 className="text-xl font-bold text-gray-800">Interactive Cooking</h1>
             <p className="text-sm text-gray-600">{recipe.name} • {recipe.difficulty}</p>
+            {isOfflineMode && (
+              <div className="text-xs text-orange-600 mt-1">📶 Offline Mode Active</div>
+            )}
           </div>
-          <Badge variant="secondary">{completedSteps.filter(Boolean).length}/{recipe.totalSteps}</Badge>
+          <div className="flex items-center gap-2">
+            <Badge variant="secondary">{completedSteps.filter(Boolean).length}/{recipe.totalSteps}</Badge>
+            <Button 
+              size="sm" 
+              variant="destructive"
+              onClick={handleEmergencyStop}
+              className="px-2 py-1 text-xs"
+            >
+              🚨 STOP
+            </Button>
+          </div>
         </div>
       </div>
 
@@ -311,6 +400,26 @@ export default function VoiceCookingScreen() {
         {showCelebration && (
           <div className="fixed inset-0 pointer-events-none z-50 flex items-center justify-center">
             <div className="text-6xl animate-bounce">🎉</div>
+          </div>
+        )}
+
+        {/* Emergency Stop Warning */}
+        {emergencyStop && (
+          <div className="bg-red-100 border border-red-300 rounded-lg p-4 mb-4">
+            <div className="flex items-center gap-3">
+              <div className="text-2xl">🚨</div>
+              <div>
+                <h3 className="font-semibold text-red-800">Emergency Stop Activated</h3>
+                <p className="text-sm text-red-700">All cooking activities paused for safety. You can resume when ready.</p>
+              </div>
+              <Button 
+                size="sm" 
+                onClick={() => setEmergencyStop(false)}
+                className="bg-green-600 hover:bg-green-700"
+              >
+                Resume
+              </Button>
+            </div>
           </div>
         )}
 
@@ -335,10 +444,11 @@ export default function VoiceCookingScreen() {
                   variant={cookingMode === "voice" ? "default" : "ghost"}
                   size="sm"
                   onClick={() => {
-                    setCookingMode("voice");
+                    handleModeSwitch("voice");
                     setIsMuted(false);
                   }}
-                  className="text-xs"
+                  className={`text-xs transition-all duration-200 ${modeTransition ? 'scale-95 opacity-50' : ''}`}
+                  disabled={modeTransition}
                 >
                   {cookingMode === "voice" ? <Mic className="w-3 h-3" /> : <MicOff className="w-3 h-3" />}
                 </Button>
@@ -346,10 +456,11 @@ export default function VoiceCookingScreen() {
                   variant={cookingMode === "text" ? "default" : "ghost"}
                   size="sm"
                   onClick={() => {
-                    setCookingMode("text");
+                    handleModeSwitch("text");
                     setIsMuted(true);
                   }}
-                  className="text-xs"
+                  className={`text-xs transition-all duration-200 ${modeTransition ? 'scale-95 opacity-50' : ''}`}
+                  disabled={modeTransition}
                 >
                   Text Only
                 </Button>
@@ -423,27 +534,43 @@ export default function VoiceCookingScreen() {
                       <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center gap-2 flex-1">
                           <span className="font-semibold text-green-600">Step {currentStep + 1}</span>
-                          <div className="flex gap-1.5 items-center justify-center">
-                            {recipe.steps.map((_, index) => (
-                              <div
-                                key={index}
-                                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                                  completedSteps[index] 
-                                    ? 'bg-green-500 shadow-lg scale-110' 
-                                    : index === currentStep
-                                      ? 'bg-blue-500 animate-pulse'
-                                      : 'bg-gray-300'
-                                }`}
-                              />
-                            ))}
+                          <div className="flex-1 max-w-24">
+                            <Progress 
+                              value={(completedSteps.filter(Boolean).length / recipe.totalSteps) * 100}
+                              className="h-2"
+                            />
                           </div>
                         </div>
-                        <span className="text-sm text-gray-600 flex items-center gap-1">
-                          <Timer className="w-3 h-3" />
-                          {recipe.steps[currentStep]?.duration}
-                        </span>
+                        <div className="flex items-center gap-2">
+                          {cookingTimer.isActive && (
+                            <div className="bg-orange-100 border border-orange-300 rounded px-2 py-1">
+                              <span className="text-xs font-mono text-orange-700">
+                                {String(cookingTimer.minutes).padStart(2, '0')}:{String(cookingTimer.seconds).padStart(2, '0')}
+                              </span>
+                            </div>
+                          )}
+                          <span className="text-sm text-gray-600 flex items-center gap-1">
+                            <Timer className="w-3 h-3" />
+                            {recipe.steps[currentStep]?.duration}
+                          </span>
+                        </div>
                       </div>
                       <p className="font-medium mb-4">{recipe.steps[currentStep]?.instruction}</p>
+                      
+                      {/* Quick Timer Controls */}
+                      {!cookingTimer.isActive && (
+                        <div className="flex gap-2 mb-4">
+                          <Button size="sm" variant="outline" onClick={() => startTimer(5)}>
+                            5min
+                          </Button>
+                          <Button size="sm" variant="outline" onClick={() => startTimer(10)}>
+                            10min
+                          </Button>
+                          <Button size="sm" variant="outline" onClick={() => startTimer(15)}>
+                            15min
+                          </Button>
+                        </div>
+                      )}
                       
                       {/* Voice Conversation Bubbles */}
                       {conversation.length > 0 && (
@@ -554,19 +681,11 @@ export default function VoiceCookingScreen() {
                         <div className="flex items-center justify-between mb-4">
                           <div className="flex items-center gap-2 flex-1">
                             <span className="font-semibold text-green-600 text-lg">Step {currentStep + 1}</span>
-                            <div className="flex gap-1.5 items-center justify-center">
-                              {recipe.steps.map((_, index) => (
-                                <div
-                                  key={index}
-                                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                                    completedSteps[index] 
-                                      ? 'bg-green-500 shadow-lg scale-110' 
-                                      : index === currentStep
-                                        ? 'bg-blue-500 animate-pulse'
-                                        : 'bg-gray-300'
-                                  }`}
-                                />
-                              ))}
+                            <div className="flex-1 max-w-24">
+                              <Progress 
+                                value={(completedSteps.filter(Boolean).length / recipe.totalSteps) * 100}
+                                className="h-2"
+                              />
                             </div>
                           </div>
                           <span className="text-sm text-gray-600 flex items-center gap-1">
