@@ -11,6 +11,8 @@ import DietaryScreen from "@/pages/dietary";
 import RecipesScreen from "@/pages/recipes";
 import ReviewRecipesScreen from "@/pages/review-recipes";
 import CookingScreen from "@/pages/cooking";
+import VoiceCookingScreen from "@/pages/voice-cooking";
+import AIVideoCookingScreen from "@/pages/ai-video-cooking";
 import ProfileScreen from "@/pages/profile";
 import HealthAnalyticsScreen from "@/pages/health";
 import HomeScreen from "@/pages/home";
@@ -33,6 +35,8 @@ function Router() {
       <Route path="/cook" component={CookScreen} />
       <Route path="/takeout" component={TakeOutScreen} />
       <Route path="/cooking/:recipeId?" component={CookingScreen} />
+      <Route path="/voice-cooking" component={VoiceCookingScreen} />
+      <Route path="/ai-video-cooking" component={AIVideoCookingScreen} />
       <Route path="/profile" component={ProfileScreen} />
       <Route path="/health" component={HealthAnalyticsScreen} />
       <Route component={NotFound} />

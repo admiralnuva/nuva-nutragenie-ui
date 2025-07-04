@@ -1,10 +1,13 @@
+import { useLocation } from "wouter";
 import { BackButton } from "@/components/ui/back-button";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Play, Video, MessageCircle, Clock, Users } from "lucide-react";
+import { Play, Video, MessageCircle, Clock, Users, Mic, Camera } from "lucide-react";
 
 export default function CookScreen() {
+  const [, setLocation] = useLocation();
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 to-red-50 pb-20">
       {/* Header */}
@@ -14,11 +17,51 @@ export default function CookScreen() {
       </div>
 
       <div className="p-4 space-y-4">
-        {/* Coming Soon Banner */}
-        <Card className="p-4 bg-gradient-to-r from-orange-500 to-red-600 text-white">
-          <h2 className="text-xl font-bold mb-2">Interactive Cooking Guide</h2>
-          <p className="text-orange-100">Step-by-step video guidance coming soon!</p>
-        </Card>
+        {/* Interactive Cooking Features */}
+        <div className="space-y-3">
+          {/* Voice Cooking */}
+          <Card className="p-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="bg-white/20 rounded-full p-2">
+                <Mic className="w-6 h-6" />
+              </div>
+              <div className="flex-1">
+                <h3 className="text-lg font-bold">Voice Cooking Assistant</h3>
+                <p className="text-green-100 text-sm">Chat with Chef Antoine while cooking</p>
+              </div>
+            </div>
+            <Button 
+              onClick={() => setLocation("/voice-cooking")}
+              className="w-full bg-white text-green-600 hover:bg-gray-100"
+            >
+              <Mic className="w-4 h-4 mr-2" />
+              Start Voice Session
+            </Button>
+          </Card>
+
+          {/* AI Video Cooking */}
+          <Card className="p-4 bg-gradient-to-r from-purple-500 to-blue-600 text-white">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="bg-white/20 rounded-full p-2">
+                <Camera className="w-6 h-6" />
+              </div>
+              <div className="flex-1">
+                <h3 className="text-lg font-bold">AI Video Cooking</h3>
+                <p className="text-purple-100 text-sm">Get visual feedback on your technique</p>
+              </div>
+              <Badge className="bg-yellow-400 text-yellow-900 text-xs">
+                Premium
+              </Badge>
+            </div>
+            <Button 
+              onClick={() => setLocation("/ai-video-cooking")}
+              className="w-full bg-white text-purple-600 hover:bg-gray-100"
+            >
+              <Camera className="w-4 h-4 mr-2" />
+              Start AI Video Session
+            </Button>
+          </Card>
+        </div>
 
         {/* Current Recipe */}
         <div>
