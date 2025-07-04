@@ -863,8 +863,11 @@ export default function VoiceCookingScreen() {
               className="w-full bg-orange-600 hover:bg-orange-700 mt-3"
               onClick={() => {
                 // Resume cooking from where we left off
-                setCurrentStep(Math.max(0, currentStep - 1)); // Go back to previous step for continuity
-                // Resume voice cooking mode
+                setCurrentStep(Math.max(0, currentStep - 1)); 
+                setIsCooking(true); // Enable cooking mode
+                setCookingMode("voice"); // Set to voice mode
+                setIsListening(true); // Start listening
+                setEmergencyStop(false); // Clear any emergency stops
               }}
             >
               Continue Cooking
