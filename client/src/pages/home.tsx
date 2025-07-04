@@ -5,7 +5,7 @@ import { TrendingUp, Award, Target, MessageCircle } from "lucide-react";
 
 export default function HomeScreen() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-50 pb-20">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 pb-20">
       {/* Header */}
       <div className="bg-white border-b border-gray-200 px-4 py-4 flex items-center gap-3">
         <BackButton to="/" />
@@ -14,9 +14,9 @@ export default function HomeScreen() {
 
       <div className="p-4 space-y-4">
         {/* Welcome Card */}
-        <Card className="p-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white">
+        <Card className="p-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white">
           <h2 className="text-xl font-bold mb-2">Welcome back, Chef!</h2>
-          <p className="text-green-100">Ready to create something delicious today?</p>
+          <p className="text-blue-100">Ready to create something delicious today?</p>
         </Card>
 
         {/* Analytics Section */}
@@ -27,7 +27,7 @@ export default function HomeScreen() {
           </h3>
           <div className="grid grid-cols-2 gap-3">
             <Card className="p-3">
-              <div className="text-2xl font-bold text-green-600">12</div>
+              <div className="text-2xl font-bold text-indigo-600">12</div>
               <div className="text-sm text-gray-600">Recipes Created</div>
             </Card>
             <Card className="p-3">

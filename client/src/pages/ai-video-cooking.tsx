@@ -154,7 +154,7 @@ export default function AIVideoCookingScreen() {
       encouraging: {
         voice: "warm and supportive",
         style: "🌟 Encouraging",
-        color: "bg-green-500"
+        color: "bg-indigo-500"
       },
       professional: {
         voice: "precise and technical", 
@@ -172,7 +172,7 @@ export default function AIVideoCookingScreen() {
 
   const getFeedbackColor = () => {
     switch (aiFeedback.state) {
-      case "detected": return "border-green-500 bg-green-50";
+      case "detected": return "border-indigo-500 bg-indigo-50";
       case "confirmed": return "border-blue-500 bg-blue-50";
       case "warning": return "border-yellow-500 bg-yellow-50";
       default: return "border-gray-300 bg-gray-50";
@@ -181,7 +181,7 @@ export default function AIVideoCookingScreen() {
 
   const getFeedbackIcon = () => {
     switch (aiFeedback.state) {
-      case "detected": return <Eye className="w-5 h-5 text-green-600" />;
+      case "detected": return <Eye className="w-5 h-5 text-indigo-600" />;
       case "confirmed": return <CheckCircle className="w-5 h-5 text-blue-600" />;
       case "warning": return <AlertTriangle className="w-5 h-5 text-yellow-600" />;
       default: return <Zap className="w-5 h-5 text-gray-600" />;
@@ -250,8 +250,8 @@ export default function AIVideoCookingScreen() {
                     
                     {/* Detection boxes */}
                     {aiFeedback.state === "detected" && (
-                      <div className="absolute top-1/4 left-1/4 w-1/2 h-1/2 border-2 border-green-400 rounded">
-                        <div className="absolute -top-6 left-0 bg-green-500 text-white px-2 py-1 text-xs rounded">
+                      <div className="absolute top-1/4 left-1/4 w-1/2 h-1/2 border-2 border-indigo-400 rounded">
+                        <div className="absolute -top-6 left-0 bg-indigo-500 text-white px-2 py-1 text-xs rounded">
                           Eggs detected ({aiFeedback.confidence}%)
                         </div>
                       </div>
@@ -428,7 +428,7 @@ export default function AIVideoCookingScreen() {
           <CardContent>
             <div className="space-y-2 text-sm">
               <div className="flex items-center gap-2">
-                <Eye className="w-4 h-4 text-green-600" />
+                <Eye className="w-4 h-4 text-indigo-600" />
                 <span>Ingredient recognition & quantity checking</span>
               </div>
               <div className="flex items-center gap-2">

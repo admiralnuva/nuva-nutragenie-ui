@@ -107,8 +107,8 @@ export default function TakeOutScreen() {
           <div className="space-y-3">
             <Card className="p-4 opacity-75">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                  <Truck className="text-green-600" size={20} />
+                <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center">
+                  <Truck className="text-indigo-600" size={20} />
                 </div>
                 <div className="flex-1">
                   <div className="font-medium text-gray-800">Real-time Tracking</div>

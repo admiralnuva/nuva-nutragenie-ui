@@ -20,19 +20,19 @@ export default function CookScreen() {
         {/* Interactive Cooking Features */}
         <div className="space-y-3">
           {/* Voice Cooking */}
-          <Card className="p-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white">
+          <Card className="p-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white">
             <div className="flex items-center gap-3 mb-3">
               <div className="bg-white/20 rounded-full p-2">
                 <Mic className="w-6 h-6" />
               </div>
               <div className="flex-1">
                 <h3 className="text-lg font-bold">Voice Cooking Assistant</h3>
-                <p className="text-green-100 text-sm">Chat with Chef Antoine while cooking</p>
+                <p className="text-blue-100 text-sm">Chat with Chef Antoine while cooking</p>
               </div>
             </div>
             <Button 
               onClick={() => setLocation("/voice-cooking")}
-              className="w-full bg-white text-green-600 hover:bg-gray-100"
+              className="w-full bg-white text-indigo-600 hover:bg-gray-100"
             >
               <Mic className="w-4 h-4 mr-2" />
               Start Voice Session

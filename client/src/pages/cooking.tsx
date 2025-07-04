@@ -117,13 +117,13 @@ export default function CookingScreen() {
   if (!recipe && recipeId) {
     return (
       <div className="h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-2 border-brand-green-500 border-t-transparent"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-2 border-brand-indigo-500 border-t-transparent"></div>
       </div>
     );
   }
 
   return (
-    <div className="h-screen bg-brand-green-50 flex flex-col">
+    <div className="h-screen bg-brand-indigo-50 flex flex-col">
       {/* Header */}
       <div className="bg-white shadow-sm p-4">
         <div className="flex items-center justify-between mb-2">
@@ -146,7 +146,7 @@ export default function CookingScreen() {
             <Heart className="w-6 h-6 text-gray-600" />
           </Button>
         </div>
-        <div className="text-lg font-semibold text-brand-green-600 text-center">
+        <div className="text-lg font-semibold text-brand-indigo-600 text-center">
           Let's Cook
         </div>
       </div>
@@ -156,7 +156,7 @@ export default function CookingScreen() {
         <CardContent className="p-4">
           <div className="flex items-center justify-between mb-3">
             <div className="text-center">
-              <div className="text-2xl font-bold text-brand-green-600">
+              <div className="text-2xl font-bold text-brand-indigo-600">
                 {formatTime(timeRemaining)}
               </div>
               <p className="text-sm text-gray-500">Total Time</p>
@@ -172,7 +172,7 @@ export default function CookingScreen() {
               className={`px-4 py-2 rounded-xl font-medium transition-all ${
                 timerRunning 
                   ? 'bg-red-500 hover:bg-red-600 text-white' 
-                  : 'bg-brand-green-500 hover:bg-brand-green-600 text-white'
+                  : 'bg-brand-indigo-500 hover:bg-brand-indigo-600 text-white'
               }`}
             >
               {timerRunning ? (
@@ -190,7 +190,7 @@ export default function CookingScreen() {
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2">
             <div 
-              className="bg-brand-green-500 h-2 rounded-full transition-all duration-300" 
+              className="bg-brand-indigo-500 h-2 rounded-full transition-all duration-300" 
               style={{ width: `${(currentStep / totalSteps) * 100}%` }}
             ></div>
           </div>
@@ -216,14 +216,14 @@ export default function CookingScreen() {
               message.sender === 'user' ? 'justify-end' : ''
             }`}>
               {message.sender === 'chef' && (
-                <div className="w-10 h-10 rounded-full bg-brand-green-500 flex items-center justify-center text-white text-lg flex-shrink-0">
+                <div className="w-10 h-10 rounded-full bg-brand-indigo-500 flex items-center justify-center text-white text-lg flex-shrink-0">
                   {currentUser.selectedChef.emoji}
                 </div>
               )}
               
               <div className={`rounded-2xl p-4 shadow-sm max-w-xs ${
                 message.sender === 'user'
-                  ? 'bg-brand-green-500 text-white rounded-tr-sm'
+                  ? 'bg-brand-indigo-500 text-white rounded-tr-sm'
                   : 'bg-white text-gray-800 rounded-tl-sm'
               }`}>
                 <p>{message.message}</p>
@@ -233,7 +233,7 @@ export default function CookingScreen() {
                   <div className="mt-3 space-y-2">
                     <Button
                       onClick={() => addQuickResponse('Done! What\'s next?')}
-                      className="w-full bg-brand-green-100 text-brand-green-700 py-2 rounded-lg text-sm font-medium hover:bg-brand-green-200 transition-all"
+                      className="w-full bg-brand-indigo-100 text-brand-indigo-700 py-2 rounded-lg text-sm font-medium hover:bg-brand-indigo-200 transition-all"
                       disabled={sendMessageMutation.isPending}
                     >
                       ✅ Done! What's next?
@@ -259,7 +259,7 @@ export default function CookingScreen() {
           
           {sendMessageMutation.isPending && (
             <div className="flex gap-3">
-              <div className="w-10 h-10 rounded-full bg-brand-green-500 flex items-center justify-center text-white text-lg flex-shrink-0">
+              <div className="w-10 h-10 rounded-full bg-brand-indigo-500 flex items-center justify-center text-white text-lg flex-shrink-0">
                 {currentUser.selectedChef.emoji}
               </div>
               <div className="bg-white rounded-2xl rounded-tl-sm p-4 shadow-sm max-w-xs">
@@ -283,14 +283,14 @@ export default function CookingScreen() {
               value={chatInput}
               onChange={(e) => setChatInput(e.target.value)}
               onKeyPress={handleKeyPress}
-              className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-green-500"
+              className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-indigo-500"
               disabled={sendMessageMutation.isPending}
             />
           </div>
           <Button
             onClick={handleSendMessage}
             disabled={!chatInput.trim() || sendMessageMutation.isPending}
-            className="bg-brand-green-500 text-white p-3 rounded-xl hover:bg-brand-green-600 transition-all flex-shrink-0"
+            className="bg-brand-indigo-500 text-white p-3 rounded-xl hover:bg-brand-indigo-600 transition-all flex-shrink-0"
           >
             <Send className="w-5 h-5" />
           </Button>

@@ -450,20 +450,20 @@ export default function RecipesScreen() {
   const BottomNavigation = () => (
     <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-[393px] bg-white border-t border-gray-200 px-4 py-2">
       <div className="flex justify-around">
-        <button className="flex flex-col items-center gap-1 py-2 px-3 text-brand-green-500">
+        <button className="flex flex-col items-center gap-1 py-2 px-3 text-indigo-500">
           <BookOpen className="w-6 h-6" />
           <span className="text-xs font-medium">Recipes</span>
         </button>
         <button 
           onClick={() => setLocation("/cooking")}
-          className="flex flex-col items-center gap-1 py-2 px-3 text-gray-400 hover:text-brand-green-500 transition-colors"
+          className="flex flex-col items-center gap-1 py-2 px-3 text-gray-400 hover:text-indigo-500 transition-colors"
         >
           <MessageCircle className="w-6 h-6" />
           <span className="text-xs font-medium">Chef AI</span>
         </button>
         <button 
           onClick={() => setLocation("/profile")}
-          className="flex flex-col items-center gap-1 py-2 px-3 text-gray-400 hover:text-brand-green-500 transition-colors"
+          className="flex flex-col items-center gap-1 py-2 px-3 text-gray-400 hover:text-indigo-500 transition-colors"
         >
           <User className="w-6 h-6" />
           <span className="text-xs font-medium">Profile</span>
@@ -488,7 +488,7 @@ export default function RecipesScreen() {
           </div>
           <div className="w-8"></div>
         </div>
-        <div className="text-lg font-semibold text-brand-green-600 text-center">
+        <div className="text-lg font-semibold text-indigo-600 text-center">
           Create a Recipe
         </div>
       </div>
@@ -686,7 +686,7 @@ export default function RecipesScreen() {
                             <label
                               htmlFor={ingredient}
                               className={`text-sm leading-none cursor-pointer ${
-                                isSelected ? 'font-semibold text-brand-green-700' :
+                                isSelected ? 'font-semibold text-brand-indigo-700' :
                                 isDietaryRestricted ? 'text-gray-400 line-through' :
                                 isCompatible ? 'text-blue-600 font-medium' : 'font-medium'
                               }`}
@@ -826,7 +826,7 @@ export default function RecipesScreen() {
                           <div
                             key={dish.name}
                             className={`p-3 border rounded-lg cursor-pointer transition-colors ${
-                              selectedDish === dish.name ? 'border-brand-green-500 bg-brand-green-50' : 'hover:bg-gray-50'
+                              selectedDish === dish.name ? 'border-brand-indigo-500 bg-brand-indigo-50' : 'hover:bg-gray-50'
                             }`}
                             onClick={() => setSelectedDish(dish.name)}
                           >
@@ -861,16 +861,16 @@ export default function RecipesScreen() {
                 {selectedCuisine && (
                   <>
                     {/* Smart Filtered Trending Dishes */}
-                    <div className="bg-gradient-to-r from-brand-green-50 to-green-100 p-4 rounded-lg border-l-4 border-brand-green-500 mt-6">
+                    <div className="bg-gradient-to-r from-brand-indigo-50 to-green-100 p-4 rounded-lg border-l-4 border-brand-indigo-500 mt-6">
                       <div 
                         className="flex items-center justify-between mb-3 cursor-pointer"
                         onClick={() => setSmartRecsExpanded(!smartRecsExpanded)}
                       >
-                        <h4 className="font-semibold text-brand-green-700 flex items-center gap-2">
+                        <h4 className="font-semibold text-brand-indigo-700 flex items-center gap-2">
                           ✨ Smart Recommendations
                           {getCurrentSeason() === 'winter' && <Badge className="text-xs bg-blue-100 text-blue-800">❄️ Winter</Badge>}
                         </h4>
-                        <button className="text-brand-green-600 hover:text-brand-green-800 font-bold text-lg">
+                        <button className="text-brand-indigo-600 hover:text-brand-indigo-800 font-bold text-lg">
                           {smartRecsExpanded ? '−' : '+'}
                         </button>
                       </div>
@@ -880,7 +880,7 @@ export default function RecipesScreen() {
                           <div
                             key={dish.name}
                             className={`p-3 border rounded-lg cursor-pointer transition-colors relative ${
-                              selectedDish === dish.name ? 'border-brand-green-500 bg-brand-green-50' : 'hover:bg-gray-50'
+                              selectedDish === dish.name ? 'border-brand-indigo-500 bg-brand-indigo-50' : 'hover:bg-gray-50'
                             }`}
                             onClick={() => setSelectedDish(dish.name)}
                           >
@@ -926,7 +926,7 @@ export default function RecipesScreen() {
                           <div
                             key={dish.name}
                             className={`p-3 border rounded-lg cursor-pointer transition-colors relative ${
-                              selectedDish === dish.name ? 'border-brand-green-500 bg-brand-green-50' : 'hover:bg-gray-50'
+                              selectedDish === dish.name ? 'border-brand-indigo-500 bg-brand-indigo-50' : 'hover:bg-gray-50'
                             }`}
                             onClick={() => setSelectedDish(dish.name)}
                           >
@@ -1071,7 +1071,7 @@ export default function RecipesScreen() {
         {/* Generate Recipe Button */}
         <div className="space-y-2">
           <Button 
-            className="w-full bg-brand-green-500 hover:bg-brand-green-600 text-white py-4 text-lg font-semibold"
+            className="w-full bg-brand-indigo-500 hover:bg-brand-indigo-600 text-white py-4 text-lg font-semibold"
             onClick={() => setLocation('/review-recipes')}
           >
             Create Recipe

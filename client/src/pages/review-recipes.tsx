@@ -330,7 +330,7 @@ export default function ReviewRecipesScreen() {
           </div>
           <div className="w-8"></div>
         </div>
-        <div className="text-lg font-semibold text-brand-green-600 text-center">
+        <div className="text-lg font-semibold text-brand-indigo-600 text-center">
           Recommendations & Substitutions
         </div>
       </div>
@@ -357,7 +357,7 @@ export default function ReviewRecipesScreen() {
                   key={dish.id}
                   className={`p-3 border rounded-lg cursor-pointer transition-colors ${
                     selectedDishes.includes(dish.id) 
-                      ? 'border-brand-green-500 bg-brand-green-50' 
+                      ? 'border-brand-indigo-500 bg-brand-indigo-50' 
                       : 'border-gray-200 hover:bg-gray-50'
                   }`}
                   onClick={() => toggleDishSelection(dish.id)}
@@ -422,7 +422,7 @@ export default function ReviewRecipesScreen() {
                           <div key={idx} className="bg-gray-50 p-3 rounded-lg">
                             {/* Main Ingredient */}
                             <div className={`flex items-center justify-between mb-2 p-2 rounded cursor-pointer transition-colors ${
-                              isOriginalSelected ? 'bg-brand-green-100 border border-brand-green-300' : 'hover:bg-gray-100'
+                              isOriginalSelected ? 'bg-brand-indigo-100 border border-brand-indigo-300' : 'hover:bg-gray-100'
                             }`}
                             onClick={() => handleIngredientSelection(dishId, ingredient.name, 'original')}>
                               <div className="flex items-center gap-2 flex-1">
@@ -451,7 +451,7 @@ export default function ReviewRecipesScreen() {
                                   <div 
                                     key={subIdx} 
                                     className={`flex items-center gap-2 p-2 rounded cursor-pointer transition-colors ${
-                                      isSubSelected ? 'bg-brand-green-100 border border-brand-green-300' : 'hover:bg-gray-100'
+                                      isSubSelected ? 'bg-brand-indigo-100 border border-brand-indigo-300' : 'hover:bg-gray-100'
                                     }`}
                                     onClick={() => handleIngredientSelection(dishId, ingredient.name, sub.name)}
                                   >
@@ -481,8 +481,8 @@ export default function ReviewRecipesScreen() {
 
             {/* Nutrition Summary */}
             {selectedDishes.length > 0 && (
-              <div className="bg-brand-green-50 p-3 rounded-lg border border-brand-green-200">
-                <h4 className="font-semibold text-brand-green-800 mb-2 text-sm">Total Summary</h4>
+              <div className="bg-brand-indigo-50 p-3 rounded-lg border border-brand-indigo-200">
+                <h4 className="font-semibold text-brand-indigo-800 mb-2 text-sm">Total Summary</h4>
                 <div className="grid grid-cols-5 gap-2 text-xs">
                   <div className="text-center">
                     <div className="text-gray-600">Cal</div>
@@ -544,7 +544,7 @@ export default function ReviewRecipesScreen() {
                 View Grocery List
               </Button>
               <Button 
-                className="bg-brand-green-500 hover:bg-brand-green-600 text-white flex items-center gap-2 h-10"
+                className="bg-brand-indigo-500 hover:bg-brand-indigo-600 text-white flex items-center gap-2 h-10"
                 onClick={() => setLocation("/voice-cooking")}
               >
                 <ChefHat className="w-4 h-4" />

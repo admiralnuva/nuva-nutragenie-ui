@@ -227,7 +227,7 @@ export default function HealthAnalyticsScreen() {
         <Card className="mb-6">
           <CardContent className="p-4">
             <div className="flex items-center gap-4">
-              <Calendar className="w-5 h-5 text-brand-green-600" />
+              <Calendar className="w-5 h-5 text-indigo-600" />
               <Label htmlFor="date">Tracking Date</Label>
               <Input
                 type="date"
@@ -284,7 +284,7 @@ export default function HealthAnalyticsScreen() {
           <Card>
             <CardContent className="p-4">
               <div className="flex items-center gap-3">
-                <Target className="w-8 h-8 text-brand-green-600" />
+                <Target className="w-8 h-8 text-indigo-600" />
                 <div>
                   <p className="text-sm text-warm-neutral-600">Daily Calories</p>
                   <p className="text-xl font-bold">{dailyTotals.calories}</p>
@@ -365,7 +365,7 @@ export default function HealthAnalyticsScreen() {
                         id="mealType"
                         value={nutritionForm.mealType}
                         onChange={(e) => setNutritionForm({...nutritionForm, mealType: e.target.value})}
-                        className="w-full px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-green-500"
+                        className="w-full px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       >
                         <option value="breakfast">Breakfast</option>
                         <option value="lunch">Lunch</option>
@@ -465,7 +465,7 @@ export default function HealthAnalyticsScreen() {
                   <Button
                     type="submit"
                     disabled={addNutritionMutation.isPending}
-                    className="w-full bg-brand-green-500 hover:bg-brand-green-600 text-white"
+                    className="w-full bg-indigo-500 hover:bg-indigo-600 text-white"
                   >
                     {addNutritionMutation.isPending ? "Logging..." : "Log Meal"}
                   </Button>
@@ -639,7 +639,7 @@ export default function HealthAnalyticsScreen() {
                   <Button
                     type="submit"
                     disabled={addHealthMetricMutation.isPending}
-                    className="w-full bg-brand-green-500 hover:bg-brand-green-600 text-white"
+                    className="w-full bg-indigo-500 hover:bg-indigo-600 text-white"
                   >
                     {addHealthMetricMutation.isPending ? "Saving..." : "Save Health Data"}
                   </Button>

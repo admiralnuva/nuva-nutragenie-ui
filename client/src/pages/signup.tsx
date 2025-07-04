@@ -138,7 +138,7 @@ export default function SignupScreen() {
           </div>
           <div className="w-8"></div>
         </div>
-        <div className="text-lg font-semibold text-brand-green-600 text-center mb-6">
+        <div className="text-lg font-semibold text-indigo-600 text-center mb-6">
           Create Account
         </div>
 
@@ -146,12 +146,12 @@ export default function SignupScreen() {
 
         <div className="space-y-3">
           {/* Profile Section */}
-          <Card className={`transition-all ${isProfileComplete ? 'ring-2 ring-brand-green-500 bg-brand-green-50' : ''}`}>
+          <Card className={`transition-all ${isProfileComplete ? 'ring-2 ring-indigo-500 bg-indigo-50' : ''}`}>
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-2 text-lg">
                 <User className="w-5 h-5" />
                 Your Profile
-                {isProfileComplete && <Check className="w-5 h-5 text-brand-green-600" />}
+                {isProfileComplete && <Check className="w-5 h-5 text-brand-indigo-600" />}
               </CardTitle>
               <CardDescription>Choose avatar, nickname, & age</CardDescription>
             </CardHeader>
@@ -166,8 +166,8 @@ export default function SignupScreen() {
                       type="button"
                       onClick={() => setSelectedAvatar(avatar)}
                       className={`flex items-center justify-center w-16 h-16 rounded-lg border-2 ${
-                        selectedAvatar === avatar ? 'border-brand-green-500 bg-brand-green-100' : 'border-warm-neutral-300'
-                      } bg-warm-neutral-100 text-2xl hover:border-brand-green-500 transition-all`}
+                        selectedAvatar === avatar ? 'border-brand-indigo-500 bg-brand-indigo-100' : 'border-warm-neutral-300'
+                      } bg-warm-neutral-100 text-2xl hover:border-brand-indigo-500 transition-all`}
                     >
                       {avatar}
                     </button>
@@ -186,7 +186,7 @@ export default function SignupScreen() {
                     placeholder="Your name"
                     value={nickname}
                     onChange={(e) => setNickname(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-green-500 focus:border-transparent"
+                    className="w-full px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-indigo-500 focus:border-transparent"
                   />
                 </div>
 
@@ -195,7 +195,7 @@ export default function SignupScreen() {
                     Age
                   </Label>
                   <Select value={ageGroup} onValueChange={setAgeGroup}>
-                    <SelectTrigger className="w-full px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-green-500 focus:border-transparent">
+                    <SelectTrigger className="w-full px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-indigo-500 focus:border-transparent">
                       <SelectValue placeholder="Age" />
                     </SelectTrigger>
                     <SelectContent>
@@ -213,12 +213,12 @@ export default function SignupScreen() {
           </Card>
 
           {/* Address Section */}
-          <Card className={`transition-all ${isAddressComplete ? 'ring-2 ring-brand-green-500 bg-brand-green-50' : ''}`}>
+          <Card className={`transition-all ${isAddressComplete ? 'ring-2 ring-brand-indigo-500 bg-brand-indigo-50' : ''}`}>
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-2 text-lg">
                 <MapPin className="w-5 h-5" />
                 Your Address
-                {isAddressComplete && <Check className="w-5 h-5 text-brand-green-600" />}
+                {isAddressComplete && <Check className="w-5 h-5 text-brand-indigo-600" />}
               </CardTitle>
               <CardDescription>Delivery and location details</CardDescription>
             </CardHeader>
@@ -234,7 +234,7 @@ export default function SignupScreen() {
                   placeholder="123 Main Street"
                   value={streetAddress}
                   onChange={(e) => setStreetAddress(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-green-500 focus:border-transparent"
+                  className="w-full px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-indigo-500 focus:border-transparent"
                 />
               </div>
 
@@ -250,7 +250,7 @@ export default function SignupScreen() {
                     placeholder="San Francisco"
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-green-500 focus:border-transparent"
+                    className="w-full px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-indigo-500 focus:border-transparent"
                   />
                 </div>
                 <div className="col-span-2">
@@ -326,7 +326,7 @@ export default function SignupScreen() {
                     maxLength={5}
                     value={zipCode}
                     onChange={(e) => setZipCode(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-green-500 focus:border-transparent"
+                    className="w-full px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-indigo-500 focus:border-transparent"
                   />
                 </div>
               </div>
@@ -334,12 +334,12 @@ export default function SignupScreen() {
           </Card>
 
           {/* Chef Selection Section */}
-          <Card className={`transition-all ${isChefComplete ? 'ring-2 ring-brand-green-500 bg-brand-green-50' : ''}`}>
+          <Card className={`transition-all ${isChefComplete ? 'ring-2 ring-brand-indigo-500 bg-brand-indigo-50' : ''}`}>
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-2 text-lg">
                 <ChefHat className="w-5 h-5" />
                 Your AI Chef
-                {isChefComplete && <Check className="w-5 h-5 text-brand-green-600" />}
+                {isChefComplete && <Check className="w-5 h-5 text-brand-indigo-600" />}
               </CardTitle>
               <CardDescription>Select your personal cooking assistant</CardDescription>
             </CardHeader>
@@ -357,8 +357,8 @@ export default function SignupScreen() {
                         setChefNickname(chef.name);
                       }}
                       className={`flex flex-col items-center justify-center w-16 h-16 rounded-lg border-2 ${
-                        selectedChef.emoji === chef.emoji ? 'border-brand-green-500 bg-brand-green-100' : 'border-warm-neutral-300'
-                      } bg-warm-neutral-100 hover:border-brand-green-500 transition-all`}
+                        selectedChef.emoji === chef.emoji ? 'border-brand-indigo-500 bg-brand-indigo-100' : 'border-warm-neutral-300'
+                      } bg-warm-neutral-100 hover:border-brand-indigo-500 transition-all`}
                     >
                       <span className="text-2xl mb-1">{chef.emoji}</span>
                       <span className="text-xs text-warm-neutral-600 text-center leading-tight">{chef.personality.split(' ')[0]}</span>
@@ -377,7 +377,7 @@ export default function SignupScreen() {
                   placeholder="Enter chef's name"
                   value={chefNickname}
                   onChange={(e) => setChefNickname(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-green-500 focus:border-transparent"
+                  className="w-full px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-indigo-500 focus:border-transparent"
                 />
                 <p className="text-xs text-warm-neutral-500 mt-1">Personality: {selectedChef.personality}</p>
               </div>
@@ -385,12 +385,12 @@ export default function SignupScreen() {
           </Card>
 
           {/* Phone Verification Section */}
-          <Card className={`transition-all ${isVerified ? 'ring-2 ring-brand-green-500 bg-brand-green-50' : ''}`}>
+          <Card className={`transition-all ${isVerified ? 'ring-2 ring-brand-indigo-500 bg-brand-indigo-50' : ''}`}>
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-2 text-lg">
                 <Phone className="w-5 h-5" />
                 Phone Verification
-                {isVerified && <Check className="w-5 h-5 text-brand-green-600" />}
+                {isVerified && <Check className="w-5 h-5 text-brand-indigo-600" />}
               </CardTitle>
               <CardDescription>Verify your phone number for security</CardDescription>
             </CardHeader>
@@ -406,12 +406,12 @@ export default function SignupScreen() {
                     placeholder="(555) 123-4567"
                     value={phoneNumber}
                     onChange={(e) => setPhoneNumber(e.target.value)}
-                    className="flex-1 px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-green-500 focus:border-transparent"
+                    className="flex-1 px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-indigo-500 focus:border-transparent"
                   />
                   <Button
                     onClick={sendVerificationCode}
                     disabled={!isPhoneComplete || isVerifying || codeSent}
-                    className="px-4 py-2 bg-brand-green-500 text-white rounded-lg hover:bg-brand-green-600 disabled:bg-warm-neutral-300"
+                    className="px-4 py-2 bg-brand-indigo-500 text-white rounded-lg hover:bg-brand-indigo-600 disabled:bg-warm-neutral-300"
                   >
                     {isVerifying ? "Sending..." : codeSent ? "Sent" : "Send Code"}
                   </Button>
@@ -430,13 +430,13 @@ export default function SignupScreen() {
                       placeholder="Enter 4-digit code"
                       value={verificationCode}
                       onChange={(e) => setVerificationCode(e.target.value)}
-                      className="flex-1 px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-green-500 focus:border-transparent text-center font-mono"
+                      className="flex-1 px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-indigo-500 focus:border-transparent text-center font-mono"
                       maxLength={4}
                     />
                     <Button
                       onClick={verifyCode}
                       disabled={verificationCode.length !== 4}
-                      className="px-4 py-2 bg-brand-green-500 text-white rounded-lg hover:bg-brand-green-600 disabled:bg-warm-neutral-300"
+                      className="px-4 py-2 bg-brand-indigo-500 text-white rounded-lg hover:bg-brand-indigo-600 disabled:bg-warm-neutral-300"
                     >
                       Verify
                     </Button>
@@ -448,7 +448,7 @@ export default function SignupScreen() {
               )}
 
               {isVerified && (
-                <div className="flex items-center gap-2 text-brand-green-600 bg-brand-green-100 p-3 rounded-lg">
+                <div className="flex items-center gap-2 text-brand-indigo-600 bg-brand-indigo-100 p-3 rounded-lg">
                   <Shield className="w-5 h-5" />
                   <span className="text-sm font-medium">Phone number verified successfully!</span>
                 </div>
@@ -458,16 +458,16 @@ export default function SignupScreen() {
 
           {/* Status Message for Account Creation */}
           {createUserMutation.isPending && (
-            <div className="w-full bg-brand-green-100 text-brand-green-700 py-4 px-6 rounded-xl font-semibold text-lg text-center">
+            <div className="w-full bg-brand-indigo-100 text-brand-indigo-700 py-4 px-6 rounded-xl font-semibold text-lg text-center">
               Creating Account...
             </div>
           )}
 
           {/* Progress Indicator */}
           <div className="flex justify-center gap-2 mt-4">
-            <div className={`w-3 h-3 rounded-full ${isProfileComplete ? 'bg-brand-green-500' : 'bg-warm-neutral-300'} transition-all duration-200`} />
-            <div className={`w-3 h-3 rounded-full ${isChefComplete ? 'bg-brand-green-500' : 'bg-warm-neutral-300'} transition-all duration-200`} />
-            <div className={`w-3 h-3 rounded-full ${isVerified ? 'bg-brand-green-500' : 'bg-warm-neutral-300'} transition-all duration-200`} />
+            <div className={`w-3 h-3 rounded-full ${isProfileComplete ? 'bg-brand-indigo-500' : 'bg-warm-neutral-300'} transition-all duration-200`} />
+            <div className={`w-3 h-3 rounded-full ${isChefComplete ? 'bg-brand-indigo-500' : 'bg-warm-neutral-300'} transition-all duration-200`} />
+            <div className={`w-3 h-3 rounded-full ${isVerified ? 'bg-brand-indigo-500' : 'bg-warm-neutral-300'} transition-all duration-200`} />
           </div>
         </div>
       </div>

@@ -228,6 +228,14 @@ Changelog:
   * Added detailed address fields: street address, city, state, zip code with proper grid layout and validation
   * Updated address display in view mode to show complete formatted address instead of single line
   * Integrated address editing functionality with save/cancel capabilities
+- July 04, 2025. Complete Color Palette Redesign - Blue-Purple Theme:
+  * Removed harsh green color palette and logo from splash screen per user feedback
+  * Implemented new soft blue-purple gradient theme (blue → purple → indigo) for better visual comfort
+  * Updated all card colors across entire application for consistent branding
+  * Systematically replaced all brand-green color references with brand-indigo equivalents
+  * Updated global CSS variables and theme definitions to maintain consistency
+  * Applied new color scheme to all pages: splash, signup, recipes, profile, cooking, health, grocery, takeout, voice-cooking, ai-video-cooking
+  * Enhanced button colors, borders, backgrounds, and accent colors throughout the application
 ```
 
 ## User Preferences

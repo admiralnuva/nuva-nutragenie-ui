@@ -97,7 +97,7 @@ export default function DietaryScreen() {
           </div>
           <div className="w-8"></div>
         </div>
-        <div className="text-lg font-semibold text-brand-green-600 text-center mb-6">
+        <div className="text-lg font-semibold text-brand-indigo-600 text-center mb-6">
           Dietary Preferences
         </div>
 
@@ -120,8 +120,8 @@ export default function DietaryScreen() {
                     onClick={() => toggleSelection(setSelectedDietary, option.value)}
                     className={`px-3 py-2 rounded-lg border-2 font-medium transition-all text-sm ${
                       selectedDietary.includes(option.value)
-                        ? 'border-brand-green-500 bg-brand-green-50 text-brand-green-700'
-                        : 'border-warm-neutral-300 text-warm-neutral-700 hover:border-brand-green-500 hover:bg-brand-green-50'
+                        ? 'border-brand-indigo-500 bg-brand-indigo-50 text-brand-indigo-700'
+                        : 'border-warm-neutral-300 text-warm-neutral-700 hover:border-brand-indigo-500 hover:bg-brand-indigo-50'
                     }`}
                   >
                     {option.label}
@@ -149,8 +149,8 @@ export default function DietaryScreen() {
                     onClick={() => toggleSelection(setSelectedHealth, condition.value)}
                     className={`px-3 py-2 rounded-lg border-2 font-medium transition-all text-sm ${
                       selectedHealth.includes(condition.value)
-                        ? 'border-brand-green-500 bg-brand-green-50 text-brand-green-700'
-                        : 'border-warm-neutral-300 text-warm-neutral-700 hover:border-brand-green-500 hover:bg-brand-green-50'
+                        ? 'border-brand-indigo-500 bg-brand-indigo-50 text-brand-indigo-700'
+                        : 'border-warm-neutral-300 text-warm-neutral-700 hover:border-brand-indigo-500 hover:bg-brand-indigo-50'
                     }`}
                   >
                     {condition.label}
@@ -178,8 +178,8 @@ export default function DietaryScreen() {
                     onClick={() => toggleSelection(setSelectedFitness, goal.value)}
                     className={`px-3 py-2 rounded-lg border-2 font-medium transition-all text-sm ${
                       selectedFitness.includes(goal.value)
-                        ? 'border-brand-green-500 bg-brand-green-50 text-brand-green-700'
-                        : 'border-warm-neutral-300 text-warm-neutral-700 hover:border-brand-green-500 hover:bg-brand-green-50'
+                        ? 'border-brand-indigo-500 bg-brand-indigo-50 text-brand-indigo-700'
+                        : 'border-warm-neutral-300 text-warm-neutral-700 hover:border-brand-indigo-500 hover:bg-brand-indigo-50'
                     }`}
                   >
                     {goal.label}
@@ -203,7 +203,7 @@ export default function DietaryScreen() {
                 placeholder="e.g., garlic, onions, mushrooms, spicy food, seafood..."
                 value={foodDislikes}
                 onChange={(e) => setFoodDislikes(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-green-500 focus:border-transparent h-20 resize-none"
+                className="w-full px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-indigo-500 focus:border-transparent h-20 resize-none"
               />
             </CardContent>
           </Card>
@@ -219,7 +219,7 @@ export default function DietaryScreen() {
                 placeholder="e.g., Severe peanut allergy, shellfish allergy..."
                 value={allergies}
                 onChange={(e) => setAllergies(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-green-500 focus:border-transparent h-20 resize-none"
+                className="w-full px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-indigo-500 focus:border-transparent h-20 resize-none"
               />
             </CardContent>
           </Card>
@@ -235,7 +235,7 @@ export default function DietaryScreen() {
                 placeholder="e.g., I love spicy food, prefer organic ingredients, cooking for family of 4..."
                 value={additionalNotes}
                 onChange={(e) => setAdditionalNotes(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-green-500 focus:border-transparent h-20 resize-none"
+                className="w-full px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-indigo-500 focus:border-transparent h-20 resize-none"
               />
             </CardContent>
           </Card>
@@ -244,7 +244,7 @@ export default function DietaryScreen() {
           <Button
             type="submit"
             disabled={!isFormValid || updateUserMutation.isPending}
-            className="w-full bg-brand-green-500 text-white py-4 px-6 rounded-xl font-semibold text-lg disabled:bg-warm-neutral-300 disabled:cursor-not-allowed hover:bg-brand-green-600 transition-all duration-200"
+            className="w-full bg-brand-indigo-500 text-white py-4 px-6 rounded-xl font-semibold text-lg disabled:bg-warm-neutral-300 disabled:cursor-not-allowed hover:bg-brand-indigo-600 transition-all duration-200"
           >
             {updateUserMutation.isPending ? "Saving Profile..." : "Explore Recipes"}
           </Button>
