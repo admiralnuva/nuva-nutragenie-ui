@@ -289,158 +289,106 @@ export default function VoiceCookingScreen() {
 
       <div className="max-w-md mx-auto p-4 space-y-4">
         
-        {/* Card 1: Voice Assistant with Avatars */}
-        <Card>
+        {/* Card 1: Cooking Steps with Voice Controls (Main Focus) */}
+        <Card className="border-2 border-green-300 bg-green-50">
           <CardHeader className="pb-3">
             <CardTitle className="flex items-center gap-2 text-lg">
               <ChefHat className="w-5 h-5" />
-              Voice Cooking Assistant
+              Cooking Steps
             </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            {/* Avatar Section */}
-            <div className="flex items-center justify-center gap-6 mb-4">
-              {/* User Avatar */}
-              <div className="text-center">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-2xl mb-2">
-                  {currentUser?.avatar || "👤"}
-                </div>
-                <p className="text-xs text-gray-600">You</p>
-              </div>
-              
-              {/* Voice Waves Animation */}
-              <div className="flex items-center gap-1">
-                {[1, 2, 3].map((i) => (
-                  <div
-                    key={i}
-                    className={`w-1 bg-green-500 rounded-full ${isListening && !isMuted ? 'animate-pulse' : ''}`}
-                    style={{
-                      height: `${Math.random() * 20 + 10}px`,
-                      animationDelay: `${i * 0.1}s`
-                    }}
-                  />
-                ))}
-              </div>
-              
-              {/* Chef Avatar */}
-              <div className="text-center">
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center text-2xl mb-2">
+            
+            {/* Compact Voice Controls Row */}
+            <div className="mt-3 space-y-2">
+              {/* Chef Avatar & Voice Selection */}
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-lg">
                   {chefGender === "female" ? "👩‍🍳" : "👨‍🍳"}
                 </div>
-                <p className="text-xs text-gray-600">Chef Antoine</p>
-              </div>
-            </div>
-
-            {/* Voice Options */}
-            <div className="space-y-3">
-              <div className="flex gap-2">
+                
+                {/* Gender Radio Buttons */}
+                <div className="flex gap-2">
+                  <label className="flex items-center gap-1 text-xs">
+                    <input
+                      type="radio"
+                      name="gender"
+                      checked={chefGender === "female"}
+                      onChange={() => setChefGender("female")}
+                      className="w-3 h-3"
+                    />
+                    Female
+                  </label>
+                  <label className="flex items-center gap-1 text-xs">
+                    <input
+                      type="radio"
+                      name="gender"
+                      checked={chefGender === "male"}
+                      onChange={() => setChefGender("male")}
+                      className="w-3 h-3"
+                    />
+                    Male
+                  </label>
+                </div>
+                
+                {/* Voice Waves */}
+                <div className="flex items-center gap-1">
+                  {[1, 2, 3].map((i) => (
+                    <div
+                      key={i}
+                      className={`w-1 bg-green-500 rounded-full ${isListening && !isMuted ? 'animate-pulse' : ''}`}
+                      style={{
+                        height: `${Math.random() * 12 + 6}px`,
+                        animationDelay: `${i * 0.1}s`
+                      }}
+                    />
+                  ))}
+                </div>
+                
+                {/* Mute Button */}
                 <Button
-                  variant={chefGender === "female" ? "default" : "outline"}
+                  onClick={() => setIsMuted(!isMuted)}
+                  variant={isMuted ? "destructive" : "outline"}
                   size="sm"
-                  onClick={() => setChefGender("female")}
-                  className="flex-1"
+                  className="ml-auto"
                 >
-                  👩‍🍳 Female Chef
-                </Button>
-                <Button
-                  variant={chefGender === "male" ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setChefGender("male")}
-                  className="flex-1"
-                >
-                  👨‍🍳 Male Chef
+                  {isMuted ? <VolumeX className="w-3 h-3" /> : <Volume2 className="w-3 h-3" />}
                 </Button>
               </div>
               
-              <div className="grid grid-cols-2 gap-2">
+              {/* Voice Personality Options in one row */}
+              <div className="flex gap-1">
                 {Object.entries(voiceOptions[chefGender as keyof typeof voiceOptions]).map(([voice, label]) => (
                   <Button
                     key={voice}
                     variant={chefVoice === voice ? "default" : "outline"}
                     size="sm"
                     onClick={() => setChefVoice(voice)}
-                    className="text-xs"
+                    className="text-xs flex-1"
                   >
-                    {label}
+                    {label.split(' ')[1]} {/* Just the text, no emoji */}
                   </Button>
                 ))}
               </div>
             </div>
-
-            {/* Voice Controls */}
-            <div className="flex gap-2">
-              <Button
-                onClick={() => setIsMuted(!isMuted)}
-                variant={isMuted ? "destructive" : "outline"}
-                size="sm"
-                className="flex-1"
-              >
-                {isMuted ? (
-                  <>
-                    <VolumeX className="w-4 h-4 mr-2" />
-                    Unmute Chef
-                  </>
-                ) : (
-                  <>
-                    <Volume2 className="w-4 h-4 mr-2" />
-                    Mute Chef
-                  </>
-                )}
-              </Button>
-              
-              <Button
-                onClick={() => setIsListening(!isListening)}
-                variant={isListening ? "default" : "outline"}
-                size="sm"
-                className="flex-1"
-              >
-                {isListening ? (
-                  <>
-                    <Mic className="w-4 h-4 mr-2" />
-                    Listening
-                  </>
-                ) : (
-                  <>
-                    <MicOff className="w-4 h-4 mr-2" />
-                    Start Listening
-                  </>
-                )}
-              </Button>
-            </div>
-
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
-              <p className="text-blue-800 text-sm">
-                💡 <strong>AI video cooking coming shortly</strong><br/>
-                Get visual guidance and feedback on your technique
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Card 2: Cooking Steps */}
-        <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="flex items-center justify-between text-lg">
-              <span>Cooking Steps</span>
-              <div className="flex gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setShowAllSteps(!showAllSteps)}
-                >
-                  {showAllSteps ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-                  {showAllSteps ? "Collapse" : "View All"}
-                </Button>
-              </div>
-            </CardTitle>
           </CardHeader>
+          
           <CardContent className="space-y-4">
             {!isCooking ? (
-              <div className="text-center space-y-3">
-                <p className="text-gray-600">Ready to start cooking?</p>
+              <div className="space-y-3">
+                <div className="bg-white border border-green-200 rounded-lg p-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <Badge className="bg-green-600">Step 1</Badge>
+                    <span className="text-sm text-gray-600 flex items-center gap-1">
+                      <Timer className="w-3 h-3" />
+                      {recipe.steps[0]?.duration}
+                    </span>
+                  </div>
+                  <p className="font-medium mb-2">{recipe.steps[0]?.instruction}</p>
+                  <p className="text-sm text-green-700 mb-3">💡 {recipe.steps[0]?.tips}</p>
+                </div>
+                
                 <Button 
                   onClick={() => setIsCooking(true)}
-                  className="w-full bg-green-600 hover:bg-green-700"
+                  className="w-full bg-green-600 hover:bg-green-700 text-lg py-3"
                 >
                   <Play className="w-4 h-4 mr-2" />
                   Start Cooking
@@ -450,7 +398,7 @@ export default function VoiceCookingScreen() {
               <>
                 {/* Current Step Highlight */}
                 {!showAllSteps && (
-                  <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                  <div className="bg-white border border-green-200 rounded-lg p-4">
                     <div className="flex items-center justify-between mb-2">
                       <Badge className="bg-green-600">Step {currentStep + 1}</Badge>
                       <span className="text-sm text-gray-600 flex items-center gap-1">
@@ -463,7 +411,7 @@ export default function VoiceCookingScreen() {
                     <Button
                       onClick={() => markStepComplete(currentStep)}
                       disabled={completedSteps[currentStep]}
-                      className="w-full"
+                      className="w-full text-lg py-3"
                     >
                       {completedSteps[currentStep] ? (
                         <>
@@ -477,6 +425,18 @@ export default function VoiceCookingScreen() {
                   </div>
                 )}
 
+                {/* View All Steps Toggle */}
+                <div className="text-center">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setShowAllSteps(!showAllSteps)}
+                  >
+                    {showAllSteps ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                    {showAllSteps ? "Collapse All Steps" : "View All Steps"}
+                  </Button>
+                </div>
+
                 {/* All Steps View */}
                 <Collapsible open={showAllSteps} onOpenChange={setShowAllSteps}>
                   <CollapsibleContent className="space-y-3">
@@ -487,7 +447,7 @@ export default function VoiceCookingScreen() {
                           completedSteps[index] 
                             ? 'bg-gray-50 border-gray-300' 
                             : index === currentStep 
-                              ? 'bg-green-50 border-green-300' 
+                              ? 'bg-white border-green-300' 
                               : 'bg-white border-gray-200'
                         }`}
                       >
@@ -527,7 +487,7 @@ export default function VoiceCookingScreen() {
                 </Collapsible>
 
                 {/* Recipe Actions */}
-                <div className="grid grid-cols-3 gap-2 pt-3 border-t">
+                <div className="grid grid-cols-3 gap-2 pt-3 border-t border-green-200">
                   <Button variant="outline" size="sm" onClick={saveRecipe}>
                     <Star className="w-3 h-3 mr-1" />
                     Save
@@ -541,40 +501,58 @@ export default function VoiceCookingScreen() {
                     Print
                   </Button>
                 </div>
+                
+                {/* AI Video Note */}
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                  <p className="text-blue-800 text-sm">
+                    💡 <strong>AI video cooking coming shortly</strong><br/>
+                    Get visual guidance and feedback on your technique
+                  </p>
+                </div>
               </>
             )}
           </CardContent>
         </Card>
 
-        {/* Continue Cooking Card */}
-        {isCooking && (
-          <Card>
-            <CardHeader className="pb-3">
-              <CardTitle className="text-lg">Continue Cooking</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-gray-200 rounded-lg flex items-center justify-center text-xl">
-                  🍜
-                </div>
-                <div className="flex-1">
-                  <h4 className="font-medium text-gray-800">{recipe.name}</h4>
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <Timer className="w-3 h-3" />
-                    <span>{recipe.estimatedTime}</span>
-                    <span>•</span>
-                    <span>{recipe.servings} servings</span>
-                  </div>
-                </div>
-                <Badge className="bg-green-100 text-green-800">
-                  {completedSteps.filter(Boolean).length}/{recipe.totalSteps}
-                </Badge>
+        {/* Card 2: Continue Cooking (from Cook Screen) */}
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-lg">Continue Cooking</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="flex items-center gap-3">
+              <div className="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center text-xl">
+                🍜
               </div>
-            </CardContent>
-          </Card>
-        )}
+              <div className="flex-1">
+                <h4 className="font-medium text-gray-800">Creamy Tomato Soup</h4>
+                <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <Timer className="w-3 h-3" />
+                  <span>Step 3 of 8</span>
+                  <span>•</span>
+                  <span>3 servings</span>
+                </div>
+              </div>
+              <Badge className="bg-orange-100 text-orange-800">In Progress</Badge>
+            </div>
+            
+            <div className="space-y-3">
+              <div className="flex gap-2">
+                <Button className="flex-1 bg-orange-600 hover:bg-orange-700">
+                  <Play className="w-4 h-4 mr-2" />
+                  Continue Cooking
+                </Button>
+              </div>
+              
+              <div className="text-sm text-gray-600">
+                <div className="font-medium mb-1">Current Step:</div>
+                <div>"Add the diced tomatoes and let them simmer for 5 minutes until they start to break down..."</div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
-        {/* Quick Actions */}
+        {/* Card 3: Quick Actions */}
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-lg">Quick Actions</CardTitle>
@@ -591,13 +569,41 @@ export default function VoiceCookingScreen() {
                 onClick={() => setLocation("/grocery-list")}
               >
                 <ShoppingCart className="w-4 h-4" />
-                Add to Cart
+                Add Missing Items
               </Button>
             </div>
           </CardContent>
         </Card>
 
-        {/* Gamification Progress */}
+        {/* Conversation History */}
+        {conversation.length > 0 && (
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-lg">Voice Conversation</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3 max-h-60 overflow-y-auto">
+              {conversation.slice(-4).map((msg, index) => (
+                <div
+                  key={index}
+                  className={`p-3 rounded-lg ${
+                    msg.sender === 'user' 
+                      ? 'bg-blue-50 border border-blue-200 ml-4' 
+                      : 'bg-green-50 border border-green-200 mr-4'
+                  }`}
+                >
+                  <p className="text-sm">
+                    <strong>{msg.sender === 'user' ? 'You' : 'Chef Antoine'}:</strong> {msg.message}
+                  </p>
+                  <p className="text-xs text-gray-500 mt-1">
+                    {msg.timestamp.toLocaleTimeString()}
+                  </p>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Gamification Progress - Only show when significant progress */}
         {userProgress.dishesCooked > 10 && (
           <Card className="bg-gradient-to-r from-yellow-50 to-orange-50 border-yellow-200">
             <CardHeader className="pb-3">
@@ -624,7 +630,7 @@ export default function VoiceCookingScreen() {
               
               {userProgress.canPublishBook && (
                 <div className="bg-yellow-100 border border-yellow-300 rounded-lg p-3 text-center">
-                  <p className="text-yellow-800 font-medium mb-2">🎉 Congratulations!</p>
+                  <p className="text-yellow-800 font-medium mb-2">Congratulations!</p>
                   <p className="text-yellow-700 text-sm mb-3">You've cooked 15+ dishes! You can now publish your cookbook.</p>
                   <Button size="sm" className="bg-yellow-600 hover:bg-yellow-700">
                     <Share2 className="w-3 h-3 mr-1" />
@@ -632,34 +638,6 @@ export default function VoiceCookingScreen() {
                   </Button>
                 </div>
               )}
-            </CardContent>
-          </Card>
-        )}
-
-        {/* Conversation History */}
-        {conversation.length > 0 && (
-          <Card>
-            <CardHeader className="pb-3">
-              <CardTitle className="text-lg">Voice Conversation</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3 max-h-60 overflow-y-auto">
-              {conversation.slice(-6).map((msg, index) => (
-                <div
-                  key={index}
-                  className={`p-3 rounded-lg ${
-                    msg.sender === 'user' 
-                      ? 'bg-blue-50 border border-blue-200 ml-4' 
-                      : 'bg-green-50 border border-green-200 mr-4'
-                  }`}
-                >
-                  <p className="text-sm">
-                    <strong>{msg.sender === 'user' ? 'You' : 'Chef Antoine'}:</strong> {msg.message}
-                  </p>
-                  <p className="text-xs text-gray-500 mt-1">
-                    {msg.timestamp.toLocaleTimeString()}
-                  </p>
-                </div>
-              ))}
             </CardContent>
           </Card>
         )}
