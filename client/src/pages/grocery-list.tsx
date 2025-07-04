@@ -171,18 +171,18 @@ export default function GroceryListScreen() {
       </div>
 
       {/* Content */}
-      <div className="max-w-md mx-auto p-4 space-y-4">
+      <div className="max-w-md mx-auto p-4 space-y-4 pb-8">
         {/* Grocery Items */}
         <Card>
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
-              <div>
-                <CardTitle className="text-lg">Items</CardTitle>
+              <CardTitle className="text-lg">Items</CardTitle>
+              <div className="flex items-center gap-2">
                 <p className="text-sm text-gray-600">{getCurrentDate()}</p>
+                <Badge variant="secondary" className="text-sm px-2 py-1">
+                  {groceryItems.length} items
+                </Badge>
               </div>
-              <Badge variant="secondary" className="text-sm px-2 py-1">
-                {groceryItems.length} items
-              </Badge>
             </div>
           </CardHeader>
           <CardContent className="pt-0 space-y-1">
@@ -250,7 +250,7 @@ export default function GroceryListScreen() {
         </Card>
 
         {/* Action Buttons - Moved to Bottom */}
-        <div className="grid grid-cols-2 gap-3 pt-2">
+        <div className="grid grid-cols-2 gap-3 pt-4 pb-4">
           <Button 
             variant="outline" 
             className="flex items-center gap-2"
