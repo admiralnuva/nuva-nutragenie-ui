@@ -425,7 +425,7 @@ export default function VoiceCookingScreen() {
 
         {/* Card 1: Enhanced Cooking Interface (Main Focus) */}
         <Card className="border-2 border-green-300 bg-green-50 min-h-[600px] relative overflow-hidden">
-          <CardHeader className="pb-3">
+          <CardHeader className="pb-1">
             <CardTitle className="flex items-center justify-between text-lg">
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-2xl">
@@ -470,7 +470,7 @@ export default function VoiceCookingScreen() {
 
           </CardHeader>
           
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-1">
             {/* Voice Mode Controls */}
             {cookingMode === "voice" && (
               <div className="bg-white rounded-lg p-3 border border-green-200">
@@ -491,14 +491,14 @@ export default function VoiceCookingScreen() {
             )}
 
             {/* Dish Name */}
-            <div className="text-center -mb-1">
+            <div className="text-center mb-1">
               <h2 className="text-base font-normal text-gray-700">{recipe.name}</h2>
             </div>
 
             {!isCooking ? (
-              <div className="space-y-4 flex flex-col h-full -mt-1">
-                <div className="bg-white border border-green-200 rounded-lg p-6 flex-1">
-                  <div className="flex items-center justify-between mb-4">
+              <div className="space-y-2 flex flex-col h-full">
+                <div className="bg-white border border-green-200 rounded-lg p-3 flex-1">
+                  <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2 flex-1">
                       <span className="font-semibold text-green-600 text-lg">Step 1</span>
                       <div className="flex gap-1.5 items-center justify-center">
