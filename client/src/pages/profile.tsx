@@ -196,7 +196,7 @@ export default function ProfileScreen() {
             )}
           </div>
 
-          <Button onClick={handleSaveProfile} className="w-full h-12 bg-green-600 hover:bg-green-700">
+          <Button onClick={handleSaveProfile} className="w-full h-12">
             Save Changes
           </Button>
         </>
@@ -406,7 +406,7 @@ export default function ProfileScreen() {
         {recipes.length >= 15 && (
           <div className="bg-green-50 border border-green-200 rounded-lg p-4">
             <p className="text-green-700 font-medium mb-2">🎉 Congratulations! You can now publish your recipe book!</p>
-            <Button className="w-full bg-green-600 hover:bg-green-700">
+            <Button className="w-full">
               Print Online Recipe Book
             </Button>
           </div>
@@ -454,7 +454,7 @@ export default function ProfileScreen() {
         {dishes.length >= 15 && (
           <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">
             <p className="text-orange-700 font-medium mb-2">🍳 Amazing! You can now publish your cooking journey book!</p>
-            <Button className="w-full bg-orange-600 hover:bg-orange-700">
+            <Button className="w-full">
               Print Cooking Journey Book
             </Button>
           </div>

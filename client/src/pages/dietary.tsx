@@ -244,7 +244,7 @@ export default function DietaryScreen() {
           <Button
             type="submit"
             disabled={!isFormValid || updateUserMutation.isPending}
-            className="w-full bg-brand-indigo-500 text-white py-4 px-6 rounded-xl font-semibold text-lg disabled:bg-warm-neutral-300 disabled:cursor-not-allowed hover:bg-brand-indigo-600 transition-all duration-200"
+            className="w-full py-4 px-6 font-semibold text-lg"
           >
             {updateUserMutation.isPending ? "Saving Profile..." : "Explore Recipes"}
           </Button>

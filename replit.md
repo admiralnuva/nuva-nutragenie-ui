@@ -240,6 +240,9 @@ Changelog:
   * Standardized all card backgrounds to consistent white across entire application
   * Replaced gray card backgrounds (bg-gray-50) with proper white card styling
   * Updated purple accent colors to match indigo theme for consistency
+  * Fixed button visibility issues across all pages by removing custom brand-indigo classes
+  * Standardized all buttons to use proper Button component with primary theme colors
+  * Updated signup page card styling for consistent borders and completion indicators
 ```
 
 ## User Preferences

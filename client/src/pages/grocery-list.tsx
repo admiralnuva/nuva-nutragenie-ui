@@ -243,7 +243,7 @@ export default function GroceryListScreen() {
           <Button 
             onClick={addNewItem}
             disabled={!newItemName.trim() || !newItemQuantity.trim()}
-            className="h-8 w-8 p-0 bg-brand-indigo-500 hover:bg-brand-indigo-600 text-white"
+            className="h-8 w-8 p-0"
           >
             <Plus className="w-4 h-4" />
           </Button>
@@ -260,7 +260,7 @@ export default function GroceryListScreen() {
             Print Grocery List
           </Button>
           <Button 
-            className="bg-brand-indigo-500 hover:bg-brand-indigo-600 text-white flex items-center gap-2"
+            className="flex items-center gap-2"
             onClick={handleInstacart}
           >
             <ShoppingCart className="w-4 h-4" />

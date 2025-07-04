@@ -290,7 +290,7 @@ export default function CookingScreen() {
           <Button
             onClick={handleSendMessage}
             disabled={!chatInput.trim() || sendMessageMutation.isPending}
-            className="bg-brand-indigo-500 text-white p-3 rounded-xl hover:bg-brand-indigo-600 transition-all flex-shrink-0"
+            className="p-3 flex-shrink-0"
           >
             <Send className="w-5 h-5" />
           </Button>

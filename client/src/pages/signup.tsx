@@ -412,7 +412,6 @@ export default function SignupScreen() {
                   <Button
                     onClick={sendVerificationCode}
                     disabled={!isPhoneComplete || isVerifying || codeSent}
-                    className="px-4 py-2 bg-brand-indigo-500 text-white rounded-lg hover:bg-brand-indigo-600 disabled:bg-warm-neutral-300"
                   >
                     {isVerifying ? "Sending..." : codeSent ? "Sent" : "Send Code"}
                   </Button>
@@ -437,7 +436,7 @@ export default function SignupScreen() {
                     <Button
                       onClick={verifyCode}
                       disabled={verificationCode.length !== 4}
-                      className="px-4 py-2 bg-brand-indigo-500 text-white rounded-lg hover:bg-brand-indigo-600 disabled:bg-warm-neutral-300"
+
                     >
                       Verify
                     </Button>

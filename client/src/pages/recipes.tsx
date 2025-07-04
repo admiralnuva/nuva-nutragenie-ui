@@ -1071,7 +1071,7 @@ export default function RecipesScreen() {
         {/* Generate Recipe Button */}
         <div className="space-y-2">
           <Button 
-            className="w-full bg-brand-indigo-500 hover:bg-brand-indigo-600 text-white py-4 text-lg font-semibold"
+            className="w-full py-4 text-lg font-semibold"
             onClick={() => setLocation('/review-recipes')}
           >
             Create Recipe

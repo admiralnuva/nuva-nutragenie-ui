@@ -544,7 +544,7 @@ export default function ReviewRecipesScreen() {
                 View Grocery List
               </Button>
               <Button 
-                className="bg-brand-indigo-500 hover:bg-brand-indigo-600 text-white flex items-center gap-2 h-10"
+                className="flex items-center gap-2 h-10"
                 onClick={() => setLocation("/voice-cooking")}
               >
                 <ChefHat className="w-4 h-4" />
