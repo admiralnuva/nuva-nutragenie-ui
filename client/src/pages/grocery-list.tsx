@@ -172,21 +172,14 @@ export default function GroceryListScreen() {
 
       {/* Content */}
       <div className="max-w-md mx-auto p-4 space-y-4">
-        {/* Date and Summary */}
-        <Card>
-          <CardContent className="pt-3 pb-3">
-            <div className="text-center">
-              <h2 className="font-semibold text-gray-800">Shopping List</h2>
-              <p className="text-sm text-gray-600">{getCurrentDate()}</p>
-            </div>
-          </CardContent>
-        </Card>
-
         {/* Grocery Items */}
         <Card>
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-lg">Items</CardTitle>
+              <div>
+                <CardTitle className="text-lg">Items</CardTitle>
+                <p className="text-sm text-gray-600">{getCurrentDate()}</p>
+              </div>
               <Badge variant="secondary" className="text-sm px-2 py-1">
                 {groceryItems.length} items
               </Badge>
@@ -264,7 +257,7 @@ export default function GroceryListScreen() {
             onClick={handlePrint}
           >
             <Printer className="w-4 h-4" />
-            Print List
+            Print Grocery List
           </Button>
           <Button 
             className="bg-brand-green-500 hover:bg-brand-green-600 text-white flex items-center gap-2"
