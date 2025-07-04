@@ -146,7 +146,7 @@ export default function SignupScreen() {
 
         <div className="space-y-3">
           {/* Profile Section */}
-          <Card className={`transition-all ${isProfileComplete ? 'ring-2 ring-indigo-500 bg-indigo-50' : ''}`}>
+          <Card className={`transition-all ${isProfileComplete ? 'ring-2 ring-indigo-500' : ''}`}>
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-2 text-lg">
                 <User className="w-5 h-5" />
@@ -213,7 +213,7 @@ export default function SignupScreen() {
           </Card>
 
           {/* Address Section */}
-          <Card className={`transition-all ${isAddressComplete ? 'ring-2 ring-brand-indigo-500 bg-brand-indigo-50' : ''}`}>
+          <Card className={`transition-all ${isAddressComplete ? 'ring-2 ring-brand-indigo-500' : ''}`}>
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-2 text-lg">
                 <MapPin className="w-5 h-5" />
@@ -334,7 +334,7 @@ export default function SignupScreen() {
           </Card>
 
           {/* Chef Selection Section */}
-          <Card className={`transition-all ${isChefComplete ? 'ring-2 ring-brand-indigo-500 bg-brand-indigo-50' : ''}`}>
+          <Card className={`transition-all ${isChefComplete ? 'ring-2 ring-brand-indigo-500' : ''}`}>
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-2 text-lg">
                 <ChefHat className="w-5 h-5" />
@@ -385,7 +385,7 @@ export default function SignupScreen() {
           </Card>
 
           {/* Phone Verification Section */}
-          <Card className={`transition-all ${isVerified ? 'ring-2 ring-brand-indigo-500 bg-brand-indigo-50' : ''}`}>
+          <Card className={`transition-all ${isVerified ? 'ring-2 ring-brand-indigo-500' : ''}`}>
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-2 text-lg">
                 <Phone className="w-5 h-5" />
