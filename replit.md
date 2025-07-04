@@ -247,6 +247,17 @@ Changelog:
   * Applied consistent selection patterns: indigo background, white text, shadow, and scale effects
   * Updated dietary preferences, signup avatar/chef selection, and recipe dish selection
   * Improved visual prominence of selected states from subtle to clearly visible
+- July 04, 2025. Profile and Home page comprehensive improvements:
+  * Fixed Profile address fields by adding streetAddress, city, state, zipCode to user schema
+  * Removed redundant grey "View & Edit" button from dietary preferences section
+  * Enhanced Profile address initialization to properly load and display saved address data
+  * Redesigned Home page with comprehensive visual analytics dashboard
+  * Replaced static numbers with interactive charts: bar charts for recipes, line charts for activity trends
+  * Added month-by-month comparison charts showing 6-month progress history
+  * Integrated Chart.js and react-chartjs-2 for professional data visualization
+  * Added achievement breakdown doughnut chart and current month summary cards
+  * Enhanced personalized greeting with time-of-day awareness and chef integration
+  * Improved quick action cards with hover effects and better visual hierarchy
 ```
 
 ## User Preferences

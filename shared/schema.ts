@@ -26,7 +26,11 @@ export const users = pgTable("users", {
   heightFeet: integer("height_feet"),
   heightInches: integer("height_inches"),
   currentWeight: integer("current_weight"),
-  activityLevel: text("activity_level").default('moderate') // sedentary, light, moderate, active, very_active
+  activityLevel: text("activity_level").default('moderate'), // sedentary, light, moderate, active, very_active
+  streetAddress: text("street_address"),
+  city: text("city"),
+  state: text("state"),
+  zipCode: text("zip_code")
 });
 
 export const recipes = pgTable("recipes", {

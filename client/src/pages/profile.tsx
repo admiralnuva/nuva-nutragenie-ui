@@ -25,7 +25,13 @@ export default function ProfileScreen() {
   const [currentUser, setCurrentUser] = useLocalStorage<any>("nutragenie_user", null);
   const [activeSection, setActiveSection] = useState("account");
   const [isEditing, setIsEditing] = useState(false);
-  const [editedUser, setEditedUser] = useState(currentUser || {});
+  const [editedUser, setEditedUser] = useState({
+    ...currentUser,
+    streetAddress: currentUser?.streetAddress || "",
+    city: currentUser?.city || "",
+    state: currentUser?.state || "",
+    zipCode: currentUser?.zipCode || ""
+  });
 
   const handleSaveProfile = () => {
     setCurrentUser(editedUser);
@@ -291,16 +297,7 @@ export default function ProfileScreen() {
         </div>
       </div>
 
-      {/* Edit Link */}
-      <div className="pt-4">
-        <Button 
-          onClick={() => setLocation("/dietary")} 
-          variant="outline" 
-          className="w-full"
-        >
-          View & Edit Full Dietary Preferences
-        </Button>
-      </div>
+
     </CardContent>
   );
 
