@@ -33,7 +33,7 @@ import {
 export default function VoiceCookingScreen() {
   const [, setLocation] = useLocation();
   const [currentUser] = useLocalStorage<any>("nutragenie_user", null);
-  const [cookingMode, setCookingMode] = useState<"voice" | "text">("voice"); // Default to voice
+  const [cookingMode, setCookingMode] = useState<"voice" | "text">("text"); // Default to text
   const [isListening, setIsListening] = useState(true);
   const [isMuted, setIsMuted] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
@@ -298,7 +298,7 @@ export default function VoiceCookingScreen() {
           <CardHeader className="pb-3">
             <CardTitle className="flex items-center justify-between text-lg">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center text-lg">
+                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-2xl">
                   {chefGender === "female" ? "👩‍🍳" : "👨‍🍳"}
                 </div>
               </div>
@@ -314,7 +314,7 @@ export default function VoiceCookingScreen() {
                   }}
                   className="text-xs"
                 >
-                  <Mic className="w-3 h-3" />
+                  {cookingMode === "voice" ? <Mic className="w-3 h-3" /> : <MicOff className="w-3 h-3" />}
                 </Button>
                 <Button
                   variant={cookingMode === "text" ? "default" : "ghost"}
@@ -359,11 +359,11 @@ export default function VoiceCookingScreen() {
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-2 flex-1">
                       <span className="font-semibold text-green-600 text-lg">Step 1</span>
-                      <div className="flex gap-1">
+                      <div className="flex gap-2 items-center justify-center">
                         {recipe.steps.map((_, index) => (
                           <div
                             key={index}
-                            className={`w-1.5 h-1.5 rounded-full ${
+                            className={`w-3 h-3 rounded-full ${
                               index === 0 ? 'bg-blue-500' : 'bg-gray-300'
                             }`}
                           />
@@ -397,11 +397,11 @@ export default function VoiceCookingScreen() {
                       <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center gap-2 flex-1">
                           <span className="font-semibold text-green-600">Step {currentStep + 1}</span>
-                          <div className="flex gap-1">
+                          <div className="flex gap-2 items-center justify-center">
                             {recipe.steps.map((_, index) => (
                               <div
                                 key={index}
-                                className={`w-1 h-1 rounded-full ${
+                                className={`w-3 h-3 rounded-full ${
                                   completedSteps[index] 
                                     ? 'bg-green-500' 
                                     : index === currentStep
@@ -528,11 +528,11 @@ export default function VoiceCookingScreen() {
                         <div className="flex items-center justify-between mb-4">
                           <div className="flex items-center gap-2 flex-1">
                             <span className="font-semibold text-green-600 text-lg">Step {currentStep + 1}</span>
-                            <div className="flex gap-1">
+                            <div className="flex gap-2 items-center justify-center">
                               {recipe.steps.map((_, index) => (
                                 <div
                                   key={index}
-                                  className={`w-1.5 h-1.5 rounded-full ${
+                                  className={`w-3 h-3 rounded-full ${
                                     completedSteps[index] 
                                       ? 'bg-green-500' 
                                       : index === currentStep
@@ -590,18 +590,6 @@ export default function VoiceCookingScreen() {
                         </div>
                       </div>
                     )}
-
-                    {/* View All Steps Toggle */}
-                    <div className="text-center">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => setShowAllSteps(!showAllSteps)}
-                      >
-                        {showAllSteps ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-                        {showAllSteps ? "Collapse All Steps" : "View All Steps"}
-                      </Button>
-                    </div>
 
                     {/* All Steps View */}
                     <Collapsible open={showAllSteps} onOpenChange={setShowAllSteps}>
@@ -667,6 +655,18 @@ export default function VoiceCookingScreen() {
                         </div>
                       </CollapsibleContent>
                     </Collapsible>
+
+                    {/* View All Steps Toggle - Moved to Bottom */}
+                    <div className="text-center pt-4 border-t border-green-200">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setShowAllSteps(!showAllSteps)}
+                      >
+                        {showAllSteps ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                        {showAllSteps ? "Hide All Steps" : "View All Steps"}
+                      </Button>
+                    </div>
                   </div>
                 )}
               </>
