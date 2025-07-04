@@ -17,6 +17,7 @@ import HomeScreen from "@/pages/home";
 import CookScreen from "@/pages/cook";
 import TakeOutScreen from "@/pages/takeout";
 import GroceryListScreen from "@/pages/grocery-list";
+import InstacartScreen from "@/pages/instacart";
 
 function Router() {
   return (
@@ -28,6 +29,7 @@ function Router() {
       <Route path="/recipes" component={RecipesScreen} />
       <Route path="/review-recipes" component={ReviewRecipesScreen} />
       <Route path="/grocery-list" component={GroceryListScreen} />
+      <Route path="/instacart" component={InstacartScreen} />
       <Route path="/cook" component={CookScreen} />
       <Route path="/takeout" component={TakeOutScreen} />
       <Route path="/cooking/:recipeId?" component={CookingScreen} />

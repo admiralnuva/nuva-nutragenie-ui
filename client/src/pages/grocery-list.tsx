@@ -151,8 +151,7 @@ export default function GroceryListScreen() {
 
   // Handle Instacart
   const handleInstacart = () => {
-    // This would integrate with Instacart API in real implementation
-    alert("Instacart integration coming soon!");
+    setLocation("/instacart");
   };
 
   return (
