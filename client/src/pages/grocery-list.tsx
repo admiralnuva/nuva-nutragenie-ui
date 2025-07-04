@@ -171,7 +171,7 @@ export default function GroceryListScreen() {
       </div>
 
       {/* Content */}
-      <div className="max-w-md mx-auto p-4 space-y-4 pb-8">
+      <div className="max-w-md mx-auto p-4 space-y-4 pb-20">
         {/* Grocery Items */}
         <Card>
           <CardHeader className="pb-2">
@@ -179,9 +179,9 @@ export default function GroceryListScreen() {
               <CardTitle className="text-lg">Items</CardTitle>
               <div className="flex items-center gap-2">
                 <p className="text-sm text-gray-600">{getCurrentDate()}</p>
-                <Badge variant="secondary" className="text-sm px-2 py-1">
+                <span className="text-sm text-gray-600">
                   {groceryItems.length} items
-                </Badge>
+                </span>
               </div>
             </div>
           </CardHeader>
@@ -220,34 +220,28 @@ export default function GroceryListScreen() {
         </Card>
 
         {/* Add New Item */}
-        <Card>
-          <CardContent className="pt-3 pb-3">
-            <div className="space-y-2">
-              <h3 className="font-medium text-gray-800 text-sm">Add Custom Item</h3>
-              <div className="flex gap-2">
-                <Input
-                  placeholder="Item name"
-                  value={newItemName}
-                  onChange={(e) => setNewItemName(e.target.value)}
-                  className="flex-1 h-8 text-sm"
-                />
-                <Input
-                  placeholder="Qty"
-                  value={newItemQuantity}
-                  onChange={(e) => setNewItemQuantity(e.target.value)}
-                  className="w-20 h-8 text-sm"
-                />
-                <Button 
-                  onClick={addNewItem}
-                  disabled={!newItemName.trim() || !newItemQuantity.trim()}
-                  className="h-8 w-8 p-0 bg-brand-green-500 hover:bg-brand-green-600 text-white"
-                >
-                  <Plus className="w-4 h-4" />
-                </Button>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        <div className="flex items-center gap-2 p-3 bg-gray-50 rounded-lg">
+          <span className="text-sm text-gray-700">Add</span>
+          <Input
+            placeholder="Item name"
+            value={newItemName}
+            onChange={(e) => setNewItemName(e.target.value)}
+            className="flex-1 h-8 text-sm"
+          />
+          <Input
+            placeholder="Qty"
+            value={newItemQuantity}
+            onChange={(e) => setNewItemQuantity(e.target.value)}
+            className="w-20 h-8 text-sm"
+          />
+          <Button 
+            onClick={addNewItem}
+            disabled={!newItemName.trim() || !newItemQuantity.trim()}
+            className="h-8 w-8 p-0 bg-brand-green-500 hover:bg-brand-green-600 text-white"
+          >
+            <Plus className="w-4 h-4" />
+          </Button>
+        </div>
 
         {/* Action Buttons - Moved to Bottom */}
         <div className="grid grid-cols-2 gap-3 pt-4 pb-4">
