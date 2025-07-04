@@ -286,7 +286,9 @@ export default function VoiceCookingScreen() {
           <CardHeader className="pb-3">
             <CardTitle className="flex items-center justify-between text-lg">
               <div className="flex items-center gap-2">
-                <ChefHat className="w-5 h-5" />
+                <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center text-sm">
+                  {chefGender === "female" ? "👩‍🍳" : "👨‍🍳"}
+                </div>
                 Cooking Steps
               </div>
               
@@ -298,7 +300,6 @@ export default function VoiceCookingScreen() {
                   onClick={() => setCookingMode("voice")}
                   className="text-xs"
                 >
-                  <Mic className="w-3 h-3 mr-1" />
                   Voice
                 </Button>
                 <Button
@@ -307,83 +308,18 @@ export default function VoiceCookingScreen() {
                   onClick={() => setCookingMode("text")}
                   className="text-xs"
                 >
-                  📝 Text Only
+                  Text Only
                 </Button>
               </div>
             </CardTitle>
             
-            {/* Step Progress Dots */}
-            <div className="flex items-center justify-center gap-1 mt-3">
-              {recipe.steps.map((_, index) => (
-                <div
-                  key={index}
-                  className={`w-2 h-2 rounded-full ${
-                    completedSteps[index] 
-                      ? 'bg-green-500' 
-                      : index === currentStep && isCooking
-                        ? 'bg-blue-500'
-                        : 'bg-gray-300'
-                  }`}
-                />
-              ))}
-            </div>
+
           </CardHeader>
           
           <CardContent className="space-y-4">
             {/* Voice Mode Controls */}
             {cookingMode === "voice" && (
               <div className="bg-white rounded-lg p-3 border border-green-200">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-lg">
-                    {chefGender === "female" ? "👩‍🍳" : "👨‍🍳"}
-                  </div>
-                  
-                  <div className="flex gap-2">
-                    <label className="flex items-center gap-1 text-xs">
-                      <input
-                        type="radio"
-                        name="gender"
-                        checked={chefGender === "female"}
-                        onChange={() => setChefGender("female")}
-                        className="w-3 h-3"
-                      />
-                      Female
-                    </label>
-                    <label className="flex items-center gap-1 text-xs">
-                      <input
-                        type="radio"
-                        name="gender"
-                        checked={chefGender === "male"}
-                        onChange={() => setChefGender("male")}
-                        className="w-3 h-3"
-                      />
-                      Male
-                    </label>
-                  </div>
-                  
-                  <div className="flex items-center gap-1">
-                    {[1, 2, 3].map((i) => (
-                      <div
-                        key={i}
-                        className={`w-1 bg-green-500 rounded-full ${isListening && !isMuted && isCooking ? 'animate-pulse' : ''}`}
-                        style={{
-                          height: `${Math.random() * 12 + 6}px`,
-                          animationDelay: `${i * 0.1}s`
-                        }}
-                      />
-                    ))}
-                  </div>
-                  
-                  <Button
-                    onClick={() => setIsMuted(!isMuted)}
-                    variant={isMuted ? "destructive" : "outline"}
-                    size="sm"
-                    className="ml-auto"
-                  >
-                    {isMuted ? <VolumeX className="w-3 h-3" /> : <Volume2 className="w-3 h-3" />}
-                  </Button>
-                </div>
-                
                 <div className="flex gap-1">
                   {Object.entries(voiceOptions[chefGender as keyof typeof voiceOptions]).map(([voice, label]) => (
                     <Button
@@ -404,7 +340,19 @@ export default function VoiceCookingScreen() {
               <div className="space-y-3">
                 <div className="bg-white border border-green-200 rounded-lg p-4">
                   <div className="flex items-center justify-between mb-2">
-                    <Badge className="bg-green-600">Step 1</Badge>
+                    <div className="flex items-center gap-2 flex-1">
+                      <span className="font-semibold text-green-600">Step 1</span>
+                      <div className="flex gap-1">
+                        {recipe.steps.map((_, index) => (
+                          <div
+                            key={index}
+                            className={`w-1 h-1 rounded-full ${
+                              index === 0 ? 'bg-blue-500' : 'bg-gray-300'
+                            }`}
+                          />
+                        ))}
+                      </div>
+                    </div>
                     <span className="text-sm text-gray-600 flex items-center gap-1">
                       <Timer className="w-3 h-3" />
                       {recipe.steps[0]?.duration}
@@ -430,7 +378,23 @@ export default function VoiceCookingScreen() {
                     {/* Current Step with Voice Bubbles */}
                     <div className="bg-white border border-green-200 rounded-lg p-4">
                       <div className="flex items-center justify-between mb-3">
-                        <Badge className="bg-green-600">Step {currentStep + 1}</Badge>
+                        <div className="flex items-center gap-2 flex-1">
+                          <span className="font-semibold text-green-600">Step {currentStep + 1}</span>
+                          <div className="flex gap-1">
+                            {recipe.steps.map((_, index) => (
+                              <div
+                                key={index}
+                                className={`w-1 h-1 rounded-full ${
+                                  completedSteps[index] 
+                                    ? 'bg-green-500' 
+                                    : index === currentStep
+                                      ? 'bg-blue-500'
+                                      : 'bg-gray-300'
+                                }`}
+                              />
+                            ))}
+                          </div>
+                        </div>
                         <span className="text-sm text-gray-600 flex items-center gap-1">
                           <Timer className="w-3 h-3" />
                           {recipe.steps[currentStep]?.duration}
@@ -546,7 +510,23 @@ export default function VoiceCookingScreen() {
                     {!showAllSteps && (
                       <div className="bg-white border border-green-200 rounded-lg p-4">
                         <div className="flex items-center justify-between mb-2">
-                          <Badge className="bg-green-600">Step {currentStep + 1}</Badge>
+                          <div className="flex items-center gap-2 flex-1">
+                            <span className="font-semibold text-green-600">Step {currentStep + 1}</span>
+                            <div className="flex gap-1">
+                              {recipe.steps.map((_, index) => (
+                                <div
+                                  key={index}
+                                  className={`w-1 h-1 rounded-full ${
+                                    completedSteps[index] 
+                                      ? 'bg-green-500' 
+                                      : index === currentStep
+                                        ? 'bg-blue-500'
+                                        : 'bg-gray-300'
+                                  }`}
+                                />
+                              ))}
+                            </div>
+                          </div>
                           <span className="text-sm text-gray-600 flex items-center gap-1">
                             <Timer className="w-3 h-3" />
                             {recipe.steps[currentStep]?.duration}
