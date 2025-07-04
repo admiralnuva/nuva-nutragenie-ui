@@ -33,7 +33,7 @@ import {
 export default function VoiceCookingScreen() {
   const [, setLocation] = useLocation();
   const [currentUser] = useLocalStorage<any>("nutragenie_user", null);
-  const [cookingMode, setCookingMode] = useState<"voice" | "text">("text"); // Default to text
+  const [cookingMode, setCookingMode] = useState<"voice" | "text">("voice"); // Default to voice
   const [isListening, setIsListening] = useState(true);
   const [isMuted, setIsMuted] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
@@ -51,6 +51,8 @@ export default function VoiceCookingScreen() {
     socialShares: 5,
     canPublishBook: false
   });
+  const [stepCompletionStreak, setStepCompletionStreak] = useState(0);
+  const [showCelebration, setShowCelebration] = useState(false);
 
   const recipe = {
     name: "Mediterranean Quinoa Bowl",
@@ -217,13 +219,19 @@ export default function VoiceCookingScreen() {
     updatedSteps[stepIndex] = true;
     setCompletedSteps(updatedSteps);
     
+    // Streak and celebration logic
+    setStepCompletionStreak(prev => prev + 1);
+    setShowCelebration(true);
+    setTimeout(() => setShowCelebration(false), 1500);
+    
     if (stepIndex === currentStep && stepIndex < recipe.steps.length - 1) {
       setCurrentStep(stepIndex + 1);
     }
     
-    // Voice feedback
+    // Enhanced voice feedback with streaks
     const personality = getVoicePersonality();
-    const completionMessage = `${personality.celebration} Step ${stepIndex + 1} completed! ${stepIndex < recipe.steps.length - 1 ? "Let's move to the next step." : "You've finished the entire recipe!"}`;
+    const streakBonus = stepCompletionStreak > 1 ? ` 🔥 ${stepCompletionStreak + 1} step streak!` : "";
+    const completionMessage = `${personality.celebration} Step ${stepIndex + 1} completed!${streakBonus} ${stepIndex < recipe.steps.length - 1 ? "You're on fire! Next step awaits." : "🎉 Recipe complete! You're a culinary superstar!"}`;
     
     setConversation(prev => [...prev, {
       sender: 'chef',
@@ -293,14 +301,26 @@ export default function VoiceCookingScreen() {
 
       <div className="max-w-md mx-auto p-4 space-y-4">
         
+        {/* Celebration Animation */}
+        {showCelebration && (
+          <div className="fixed inset-0 pointer-events-none z-50 flex items-center justify-center">
+            <div className="text-6xl animate-bounce">🎉</div>
+          </div>
+        )}
+
         {/* Card 1: Enhanced Cooking Interface (Main Focus) */}
-        <Card className="border-2 border-green-300 bg-green-50 min-h-[600px]">
+        <Card className="border-2 border-green-300 bg-green-50 min-h-[600px] relative overflow-hidden">
           <CardHeader className="pb-3">
             <CardTitle className="flex items-center justify-between text-lg">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-3">
                 <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-2xl">
                   {chefGender === "female" ? "👩‍🍳" : "👨‍🍳"}
                 </div>
+                {stepCompletionStreak > 1 && (
+                  <div className="bg-orange-100 border border-orange-300 rounded-full px-2 py-1">
+                    <span className="text-xs font-bold text-orange-600">🔥 {stepCompletionStreak}</span>
+                  </div>
+                )}
               </div>
               
               {/* Cooking Mode Toggle */}
@@ -359,12 +379,12 @@ export default function VoiceCookingScreen() {
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-2 flex-1">
                       <span className="font-semibold text-green-600 text-lg">Step 1</span>
-                      <div className="flex gap-2 items-center justify-center">
+                      <div className="flex gap-1.5 items-center justify-center">
                         {recipe.steps.map((_, index) => (
                           <div
                             key={index}
-                            className={`w-3 h-3 rounded-full ${
-                              index === 0 ? 'bg-blue-500' : 'bg-gray-300'
+                            className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                              index === 0 ? 'bg-blue-500 animate-pulse' : 'bg-gray-300'
                             }`}
                           />
                         ))}
@@ -397,15 +417,15 @@ export default function VoiceCookingScreen() {
                       <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center gap-2 flex-1">
                           <span className="font-semibold text-green-600">Step {currentStep + 1}</span>
-                          <div className="flex gap-2 items-center justify-center">
+                          <div className="flex gap-1.5 items-center justify-center">
                             {recipe.steps.map((_, index) => (
                               <div
                                 key={index}
-                                className={`w-3 h-3 rounded-full ${
+                                className={`w-2 h-2 rounded-full transition-all duration-300 ${
                                   completedSteps[index] 
-                                    ? 'bg-green-500' 
+                                    ? 'bg-green-500 shadow-lg scale-110' 
                                     : index === currentStep
-                                      ? 'bg-blue-500'
+                                      ? 'bg-blue-500 animate-pulse'
                                       : 'bg-gray-300'
                                 }`}
                               />
@@ -528,15 +548,15 @@ export default function VoiceCookingScreen() {
                         <div className="flex items-center justify-between mb-4">
                           <div className="flex items-center gap-2 flex-1">
                             <span className="font-semibold text-green-600 text-lg">Step {currentStep + 1}</span>
-                            <div className="flex gap-2 items-center justify-center">
+                            <div className="flex gap-1.5 items-center justify-center">
                               {recipe.steps.map((_, index) => (
                                 <div
                                   key={index}
-                                  className={`w-3 h-3 rounded-full ${
+                                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
                                     completedSteps[index] 
-                                      ? 'bg-green-500' 
+                                      ? 'bg-green-500 shadow-lg scale-110' 
                                       : index === currentStep
-                                        ? 'bg-blue-500'
+                                        ? 'bg-blue-500 animate-pulse'
                                         : 'bg-gray-300'
                                   }`}
                                 />
