@@ -529,6 +529,7 @@ export default function RecipesScreen() {
                     <SelectItem value="lunch">☀️ Lunch</SelectItem>
                     <SelectItem value="dinner">🌙 Dinner</SelectItem>
                     <SelectItem value="snack">🍪 Snack</SelectItem>
+                    <SelectItem value="pastry">🥐 Pastry</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -645,11 +646,11 @@ export default function RecipesScreen() {
                   <>
                     {/* Clickable Pantry Ingredients */}
                 {Object.entries(pantryIngredients).map(([category, ingredients]) => (
-                  <div key={category} className="border-b border-gray-100 pb-3 last:border-b-0">
-                    <div className="flex justify-between items-center mb-2">
-                      <h4 className="font-medium text-gray-700 capitalize">
+                  <div key={category} className="border-b border-gray-100 pb-2 last:border-b-0">
+                    <div className="flex justify-between items-center mb-1">
+                      <h4 className="font-medium text-gray-700 capitalize text-sm">
                         {category.replace(/([A-Z])/g, ' $1').trim()}
-                        <span className="text-xs text-gray-500 ml-2">
+                        <span className="text-xs text-gray-500 ml-1">
                           ({ingredients.filter(ing => selectedIngredients.includes(ing)).length}/{ingredients.length})
                         </span>
                       </h4>
@@ -657,12 +658,12 @@ export default function RecipesScreen() {
                         variant="ghost"
                         size="sm"
                         onClick={() => toggleSelectAllCategory(category, ingredients)}
-                        className="text-xs"
+                        className="text-xs h-6 px-2"
                       >
-                        {ingredients.every(ing => selectedIngredients.includes(ing)) ? 'Deselect All' : 'Select All'}
+                        {ingredients.every(ing => selectedIngredients.includes(ing)) ? 'Deselect' : 'Select All'}
                       </Button>
                     </div>
-                    <div className="grid grid-cols-2 gap-2">
+                    <div className="grid grid-cols-2 gap-1">
                       {ingredients.map((ingredient) => {
                         const isSelected = selectedIngredients.includes(ingredient);
                         const isCompatible = selectedIngredients.some(selected => 
@@ -703,7 +704,7 @@ export default function RecipesScreen() {
                     {/* Custom Ingredients Input */}
                     <div className="bg-blue-50 rounded-lg p-3 border-l-4 border-blue-500">
                       <h4 className="font-medium text-gray-700 text-sm mb-2">Add Custom Ingredient</h4>
-                      <div className="relative">
+                      <div className="relative flex gap-2">
                         <Input
                           type="text"
                           placeholder="Start typing ingredient name..."
@@ -722,10 +723,25 @@ export default function RecipesScreen() {
                               setShowIngredientSuggestions(false);
                             }
                           }}
-                          className="text-sm"
+                          className="text-sm flex-1"
                         />
+                        <Button
+                          onClick={() => {
+                            if (ingredientSearch.trim()) {
+                              if (!selectedIngredients.includes(ingredientSearch.trim())) {
+                                setSelectedIngredients(prev => [...prev, ingredientSearch.trim()]);
+                              }
+                              setIngredientSearch('');
+                              setShowIngredientSuggestions(false);
+                            }
+                          }}
+                          size="sm"
+                          className="px-3 py-1 h-8"
+                        >
+                          +
+                        </Button>
                         {showIngredientSuggestions && getFilteredIngredients().length > 0 && (
-                          <div className="absolute top-full left-0 right-0 bg-white border border-gray-200 rounded-md shadow-md z-10 mt-1">
+                          <div className="absolute top-full left-0 right-12 bg-white border border-gray-200 rounded-md shadow-md z-10 mt-1">
                             {getFilteredIngredients().map((ingredient) => (
                               <button
                                 key={ingredient}
