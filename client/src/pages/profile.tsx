@@ -137,14 +137,50 @@ export default function ProfileScreen() {
             </div>
           </div>
 
-          {/* Address */}
-          <div className="space-y-2">
-            <Label className="text-sm font-medium">Address</Label>
-            <Input
-              value={editedUser.address || ""}
-              onChange={(e) => setEditedUser({...editedUser, address: e.target.value})}
-              placeholder="Enter your address"
-            />
+          {/* Address Section */}
+          <div className="space-y-4">
+            <h4 className="font-medium text-gray-700">Your Address</h4>
+            <div className="space-y-3">
+              {/* Street Address */}
+              <div className="space-y-2">
+                <Label className="text-sm font-medium">Street Address</Label>
+                <Input
+                  value={editedUser.streetAddress || ""}
+                  onChange={(e) => setEditedUser({...editedUser, streetAddress: e.target.value})}
+                  placeholder="123 Main Street"
+                />
+              </div>
+
+              {/* City, State, Zip Row */}
+              <div className="grid grid-cols-7 gap-3">
+                <div className="col-span-3">
+                  <Label className="text-sm font-medium">City</Label>
+                  <Input
+                    value={editedUser.city || ""}
+                    onChange={(e) => setEditedUser({...editedUser, city: e.target.value})}
+                    placeholder="San Francisco"
+                  />
+                </div>
+                <div className="col-span-2">
+                  <Label className="text-sm font-medium">State</Label>
+                  <Input
+                    value={editedUser.state || ""}
+                    onChange={(e) => setEditedUser({...editedUser, state: e.target.value})}
+                    placeholder="CA"
+                    maxLength={2}
+                  />
+                </div>
+                <div className="col-span-2">
+                  <Label className="text-sm font-medium">Zip</Label>
+                  <Input
+                    value={editedUser.zipCode || ""}
+                    onChange={(e) => setEditedUser({...editedUser, zipCode: e.target.value})}
+                    placeholder="94102"
+                    maxLength={5}
+                  />
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Phone Number */}
@@ -188,9 +224,22 @@ export default function ProfileScreen() {
 
             {/* Contact Info */}
             <div className="space-y-3">
-              <div className="flex justify-between items-center py-2 border-b border-gray-200">
-                <span className="font-medium text-gray-700">Address</span>
-                <span className="text-gray-600">{currentUser?.address || "Not set"}</span>
+              <div className="py-2 border-b border-gray-200">
+                <span className="font-medium text-gray-700 block mb-1">Address</span>
+                {currentUser?.streetAddress || currentUser?.city || currentUser?.state || currentUser?.zipCode ? (
+                  <div className="text-gray-600">
+                    <div>{currentUser?.streetAddress}</div>
+                    <div>
+                      {currentUser?.city && currentUser?.city}
+                      {currentUser?.city && currentUser?.state && ", "}
+                      {currentUser?.state && currentUser?.state}
+                      {(currentUser?.city || currentUser?.state) && currentUser?.zipCode && " "}
+                      {currentUser?.zipCode && currentUser?.zipCode}
+                    </div>
+                  </div>
+                ) : (
+                  <span className="text-gray-600">Not set</span>
+                )}
               </div>
               <div className="flex justify-between items-center py-2 border-b border-gray-200">
                 <span className="font-medium text-gray-700">Phone</span>

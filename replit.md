@@ -222,6 +222,12 @@ Changelog:
   * Centralized all screen titles across the application for consistent visual alignment
   * Added smooth transition animations for voice/text mode switching with disabled state during transitions
   * Integrated emergency stop functionality that pauses all cooking activities with clear resume option
+- July 04, 2025. Dynamic Recipe Switching and Address Management:
+  * Fixed Continue Cooking button to dynamically switch recipes and update dish titles to reflect the new recipe being cooked
+  * Enhanced Profile Account section with comprehensive address management matching signup screen structure
+  * Added detailed address fields: street address, city, state, zip code with proper grid layout and validation
+  * Updated address display in view mode to show complete formatted address instead of single line
+  * Integrated address editing functionality with save/cancel capabilities
 ```
 
 ## User Preferences
