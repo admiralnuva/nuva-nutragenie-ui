@@ -135,9 +135,9 @@ export default function InstacartScreen() {
       {/* Header */}
       <div className="bg-white border-b sticky top-0 z-10">
         <div className="max-w-md mx-auto px-4 py-3">
-          <div className="flex items-center gap-3 mb-3">
+          <div className="flex items-center justify-between mb-3">
             <BackButton to="/grocery-list" />
-            <div className="flex-1">
+            <div className="flex-1 text-center">
               <h1 className="text-xl font-bold text-green-600">Instacart</h1>
             </div>
             <div className="text-right">

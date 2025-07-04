@@ -323,11 +323,14 @@ export default function ReviewRecipesScreen() {
     <div className="min-h-screen bg-warm-neutral-50 pb-20">
       {/* Header */}
       <div className="bg-white shadow-sm p-4">
-        <div className="flex items-center gap-3 mb-2">
+        <div className="flex items-center justify-between mb-2">
           <BackButton to="/recipes" />
-          <h1 className="text-2xl font-bold text-gray-800">NutraGenie</h1>
+          <div className="flex-1 text-center">
+            <h1 className="text-2xl font-bold text-gray-800">NutraGenie</h1>
+          </div>
+          <div className="w-8"></div>
         </div>
-        <div className="text-lg font-semibold text-brand-green-600">
+        <div className="text-lg font-semibold text-brand-green-600 text-center">
           Recommendations & Substitutions
         </div>
       </div>

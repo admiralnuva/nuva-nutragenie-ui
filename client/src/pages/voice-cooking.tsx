@@ -371,9 +371,9 @@ export default function VoiceCookingScreen() {
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <div className="bg-white shadow-sm p-4">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center justify-between">
           <BackButton to="/recipes" />
-          <div className="flex-1">
+          <div className="flex-1 text-center">
             <h1 className="text-xl font-bold text-gray-800">Interactive Cooking</h1>
             <p className="text-sm text-gray-600">{recipe.name} • {recipe.difficulty}</p>
             {isOfflineMode && (

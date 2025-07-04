@@ -351,9 +351,12 @@ export default function ProfileScreen() {
     <div className="min-h-screen bg-gray-50 pb-20">
       {/* Header */}
       <div className="bg-white shadow-sm p-4">
-        <div className="flex items-center gap-3 mb-4">
+        <div className="flex items-center justify-between mb-4">
           <BackButton to="/home" />
-          <h1 className="text-2xl font-bold text-gray-800">Profile</h1>
+          <div className="flex-1 text-center">
+            <h1 className="text-2xl font-bold text-gray-800">Profile</h1>
+          </div>
+          <div className="w-8"></div>
         </div>
         
         {/* Section Navigation */}

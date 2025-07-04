@@ -159,12 +159,13 @@ export default function GroceryListScreen() {
       {/* Header */}
       <div className="bg-white border-b sticky top-0 z-10">
         <div className="max-w-md mx-auto px-4 py-3">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center justify-between">
             <BackButton to="/review-recipes" />
-            <div className="flex-1">
+            <div className="flex-1 text-center">
               <h1 className="text-xl font-bold text-gray-900">NutraGenie</h1>
               <p className="text-sm text-gray-600">Grocery List</p>
             </div>
+            <div className="w-8"></div>
           </div>
         </div>
       </div>
