@@ -246,12 +246,18 @@ export default function VoiceCookingScreen() {
   };
 
   const handleRecipeCompletion = () => {
+    // Update user progress
     setUserProgress(prev => ({
       ...prev,
       dishesCooked: prev.dishesCooked + 1,
       cookingBadges: prev.dishesCooked + 1 >= 15 ? prev.cookingBadges + 1 : prev.cookingBadges,
       canPublishBook: prev.dishesCooked + 1 >= 15
     }));
+
+    // Navigate to home page (analytics) after completion
+    setTimeout(() => {
+      setLocation('/');
+    }, 2000); // Give time for final celebration message
   };
 
   const saveRecipe = () => {

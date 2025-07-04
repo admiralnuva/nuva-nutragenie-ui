@@ -542,7 +542,7 @@ export default function ReviewRecipesScreen() {
               </Button>
               <Button 
                 className="bg-brand-green-500 hover:bg-brand-green-600 text-white flex items-center gap-2 h-10"
-                onClick={() => setLocation("/cooking")}
+                onClick={() => setLocation("/voice-cooking")}
               >
                 <ChefHat className="w-4 h-4" />
                 Start Cooking
