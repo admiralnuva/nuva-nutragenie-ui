@@ -6,7 +6,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import { BackButton } from "@/components/ui/back-button";
 import { BottomNavigation } from "@/components/ui/bottom-navigation";
 import { 
@@ -14,42 +13,10 @@ import {
   Edit, 
   Apple, 
   ShoppingCart, 
-  FileText, 
-  BarChart3, 
-  Calendar,
-  DollarSign,
-  Clock,
-  TrendingUp,
-  TrendingDown,
-  Target
+  FileText
 } from "lucide-react";
 
-// Mock data for demonstration
-const mockOrderHistory = [
-  { id: "IC123456", date: "2025-01-03", store: "Whole Foods", items: 12, total: 89.47, status: "Delivered" },
-  { id: "IC123455", date: "2025-01-01", store: "Safeway", items: 8, total: 67.23, status: "Delivered" },
-  { id: "IC123454", date: "2024-12-29", store: "Costco", items: 15, total: 124.99, status: "Delivered" }
-];
 
-const mockGroceryHistory = [
-  { id: 1, date: "2025-01-03", items: 12, printed: true },
-  { id: 2, date: "2025-01-01", items: 8, printed: false },
-  { id: 3, date: "2024-12-29", items: 15, printed: true }
-];
-
-const mockAnalytics = {
-  totalOrders: 23,
-  totalSpent: 1847.32,
-  avgOrderValue: 80.32,
-  favoriteStore: "Whole Foods",
-  monthlySpending: [120, 150, 180, 210, 185, 165],
-  nutritionGoals: {
-    calories: { target: 2000, actual: 1850, percentage: 92 },
-    protein: { target: 150, actual: 142, percentage: 95 },
-    carbs: { target: 250, actual: 210, percentage: 84 },
-    fat: { target: 67, actual: 71, percentage: 106 }
-  }
-};
 
 export default function ProfileScreen() {
   const [, setLocation] = useLocation();
@@ -64,262 +31,302 @@ export default function ProfileScreen() {
   };
 
   const sections = [
-    { id: "account", title: "Account Information", icon: User },
-    { id: "dietary", title: "Dietary Preferences", icon: Apple },
-    { id: "grocery", title: "Grocery List History", icon: FileText },
-    { id: "orders", title: "Instacart Orders", icon: ShoppingCart },
-    { id: "analytics", title: "Analytics Dashboard", icon: BarChart3 }
+    { id: "account", title: "Account", icon: User },
+    { id: "dietary", title: "Dietary Needs", icon: Apple },
+    { id: "grocery", title: "Grocery List", icon: FileText },
+    { id: "orders", title: "Instacart Orders", icon: ShoppingCart }
   ];
 
   const renderAccountSection = () => (
-    <Card>
-      <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle className="flex items-center gap-2">
-          <User className="w-5 h-5" />
-          Account Information
-        </CardTitle>
+    <CardContent className="p-6 space-y-6">
+      {/* Header with Edit Button */}
+      <div className="flex items-center justify-between">
+        <h3 className="text-lg font-semibold text-gray-800">Account Information</h3>
         <Button 
           variant="ghost" 
           size="sm"
           onClick={() => setIsEditing(!isEditing)}
         >
           <Edit className="w-4 h-4" />
+          {isEditing ? "Cancel" : "Edit"}
         </Button>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        {isEditing ? (
-          <>
-            <div className="space-y-2">
-              <Label>Avatar</Label>
-              <div className="flex gap-2">
-                {["😀", "👩", "👨", "🧑", "👩‍🦱", "👨‍🦱"].map((emoji) => (
-                  <Button
-                    key={emoji}
-                    variant={editedUser.avatar === emoji ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => setEditedUser({...editedUser, avatar: emoji})}
-                  >
-                    {emoji}
-                  </Button>
-                ))}
+      </div>
+
+      {isEditing ? (
+        <>
+          {/* User Avatar and Info */}
+          <div className="space-y-4">
+            <h4 className="font-medium text-gray-700">Your Profile</h4>
+            <div className="space-y-3">
+              <div className="space-y-2">
+                <Label className="text-sm font-medium">Avatar</Label>
+                <div className="flex gap-2 flex-wrap">
+                  {["😀", "👩", "👨", "🧑", "👩‍🦱", "👨‍🦱", "🧔", "👩‍🦳"].map((emoji) => (
+                    <Button
+                      key={emoji}
+                      variant={editedUser.avatar === emoji ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => setEditedUser({...editedUser, avatar: emoji})}
+                      className="text-lg"
+                    >
+                      {emoji}
+                    </Button>
+                  ))}
+                </div>
               </div>
-            </div>
-            <div className="space-y-2">
-              <Label>Nickname</Label>
-              <Input
-                value={editedUser.nickname || ""}
-                onChange={(e) => setEditedUser({...editedUser, nickname: e.target.value})}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label>Age Group</Label>
-              <div className="flex gap-2">
-                {["18-24", "25-30", "31-40", "41-50", "51+"].map((age) => (
-                  <Button
-                    key={age}
-                    variant={editedUser.ageGroup === age ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => setEditedUser({...editedUser, ageGroup: age})}
-                  >
-                    {age}
-                  </Button>
-                ))}
+              <div className="space-y-2">
+                <Label className="text-sm font-medium">Nickname</Label>
+                <Input
+                  value={editedUser.nickname || ""}
+                  onChange={(e) => setEditedUser({...editedUser, nickname: e.target.value})}
+                  placeholder="Enter your nickname"
+                />
               </div>
-            </div>
-            <div className="space-y-2">
-              <Label>Phone Number</Label>
-              <Input
-                value={editedUser.phoneNumber || ""}
-                onChange={(e) => setEditedUser({...editedUser, phoneNumber: e.target.value})}
-                placeholder="(555) 123-4567"
-              />
-            </div>
-            <Button onClick={handleSaveProfile} className="w-full">
-              Save Changes
-            </Button>
-          </>
-        ) : (
-          <div className="space-y-3">
-            <div className="flex items-center gap-3">
-              <span className="text-2xl">{currentUser?.avatar || "👤"}</span>
-              <div>
-                <div className="font-medium">{currentUser?.nickname || "User"}</div>
-                <div className="text-sm text-gray-600">{currentUser?.ageGroup || "Age not set"}</div>
-              </div>
-            </div>
-            <div className="text-sm text-gray-600">
-              <div>Phone: {currentUser?.phoneNumber || "Not provided"}</div>
-              <div>Member since: January 2025</div>
             </div>
           </div>
-        )}
-      </CardContent>
-    </Card>
+
+          {/* Chef Avatar and Info */}
+          <div className="space-y-4">
+            <h4 className="font-medium text-gray-700">Your AI Chef</h4>
+            <div className="space-y-3">
+              <div className="space-y-2">
+                <Label className="text-sm font-medium">Chef Avatar</Label>
+                <div className="flex gap-2 flex-wrap">
+                  {["👨‍🍳", "👩‍🍳", "🧑‍🍳", "👨‍🍳", "👩‍🍳"].map((emoji, index) => (
+                    <Button
+                      key={emoji + index}
+                      variant={editedUser.chefAvatar === emoji ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => setEditedUser({...editedUser, chefAvatar: emoji})}
+                      className="text-lg"
+                    >
+                      {emoji}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Label className="text-sm font-medium">Chef Nickname</Label>
+                <Input
+                  value={editedUser.chefNickname || "Chef Antoine"}
+                  onChange={(e) => setEditedUser({...editedUser, chefNickname: e.target.value})}
+                  placeholder="Enter chef nickname"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Age Group */}
+          <div className="space-y-3">
+            <Label className="text-sm font-medium">Age Group</Label>
+            <div className="grid grid-cols-3 gap-2">
+              {["18-24", "25-30", "31-40", "41-50", "51+"].map((age) => (
+                <Button
+                  key={age}
+                  variant={editedUser.ageGroup === age ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setEditedUser({...editedUser, ageGroup: age})}
+                >
+                  {age}
+                </Button>
+              ))}
+            </div>
+          </div>
+
+          {/* Address */}
+          <div className="space-y-2">
+            <Label className="text-sm font-medium">Address</Label>
+            <Input
+              value={editedUser.address || ""}
+              onChange={(e) => setEditedUser({...editedUser, address: e.target.value})}
+              placeholder="Enter your address"
+            />
+          </div>
+
+          {/* Phone Number */}
+          <div className="space-y-2">
+            <Label className="text-sm font-medium">Phone Number</Label>
+            <Input
+              value={editedUser.phoneNumber || ""}
+              onChange={(e) => setEditedUser({...editedUser, phoneNumber: e.target.value})}
+              placeholder="(555) 123-4567"
+            />
+            {editedUser.phoneNumber !== currentUser?.phoneNumber && (
+              <p className="text-sm text-amber-600">⚠️ Phone number changes require verification</p>
+            )}
+          </div>
+
+          <Button onClick={handleSaveProfile} className="w-full h-12 bg-green-600 hover:bg-green-700">
+            Save Changes
+          </Button>
+        </>
+      ) : (
+        <>
+          {/* Display Mode */}
+          <div className="space-y-6">
+            {/* User Info */}
+            <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
+              <span className="text-4xl">{currentUser?.avatar || "😀"}</span>
+              <div>
+                <div className="font-semibold text-lg">{currentUser?.nickname || "User"}</div>
+                <div className="text-sm text-gray-600">{currentUser?.ageGroup || "Not set"}</div>
+              </div>
+            </div>
+
+            {/* Chef Info */}
+            <div className="flex items-center gap-4 p-4 bg-green-50 rounded-lg">
+              <span className="text-4xl">{currentUser?.chefAvatar || "👨‍🍳"}</span>
+              <div>
+                <div className="font-semibold text-lg">{currentUser?.chefNickname || "Chef Antoine"}</div>
+                <div className="text-sm text-gray-600">Your AI Chef</div>
+              </div>
+            </div>
+
+            {/* Contact Info */}
+            <div className="space-y-3">
+              <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                <span className="font-medium text-gray-700">Address</span>
+                <span className="text-gray-600">{currentUser?.address || "Not set"}</span>
+              </div>
+              <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                <span className="font-medium text-gray-700">Phone</span>
+                <span className="text-gray-600">{currentUser?.phoneNumber || "Not set"}</span>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+    </CardContent>
   );
 
   const renderDietarySection = () => (
-    <Card>
-      <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle className="flex items-center gap-2">
-          <Apple className="w-5 h-5" />
-          Dietary Preferences
-        </CardTitle>
+    <CardContent className="p-6 space-y-6">
+      {/* Header with Edit Button */}
+      <div className="flex items-center justify-between">
+        <h3 className="text-lg font-semibold text-gray-800">Dietary Preferences</h3>
         <Button 
           variant="ghost" 
           size="sm"
           onClick={() => setLocation("/dietary")}
         >
           <Edit className="w-4 h-4" />
+          Edit
         </Button>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <div>
-          <h4 className="font-medium mb-2">Dietary Restrictions</h4>
-          <div className="flex flex-wrap gap-2">
-            {(currentUser?.dietaryRestrictions || ["Vegetarian"]).map((restriction: string) => (
-              <Badge key={restriction} variant="secondary">{restriction}</Badge>
-            ))}
-          </div>
+      </div>
+
+      {/* Clean Summary Rows */}
+      <div className="space-y-4">
+        <div className="flex justify-between items-center py-3 border-b border-gray-200">
+          <span className="font-medium text-gray-700">Dietary Restrictions</span>
+          <span className="text-gray-600">{(currentUser?.dietaryRestrictions || ["Vegetarian"]).join(", ")}</span>
         </div>
-        <div>
-          <h4 className="font-medium mb-2">Health Conditions</h4>
-          <div className="flex flex-wrap gap-2">
-            {(currentUser?.healthConditions || ["None"]).map((condition: string) => (
-              <Badge key={condition} variant="outline">{condition}</Badge>
-            ))}
-          </div>
+        <div className="flex justify-between items-center py-3 border-b border-gray-200">
+          <span className="font-medium text-gray-700">Health Conditions</span>
+          <span className="text-gray-600">{(currentUser?.healthConditions || ["None"]).join(", ")}</span>
         </div>
-        <div>
-          <h4 className="font-medium mb-2">Fitness Goals</h4>
-          <div className="flex flex-wrap gap-2">
-            {(currentUser?.fitnessGoals || ["Wellness"]).map((goal: string) => (
-              <Badge key={goal} className="bg-green-100 text-green-800">{goal}</Badge>
-            ))}
-          </div>
+        <div className="flex justify-between items-center py-3 border-b border-gray-200">
+          <span className="font-medium text-gray-700">Fitness Goals</span>
+          <span className="text-gray-600">{(currentUser?.fitnessGoals || ["Wellness"]).join(", ")}</span>
         </div>
-      </CardContent>
-    </Card>
+        <div className="flex justify-between items-center py-3 border-b border-gray-200">
+          <span className="font-medium text-gray-700">Food Dislikes</span>
+          <span className="text-gray-600">{(currentUser?.dislikes || ["None"]).join(", ")}</span>
+        </div>
+        <div className="flex justify-between items-center py-3 border-b border-gray-200">
+          <span className="font-medium text-gray-700">Allergies</span>
+          <span className="text-gray-600">{(currentUser?.allergies || ["None"]).join(", ")}</span>
+        </div>
+      </div>
+
+      {/* Edit Link */}
+      <div className="pt-4">
+        <Button 
+          onClick={() => setLocation("/dietary")} 
+          variant="outline" 
+          className="w-full"
+        >
+          View & Edit Full Dietary Preferences
+        </Button>
+      </div>
+    </CardContent>
   );
 
-  const renderGroceryHistory = () => (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <FileText className="w-5 h-5" />
-          Grocery List History
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-3">
-        {mockGroceryHistory.map((list) => (
-          <div key={list.id} className="flex items-center justify-between p-3 border rounded-lg">
-            <div>
-              <div className="font-medium">{list.date}</div>
-              <div className="text-sm text-gray-600">{list.items} items</div>
-            </div>
-            <div className="flex gap-2">
-              {list.printed && <Badge variant="secondary">Printed</Badge>}
-              <Button size="sm" variant="outline">
+  const renderGroceryHistory = () => {
+    const groceryLists = [
+      { id: 1, date: "Jan 4, 2025", items: 12 },
+      { id: 2, date: "Jan 3, 2025", items: 8 },
+      { id: 3, date: "Jan 2, 2025", items: 15 },
+      { id: 4, date: "Jan 1, 2025", items: 6 },
+      { id: 5, date: "Dec 30, 2024", items: 11 },
+      { id: 6, date: "Dec 28, 2024", items: 9 },
+      { id: 7, date: "Dec 26, 2024", items: 14 },
+      { id: 8, date: "Dec 24, 2024", items: 7 },
+      { id: 9, date: "Dec 22, 2024", items: 13 },
+      { id: 10, date: "Dec 20, 2024", items: 10 }
+    ];
+
+    return (
+      <CardContent className="p-6 space-y-6">
+        <div className="flex items-center justify-between">
+          <h3 className="text-lg font-semibold text-gray-800">Grocery List History</h3>
+        </div>
+
+        <div className="space-y-2">
+          {groceryLists.map((list) => (
+            <div key={list.id} className="flex items-center justify-between py-2 border-b border-gray-100 last:border-b-0">
+              <div className="flex items-center gap-4">
+                <span className="font-medium text-gray-800">{list.date}</span>
+                <span className="text-sm text-gray-600">{list.items} items</span>
+              </div>
+              <Button size="sm" variant="outline" className="h-8">
                 Print
               </Button>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </CardContent>
-    </Card>
-  );
+    );
+  };
 
-  const renderOrderHistory = () => (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <ShoppingCart className="w-5 h-5" />
-          Instacart Order History
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-3">
-        {mockOrderHistory.map((order) => (
-          <div key={order.id} className="p-3 border rounded-lg">
-            <div className="flex justify-between items-start mb-2">
-              <div>
-                <div className="font-medium">Order #{order.id}</div>
-                <div className="text-sm text-gray-600">{order.store}</div>
+  const renderOrderHistory = () => {
+    const orders = [
+      { id: "ORD-12345", date: "Jan 4, 2025", items: 12, total: 67.89 },
+      { id: "ORD-12344", date: "Jan 2, 2025", items: 8, total: 45.23 },
+      { id: "ORD-12343", date: "Dec 30, 2024", items: 15, total: 89.12 },
+      { id: "ORD-12342", date: "Dec 28, 2024", items: 6, total: 34.56 },
+      { id: "ORD-12341", date: "Dec 26, 2024", items: 11, total: 72.34 },
+      { id: "ORD-12340", date: "Dec 24, 2024", items: 9, total: 53.78 },
+      { id: "ORD-12339", date: "Dec 22, 2024", items: 14, total: 81.45 },
+      { id: "ORD-12338", date: "Dec 20, 2024", items: 7, total: 41.23 }
+    ];
+
+    return (
+      <CardContent className="p-6 space-y-6">
+        <div className="flex items-center justify-between">
+          <h3 className="text-lg font-semibold text-gray-800">Instacart Orders</h3>
+        </div>
+
+        <div className="space-y-3">
+          {orders.map((order) => (
+            <div key={order.id} className="py-3 border-b border-gray-100 last:border-b-0">
+              {/* Row 1: Order # and Date */}
+              <div className="flex justify-between items-center mb-1">
+                <span className="font-medium text-gray-800">{order.id}</span>
+                <span className="text-sm text-gray-600">{order.date}</span>
               </div>
-              <Badge variant={order.status === "Delivered" ? "default" : "secondary"}>
-                {order.status}
-              </Badge>
-            </div>
-            <div className="flex justify-between text-sm">
-              <span>{order.date}</span>
-              <span>{order.items} items • ${order.total}</span>
-            </div>
-          </div>
-        ))}
-      </CardContent>
-    </Card>
-  );
-
-  const renderAnalytics = () => (
-    <div className="space-y-4">
-      {/* Overview Stats */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <BarChart3 className="w-5 h-5" />
-            Analytics Overview
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="text-center">
-              <div className="text-2xl font-bold text-green-600">{mockAnalytics.totalOrders}</div>
-              <div className="text-sm text-gray-600">Total Orders</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-green-600">${mockAnalytics.totalSpent}</div>
-              <div className="text-sm text-gray-600">Total Spent</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-green-600">${mockAnalytics.avgOrderValue}</div>
-              <div className="text-sm text-gray-600">Avg Order</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-green-600">{mockAnalytics.favoriteStore}</div>
-              <div className="text-sm text-gray-600">Favorite Store</div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Nutrition Goals */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Target className="w-5 h-5" />
-            Nutrition Goals Progress
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          {Object.entries(mockAnalytics.nutritionGoals).map(([key, data]) => (
-            <div key={key}>
-              <div className="flex justify-between text-sm mb-1">
-                <span className="capitalize">{key}</span>
-                <span>{data.actual}/{data.target}g</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="flex-1 bg-gray-200 rounded-full h-2">
-                  <div 
-                    className={`h-2 rounded-full ${data.percentage > 100 ? 'bg-red-500' : 'bg-green-500'}`}
-                    style={{width: `${Math.min(data.percentage, 100)}%`}}
-                  />
-                </div>
-                <span className="text-xs text-gray-600">{data.percentage}%</span>
+              {/* Row 2: Items and Dollar Value */}
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-gray-600">{order.items} items</span>
+                <span className="font-medium text-gray-800">${order.total}</span>
               </div>
             </div>
           ))}
-        </CardContent>
-      </Card>
-    </div>
-  );
+        </div>
+      </CardContent>
+    );
+  };
+
+
 
   const renderActiveSection = () => {
     switch (activeSection) {
@@ -327,7 +334,6 @@ export default function ProfileScreen() {
       case "dietary": return renderDietarySection();
       case "grocery": return renderGroceryHistory();
       case "orders": return renderOrderHistory();
-      case "analytics": return renderAnalytics();
       default: return renderAccountSection();
     }
   };
@@ -358,27 +364,32 @@ export default function ProfileScreen() {
           </div>
           <div className="w-8"></div>
         </div>
-        
-        {/* Section Navigation */}
-        <div className="flex gap-2 overflow-x-auto pb-2">
-          {sections.map((section) => (
-            <Button
-              key={section.id}
-              variant={activeSection === section.id ? "default" : "outline"}
-              size="sm"
-              onClick={() => setActiveSection(section.id)}
-              className="flex items-center gap-2 whitespace-nowrap"
-            >
-              <section.icon className="w-4 h-4" />
-              {section.title}
-            </Button>
-          ))}
-        </div>
       </div>
 
-      {/* Content */}
+      {/* Card 1: Navigation Buttons */}
       <div className="max-w-md mx-auto p-4">
-        {renderActiveSection()}
+        <Card className="mb-4">
+          <CardContent className="p-4">
+            <div className="grid grid-cols-2 gap-3">
+              {sections.map((section) => (
+                <Button
+                  key={section.id}
+                  variant={activeSection === section.id ? "default" : "outline"}
+                  onClick={() => setActiveSection(section.id)}
+                  className="flex items-center gap-2 h-12"
+                >
+                  <section.icon className="w-4 h-4" />
+                  {section.title}
+                </Button>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Card 2: Content */}
+        <Card>
+          {renderActiveSection()}
+        </Card>
       </div>
 
       <BottomNavigation />
