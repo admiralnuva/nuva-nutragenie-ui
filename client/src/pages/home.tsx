@@ -268,11 +268,11 @@ export default function HomeScreen() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 pb-20">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-black pb-20">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-4 py-4 flex items-center gap-3">
+      <div className="bg-gray-800/90 backdrop-blur-sm border-b border-gray-700 px-4 py-4 flex items-center gap-3">
         <BackButton to="/" />
-        <h1 className="text-lg font-semibold text-gray-800">NutraGenie</h1>
+        <h1 className="text-lg font-semibold text-white">NutraGenie</h1>
       </div>
 
       <div className="p-4 space-y-6">
@@ -298,7 +298,7 @@ export default function HomeScreen() {
 
         {/* Quick Actions */}
         <div>
-          <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+          <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
             <ChefHat size={20} />
             Quick Actions
           </h3>
@@ -326,76 +326,76 @@ export default function HomeScreen() {
 
         {/* Cooking Analytics Charts */}
         <div>
-          <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+          <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
             <BarChart3 size={20} />
             Cooking Analytics
           </h3>
           
           {/* Recipe Progress Bar Chart */}
-          <Card className="p-4 mb-4">
+          <Card className="p-4 mb-4 bg-white/10 backdrop-blur-md border-white/20 shadow-xl">
             <div className="flex items-center justify-between mb-3">
-              <h4 className="font-medium text-gray-700">Monthly Recipe Progress</h4>
-              <Badge variant="outline" className="text-indigo-600 border-indigo-200">
+              <h4 className="font-medium text-white">Monthly Recipe Progress</h4>
+              <Badge variant="outline" className="text-indigo-300 border-indigo-300/50 bg-indigo-500/20">
                 Last 6 Months
               </Badge>
             </div>
-            <div className="h-48">
+            <div className="h-48 bg-white rounded-lg p-2">
               <Bar data={recipesChartData} options={chartOptions} />
             </div>
           </Card>
 
           {/* Points & Orders Line Chart */}
-          <Card className="p-4 mb-4">
+          <Card className="p-4 mb-4 bg-white/10 backdrop-blur-md border-white/20 shadow-xl">
             <div className="flex items-center justify-between mb-3">
-              <h4 className="font-medium text-gray-700">Activity Trends</h4>
-              <Badge variant="outline" className="text-purple-600 border-purple-200">
+              <h4 className="font-medium text-white">Activity Trends</h4>
+              <Badge variant="outline" className="text-purple-300 border-purple-300/50 bg-purple-500/20">
                 Trending Up
               </Badge>
             </div>
-            <div className="h-48">
+            <div className="h-48 bg-white rounded-lg p-2">
               <Line data={progressChartData} options={lineChartOptions} />
             </div>
           </Card>
 
           {/* Achievement Breakdown */}
           <div className="grid grid-cols-2 gap-4">
-            <Card className="p-4">
+            <Card className="p-4 bg-white/10 backdrop-blur-md border-white/20 shadow-xl">
               <div className="flex items-center justify-between mb-3">
-                <h4 className="font-medium text-gray-700">Achievements</h4>
-                <PieChart size={16} className="text-gray-400" />
+                <h4 className="font-medium text-white">Achievements</h4>
+                <PieChart size={16} className="text-white/60" />
               </div>
-              <div className="h-32">
+              <div className="h-32 bg-white rounded-lg p-2">
                 <Doughnut data={achievementData} options={doughnutOptions} />
               </div>
             </Card>
 
-            <Card className="p-4">
+            <Card className="p-4 bg-white/10 backdrop-blur-md border-white/20 shadow-xl">
               <div className="flex items-center justify-between mb-3">
-                <h4 className="font-medium text-gray-700">This Month</h4>
-                <TrendingUp size={16} className="text-green-500" />
+                <h4 className="font-medium text-white">This Month</h4>
+                <TrendingUp size={16} className="text-green-400" />
               </div>
               <div className="space-y-3">
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600">Recipes</span>
-                  <span className="font-semibold text-indigo-600">
+                  <span className="text-sm text-white/80">Recipes</span>
+                  <span className="font-semibold text-indigo-400">
                     {monthlyData.recipes[monthlyData.recipes.length - 1] || 0}
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600">Points</span>
-                  <span className="font-semibold text-purple-600">
+                  <span className="text-sm text-white/80">Points</span>
+                  <span className="font-semibold text-purple-400">
                     {monthlyData.cookingPoints[monthlyData.cookingPoints.length - 1] || 0}
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600">Orders</span>
-                  <span className="font-semibold text-emerald-600">
+                  <span className="text-sm text-white/80">Orders</span>
+                  <span className="font-semibold text-emerald-400">
                     {monthlyData.orders[monthlyData.orders.length - 1] || 0}
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600">Streak</span>
-                  <span className="font-semibold text-orange-600">
+                  <span className="text-sm text-white/80">Streak</span>
+                  <span className="font-semibold text-orange-400">
                     {currentUser?.weekStreak || 0} days
                   </span>
                 </div>
@@ -460,7 +460,7 @@ export default function HomeScreen() {
 
         {/* Achievements */}
         <div>
-          <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+          <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
             <Award size={20} />
             Achievements
           </h3>
@@ -514,7 +514,7 @@ export default function HomeScreen() {
 
         {/* Today's Suggestions */}
         <div>
-          <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+          <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
             <Target size={20} />
             Suggested for You
           </h3>
