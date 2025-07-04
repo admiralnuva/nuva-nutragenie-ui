@@ -62,63 +62,126 @@ export default function VoiceCookingScreen() {
   });
   const [modeTransition, setModeTransition] = useState(false);
 
-  const recipe = {
-    name: "Mediterranean Quinoa Bowl",
-    totalSteps: 8,
-    estimatedTime: "25 minutes",
-    difficulty: "Easy",
-    servings: 4,
-    steps: [
-      {
-        id: 1,
-        instruction: "Rinse 1 cup of quinoa under cold water until the water runs clear.",
-        duration: "2 minutes",
-        tips: "This removes the bitter coating called saponin"
-      },
-      {
-        id: 2,
-        instruction: "In a medium saucepan, bring 2 cups of vegetable broth to a boil.",
-        duration: "3 minutes", 
-        tips: "Using broth instead of water adds extra flavor"
-      },
-      {
-        id: 3,
-        instruction: "Add the rinsed quinoa, reduce heat to low, cover and simmer for 15 minutes.",
-        duration: "15 minutes",
-        tips: "Don't lift the lid while cooking - let the steam do its work"
-      },
-      {
-        id: 4,
-        instruction: "While quinoa cooks, dice 1 cucumber and 2 tomatoes into small cubes.",
-        duration: "5 minutes",
-        tips: "Keep the pieces uniform for the best presentation"
-      },
-      {
-        id: 5,
-        instruction: "Crumble 4 oz feta cheese and slice 1/4 cup Kalamata olives.",
-        duration: "3 minutes",
-        tips: "Pat the feta dry for better texture"
-      },
-      {
-        id: 6,
-        instruction: "Make dressing: whisk 3 tbsp olive oil, 2 tbsp lemon juice, 1 tsp oregano.",
-        duration: "2 minutes",
-        tips: "Fresh lemon juice makes all the difference"
-      },
-      {
-        id: 7,
-        instruction: "Once quinoa is done, fluff with a fork and let cool for 5 minutes.",
-        duration: "5 minutes",
-        tips: "Cooling prevents the vegetables from wilting"
-      },
-      {
-        id: 8,
-        instruction: "Combine quinoa, vegetables, feta, olives. Drizzle dressing and toss gently.",
-        duration: "3 minutes",
-        tips: "Taste and adjust seasoning with salt and pepper"
-      }
-    ]
+  // Recipe definitions
+  const recipes = {
+    quinoa: {
+      name: "Mediterranean Quinoa Bowl",
+      totalSteps: 8,
+      estimatedTime: "25 minutes",
+      difficulty: "Easy",
+      servings: 4,
+      steps: [
+        {
+          id: 1,
+          instruction: "Rinse 1 cup of quinoa under cold water until the water runs clear.",
+          duration: "2 minutes",
+          tips: "This removes the bitter coating called saponin"
+        },
+        {
+          id: 2,
+          instruction: "In a medium saucepan, bring 2 cups of vegetable broth to a boil.",
+          duration: "3 minutes", 
+          tips: "Using broth instead of water adds extra flavor"
+        },
+        {
+          id: 3,
+          instruction: "Add the rinsed quinoa, reduce heat to low, cover and simmer for 15 minutes.",
+          duration: "15 minutes",
+          tips: "Don't lift the lid while cooking - let the steam do its work"
+        },
+        {
+          id: 4,
+          instruction: "While quinoa cooks, dice 1 cucumber and 2 tomatoes into small cubes.",
+          duration: "5 minutes",
+          tips: "Keep the pieces uniform for the best presentation"
+        },
+        {
+          id: 5,
+          instruction: "Crumble 4 oz feta cheese and slice 1/4 cup Kalamata olives.",
+          duration: "3 minutes",
+          tips: "Pat the feta dry for better texture"
+        },
+        {
+          id: 6,
+          instruction: "Make dressing: whisk 3 tbsp olive oil, 2 tbsp lemon juice, 1 tsp oregano.",
+          duration: "2 minutes",
+          tips: "Fresh lemon juice makes all the difference"
+        },
+        {
+          id: 7,
+          instruction: "Once quinoa is done, fluff with a fork and let cool for 5 minutes.",
+          duration: "5 minutes",
+          tips: "Cooling prevents the vegetables from wilting"
+        },
+        {
+          id: 8,
+          instruction: "Combine quinoa, vegetables, feta, olives. Drizzle dressing and toss gently.",
+          duration: "3 minutes",
+          tips: "Taste and adjust seasoning with salt and pepper"
+        }
+      ]
+    },
+    tomatoSoup: {
+      name: "Creamy Tomato Soup",
+      totalSteps: 8,
+      estimatedTime: "30 minutes",
+      difficulty: "Medium",
+      servings: 3,
+      steps: [
+        {
+          id: 1,
+          instruction: "Heat 2 tbsp olive oil in a large pot over medium heat.",
+          duration: "2 minutes",
+          tips: "Make sure the oil is warm but not smoking"
+        },
+        {
+          id: 2,
+          instruction: "Add 1 diced onion and cook until softened, about 5 minutes.",
+          duration: "5 minutes",
+          tips: "Stir occasionally to prevent burning"
+        },
+        {
+          id: 3,
+          instruction: "Add 3 cloves minced garlic and cook for 1 minute until fragrant.",
+          duration: "1 minute",
+          tips: "Don't let the garlic brown or it will taste bitter"
+        },
+        {
+          id: 4,
+          instruction: "Add 28 oz can crushed tomatoes, 2 cups vegetable broth, and 1 tsp dried basil.",
+          duration: "2 minutes",
+          tips: "Use high-quality canned tomatoes for best flavor"
+        },
+        {
+          id: 5,
+          instruction: "Bring to a boil, then reduce heat and simmer for 15 minutes.",
+          duration: "15 minutes",
+          tips: "Let the flavors meld together"
+        },
+        {
+          id: 6,
+          instruction: "Use an immersion blender to puree until smooth.",
+          duration: "3 minutes",
+          tips: "Be careful with hot liquids - blend gradually"
+        },
+        {
+          id: 7,
+          instruction: "Stir in 1/2 cup heavy cream and season with salt and pepper.",
+          duration: "2 minutes",
+          tips: "Add cream slowly to prevent curdling"
+        },
+        {
+          id: 8,
+          instruction: "Taste and adjust seasoning. Serve hot with fresh basil.",
+          duration: "1 minute",
+          tips: "A pinch of sugar can balance acidity if needed"
+        }
+      ]
+    }
   };
+
+  const [currentRecipeKey, setCurrentRecipeKey] = useState<keyof typeof recipes>("quinoa");
+  const recipe = recipes[currentRecipeKey];
 
   const voiceOptions = {
     male: {
@@ -856,14 +919,15 @@ export default function VoiceCookingScreen() {
         <Card>
           <CardContent className="pt-4 pb-3">
             <div className="space-y-2">
-              <h4 className="font-medium text-gray-800">Creamy Tomato Soup</h4>
-              <div className="text-sm text-gray-600">Step 3 of 8 • 3 servings</div>
+              <h4 className="font-medium text-gray-800">{recipes.tomatoSoup.name}</h4>
+              <div className="text-sm text-gray-600">Step 3 of {recipes.tomatoSoup.totalSteps} • {recipes.tomatoSoup.servings} servings</div>
             </div>
             <Button 
               className="w-full bg-orange-600 hover:bg-orange-700 mt-3"
               onClick={() => {
-                // Resume cooking from where we left off
-                setCurrentStep(Math.max(0, currentStep - 1)); 
+                // Switch to Tomato Soup recipe and resume cooking
+                setCurrentRecipeKey("tomatoSoup");
+                setCurrentStep(2); // Set to step 3 (0-indexed)
                 setIsCooking(true); // Enable cooking mode
                 setCookingMode("voice"); // Set to voice mode
                 setIsListening(true); // Start listening
