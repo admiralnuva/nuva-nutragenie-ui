@@ -491,9 +491,8 @@ export default function VoiceCookingScreen() {
             )}
 
             {/* Dish Name */}
-            <div className="text-center py-3">
-              <h2 className="text-xl font-bold text-gray-800">{recipe.name}</h2>
-              <p className="text-sm text-gray-600">Currently cooking • {recipe.difficulty}</p>
+            <div className="text-center py-1">
+              <h2 className="text-base font-normal text-gray-700">{recipe.name}</h2>
             </div>
 
             {!isCooking ? (
