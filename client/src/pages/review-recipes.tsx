@@ -408,7 +408,7 @@ export default function ReviewRecipesScreen() {
         </div>
       </div>
 
-      <div className="max-w-md mx-auto p-4 space-y-4">
+      <div className="max-w-md mx-auto px-4 pt-2 pb-4 space-y-4">
         {/* Weekly Meal Planning Header */}
         <div className="flex items-center justify-between mb-4">
           <div className="flex-1">
