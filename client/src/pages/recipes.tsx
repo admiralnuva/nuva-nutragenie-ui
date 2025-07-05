@@ -362,7 +362,7 @@ export default function RecipesScreen() {
             <div className="flex items-center justify-between">
               <div className="flex-1">
                 <CardTitle className="text-lg">
-                  {currentView === "pantry" ? "Ingredients in your Pantry Fridge" : "Pantry Ingredients Dishes"}
+                  {currentView === "pantry" ? "Pantry Ingredients" : "Recipe Suggestions"}
                 </CardTitle>
                 <p className="text-sm text-gray-600 mt-1">
                   {currentView === "pantry" ? "Select what you have available" : "Recipes you can make right now"}
