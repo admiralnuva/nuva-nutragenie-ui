@@ -46,8 +46,8 @@ const healthConditions = [
 const fitnessGoals = [
   { label: '💪 Build Muscle', value: 'build-muscle' },
   { label: '⚖️ Lose Weight', value: 'lose-weight' },
-  { label: '🏃 Improve Endurance', value: 'endurance' },
-  { label: '🧘 General Wellness', value: 'wellness' }
+  { label: '🏃 Endurance', value: 'endurance' },
+  { label: '🧘 Holistic', value: 'wellness' }
 ];
 
 export default function DietaryScreen() {
@@ -221,7 +221,7 @@ export default function DietaryScreen() {
                     <Target className="w-5 h-5" />
                     Fitness Goals
                   </CardTitle>
-                  <CardDescription>What are your fitness and wellness goals?</CardDescription>
+                  <CardDescription>Your fitness and wellness goals</CardDescription>
                 </div>
                 <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white ml-4">
                   <img 
