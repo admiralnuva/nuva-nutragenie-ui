@@ -420,7 +420,7 @@ export default function RecipesScreen() {
               <div className="flex-1">
                 <CardTitle className="text-lg">Your Pantry Ingredients</CardTitle>
                 <p className="text-sm text-gray-600 mt-1">
-                  {currentView === "pantry" ? "Select available ingredients" : "Recipes you can make right now"}
+                  {currentView === "pantry" ? "Select available ingredients" : "Dishes you can make right now"}
                 </p>
               </div>
               <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white ml-4">
@@ -452,7 +452,7 @@ export default function RecipesScreen() {
                     : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-200"
                 }`}
               >
-                Pantry Recipes
+                Pantry Dishes
               </button>
             </div>
           </CardHeader>
