@@ -453,146 +453,104 @@ export default function HomeScreen() {
           {activeView === 'healthTracking' && (
             <div>
           
-          {/* Comprehensive Health Metrics Card */}
-          <Card className="p-6 mb-4 bg-white/95 backdrop-blur-md border-white/30 shadow-xl">
-            <div className="space-y-6">
+          {/* Compact Health Metrics Card */}
+          <Card className="p-4 mb-4 bg-white/95 backdrop-blur-md border-white/30 shadow-xl">
+            <div className="space-y-4">
               
-              {/* Wearable Data Section */}
+              {/* Priority Health Metrics - Blood Pressure & Blood Sugar */}
               <div>
-                <h4 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                  <Heart className="text-red-500" size={18} />
-                  Live Health Data
-                  <Badge className="bg-green-100 text-green-800 text-xs">Synced with Apple/Android</Badge>
+                <h4 className="text-base font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                  <Heart className="text-red-500" size={16} />
+                  Critical Health Metrics
                 </h4>
                 
-                <div className="grid grid-cols-2 gap-4">
-                  {/* Steps & Activity */}
-                  <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Zap className="text-blue-600" size={16} />
-                      <span className="text-sm font-medium text-gray-700">Daily Steps</span>
+                <div className="grid grid-cols-2 gap-3">
+                  {/* Blood Pressure */}
+                  <div className="bg-red-50 p-3 rounded-lg">
+                    <div className="flex items-center gap-2 mb-1">
+                      <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                      <span className="text-xs font-medium text-gray-700">Blood Pressure</span>
                     </div>
-                    <div className="text-2xl font-bold text-blue-600">8,247</div>
-                    <div className="text-xs text-gray-600">Goal: 10,000 • 82% complete</div>
-                    <div className="mt-2 bg-blue-200 rounded-full h-2">
-                      <div className="bg-blue-600 h-2 rounded-full w-4/5"></div>
+                    <div className="text-lg font-bold text-red-600">122/78</div>
+                    <div className="text-xs text-gray-500">Good • Jan 4</div>
+                  </div>
+                  
+                  {/* Blood Sugar */}
+                  <div className="bg-orange-50 p-3 rounded-lg">
+                    <div className="flex items-center gap-2 mb-1">
+                      <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+                      <span className="text-xs font-medium text-gray-700">Blood Sugar</span>
                     </div>
+                    <div className="text-lg font-bold text-orange-600">94 mg/dL</div>
+                    <div className="text-xs text-gray-500">Normal • Jan 4</div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Wearable Data Section - Compact */}
+              <div>
+                <h4 className="text-base font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                  <Zap className="text-blue-500" size={16} />
+                  Today's Activity
+                  <Badge className="bg-green-100 text-green-800 text-xs">Live</Badge>
+                </h4>
+                
+                <div className="grid grid-cols-2 gap-2">
+                  {/* Steps */}
+                  <div className="bg-blue-50 p-2 rounded">
+                    <div className="text-xs text-gray-600">Steps</div>
+                    <div className="text-sm font-bold text-blue-600">8,247</div>
+                  </div>
+                  
+                  {/* Calories */}
+                  <div className="bg-orange-50 p-2 rounded">
+                    <div className="text-xs text-gray-600">Calories</div>
+                    <div className="text-sm font-bold text-orange-600">524</div>
                   </div>
                   
                   {/* Distance */}
-                  <div className="bg-gradient-to-r from-purple-50 to-pink-50 p-4 rounded-lg">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Target className="text-purple-600" size={16} />
-                      <span className="text-sm font-medium text-gray-700">Distance</span>
-                    </div>
-                    <div className="text-2xl font-bold text-purple-600">4.1 mi</div>
-                    <div className="text-xs text-gray-600">Active: 45 mins</div>
-                  </div>
-                  
-                  {/* Calories Burned */}
-                  <div className="bg-gradient-to-r from-orange-50 to-red-50 p-4 rounded-lg">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Zap className="text-orange-600" size={16} />
-                      <span className="text-sm font-medium text-gray-700">Calories Burned</span>
-                    </div>
-                    <div className="text-2xl font-bold text-orange-600">524</div>
-                    <div className="text-xs text-gray-600">Exercise + BMR</div>
+                  <div className="bg-purple-50 p-2 rounded">
+                    <div className="text-xs text-gray-600">Distance</div>
+                    <div className="text-sm font-bold text-purple-600">4.1 mi</div>
                   </div>
                   
                   {/* Heart Rate */}
-                  <div className="bg-gradient-to-r from-red-50 to-pink-50 p-4 rounded-lg">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Heart className="text-red-600" size={16} />
-                      <span className="text-sm font-medium text-gray-700">Heart Rate</span>
-                    </div>
-                    <div className="text-2xl font-bold text-red-600">72 bpm</div>
-                    <div className="text-xs text-gray-600">Resting • Normal range</div>
+                  <div className="bg-red-50 p-2 rounded">
+                    <div className="text-xs text-gray-600">Heart Rate</div>
+                    <div className="text-sm font-bold text-red-600">72 bpm</div>
                   </div>
                 </div>
               </div>
 
-              {/* TDEE & Nutrition Goals */}
+              {/* Nutrition Goals - Compact */}
               <div>
-                <h4 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                  <Target className="text-green-600" size={18} />
-                  Daily Nutrition Goals
+                <h4 className="text-base font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                  <Target className="text-green-500" size={16} />
+                  Daily Goals
                 </h4>
                 
-                <div className="grid grid-cols-1 gap-4">
-                  {/* TDEE Calculator Results */}
-                  <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-4 rounded-lg">
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <div className="text-sm font-medium text-gray-700 mb-1">Daily Calories Needed</div>
-                        <div className="text-2xl font-bold text-green-600">2,247</div>
-                        <div className="text-xs text-gray-600">TDEE-based calculation</div>
-                      </div>
-                      <div>
-                        <div className="text-sm font-medium text-gray-700 mb-1">Protein Target</div>
-                        <div className="text-2xl font-bold text-blue-600">156g</div>
-                        <div className="text-xs text-gray-600">1.2g per kg body weight</div>
-                      </div>
+                <div className="bg-gradient-to-r from-green-50 to-blue-50 p-3 rounded-lg">
+                  <div className="grid grid-cols-3 gap-2 text-center">
+                    <div>
+                      <div className="text-xs text-gray-600">TDEE</div>
+                      <div className="text-sm font-bold text-green-600">2,247</div>
                     </div>
-                  </div>
-                  
-                  {/* Today's Consumption */}
-                  <div className="bg-gradient-to-r from-yellow-50 to-amber-50 p-4 rounded-lg">
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <div className="text-sm font-medium text-gray-700 mb-1">Calories Consumed</div>
-                        <div className="text-2xl font-bold text-yellow-600">1,834</div>
-                        <div className="text-xs text-gray-600">From recipes tracked</div>
-                        <div className="mt-2 bg-yellow-200 rounded-full h-2">
-                          <div className="bg-yellow-600 h-2 rounded-full w-4/5"></div>
-                        </div>
-                      </div>
-                      <div>
-                        <div className="text-sm font-medium text-gray-700 mb-1">Protein Consumed</div>
-                        <div className="text-2xl font-bold text-blue-600">127g</div>
-                        <div className="text-xs text-gray-600">81% of daily goal</div>
-                        <div className="mt-2 bg-blue-200 rounded-full h-2">
-                          <div className="bg-blue-600 h-2 rounded-full w-4/5"></div>
-                        </div>
-                      </div>
+                    <div>
+                      <div className="text-xs text-gray-600">Protein</div>
+                      <div className="text-sm font-bold text-blue-600">156g</div>
+                    </div>
+                    <div>
+                      <div className="text-xs text-gray-600">Water</div>
+                      <div className="text-sm font-bold text-cyan-600">2.1L</div>
                     </div>
                   </div>
                 </div>
               </div>
               
-              {/* Manual Health Input Section */}
-              <div>
-                <h4 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                  <BarChart3 className="text-indigo-600" size={18} />
-                  Health Metrics to Track
-                </h4>
-                
-                <div className="grid grid-cols-2 gap-3">
-                  {/* Blood Pressure Input */}
-                  <div className="bg-gray-50 p-3 rounded-lg">
-                    <div className="text-sm font-medium text-gray-700 mb-2">Blood Pressure</div>
-                    <div className="flex gap-2">
-                      <input className="w-16 px-2 py-1 border rounded text-sm" placeholder="120" />
-                      <span className="text-gray-500">/</span>
-                      <input className="w-16 px-2 py-1 border rounded text-sm" placeholder="80" />
-                    </div>
-                    <div className="text-xs text-gray-500 mt-1">Last: 118/75 (Jan 3)</div>
-                  </div>
-                  
-                  {/* Blood Sugar Input */}
-                  <div className="bg-gray-50 p-3 rounded-lg">
-                    <div className="text-sm font-medium text-gray-700 mb-2">Blood Sugar</div>
-                    <div className="flex gap-2">
-                      <input className="w-20 px-2 py-1 border rounded text-sm" placeholder="95" />
-                      <span className="text-xs text-gray-500 mt-1">mg/dL</span>
-                    </div>
-                    <div className="text-xs text-gray-500 mt-1">Last: 92 (Jan 2)</div>
-                  </div>
-                </div>
-                
-                <button className="mt-3 px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm hover:bg-indigo-700 transition-colors">
-                  Add Today's Readings
-                </button>
-              </div>
+              {/* Quick Add Button */}
+              <button className="w-full px-3 py-2 bg-indigo-600 text-white rounded-lg text-sm hover:bg-indigo-700 transition-colors">
+                + Add Health Reading
+              </button>
             </div>
           </Card>
             </div>
