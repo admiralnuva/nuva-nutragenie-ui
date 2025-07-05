@@ -562,8 +562,8 @@ export default function RecipesScreen() {
                     selectedIngredients.includes(ingredient)
                   );
                   
-                  // Special rectangular layout for first three dishes
-                  if (index <= 2) {
+                  // Special rectangular layout for all dishes
+                  if (index <= 3) {
                     return (
                       <div key={dish.name} className="bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200 rounded-lg overflow-hidden">
                         {/* Full width image at top */}
@@ -688,6 +688,46 @@ export default function RecipesScreen() {
                                 <div className="absolute bottom-1 right-4 text-xs opacity-40">
                                   <div>🌿🧂</div>
                                   <div className="mt-1">🫒</div>
+                                </div>
+                              </>
+                            )}
+                            
+                            {index === 3 && (
+                              // Beef & Potato Skillet ingredients
+                              <>
+                                {/* Bottom left potato cluster */}
+                                <div className="absolute bottom-1 left-1 text-base opacity-60">
+                                  <div>🥔🥔🥔</div>
+                                  <div className="mt-1">🥔</div>
+                                </div>
+                                
+                                {/* Top center beef pieces */}
+                                <div className="absolute top-3 left-8 text-lg opacity-65">
+                                  <span>🥩</span><span className="ml-1">🥩</span>
+                                </div>
+                                
+                                {/* Right side onion and garlic */}
+                                <div className="absolute right-2 top-8 text-sm opacity-55">
+                                  <div>🧅🧅</div>
+                                  <div className="mt-1">🧄🧄🧄</div>
+                                </div>
+                                
+                                {/* Left top kitchen tools */}
+                                <div className="absolute left-3 top-2 text-base opacity-45">
+                                  <div>🔪</div>
+                                  <div className="mt-1">🥘🥄</div>
+                                </div>
+                                
+                                {/* Bottom right paprika and seasonings */}
+                                <div className="absolute bottom-3 right-3 text-xs opacity-40">
+                                  <div>🌶️🌶️</div>
+                                  <div className="mt-1">🧂🌿</div>
+                                </div>
+                                
+                                {/* Center right scattered herbs */}
+                                <div className="absolute right-1 bottom-8 text-xs opacity-35">
+                                  <div>🌿</div>
+                                  <div className="mt-1">🧂</div>
                                 </div>
                               </>
                             )}
