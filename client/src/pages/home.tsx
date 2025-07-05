@@ -71,6 +71,8 @@ export default function HomeScreen() {
     return "evening";
   });
 
+  const [activeView, setActiveView] = useState<'quickActions' | 'healthTracking'>('quickActions');
+
   // Check if user exists and redirect if not
   useEffect(() => {
     if (!currentUser) {
@@ -286,20 +288,6 @@ export default function HomeScreen() {
 
   const quickActions = [
     { 
-      label: "Voice Cooking", 
-      icon: Play, 
-      color: "bg-indigo-500", 
-      path: "/voice-cooking",
-      description: "Start cooking with AI"
-    },
-    { 
-      label: "Explore Recipes", 
-      icon: Utensils, 
-      color: "bg-blue-500", 
-      path: "/recipes",
-      description: "Find new dishes"
-    },
-    { 
       label: "Past Recipes", 
       icon: History, 
       color: "bg-purple-500", 
@@ -312,6 +300,20 @@ export default function HomeScreen() {
       color: "bg-emerald-500", 
       path: "/grocery-list",
       description: "Manage shopping"
+    },
+    { 
+      label: "Explore Recipes", 
+      icon: Utensils, 
+      color: "bg-blue-500", 
+      path: "/recipes",
+      description: "Find new dishes"
+    },
+    { 
+      label: "Interactive Voice Cooking", 
+      icon: Play, 
+      color: "bg-indigo-500", 
+      path: "/voice-cooking",
+      description: "Start cooking with AI"
     }
   ];
 
@@ -399,40 +401,57 @@ export default function HomeScreen() {
           </div>
         </Card>
 
-        {/* Quick Actions */}
+        {/* Toggle Header */}
         <div>
-          <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <ChefHat size={20} />
-            Quick Actions
-          </h3>
-          <div className="grid grid-cols-1 gap-3">
-            {quickActions.map((action, index) => (
-              <Card 
-                key={index} 
-                className="p-4 cursor-pointer hover:shadow-md transition-all duration-200 hover:scale-105"
-                onClick={() => handleNavigation(action.path)}
-              >
-                <div className="flex items-center gap-4">
-                  <div className={`w-12 h-12 ${action.color} rounded-lg flex items-center justify-center text-white`}>
-                    <action.icon size={24} />
-                  </div>
-                  <div className="flex-1">
-                    <div className="font-medium text-gray-800">{action.label}</div>
-                    <div className="text-sm text-gray-600">{action.description}</div>
-                  </div>
-                  <div className="text-gray-400">→</div>
-                </div>
-              </Card>
-            ))}
+          <div className="flex items-center justify-between mb-4">
+            <h3 
+              className={`text-lg font-semibold flex items-center gap-2 cursor-pointer transition-colors ${
+                activeView === 'quickActions' ? 'text-white' : 'text-gray-400'
+              }`}
+              onClick={() => setActiveView('quickActions')}
+            >
+              <ChefHat size={20} />
+              Quick Actions
+            </h3>
+            <h3 
+              className={`text-lg font-semibold flex items-center gap-2 cursor-pointer transition-colors ${
+                activeView === 'healthTracking' ? 'text-white' : 'text-gray-400'
+              }`}
+              onClick={() => setActiveView('healthTracking')}
+            >
+              <Activity size={20} />
+              Health & Nutrition Tracking
+            </h3>
           </div>
+
+          {/* Quick Actions View */}
+          {activeView === 'quickActions' && (
+            <div className="grid grid-cols-1 gap-3">
+              {quickActions.map((action, index) => (
+                <Card 
+                  key={index} 
+                  className="p-4 cursor-pointer hover:shadow-md transition-all duration-200 hover:scale-105"
+                  onClick={() => handleNavigation(action.path)}
+                >
+                  <div className="flex items-center gap-4">
+                    <div className={`w-12 h-12 ${action.color} rounded-lg flex items-center justify-center text-white`}>
+                      <action.icon size={24} />
+                    </div>
+                    <div className="flex-1">
+                      <div className="font-medium text-gray-800">{action.label}</div>
+                      <div className="text-sm text-gray-600">{action.description}</div>
+                    </div>
+                    <div className="text-gray-400">→</div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          )}
         </div>
 
-        {/* Health & Nutrition Metrics - Card #1 */}
-        <div>
-          <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2 drop-shadow-md">
-            <Activity size={20} />
-            Health & Nutrition Tracking
-          </h3>
+          {/* Health & Nutrition Tracking View */}
+          {activeView === 'healthTracking' && (
+            <div>
           
           {/* Comprehensive Health Metrics Card */}
           <Card className="p-6 mb-4 bg-white/95 backdrop-blur-md border-white/30 shadow-xl">
@@ -576,7 +595,8 @@ export default function HomeScreen() {
               </div>
             </div>
           </Card>
-        </div>
+            </div>
+          )}
 
         {/* Single Achievement Section */}
         <div>
