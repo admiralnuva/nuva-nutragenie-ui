@@ -593,11 +593,11 @@ export default function RecipesScreen() {
                         onClick={() => toggleDishSelection(dishId)}
                       >
                         {/* Selection Checkbox */}
-                        <div className="absolute top-2 left-2 z-10">
+                        <div className="absolute bottom-2 right-2 z-10">
                           <Checkbox
                             checked={isSelected}
                             onChange={() => {}}
-                            className="pointer-events-none"
+                            className="pointer-events-none w-6 h-6"
                           />
                         </div>
                         {/* Full width image at top */}
