@@ -364,11 +364,11 @@ export default function HomeScreen() {
 
       <div className="p-4 space-y-6">
         {/* Compact Welcome Card */}
-        <Card className="p-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white">
-          <div className="space-y-3">
-            {/* Top Row - Avatars */}
-            <div className="flex justify-between items-start">
-              {/* User Avatar - Left Top */}
+        <Card className="p-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white">
+          <div className="space-y-2">
+            {/* Row 1 - Avatars with Greeting Between */}
+            <div className="flex items-center justify-between">
+              {/* User Avatar - Left */}
               <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm overflow-hidden">
                 <img 
                   src={user1Avatar} 
@@ -377,7 +377,12 @@ export default function HomeScreen() {
                 />
               </div>
               
-              {/* Chef Marcus Avatar - Right Top */}
+              {/* Greeting - Center */}
+              <div className="text-center">
+                <h2 className="text-lg font-bold">{getPersonalizedGreeting()[0]}</h2>
+              </div>
+              
+              {/* Chef Marcus Avatar - Right */}
               <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm overflow-hidden">
                 <img 
                   src={chef1Avatar} 
@@ -387,10 +392,14 @@ export default function HomeScreen() {
               </div>
             </div>
             
-            {/* Bottom Row - Greeting */}
+            {/* Row 2 - User Nickname */}
             <div className="text-center">
-              <h2 className="text-lg font-bold">{getPersonalizedGreeting()[0]}</h2>
-              <p className="text-blue-100 text-sm">Let's cook something exciting today!</p>
+              <p className="text-blue-100 text-sm font-medium">{currentUser?.nickname || "Chef"}</p>
+            </div>
+            
+            {/* Row 3 - Motivational Text */}
+            <div className="text-center">
+              <p className="text-blue-100 text-xs">Let's cook something exciting today!</p>
             </div>
           </div>
         </Card>
