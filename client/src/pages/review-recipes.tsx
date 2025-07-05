@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { BackButton } from "@/components/ui/back-button";
 import { BottomNavigation } from "@/components/ui/bottom-navigation";
 import { ChevronDown, ChevronUp, Plus, Minus, ShoppingCart, List, ChefHat, Utensils } from "lucide-react";
+import chef1Avatar from "@/assets/avatars/chef/chef1.png";
 
 // Chef Recommends dishes for weekly planning
 const chefRecommendedDishes = [
@@ -414,8 +415,12 @@ export default function ReviewRecipesScreen() {
             <h2 className="text-xl font-bold text-gray-900">Weekly Meal Planner</h2>
             <p className="text-sm text-gray-600">Select dishes and customize ingredients for your perfect week</p>
           </div>
-          <div className="w-20 h-20 bg-gradient-to-br from-orange-100 to-red-100 rounded-full flex items-center justify-center ml-4">
-            <span className="text-4xl">👨‍🍳</span>
+          <div className="w-20 h-20 rounded-full flex items-center justify-center ml-4">
+            <img 
+              src={chef1Avatar} 
+              alt="Chef Avatar" 
+              className="w-20 h-20 rounded-full object-cover"
+            />
           </div>
         </div>
 
