@@ -15,7 +15,7 @@ export default function SplashScreen() {
     if (currentUser && currentUser.nickname && currentUser.selectedChef) {
       const timer = setTimeout(() => {
         setLocation("/home");
-      }, 2000); // Give user time to see splash
+      }, 10000); // Extended time for testing
       return () => clearTimeout(timer);
     }
   }, [currentUser, setLocation]);
