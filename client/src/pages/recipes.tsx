@@ -574,6 +574,11 @@ export default function RecipesScreen() {
             ) : (
               /* Pantry Dishes View */
               <div className="space-y-3">
+                {selectedDishes.length === 0 && (
+                  <p className="text-center text-gray-600 text-sm mb-4">
+                    Select dishes to generate recipes
+                  </p>
+                )}
                 {pantryDishes.slice(0, 4).map((dish, index) => {
                   const matchingIngredients = dish.ingredients.filter(ingredient => 
                     selectedIngredients.includes(ingredient)
@@ -908,10 +913,8 @@ export default function RecipesScreen() {
           className="w-full py-4 text-lg font-semibold bg-indigo-600 hover:bg-indigo-700"
           disabled={currentView === "pantry" ? selectedIngredients.length === 0 : selectedDishes.length === 0}
         >
-          {currentView === "dishes" && selectedDishes.length > 0 
-            ? "Generate Recipes" 
-            : currentView === "dishes" 
-            ? "Select Dishes to Generate Recipes"
+          {currentView === "dishes" 
+            ? "Generate Recipes"
             : "Generate Meal Plan"
           }
         </Button>
