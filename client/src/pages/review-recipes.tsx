@@ -360,16 +360,16 @@ export default function ReviewRecipesScreen() {
                     {index === 0 && (
                       // Mediterranean Herb Chicken - multiple chicken thighs in bowl
                       <>
-                        <div className="text-5xl opacity-95">🍗</div>
-                        <div className="absolute -top-2 -left-2 text-3xl opacity-75">🍗</div>
-                        <div className="absolute top-2 -right-2 text-3xl opacity-80">🍗</div>
-                        <div className="absolute -bottom-2 left-1 text-3xl opacity-70">🍗</div>
+                        <div className="text-8xl opacity-95">🍗</div>
+                        <div className="absolute -top-3 -left-3 text-4xl opacity-75">🍗</div>
+                        <div className="absolute top-3 -right-3 text-4xl opacity-80">🍗</div>
+                        <div className="absolute -bottom-3 left-2 text-4xl opacity-70">🍗</div>
                       </>
                     )}
-                    {index === 1 && <div className="text-5xl opacity-95">🥩</div>}
-                    {index === 2 && <div className="text-5xl opacity-95">🍲</div>}
-                    {index === 3 && <div className="text-5xl opacity-95">🐟</div>}
-                    {index === 4 && <div className="text-5xl opacity-95">🌽</div>}
+                    {index === 1 && <div className="text-8xl opacity-95">🥩</div>}
+                    {index === 2 && <div className="text-8xl opacity-95">🍲</div>}
+                    {index === 3 && <div className="text-8xl opacity-95">🐟</div>}
+                    {index === 4 && <div className="text-8xl opacity-95">🌽</div>}
                   </div>
                 </div>
 
