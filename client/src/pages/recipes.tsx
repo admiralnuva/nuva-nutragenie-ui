@@ -385,7 +385,7 @@ export default function RecipesScreen() {
                     : "text-gray-600 hover:text-gray-900"
                 }`}
               >
-                Ingredients
+                Pantry Ingredients
               </button>
               <button
                 onClick={() => setCurrentView("dishes")}
@@ -395,7 +395,7 @@ export default function RecipesScreen() {
                     : "text-gray-600 hover:text-gray-900"
                 }`}
               >
-                Recipes
+                Pantry Recipes
               </button>
             </div>
           </CardHeader>
