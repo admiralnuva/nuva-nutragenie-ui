@@ -37,7 +37,7 @@ const dietaryRestrictions = [
 const healthConditions = [
   { label: '🩺 Diabetes', value: 'diabetes' },
   { label: '❤️ Heart Issues', value: 'cardiovascular' },
-  { label: '🫘 Kidney Issues', value: 'kidney' },
+  { label: '🫘 Kidney', value: 'kidney' },
   { label: '🩸 Hypertension', value: 'blood-pressure' },
   { label: '🎗️ Cancer', value: 'cancer' },
   { label: '✅ None', value: 'none' }
