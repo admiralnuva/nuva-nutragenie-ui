@@ -10,7 +10,8 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { BackButton } from "@/components/ui/back-button";
-import { ArrowLeft, Check, User, ChefHat, MapPin, Phone, Shield } from "lucide-react";
+import { ArrowLeft, Check, User, ChefHat, MapPin, Phone, Shield, AlertCircle } from "lucide-react";
+import { z } from "zod";
 
 // Import user avatar images
 import userAvatar1 from "@/assets/avatars/user/user1.png";
@@ -38,6 +39,20 @@ const chefs = [
   { name: 'Chef Harmony', personality: 'Zen & Delicate', avatar: chefAvatar4 }
 ];
 
+// Validation schemas
+const signupSchema = z.object({
+  nickname: z.string().min(2, "Nickname must be at least 2 characters").max(30, "Nickname too long"),
+  ageGroup: z.string().min(1, "Please select an age group"),
+  phoneNumber: z.string().regex(/^\+?[\d\s\-\(\)]{10,}$/, "Please enter a valid phone number"),
+  streetAddress: z.string().min(5, "Please enter a valid street address"),
+  city: z.string().min(2, "Please enter a valid city"),
+  state: z.string().min(2, "Please enter a valid state"),
+  zipCode: z.string().regex(/^\d{5}(-\d{4})?$/, "Please enter a valid ZIP code"),
+  chefNickname: z.string().min(2, "Chef nickname must be at least 2 characters")
+});
+
+type ValidationErrors = Partial<Record<keyof z.infer<typeof signupSchema>, string>>;
+
 export default function SignupScreen() {
   const [, setLocation] = useLocation();
   const [, setCurrentUser] = useLocalStorage("nutragenie_user", null);
@@ -57,6 +72,7 @@ export default function SignupScreen() {
   const [isVerifying, setIsVerifying] = useState(false);
   const [codeSent, setCodeSent] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
+  const [validationErrors, setValidationErrors] = useState<ValidationErrors>({});
 
   const createUserMutation = useMutation({
     mutationFn: async (userData: any) => {
@@ -77,7 +93,46 @@ export default function SignupScreen() {
     }
   });
 
+  const validateForm = (): boolean => {
+    const formData = {
+      nickname,
+      ageGroup,
+      phoneNumber,
+      streetAddress,
+      city,
+      state,
+      zipCode,
+      chefNickname
+    };
+
+    try {
+      signupSchema.parse(formData);
+      setValidationErrors({});
+      return true;
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const errors: ValidationErrors = {};
+        error.errors.forEach((err) => {
+          if (err.path[0]) {
+            errors[err.path[0] as keyof ValidationErrors] = err.message;
+          }
+        });
+        setValidationErrors(errors);
+      }
+      return false;
+    }
+  };
+
   const sendVerificationCode = () => {
+    if (!validateForm()) {
+      toast({ 
+        title: "Please fix errors", 
+        description: "Complete all required fields with valid information.", 
+        variant: "destructive" 
+      });
+      return;
+    }
+
     setIsVerifying(true);
     setTimeout(() => {
       setCodeSent(true);
@@ -208,8 +263,14 @@ export default function SignupScreen() {
                     placeholder="Your name"
                     value={nickname}
                     onChange={(e) => setNickname(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-indigo-500 focus:border-transparent"
+                    className={`w-full px-3 py-2 rounded-lg border ${validationErrors.nickname ? 'border-red-500 focus:ring-red-500' : 'border-warm-neutral-300 focus:ring-brand-indigo-500'} focus:outline-none focus:ring-2 focus:border-transparent`}
                   />
+                  {validationErrors.nickname && (
+                    <div className="flex items-center gap-1 mt-1 text-red-600 text-sm">
+                      <AlertCircle className="w-4 h-4" />
+                      {validationErrors.nickname}
+                    </div>
+                  )}
                 </div>
 
                 <div className="col-span-1">
@@ -217,7 +278,7 @@ export default function SignupScreen() {
                     Age
                   </Label>
                   <Select value={ageGroup} onValueChange={setAgeGroup}>
-                    <SelectTrigger className="w-full px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-indigo-500 focus:border-transparent">
+                    <SelectTrigger className={`w-full px-3 py-2 rounded-lg border ${validationErrors.ageGroup ? 'border-red-500 focus:ring-red-500' : 'border-warm-neutral-300 focus:ring-brand-indigo-500'} focus:outline-none focus:ring-2 focus:border-transparent`}>
                       <SelectValue placeholder="Age" />
                     </SelectTrigger>
                     <SelectContent>
@@ -227,6 +288,12 @@ export default function SignupScreen() {
                       <SelectItem value=">50">&gt; 50</SelectItem>
                     </SelectContent>
                   </Select>
+                  {validationErrors.ageGroup && (
+                    <div className="flex items-center gap-1 mt-1 text-red-600 text-sm">
+                      <AlertCircle className="w-4 h-4" />
+                      {validationErrors.ageGroup}
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -256,8 +323,14 @@ export default function SignupScreen() {
                   placeholder="123 Main Street"
                   value={streetAddress}
                   onChange={(e) => setStreetAddress(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-indigo-500 focus:border-transparent"
+                  className={`w-full px-3 py-2 rounded-lg border ${validationErrors.streetAddress ? 'border-red-500 focus:ring-red-500' : 'border-warm-neutral-300 focus:ring-brand-indigo-500'} focus:outline-none focus:ring-2 focus:border-transparent`}
                 />
+                {validationErrors.streetAddress && (
+                  <div className="flex items-center gap-1 mt-1 text-red-600 text-sm">
+                    <AlertCircle className="w-4 h-4" />
+                    {validationErrors.streetAddress}
+                  </div>
+                )}
               </div>
 
               {/* City, State, Zip Row */}
@@ -272,15 +345,21 @@ export default function SignupScreen() {
                     placeholder="San Francisco"
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-indigo-500 focus:border-transparent"
+                    className={`w-full px-3 py-2 rounded-lg border ${validationErrors.city ? 'border-red-500 focus:ring-red-500' : 'border-warm-neutral-300 focus:ring-brand-indigo-500'} focus:outline-none focus:ring-2 focus:border-transparent`}
                   />
+                  {validationErrors.city && (
+                    <div className="flex items-center gap-1 mt-1 text-red-600 text-sm">
+                      <AlertCircle className="w-3 h-3" />
+                      <span className="text-xs">{validationErrors.city}</span>
+                    </div>
+                  )}
                 </div>
                 <div className="col-span-2">
                   <Label htmlFor="state" className="block text-sm font-medium text-warm-neutral-700 mb-2">
                     State
                   </Label>
                   <Select value={state} onValueChange={setState}>
-                    <SelectTrigger className="w-full">
+                    <SelectTrigger className={`w-full ${validationErrors.state ? 'border-red-500 focus:ring-red-500' : ''}`}>
                       <SelectValue placeholder="CA" />
                     </SelectTrigger>
                     <SelectContent>
@@ -336,6 +415,12 @@ export default function SignupScreen() {
                       <SelectItem value="WY">WY</SelectItem>
                     </SelectContent>
                   </Select>
+                  {validationErrors.state && (
+                    <div className="flex items-center gap-1 mt-1 text-red-600 text-sm">
+                      <AlertCircle className="w-3 h-3" />
+                      <span className="text-xs">{validationErrors.state}</span>
+                    </div>
+                  )}
                 </div>
                 <div className="col-span-2">
                   <Label htmlFor="zipCode" className="block text-sm font-medium text-warm-neutral-700 mb-2">
@@ -345,11 +430,17 @@ export default function SignupScreen() {
                     id="zipCode"
                     type="text"
                     placeholder="94102"
-                    maxLength={5}
+                    maxLength={10}
                     value={zipCode}
                     onChange={(e) => setZipCode(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-indigo-500 focus:border-transparent"
+                    className={`w-full px-3 py-2 rounded-lg border ${validationErrors.zipCode ? 'border-red-500 focus:ring-red-500' : 'border-warm-neutral-300 focus:ring-brand-indigo-500'} focus:outline-none focus:ring-2 focus:border-transparent`}
                   />
+                  {validationErrors.zipCode && (
+                    <div className="flex items-center gap-1 mt-1 text-red-600 text-sm">
+                      <AlertCircle className="w-3 h-3" />
+                      <span className="text-xs">{validationErrors.zipCode}</span>
+                    </div>
+                  )}
                 </div>
               </div>
             </CardContent>
@@ -402,8 +493,14 @@ export default function SignupScreen() {
                   placeholder="Enter chef's name"
                   value={chefNickname}
                   onChange={(e) => setChefNickname(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-indigo-500 focus:border-transparent"
+                  className={`w-full px-3 py-2 rounded-lg border ${validationErrors.chefNickname ? 'border-red-500 focus:ring-red-500' : 'border-warm-neutral-300 focus:ring-brand-indigo-500'} focus:outline-none focus:ring-2 focus:border-transparent`}
                 />
+                {validationErrors.chefNickname && (
+                  <div className="flex items-center gap-1 mt-1 text-red-600 text-sm">
+                    <AlertCircle className="w-4 h-4" />
+                    {validationErrors.chefNickname}
+                  </div>
+                )}
                 <p className="text-xs text-warm-neutral-500 mt-1">Personality: {selectedChef.personality}</p>
               </div>
             </CardContent>
@@ -431,15 +528,21 @@ export default function SignupScreen() {
                     placeholder="(555) 123-4567"
                     value={phoneNumber}
                     onChange={(e) => setPhoneNumber(e.target.value)}
-                    className="flex-1 px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-indigo-500 focus:border-transparent"
+                    className={`flex-1 px-3 py-2 rounded-lg border ${validationErrors.phoneNumber ? 'border-red-500 focus:ring-red-500' : 'border-warm-neutral-300 focus:ring-brand-indigo-500'} focus:outline-none focus:ring-2 focus:border-transparent`}
                   />
                   <Button
                     onClick={sendVerificationCode}
-                    disabled={!isPhoneComplete || isVerifying || codeSent}
+                    disabled={isVerifying || codeSent}
                   >
                     {isVerifying ? "Sending..." : codeSent ? "Sent" : "Send Code"}
                   </Button>
                 </div>
+                {validationErrors.phoneNumber && (
+                  <div className="flex items-center gap-1 mt-1 text-red-600 text-sm">
+                    <AlertCircle className="w-4 h-4" />
+                    {validationErrors.phoneNumber}
+                  </div>
+                )}
               </div>
 
               {codeSent && !isVerified && (
