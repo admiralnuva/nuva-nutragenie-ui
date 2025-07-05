@@ -137,9 +137,10 @@ export default function RecipesScreen() {
   const [currentView, setCurrentView] = useState<"pantry" | "dishes">("pantry");
   
   // Dietary preferences state (Card 1)
-  const [selectedCuisine, setSelectedCuisine] = useState("");
+  const [selectedCuisine, setSelectedCuisine] = useState("american");
   const [selectedMealType, setSelectedMealType] = useState("");
-  const [selectedSpiceLevel, setSelectedSpiceLevel] = useState("");
+  const [selectedSpiceLevel, setSelectedSpiceLevel] = useState("mild");
+  const [servingSize, setServingSize] = useState("2");
   
   // Pantry ingredients state (Card 2)
   const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
@@ -250,20 +251,38 @@ export default function RecipesScreen() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid grid-cols-1 gap-4">
-              <div>
-                <label className="text-sm font-medium text-gray-700 mb-2 block">Cuisine</label>
-                <Select value={selectedCuisine} onValueChange={setSelectedCuisine}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select cuisine type" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {cuisineTypes.map(cuisine => (
-                      <SelectItem key={cuisine.value} value={cuisine.value}>
-                        {cuisine.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="text-sm font-medium text-gray-700 mb-2 block">Cuisine</label>
+                  <Select value={selectedCuisine} onValueChange={setSelectedCuisine}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select cuisine type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {cuisineTypes.map(cuisine => (
+                        <SelectItem key={cuisine.value} value={cuisine.value}>
+                          {cuisine.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium text-gray-700 mb-2 block">Servings</label>
+                  <Select value={servingSize} onValueChange={setServingSize}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Servings" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {Array.from({length: 10}, (_, i) => i + 1).map(num => (
+                        <SelectItem key={num} value={num.toString()}>
+                          {num} {num === 1 ? 'serving' : 'servings'}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
