@@ -562,19 +562,19 @@ export default function RecipesScreen() {
                       <div key={dish.name} className="bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200 rounded-lg p-4">
                         <div className="flex items-start justify-between">
                           <div className="flex-1">
-                            <div className="flex items-center gap-2 mb-1">
+                            <div className="flex items-center gap-2 mb-2">
                               <h4 className="font-semibold text-gray-900">{dish.name}</h4>
                               {index === 0 && <Sparkles className="w-4 h-4 text-indigo-500" />}
-                            </div>
-                            <div className="text-xs text-gray-600 mb-2">
-                              ⏱️ {dish.prepTime + dish.cookTime} min
                             </div>
                             
                             <div className="text-xs text-gray-600 space-y-1">
                               <div>🔥 {dish.calories} cal • 💪 {dish.protein}g protein</div>
-                              <div className="flex items-center gap-1">
-                                <span className="font-medium">Matching:</span>
-                                <span className="text-indigo-600">{matchingIngredients.length}/{dish.ingredients.length} ingredients</span>
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-1">
+                                  <span className="font-medium">Matching:</span>
+                                  <span className="text-indigo-600">{matchingIngredients.length}/{dish.ingredients.length} ingredients</span>
+                                </div>
+                                <div>⏱️ {dish.prepTime + dish.cookTime} min</div>
                               </div>
                             </div>
                           </div>
