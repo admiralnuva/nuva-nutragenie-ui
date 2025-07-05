@@ -7,6 +7,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { BottomNavigation } from "@/components/ui/bottom-navigation";
 import { useToast } from "@/hooks/use-toast";
+import user1Avatar from "@/assets/avatars/user/user1.png";
+import chef1Avatar from "@/assets/avatars/chef/chef1.png";
 import { 
   TrendingUp, 
   Award, 
@@ -365,8 +367,12 @@ export default function HomeScreen() {
         <Card className="p-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white">
           <div className="flex items-center justify-between">
             {/* User Avatar - Left Side */}
-            <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
-              <span className="text-2xl">{currentUser?.avatar || "👨‍🍳"}</span>
+            <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm overflow-hidden">
+              <img 
+                src={user1Avatar} 
+                alt="User Avatar" 
+                className="w-full h-full object-cover"
+              />
             </div>
             
             {/* Center Greeting */}
@@ -375,9 +381,13 @@ export default function HomeScreen() {
               <p className="text-blue-100 text-sm">Let's cook something exciting today!</p>
             </div>
             
-            {/* Chef Avatar - Right Side */}
-            <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
-              <span className="text-2xl">{currentUser?.selectedChef?.emoji || "👨‍🍳"}</span>
+            {/* Chef Marcus Avatar - Right Side */}
+            <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm overflow-hidden">
+              <img 
+                src={chef1Avatar} 
+                alt="Chef Marcus" 
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
         </Card>
