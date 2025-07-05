@@ -379,7 +379,7 @@ export default function RecipesScreen() {
             <div className="flex bg-gray-100 rounded-lg p-1 mt-2">
               <button
                 onClick={() => setCurrentView("pantry")}
-                className={`flex-1 py-1 px-2 rounded-md text-xs font-medium transition-all ${
+                className={`flex-1 py-3 px-2 rounded-md text-sm font-medium transition-all ${
                   currentView === "pantry" 
                     ? "bg-white text-indigo-600 shadow-sm" 
                     : "text-gray-600 hover:text-gray-900"
@@ -389,7 +389,7 @@ export default function RecipesScreen() {
               </button>
               <button
                 onClick={() => setCurrentView("dishes")}
-                className={`flex-1 py-1 px-2 rounded-md text-xs font-medium transition-all ${
+                className={`flex-1 py-3 px-2 rounded-md text-sm font-medium transition-all ${
                   currentView === "dishes" 
                     ? "bg-white text-indigo-600 shadow-sm" 
                     : "text-gray-600 hover:text-gray-900"
