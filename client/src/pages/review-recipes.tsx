@@ -344,13 +344,27 @@ export default function ReviewRecipesScreen() {
             <div key={dish.id} className="bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200 rounded-lg overflow-hidden">
               {/* Full width image at top - same as pantry dishes */}
               <div className="w-full h-32 bg-gradient-to-br from-purple-100 to-violet-200 relative flex items-center justify-center">
-                {/* Large main dish emoji centered */}
-                <div className="text-6xl opacity-90">
-                  {index === 0 && "🍗"}
-                  {index === 1 && "🥩"}
-                  {index === 2 && "🍲"}
-                  {index === 3 && "🐟"}
-                  {index === 4 && "🌽"}
+                {/* Bowl shape */}
+                <div className="w-20 h-20 bg-gradient-to-b from-white/30 to-white/60 rounded-full border-2 border-white/40 flex items-center justify-center relative overflow-hidden">
+                  {/* Bowl interior shadow */}
+                  <div className="absolute inset-2 bg-gradient-to-b from-transparent to-black/10 rounded-full"></div>
+                  
+                  {/* Main dish and additional items in bowl */}
+                  <div className="relative z-10 flex items-center justify-center">
+                    {index === 0 && (
+                      // Mediterranean Herb Chicken - multiple chicken thighs in bowl
+                      <>
+                        <div className="text-3xl opacity-90">🍗</div>
+                        <div className="absolute -top-1 -left-1 text-lg opacity-70">🍗</div>
+                        <div className="absolute top-1 -right-1 text-lg opacity-75">🍗</div>
+                        <div className="absolute -bottom-1 left-0 text-lg opacity-65">🍗</div>
+                      </>
+                    )}
+                    {index === 1 && <div className="text-3xl opacity-90">🥩</div>}
+                    {index === 2 && <div className="text-3xl opacity-90">🍲</div>}
+                    {index === 3 && <div className="text-3xl opacity-90">🐟</div>}
+                    {index === 4 && <div className="text-3xl opacity-90">🌽</div>}
+                  </div>
                 </div>
 
                 {/* Background ingredients - same style as pantry dishes */}
