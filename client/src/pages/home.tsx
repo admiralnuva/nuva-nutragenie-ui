@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { BottomNavigation } from "@/components/ui/bottom-navigation";
+import { useToast } from "@/hooks/use-toast";
 import { 
   TrendingUp, 
   Award, 
@@ -18,7 +19,11 @@ import {
   ShoppingCart,
   Utensils,
   BarChart3,
-  PieChart
+  PieChart,
+  AlertCircle,
+  Loader2,
+  RefreshCw,
+  UserX
 } from "lucide-react";
 import {
   Chart as ChartJS,
@@ -49,6 +54,10 @@ ChartJS.register(
 export default function HomeScreen() {
   const [, setLocation] = useLocation();
   const [currentUser] = useLocalStorage<any>("nutragenie_user", null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [chartError, setChartError] = useState<string | null>(null);
+  const { toast } = useToast();
+  
   const [timeOfDay] = useState(() => {
     const hour = new Date().getHours();
     if (hour < 12) return "morning";
@@ -56,17 +65,53 @@ export default function HomeScreen() {
     return "evening";
   });
 
-  // Generate sample data for charts based on current user data
+  // Check if user exists and redirect if not
+  useEffect(() => {
+    if (!currentUser) {
+      toast({
+        title: "Welcome to NutraGenie",
+        description: "Please create an account to get started",
+        variant: "default"
+      });
+      setLocation("/signup");
+    }
+  }, [currentUser, setLocation, toast]);
+
+  // Handle navigation with error catching
+  const handleNavigation = (path: string) => {
+    try {
+      setIsLoading(true);
+      setLocation(path);
+    } catch (error) {
+      toast({
+        title: "Navigation Error",
+        description: "Unable to navigate. Please try again.",
+        variant: "destructive"
+      });
+      setIsLoading(false);
+    }
+  };
+
+  // Generate sample data for charts based on current user data with error handling
   const generateMonthlyData = () => {
-    const months = ['Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar'];
-    const baseRecipes = currentUser?.recipesCompleted || 0;
-    const basePoints = currentUser?.cookingPoints || 0;
-    
-    return {
-      recipes: months.map((_, i) => Math.max(0, baseRecipes - (5-i) + Math.floor(Math.random() * 3))),
-      cookingPoints: months.map((_, i) => Math.max(0, basePoints - (5-i) * 15 + Math.floor(Math.random() * 20))),
-      orders: months.map((_, i) => Math.floor(Math.random() * 8) + 2),
-    };
+    try {
+      const months = ['Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar'];
+      const baseRecipes = currentUser?.recipesCompleted || 5;
+      const basePoints = currentUser?.cookingPoints || 35;
+      
+      return {
+        recipes: months.map((_, i) => Math.max(0, baseRecipes - (5-i) + Math.floor(Math.random() * 3))),
+        cookingPoints: months.map((_, i) => Math.max(0, basePoints - (5-i) * 15 + Math.floor(Math.random() * 20))),
+        orders: months.map((_, i) => Math.floor(Math.random() * 8) + 2),
+      };
+    } catch (error) {
+      setChartError("Unable to load chart data");
+      return {
+        recipes: [1, 2, 3, 4, 5, 6],
+        cookingPoints: [15, 25, 35, 45, 55, 65],
+        orders: [2, 3, 4, 5, 6, 7],
+      };
+    }
   };
 
   const monthlyData = generateMonthlyData();
@@ -267,12 +312,41 @@ export default function HomeScreen() {
     return greetings[timeOfDay] || greetings.morning;
   };
 
+  // Handle missing user data scenario
+  if (!currentUser) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-black flex items-center justify-center p-4">
+        <Card className="max-w-md w-full p-6 text-center">
+          <UserX className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+          <h2 className="text-xl font-semibold mb-2">Account Required</h2>
+          <p className="text-gray-600 mb-4">
+            Please create an account to access your personalized dashboard
+          </p>
+          <Button 
+            onClick={() => handleNavigation("/signup")}
+            className="w-full"
+            disabled={isLoading}
+          >
+            {isLoading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
+            Create Account
+          </Button>
+        </Card>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-black pb-20">
       {/* Header */}
       <div className="bg-gray-800/90 backdrop-blur-sm border-b border-gray-700 px-4 py-4 flex items-center gap-3">
         <BackButton to="/" />
         <h1 className="text-lg font-semibold text-white">NutraGenie</h1>
+        {chartError && (
+          <div className="ml-auto flex items-center gap-2 text-amber-400 text-sm">
+            <AlertCircle className="w-4 h-4" />
+            Data Issue
+          </div>
+        )}
       </div>
 
       <div className="p-4 space-y-6">
@@ -307,7 +381,7 @@ export default function HomeScreen() {
               <Card 
                 key={index} 
                 className="p-4 cursor-pointer hover:shadow-md transition-all duration-200 hover:scale-105"
-                onClick={() => setLocation(action.path)}
+                onClick={() => handleNavigation(action.path)}
               >
                 <div className="flex items-center gap-4">
                   <div className={`w-12 h-12 ${action.color} rounded-lg flex items-center justify-center text-white`}>
@@ -523,7 +597,7 @@ export default function HomeScreen() {
               <Card 
                 key={index} 
                 className="p-4 cursor-pointer hover:shadow-md transition-all duration-200"
-                onClick={() => setLocation("/recipes")}
+                onClick={() => handleNavigation("/recipes")}
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
