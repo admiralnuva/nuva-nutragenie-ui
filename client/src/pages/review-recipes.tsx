@@ -572,20 +572,9 @@ export default function ReviewRecipesScreen() {
 
               {/* Dish details */}
               <div className="p-4">
-                <div className="flex items-center justify-between mb-2">
-                  <div>
-                    <h3 className="font-bold text-gray-900 text-lg">{dish.name}</h3>
-                    <p className="text-sm text-gray-600">{dish.day} • {dish.servings} servings • {dish.cookTime} min</p>
-                  </div>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => toggleDishExpansion(dish.id)}
-                    className="flex items-center gap-1"
-                  >
-                    Substitutions
-                    {expandedDishes[dish.id] ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-                  </Button>
+                <div className="mb-2">
+                  <h3 className="font-bold text-gray-900 text-lg">{dish.name}</h3>
+                  <p className="text-sm text-gray-600">{dish.day} • {dish.servings} servings • {dish.cookTime} min</p>
                 </div>
 
                 {/* Nutrition info */}
@@ -595,6 +584,17 @@ export default function ReviewRecipesScreen() {
                   <span>{dish.nutrition.carbs}g carbs</span>
                   <span>{dish.nutrition.fat}g fat</span>
                 </div>
+
+                {/* Substitutions button at bottom */}
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => toggleDishExpansion(dish.id)}
+                  className="w-full flex items-center justify-center gap-1"
+                >
+                  Substitutions
+                  {expandedDishes[dish.id] ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                </Button>
 
                 {/* Expanded substitutions dropdown */}
                 {expandedDishes[dish.id] && (
