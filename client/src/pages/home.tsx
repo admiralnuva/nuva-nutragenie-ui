@@ -588,17 +588,9 @@ export default function HomeScreen() {
                   </div>
                   
                   {/* Heart Rate - Wider */}
-                  <div className="bg-red-50 p-2 rounded">
-                    <div className="grid grid-cols-2 gap-1 text-center">
-                      <div>
-                        <div className="text-xs text-gray-600">Heart Rate</div>
-                        <div className="text-lg font-bold text-red-600">72 bpm</div>
-                      </div>
-                      <div>
-                        <div className="text-xs text-gray-600">Resting</div>
-                        <div className="text-sm text-green-600">Normal</div>
-                      </div>
-                    </div>
+                  <div className="bg-red-50 p-2 rounded text-center">
+                    <div className="text-xs text-gray-600">Heart Rate</div>
+                    <div className="text-lg font-bold text-red-600">72 bpm</div>
                   </div>
                 </div>
               </div>
