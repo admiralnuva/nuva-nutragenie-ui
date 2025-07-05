@@ -213,11 +213,23 @@ export default function SignupScreen() {
     });
   };
 
-  // Validation checks - all fields required
-  const isProfileComplete = nickname.trim().length >= 2 && ageGroup.length > 0 && selectedAvatar !== null;
-  const isAddressComplete = streetAddress.trim().length >= 5 && city.trim().length >= 2 && state.trim().length >= 2 && zipCode.trim().length >= 5;
-  const isChefComplete = chefNickname.trim().length >= 2 && selectedChef !== null;
-  const isPhoneComplete = phoneNumber.trim().length >= 10;
+  // Field-level validation checks
+  const isAvatarSelected = selectedAvatar !== null;
+  const isNicknameValid = nickname.trim().length >= 2;
+  const isAgeValid = ageGroup.length > 0;
+  const isAddressValid = streetAddress.trim().length >= 5;
+  const isCityValid = city.trim().length >= 2;
+  const isStateValid = state.trim().length >= 2;
+  const isZipValid = zipCode.trim().length >= 5;
+  const isChefAvatarSelected = selectedChef !== null;
+  const isChefNicknameValid = chefNickname.trim().length >= 2;
+  const isPhoneValid = phoneNumber.trim().length >= 10;
+
+  // Section completion checks
+  const isProfileComplete = isAvatarSelected && isNicknameValid && isAgeValid;
+  const isAddressComplete = isAddressValid && isCityValid && isStateValid && isZipValid;
+  const isChefComplete = isChefAvatarSelected && isChefNicknameValid;
+  const isPhoneComplete = isPhoneValid;
   const isVerifiedComplete = isVerified;
 
   // Auto-advance to next card when current section is completed
@@ -342,6 +354,7 @@ export default function SignupScreen() {
                     onChange={(e) => {
                       setNickname(e.target.value);
                       handleFieldChange('nickname', e.target.value);
+                      setTouched(prev => ({ ...prev, nickname: true }));
                     }}
                     onBlur={() => setTouched(prev => ({ ...prev, nickname: true }))}
                     className={`w-full px-3 py-2 rounded-lg border ${
@@ -363,22 +376,26 @@ export default function SignupScreen() {
                   </Label>
                   <Select 
                     value={ageGroup} 
-                    disabled={!selectedAvatar}
+                    disabled={!selectedAvatar || !isNicknameValid}
                     onValueChange={(value) => {
                       setAgeGroup(value);
                       handleFieldChange('ageGroup', value);
+                      setTouched(prev => ({ ...prev, ageGroup: true }));
                     }}>
                     <SelectTrigger className={`w-full px-3 py-2 rounded-lg border ${
                       !selectedAvatar ? 'border-gray-300 bg-gray-100 cursor-not-allowed' :
                       validationErrors.ageGroup ? 'border-red-500 focus:ring-red-500' : 'border-warm-neutral-300 focus:ring-brand-indigo-500'
                     } focus:outline-none focus:ring-2 focus:border-transparent`}>
-                      <SelectValue placeholder={selectedAvatar ? "Age" : "Select avatar first"} />
+                      <SelectValue placeholder={
+                        !selectedAvatar ? "Select avatar first" :
+                        !isNicknameValid ? "Enter nickname first" : "Age"
+                      } />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="<16">&lt; 16</SelectItem>
                       <SelectItem value="17-30">17-30</SelectItem>
                       <SelectItem value="31-50">31-50</SelectItem>
-                      <SelectItem value=">50">&gt; 50</SelectItem>
+                      <SelectItem value="51+">&gt; 51+</SelectItem>
                     </SelectContent>
                   </Select>
                   {validationErrors.ageGroup && (
@@ -418,6 +435,7 @@ export default function SignupScreen() {
                   onChange={(e) => {
                     setStreetAddress(e.target.value);
                     handleFieldChange('streetAddress', e.target.value);
+                    setTouched(prev => ({ ...prev, streetAddress: true }));
                   }}
                   onBlur={() => setTouched(prev => ({ ...prev, streetAddress: true }))}
                   className={`w-full px-3 py-2 rounded-lg border ${validationErrors.streetAddress ? 'border-red-500 focus:ring-red-500' : 'border-warm-neutral-300 focus:ring-brand-indigo-500'} focus:outline-none focus:ring-2 focus:border-transparent`}
@@ -439,14 +457,19 @@ export default function SignupScreen() {
                   <Input
                     id="city"
                     type="text"
-                    placeholder="San Francisco"
+                    placeholder={isAddressValid ? "San Francisco" : "Enter address first"}
                     value={city}
+                    disabled={!isAddressValid}
                     onChange={(e) => {
                       setCity(e.target.value);
                       handleFieldChange('city', e.target.value);
+                      setTouched(prev => ({ ...prev, city: true }));
                     }}
                     onBlur={() => setTouched(prev => ({ ...prev, city: true }))}
-                    className={`w-full px-3 py-2 rounded-lg border ${validationErrors.city ? 'border-red-500 focus:ring-red-500' : 'border-warm-neutral-300 focus:ring-brand-indigo-500'} focus:outline-none focus:ring-2 focus:border-transparent`}
+                    className={`w-full px-3 py-2 rounded-lg border ${
+                      !isAddressValid ? 'border-gray-300 bg-gray-100 cursor-not-allowed' :
+                      validationErrors.city ? 'border-red-500 focus:ring-red-500' : 'border-warm-neutral-300 focus:ring-brand-indigo-500'
+                    } focus:outline-none focus:ring-2 focus:border-transparent`}
                   />
                   {validationErrors.city && (
                     <div className="flex items-center gap-1 mt-1 text-red-600 text-sm">
@@ -459,12 +482,22 @@ export default function SignupScreen() {
                   <Label htmlFor="state" className="block text-sm font-medium text-warm-neutral-700 mb-2">
                     State
                   </Label>
-                  <Select value={state} onValueChange={(value) => {
-                    setState(value);
-                    handleFieldChange('state', value);
-                  }}>
-                    <SelectTrigger className={`w-full ${validationErrors.state ? 'border-red-500 focus:ring-red-500' : ''}`}>
-                      <SelectValue placeholder="CA" />
+                  <Select 
+                    value={state} 
+                    disabled={!isAddressValid || !isCityValid}
+                    onValueChange={(value) => {
+                      setState(value);
+                      handleFieldChange('state', value);
+                      setTouched(prev => ({ ...prev, state: true }));
+                    }}>
+                    <SelectTrigger className={`w-full ${
+                      !isAddressValid || !isCityValid ? 'border-gray-300 bg-gray-100 cursor-not-allowed' :
+                      validationErrors.state ? 'border-red-500 focus:ring-red-500' : 'border-warm-neutral-300'
+                    }`}>
+                      <SelectValue placeholder={
+                        !isAddressValid ? "Enter address first" :
+                        !isCityValid ? "Enter city first" : "CA"
+                      } />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="AL">AL</SelectItem>
@@ -533,15 +566,24 @@ export default function SignupScreen() {
                   <Input
                     id="zipCode"
                     type="text"
-                    placeholder="94102"
+                    placeholder={
+                      !isAddressValid ? "Address first" :
+                      !isCityValid ? "City first" :
+                      !isStateValid ? "State first" : "94102"
+                    }
                     maxLength={10}
                     value={zipCode}
+                    disabled={!isAddressValid || !isCityValid || !isStateValid}
                     onChange={(e) => {
                       setZipCode(e.target.value);
                       handleFieldChange('zipCode', e.target.value);
+                      setTouched(prev => ({ ...prev, zipCode: true }));
                     }}
                     onBlur={() => setTouched(prev => ({ ...prev, zipCode: true }))}
-                    className={`w-full px-3 py-2 rounded-lg border ${validationErrors.zipCode ? 'border-red-500 focus:ring-red-500' : 'border-warm-neutral-300 focus:ring-brand-indigo-500'} focus:outline-none focus:ring-2 focus:border-transparent`}
+                    className={`w-full px-3 py-2 rounded-lg border ${
+                      !isAddressValid || !isCityValid || !isStateValid ? 'border-gray-300 bg-gray-100 cursor-not-allowed' :
+                      validationErrors.zipCode ? 'border-red-500 focus:ring-red-500' : 'border-warm-neutral-300 focus:ring-brand-indigo-500'
+                    } focus:outline-none focus:ring-2 focus:border-transparent`}
                   />
                   {validationErrors.zipCode && (
                     <div className="flex items-center gap-1 mt-1 text-red-600 text-sm">
@@ -620,6 +662,7 @@ export default function SignupScreen() {
                   onChange={(e) => {
                     setChefNickname(e.target.value);
                     handleFieldChange('chefNickname', e.target.value);
+                    setTouched(prev => ({ ...prev, chefNickname: true }));
                   }}
                   onBlur={() => setTouched(prev => ({ ...prev, chefNickname: true }))}
                   className={`w-full px-3 py-2 rounded-lg border ${
