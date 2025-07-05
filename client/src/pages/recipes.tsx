@@ -587,7 +587,7 @@ export default function RecipesScreen() {
                     return (
                       <div 
                         key={dish.name} 
-                        className={`bg-gradient-to-r from-indigo-50 to-purple-50 border-2 rounded-lg overflow-hidden cursor-pointer transition-all ${
+                        className={`bg-gradient-to-r from-indigo-50 to-purple-50 border-2 rounded-lg overflow-hidden cursor-pointer transition-all relative ${
                           isSelected ? 'border-indigo-500 bg-indigo-100' : 'border-indigo-200 hover:border-indigo-300'
                         }`}
                         onClick={() => toggleDishSelection(dishId)}
