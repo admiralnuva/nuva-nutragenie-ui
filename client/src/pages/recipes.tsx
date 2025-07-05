@@ -361,9 +361,7 @@ export default function RecipesScreen() {
           <CardHeader className="py-2">
             <div className="flex items-center justify-between">
               <div className="flex-1">
-                <CardTitle className="text-lg">
-                  {currentView === "pantry" ? "Pantry Ingredients" : "Recipe Suggestions"}
-                </CardTitle>
+                <CardTitle className="text-lg">Your Pantry Ingredients</CardTitle>
                 <p className="text-sm text-gray-600 mt-1">
                   {currentView === "pantry" ? "Select available ingredients" : "Recipes you can make right now"}
                 </p>
@@ -381,23 +379,23 @@ export default function RecipesScreen() {
             <div className="flex bg-gray-100 rounded-lg p-1 mt-2">
               <button
                 onClick={() => setCurrentView("pantry")}
-                className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all ${
+                className={`flex-1 py-1 px-2 rounded-md text-xs font-medium transition-all ${
                   currentView === "pantry" 
                     ? "bg-white text-indigo-600 shadow-sm" 
                     : "text-gray-600 hover:text-gray-900"
                 }`}
               >
-                Pantry Ingredients
+                Ingredients
               </button>
               <button
                 onClick={() => setCurrentView("dishes")}
-                className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all ${
+                className={`flex-1 py-1 px-2 rounded-md text-xs font-medium transition-all ${
                   currentView === "dishes" 
                     ? "bg-white text-indigo-600 shadow-sm" 
                     : "text-gray-600 hover:text-gray-900"
                 }`}
               >
-                Recommended Dishes
+                Recipes
               </button>
             </div>
           </CardHeader>
