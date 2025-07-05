@@ -530,80 +530,76 @@ export default function HomeScreen() {
 
               {/* Collapsible Health Form */}
               <div className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                showHealthForm ? 'max-h-96 opacity-100 mb-2' : 'max-h-0 opacity-0'
+                showHealthForm ? 'max-h-80 opacity-100 mb-2' : 'max-h-0 opacity-0'
               }`}>
-                <Card className="p-4 bg-blue-50 border-indigo-200">
-                  <form onSubmit={handleHealthSubmit} className="space-y-3">
-                    {/* Date Selection */}
+                <Card className="p-3 bg-blue-50 border-indigo-200">
+                  <form onSubmit={handleHealthSubmit} className="space-y-2">
+                    {/* Date Selection - Compact */}
                     <div>
-                      <Label htmlFor="date" className="text-sm font-medium">Date</Label>
+                      <Label htmlFor="date" className="text-xs font-medium text-gray-700">Date</Label>
                       <Input
                         type="date"
                         id="date"
                         value={healthData.date}
                         onChange={(e) => setHealthData({...healthData, date: e.target.value})}
-                        className="mt-1"
+                        className="mt-0.5 h-8 text-sm"
                       />
                     </div>
 
-                    {/* Blood Pressure */}
-                    <div className="grid grid-cols-2 gap-3">
+                    {/* All inputs in one row for ultra-compact layout */}
+                    <div className="grid grid-cols-4 gap-2">
                       <div>
-                        <Label htmlFor="systolic" className="text-sm font-medium">Systolic BP</Label>
+                        <Label htmlFor="systolic" className="text-xs font-medium text-gray-700">Sys BP</Label>
                         <Input
                           type="number"
                           id="systolic"
                           placeholder="120"
                           value={healthData.bloodPressureSystolic}
                           onChange={(e) => setHealthData({...healthData, bloodPressureSystolic: e.target.value})}
-                          className="mt-1"
+                          className="mt-0.5 h-8 text-sm"
                         />
                       </div>
                       <div>
-                        <Label htmlFor="diastolic" className="text-sm font-medium">Diastolic BP</Label>
+                        <Label htmlFor="diastolic" className="text-xs font-medium text-gray-700">Dia BP</Label>
                         <Input
                           type="number"
                           id="diastolic"
                           placeholder="80"
                           value={healthData.bloodPressureDiastolic}
                           onChange={(e) => setHealthData({...healthData, bloodPressureDiastolic: e.target.value})}
-                          className="mt-1"
+                          className="mt-0.5 h-8 text-sm"
                         />
                       </div>
-                    </div>
-
-                    {/* Blood Sugar and Weight */}
-                    <div className="grid grid-cols-2 gap-3">
                       <div>
-                        <Label htmlFor="bloodSugar" className="text-sm font-medium">Blood Sugar (mg/dL)</Label>
+                        <Label htmlFor="bloodSugar" className="text-xs font-medium text-gray-700">Sugar</Label>
                         <Input
                           type="number"
                           id="bloodSugar"
                           placeholder="94"
                           value={healthData.bloodSugar}
                           onChange={(e) => setHealthData({...healthData, bloodSugar: e.target.value})}
-                          className="mt-1"
+                          className="mt-0.5 h-8 text-sm"
                         />
                       </div>
                       <div>
-                        <Label htmlFor="weight" className="text-sm font-medium">Weight (lbs)</Label>
+                        <Label htmlFor="weight" className="text-xs font-medium text-gray-700">Weight</Label>
                         <Input
                           type="number"
                           id="weight"
                           placeholder="165"
                           value={healthData.weight}
                           onChange={(e) => setHealthData({...healthData, weight: e.target.value})}
-                          className="mt-1"
+                          className="mt-0.5 h-8 text-sm"
                         />
                       </div>
                     </div>
 
-                    {/* Submit Button */}
+                    {/* Compact Submit Button */}
                     <Button 
                       type="submit" 
-                      className="w-full bg-green-600 hover:bg-green-700 text-white mt-4"
+                      className="w-full bg-green-600 hover:bg-green-700 text-white h-8 text-sm mt-2"
                     >
-                      Save Health Data
+                      Save Data
                     </Button>
                   </form>
                 </Card>
