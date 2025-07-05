@@ -241,12 +241,10 @@ export default function SignupScreen() {
         <div className="space-y-3">
           {/* Profile Section */}
           <Card 
-            className={`transition-all border-2 ${
+            className={`transition-all border-2 cursor-pointer ${
               activeCard === 1 ? 'border-indigo-500 shadow-lg' : 'border-white'
             } ${isProfileComplete ? 'ring-2 ring-green-500' : ''}`}
-            onFocus={() => setActiveCard(1)}
-            onMouseEnter={() => setActiveCard(1)}
-            onMouseLeave={() => setActiveCard(null)}
+            onClick={() => setActiveCard(activeCard === 1 ? null : 1)}
           >
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-2 text-lg">
@@ -498,12 +496,10 @@ export default function SignupScreen() {
 
           {/* Chef Selection Section */}
           <Card 
-            className={`transition-all border-2 ${
+            className={`transition-all border-2 cursor-pointer ${
               activeCard === 2 ? 'border-indigo-500 shadow-lg' : 'border-white'
             } ${isChefComplete ? 'ring-2 ring-green-500' : ''}`}
-            onFocus={() => setActiveCard(2)}
-            onMouseEnter={() => setActiveCard(2)}
-            onMouseLeave={() => setActiveCard(null)}
+            onClick={() => setActiveCard(activeCard === 2 ? null : 2)}
           >
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-2 text-lg">
@@ -569,12 +565,10 @@ export default function SignupScreen() {
 
           {/* Phone Verification Section */}
           <Card 
-            className={`transition-all border-2 ${
+            className={`transition-all border-2 cursor-pointer ${
               activeCard === 3 ? 'border-indigo-500 shadow-lg' : 'border-white'
             } ${isVerifiedComplete ? 'ring-2 ring-green-500' : ''}`}
-            onFocus={() => setActiveCard(3)}
-            onMouseEnter={() => setActiveCard(3)}
-            onMouseLeave={() => setActiveCard(null)}
+            onClick={() => setActiveCard(activeCard === 3 ? null : 3)}
           >
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-2 text-lg">
