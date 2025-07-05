@@ -567,7 +567,7 @@ export default function RecipesScreen() {
                     return (
                       <div key={dish.name} className="bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200 rounded-lg overflow-hidden">
                         {/* Full width image at top */}
-                        <div className="w-full h-32 bg-gradient-to-br from-lime-100 to-green-200 relative flex items-center justify-center">
+                        <div className="w-full h-32 bg-gradient-to-br from-purple-100 to-violet-200 relative flex items-center justify-center">
                           {/* Background ingredients and kitchen items */}
                           <div className="absolute inset-0 flex items-center justify-center">
                             {/* Top left bunch of carrots */}
