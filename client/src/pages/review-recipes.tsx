@@ -342,250 +342,210 @@ export default function ReviewRecipesScreen() {
         <div className="space-y-4">
           {chefRecommendedDishes.map((dish, index) => (
             <div key={dish.id} className="bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200 rounded-lg overflow-hidden">
-              {/* Full screen bowl with dense ingredients */}
-              <div className="w-full h-48 bg-gradient-to-br from-purple-100 to-violet-200 relative overflow-hidden">
-                {/* Bowl shape background */}
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/20 to-white/40 rounded-t-full transform scale-x-150 origin-bottom"></div>
-                
-                {/* Bowl rim */}
-                <div className="absolute top-2 left-4 right-4 h-2 bg-gradient-to-r from-gray-300 via-gray-200 to-gray-300 rounded-full opacity-60"></div>
+              {/* Full width image at top - same as pantry dishes */}
+              <div className="w-full h-32 bg-gradient-to-br from-purple-100 to-violet-200 relative flex items-center justify-center">
+                {/* Large main dish emoji centered */}
+                <div className="text-6xl opacity-90">
+                  {index === 0 && "🍗"}
+                  {index === 1 && "🥩"}
+                  {index === 2 && "🍲"}
+                  {index === 3 && "🐟"}
+                  {index === 4 && "🌽"}
+                </div>
 
-                {/* Dense ingredient arrangements */}
+                {/* Background ingredients - same style as pantry dishes */}
                 {index === 0 && (
-                  // Mediterranean Herb Chicken - Dense bowl arrangement
+                  // Mediterranean Herb Chicken ingredients
                   <>
-                    {/* Multiple chicken thighs filling the bowl */}
-                    <div className="absolute top-8 left-6 text-2xl opacity-80">🍗</div>
-                    <div className="absolute top-12 left-12 text-2xl opacity-85">🍗</div>
-                    <div className="absolute top-8 right-8 text-2xl opacity-75">🍗</div>
-                    <div className="absolute top-16 right-6 text-2xl opacity-80">🍗</div>
-                    <div className="absolute top-20 left-8 text-2xl opacity-70">🍗</div>
-                    <div className="absolute top-24 right-12 text-2xl opacity-75">🍗</div>
+                    {/* Top left rosemary cluster */}
+                    <div className="absolute top-1 left-2 text-lg opacity-60">
+                      <span>🌿</span><span className="ml-1">🌿</span><span className="ml-1">🌿</span>
+                    </div>
                     
-                    {/* Cherry tomatoes scattered throughout */}
-                    <div className="absolute top-6 left-16 text-sm opacity-60">🍅</div>
-                    <div className="absolute top-14 left-4 text-sm opacity-55">🍅</div>
-                    <div className="absolute top-10 right-4 text-sm opacity-65">🍅</div>
-                    <div className="absolute top-18 left-20 text-sm opacity-50">🍅</div>
-                    <div className="absolute top-22 right-8 text-sm opacity-60">🍅</div>
-                    <div className="absolute top-26 left-14 text-sm opacity-55">🍅</div>
-                    <div className="absolute top-30 right-16 text-sm opacity-50">🍅</div>
+                    {/* Top right tomato cluster */}
+                    <div className="absolute top-2 right-2 text-sm opacity-50">
+                      <div>🍅🍅🍅</div>
+                      <div className="mt-1">🍅🍅</div>
+                    </div>
                     
-                    {/* Fresh herbs scattered everywhere */}
-                    <div className="absolute top-4 left-10 text-xs opacity-45">🌿</div>
-                    <div className="absolute top-12 left-18 text-xs opacity-40">🌿</div>
-                    <div className="absolute top-8 right-12 text-xs opacity-50">🌿</div>
-                    <div className="absolute top-20 left-6 text-xs opacity-35">🌿</div>
-                    <div className="absolute top-16 right-10 text-xs opacity-45">🌿</div>
-                    <div className="absolute top-28 left-16 text-xs opacity-40">🌿</div>
-                    <div className="absolute top-24 right-4 text-xs opacity-35">🌿</div>
-                    <div className="absolute top-32 right-14 text-xs opacity-30">🌿</div>
+                    {/* Left side cooking tools */}
+                    <div className="absolute left-1 top-12 text-lg opacity-55">
+                      <div>🔪🥄</div>
+                      <div className="mt-1">🥘</div>
+                    </div>
                     
-                    {/* Cooking utensils around the bowl */}
-                    <div className="absolute top-2 left-2 text-base opacity-40">🔪</div>
-                    <div className="absolute top-4 right-2 text-base opacity-35">🥄</div>
-                    <div className="absolute bottom-4 left-2 text-base opacity-30">🥘</div>
+                    {/* Right side seasoning */}
+                    <div className="absolute right-1 top-16 text-base opacity-45">
+                      <div>🧂🫒</div>
+                      <div className="mt-1">🧄</div>
+                    </div>
                     
-                    {/* Oil drops and seasonings */}
-                    <div className="absolute top-6 left-22 text-xs opacity-25">🫒</div>
-                    <div className="absolute top-14 right-2 text-xs opacity-30">🫒</div>
-                    <div className="absolute top-22 left-2 text-xs opacity-25">🧂</div>
-                    <div className="absolute top-26 right-6 text-xs opacity-20">🧂</div>
+                    {/* Bottom scattered herbs */}
+                    <div className="absolute bottom-3 left-3 text-sm opacity-50">
+                      <span>🌿</span><span className="ml-1">🌿</span><span className="ml-1">🌿</span>
+                    </div>
+                    
+                    {/* Bottom right small tomatoes */}
+                    <div className="absolute bottom-2 right-3 text-xs opacity-40">
+                      <div>🍅🍅🧄</div>
+                      <div className="mt-1">🧂🌿🧂</div>
+                    </div>
                   </>
                 )}
 
                 {index === 1 && (
-                  // Asian Sesame Beef Bowl - Dense steaming bowl
+                  // Asian Sesame Beef Bowl ingredients
                   <>
-                    {/* Multiple beef pieces layered in bowl */}
-                    <div className="absolute top-6 left-8 text-2xl opacity-85">🥩</div>
-                    <div className="absolute top-10 left-14 text-2xl opacity-80">🥩</div>
-                    <div className="absolute top-6 right-10 text-2xl opacity-75">🥩</div>
-                    <div className="absolute top-14 right-6 text-2xl opacity-80">🥩</div>
-                    <div className="absolute top-18 left-6 text-2xl opacity-70">🥩</div>
-                    <div className="absolute top-22 right-14 text-2xl opacity-75">🥩</div>
-                    <div className="absolute top-26 left-16 text-2xl opacity-65">🥩</div>
+                    {/* Top left rice cluster */}
+                    <div className="absolute top-1 left-2 text-lg opacity-60">
+                      <span>🍚</span><span className="ml-1">🍚</span><span className="ml-1">🍚</span>
+                    </div>
                     
-                    {/* Rice bed underneath everything */}
-                    <div className="absolute top-12 left-4 text-xs opacity-30">🍚</div>
-                    <div className="absolute top-16 left-10 text-xs opacity-25">🍚</div>
-                    <div className="absolute top-20 left-16 text-xs opacity-30">🍚</div>
-                    <div className="absolute top-14 right-4 text-xs opacity-25">🍚</div>
-                    <div className="absolute top-18 right-10 text-xs opacity-30">🍚</div>
-                    <div className="absolute top-24 left-12 text-xs opacity-25">🍚</div>
-                    <div className="absolute top-28 right-8 text-xs opacity-20">🍚</div>
-                    <div className="absolute top-32 left-8 text-xs opacity-25">🍚</div>
+                    {/* Top right sesame and garlic */}
+                    <div className="absolute top-2 right-2 text-sm opacity-50">
+                      <div>⚪⚪⚪</div>
+                      <div className="mt-1">🧄🧄</div>
+                    </div>
                     
-                    {/* Sesame seeds sprinkled on top */}
-                    <div className="absolute top-8 left-12 text-xs opacity-50">⚪</div>
-                    <div className="absolute top-12 right-8 text-xs opacity-45">⚪</div>
-                    <div className="absolute top-16 left-18 text-xs opacity-40">⚪</div>
-                    <div className="absolute top-20 right-12 text-xs opacity-35">⚪</div>
-                    <div className="absolute top-24 left-10 text-xs opacity-40">⚪</div>
+                    {/* Left side chopsticks and utensils */}
+                    <div className="absolute left-1 top-12 text-lg opacity-55">
+                      <div>🥢🥄</div>
+                      <div className="mt-1">🍜</div>
+                    </div>
                     
-                    {/* Steam rising from hot bowl */}
-                    <div className="absolute top-4 left-8 text-sm opacity-30">💨</div>
-                    <div className="absolute top-2 left-16 text-sm opacity-25">💨</div>
-                    <div className="absolute top-3 right-10 text-sm opacity-30">💨</div>
+                    {/* Right side spices */}
+                    <div className="absolute right-1 top-16 text-base opacity-45">
+                      <div>🌶️🧂</div>
+                      <div className="mt-1">🫒</div>
+                    </div>
                     
-                    {/* Chopsticks and utensils */}
-                    <div className="absolute top-2 right-2 text-base opacity-40">🥢</div>
-                    <div className="absolute bottom-2 left-2 text-base opacity-35">🥄</div>
-                    <div className="absolute bottom-4 right-3 text-base opacity-30">🍜</div>
+                    {/* Bottom sesame oil cluster */}
+                    <div className="absolute bottom-3 left-3 text-sm opacity-50">
+                      <span>⚪</span><span className="ml-1">⚪</span><span className="ml-1">⚪</span>
+                    </div>
                     
-                    {/* Garlic and spices scattered */}
-                    <div className="absolute top-10 left-2 text-xs opacity-35">🧄</div>
-                    <div className="absolute top-18 right-2 text-xs opacity-30">🧄</div>
-                    <div className="absolute top-26 left-4 text-xs opacity-25">🌶️</div>
-                    <div className="absolute top-30 right-6 text-xs opacity-30">🌶️</div>
+                    {/* Bottom right garlic and chili */}
+                    <div className="absolute bottom-2 right-3 text-xs opacity-40">
+                      <div>🧄🌶️🧄</div>
+                      <div className="mt-1">🌶️🧂🌶️</div>
+                    </div>
                   </>
                 )}
 
                 {index === 2 && (
-                  // Tuscan White Bean Soup - Dense soup bowl
+                  // Tuscan White Bean Soup ingredients
                   <>
-                    {/* White beans floating throughout the soup */}
-                    <div className="absolute top-8 left-6 text-lg opacity-80">🫘</div>
-                    <div className="absolute top-12 left-14 text-lg opacity-75">🫘</div>
-                    <div className="absolute top-10 right-8 text-lg opacity-80">🫘</div>
-                    <div className="absolute top-16 right-6 text-lg opacity-70">🫘</div>
-                    <div className="absolute top-20 left-8 text-lg opacity-75">🫘</div>
-                    <div className="absolute top-24 right-12 text-lg opacity-65">🫘</div>
-                    <div className="absolute top-18 left-16 text-lg opacity-70">🫘</div>
-                    <div className="absolute top-28 left-12 text-lg opacity-60">🫘</div>
-                    <div className="absolute top-26 right-8 text-lg opacity-65">🫘</div>
-                    <div className="absolute top-32 left-6 text-lg opacity-55">🫘</div>
+                    {/* Top left white beans cluster */}
+                    <div className="absolute top-1 left-2 text-lg opacity-60">
+                      <span>🫘</span><span className="ml-1">🫘</span><span className="ml-1">🫘</span>
+                    </div>
                     
-                    {/* Spinach leaves floating in soup */}
-                    <div className="absolute top-6 left-12 text-sm opacity-60">🥬</div>
-                    <div className="absolute top-14 left-6 text-sm opacity-55">🥬</div>
-                    <div className="absolute top-10 right-4 text-sm opacity-60">🥬</div>
-                    <div className="absolute top-22 left-14 text-sm opacity-50">🥬</div>
-                    <div className="absolute top-18 right-10 text-sm opacity-55">🥬</div>
-                    <div className="absolute top-30 right-14 text-sm opacity-45">🥬</div>
-                    <div className="absolute top-26 left-4 text-sm opacity-50">🥬</div>
+                    {/* Top right spinach and herbs */}
+                    <div className="absolute top-2 right-2 text-sm opacity-50">
+                      <div>🥬🥬🥬</div>
+                      <div className="mt-1">🌿🌿</div>
+                    </div>
                     
-                    {/* Herbs floating on surface */}
-                    <div className="absolute top-4 left-8 text-xs opacity-45">🌿</div>
-                    <div className="absolute top-8 right-12 text-xs opacity-40">🌿</div>
-                    <div className="absolute top-12 left-18 text-xs opacity-35">🌿</div>
-                    <div className="absolute top-16 right-4 text-xs opacity-40">🌿</div>
-                    <div className="absolute top-20 left-10 text-xs opacity-35">🌿</div>
-                    <div className="absolute top-24 right-6 text-xs opacity-30">🌿</div>
+                    {/* Left side cooking utensils */}
+                    <div className="absolute left-1 top-12 text-lg opacity-55">
+                      <div>🥄🍜</div>
+                      <div className="mt-1">🥘</div>
+                    </div>
                     
-                    {/* Soup steam and utensils */}
-                    <div className="absolute top-2 left-10 text-sm opacity-30">💨</div>
-                    <div className="absolute top-1 right-8 text-sm opacity-25">💨</div>
-                    <div className="absolute top-3 left-16 text-sm opacity-30">💨</div>
+                    {/* Right side seasonings */}
+                    <div className="absolute right-1 top-16 text-base opacity-45">
+                      <div>🧂🫒</div>
+                      <div className="mt-1">🍋</div>
+                    </div>
                     
-                    <div className="absolute top-2 left-2 text-base opacity-40">🥄</div>
-                    <div className="absolute bottom-2 right-2 text-base opacity-35">🍜</div>
-                    <div className="absolute bottom-4 left-3 text-base opacity-30">🥘</div>
+                    {/* Bottom beans cluster */}
+                    <div className="absolute bottom-3 left-3 text-sm opacity-50">
+                      <span>🫘</span><span className="ml-1">🫘</span><span className="ml-1">🫘</span>
+                    </div>
                     
-                    {/* Oil drops and seasonings */}
-                    <div className="absolute top-14 left-2 text-xs opacity-30">🫒</div>
-                    <div className="absolute top-22 right-2 text-xs opacity-25">🧂</div>
-                    <div className="absolute top-28 left-2 text-xs opacity-30">🍋</div>
+                    {/* Bottom right herbs and seasonings */}
+                    <div className="absolute bottom-2 right-3 text-xs opacity-40">
+                      <div>🌿🥬🌿</div>
+                      <div className="mt-1">🧂🍋🧂</div>
+                    </div>
                   </>
                 )}
 
                 {index === 3 && (
-                  // Thai Curry Salmon - Dense curry bowl
+                  // Thai Curry Salmon ingredients
                   <>
-                    {/* Multiple salmon fillets in curry */}
-                    <div className="absolute top-8 left-8 text-2xl opacity-85">🐟</div>
-                    <div className="absolute top-12 left-14 text-2xl opacity-80">🐟</div>
-                    <div className="absolute top-8 right-10 text-2xl opacity-75">🐟</div>
-                    <div className="absolute top-16 right-6 text-2xl opacity-80">🐟</div>
-                    <div className="absolute top-20 left-6 text-2xl opacity-70">🐟</div>
-                    <div className="absolute top-24 right-14 text-2xl opacity-75">🐟</div>
+                    {/* Top left coconut cluster */}
+                    <div className="absolute top-1 left-2 text-lg opacity-60">
+                      <span>🥥</span><span className="ml-1">🥥</span><span className="ml-1">🥥</span>
+                    </div>
                     
-                    {/* Coconut milk base throughout */}
-                    <div className="absolute top-10 left-4 text-sm opacity-40">🥥</div>
-                    <div className="absolute top-14 right-4 text-sm opacity-35">🥥</div>
-                    <div className="absolute top-18 left-12 text-sm opacity-40">🥥</div>
-                    <div className="absolute top-22 right-8 text-sm opacity-35">🥥</div>
-                    <div className="absolute top-26 left-8 text-sm opacity-30">🥥</div>
-                    <div className="absolute top-30 right-12 text-sm opacity-35">🥥</div>
+                    {/* Top right curry and chili */}
+                    <div className="absolute top-2 right-2 text-sm opacity-50">
+                      <div>🌶️🌶️🌶️</div>
+                      <div className="mt-1">🧄🧄</div>
+                    </div>
                     
-                    {/* Red curry and chili peppers */}
-                    <div className="absolute top-6 left-10 text-sm opacity-65">🌶️</div>
-                    <div className="absolute top-12 right-8 text-sm opacity-60">🌶️</div>
-                    <div className="absolute top-16 left-18 text-sm opacity-55">🌶️</div>
-                    <div className="absolute top-20 right-12 text-sm opacity-60">🌶️</div>
-                    <div className="absolute top-24 left-4 text-sm opacity-50">🌶️</div>
-                    <div className="absolute top-28 right-6 text-sm opacity-55">🌶️</div>
+                    {/* Left side cooking utensils */}
+                    <div className="absolute left-1 top-12 text-lg opacity-55">
+                      <div>🥄🍜</div>
+                      <div className="mt-1">🔪</div>
+                    </div>
                     
-                    {/* Thai basil and herbs */}
-                    <div className="absolute top-4 left-6 text-xs opacity-45">🌿</div>
-                    <div className="absolute top-8 right-14 text-xs opacity-40">🌿</div>
-                    <div className="absolute top-14 left-8 text-xs opacity-35">🌿</div>
-                    <div className="absolute top-18 right-4 text-xs opacity-40">🌿</div>
-                    <div className="absolute top-22 left-16 text-xs opacity-35">🌿</div>
-                    <div className="absolute top-26 right-10 text-xs opacity-30">🌿</div>
+                    {/* Right side herbs and lime */}
+                    <div className="absolute right-1 top-16 text-base opacity-45">
+                      <div>🌿🍋</div>
+                      <div className="mt-1">🧂</div>
+                    </div>
                     
-                    {/* Steam from hot curry */}
-                    <div className="absolute top-2 left-8 text-sm opacity-35">💨</div>
-                    <div className="absolute top-1 right-10 text-sm opacity-30">💨</div>
-                    <div className="absolute top-3 left-14 text-sm opacity-35">💨</div>
+                    {/* Bottom coconut cluster */}
+                    <div className="absolute bottom-3 left-3 text-sm opacity-50">
+                      <span>🥥</span><span className="ml-1">🥥</span><span className="ml-1">🥥</span>
+                    </div>
                     
-                    {/* Utensils and garlic */}
-                    <div className="absolute top-2 left-2 text-base opacity-40">🥄</div>
-                    <div className="absolute bottom-2 right-2 text-base opacity-35">🍜</div>
-                    <div className="absolute top-10 left-2 text-xs opacity-35">🧄</div>
-                    <div className="absolute top-22 right-2 text-xs opacity-30">🧄</div>
-                    <div className="absolute bottom-4 left-4 text-xs opacity-25">🍋</div>
+                    {/* Bottom right spices */}
+                    <div className="absolute bottom-2 right-3 text-xs opacity-40">
+                      <div>🌶️🧄🌶️</div>
+                      <div className="mt-1">🌿🍋🌿</div>
+                    </div>
                   </>
                 )}
 
                 {index === 4 && (
-                  // Mexican Street Corn Bowls - Dense colorful bowl
+                  // Mexican Street Corn Bowls ingredients
                   <>
-                    {/* Multiple corn kernels filling the bowl */}
-                    <div className="absolute top-6 left-6 text-lg opacity-85">🌽</div>
-                    <div className="absolute top-10 left-12 text-lg opacity-80">🌽</div>
-                    <div className="absolute top-6 right-8 text-lg opacity-75">🌽</div>
-                    <div className="absolute top-14 right-6 text-lg opacity-80">🌽</div>
-                    <div className="absolute top-18 left-8 text-lg opacity-70">🌽</div>
-                    <div className="absolute top-22 right-12 text-lg opacity-75">🌽</div>
-                    <div className="absolute top-16 left-16 text-lg opacity-65">🌽</div>
-                    <div className="absolute top-26 left-10 text-lg opacity-60">🌽</div>
-                    <div className="absolute top-24 right-8 text-lg opacity-65">🌽</div>
-                    <div className="absolute top-30 left-14 text-lg opacity-55">🌽</div>
+                    {/* Top left black beans cluster */}
+                    <div className="absolute top-1 left-2 text-lg opacity-60">
+                      <span>🫘</span><span className="ml-1">🫘</span><span className="ml-1">🫘</span>
+                    </div>
                     
-                    {/* Black beans scattered throughout */}
-                    <div className="absolute top-8 left-10 text-sm opacity-70">🫘</div>
-                    <div className="absolute top-12 right-10 text-sm opacity-65">🫘</div>
-                    <div className="absolute top-16 left-6 text-sm opacity-60">🫘</div>
-                    <div className="absolute top-20 right-4 text-sm opacity-65">🫘</div>
-                    <div className="absolute top-24 left-14 text-sm opacity-55">🫘</div>
-                    <div className="absolute top-28 right-10 text-sm opacity-60">🫘</div>
-                    <div className="absolute top-32 left-8 text-sm opacity-50">🫘</div>
+                    {/* Top right cheese and chili */}
+                    <div className="absolute top-2 right-2 text-sm opacity-50">
+                      <div>🧀🧀🧀</div>
+                      <div className="mt-1">🌶️🌶️</div>
+                    </div>
                     
-                    {/* Cotija cheese crumbles on top */}
-                    <div className="absolute top-4 left-8 text-sm opacity-60">🧀</div>
-                    <div className="absolute top-8 right-6 text-sm opacity-55">🧀</div>
-                    <div className="absolute top-12 left-14 text-sm opacity-50">🧀</div>
-                    <div className="absolute top-16 right-12 text-sm opacity-55">🧀</div>
-                    <div className="absolute top-20 left-4 text-sm opacity-45">🧀</div>
-                    <div className="absolute top-24 right-6 text-sm opacity-50">🧀</div>
-                    <div className="absolute top-28 left-12 text-sm opacity-40">🧀</div>
+                    {/* Left side utensils */}
+                    <div className="absolute left-1 top-12 text-lg opacity-55">
+                      <div>🥄🍴</div>
+                      <div className="mt-1">🥣</div>
+                    </div>
                     
-                    {/* Chili powder and lime */}
-                    <div className="absolute top-6 left-14 text-xs opacity-45">🌶️</div>
-                    <div className="absolute top-14 right-8 text-xs opacity-40">🌶️</div>
-                    <div className="absolute top-18 left-10 text-xs opacity-35">🌶️</div>
-                    <div className="absolute top-22 right-14 text-xs opacity-40">🌶️</div>
-                    <div className="absolute top-26 left-6 text-xs opacity-30">🌶️</div>
+                    {/* Right side lime and seasonings */}
+                    <div className="absolute right-1 top-16 text-base opacity-45">
+                      <div>🍋🧂</div>
+                      <div className="mt-1">🌶️</div>
+                    </div>
                     
-                    <div className="absolute top-10 left-4 text-xs opacity-40">🍋</div>
-                    <div className="absolute top-18 right-6 text-xs opacity-35">🍋</div>
-                    <div className="absolute top-26 right-4 text-xs opacity-40">🍋</div>
+                    {/* Bottom beans cluster */}
+                    <div className="absolute bottom-3 left-3 text-sm opacity-50">
+                      <span>🫘</span><span className="ml-1">🫘</span><span className="ml-1">🫘</span>
+                    </div>
                     
-                    {/* Utensils */}
-                    <div className="absolute top-2 left-2 text-base opacity-40">🥄</div>
-                    <div className="absolute top-4 right-2 text-base opacity-35">🍴</div>
-                    <div className="absolute bottom-2 left-3 text-base opacity-30">🥣</div>
+                    {/* Bottom right cheese and lime */}
+                    <div className="absolute bottom-2 right-3 text-xs opacity-40">
+                      <div>🧀🍋🧀</div>
+                      <div className="mt-1">🌶️🧂🌶️</div>
+                    </div>
                   </>
                 )}
               </div>
