@@ -351,12 +351,24 @@ export default function SignupScreen() {
                     placeholder={selectedAvatar ? "Your name" : "Select avatar first"}
                     value={nickname}
                     disabled={!selectedAvatar}
+                    tabIndex={selectedAvatar ? 0 : -1}
                     onChange={(e) => {
                       setNickname(e.target.value);
                       handleFieldChange('nickname', e.target.value);
                       setTouched(prev => ({ ...prev, nickname: true }));
                     }}
-                    onBlur={() => setTouched(prev => ({ ...prev, nickname: true }))}
+                    onBlur={() => {
+                      setTouched(prev => ({ ...prev, nickname: true }));
+                      // Validate on blur
+                      if (nickname.trim().length < 2) {
+                        setValidationErrors(prev => ({ ...prev, nickname: "Enter nickname" }));
+                      }
+                    }}
+                    onFocus={() => {
+                      if (!selectedAvatar) {
+                        setTouched(prev => ({ ...prev, avatar: true }));
+                      }
+                    }}
                     className={`w-full px-3 py-2 rounded-lg border ${
                       !selectedAvatar ? 'border-gray-300 bg-gray-100 cursor-not-allowed' :
                       validationErrors.nickname ? 'border-red-500 focus:ring-red-500' : 'border-warm-neutral-300 focus:ring-brand-indigo-500'
@@ -381,11 +393,23 @@ export default function SignupScreen() {
                       setAgeGroup(value);
                       handleFieldChange('ageGroup', value);
                       setTouched(prev => ({ ...prev, ageGroup: true }));
+                    }}
+                    onOpenChange={(isOpen) => {
+                      if (isOpen && (!selectedAvatar || !isNicknameValid)) {
+                        setTouched(prev => ({ 
+                          ...prev, 
+                          ageGroup: true,
+                          avatar: !selectedAvatar,
+                          nickname: !isNicknameValid
+                        }));
+                      }
                     }}>
-                    <SelectTrigger className={`w-full px-3 py-2 rounded-lg border ${
-                      !selectedAvatar ? 'border-gray-300 bg-gray-100 cursor-not-allowed' :
-                      validationErrors.ageGroup ? 'border-red-500 focus:ring-red-500' : 'border-warm-neutral-300 focus:ring-brand-indigo-500'
-                    } focus:outline-none focus:ring-2 focus:border-transparent`}>
+                    <SelectTrigger 
+                      tabIndex={selectedAvatar && isNicknameValid ? 0 : -1}
+                      className={`w-full px-3 py-2 rounded-lg border ${
+                        !selectedAvatar || !isNicknameValid ? 'border-gray-300 bg-gray-100 cursor-not-allowed' :
+                        validationErrors.ageGroup ? 'border-red-500 focus:ring-red-500' : 'border-warm-neutral-300 focus:ring-brand-indigo-500'
+                      } focus:outline-none focus:ring-2 focus:border-transparent`}>
                       <SelectValue placeholder={
                         !selectedAvatar ? "Select avatar first" :
                         !isNicknameValid ? "Enter nickname first" : "Age"
@@ -402,6 +426,12 @@ export default function SignupScreen() {
                     <div className="flex items-center gap-1 mt-1 text-red-600 text-sm">
                       <AlertCircle className="w-4 h-4" />
                       {validationErrors.ageGroup}
+                    </div>
+                  )}
+                  {(!selectedAvatar || !isNicknameValid) && touched.ageGroup && (
+                    <div className="flex items-center gap-1 mt-1 text-red-600 text-sm">
+                      <AlertCircle className="w-4 h-4" />
+                      {!selectedAvatar ? "Select avatar first" : "Complete nickname first"}
                     </div>
                   )}
                 </div>
@@ -432,18 +462,43 @@ export default function SignupScreen() {
                   type="text"
                   placeholder="123 Main Street"
                   value={streetAddress}
+                  tabIndex={isProfileComplete ? 0 : -1}
                   onChange={(e) => {
                     setStreetAddress(e.target.value);
                     handleFieldChange('streetAddress', e.target.value);
                     setTouched(prev => ({ ...prev, streetAddress: true }));
                   }}
-                  onBlur={() => setTouched(prev => ({ ...prev, streetAddress: true }))}
-                  className={`w-full px-3 py-2 rounded-lg border ${validationErrors.streetAddress ? 'border-red-500 focus:ring-red-500' : 'border-warm-neutral-300 focus:ring-brand-indigo-500'} focus:outline-none focus:ring-2 focus:border-transparent`}
+                  onBlur={() => {
+                    setTouched(prev => ({ ...prev, streetAddress: true }));
+                    if (streetAddress.trim().length < 5) {
+                      setValidationErrors(prev => ({ ...prev, streetAddress: "Enter street address" }));
+                    }
+                  }}
+                  onFocus={() => {
+                    if (!isProfileComplete) {
+                      setTouched(prev => ({ 
+                        ...prev, 
+                        nickname: true, 
+                        ageGroup: true, 
+                        avatar: true 
+                      }));
+                    }
+                  }}
+                  className={`w-full px-3 py-2 rounded-lg border ${
+                    !isProfileComplete ? 'border-red-500 bg-red-50' :
+                    validationErrors.streetAddress ? 'border-red-500 focus:ring-red-500' : 'border-warm-neutral-300 focus:ring-brand-indigo-500'
+                  } focus:outline-none focus:ring-2 focus:border-transparent`}
                 />
                 {validationErrors.streetAddress && (
                   <div className="flex items-center gap-1 mt-1 text-red-600 text-sm">
                     <AlertCircle className="w-4 h-4" />
                     {validationErrors.streetAddress}
+                  </div>
+                )}
+                {!isProfileComplete && touched.streetAddress && (
+                  <div className="flex items-center gap-1 mt-1 text-red-600 text-sm">
+                    <AlertCircle className="w-4 h-4" />
+                    Complete profile section first (avatar, nickname, age)
                   </div>
                 )}
               </div>
