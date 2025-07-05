@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { BackButton } from "@/components/ui/back-button";
+import { OnboardingMascot, ONBOARDING_MESSAGES } from "@/components/ui/onboarding-mascot";
 import { ArrowLeft, Check, User, ChefHat, MapPin, Phone, Shield, AlertCircle } from "lucide-react";
 import { z } from "zod";
 
@@ -75,6 +76,55 @@ export default function SignupScreen() {
   const [validationErrors, setValidationErrors] = useState<ValidationErrors>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [activeCard, setActiveCard] = useState<number | null>(1);
+  
+  // Mascot guidance state
+  const [showMascot, setShowMascot] = useState(true);
+  const [currentMascotStep, setCurrentMascotStep] = useState(0);
+
+  // Dynamic mascot messages based on progress
+  const getMascotMessages = () => {
+    const messages = [];
+    
+    if (!selectedAvatar) {
+      messages.push({
+        id: "welcome",
+        text: "Welcome to NutraGenie! I'm Genie, your nutrition guide. Let's create your personalized profile - start by choosing your avatar!",
+        delay: 1000
+      });
+    } else if (!isNicknameValid) {
+      messages.push({
+        id: "nickname",
+        text: "Great avatar choice! Now enter your nickname - this is how I'll greet you throughout the app.",
+        delay: 500
+      });
+    } else if (!ageGroup) {
+      messages.push({
+        id: "age",
+        text: "Perfect! Now select your age group so I can tailor nutrition recommendations to your life stage.",
+        delay: 500
+      });
+    } else if (!selectedChef) {
+      messages.push({
+        id: "chef",
+        text: "Excellent! Now choose your AI chef companion. Each has their own cooking style and personality to match your preferences.",
+        delay: 500
+      });
+    } else if (!isVerified) {
+      messages.push({
+        id: "verification",
+        text: "Almost there! Verify your phone number to secure your account and enable personalized meal notifications.",
+        delay: 500
+      });
+    } else {
+      messages.push({
+        id: "complete",
+        text: "Amazing! Your profile is complete. I'll guide you through setting up your dietary preferences next.",
+        delay: 500
+      });
+    }
+    
+    return messages;
+  };
 
   const createUserMutation = useMutation({
     mutationFn: async (userData: any) => {
@@ -839,6 +889,16 @@ export default function SignupScreen() {
           </div>
         </div>
       </div>
+
+      {/* Onboarding Mascot */}
+      {showMascot && (
+        <OnboardingMascot
+          messages={getMascotMessages()}
+          position="bottom-right"
+          onComplete={() => setShowMascot(false)}
+          mascotName="Genie"
+        />
+      )}
     </div>
   );
 }

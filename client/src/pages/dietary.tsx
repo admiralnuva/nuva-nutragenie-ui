@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { BackButton } from "@/components/ui/back-button";
+import { OnboardingMascot } from "@/components/ui/onboarding-mascot";
 import { ArrowLeft, Heart, Target, Shield, ThumbsDown } from "lucide-react";
 
 // Import user avatar images
@@ -67,6 +68,51 @@ export default function DietaryScreen() {
   const [foodDislikes, setFoodDislikes] = useState("");
   const [allergies, setAllergies] = useState("");
   const [additionalNotes, setAdditionalNotes] = useState("");
+  
+  // Mascot guidance state
+  const [showMascot, setShowMascot] = useState(true);
+
+  // Dynamic mascot messages for dietary page
+  const getDietaryMascotMessages = () => {
+    if (selectedDietary.length === 0 && selectedHealth.length === 0 && selectedFitness.length === 0) {
+      return [
+        {
+          id: "dietary-intro",
+          text: "Perfect! Now I'll help you set up your dietary preferences. This ensures your meal plans match your lifestyle and health goals.",
+          delay: 1000
+        },
+        {
+          id: "start-here",
+          text: "Start with dietary restrictions - these are the foundation for personalized recipes that fit your needs!",
+          delay: 500
+        }
+      ];
+    } else if (selectedDietary.length > 0 && selectedHealth.length === 0) {
+      return [
+        {
+          id: "health-next",
+          text: "Great dietary choices! Now select any health factors I should consider for optimal nutrition planning.",
+          delay: 500
+        }
+      ];
+    } else if (selectedFitness.length === 0) {
+      return [
+        {
+          id: "fitness-goals",
+          text: "Excellent! Don't forget to set your fitness goals - this helps me recommend meals that support your wellness journey.",
+          delay: 500
+        }
+      ];
+    } else {
+      return [
+        {
+          id: "almost-done",
+          text: "Amazing progress! Feel free to add any food dislikes or allergies, then we'll generate your first personalized recipes!",
+          delay: 500
+        }
+      ];
+    }
+  };
 
   // Focus on dietary restrictions when page loads
   useEffect(() => {
@@ -352,6 +398,16 @@ export default function DietaryScreen() {
           )}
         </form>
       </div>
+
+      {/* Onboarding Mascot */}
+      {showMascot && (
+        <OnboardingMascot
+          messages={getDietaryMascotMessages()}
+          position="bottom-left"
+          onComplete={() => setShowMascot(false)}
+          mascotName="Genie"
+        />
+      )}
     </div>
   );
 }
