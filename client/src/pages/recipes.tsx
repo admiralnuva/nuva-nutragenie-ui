@@ -545,45 +545,38 @@ export default function RecipesScreen() {
                 </div>
               </div>
             ) : (
-              /* Recommended Dishes View */
+              /* Pantry Dishes View */
               <div className="space-y-3">
-                {getMatchingDishes().length === 0 ? (
-                  <div className="text-center py-8">
-                    <ChefHat className="w-12 h-12 text-gray-400 mx-auto mb-3" />
-                    <p className="text-gray-600">Select more ingredients to see recipe recommendations</p>
-                  </div>
-                ) : (
-                  getMatchingDishes().map((dish, index) => {
-                    const matchingIngredients = dish.ingredients.filter(ingredient => 
-                      selectedIngredients.includes(ingredient)
-                    );
-                    
-                    return (
-                      <div key={dish.name} className="bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200 rounded-lg p-4">
-                        <div className="flex items-start justify-between">
-                          <div className="flex-1">
-                            <div className="flex items-center gap-2 mb-2">
-                              <h4 className="font-semibold text-gray-900">{dish.name}</h4>
-                              {index === 0 && <Sparkles className="w-4 h-4 text-indigo-500" />}
-                            </div>
-                            
-                            <div className="text-xs text-gray-600 space-y-1">
-                              <div>🔥 {dish.calories} cal • 💪 {dish.protein}g protein</div>
-                              <div className="flex items-center gap-3">
-                                <span className="text-indigo-600">{matchingIngredients.length}/{dish.ingredients.length} ingredients</span>
-                                <span>⏱️ {dish.prepTime + dish.cookTime} min</span>
-                              </div>
-                            </div>
+                {pantryDishes.slice(0, 4).map((dish, index) => {
+                  const matchingIngredients = dish.ingredients.filter(ingredient => 
+                    selectedIngredients.includes(ingredient)
+                  );
+                  
+                  return (
+                    <div key={dish.name} className="bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200 rounded-lg p-4">
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-2">
+                            <h4 className="font-semibold text-gray-900">{dish.name}</h4>
+                            {index === 0 && <Sparkles className="w-4 h-4 text-indigo-500" />}
                           </div>
                           
-                          <div className="ml-4">
-                            {dish.dishImage}
+                          <div className="text-xs text-gray-600 space-y-1">
+                            <div>🔥 {dish.calories} cal • 💪 {dish.protein}g protein</div>
+                            <div className="flex items-center gap-3">
+                              <span className="text-indigo-600">{matchingIngredients.length}/{dish.ingredients.length} ingredients</span>
+                              <span>⏱️ {dish.prepTime + dish.cookTime} min</span>
+                            </div>
                           </div>
                         </div>
+                        
+                        <div className="ml-4">
+                          {dish.dishImage}
+                        </div>
                       </div>
-                    );
-                  })
-                )}
+                    </div>
+                  );
+                })}
               </div>
             )}
           </CardContent>
