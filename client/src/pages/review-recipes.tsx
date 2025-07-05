@@ -745,7 +745,7 @@ export default function ReviewRecipesScreen() {
                 disabled={shoppingCart.length === 0}
               >
                 <List size={16} className="mr-2" />
-                View Full List
+                View Grocery List
               </Button>
               <Button 
                 variant="outline" 
