@@ -294,7 +294,10 @@ export default function SignupScreen() {
             <CardContent className="space-y-4">
               {/* Avatar Selection */}
               <div>
-                <Label className="block text-sm font-medium text-warm-neutral-700 mb-3">Avatar</Label>
+                <Label className="block text-sm font-medium text-warm-neutral-700 mb-3">
+                  Avatar <span className="text-red-500">*</span> 
+                  {!selectedAvatar && <span className="text-xs text-indigo-600 ml-2">(Select first to continue)</span>}
+                </Label>
                 <div className="grid grid-cols-4 gap-2">
                   {userAvatars.map(avatar => (
                     <button
@@ -305,7 +308,8 @@ export default function SignupScreen() {
                         setTouched(prev => ({ ...prev, avatar: true }));
                       }}
                       className={`flex items-center justify-center w-20 h-20 rounded-lg ${
-                        selectedAvatar?.id === avatar.id ? 'ring-2 ring-indigo-500 bg-indigo-50 shadow-md scale-105' : ''
+                        selectedAvatar?.id === avatar.id ? 'ring-2 ring-indigo-500 bg-indigo-50 shadow-md scale-105' : 
+                        !selectedAvatar ? 'ring-2 ring-orange-400 animate-pulse' : ''
                       } bg-white hover:ring-2 hover:ring-indigo-400 hover:bg-indigo-50 transition-all overflow-hidden`}
                     >
                       <img 
@@ -316,10 +320,10 @@ export default function SignupScreen() {
                     </button>
                   ))}
                 </div>
-                {touched.avatar && !selectedAvatar && (
-                  <div className="flex items-center gap-1 mt-2 text-red-600 text-sm">
+                {!selectedAvatar && (
+                  <div className="flex items-center gap-1 mt-2 text-orange-600 text-sm">
                     <AlertCircle className="w-4 h-4" />
-                    Please select an avatar
+                    Please select an avatar to continue
                   </div>
                 )}
               </div>
@@ -332,14 +336,18 @@ export default function SignupScreen() {
                   <Input
                     id="nickname"
                     type="text"
-                    placeholder="Your name"
+                    placeholder={selectedAvatar ? "Your name" : "Select avatar first"}
                     value={nickname}
+                    disabled={!selectedAvatar}
                     onChange={(e) => {
                       setNickname(e.target.value);
                       handleFieldChange('nickname', e.target.value);
                     }}
                     onBlur={() => setTouched(prev => ({ ...prev, nickname: true }))}
-                    className={`w-full px-3 py-2 rounded-lg border ${validationErrors.nickname ? 'border-red-500 focus:ring-red-500' : 'border-warm-neutral-300 focus:ring-brand-indigo-500'} focus:outline-none focus:ring-2 focus:border-transparent`}
+                    className={`w-full px-3 py-2 rounded-lg border ${
+                      !selectedAvatar ? 'border-gray-300 bg-gray-100 cursor-not-allowed' :
+                      validationErrors.nickname ? 'border-red-500 focus:ring-red-500' : 'border-warm-neutral-300 focus:ring-brand-indigo-500'
+                    } focus:outline-none focus:ring-2 focus:border-transparent`}
                   />
                   {validationErrors.nickname && (
                     <div className="flex items-center gap-1 mt-1 text-red-600 text-sm">
@@ -353,12 +361,18 @@ export default function SignupScreen() {
                   <Label htmlFor="ageGroup" className="block text-sm font-medium text-warm-neutral-700 mb-2">
                     Age
                   </Label>
-                  <Select value={ageGroup} onValueChange={(value) => {
-                    setAgeGroup(value);
-                    handleFieldChange('ageGroup', value);
-                  }}>
-                    <SelectTrigger className={`w-full px-3 py-2 rounded-lg border ${validationErrors.ageGroup ? 'border-red-500 focus:ring-red-500' : 'border-warm-neutral-300 focus:ring-brand-indigo-500'} focus:outline-none focus:ring-2 focus:border-transparent`}>
-                      <SelectValue placeholder="Age" />
+                  <Select 
+                    value={ageGroup} 
+                    disabled={!selectedAvatar}
+                    onValueChange={(value) => {
+                      setAgeGroup(value);
+                      handleFieldChange('ageGroup', value);
+                    }}>
+                    <SelectTrigger className={`w-full px-3 py-2 rounded-lg border ${
+                      !selectedAvatar ? 'border-gray-300 bg-gray-100 cursor-not-allowed' :
+                      validationErrors.ageGroup ? 'border-red-500 focus:ring-red-500' : 'border-warm-neutral-300 focus:ring-brand-indigo-500'
+                    } focus:outline-none focus:ring-2 focus:border-transparent`}>
+                      <SelectValue placeholder={selectedAvatar ? "Age" : "Select avatar first"} />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="<16">&lt; 16</SelectItem>
@@ -558,7 +572,10 @@ export default function SignupScreen() {
             <CardContent className="space-y-4">
               {/* Chef Avatar Selection */}
               <div>
-                <Label className="block text-sm font-medium text-warm-neutral-700 mb-3">Chef Avatar</Label>
+                <Label className="block text-sm font-medium text-warm-neutral-700 mb-3">
+                  Chef Avatar <span className="text-red-500">*</span>
+                  {!selectedChef && <span className="text-xs text-indigo-600 ml-2">(Select first to continue)</span>}
+                </Label>
                 <div className="grid grid-cols-4 gap-2">
                   {chefs.map(chef => (
                     <button
@@ -570,7 +587,8 @@ export default function SignupScreen() {
                         setTouched(prev => ({ ...prev, chef: true }));
                       }}
                       className={`flex items-center justify-center w-20 h-20 rounded-lg ${
-                        selectedChef?.name === chef.name ? 'ring-2 ring-indigo-500 bg-indigo-50 shadow-md scale-105' : ''
+                        selectedChef?.name === chef.name ? 'ring-2 ring-indigo-500 bg-indigo-50 shadow-md scale-105' : 
+                        !selectedChef ? 'ring-2 ring-orange-400 animate-pulse' : ''
                       } bg-white hover:ring-2 hover:ring-indigo-400 hover:bg-indigo-50 transition-all overflow-hidden`}
                     >
                       <img 
@@ -581,10 +599,10 @@ export default function SignupScreen() {
                     </button>
                   ))}
                 </div>
-                {touched.chef && !selectedChef && (
-                  <div className="flex items-center gap-1 mt-2 text-red-600 text-sm">
+                {!selectedChef && (
+                  <div className="flex items-center gap-1 mt-2 text-orange-600 text-sm">
                     <AlertCircle className="w-4 h-4" />
-                    Please select a chef avatar
+                    Please select a chef avatar to continue
                   </div>
                 )}
               </div>
@@ -596,14 +614,18 @@ export default function SignupScreen() {
                 <Input
                   id="chefNickname"
                   type="text"
-                  placeholder="Enter chef's name"
+                  placeholder={selectedChef ? "Enter chef's name" : "Select chef avatar first"}
                   value={chefNickname}
+                  disabled={!selectedChef}
                   onChange={(e) => {
                     setChefNickname(e.target.value);
                     handleFieldChange('chefNickname', e.target.value);
                   }}
                   onBlur={() => setTouched(prev => ({ ...prev, chefNickname: true }))}
-                  className={`w-full px-3 py-2 rounded-lg border ${validationErrors.chefNickname ? 'border-red-500 focus:ring-red-500' : 'border-warm-neutral-300 focus:ring-brand-indigo-500'} focus:outline-none focus:ring-2 focus:border-transparent`}
+                  className={`w-full px-3 py-2 rounded-lg border ${
+                    !selectedChef ? 'border-gray-300 bg-gray-100 cursor-not-allowed' :
+                    validationErrors.chefNickname ? 'border-red-500 focus:ring-red-500' : 'border-warm-neutral-300 focus:ring-brand-indigo-500'
+                  } focus:outline-none focus:ring-2 focus:border-transparent`}
                 />
                 {validationErrors.chefNickname && (
                   <div className="flex items-center gap-1 mt-1 text-red-600 text-sm">
