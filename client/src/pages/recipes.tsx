@@ -570,24 +570,44 @@ export default function RecipesScreen() {
                         <div className="w-full h-32 bg-gradient-to-br from-orange-100 to-orange-200 relative flex items-center justify-center">
                           {/* Background ingredients and kitchen items */}
                           <div className="absolute inset-0 flex items-center justify-center">
-                            {/* Top scattered ingredients */}
-                            <div className="absolute top-2 left-4 text-2xl opacity-60">🥕</div>
-                            <div className="absolute top-3 right-6 text-xl opacity-50">🧄</div>
-                            <div className="absolute top-1 right-12 text-lg opacity-40">🧅</div>
+                            {/* Top left bunch of carrots */}
+                            <div className="absolute top-1 left-2 text-lg opacity-60">
+                              <span>🥕</span><span className="ml-1">🥕</span><span className="ml-1">🥕</span>
+                            </div>
                             
-                            {/* Left side ingredients */}
-                            <div className="absolute left-2 top-8 text-xl opacity-50">🫑</div>
-                            <div className="absolute left-1 bottom-6 text-lg opacity-40">🥒</div>
+                            {/* Top right cluster of garlic and onions */}
+                            <div className="absolute top-2 right-2 text-sm opacity-50">
+                              <div>🧄🧄🧄</div>
+                              <div className="mt-1">🧅🧅</div>
+                            </div>
                             
-                            {/* Right side kitchen items */}
-                            <div className="absolute right-2 top-12 text-lg opacity-40">🔪</div>
-                            <div className="absolute right-1 bottom-8 text-xl opacity-50">🍳</div>
-                            <div className="absolute right-4 bottom-2 text-lg opacity-40">🥄</div>
+                            {/* Left side bell pepper bunch */}
+                            <div className="absolute left-1 top-12 text-lg opacity-55">
+                              <div>🫑🫑</div>
+                              <div className="mt-1">🫑</div>
+                            </div>
                             
-                            {/* Bottom scattered spices */}
-                            <div className="absolute bottom-2 left-8 text-sm opacity-30">🌿</div>
-                            <div className="absolute bottom-1 left-16 text-sm opacity-30">🧂</div>
-                            <div className="absolute bottom-3 right-16 text-sm opacity-30">🫒</div>
+                            {/* Right side kitchen tools cluster */}
+                            <div className="absolute right-1 top-16 text-base opacity-45">
+                              <div>🔪🥄</div>
+                              <div className="mt-1">🍳</div>
+                            </div>
+                            
+                            {/* Bottom left ginger cluster */}
+                            <div className="absolute bottom-3 left-3 text-sm opacity-50">
+                              <span>🫚</span><span className="ml-1">🫚</span><span className="ml-1">🫚</span>
+                            </div>
+                            
+                            {/* Bottom right herbs and spices bunch */}
+                            <div className="absolute bottom-2 right-3 text-xs opacity-40">
+                              <div>🌿🌿🌿</div>
+                              <div className="mt-1">🧂🫒🧂</div>
+                            </div>
+                            
+                            {/* Center left cucumber cluster */}
+                            <div className="absolute left-1 bottom-8 text-base opacity-45">
+                              <span>🥒</span><span className="ml-1">🥒</span>
+                            </div>
                           </div>
                           
                           {/* Main dish image in center */}
