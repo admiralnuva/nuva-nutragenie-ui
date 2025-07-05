@@ -239,20 +239,52 @@ export default function RecipesScreen() {
                 <CardTitle className="text-lg">Dietary Preferences</CardTitle>
                 <div className="space-y-1 mt-1">
                   {/* Dietary Restrictions Row */}
-                  <div className="text-xs text-gray-600">
-                    <span className="font-medium">Dietary:</span> {(userData?.dietaryRestrictions?.length > 0 ? userData.dietaryRestrictions : ['Vegetarian', 'Gluten-Free']).slice(0, 3).join(', ')}
-                    {userData?.dietaryRestrictions?.length > 3 && ` +${userData.dietaryRestrictions.length - 3} more`}
-                  </div>
+                  {userData?.dietaryRestrictions && userData.dietaryRestrictions.length > 0 && (
+                    <div className="text-xs text-gray-600">
+                      <span className="font-medium">Dietary:</span> {userData.dietaryRestrictions.slice(0, 3).join(', ')}
+                      {userData.dietaryRestrictions.length > 3 && ` +${userData.dietaryRestrictions.length - 3} more`}
+                    </div>
+                  )}
                   
-                  {/* Health Conditions Row */}
-                  <div className="text-xs text-gray-600">
-                    <span className="font-medium">Health:</span> {(userData?.healthConditions?.length > 0 ? userData.healthConditions : ['Heart Issues']).slice(0, 2).join(', ')}
-                  </div>
+                  {/* Health Goals Row */}
+                  {userData?.healthGoals && userData.healthGoals.length > 0 && (
+                    <div className="text-xs text-gray-600">
+                      <span className="font-medium">Health:</span> {userData.healthGoals.slice(0, 2).join(', ')}
+                      {userData.healthGoals.length > 2 && ` +${userData.healthGoals.length - 2} more`}
+                    </div>
+                  )}
                   
-                  {/* Fitness Goals Row */}
-                  <div className="text-xs text-gray-600">
-                    <span className="font-medium">Goals:</span> {(userData?.fitnessGoals?.length > 0 ? userData.fitnessGoals : ['Build Muscle', 'Lose Weight']).slice(0, 2).join(', ')}
-                  </div>
+                  {/* Allergies Row */}
+                  {userData?.allergies && userData.allergies.trim() && (
+                    <div className="text-xs text-gray-600">
+                      <span className="font-medium">Allergies:</span> {userData.allergies}
+                    </div>
+                  )}
+                  
+                  {/* Food Dislikes Row */}
+                  {userData?.foodDislikes && userData.foodDislikes.trim() && (
+                    <div className="text-xs text-gray-600">
+                      <span className="font-medium">Dislikes:</span> {userData.foodDislikes}
+                    </div>
+                  )}
+                  
+                  {/* Additional Notes Row */}
+                  {userData?.additionalNotes && userData.additionalNotes.trim() && (
+                    <div className="text-xs text-gray-600">
+                      <span className="font-medium">Notes:</span> {userData.additionalNotes}
+                    </div>
+                  )}
+                  
+                  {/* Fallback message if no data */}
+                  {(!userData?.dietaryRestrictions || userData.dietaryRestrictions.length === 0) &&
+                   (!userData?.healthGoals || userData.healthGoals.length === 0) &&
+                   (!userData?.allergies || !userData.allergies.trim()) &&
+                   (!userData?.foodDislikes || !userData.foodDislikes.trim()) &&
+                   (!userData?.additionalNotes || !userData.additionalNotes.trim()) && (
+                    <div className="text-xs text-gray-500 italic">
+                      No dietary preferences set. Update in profile to see personalized recommendations.
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white ml-4">
