@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Slider } from "@/components/ui/slider";
 import { BackButton } from "@/components/ui/back-button";
-import { User, ChefHat, ChevronDown, ChevronUp, Sparkles } from "lucide-react";
+import { User, ChefHat, ChevronDown, ChevronUp, Sparkles, Check } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 
 // Import avatar images
@@ -159,12 +159,140 @@ const pantryDishes = [
   }
 ];
 
+// Suggested recipes for Create a Recipe view
+const suggestedRecipes = [
+  {
+    name: 'Quick Pasta Primavera',
+    ingredients: ['Pasta', 'Bell Peppers', 'Zucchini', 'Cherry Tomatoes', 'Parmesan'],
+    prepTime: 10,
+    cookTime: 15,
+    calories: 320,
+    protein: 12,
+    difficulty: 'Easy',
+    badges: ['Quick', 'Vegetarian'],
+    dishImage: (
+      <div className="w-30 h-30 flex items-center justify-center text-7xl">
+        🍝
+      </div>
+    )
+  },
+  {
+    name: 'Honey Garlic Chicken',
+    ingredients: ['Chicken Breast', 'Honey', 'Garlic', 'Soy Sauce', 'Ginger'],
+    prepTime: 5,
+    cookTime: 20,
+    calories: 280,
+    protein: 35,
+    difficulty: 'Easy',
+    badges: ['Popular', 'High-Protein'],
+    dishImage: (
+      <div className="w-30 h-30 flex items-center justify-center text-7xl">
+        🍗
+      </div>
+    )
+  },
+  {
+    name: 'Avocado Toast Deluxe',
+    ingredients: ['Sourdough Bread', 'Avocado', 'Cherry Tomatoes', 'Eggs', 'Lime'],
+    prepTime: 8,
+    cookTime: 5,
+    calories: 350,
+    protein: 15,
+    difficulty: 'Easy',
+    badges: ['Breakfast', 'Trendy'],
+    dishImage: (
+      <div className="w-30 h-30 flex items-center justify-center text-7xl">
+        🥑
+      </div>
+    )
+  },
+  {
+    name: 'Thai Curry Bowl',
+    ingredients: ['Coconut Milk', 'Curry Paste', 'Vegetables', 'Rice', 'Basil'],
+    prepTime: 15,
+    cookTime: 25,
+    calories: 380,
+    protein: 8,
+    difficulty: 'Medium',
+    badges: ['Spicy', 'Asian'],
+    dishImage: (
+      <div className="w-30 h-30 flex items-center justify-center text-7xl">
+        🍛
+      </div>
+    )
+  }
+];
+
+// Previous recipes (recently made)
+const previousRecipes = [
+  {
+    name: 'Classic Caesar Salad',
+    ingredients: ['Romaine', 'Parmesan', 'Croutons', 'Caesar Dressing', 'Anchovies'],
+    prepTime: 10,
+    cookTime: 0,
+    calories: 180,
+    protein: 8,
+    difficulty: 'Easy',
+    badges: ['Made 2 days ago'],
+    dishImage: (
+      <div className="w-30 h-30 flex items-center justify-center text-7xl">
+        🥗
+      </div>
+    )
+  },
+  {
+    name: 'Beef Stir Fry',
+    ingredients: ['Ground Beef', 'Bell Peppers', 'Onions', 'Soy Sauce', 'Rice'],
+    prepTime: 10,
+    cookTime: 12,
+    calories: 450,
+    protein: 28,
+    difficulty: 'Easy',
+    badges: ['Made last week'],
+    dishImage: (
+      <div className="w-30 h-30 flex items-center justify-center text-7xl">
+        🥩
+      </div>
+    )
+  },
+  {
+    name: 'Pancake Stack',
+    ingredients: ['Flour', 'Eggs', 'Milk', 'Butter', 'Maple Syrup'],
+    prepTime: 5,
+    cookTime: 15,
+    calories: 480,
+    protein: 12,
+    difficulty: 'Easy',
+    badges: ['Made 5 days ago'],
+    dishImage: (
+      <div className="w-30 h-30 flex items-center justify-center text-7xl">
+        🥞
+      </div>
+    )
+  },
+  {
+    name: 'Chicken Quesadilla',
+    ingredients: ['Chicken Breast', 'Cheese', 'Tortillas', 'Bell Peppers', 'Onions'],
+    prepTime: 8,
+    cookTime: 10,
+    calories: 520,
+    protein: 32,
+    difficulty: 'Easy',
+    badges: ['Made yesterday'],
+    dishImage: (
+      <div className="w-30 h-30 flex items-center justify-center text-7xl">
+        🌮
+      </div>
+    )
+  }
+];
+
 export default function RecipesScreen() {
   const [, setLocation] = useLocation();
   const [userData] = useLocalStorage<any>("userData", null);
   
   // Card visibility states
-  const [currentView, setCurrentView] = useState<"pantry" | "dishes">("pantry");
+  const [currentView, setCurrentView] = useState<"pantry" | "dishes" | "create">("pantry");
   
   // Dietary preferences state (Card 1)
   const [selectedCuisine, setSelectedCuisine] = useState("american");
@@ -447,7 +575,9 @@ export default function RecipesScreen() {
               <div className="flex-1">
                 <CardTitle className="text-lg">Your Pantry Ingredients</CardTitle>
                 <p className="text-sm text-gray-600 mt-1">
-                  {currentView === "pantry" ? "Select available ingredients" : "Dishes you can make right now"}
+                  {currentView === "pantry" ? "Select available ingredients" : 
+                   currentView === "dishes" ? "Dishes you can make right now" : 
+                   "Browse suggested and previous recipes"}
                 </p>
               </div>
               <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white ml-4">
@@ -463,7 +593,7 @@ export default function RecipesScreen() {
             <div className="flex bg-gray-100 rounded-lg p-1 mt-2">
               <button
                 onClick={() => setCurrentView("pantry")}
-                className={`flex-1 py-3 px-2 rounded-md text-sm font-medium transition-all ${
+                className={`flex-1 py-2 px-1 rounded-md text-xs font-medium transition-all ${
                   currentView === "pantry" 
                     ? "bg-indigo-600 text-white shadow-lg" 
                     : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-200"
@@ -473,13 +603,23 @@ export default function RecipesScreen() {
               </button>
               <button
                 onClick={() => setCurrentView("dishes")}
-                className={`flex-1 py-3 px-2 rounded-md text-sm font-medium transition-all ${
+                className={`flex-1 py-2 px-1 rounded-md text-xs font-medium transition-all ${
                   currentView === "dishes" 
                     ? "bg-indigo-600 text-white shadow-lg" 
                     : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-200"
                 }`}
               >
                 Pantry Dishes
+              </button>
+              <button
+                onClick={() => setCurrentView("create")}
+                className={`flex-1 py-2 px-1 rounded-md text-xs font-medium transition-all ${
+                  currentView === "create" 
+                    ? "bg-indigo-600 text-white shadow-lg" 
+                    : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-200"
+                }`}
+              >
+                Create a Recipe
               </button>
             </div>
           </CardHeader>
@@ -571,7 +711,7 @@ export default function RecipesScreen() {
                   )}
                 </div>
               </div>
-            ) : (
+            ) : currentView === "dishes" ? (
               /* Pantry Dishes View */
               <div className="space-y-3">
                 {selectedDishes.length === 0 && (
@@ -823,7 +963,133 @@ export default function RecipesScreen() {
                   );
                 })}
               </div>
-            )}
+            ) : currentView === "create" ? (
+              /* Create a Recipe View */
+              <div className="space-y-4">
+                {/* Suggested Recipes Section */}
+                <div>
+                  <h4 className="font-semibold text-gray-900 mb-3">Suggested Recipes</h4>
+                  <div className="space-y-3">
+                    {suggestedRecipes.map((recipe, index) => {
+                      const recipeId = recipe.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+                      const isSelected = selectedDishes.includes(recipeId);
+                      
+                      return (
+                        <div 
+                          key={recipe.name} 
+                          className={`bg-gradient-to-r from-indigo-50 to-purple-50 border-2 rounded-lg overflow-hidden cursor-pointer transition-all relative ${
+                            isSelected ? 'border-indigo-600 shadow-lg' : 'border-indigo-200 hover:border-indigo-400'
+                          }`}
+                          onClick={() => {
+                            if (isSelected) {
+                              setSelectedDishes(prev => prev.filter(id => id !== recipeId));
+                            } else {
+                              setSelectedDishes(prev => [...prev, recipeId]);
+                            }
+                          }}
+                        >
+                          {/* Checkbox in bottom right */}
+                          <div className="absolute bottom-3 right-3 z-10">
+                            <div className={`w-6 h-6 rounded-md border-2 flex items-center justify-center ${
+                              isSelected ? 'bg-indigo-600 border-indigo-600' : 'bg-white border-gray-300'
+                            }`}>
+                              {isSelected && <Check className="w-4 h-4 text-white" />}
+                            </div>
+                          </div>
+                          
+                          {/* Dish Image */}
+                          <div className="relative">
+                            {recipe.dishImage}
+                          </div>
+                          
+                          {/* Content below */}
+                          <div className="p-4">
+                            <div className="flex items-center gap-2 mb-2">
+                              <h4 className="font-semibold text-gray-900">{recipe.name}</h4>
+                              <Sparkles className="w-4 h-4 text-indigo-500" />
+                            </div>
+                            
+                            <div className="text-xs text-gray-600 space-y-1">
+                              <div>🔥 {recipe.calories} cal • 💪 {recipe.protein}g protein</div>
+                              <div className="flex items-center gap-3">
+                                <span className="text-indigo-600">{recipe.difficulty}</span>
+                                <span>⏱️ {recipe.prepTime + recipe.cookTime} min</span>
+                              </div>
+                              {recipe.badges.map(badge => (
+                                <span key={badge} className="inline-block bg-indigo-100 text-indigo-700 text-xs px-2 py-1 rounded mr-1">
+                                  {badge}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+                
+                {/* Previous Recipes Section */}
+                <div>
+                  <h4 className="font-semibold text-gray-900 mb-3">Previous Recipes</h4>
+                  <div className="space-y-3">
+                    {previousRecipes.map((recipe, index) => {
+                      const recipeId = recipe.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+                      const isSelected = selectedDishes.includes(recipeId);
+                      
+                      return (
+                        <div 
+                          key={recipe.name} 
+                          className={`bg-gradient-to-r from-indigo-50 to-purple-50 border-2 rounded-lg overflow-hidden cursor-pointer transition-all relative ${
+                            isSelected ? 'border-indigo-600 shadow-lg' : 'border-indigo-200 hover:border-indigo-400'
+                          }`}
+                          onClick={() => {
+                            if (isSelected) {
+                              setSelectedDishes(prev => prev.filter(id => id !== recipeId));
+                            } else {
+                              setSelectedDishes(prev => [...prev, recipeId]);
+                            }
+                          }}
+                        >
+                          {/* Checkbox in bottom right */}
+                          <div className="absolute bottom-3 right-3 z-10">
+                            <div className={`w-6 h-6 rounded-md border-2 flex items-center justify-center ${
+                              isSelected ? 'bg-indigo-600 border-indigo-600' : 'bg-white border-gray-300'
+                            }`}>
+                              {isSelected && <Check className="w-4 h-4 text-white" />}
+                            </div>
+                          </div>
+                          
+                          {/* Dish Image */}
+                          <div className="relative">
+                            {recipe.dishImage}
+                          </div>
+                          
+                          {/* Content below */}
+                          <div className="p-4">
+                            <div className="flex items-center gap-2 mb-2">
+                              <h4 className="font-semibold text-gray-900">{recipe.name}</h4>
+                            </div>
+                            
+                            <div className="text-xs text-gray-600 space-y-1">
+                              <div>🔥 {recipe.calories} cal • 💪 {recipe.protein}g protein</div>
+                              <div className="flex items-center gap-3">
+                                <span className="text-indigo-600">{recipe.difficulty}</span>
+                                <span>⏱️ {recipe.prepTime + recipe.cookTime} min</span>
+                              </div>
+                              {recipe.badges.map(badge => (
+                                <span key={badge} className="inline-block bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded mr-1">
+                                  {badge}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            ) : null}
           </CardContent>
         </Card>
 
@@ -914,6 +1180,8 @@ export default function RecipesScreen() {
           disabled={currentView === "pantry" ? selectedIngredients.length === 0 : selectedDishes.length === 0}
         >
           {currentView === "dishes" 
+            ? "Generate Recipes"
+            : currentView === "create"
             ? "Generate Recipes"
             : "Generate Meal Plan"
           }
