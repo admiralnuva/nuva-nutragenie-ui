@@ -535,19 +535,19 @@ export default function HomeScreen() {
               <div className={`overflow-hidden transition-all duration-500 ease-out ${
                 showHealthForm ? 'max-h-80 opacity-100 mb-2 transform translate-y-0' : 'max-h-0 opacity-0 transform -translate-y-2'
               }`}>
-                <Card className="p-4 bg-gradient-to-br from-white to-blue-50 border-2 border-indigo-200 shadow-lg rounded-xl">
+                <Card className="p-4 bg-transparent border-2 border-indigo-300 shadow-none rounded-xl">
                   <form onSubmit={handleHealthSubmit} className="space-y-3">
                     {/* Date Selection with Icon */}
-                    <div className="flex items-center gap-2 bg-white p-2 rounded-lg border border-gray-200">
-                      <div className="text-indigo-500">📅</div>
+                    <div className="flex items-center gap-2 bg-transparent p-2 rounded-lg border border-indigo-300">
+                      <div className="text-indigo-400">📅</div>
                       <div className="flex-1">
-                        <Label htmlFor="date" className="text-xs font-semibold text-indigo-700">Select Date</Label>
+                        <Label htmlFor="date" className="text-xs font-semibold text-indigo-200">Select Date</Label>
                         <Input
                           type="date"
                           id="date"
                           value={healthData.date}
                           onChange={(e) => setHealthData({...healthData, date: e.target.value})}
-                          className="mt-0.5 h-8 text-sm border-0 focus:ring-indigo-500"
+                          className="mt-0.5 h-8 text-sm border-0 bg-transparent text-white focus:ring-indigo-400"
                         />
                       </div>
                     </div>
@@ -555,10 +555,10 @@ export default function HomeScreen() {
                     {/* Health Inputs with Icons */}
                     <div className="grid grid-cols-4 gap-2">
                       {/* Systolic BP */}
-                      <div className="bg-white p-2 rounded-lg border border-red-200 hover:border-red-400 transition-colors">
+                      <div className="bg-transparent p-2 rounded-lg border border-red-300 hover:border-red-400 transition-colors">
                         <div className="flex items-center gap-1 mb-1">
-                          <span className="text-red-500 text-xs">❤️</span>
-                          <Label htmlFor="systolic" className="text-xs font-semibold text-red-700">Sys</Label>
+                          <span className="text-red-400 text-xs">❤️</span>
+                          <Label htmlFor="systolic" className="text-xs font-semibold text-red-300">Sys</Label>
                         </div>
                         <Input
                           type="number"
@@ -566,15 +566,15 @@ export default function HomeScreen() {
                           placeholder="120"
                           value={healthData.bloodPressureSystolic}
                           onChange={(e) => setHealthData({...healthData, bloodPressureSystolic: e.target.value})}
-                          className="h-8 text-sm border-0 text-center font-bold focus:ring-red-500"
+                          className="h-8 text-sm border-0 bg-transparent text-center font-bold text-white placeholder-red-200 focus:ring-red-400"
                         />
                       </div>
 
                       {/* Diastolic BP */}
-                      <div className="bg-white p-2 rounded-lg border border-red-200 hover:border-red-400 transition-colors">
+                      <div className="bg-transparent p-2 rounded-lg border border-red-300 hover:border-red-400 transition-colors">
                         <div className="flex items-center gap-1 mb-1">
-                          <span className="text-red-500 text-xs">💓</span>
-                          <Label htmlFor="diastolic" className="text-xs font-semibold text-red-700">Dia</Label>
+                          <span className="text-red-400 text-xs">💓</span>
+                          <Label htmlFor="diastolic" className="text-xs font-semibold text-red-300">Dia</Label>
                         </div>
                         <Input
                           type="number"
@@ -582,15 +582,15 @@ export default function HomeScreen() {
                           placeholder="80"
                           value={healthData.bloodPressureDiastolic}
                           onChange={(e) => setHealthData({...healthData, bloodPressureDiastolic: e.target.value})}
-                          className="h-8 text-sm border-0 text-center font-bold focus:ring-red-500"
+                          className="h-8 text-sm border-0 bg-transparent text-center font-bold text-white placeholder-red-200 focus:ring-red-400"
                         />
                       </div>
 
                       {/* Blood Sugar */}
-                      <div className="bg-white p-2 rounded-lg border border-green-200 hover:border-green-400 transition-colors">
+                      <div className="bg-transparent p-2 rounded-lg border border-green-300 hover:border-green-400 transition-colors">
                         <div className="flex items-center gap-1 mb-1">
-                          <span className="text-green-500 text-xs">🩸</span>
-                          <Label htmlFor="bloodSugar" className="text-xs font-semibold text-green-700">Sugar</Label>
+                          <span className="text-green-400 text-xs">🩸</span>
+                          <Label htmlFor="bloodSugar" className="text-xs font-semibold text-green-300">Sugar</Label>
                         </div>
                         <Input
                           type="number"
@@ -598,15 +598,15 @@ export default function HomeScreen() {
                           placeholder="94"
                           value={healthData.bloodSugar}
                           onChange={(e) => setHealthData({...healthData, bloodSugar: e.target.value})}
-                          className="h-8 text-sm border-0 text-center font-bold focus:ring-green-500"
+                          className="h-8 text-sm border-0 bg-transparent text-center font-bold text-white placeholder-green-200 focus:ring-green-400"
                         />
                       </div>
 
                       {/* Weight */}
-                      <div className="bg-white p-2 rounded-lg border border-blue-200 hover:border-blue-400 transition-colors">
+                      <div className="bg-transparent p-2 rounded-lg border border-blue-300 hover:border-blue-400 transition-colors">
                         <div className="flex items-center gap-1 mb-1">
-                          <span className="text-blue-500 text-xs">⚖️</span>
-                          <Label htmlFor="weight" className="text-xs font-semibold text-blue-700">Weight</Label>
+                          <span className="text-blue-400 text-xs">⚖️</span>
+                          <Label htmlFor="weight" className="text-xs font-semibold text-blue-300">Weight</Label>
                         </div>
                         <Input
                           type="number"
@@ -614,7 +614,7 @@ export default function HomeScreen() {
                           placeholder="165"
                           value={healthData.weight}
                           onChange={(e) => setHealthData({...healthData, weight: e.target.value})}
-                          className="h-8 text-sm border-0 text-center font-bold focus:ring-blue-500"
+                          className="h-8 text-sm border-0 bg-transparent text-center font-bold text-white placeholder-blue-200 focus:ring-blue-400"
                         />
                       </div>
                     </div>
