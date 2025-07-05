@@ -974,7 +974,7 @@ export default function RecipesScreen() {
                         <CardTitle className="text-lg">Create Your Custom Dish</CardTitle>
                         <p className="text-sm text-gray-600">Design a personalized Dish</p>
                       </div>
-                      <div className="flex items-center justify-center w-16 h-16 rounded-lg overflow-hidden bg-white ml-3">
+                      <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white ml-3">
                         <img 
                           src={userAvatarSrc} 
                           alt="User Avatar"
@@ -1040,14 +1040,14 @@ export default function RecipesScreen() {
                           </div>
                           
                           {/* Compact horizontal layout */}
-                          <div className="flex items-center p-3">
+                          <div className="flex items-center p-3 min-h-[120px]">
                             {/* Dish Image */}
-                            <div className="flex-shrink-0">
+                            <div className="flex-shrink-0 flex items-center justify-center">
                               {recipe.dishImage}
                             </div>
                             
                             {/* Content */}
-                            <div className="flex-1 ml-3">
+                            <div className="flex-1 ml-3 flex flex-col justify-center">
                               <h4 className="font-semibold text-gray-900 mb-1">{recipe.name}</h4>
                               
                               <div className="text-xs text-gray-600 space-y-1">
@@ -1097,14 +1097,14 @@ export default function RecipesScreen() {
                           </div>
                           
                           {/* Compact horizontal layout */}
-                          <div className="flex items-center p-3">
+                          <div className="flex items-center p-3 min-h-[120px]">
                             {/* Dish Image */}
-                            <div className="flex-shrink-0">
+                            <div className="flex-shrink-0 flex items-center justify-center">
                               {recipe.dishImage}
                             </div>
                             
                             {/* Content */}
-                            <div className="flex-1 ml-3">
+                            <div className="flex-1 ml-3 flex flex-col justify-center">
                               <h4 className="font-semibold text-gray-900 mb-1">{recipe.name}</h4>
                               
                               <div className="text-xs text-gray-600 space-y-1">
@@ -1137,7 +1137,7 @@ export default function RecipesScreen() {
                 <CardTitle className="text-base">Nutritional Adjustments</CardTitle>
                 <p className="text-xs text-gray-600">Fine-tune your meal targets</p>
               </div>
-              <div className="flex items-center justify-center w-16 h-16 rounded-lg overflow-hidden bg-white ml-3">
+              <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white ml-3">
                 <img 
                   src={userAvatarSrc} 
                   alt="User Avatar"
