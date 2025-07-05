@@ -358,14 +358,14 @@ export default function RecipesScreen() {
 
         {/* Card 3: Pantry View Toggle */}
         <Card className="bg-white border border-gray-200">
-          <CardHeader className="pb-2">
+          <CardHeader className="py-2">
             <div className="flex items-center justify-between">
               <div className="flex-1">
                 <CardTitle className="text-lg">
                   {currentView === "pantry" ? "Pantry Ingredients" : "Recipe Suggestions"}
                 </CardTitle>
                 <p className="text-sm text-gray-600 mt-1">
-                  {currentView === "pantry" ? "Select what you have available" : "Recipes you can make right now"}
+                  {currentView === "pantry" ? "Select what is available in your pantry" : "Recipes you can make right now"}
                 </p>
               </div>
               <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white ml-4">
