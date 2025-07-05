@@ -716,16 +716,11 @@ export default function ReviewRecipesScreen() {
           </CardHeader>
           <CardContent className="pt-0">
             {shoppingCart.length > 0 ? (
-              <div className="space-y-2">
+              <div className="space-y-1">
                 {shoppingCart.map((item, index) => (
-                  <div key={index} className="flex items-center justify-between p-2 bg-gray-50 rounded">
-                    <div>
-                      <span className="text-sm font-medium">{item.name}</span>
-                      <span className="text-xs text-gray-600 ml-2">({item.quantity})</span>
-                    </div>
-                    <div className="text-xs text-gray-500">
-                      {item.dishDay} - {item.dishName}
-                    </div>
+                  <div key={index} className="flex items-center justify-between py-1">
+                    <span className="text-sm">{item.name}</span>
+                    <span className="text-sm text-gray-600">{item.quantity}</span>
                   </div>
                 ))}
               </div>
