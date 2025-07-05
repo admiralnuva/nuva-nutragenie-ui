@@ -344,26 +344,32 @@ export default function ReviewRecipesScreen() {
             <div key={dish.id} className="bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200 rounded-lg overflow-hidden">
               {/* Full width image at top - same as pantry dishes */}
               <div className="w-full h-32 bg-gradient-to-br from-purple-100 to-violet-200 relative flex items-center justify-center">
-                {/* Bowl shape */}
-                <div className="w-20 h-20 bg-gradient-to-b from-white/30 to-white/60 rounded-full border-2 border-white/40 flex items-center justify-center relative overflow-hidden">
-                  {/* Bowl interior shadow */}
-                  <div className="absolute inset-2 bg-gradient-to-b from-transparent to-black/10 rounded-full"></div>
+                {/* Large colored bowl/plate */}
+                <div className={`w-32 h-32 rounded-full border-4 flex items-center justify-center relative overflow-hidden ${
+                  index === 0 ? 'bg-gradient-to-b from-amber-100 to-amber-200 border-amber-300' : // Warm plate for chicken
+                  index === 1 ? 'bg-gradient-to-b from-red-100 to-red-200 border-red-300' : // Red bowl for beef
+                  index === 2 ? 'bg-gradient-to-b from-green-100 to-green-200 border-green-300' : // Green bowl for soup
+                  index === 3 ? 'bg-gradient-to-b from-blue-100 to-blue-200 border-blue-300' : // Blue plate for salmon
+                  'bg-gradient-to-b from-yellow-100 to-yellow-200 border-yellow-300' // Yellow bowl for corn
+                }`}>
+                  {/* Bowl interior depth shadow */}
+                  <div className="absolute inset-3 bg-gradient-to-b from-transparent to-black/15 rounded-full"></div>
                   
                   {/* Main dish and additional items in bowl */}
                   <div className="relative z-10 flex items-center justify-center">
                     {index === 0 && (
                       // Mediterranean Herb Chicken - multiple chicken thighs in bowl
                       <>
-                        <div className="text-3xl opacity-90">🍗</div>
-                        <div className="absolute -top-1 -left-1 text-lg opacity-70">🍗</div>
-                        <div className="absolute top-1 -right-1 text-lg opacity-75">🍗</div>
-                        <div className="absolute -bottom-1 left-0 text-lg opacity-65">🍗</div>
+                        <div className="text-5xl opacity-95">🍗</div>
+                        <div className="absolute -top-2 -left-2 text-3xl opacity-75">🍗</div>
+                        <div className="absolute top-2 -right-2 text-3xl opacity-80">🍗</div>
+                        <div className="absolute -bottom-2 left-1 text-3xl opacity-70">🍗</div>
                       </>
                     )}
-                    {index === 1 && <div className="text-3xl opacity-90">🥩</div>}
-                    {index === 2 && <div className="text-3xl opacity-90">🍲</div>}
-                    {index === 3 && <div className="text-3xl opacity-90">🐟</div>}
-                    {index === 4 && <div className="text-3xl opacity-90">🌽</div>}
+                    {index === 1 && <div className="text-5xl opacity-95">🥩</div>}
+                    {index === 2 && <div className="text-5xl opacity-95">🍲</div>}
+                    {index === 3 && <div className="text-5xl opacity-95">🐟</div>}
+                    {index === 4 && <div className="text-5xl opacity-95">🌽</div>}
                   </div>
                 </div>
 
