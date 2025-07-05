@@ -233,7 +233,7 @@ export default function RecipesScreen() {
 
         {/* Card 1: Dietary Preferences Summary */}
         <Card className="bg-white border border-gray-200">
-          <CardHeader className="pb-2">
+          <CardHeader className="py-2">
             <div className="flex items-center justify-between">
               <div className="flex-1">
                 <CardTitle className="text-lg">Dietary Preferences</CardTitle>
