@@ -87,7 +87,7 @@ const pantryDishes = [
     difficulty: 'Easy',
     badges: ['High-Protein', 'Quick'],
     dishImage: (
-      <div className="w-20 h-20 bg-gradient-to-br from-orange-300 to-red-400 rounded-lg flex items-center justify-center text-2xl shadow-lg">
+      <div className="w-20 h-20 flex items-center justify-center text-5xl">
         🥘
       </div>
     )
@@ -102,7 +102,7 @@ const pantryDishes = [
     difficulty: 'Medium',
     badges: ['Heart-Healthy', 'Mediterranean'],
     dishImage: (
-      <div className="w-20 h-20 bg-gradient-to-br from-pink-300 to-rose-400 rounded-lg flex items-center justify-center text-2xl shadow-lg">
+      <div className="w-20 h-20 flex items-center justify-center text-5xl">
         🍣
       </div>
     )
@@ -117,7 +117,7 @@ const pantryDishes = [
     difficulty: 'Easy',
     badges: ['Vegetarian', 'Quick'],
     dishImage: (
-      <div className="w-20 h-20 bg-gradient-to-br from-yellow-300 to-orange-400 rounded-lg flex items-center justify-center text-2xl shadow-lg">
+      <div className="w-20 h-20 flex items-center justify-center text-5xl">
         🍳
       </div>
     )
@@ -132,7 +132,7 @@ const pantryDishes = [
     difficulty: 'Medium',
     badges: ['Hearty', 'One-Pan'],
     dishImage: (
-      <div className="w-20 h-20 bg-gradient-to-br from-amber-300 to-brown-400 rounded-lg flex items-center justify-center text-2xl shadow-lg">
+      <div className="w-20 h-20 flex items-center justify-center text-5xl">
         🥩
       </div>
     )
@@ -147,7 +147,7 @@ const pantryDishes = [
     difficulty: 'Easy',
     badges: ['No-Cook', 'Mediterranean'],
     dishImage: (
-      <div className="w-20 h-20 bg-gradient-to-br from-green-300 to-emerald-400 rounded-lg flex items-center justify-center text-2xl shadow-lg">
+      <div className="w-20 h-20 flex items-center justify-center text-5xl">
         🥗
       </div>
     )
