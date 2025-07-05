@@ -36,9 +36,9 @@ const dietaryRestrictions = [
 
 const healthConditions = [
   { label: '🩺 Diabetes', value: 'diabetes' },
-  { label: '❤️ Cardiovascular', value: 'cardiovascular' },
-  { label: '🫘 Kidney Disease', value: 'kidney' },
-  { label: '🩸 Blood Pressure', value: 'blood-pressure' },
+  { label: '❤️ Heart Issues', value: 'cardiovascular' },
+  { label: '🫘 Kidney Issues', value: 'kidney' },
+  { label: '🩸 Hypertension', value: 'blood-pressure' },
   { label: '🎗️ Cancer', value: 'cancer' },
   { label: '✅ None', value: 'none' }
 ];
@@ -179,9 +179,9 @@ export default function DietaryScreen() {
                 <div className="flex-1">
                   <CardTitle className="flex items-center gap-2 text-lg">
                     <Heart className="w-5 h-5" />
-                    Health Considerations
+                    Health Factors
                   </CardTitle>
-                  <CardDescription>Select health conditions to consider</CardDescription>
+                  <CardDescription>Select health factors to consider</CardDescription>
                 </div>
                 <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white ml-4">
                   <img 
