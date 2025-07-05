@@ -542,14 +542,6 @@ export default function RecipesScreen() {
                               {index === 0 && <Sparkles className="w-4 h-4 text-indigo-500" />}
                             </div>
                             
-                            <div className="flex flex-wrap gap-1 mb-2">
-                              {dish.badges.map(badge => (
-                                <Badge key={badge} variant="secondary" className="text-xs">
-                                  {badge}
-                                </Badge>
-                              ))}
-                            </div>
-                            
                             <div className="text-xs text-gray-600 space-y-1">
                               <div>⏱️ {dish.prepTime + dish.cookTime} min • 🔥 {dish.calories} cal • 💪 {dish.protein}g protein</div>
                               <div className="flex items-center gap-1">
