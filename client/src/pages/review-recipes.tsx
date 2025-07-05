@@ -708,17 +708,17 @@ export default function ReviewRecipesScreen() {
           ))}
         </div>
 
-        {/* Shopping Cart Summary */}
-        {shoppingCart.length > 0 && (
-          <Card className="mt-6">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-lg flex items-center gap-2">
-                <ShoppingCart className="w-5 h-5" />
-                Shopping List
-                <Badge variant="secondary">{shoppingCart.length} items</Badge>
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="pt-0">
+        {/* Shopping Cart Summary - Always visible */}
+        <Card className="mt-6">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-lg flex items-center gap-2">
+              <ShoppingCart className="w-5 h-5" />
+              Shopping List
+              <Badge variant="secondary">{shoppingCart.length} items</Badge>
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="pt-0">
+            {shoppingCart.length > 0 ? (
               <div className="space-y-2">
                 {shoppingCart.map((item, index) => (
                   <div key={index} className="flex items-center justify-between p-2 bg-gray-50 rounded">
@@ -732,25 +732,32 @@ export default function ReviewRecipesScreen() {
                   </div>
                 ))}
               </div>
-              <div className="flex gap-2 mt-4">
-                <Button 
-                  className="flex-1" 
-                  onClick={() => setLocation("/grocery-list")}
-                >
-                  <List size={16} className="mr-2" />
-                  View Full List
-                </Button>
-                <Button 
-                  variant="outline" 
-                  onClick={() => setLocation("/instacart")}
-                >
-                  <ShoppingCart size={16} className="mr-2" />
-                  Order Now
-                </Button>
+            ) : (
+              <div className="text-center py-4 text-gray-500">
+                <ShoppingCart className="w-8 h-8 mx-auto mb-2 opacity-50" />
+                <p className="text-sm">Select ingredients from substitutions to build your shopping list</p>
               </div>
-            </CardContent>
-          </Card>
-        )}
+            )}
+            <div className="flex gap-2 mt-4">
+              <Button 
+                className="flex-1" 
+                onClick={() => setLocation("/grocery-list")}
+                disabled={shoppingCart.length === 0}
+              >
+                <List size={16} className="mr-2" />
+                View Full List
+              </Button>
+              <Button 
+                variant="outline" 
+                onClick={() => setLocation("/instacart")}
+                disabled={shoppingCart.length === 0}
+              >
+                <ShoppingCart size={16} className="mr-2" />
+                Order Now
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
       <BottomNavigation />
