@@ -413,7 +413,7 @@ export default function ReviewRecipesScreen() {
         <div className="flex items-center justify-between mb-4">
           <div className="flex-1">
             <h2 className="text-xl font-bold text-gray-900">Weekly Meal Planner</h2>
-            <p className="text-sm text-gray-600">Select dishes and customize ingredients for your perfect week</p>
+            <p className="text-sm text-gray-600">Select and customize dishes below</p>
           </div>
           <div className="w-20 h-20 rounded-full flex items-center justify-center ml-4">
             <img 
