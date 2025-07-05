@@ -287,7 +287,7 @@ export default function DietaryScreen() {
             <CardHeader className="pb-4">
               <div className="flex items-center justify-between">
                 <div className="flex-1">
-                  <CardTitle className="text-lg">Allergies & Serious Restrictions</CardTitle>
+                  <CardTitle className="text-lg">Allergies & Restrictions</CardTitle>
                   <CardDescription>List any food allergies or severe restrictions</CardDescription>
                 </div>
                 <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white ml-4">
