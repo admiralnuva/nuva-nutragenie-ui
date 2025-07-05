@@ -252,20 +252,20 @@ export default function SignupScreen() {
               {/* Avatar Selection */}
               <div>
                 <Label className="block text-sm font-medium text-warm-neutral-700 mb-3">Avatar</Label>
-                <div className="grid grid-cols-4 gap-3">
+                <div className="grid grid-cols-4 gap-2">
                   {userAvatars.map(avatar => (
                     <button
                       key={avatar.id}
                       type="button"
                       onClick={() => setSelectedAvatar(avatar)}
-                      className={`flex items-center justify-center w-16 h-16 rounded-lg border-2 ${
-                        selectedAvatar.id === avatar.id ? 'border-indigo-500 bg-indigo-50 shadow-md scale-105' : 'border-gray-300'
-                      } bg-white hover:border-indigo-400 hover:bg-indigo-50 transition-all overflow-hidden`}
+                      className={`flex items-center justify-center w-20 h-20 rounded-lg ${
+                        selectedAvatar.id === avatar.id ? 'ring-2 ring-indigo-500 bg-indigo-50 shadow-md scale-105' : ''
+                      } bg-white hover:ring-2 hover:ring-indigo-400 hover:bg-indigo-50 transition-all overflow-hidden`}
                     >
                       <img 
                         src={avatar.src} 
                         alt={avatar.alt}
-                        className="w-full h-full object-cover rounded-md"
+                        className="w-full h-full object-cover rounded-lg"
                       />
                     </button>
                   ))}
@@ -502,7 +502,7 @@ export default function SignupScreen() {
               {/* Chef Avatar Selection */}
               <div>
                 <Label className="block text-sm font-medium text-warm-neutral-700 mb-3">Chef Avatar</Label>
-                <div className="grid grid-cols-4 gap-3">
+                <div className="grid grid-cols-4 gap-2">
                   {chefs.map(chef => (
                     <button
                       key={chef.name}
@@ -511,14 +511,14 @@ export default function SignupScreen() {
                         setSelectedChef(chef);
                         setChefNickname(chef.name);
                       }}
-                      className={`flex items-center justify-center w-16 h-16 rounded-lg border-2 ${
-                        selectedChef.name === chef.name ? 'border-indigo-500 bg-indigo-50 shadow-md scale-105' : 'border-gray-300'
-                      } bg-white hover:border-indigo-400 hover:bg-indigo-50 transition-all overflow-hidden`}
+                      className={`flex items-center justify-center w-20 h-20 rounded-lg ${
+                        selectedChef.name === chef.name ? 'ring-2 ring-indigo-500 bg-indigo-50 shadow-md scale-105' : ''
+                      } bg-white hover:ring-2 hover:ring-indigo-400 hover:bg-indigo-50 transition-all overflow-hidden`}
                     >
                       <img 
                         src={chef.avatar} 
                         alt={chef.name}
-                        className="w-full h-full object-cover rounded-md"
+                        className="w-full h-full object-cover rounded-lg"
                       />
                     </button>
                   ))}
