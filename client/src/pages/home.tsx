@@ -454,12 +454,15 @@ export default function HomeScreen() {
             <div>
               
               {/* Add Health Reading Button - Top Position */}
-              <button className="w-full px-3 py-2 mb-4 bg-indigo-600 text-white rounded-lg text-sm hover:bg-indigo-700 transition-colors">
-                + Add Health Reading (Blood Pressure & Blood Sugar)
+              <button 
+                onClick={() => handleNavigation("/health")}
+                className="w-full px-3 py-2 mb-0 bg-indigo-600 text-white rounded-lg text-sm hover:bg-indigo-700 transition-colors"
+              >
+                + Add Blood Pressure and Blood Sugar levels
               </button>
           
           {/* Compact Health Metrics Card */}
-          <Card className="p-4 mb-4 bg-white/95 backdrop-blur-md border-white/30 shadow-xl">
+          <Card className="p-4 mb-2 bg-white/95 backdrop-blur-md border-white/30 shadow-xl">
             <div className="space-y-4">
               
               {/* Blood Pressure & Blood Sugar with Trends */}
@@ -473,10 +476,10 @@ export default function HomeScreen() {
                   </div>
                   
                   {/* Blood Sugar */}
-                  <div className="bg-orange-50 p-3 rounded-lg">
+                  <div className="bg-green-50 p-3 rounded-lg">
                     <div className="text-xs text-gray-600">Blood Sugar</div>
-                    <div className="text-lg font-bold text-orange-600">94 mg/dL</div>
-                    <div className="text-xs text-green-600">vs Normal: 70-100</div>
+                    <div className="text-lg font-bold text-green-600">94 mg/dL</div>
+                    <div className="text-xs text-gray-500">Normal Range</div>
                   </div>
                 </div>
                 
@@ -503,24 +506,30 @@ export default function HomeScreen() {
                         {/* Day 7: 122/78 - Normal (green) - Today */}
                         <div className="flex-1 bg-green-600 rounded-sm h-6"></div>
                       </div>
-                      <div className="text-xs text-gray-500 mt-1">Green: Normal • Red: {'>'}10% above 120/80</div>
+
                     </div>
-                    {/* Sugar Trend - Progress Circles */}
+                    {/* Sugar Trend - Bar Charts with Color Coding */}
                     <div>
                       <div className="text-xs font-bold text-gray-700 mb-1">Blood Sugar</div>
-                      <div className="flex justify-between items-center h-8">
-                        <div className="w-6 h-6 rounded-full border-4 border-orange-300 border-t-orange-500"></div>
-                        <div className="w-6 h-6 rounded-full border-4 border-orange-200 border-t-orange-600"></div>
-                        <div className="w-6 h-6 rounded-full border-4 border-orange-300 border-t-orange-400"></div>
-                        <div className="w-6 h-6 rounded-full border-4 border-orange-200 border-t-orange-600"></div>
+                      <div className="flex items-end gap-1 h-8">
+                        {/* Day 1: 88 mg/dL - Normal (green) */}
+                        <div className="flex-1 bg-green-500 rounded-sm h-5"></div>
+                        {/* Day 2: 125 mg/dL - High (red) */}
+                        <div className="flex-1 bg-red-400 rounded-sm h-7"></div>
+                        {/* Day 3: 92 mg/dL - Normal (green) */}
+                        <div className="flex-1 bg-green-500 rounded-sm h-5"></div>
+                        {/* Day 4: 145 mg/dL - High (red) */}
+                        <div className="flex-1 bg-red-600 rounded-sm h-8"></div>
+                        {/* Day 5: 89 mg/dL - Normal (green) */}
+                        <div className="flex-1 bg-green-500 rounded-sm h-5"></div>
+                        {/* Day 6: 110 mg/dL - Slightly high (red) */}
+                        <div className="flex-1 bg-red-400 rounded-sm h-6"></div>
+                        {/* Day 7: 94 mg/dL - Normal (green) - Today */}
+                        <div className="flex-1 bg-green-600 rounded-sm h-5"></div>
                       </div>
                     </div>
                   </div>
-                  
-                  {/* Additional Graph Options Note */}
-                  <div className="mt-2 text-xs text-gray-500 italic">
-                    Alternative options: Bar charts, Sparklines, Gauge meters, Candlestick charts
-                  </div>
+
                 </div>
               </div>
               

@@ -205,7 +205,7 @@ export default function HealthAnalyticsScreen() {
     <div className="min-h-screen bg-warm-neutral-50 p-6">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-3">
           <Button
             variant="ghost"
             size="icon"
@@ -225,7 +225,7 @@ export default function HealthAnalyticsScreen() {
         </div>
 
         {/* Date Selector */}
-        <Card className="mb-6">
+        <Card className="mb-3">
           <CardContent className="p-4">
             <div className="flex items-center gap-4">
               <Calendar className="w-5 h-5 text-indigo-600" />
@@ -241,7 +241,7 @@ export default function HealthAnalyticsScreen() {
         </Card>
 
         {/* Dashboard Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-3">
           <Card>
             <CardContent className="p-4">
               <div className="flex items-center gap-3">
@@ -296,7 +296,7 @@ export default function HealthAnalyticsScreen() {
         </div>
 
         {/* Main Content Tabs */}
-        <Tabs defaultValue="nutrition" className="space-y-6">
+        <Tabs defaultValue="nutrition" className="space-y-3">
           <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="nutrition">Nutrition Tracking</TabsTrigger>
             <TabsTrigger value="health">Health Metrics</TabsTrigger>
