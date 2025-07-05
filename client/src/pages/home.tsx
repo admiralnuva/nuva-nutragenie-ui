@@ -369,7 +369,7 @@ export default function HomeScreen() {
             {/* Row 1 - Avatars with Greeting Between */}
             <div className="flex items-center justify-between">
               {/* User Avatar - Left */}
-              <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm overflow-hidden">
+              <div className="w-16 h-16 rounded-full overflow-hidden">
                 <img 
                   src={user1Avatar} 
                   alt="User Avatar" 
@@ -383,7 +383,7 @@ export default function HomeScreen() {
               </div>
               
               {/* Chef Marcus Avatar - Right */}
-              <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm overflow-hidden">
+              <div className="w-16 h-16 rounded-full overflow-hidden">
                 <img 
                   src={chef1Avatar} 
                   alt="Chef Marcus" 
