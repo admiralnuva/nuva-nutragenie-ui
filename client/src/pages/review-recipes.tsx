@@ -394,8 +394,8 @@ export default function ReviewRecipesScreen() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 pb-24">
       {/* Header */}
-      <div className="bg-white shadow-sm p-4">
-        <div className="flex items-center justify-between mb-2">
+      <div className="bg-white shadow-sm p-4 pb-2">
+        <div className="flex items-center justify-between mb-1">
           <BackButton to="/recipes" />
           <div className="flex-1 text-center">
             <h1 className="text-2xl font-bold text-gray-800">NutraGenie</h1>
@@ -409,9 +409,14 @@ export default function ReviewRecipesScreen() {
 
       <div className="max-w-md mx-auto p-4 space-y-4">
         {/* Weekly Meal Planning Header */}
-        <div className="text-center space-y-1 mb-6">
-          <h2 className="text-xl font-bold text-gray-900">Weekly Meal Planner</h2>
-          <p className="text-sm text-gray-600">Select dishes and customize ingredients for your perfect week</p>
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex-1">
+            <h2 className="text-xl font-bold text-gray-900">Weekly Meal Planner</h2>
+            <p className="text-sm text-gray-600">Select dishes and customize ingredients for your perfect week</p>
+          </div>
+          <div className="w-20 h-20 bg-gradient-to-br from-orange-100 to-red-100 rounded-full flex items-center justify-center ml-4">
+            <span className="text-4xl">👨‍🍳</span>
+          </div>
         </div>
 
         {/* Chef Recommends Dishes */}
