@@ -53,7 +53,6 @@ const pantryIngredients = {
   baking: ['Flour', 'Sugar', 'Baking Powder', 'Vanilla Extract', 'Olive Oil', 'Salt', 'Honey', 'Coconut Oil', 'Brown Sugar', 'Cocoa Powder'],
   spices: ['Black Pepper', 'Paprika', 'Cumin', 'Oregano', 'Thyme', 'Garlic Powder', 'Cinnamon', 'Turmeric', 'Chili Powder', 'Bay Leaves'],
   condiments: ['Soy Sauce', 'Hot Sauce', 'Mustard', 'Ketchup', 'Mayo', 'Vinegar', 'Worcestershire', 'BBQ Sauce', 'Sriracha', 'Tahini'],
-  kitchenGadgets: ['🔪 Sharp Knife', '🥄 Mixing Spoons', '🍳 Non-Stick Pan', '🥘 Cast Iron Skillet', '🧄 Garlic Press', '🥒 Vegetable Peeler', '⚖️ Kitchen Scale', '⏲️ Timer', '🥣 Mixing Bowls', '🔥 Thermometer'],
   pantryStaples: ['Chicken Stock', 'Vegetable Broth', 'Canned Tomatoes', 'Coconut Milk', 'Fish Sauce', 'Sesame Oil', 'Maple Syrup', 'Dried Herbs', 'Sea Salt', 'Peppercorns']
 };
 
@@ -192,7 +191,6 @@ export default function RecipesScreen() {
     baking: false,
     spices: false,
     condiments: false,
-    kitchenGadgets: false,
     pantryStaples: false
   });
 
