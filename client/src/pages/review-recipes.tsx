@@ -220,6 +220,54 @@ export default function ReviewRecipesScreen() {
     }));
   };
 
+  // Calculate nutrition for a specific dish based on selected ingredients
+  const calculateDishNutrition = (dishId) => {
+    const dish = chefRecommendedDishes.find(d => d.id === dishId);
+    if (!dish) return dish?.nutrition || { calories: 0, protein: 0, carbs: 0, fat: 0, fiber: 0 };
+
+    let totalNutrition = { calories: 0, protein: 0, carbs: 0, fat: 0, fiber: 0 };
+
+    dish.ingredients.forEach(ingredient => {
+      // Check what's selected for this ingredient
+      const originalKey = `${dishId}-${ingredient.name}-original`;
+      let hasSelection = false;
+
+      // Check if original is selected
+      if (selectedIngredients[originalKey]) {
+        totalNutrition.calories += ingredient.nutrition.calories || 0;
+        totalNutrition.protein += ingredient.nutrition.protein || 0;
+        totalNutrition.carbs += ingredient.nutrition.carbs || 0;
+        totalNutrition.fat += ingredient.nutrition.fat || 0;
+        totalNutrition.fiber += ingredient.nutrition.fiber || 0;
+        hasSelection = true;
+      }
+
+      // Check substitutions
+      ingredient.substitutions.forEach(sub => {
+        const subKey = `${dishId}-${ingredient.name}-${sub.name}`;
+        if (selectedIngredients[subKey]) {
+          totalNutrition.calories += sub.nutrition.calories || 0;
+          totalNutrition.protein += sub.nutrition.protein || 0;
+          totalNutrition.carbs += sub.nutrition.carbs || 0;
+          totalNutrition.fat += sub.nutrition.fat || 0;
+          totalNutrition.fiber += sub.nutrition.fiber || 0;
+          hasSelection = true;
+        }
+      });
+
+      // If nothing is selected, use original by default
+      if (!hasSelection) {
+        totalNutrition.calories += ingredient.nutrition.calories || 0;
+        totalNutrition.protein += ingredient.nutrition.protein || 0;
+        totalNutrition.carbs += ingredient.nutrition.carbs || 0;
+        totalNutrition.fat += ingredient.nutrition.fat || 0;
+        totalNutrition.fiber += ingredient.nutrition.fiber || 0;
+      }
+    });
+
+    return totalNutrition;
+  };
+
   // Handle ingredient/substitution selection
   const handleIngredientSelection = (dishId, ingredientName, option) => {
     const key = `${dishId}-${ingredientName}-${option}`;
@@ -577,13 +625,18 @@ export default function ReviewRecipesScreen() {
                   <p className="text-sm text-gray-600">{dish.day} • {dish.servings} servings • {dish.cookTime} min</p>
                 </div>
 
-                {/* Nutrition info */}
-                <div className="flex items-center gap-4 text-xs text-gray-600 mb-3">
-                  <span>{dish.nutrition.calories} cal</span>
-                  <span>{dish.nutrition.protein}g protein</span>
-                  <span>{dish.nutrition.carbs}g carbs</span>
-                  <span>{dish.nutrition.fat}g fat</span>
-                </div>
+                {/* Nutrition info - dynamic based on selections */}
+                {(() => {
+                  const currentNutrition = calculateDishNutrition(dish.id);
+                  return (
+                    <div className="flex items-center gap-4 text-xs text-gray-600 mb-3">
+                      <span>{Math.round(currentNutrition.calories)} cal</span>
+                      <span>{Math.round(currentNutrition.protein)}g protein</span>
+                      <span>{Math.round(currentNutrition.carbs)}g carbs</span>
+                      <span>{Math.round(currentNutrition.fat)}g fat</span>
+                    </div>
+                  );
+                })()}
 
                 {/* Substitutions button at bottom */}
                 <Button
