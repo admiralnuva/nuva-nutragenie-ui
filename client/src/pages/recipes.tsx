@@ -998,14 +998,14 @@ export default function RecipesScreen() {
               <div className="space-y-4">
                 {/* Custom Dish Input Card */}
                 <Card className="bg-white border border-gray-200">
-                  <CardHeader className="py-3">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1 py-1">
-                        <CardTitle className="text-lg leading-tight">Create Your Custom Dish</CardTitle>
-                        <p className="text-sm text-gray-600 mt-1">Design a personalized Dish</p>
+                  <CardHeader className="py-2">
+                    <div className="flex items-center justify-between">
+                      <div className="flex-1">
+                        <CardTitle className="text-lg leading-tight">Custom Dish</CardTitle>
+                        <p className="text-xs text-gray-600 mt-1">Create your own or let chef decide</p>
                       </div>
-                      <div className="flex flex-col items-center ml-4 flex-shrink-0">
-                        <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white">
+                      <div className="flex flex-col items-center ml-6 flex-shrink-0">
+                        <div className="flex items-center justify-center w-16 h-16 rounded-lg overflow-hidden bg-white">
                           <img 
                             src={userAvatarSrc} 
                             alt="User Avatar"
@@ -1018,9 +1018,8 @@ export default function RecipesScreen() {
                       </div>
                     </div>
                   </CardHeader>
-                  <CardContent className="space-y-4">
+                  <CardContent className="space-y-3 py-3">
                     <div>
-                      <label className="text-sm font-medium text-gray-700 mb-2 block">Dish Name</label>
                       <Input
                         value={customDishName}
                         onChange={(e) => {
@@ -1036,24 +1035,37 @@ export default function RecipesScreen() {
                             : "Enter your dish name..."
                         }
                         disabled={!customDishName.trim() && selectedDishes.length >= MAX_DISH_SELECTION}
-                        className={`w-full text-lg py-3 ${
+                        className={`w-full py-2 ${
                           !customDishName.trim() && selectedDishes.length >= MAX_DISH_SELECTION 
                             ? 'opacity-50 cursor-not-allowed' : ''
                         }`}
                       />
                     </div>
-                    <Button 
-                      className="w-full bg-indigo-600 hover:bg-indigo-700"
-                      disabled={!customDishName.trim()}
-                      onClick={() => {
-                        if (customDishName.trim()) {
-                          // Handle custom dish creation
-                          console.log("Creating custom dish:", customDishName);
-                        }
-                      }}
-                    >
-                      Create Custom Dish
-                    </Button>
+                    <div className="grid grid-cols-2 gap-2">
+                      <Button 
+                        className="bg-indigo-600 hover:bg-indigo-700 text-sm py-2"
+                        disabled={!customDishName.trim()}
+                        onClick={() => {
+                          if (customDishName.trim()) {
+                            // Handle custom dish creation
+                            console.log("Creating custom dish:", customDishName);
+                          }
+                        }}
+                      >
+                        Create Custom Dish
+                      </Button>
+                      <Button 
+                        variant="outline"
+                        className="border-indigo-200 text-indigo-600 hover:bg-indigo-50 text-sm py-2"
+                        disabled={getTotalSelectedDishes() >= MAX_DISH_SELECTION}
+                        onClick={() => {
+                          // Handle chef's choice
+                          console.log("Chef's choice selected");
+                        }}
+                      >
+                        Chef's Choice
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
                 
