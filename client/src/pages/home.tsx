@@ -484,18 +484,26 @@ export default function HomeScreen() {
                 <div className="bg-gray-50 p-3 rounded-lg">
                   <div className="text-sm font-bold text-gray-800 mb-2">7-Day Trends</div>
                   <div className="grid grid-cols-2 gap-4">
-                    {/* BP Trend - Heatmap Style */}
+                    {/* BP Trend - Bar Charts with Color Coding */}
                     <div>
                       <div className="text-xs font-bold text-gray-700 mb-1">Blood Pressure</div>
-                      <div className="flex gap-1 h-8">
-                        <div className="flex-1 bg-red-200 rounded-sm"></div>
-                        <div className="flex-1 bg-red-400 rounded-sm"></div>
-                        <div className="flex-1 bg-red-300 rounded-sm"></div>
-                        <div className="flex-1 bg-red-500 rounded-sm"></div>
-                        <div className="flex-1 bg-red-300 rounded-sm"></div>
-                        <div className="flex-1 bg-red-400 rounded-sm"></div>
-                        <div className="flex-1 bg-red-600 rounded-sm"></div>
+                      <div className="flex items-end gap-1 h-8">
+                        {/* Day 1: 118/75 - Normal (green) */}
+                        <div className="flex-1 bg-green-500 rounded-sm h-5"></div>
+                        {/* Day 2: 125/82 - Slightly high (red) */}
+                        <div className="flex-1 bg-red-400 rounded-sm h-6"></div>
+                        {/* Day 3: 119/78 - Normal (green) */}
+                        <div className="flex-1 bg-green-500 rounded-sm h-5"></div>
+                        {/* Day 4: 135/88 - High (red) */}
+                        <div className="flex-1 bg-red-600 rounded-sm h-8"></div>
+                        {/* Day 5: 121/79 - Normal (green) */}
+                        <div className="flex-1 bg-green-500 rounded-sm h-5"></div>
+                        {/* Day 6: 124/81 - Slightly high (red) */}
+                        <div className="flex-1 bg-red-400 rounded-sm h-6"></div>
+                        {/* Day 7: 122/78 - Normal (green) - Today */}
+                        <div className="flex-1 bg-green-600 rounded-sm h-6"></div>
                       </div>
+                      <div className="text-xs text-gray-500 mt-1">Green: Normal • Red: >10% above 120/80</div>
                     </div>
                     {/* Sugar Trend - Progress Circles */}
                     <div>
