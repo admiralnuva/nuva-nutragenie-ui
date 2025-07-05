@@ -408,17 +408,8 @@ export default function RecipesScreen() {
   };
 
   const generateRecipe = () => {
-    if (currentView === "dishes" && selectedDishes.length > 0) {
-      // Store selected recipes in localStorage for recipe details page
-      localStorage.setItem("selected_recipes", JSON.stringify(selectedDishes));
-      setLocation("/recipe-details");
-    } else if (currentView === "create" && (selectedDishes.length > 0 || customDishName.trim())) {
-      // Navigate to meal planning with selected dishes or custom dish
-      setLocation("/review-recipes");
-    } else {
-      // Navigate to meal planning (Chef Recommends)
-      setLocation("/review-recipes");
-    }
+    // All views now navigate to meal planner
+    setLocation("/review-recipes");
   };
 
   return (
@@ -1280,12 +1271,7 @@ export default function RecipesScreen() {
             selectedDishes.length === 0
           }
         >
-          {currentView === "dishes" 
-            ? "Generate Recipes"
-            : currentView === "create"
-            ? "Generate Meal Plan"
-            : "Generate Meal Plan"
-          }
+          Generate Meal Plan
         </Button>
 
         {(currentView === "dishes" || currentView === "create") && (
