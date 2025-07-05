@@ -141,9 +141,9 @@ export default function DietaryScreen() {
                     <Shield className="w-5 h-5" />
                     Dietary Restrictions
                   </CardTitle>
-                  <CardDescription>Help us create personalized nutrition<br />Select any dietary restrictions you follow</CardDescription>
+                  <CardDescription>Select dietary choice to create personalized nutrition</CardDescription>
                 </div>
-                <div className="flex items-center justify-center w-12 h-12 rounded-lg overflow-hidden bg-gray-100 ml-4">
+                <div className="flex items-center justify-center w-5 h-5 rounded overflow-hidden bg-gray-100 ml-4">
                   <img 
                     src={userAvatarSrc} 
                     alt="User Avatar"
@@ -159,9 +159,9 @@ export default function DietaryScreen() {
                     key={option.value}
                     type="button"
                     onClick={() => toggleSelection(setSelectedDietary, option.value)}
-                    className={`px-3 py-2 rounded-lg border-2 font-medium transition-all text-sm ${
+                    className={`px-3 py-2 rounded-lg border-2 font-medium transition-all text-sm text-left ${
                       selectedDietary.includes(option.value)
-                        ? 'border-indigo-500 bg-indigo-500 text-white shadow-md scale-105'
+                        ? 'border-indigo-500 bg-indigo-500 text-white scale-105'
                         : 'border-gray-300 text-gray-700 hover:border-indigo-400 hover:bg-indigo-50 hover:text-indigo-700'
                     }`}
                   >
@@ -183,7 +183,7 @@ export default function DietaryScreen() {
                   </CardTitle>
                   <CardDescription>Select health conditions to consider</CardDescription>
                 </div>
-                <div className="flex items-center justify-center w-12 h-12 rounded-lg overflow-hidden bg-gray-100 ml-4">
+                <div className="flex items-center justify-center w-5 h-5 rounded overflow-hidden bg-gray-100 ml-4">
                   <img 
                     src={userAvatarSrc} 
                     alt="User Avatar"
@@ -199,9 +199,9 @@ export default function DietaryScreen() {
                     key={condition.value}
                     type="button"
                     onClick={() => toggleSelection(setSelectedHealth, condition.value)}
-                    className={`px-3 py-2 rounded-lg border-2 font-medium transition-all text-sm ${
+                    className={`px-3 py-2 rounded-lg border-2 font-medium transition-all text-sm text-left ${
                       selectedHealth.includes(condition.value)
-                        ? 'border-indigo-500 bg-indigo-500 text-white shadow-md scale-105'
+                        ? 'border-indigo-500 bg-indigo-500 text-white scale-105'
                         : 'border-gray-300 text-gray-700 hover:border-indigo-400 hover:bg-indigo-50 hover:text-indigo-700'
                     }`}
                   >
@@ -223,7 +223,7 @@ export default function DietaryScreen() {
                   </CardTitle>
                   <CardDescription>What are your fitness and wellness goals?</CardDescription>
                 </div>
-                <div className="flex items-center justify-center w-12 h-12 rounded-lg overflow-hidden bg-gray-100 ml-4">
+                <div className="flex items-center justify-center w-5 h-5 rounded overflow-hidden bg-gray-100 ml-4">
                   <img 
                     src={userAvatarSrc} 
                     alt="User Avatar"
@@ -239,9 +239,9 @@ export default function DietaryScreen() {
                     key={goal.value}
                     type="button"
                     onClick={() => toggleSelection(setSelectedFitness, goal.value)}
-                    className={`px-3 py-2 rounded-lg border-2 font-medium transition-all text-sm ${
+                    className={`px-3 py-2 rounded-lg border-2 font-medium transition-all text-sm text-left ${
                       selectedFitness.includes(goal.value)
-                        ? 'border-indigo-500 bg-indigo-500 text-white shadow-md scale-105'
+                        ? 'border-indigo-500 bg-indigo-500 text-white scale-105'
                         : 'border-gray-300 text-gray-700 hover:border-indigo-400 hover:bg-indigo-50 hover:text-indigo-700'
                     }`}
                   >
@@ -263,7 +263,7 @@ export default function DietaryScreen() {
                   </CardTitle>
                   <CardDescription>List ingredients or foods you prefer to avoid</CardDescription>
                 </div>
-                <div className="flex items-center justify-center w-12 h-12 rounded-lg overflow-hidden bg-gray-100 ml-4">
+                <div className="flex items-center justify-center w-5 h-5 rounded overflow-hidden bg-gray-100 ml-4">
                   <img 
                     src={userAvatarSrc} 
                     alt="User Avatar"
@@ -290,7 +290,7 @@ export default function DietaryScreen() {
                   <CardTitle className="text-lg">Allergies & Serious Restrictions</CardTitle>
                   <CardDescription>List any food allergies or severe restrictions</CardDescription>
                 </div>
-                <div className="flex items-center justify-center w-12 h-12 rounded-lg overflow-hidden bg-gray-100 ml-4">
+                <div className="flex items-center justify-center w-5 h-5 rounded overflow-hidden bg-gray-100 ml-4">
                   <img 
                     src={userAvatarSrc} 
                     alt="User Avatar"
@@ -317,7 +317,7 @@ export default function DietaryScreen() {
                   <CardTitle className="text-lg">Additional Notes</CardTitle>
                   <CardDescription>Any other preferences or requirements</CardDescription>
                 </div>
-                <div className="flex items-center justify-center w-12 h-12 rounded-lg overflow-hidden bg-gray-100 ml-4">
+                <div className="flex items-center justify-center w-5 h-5 rounded overflow-hidden bg-gray-100 ml-4">
                   <img 
                     src={userAvatarSrc} 
                     alt="User Avatar"
