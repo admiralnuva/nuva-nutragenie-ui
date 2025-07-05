@@ -599,7 +599,7 @@ export default function RecipesScreen() {
               </div>
             </div>
           </CardHeader>
-          <CardContent className="space-y-2">
+          <CardContent className="space-y-4 py-3">
             <div>
               <div className="flex justify-between items-center mb-1">
                 <label className="text-xs font-medium text-gray-700">Calories</label>
@@ -611,7 +611,7 @@ export default function RecipesScreen() {
                 max={1000}
                 min={100}
                 step={50}
-                className="w-full slider-large-thumb"
+                className="w-full"
               />
             </div>
 
@@ -626,7 +626,7 @@ export default function RecipesScreen() {
                 max={60}
                 min={5}
                 step={5}
-                className="w-full slider-large-thumb"
+                className="w-full"
               />
             </div>
 
@@ -641,7 +641,7 @@ export default function RecipesScreen() {
                 max={100}
                 min={5}
                 step={5}
-                className="w-full slider-large-thumb"
+                className="w-full"
               />
             </div>
 
@@ -656,7 +656,7 @@ export default function RecipesScreen() {
                 max={25}
                 min={5}
                 step={1}
-                className="w-full slider-large-thumb"
+                className="w-full"
               />
             </div>
           </CardContent>
