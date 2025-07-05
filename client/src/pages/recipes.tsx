@@ -969,35 +969,29 @@ export default function RecipesScreen() {
                 {/* Custom Dish Input Card */}
                 <Card className="bg-white border border-gray-200">
                   <CardHeader className="py-3">
-                    <CardTitle className="text-lg">Create Your Custom Dish</CardTitle>
-                    <p className="text-sm text-gray-600">Design a personalized recipe just for you</p>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="flex gap-3">
+                    <div className="flex items-center justify-between">
                       <div className="flex-1">
-                        <label className="text-sm font-medium text-gray-700 mb-2 block">Dish Name</label>
-                        <Input
-                          value={customDishName}
-                          onChange={(e) => setCustomDishName(e.target.value)}
-                          placeholder="Enter your dish name..."
-                          className="w-full"
+                        <CardTitle className="text-lg">Create Your Custom Dish</CardTitle>
+                        <p className="text-sm text-gray-600">Design a personalized Dish</p>
+                      </div>
+                      <div className="flex items-center justify-center w-16 h-16 rounded-lg overflow-hidden bg-white ml-3">
+                        <img 
+                          src={userAvatarSrc} 
+                          alt="User Avatar"
+                          className="w-full h-full object-cover rounded-lg"
                         />
                       </div>
-                      <div className="w-32">
-                        <label className="text-sm font-medium text-gray-700 mb-2 block">Servings</label>
-                        <Select value={customDishServings} onValueChange={setCustomDishServings}>
-                          <SelectTrigger>
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {[1, 2, 3, 4, 5, 6, 7, 8].map(num => (
-                              <SelectItem key={num} value={num.toString()}>
-                                {num}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div>
+                      <label className="text-sm font-medium text-gray-700 mb-2 block">Dish Name</label>
+                      <Input
+                        value={customDishName}
+                        onChange={(e) => setCustomDishName(e.target.value)}
+                        placeholder="Enter your dish name..."
+                        className="w-full text-lg py-3"
+                      />
                     </div>
                     <Button 
                       className="w-full bg-indigo-600 hover:bg-indigo-700"
@@ -1005,7 +999,7 @@ export default function RecipesScreen() {
                       onClick={() => {
                         if (customDishName.trim()) {
                           // Handle custom dish creation
-                          console.log("Creating custom dish:", customDishName, "for", customDishServings, "servings");
+                          console.log("Creating custom dish:", customDishName);
                         }
                       }}
                     >
