@@ -599,11 +599,11 @@ export default function RecipesScreen() {
               </div>
             </div>
           </CardHeader>
-          <CardContent className="space-y-3">
+          <CardContent className="space-y-2">
             <div>
               <div className="flex justify-between items-center mb-1">
-                <label className="text-sm font-medium text-gray-700">Calories</label>
-                <span className="text-sm text-gray-600">{calorieRange[0]} - {calorieRange[1]} cal</span>
+                <label className="text-xs font-medium text-gray-700">Calories</label>
+                <span className="text-xs text-gray-600">{calorieRange[0]} - {calorieRange[1]} cal</span>
               </div>
               <Slider
                 value={calorieRange}
@@ -611,14 +611,14 @@ export default function RecipesScreen() {
                 max={1000}
                 min={100}
                 step={50}
-                className="w-full"
+                className="w-full slider-large-thumb"
               />
             </div>
 
             <div>
               <div className="flex justify-between items-center mb-1">
-                <label className="text-sm font-medium text-gray-700">Protein</label>
-                <span className="text-sm text-gray-600">{proteinRange[0]} - {proteinRange[1]}g</span>
+                <label className="text-xs font-medium text-gray-700">Protein</label>
+                <span className="text-xs text-gray-600">{proteinRange[0]} - {proteinRange[1]}g</span>
               </div>
               <Slider
                 value={proteinRange}
@@ -626,14 +626,14 @@ export default function RecipesScreen() {
                 max={60}
                 min={5}
                 step={5}
-                className="w-full"
+                className="w-full slider-large-thumb"
               />
             </div>
 
             <div>
               <div className="flex justify-between items-center mb-1">
-                <label className="text-sm font-medium text-gray-700">Carbs</label>
-                <span className="text-sm text-gray-600">{carbRange[0]} - {carbRange[1]}g</span>
+                <label className="text-xs font-medium text-gray-700">Carbs</label>
+                <span className="text-xs text-gray-600">{carbRange[0]} - {carbRange[1]}g</span>
               </div>
               <Slider
                 value={carbRange}
@@ -641,14 +641,14 @@ export default function RecipesScreen() {
                 max={100}
                 min={5}
                 step={5}
-                className="w-full"
+                className="w-full slider-large-thumb"
               />
             </div>
 
             <div>
               <div className="flex justify-between items-center mb-1">
-                <label className="text-sm font-medium text-gray-700">Fiber</label>
-                <span className="text-sm text-gray-600">{fiberRange[0]} - {fiberRange[1]}g</span>
+                <label className="text-xs font-medium text-gray-700">Fiber</label>
+                <span className="text-xs text-gray-600">{fiberRange[0]} - {fiberRange[1]}g</span>
               </div>
               <Slider
                 value={fiberRange}
@@ -656,7 +656,7 @@ export default function RecipesScreen() {
                 max={25}
                 min={5}
                 step={1}
-                className="w-full"
+                className="w-full slider-large-thumb"
               />
             </div>
           </CardContent>
