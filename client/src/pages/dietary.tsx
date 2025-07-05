@@ -181,7 +181,7 @@ export default function DietaryScreen() {
                     <Heart className="w-5 h-5" />
                     Health Factors
                   </CardTitle>
-                  <CardDescription>Select health factors to consider</CardDescription>
+                  <CardDescription>Select health factors</CardDescription>
                 </div>
                 <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white ml-4">
                   <img 
