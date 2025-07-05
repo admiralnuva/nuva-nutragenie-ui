@@ -219,7 +219,7 @@ export default function RecipesScreen() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 pb-24">
-      <div className="max-w-md mx-auto p-4 space-y-6">
+      <div className="max-w-md mx-auto p-4 space-y-3">
         {/* Header */}
         <div className="flex items-center justify-between">
           <BackButton to="/home" />
@@ -227,14 +227,14 @@ export default function RecipesScreen() {
           <div className="w-10"></div>
         </div>
 
-        <div className="text-center space-y-2">
-          <h2 className="text-2xl font-bold text-gray-900">Explore Recipes</h2>
-          <p className="text-gray-600">Plan your next delicious meal</p>
+        <div className="text-center space-y-1">
+          <h2 className="text-xl font-bold text-gray-900">Explore Recipes</h2>
+          <p className="text-sm text-gray-600">Plan your next delicious meal</p>
         </div>
 
         {/* Card 1: Dietary Preferences */}
         <Card className="bg-white border border-gray-200">
-          <CardHeader className="pb-4">
+          <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <div className="flex-1">
                 <CardTitle className="text-lg">Meal Preferences</CardTitle>
@@ -249,11 +249,11 @@ export default function RecipesScreen() {
               </div>
             </div>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid grid-cols-1 gap-4">
+          <CardContent className="space-y-3">
+            <div className="grid grid-cols-1 gap-3">
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-sm font-medium text-gray-700 mb-2 block">Cuisine</label>
+                  <label className="text-sm font-medium text-gray-700 mb-1 block">Cuisine</label>
                   <Select value={selectedCuisine} onValueChange={setSelectedCuisine}>
                     <SelectTrigger>
                       <SelectValue placeholder="Select cuisine type" />
@@ -269,7 +269,7 @@ export default function RecipesScreen() {
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium text-gray-700 mb-2 block">Servings</label>
+                  <label className="text-sm font-medium text-gray-700 mb-1 block">Servings</label>
                   <Select value={servingSize} onValueChange={setServingSize}>
                     <SelectTrigger>
                       <SelectValue placeholder="Servings" />
@@ -287,7 +287,7 @@ export default function RecipesScreen() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-sm font-medium text-gray-700 mb-2 block">Meal Type</label>
+                  <label className="text-sm font-medium text-gray-700 mb-1 block">Meal Type</label>
                   <Select value={selectedMealType} onValueChange={setSelectedMealType}>
                     <SelectTrigger>
                       <SelectValue placeholder="Type" />
@@ -303,7 +303,7 @@ export default function RecipesScreen() {
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium text-gray-700 mb-2 block">Spice Level</label>
+                  <label className="text-sm font-medium text-gray-700 mb-1 block">Spice Level</label>
                   <Select value={selectedSpiceLevel} onValueChange={setSelectedSpiceLevel}>
                     <SelectTrigger>
                       <SelectValue placeholder="Spice" />
@@ -324,7 +324,7 @@ export default function RecipesScreen() {
 
         {/* Card 2: Pantry View Toggle */}
         <Card className="bg-white border border-gray-200">
-          <CardHeader className="pb-4">
+          <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <div className="flex-1">
                 <CardTitle className="text-lg">
@@ -344,7 +344,7 @@ export default function RecipesScreen() {
             </div>
             
             {/* Toggle Buttons */}
-            <div className="flex bg-gray-100 rounded-lg p-1 mt-4">
+            <div className="flex bg-gray-100 rounded-lg p-1 mt-2">
               <button
                 onClick={() => setCurrentView("pantry")}
                 className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all ${
@@ -370,7 +370,7 @@ export default function RecipesScreen() {
           
           <CardContent>
             {currentView === "pantry" ? (
-              <div className="space-y-4">
+              <div className="space-y-2">
                 {/* Ingredient Categories */}
                 {Object.entries(pantryIngredients).map(([category, ingredients]) => (
                   <Collapsible 
@@ -422,7 +422,7 @@ export default function RecipesScreen() {
                 ))}
 
                 {/* Custom Ingredient Input */}
-                <div className="mt-4 pt-4 border-t border-gray-200">
+                <div className="mt-2 pt-2 border-t border-gray-200">
                   <div className="flex gap-2">
                     <Input
                       placeholder="Add custom ingredient..."
@@ -497,7 +497,7 @@ export default function RecipesScreen() {
 
         {/* Card 3: Nutritional Adjustments */}
         <Card className="bg-white border border-gray-200">
-          <CardHeader className="pb-4">
+          <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <div className="flex-1">
                 <CardTitle className="text-lg">Nutritional Adjustments</CardTitle>
@@ -512,9 +512,9 @@ export default function RecipesScreen() {
               </div>
             </div>
           </CardHeader>
-          <CardContent className="space-y-6">
+          <CardContent className="space-y-3">
             <div>
-              <div className="flex justify-between items-center mb-2">
+              <div className="flex justify-between items-center mb-1">
                 <label className="text-sm font-medium text-gray-700">Calories</label>
                 <span className="text-sm text-gray-600">{calorieRange[0]} - {calorieRange[1]} cal</span>
               </div>
@@ -529,7 +529,7 @@ export default function RecipesScreen() {
             </div>
 
             <div>
-              <div className="flex justify-between items-center mb-2">
+              <div className="flex justify-between items-center mb-1">
                 <label className="text-sm font-medium text-gray-700">Protein</label>
                 <span className="text-sm text-gray-600">{proteinRange[0]} - {proteinRange[1]}g</span>
               </div>
@@ -544,7 +544,7 @@ export default function RecipesScreen() {
             </div>
 
             <div>
-              <div className="flex justify-between items-center mb-2">
+              <div className="flex justify-between items-center mb-1">
                 <label className="text-sm font-medium text-gray-700">Carbs</label>
                 <span className="text-sm text-gray-600">{carbRange[0]} - {carbRange[1]}g</span>
               </div>
@@ -559,7 +559,7 @@ export default function RecipesScreen() {
             </div>
 
             <div>
-              <div className="flex justify-between items-center mb-2">
+              <div className="flex justify-between items-center mb-1">
                 <label className="text-sm font-medium text-gray-700">Fiber</label>
                 <span className="text-sm text-gray-600">{fiberRange[0]} - {fiberRange[1]}g</span>
               </div>
