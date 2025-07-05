@@ -573,24 +573,36 @@ export default function HomeScreen() {
                   <div className="bg-blue-50 p-2 rounded text-center">
                     <div className="text-xs text-gray-600">Steps</div>
                     <div className="text-lg font-bold text-blue-600">8,247</div>
+                    <div className="flex justify-center mt-1">
+                      <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
                   </div>
                   
                   {/* Calories */}
                   <div className="bg-orange-50 p-2 rounded text-center">
                     <div className="text-xs text-gray-600">Calories</div>
                     <div className="text-lg font-bold text-orange-600">524</div>
+                    <div className="flex justify-center mt-1">
+                      <div className="w-3 h-3 rounded-full bg-orange-500"></div>
+                    </div>
                   </div>
                   
                   {/* Distance */}
                   <div className="bg-purple-50 p-2 rounded text-center">
                     <div className="text-xs text-gray-600">Distance</div>
                     <div className="text-lg font-bold text-purple-600">4.1 mi</div>
+                    <div className="flex justify-center mt-1">
+                      <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
                   </div>
                   
                   {/* Heart Rate - Wider */}
                   <div className="bg-red-50 p-2 rounded text-center">
                     <div className="text-xs text-gray-600">Heart Rate</div>
                     <div className="text-lg font-bold text-red-600">72 bpm</div>
+                    <div className="flex justify-center mt-1">
+                      <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
                   </div>
                 </div>
               </div>
