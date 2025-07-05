@@ -480,36 +480,38 @@ export default function HomeScreen() {
                   </div>
                 </div>
                 
-                {/* Trend Line Visualization */}
+                {/* Trend Visualization - Sample Graph Options */}
                 <div className="bg-gray-50 p-3 rounded-lg">
-                  <div className="text-xs text-gray-600 mb-2">7-Day Trends</div>
+                  <div className="text-sm font-bold text-gray-800 mb-2">7-Day Trends</div>
                   <div className="grid grid-cols-2 gap-4">
-                    {/* BP Trend */}
+                    {/* BP Trend - Heatmap Style */}
                     <div>
-                      <div className="text-xs text-gray-500 mb-1">Blood Pressure</div>
-                      <div className="flex items-end gap-1 h-8">
-                        <div className="bg-red-300 w-2 h-6"></div>
-                        <div className="bg-red-400 w-2 h-5"></div>
-                        <div className="bg-red-300 w-2 h-7"></div>
-                        <div className="bg-red-500 w-2 h-4"></div>
-                        <div className="bg-red-400 w-2 h-6"></div>
-                        <div className="bg-red-300 w-2 h-5"></div>
-                        <div className="bg-red-600 w-2 h-8"></div>
+                      <div className="text-xs font-bold text-gray-700 mb-1">Blood Pressure</div>
+                      <div className="flex gap-1 h-8">
+                        <div className="flex-1 bg-red-200 rounded-sm"></div>
+                        <div className="flex-1 bg-red-400 rounded-sm"></div>
+                        <div className="flex-1 bg-red-300 rounded-sm"></div>
+                        <div className="flex-1 bg-red-500 rounded-sm"></div>
+                        <div className="flex-1 bg-red-300 rounded-sm"></div>
+                        <div className="flex-1 bg-red-400 rounded-sm"></div>
+                        <div className="flex-1 bg-red-600 rounded-sm"></div>
                       </div>
                     </div>
-                    {/* Sugar Trend */}
+                    {/* Sugar Trend - Progress Circles */}
                     <div>
-                      <div className="text-xs text-gray-500 mb-1">Blood Sugar</div>
-                      <div className="flex items-end gap-1 h-8">
-                        <div className="bg-orange-300 w-2 h-5"></div>
-                        <div className="bg-orange-400 w-2 h-6"></div>
-                        <div className="bg-orange-300 w-2 h-4"></div>
-                        <div className="bg-orange-500 w-2 h-7"></div>
-                        <div className="bg-orange-400 w-2 h-5"></div>
-                        <div className="bg-orange-300 w-2 h-6"></div>
-                        <div className="bg-orange-600 w-2 h-8"></div>
+                      <div className="text-xs font-bold text-gray-700 mb-1">Blood Sugar</div>
+                      <div className="flex justify-between items-center h-8">
+                        <div className="w-6 h-6 rounded-full border-4 border-orange-300 border-t-orange-500"></div>
+                        <div className="w-6 h-6 rounded-full border-4 border-orange-200 border-t-orange-600"></div>
+                        <div className="w-6 h-6 rounded-full border-4 border-orange-300 border-t-orange-400"></div>
+                        <div className="w-6 h-6 rounded-full border-4 border-orange-200 border-t-orange-600"></div>
                       </div>
                     </div>
+                  </div>
+                  
+                  {/* Additional Graph Options Note */}
+                  <div className="mt-2 text-xs text-gray-500 italic">
+                    Alternative options: Bar charts, Sparklines, Gauge meters, Candlestick charts
                   </div>
                 </div>
               </div>
@@ -541,13 +543,15 @@ export default function HomeScreen() {
 
               {/* Today's Activity - Single Row */}
               <div>
-                <h4 className="text-base font-semibold text-gray-800 mb-3 flex items-center gap-2">
-                  <Activity className="text-blue-500" size={16} />
-                  Today's Activity
-                  <Badge className="bg-green-100 text-green-800 text-xs">Live</Badge>
+                <h4 className="text-base font-semibold text-gray-800 mb-3 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Activity className="text-blue-500" size={16} />
+                    Today's Activity
+                  </div>
+                  <Badge className="bg-green-100 text-green-800 text-xs rounded-sm px-2 py-1">Live</Badge>
                 </h4>
                 
-                <div className="grid grid-cols-4 gap-2">
+                <div className="grid gap-2" style={{gridTemplateColumns: "1fr 1fr 1fr 1.5fr"}}>
                   {/* Steps */}
                   <div className="bg-blue-50 p-2 rounded text-center">
                     <div className="text-xs text-gray-600">Steps</div>
@@ -566,10 +570,18 @@ export default function HomeScreen() {
                     <div className="text-lg font-bold text-purple-600">4.1 mi</div>
                   </div>
                   
-                  {/* Heart Rate */}
-                  <div className="bg-red-50 p-2 rounded text-center">
-                    <div className="text-xs text-gray-600">Heart Rate</div>
-                    <div className="text-lg font-bold text-red-600">72 bpm</div>
+                  {/* Heart Rate - Wider */}
+                  <div className="bg-red-50 p-2 rounded">
+                    <div className="grid grid-cols-2 gap-1 text-center">
+                      <div>
+                        <div className="text-xs text-gray-600">Heart Rate</div>
+                        <div className="text-lg font-bold text-red-600">72 bpm</div>
+                      </div>
+                      <div>
+                        <div className="text-xs text-gray-600">Resting</div>
+                        <div className="text-sm text-green-600">Normal</div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
