@@ -41,14 +41,14 @@ const chefs = [
 
 // Validation schemas
 const signupSchema = z.object({
-  nickname: z.string().min(2, "Nickname must be at least 2 characters").max(30, "Nickname too long"),
-  ageGroup: z.string().min(1, "Please select an age group"),
-  phoneNumber: z.string().regex(/^\+?[\d\s\-\(\)]{10,}$/, "Please enter a valid phone number"),
-  streetAddress: z.string().min(5, "Please enter a valid street address"),
-  city: z.string().min(2, "Please enter a valid city"),
-  state: z.string().min(2, "Please enter a valid state"),
-  zipCode: z.string().regex(/^\d{5}(-\d{4})?$/, "Please enter a valid ZIP code"),
-  chefNickname: z.string().min(2, "Chef nickname must be at least 2 characters")
+  nickname: z.string().min(1, "Enter nickname").min(2, "Nickname must be at least 2 characters").max(30, "Nickname too long"),
+  ageGroup: z.string().min(1, "Enter age group"),
+  phoneNumber: z.string().min(1, "Enter phone number").regex(/^\+?[\d\s\-\(\)]{10,}$/, "Please enter a valid phone number"),
+  streetAddress: z.string().min(1, "Enter street address").min(5, "Please enter a valid street address"),
+  city: z.string().min(1, "Enter city").min(2, "Please enter a valid city"),
+  state: z.string().min(1, "Enter state").min(2, "Please enter a valid state"),
+  zipCode: z.string().min(1, "Enter ZIP code").regex(/^\d{5}(-\d{4})?$/, "Please enter a valid ZIP code"),
+  chefNickname: z.string().min(1, "Enter chef nickname").min(2, "Chef nickname must be at least 2 characters")
 });
 
 type ValidationErrors = Partial<Record<keyof z.infer<typeof signupSchema>, string>>;
@@ -73,6 +73,7 @@ export default function SignupScreen() {
   const [codeSent, setCodeSent] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
   const [validationErrors, setValidationErrors] = useState<ValidationErrors>({});
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
 
   const createUserMutation = useMutation({
     mutationFn: async (userData: any) => {
@@ -92,6 +93,18 @@ export default function SignupScreen() {
       toast({ title: "Error", description: error.message, variant: "destructive" });
     }
   });
+
+  const validateField = (fieldName: string, value: string) => {
+    try {
+      const fieldSchema = signupSchema.shape[fieldName as keyof typeof signupSchema.shape];
+      fieldSchema.parse(value);
+      setValidationErrors(prev => ({ ...prev, [fieldName]: undefined }));
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        setValidationErrors(prev => ({ ...prev, [fieldName]: error.errors[0]?.message }));
+      }
+    }
+  };
 
   const validateForm = (): boolean => {
     const formData = {
@@ -120,6 +133,13 @@ export default function SignupScreen() {
         setValidationErrors(errors);
       }
       return false;
+    }
+  };
+
+  const handleFieldChange = (fieldName: string, value: string) => {
+    setTouched(prev => ({ ...prev, [fieldName]: true }));
+    if (touched[fieldName] || value === '') {
+      validateField(fieldName, value);
     }
   };
 
@@ -192,13 +212,13 @@ export default function SignupScreen() {
     });
   };
 
-  // Validation checks (simplified for testing)
-  const isProfileComplete = true; // Remove validation for testing
-  const isAddressComplete = true; // Remove validation for testing
-  const isChefComplete = true; // Remove validation for testing
-  const isPhoneComplete = true; // Remove validation for testing
-  const isVerifiedComplete = true; // Remove validation for testing
-  const isFormComplete = true; // Always allow form submission for testing
+  // Validation checks - all fields required
+  const isProfileComplete = nickname.trim().length >= 2 && ageGroup.length > 0;
+  const isAddressComplete = streetAddress.trim().length >= 5 && city.trim().length >= 2 && state.trim().length >= 2 && zipCode.trim().length >= 5;
+  const isChefComplete = chefNickname.trim().length >= 2;
+  const isPhoneComplete = phoneNumber.trim().length >= 10;
+  const isVerifiedComplete = isVerified;
+  const isFormComplete = isProfileComplete && isAddressComplete && isChefComplete && isPhoneComplete && isVerifiedComplete;
 
   return (
     <div className="min-h-screen bg-warm-neutral-50 p-6">
@@ -262,7 +282,11 @@ export default function SignupScreen() {
                     type="text"
                     placeholder="Your name"
                     value={nickname}
-                    onChange={(e) => setNickname(e.target.value)}
+                    onChange={(e) => {
+                      setNickname(e.target.value);
+                      handleFieldChange('nickname', e.target.value);
+                    }}
+                    onBlur={() => setTouched(prev => ({ ...prev, nickname: true }))}
                     className={`w-full px-3 py-2 rounded-lg border ${validationErrors.nickname ? 'border-red-500 focus:ring-red-500' : 'border-warm-neutral-300 focus:ring-brand-indigo-500'} focus:outline-none focus:ring-2 focus:border-transparent`}
                   />
                   {validationErrors.nickname && (
@@ -277,7 +301,10 @@ export default function SignupScreen() {
                   <Label htmlFor="ageGroup" className="block text-sm font-medium text-warm-neutral-700 mb-2">
                     Age
                   </Label>
-                  <Select value={ageGroup} onValueChange={setAgeGroup}>
+                  <Select value={ageGroup} onValueChange={(value) => {
+                    setAgeGroup(value);
+                    handleFieldChange('ageGroup', value);
+                  }}>
                     <SelectTrigger className={`w-full px-3 py-2 rounded-lg border ${validationErrors.ageGroup ? 'border-red-500 focus:ring-red-500' : 'border-warm-neutral-300 focus:ring-brand-indigo-500'} focus:outline-none focus:ring-2 focus:border-transparent`}>
                       <SelectValue placeholder="Age" />
                     </SelectTrigger>
@@ -322,7 +349,11 @@ export default function SignupScreen() {
                   type="text"
                   placeholder="123 Main Street"
                   value={streetAddress}
-                  onChange={(e) => setStreetAddress(e.target.value)}
+                  onChange={(e) => {
+                    setStreetAddress(e.target.value);
+                    handleFieldChange('streetAddress', e.target.value);
+                  }}
+                  onBlur={() => setTouched(prev => ({ ...prev, streetAddress: true }))}
                   className={`w-full px-3 py-2 rounded-lg border ${validationErrors.streetAddress ? 'border-red-500 focus:ring-red-500' : 'border-warm-neutral-300 focus:ring-brand-indigo-500'} focus:outline-none focus:ring-2 focus:border-transparent`}
                 />
                 {validationErrors.streetAddress && (
@@ -344,7 +375,11 @@ export default function SignupScreen() {
                     type="text"
                     placeholder="San Francisco"
                     value={city}
-                    onChange={(e) => setCity(e.target.value)}
+                    onChange={(e) => {
+                      setCity(e.target.value);
+                      handleFieldChange('city', e.target.value);
+                    }}
+                    onBlur={() => setTouched(prev => ({ ...prev, city: true }))}
                     className={`w-full px-3 py-2 rounded-lg border ${validationErrors.city ? 'border-red-500 focus:ring-red-500' : 'border-warm-neutral-300 focus:ring-brand-indigo-500'} focus:outline-none focus:ring-2 focus:border-transparent`}
                   />
                   {validationErrors.city && (
@@ -358,7 +393,10 @@ export default function SignupScreen() {
                   <Label htmlFor="state" className="block text-sm font-medium text-warm-neutral-700 mb-2">
                     State
                   </Label>
-                  <Select value={state} onValueChange={setState}>
+                  <Select value={state} onValueChange={(value) => {
+                    setState(value);
+                    handleFieldChange('state', value);
+                  }}>
                     <SelectTrigger className={`w-full ${validationErrors.state ? 'border-red-500 focus:ring-red-500' : ''}`}>
                       <SelectValue placeholder="CA" />
                     </SelectTrigger>
@@ -432,7 +470,11 @@ export default function SignupScreen() {
                     placeholder="94102"
                     maxLength={10}
                     value={zipCode}
-                    onChange={(e) => setZipCode(e.target.value)}
+                    onChange={(e) => {
+                      setZipCode(e.target.value);
+                      handleFieldChange('zipCode', e.target.value);
+                    }}
+                    onBlur={() => setTouched(prev => ({ ...prev, zipCode: true }))}
                     className={`w-full px-3 py-2 rounded-lg border ${validationErrors.zipCode ? 'border-red-500 focus:ring-red-500' : 'border-warm-neutral-300 focus:ring-brand-indigo-500'} focus:outline-none focus:ring-2 focus:border-transparent`}
                   />
                   {validationErrors.zipCode && (
@@ -492,7 +534,11 @@ export default function SignupScreen() {
                   type="text"
                   placeholder="Enter chef's name"
                   value={chefNickname}
-                  onChange={(e) => setChefNickname(e.target.value)}
+                  onChange={(e) => {
+                    setChefNickname(e.target.value);
+                    handleFieldChange('chefNickname', e.target.value);
+                  }}
+                  onBlur={() => setTouched(prev => ({ ...prev, chefNickname: true }))}
                   className={`w-full px-3 py-2 rounded-lg border ${validationErrors.chefNickname ? 'border-red-500 focus:ring-red-500' : 'border-warm-neutral-300 focus:ring-brand-indigo-500'} focus:outline-none focus:ring-2 focus:border-transparent`}
                 />
                 {validationErrors.chefNickname && (
@@ -527,7 +573,11 @@ export default function SignupScreen() {
                     type="tel"
                     placeholder="(555) 123-4567"
                     value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
+                    onChange={(e) => {
+                      setPhoneNumber(e.target.value);
+                      handleFieldChange('phoneNumber', e.target.value);
+                    }}
+                    onBlur={() => setTouched(prev => ({ ...prev, phoneNumber: true }))}
                     className={`flex-1 px-3 py-2 rounded-lg border ${validationErrors.phoneNumber ? 'border-red-500 focus:ring-red-500' : 'border-warm-neutral-300 focus:ring-brand-indigo-500'} focus:outline-none focus:ring-2 focus:border-transparent`}
                   />
                   <Button
