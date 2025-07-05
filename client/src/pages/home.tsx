@@ -358,7 +358,7 @@ export default function HomeScreen() {
       label: "Past Recipes", 
       icon: History, 
       color: "bg-purple-500", 
-      path: "/recipes?filter=past",
+      path: "/profile?tab=recipes",
       description: "Review your history"
     },
     { 
@@ -437,7 +437,7 @@ export default function HomeScreen() {
             {/* Row 1 - Avatars with Greeting Between */}
             <div className="flex items-center justify-between">
               {/* User Avatar - Left */}
-              <div className="w-16 h-16 rounded-full overflow-hidden">
+              <div className="w-20 h-20 rounded-full overflow-hidden">
                 <img 
                   src={user1Avatar} 
                   alt="User Avatar" 
@@ -452,7 +452,7 @@ export default function HomeScreen() {
               </div>
               
               {/* Chef Marcus Avatar - Right */}
-              <div className="w-16 h-16 rounded-full overflow-hidden">
+              <div className="w-20 h-20 rounded-full overflow-hidden">
                 <img 
                   src={chef1Avatar} 
                   alt="Chef Marcus" 
@@ -793,29 +793,6 @@ export default function HomeScreen() {
             </div>
           )}
 
-        {/* Single Achievement Section */}
-        <div>
-          <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2 drop-shadow-md">
-            <Award size={20} />
-            Achievement
-          </h3>
-          
-          <Card className="p-4 mb-4 bg-white/95 backdrop-blur-md border-white/30 shadow-xl">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
-                  🏆
-                </div>
-                <div>
-                  <div className="font-medium text-gray-800">Master Chef</div>
-                  <div className="text-sm text-gray-600">Complete 10 recipes</div>
-                </div>
-              </div>
-              <Badge className="bg-green-100 text-green-800">Earned</Badge>
-            </div>
-          </Card>
-        </div>
-
         {/* Trending This Week */}
         <div>
           <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2 drop-shadow-md">
@@ -847,6 +824,29 @@ export default function HomeScreen() {
               </Card>
             ))}
           </div>
+        </div>
+
+        {/* Single Achievement Section */}
+        <div>
+          <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2 drop-shadow-md">
+            <Award size={20} />
+            Achievement
+          </h3>
+          
+          <Card className="p-4 mb-4 bg-white/95 backdrop-blur-md border-white/30 shadow-xl">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
+                  🏆
+                </div>
+                <div>
+                  <div className="font-medium text-gray-800">Master Chef</div>
+                  <div className="text-sm text-gray-600">Complete 10 recipes</div>
+                </div>
+              </div>
+              <Badge className="bg-green-100 text-green-800">Earned</Badge>
+            </div>
+          </Card>
         </div>
 
       </div>
