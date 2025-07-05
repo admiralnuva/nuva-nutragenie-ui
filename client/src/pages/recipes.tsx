@@ -159,7 +159,7 @@ const pantryDishes = [
   }
 ];
 
-// Suggested recipes for Create a Recipe view
+// Suggested recipes for Create a Dish view
 const suggestedRecipes = [
   {
     name: 'Quick Pasta Primavera',
@@ -169,9 +169,8 @@ const suggestedRecipes = [
     calories: 320,
     protein: 12,
     difficulty: 'Easy',
-    badges: ['Quick', 'Vegetarian'],
     dishImage: (
-      <div className="w-30 h-30 flex items-center justify-center text-7xl">
+      <div className="w-24 h-24 flex items-center justify-center text-5xl">
         🍝
       </div>
     )
@@ -184,9 +183,8 @@ const suggestedRecipes = [
     calories: 280,
     protein: 35,
     difficulty: 'Easy',
-    badges: ['Popular', 'High-Protein'],
     dishImage: (
-      <div className="w-30 h-30 flex items-center justify-center text-7xl">
+      <div className="w-24 h-24 flex items-center justify-center text-5xl">
         🍗
       </div>
     )
@@ -199,9 +197,8 @@ const suggestedRecipes = [
     calories: 350,
     protein: 15,
     difficulty: 'Easy',
-    badges: ['Breakfast', 'Trendy'],
     dishImage: (
-      <div className="w-30 h-30 flex items-center justify-center text-7xl">
+      <div className="w-24 h-24 flex items-center justify-center text-5xl">
         🥑
       </div>
     )
@@ -214,9 +211,8 @@ const suggestedRecipes = [
     calories: 380,
     protein: 8,
     difficulty: 'Medium',
-    badges: ['Spicy', 'Asian'],
     dishImage: (
-      <div className="w-30 h-30 flex items-center justify-center text-7xl">
+      <div className="w-24 h-24 flex items-center justify-center text-5xl">
         🍛
       </div>
     )
@@ -233,9 +229,9 @@ const previousRecipes = [
     calories: 180,
     protein: 8,
     difficulty: 'Easy',
-    badges: ['Made 2 days ago'],
+    madeWhen: 'Made 2 days ago',
     dishImage: (
-      <div className="w-30 h-30 flex items-center justify-center text-7xl">
+      <div className="w-24 h-24 flex items-center justify-center text-5xl">
         🥗
       </div>
     )
@@ -248,9 +244,9 @@ const previousRecipes = [
     calories: 450,
     protein: 28,
     difficulty: 'Easy',
-    badges: ['Made last week'],
+    madeWhen: 'Made last week',
     dishImage: (
-      <div className="w-30 h-30 flex items-center justify-center text-7xl">
+      <div className="w-24 h-24 flex items-center justify-center text-5xl">
         🥩
       </div>
     )
@@ -263,9 +259,9 @@ const previousRecipes = [
     calories: 480,
     protein: 12,
     difficulty: 'Easy',
-    badges: ['Made 5 days ago'],
+    madeWhen: 'Made 5 days ago',
     dishImage: (
-      <div className="w-30 h-30 flex items-center justify-center text-7xl">
+      <div className="w-24 h-24 flex items-center justify-center text-5xl">
         🥞
       </div>
     )
@@ -278,9 +274,9 @@ const previousRecipes = [
     calories: 520,
     protein: 32,
     difficulty: 'Easy',
-    badges: ['Made yesterday'],
+    madeWhen: 'Made yesterday',
     dishImage: (
-      <div className="w-30 h-30 flex items-center justify-center text-7xl">
+      <div className="w-24 h-24 flex items-center justify-center text-5xl">
         🌮
       </div>
     )
@@ -306,6 +302,10 @@ export default function RecipesScreen() {
   
   // Selected dishes state
   const [selectedDishes, setSelectedDishes] = useState<string[]>([]);
+  
+  // Custom dish creation state
+  const [customDishName, setCustomDishName] = useState("");
+  const [customDishServings, setCustomDishServings] = useState("2");
   
   // Collapsible states for ingredient categories
   const [openCategories, setOpenCategories] = useState<Record<string, boolean>>({
@@ -577,7 +577,7 @@ export default function RecipesScreen() {
                 <p className="text-sm text-gray-600 mt-1">
                   {currentView === "pantry" ? "Select available ingredients" : 
                    currentView === "dishes" ? "Dishes you can make right now" : 
-                   "Browse suggested and previous recipes"}
+                   "Create custom dishes and browse recipes"}
                 </p>
               </div>
               <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white ml-4">
@@ -619,7 +619,7 @@ export default function RecipesScreen() {
                     : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-200"
                 }`}
               >
-                Create a Recipe
+                Create a Dish
               </button>
             </div>
           </CardHeader>
@@ -964,8 +964,56 @@ export default function RecipesScreen() {
                 })}
               </div>
             ) : currentView === "create" ? (
-              /* Create a Recipe View */
+              /* Create a Dish View */
               <div className="space-y-4">
+                {/* Custom Dish Input Card */}
+                <Card className="bg-white border border-gray-200">
+                  <CardHeader className="py-3">
+                    <CardTitle className="text-lg">Create Your Custom Dish</CardTitle>
+                    <p className="text-sm text-gray-600">Design a personalized recipe just for you</p>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="flex gap-3">
+                      <div className="flex-1">
+                        <label className="text-sm font-medium text-gray-700 mb-2 block">Dish Name</label>
+                        <Input
+                          value={customDishName}
+                          onChange={(e) => setCustomDishName(e.target.value)}
+                          placeholder="Enter your dish name..."
+                          className="w-full"
+                        />
+                      </div>
+                      <div className="w-32">
+                        <label className="text-sm font-medium text-gray-700 mb-2 block">Servings</label>
+                        <Select value={customDishServings} onValueChange={setCustomDishServings}>
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {[1, 2, 3, 4, 5, 6, 7, 8].map(num => (
+                              <SelectItem key={num} value={num.toString()}>
+                                {num}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                    <Button 
+                      className="w-full bg-indigo-600 hover:bg-indigo-700"
+                      disabled={!customDishName.trim()}
+                      onClick={() => {
+                        if (customDishName.trim()) {
+                          // Handle custom dish creation
+                          console.log("Creating custom dish:", customDishName, "for", customDishServings, "servings");
+                        }
+                      }}
+                    >
+                      Create Custom Dish
+                    </Button>
+                  </CardContent>
+                </Card>
+                
                 {/* Suggested Recipes Section */}
                 <div>
                   <h4 className="font-semibold text-gray-900 mb-3">Suggested Recipes</h4>
@@ -997,29 +1045,24 @@ export default function RecipesScreen() {
                             </div>
                           </div>
                           
-                          {/* Dish Image */}
-                          <div className="relative">
-                            {recipe.dishImage}
-                          </div>
-                          
-                          {/* Content below */}
-                          <div className="p-4">
-                            <div className="flex items-center gap-2 mb-2">
-                              <h4 className="font-semibold text-gray-900">{recipe.name}</h4>
-                              <Sparkles className="w-4 h-4 text-indigo-500" />
+                          {/* Compact horizontal layout */}
+                          <div className="flex items-center p-3">
+                            {/* Dish Image */}
+                            <div className="flex-shrink-0">
+                              {recipe.dishImage}
                             </div>
                             
-                            <div className="text-xs text-gray-600 space-y-1">
-                              <div>🔥 {recipe.calories} cal • 💪 {recipe.protein}g protein</div>
-                              <div className="flex items-center gap-3">
-                                <span className="text-indigo-600">{recipe.difficulty}</span>
-                                <span>⏱️ {recipe.prepTime + recipe.cookTime} min</span>
+                            {/* Content */}
+                            <div className="flex-1 ml-3">
+                              <h4 className="font-semibold text-gray-900 mb-1">{recipe.name}</h4>
+                              
+                              <div className="text-xs text-gray-600 space-y-1">
+                                <div className="flex items-center gap-3">
+                                  <span>⏱️ {recipe.prepTime + recipe.cookTime} min</span>
+                                  <span>🔥 {recipe.calories} cal</span>
+                                  <span>💪 {recipe.protein}g protein</span>
+                                </div>
                               </div>
-                              {recipe.badges.map(badge => (
-                                <span key={badge} className="inline-block bg-indigo-100 text-indigo-700 text-xs px-2 py-1 rounded mr-1">
-                                  {badge}
-                                </span>
-                              ))}
                             </div>
                           </div>
                         </div>
@@ -1059,28 +1102,27 @@ export default function RecipesScreen() {
                             </div>
                           </div>
                           
-                          {/* Dish Image */}
-                          <div className="relative">
-                            {recipe.dishImage}
-                          </div>
-                          
-                          {/* Content below */}
-                          <div className="p-4">
-                            <div className="flex items-center gap-2 mb-2">
-                              <h4 className="font-semibold text-gray-900">{recipe.name}</h4>
+                          {/* Compact horizontal layout */}
+                          <div className="flex items-center p-3">
+                            {/* Dish Image */}
+                            <div className="flex-shrink-0">
+                              {recipe.dishImage}
                             </div>
                             
-                            <div className="text-xs text-gray-600 space-y-1">
-                              <div>🔥 {recipe.calories} cal • 💪 {recipe.protein}g protein</div>
-                              <div className="flex items-center gap-3">
-                                <span className="text-indigo-600">{recipe.difficulty}</span>
-                                <span>⏱️ {recipe.prepTime + recipe.cookTime} min</span>
+                            {/* Content */}
+                            <div className="flex-1 ml-3">
+                              <h4 className="font-semibold text-gray-900 mb-1">{recipe.name}</h4>
+                              
+                              <div className="text-xs text-gray-600 space-y-1">
+                                <div className="flex items-center gap-3">
+                                  <span>⏱️ {recipe.prepTime + recipe.cookTime} min</span>
+                                  <span>🔥 {recipe.calories} cal</span>
+                                  <span>💪 {recipe.protein}g protein</span>
+                                </div>
+                                <div className="text-gray-500">
+                                  {recipe.madeWhen}
+                                </div>
                               </div>
-                              {recipe.badges.map(badge => (
-                                <span key={badge} className="inline-block bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded mr-1">
-                                  {badge}
-                                </span>
-                              ))}
                             </div>
                           </div>
                         </div>
