@@ -452,77 +452,69 @@ export default function HomeScreen() {
           {/* Health & Nutrition Tracking View */}
           {activeView === 'healthTracking' && (
             <div>
+              
+              {/* Add Health Reading Button - Top Position */}
+              <button className="w-full px-3 py-2 mb-4 bg-indigo-600 text-white rounded-lg text-sm hover:bg-indigo-700 transition-colors">
+                + Add Health Reading (Blood Pressure & Blood Sugar)
+              </button>
           
           {/* Compact Health Metrics Card */}
           <Card className="p-4 mb-4 bg-white/95 backdrop-blur-md border-white/30 shadow-xl">
             <div className="space-y-4">
               
-              {/* Priority Health Metrics - Blood Pressure & Blood Sugar */}
+              {/* Blood Pressure & Blood Sugar with Trends */}
               <div>
-                <h4 className="text-base font-semibold text-gray-800 mb-3 flex items-center gap-2">
-                  <Heart className="text-red-500" size={16} />
-                  Critical Health Metrics
-                </h4>
-                
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-2 gap-3 mb-3">
                   {/* Blood Pressure */}
                   <div className="bg-red-50 p-3 rounded-lg">
-                    <div className="flex items-center gap-2 mb-1">
-                      <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-                      <span className="text-xs font-medium text-gray-700">Blood Pressure</span>
-                    </div>
+                    <div className="text-xs text-gray-600">Blood Pressure</div>
                     <div className="text-lg font-bold text-red-600">122/78</div>
-                    <div className="text-xs text-gray-500">Good • Jan 4</div>
+                    <div className="text-xs text-green-600">vs Normal: 120/80</div>
                   </div>
                   
                   {/* Blood Sugar */}
                   <div className="bg-orange-50 p-3 rounded-lg">
-                    <div className="flex items-center gap-2 mb-1">
-                      <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
-                      <span className="text-xs font-medium text-gray-700">Blood Sugar</span>
-                    </div>
+                    <div className="text-xs text-gray-600">Blood Sugar</div>
                     <div className="text-lg font-bold text-orange-600">94 mg/dL</div>
-                    <div className="text-xs text-gray-500">Normal • Jan 4</div>
+                    <div className="text-xs text-green-600">vs Normal: 70-100</div>
+                  </div>
+                </div>
+                
+                {/* Trend Line Visualization */}
+                <div className="bg-gray-50 p-3 rounded-lg">
+                  <div className="text-xs text-gray-600 mb-2">7-Day Trends</div>
+                  <div className="grid grid-cols-2 gap-4">
+                    {/* BP Trend */}
+                    <div>
+                      <div className="text-xs text-gray-500 mb-1">Blood Pressure</div>
+                      <div className="flex items-end gap-1 h-8">
+                        <div className="bg-red-300 w-2 h-6"></div>
+                        <div className="bg-red-400 w-2 h-5"></div>
+                        <div className="bg-red-300 w-2 h-7"></div>
+                        <div className="bg-red-500 w-2 h-4"></div>
+                        <div className="bg-red-400 w-2 h-6"></div>
+                        <div className="bg-red-300 w-2 h-5"></div>
+                        <div className="bg-red-600 w-2 h-8"></div>
+                      </div>
+                    </div>
+                    {/* Sugar Trend */}
+                    <div>
+                      <div className="text-xs text-gray-500 mb-1">Blood Sugar</div>
+                      <div className="flex items-end gap-1 h-8">
+                        <div className="bg-orange-300 w-2 h-5"></div>
+                        <div className="bg-orange-400 w-2 h-6"></div>
+                        <div className="bg-orange-300 w-2 h-4"></div>
+                        <div className="bg-orange-500 w-2 h-7"></div>
+                        <div className="bg-orange-400 w-2 h-5"></div>
+                        <div className="bg-orange-300 w-2 h-6"></div>
+                        <div className="bg-orange-600 w-2 h-8"></div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
               
-              {/* Wearable Data Section - Compact */}
-              <div>
-                <h4 className="text-base font-semibold text-gray-800 mb-3 flex items-center gap-2">
-                  <Zap className="text-blue-500" size={16} />
-                  Today's Activity
-                  <Badge className="bg-green-100 text-green-800 text-xs">Live</Badge>
-                </h4>
-                
-                <div className="grid grid-cols-2 gap-2">
-                  {/* Steps */}
-                  <div className="bg-blue-50 p-2 rounded">
-                    <div className="text-xs text-gray-600">Steps</div>
-                    <div className="text-sm font-bold text-blue-600">8,247</div>
-                  </div>
-                  
-                  {/* Calories */}
-                  <div className="bg-orange-50 p-2 rounded">
-                    <div className="text-xs text-gray-600">Calories</div>
-                    <div className="text-sm font-bold text-orange-600">524</div>
-                  </div>
-                  
-                  {/* Distance */}
-                  <div className="bg-purple-50 p-2 rounded">
-                    <div className="text-xs text-gray-600">Distance</div>
-                    <div className="text-sm font-bold text-purple-600">4.1 mi</div>
-                  </div>
-                  
-                  {/* Heart Rate */}
-                  <div className="bg-red-50 p-2 rounded">
-                    <div className="text-xs text-gray-600">Heart Rate</div>
-                    <div className="text-sm font-bold text-red-600">72 bpm</div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Nutrition Goals - Compact */}
+              {/* Daily Goals */}
               <div>
                 <h4 className="text-base font-semibold text-gray-800 mb-3 flex items-center gap-2">
                   <Target className="text-green-500" size={16} />
@@ -533,24 +525,59 @@ export default function HomeScreen() {
                   <div className="grid grid-cols-3 gap-2 text-center">
                     <div>
                       <div className="text-xs text-gray-600">TDEE</div>
-                      <div className="text-sm font-bold text-green-600">2,247</div>
+                      <div className="text-lg font-bold text-green-600">2,247</div>
                     </div>
                     <div>
                       <div className="text-xs text-gray-600">Protein</div>
-                      <div className="text-sm font-bold text-blue-600">156g</div>
+                      <div className="text-lg font-bold text-blue-600">156g</div>
                     </div>
                     <div>
                       <div className="text-xs text-gray-600">Water</div>
-                      <div className="text-sm font-bold text-cyan-600">2.1L</div>
+                      <div className="text-lg font-bold text-cyan-600">2.1L</div>
                     </div>
                   </div>
                 </div>
               </div>
+
+              {/* Today's Activity - Single Row */}
+              <div>
+                <h4 className="text-base font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                  <Activity className="text-blue-500" size={16} />
+                  Today's Activity
+                  <Badge className="bg-green-100 text-green-800 text-xs">Live</Badge>
+                </h4>
+                
+                <div className="grid grid-cols-4 gap-2">
+                  {/* Steps */}
+                  <div className="bg-blue-50 p-2 rounded text-center">
+                    <div className="text-xs text-gray-600">Steps</div>
+                    <div className="text-lg font-bold text-blue-600">8,247</div>
+                  </div>
+                  
+                  {/* Calories */}
+                  <div className="bg-orange-50 p-2 rounded text-center">
+                    <div className="text-xs text-gray-600">Calories</div>
+                    <div className="text-lg font-bold text-orange-600">524</div>
+                  </div>
+                  
+                  {/* Distance */}
+                  <div className="bg-purple-50 p-2 rounded text-center">
+                    <div className="text-xs text-gray-600">Distance</div>
+                    <div className="text-lg font-bold text-purple-600">4.1 mi</div>
+                  </div>
+                  
+                  {/* Heart Rate */}
+                  <div className="bg-red-50 p-2 rounded text-center">
+                    <div className="text-xs text-gray-600">Heart Rate</div>
+                    <div className="text-lg font-bold text-red-600">72 bpm</div>
+                  </div>
+                </div>
+              </div>
               
-              {/* Quick Add Button */}
-              <button className="w-full px-3 py-2 bg-indigo-600 text-white rounded-lg text-sm hover:bg-indigo-700 transition-colors">
-                + Add Health Reading
-              </button>
+              {/* Monthly Readings Link */}
+              <div className="text-center">
+                <p className="text-xs text-gray-500">For monthly readings go to profile page</p>
+              </div>
             </div>
           </Card>
             </div>

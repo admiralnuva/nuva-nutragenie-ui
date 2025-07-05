@@ -15,7 +15,8 @@ import {
   ShoppingCart, 
   FileText,
   BookOpen,
-  ChefHat
+  ChefHat,
+  Activity
 } from "lucide-react";
 
 
@@ -41,6 +42,7 @@ export default function ProfileScreen() {
   const sections = [
     { id: "account", title: "Account", icon: User },
     { id: "dietary", title: "Dietary Needs", icon: Apple },
+    { id: "health", title: "Health & Tracking", icon: Activity },
     { id: "grocery", title: "Grocery List", icon: FileText },
     { id: "orders", title: "Instacart Orders", icon: ShoppingCart },
     { id: "recipes", title: "Recipes Created", icon: BookOpen },
@@ -474,10 +476,122 @@ export default function ProfileScreen() {
     );
   };
 
+  const renderHealthSection = () => (
+    <CardContent className="p-6 space-y-6">
+      <div className="flex items-center justify-between">
+        <h3 className="text-lg font-semibold text-gray-800">Health & Tracking</h3>
+      </div>
+
+      {/* Monthly & Yearly Trends - 4 subcards */}
+      <div className="grid grid-cols-2 gap-4">
+        {/* Blood Pressure Trends */}
+        <div className="bg-red-50 p-4 rounded-lg">
+          <h4 className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
+            <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+            Blood Pressure
+          </h4>
+          <div className="space-y-2">
+            <div className="text-lg font-bold text-red-600">122/78</div>
+            <div className="text-xs text-gray-600">Current (Today)</div>
+            <div className="text-xs text-green-600">↓ 2 points this month</div>
+            {/* Mini trend chart */}
+            <div className="flex items-end gap-1 h-6 mt-2">
+              <div className="bg-red-300 w-1 h-4"></div>
+              <div className="bg-red-400 w-1 h-3"></div>
+              <div className="bg-red-300 w-1 h-5"></div>
+              <div className="bg-red-500 w-1 h-2"></div>
+              <div className="bg-red-400 w-1 h-4"></div>
+              <div className="bg-red-300 w-1 h-3"></div>
+              <div className="bg-red-600 w-1 h-6"></div>
+            </div>
+          </div>
+        </div>
+
+        {/* Blood Sugar Trends */}
+        <div className="bg-orange-50 p-4 rounded-lg">
+          <h4 className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
+            <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+            Blood Sugar
+          </h4>
+          <div className="space-y-2">
+            <div className="text-lg font-bold text-orange-600">94 mg/dL</div>
+            <div className="text-xs text-gray-600">Current (Today)</div>
+            <div className="text-xs text-green-600">↓ 5 mg/dL this month</div>
+            {/* Mini trend chart */}
+            <div className="flex items-end gap-1 h-6 mt-2">
+              <div className="bg-orange-300 w-1 h-3"></div>
+              <div className="bg-orange-400 w-1 h-4"></div>
+              <div className="bg-orange-300 w-1 h-2"></div>
+              <div className="bg-orange-500 w-1 h-5"></div>
+              <div className="bg-orange-400 w-1 h-3"></div>
+              <div className="bg-orange-300 w-1 h-4"></div>
+              <div className="bg-orange-600 w-1 h-6"></div>
+            </div>
+          </div>
+        </div>
+
+        {/* Daily Goals Performance */}
+        <div className="bg-green-50 p-4 rounded-lg">
+          <h4 className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
+            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+            Daily Goals
+          </h4>
+          <div className="space-y-2">
+            <div className="text-xs text-gray-600">Monthly Average</div>
+            <div className="space-y-1">
+              <div className="flex justify-between text-xs">
+                <span>TDEE</span>
+                <span className="font-semibold">89%</span>
+              </div>
+              <div className="flex justify-between text-xs">
+                <span>Protein</span>
+                <span className="font-semibold">92%</span>
+              </div>
+              <div className="flex justify-between text-xs">
+                <span>Water</span>
+                <span className="font-semibold">78%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Activity Trends */}
+        <div className="bg-blue-50 p-4 rounded-lg">
+          <h4 className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
+            <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+            Activity
+          </h4>
+          <div className="space-y-2">
+            <div className="text-xs text-gray-600">This Month</div>
+            <div className="space-y-1">
+              <div className="flex justify-between text-xs">
+                <span>Avg Steps</span>
+                <span className="font-semibold">8,124</span>
+              </div>
+              <div className="flex justify-between text-xs">
+                <span>Calories/Day</span>
+                <span className="font-semibold">542</span>
+              </div>
+              <div className="flex justify-between text-xs">
+                <span>Heart Rate</span>
+                <span className="font-semibold">71 bpm</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="text-center text-xs text-gray-500">
+        Showing data for the past 30 days
+      </div>
+    </CardContent>
+  );
+
   const renderActiveSection = () => {
     switch (activeSection) {
       case "account": return renderAccountSection();
       case "dietary": return renderDietarySection();
+      case "health": return renderHealthSection();
       case "grocery": return renderGroceryHistory();
       case "orders": return renderOrderHistory();
       case "recipes": return renderRecipesCreated();
