@@ -176,6 +176,9 @@ export default function RecipesScreen() {
   const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
   const [customIngredient, setCustomIngredient] = useState("");
   
+  // Selected dishes state
+  const [selectedDishes, setSelectedDishes] = useState<string[]>([]);
+  
   // Collapsible states for ingredient categories
   const [openCategories, setOpenCategories] = useState<Record<string, boolean>>({
     meat: true,
@@ -247,9 +250,23 @@ export default function RecipesScreen() {
     }
   };
 
+  const toggleDishSelection = (dishId: string) => {
+    setSelectedDishes(prev => 
+      prev.includes(dishId) 
+        ? prev.filter(id => id !== dishId)
+        : [...prev, dishId]
+    );
+  };
+
   const generateRecipe = () => {
-    // Navigate to recipe generation results
-    setLocation("/review-recipes");
+    if (currentView === "dishes" && selectedDishes.length > 0) {
+      // Store selected recipes in localStorage for recipe details page
+      localStorage.setItem("selected_recipes", JSON.stringify(selectedDishes));
+      setLocation("/recipe-details");
+    } else {
+      // Navigate to meal planning (Chef Recommends)
+      setLocation("/review-recipes");
+    }
   };
 
   return (
@@ -564,8 +581,25 @@ export default function RecipesScreen() {
                   
                   // Special rectangular layout for all dishes
                   if (index <= 3) {
+                    const dishId = dish.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+                    const isSelected = selectedDishes.includes(dishId);
+                    
                     return (
-                      <div key={dish.name} className="bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200 rounded-lg overflow-hidden">
+                      <div 
+                        key={dish.name} 
+                        className={`bg-gradient-to-r from-indigo-50 to-purple-50 border-2 rounded-lg overflow-hidden cursor-pointer transition-all ${
+                          isSelected ? 'border-indigo-500 bg-indigo-100' : 'border-indigo-200 hover:border-indigo-300'
+                        }`}
+                        onClick={() => toggleDishSelection(dishId)}
+                      >
+                        {/* Selection Checkbox */}
+                        <div className="absolute top-2 left-2 z-10">
+                          <Checkbox
+                            checked={isSelected}
+                            onChange={() => {}}
+                            className="pointer-events-none"
+                          />
+                        </div>
                         {/* Full width image at top */}
                         <div className="w-full h-32 bg-gradient-to-br from-purple-100 to-violet-200 relative flex items-center justify-center">
                           {/* Background ingredients and kitchen items */}
@@ -872,14 +906,31 @@ export default function RecipesScreen() {
         <Button 
           onClick={generateRecipe}
           className="w-full py-4 text-lg font-semibold bg-indigo-600 hover:bg-indigo-700"
-          disabled={selectedIngredients.length === 0}
+          disabled={currentView === "pantry" ? selectedIngredients.length === 0 : selectedDishes.length === 0}
         >
-          Generate Recipe
+          {currentView === "dishes" && selectedDishes.length > 0 
+            ? `View ${selectedDishes.length} Selected Recipe${selectedDishes.length > 1 ? 's' : ''}` 
+            : currentView === "dishes" 
+            ? "Select Dishes to View Recipes"
+            : "Generate Meal Plan"
+          }
         </Button>
 
-        {selectedIngredients.length === 0 && (
+        {currentView === "dishes" && selectedDishes.length > 0 && (
+          <p className="text-center text-sm text-gray-600">
+            {selectedDishes.length} dish{selectedDishes.length > 1 ? 'es' : ''} selected for detailed recipes
+          </p>
+        )}
+
+        {currentView === "pantry" && selectedIngredients.length === 0 && (
           <p className="text-center text-sm text-gray-500">
             Select at least one ingredient to generate recipes
+          </p>
+        )}
+        
+        {currentView === "dishes" && selectedDishes.length === 0 && (
+          <p className="text-center text-sm text-gray-500">
+            Select dishes above to view detailed recipes with cooking instructions
           </p>
         )}
       </div>
