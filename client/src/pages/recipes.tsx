@@ -78,54 +78,48 @@ const spiceLevels = [
 // Enhanced pantry dishes with matching ingredients
 const pantryDishes = [
   {
-    name: 'Chicken Stir Fry',
+    name: 'Mediterranean Chicken Bowl',
     ingredients: ['Chicken Breast', 'Bell Peppers', 'Onions', 'Garlic', 'Olive Oil'],
     prepTime: 15,
     cookTime: 12,
     calories: 320,
     protein: 28,
     difficulty: 'Easy',
-    badges: ['High-Protein', 'Quick']
+    image: '🥗',
+    color: 'from-green-400 to-emerald-500'
   },
   {
-    name: 'Mediterranean Salmon',
+    name: 'Garlic Herb Salmon',
     ingredients: ['Salmon', 'Tomatoes', 'Spinach', 'Garlic', 'Olive Oil', 'Lemons'],
     prepTime: 10,
     cookTime: 18,
     calories: 380,
     protein: 32,
     difficulty: 'Medium',
-    badges: ['Heart-Healthy', 'Mediterranean']
+    image: '🍣',
+    color: 'from-pink-400 to-rose-500'
   },
   {
-    name: 'Veggie Omelet',
+    name: 'Vegetable Stir Fry',
     ingredients: ['Eggs', 'Bell Peppers', 'Spinach', 'Cheese', 'Butter'],
     prepTime: 5,
     cookTime: 8,
     calories: 280,
     protein: 22,
     difficulty: 'Easy',
-    badges: ['Vegetarian', 'Quick']
+    image: '🥘',
+    color: 'from-orange-400 to-amber-500'
   },
   {
-    name: 'Beef & Potato Skillet',
+    name: 'Creamy Mushroom Risotto',
     ingredients: ['Ground Beef', 'Potatoes', 'Onions', 'Garlic', 'Paprika'],
     prepTime: 12,
     cookTime: 25,
     calories: 420,
     protein: 26,
     difficulty: 'Medium',
-    badges: ['Hearty', 'One-Pan']
-  },
-  {
-    name: 'Greek Salad Bowl',
-    ingredients: ['Tomatoes', 'Cucumber', 'Cheese', 'Olive Oil', 'Oregano'],
-    prepTime: 8,
-    cookTime: 0,
-    calories: 180,
-    protein: 8,
-    difficulty: 'Easy',
-    badges: ['No-Cook', 'Mediterranean']
+    image: '🍚',
+    color: 'from-purple-400 to-indigo-500'
   }
 ];
 
@@ -520,49 +514,31 @@ export default function RecipesScreen() {
                 </div>
               </div>
             ) : (
-              /* Recommended Dishes View */
+              /* Pantry Recipes View */
               <div className="space-y-3">
-                {getMatchingDishes().length === 0 ? (
-                  <div className="text-center py-8">
-                    <ChefHat className="w-12 h-12 text-gray-400 mx-auto mb-3" />
-                    <p className="text-gray-600">Select more ingredients to see recipe recommendations</p>
-                  </div>
-                ) : (
-                  getMatchingDishes().map((dish, index) => {
-                    const matchingIngredients = dish.ingredients.filter(ingredient => 
-                      selectedIngredients.includes(ingredient)
-                    );
-                    
-                    return (
-                      <div key={dish.name} className="bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200 rounded-lg p-4">
-                        <div className="flex items-start justify-between">
-                          <div className="flex-1">
-                            <div className="flex items-center gap-2 mb-2">
-                              <h4 className="font-semibold text-gray-900">{dish.name}</h4>
-                              {index === 0 && <Sparkles className="w-4 h-4 text-indigo-500" />}
-                            </div>
-                            
-                            <div className="flex flex-wrap gap-1 mb-2">
-                              {dish.badges.map(badge => (
-                                <Badge key={badge} variant="secondary" className="text-xs">
-                                  {badge}
-                                </Badge>
-                              ))}
-                            </div>
-                            
-                            <div className="text-xs text-gray-600 space-y-1">
-                              <div>⏱️ {dish.prepTime + dish.cookTime} min • 🔥 {dish.calories} cal • 💪 {dish.protein}g protein</div>
-                              <div className="flex items-center gap-1">
-                                <span className="font-medium">Matching:</span>
-                                <span className="text-indigo-600">{matchingIngredients.length}/{dish.ingredients.length} ingredients</span>
-                              </div>
-                            </div>
+                {pantryDishes.slice(0, 4).map((dish, index) => (
+                  <div key={dish.name} className={`bg-gradient-to-r ${dish.color} rounded-lg p-4 text-white shadow-lg`}>
+                    <div className="flex items-center justify-between">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-2">
+                          <h4 className="font-semibold text-white">{dish.name}</h4>
+                          {index === 0 && <Sparkles className="w-4 h-4 text-yellow-300" />}
+                        </div>
+                        
+                        <div className="text-sm text-white/90 space-y-1">
+                          <div>⏱️ {dish.prepTime + dish.cookTime} min • 🔥 {dish.calories} cal • 💪 {dish.protein}g protein</div>
+                          <div className="text-white/80 text-xs">
+                            {dish.difficulty} • {dish.ingredients.slice(0, 3).join(', ')}
                           </div>
                         </div>
                       </div>
-                    );
-                  })
-                )}
+                      
+                      <div className="ml-4 text-4xl">
+                        {dish.image}
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             )}
           </CardContent>
