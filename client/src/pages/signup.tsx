@@ -66,9 +66,9 @@ export default function SignupScreen() {
   const [state, setState] = useState("");
   const [zipCode, setZipCode] = useState("");
   const [verificationCode, setVerificationCode] = useState("");
-  const [selectedAvatar, setSelectedAvatar] = useState(userAvatars[0]);
-  const [selectedChef, setSelectedChef] = useState(chefs[0]);
-  const [chefNickname, setChefNickname] = useState(chefs[0].name);
+  const [selectedAvatar, setSelectedAvatar] = useState<any>(null);
+  const [selectedChef, setSelectedChef] = useState<any>(null);
+  const [chefNickname, setChefNickname] = useState("");
   const [isVerifying, setIsVerifying] = useState(false);
   const [codeSent, setCodeSent] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
@@ -214,9 +214,9 @@ export default function SignupScreen() {
   };
 
   // Validation checks - all fields required
-  const isProfileComplete = nickname.trim().length >= 2 && ageGroup.length > 0;
+  const isProfileComplete = nickname.trim().length >= 2 && ageGroup.length > 0 && selectedAvatar !== null;
   const isAddressComplete = streetAddress.trim().length >= 5 && city.trim().length >= 2 && state.trim().length >= 2 && zipCode.trim().length >= 5;
-  const isChefComplete = chefNickname.trim().length >= 2;
+  const isChefComplete = chefNickname.trim().length >= 2 && selectedChef !== null;
   const isPhoneComplete = phoneNumber.trim().length >= 10;
   const isVerifiedComplete = isVerified;
 
@@ -228,6 +228,34 @@ export default function SignupScreen() {
       setActiveCard(3);
     }
   }, [isProfileComplete, isChefComplete, activeCard]);
+
+  // Trigger validation when fields lose focus
+  const handleCardClick = (cardNumber: number) => {
+    // Check if user can navigate to the requested card
+    if (cardNumber === 2 && !isProfileComplete) {
+      // Mark all profile fields as touched to show errors
+      setTouched(prev => ({ 
+        ...prev, 
+        nickname: true, 
+        ageGroup: true, 
+        avatar: true 
+      }));
+      return; // Prevent navigation
+    }
+    if (cardNumber === 3 && (!isProfileComplete || !isChefComplete)) {
+      // Mark all required fields as touched
+      setTouched(prev => ({ 
+        ...prev, 
+        nickname: true, 
+        ageGroup: true, 
+        avatar: true,
+        chef: true,
+        chefNickname: true
+      }));
+      return; // Prevent navigation
+    }
+    setActiveCard(cardNumber);
+  };
   const isFormComplete = isProfileComplete && isAddressComplete && isChefComplete && isPhoneComplete && isVerifiedComplete;
 
   return (
@@ -253,7 +281,7 @@ export default function SignupScreen() {
             className={`transition-all border-2 cursor-pointer ${
               activeCard === 1 ? 'border-indigo-500 shadow-lg' : 'border-white'
             } ${isProfileComplete ? 'ring-2 ring-green-500' : ''}`}
-            onClick={() => setActiveCard(1)}
+            onClick={() => handleCardClick(1)}
           >
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-2 text-lg">
@@ -272,9 +300,12 @@ export default function SignupScreen() {
                     <button
                       key={avatar.id}
                       type="button"
-                      onClick={() => setSelectedAvatar(avatar)}
+                      onClick={() => {
+                        setSelectedAvatar(avatar);
+                        setTouched(prev => ({ ...prev, avatar: true }));
+                      }}
                       className={`flex items-center justify-center w-20 h-20 rounded-lg ${
-                        selectedAvatar.id === avatar.id ? 'ring-2 ring-indigo-500 bg-indigo-50 shadow-md scale-105' : ''
+                        selectedAvatar?.id === avatar.id ? 'ring-2 ring-indigo-500 bg-indigo-50 shadow-md scale-105' : ''
                       } bg-white hover:ring-2 hover:ring-indigo-400 hover:bg-indigo-50 transition-all overflow-hidden`}
                     >
                       <img 
@@ -285,6 +316,12 @@ export default function SignupScreen() {
                     </button>
                   ))}
                 </div>
+                {touched.avatar && !selectedAvatar && (
+                  <div className="flex items-center gap-1 mt-2 text-red-600 text-sm">
+                    <AlertCircle className="w-4 h-4" />
+                    Please select an avatar
+                  </div>
+                )}
               </div>
 
               <div className="grid grid-cols-3 gap-4">
@@ -508,7 +545,7 @@ export default function SignupScreen() {
             className={`transition-all border-2 cursor-pointer ${
               activeCard === 2 ? 'border-indigo-500 shadow-lg' : 'border-white'
             } ${isChefComplete ? 'ring-2 ring-green-500' : ''}`}
-            onClick={() => setActiveCard(2)}
+            onClick={() => handleCardClick(2)}
           >
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-2 text-lg">
@@ -530,9 +567,10 @@ export default function SignupScreen() {
                       onClick={() => {
                         setSelectedChef(chef);
                         setChefNickname(chef.name);
+                        setTouched(prev => ({ ...prev, chef: true }));
                       }}
                       className={`flex items-center justify-center w-20 h-20 rounded-lg ${
-                        selectedChef.name === chef.name ? 'ring-2 ring-indigo-500 bg-indigo-50 shadow-md scale-105' : ''
+                        selectedChef?.name === chef.name ? 'ring-2 ring-indigo-500 bg-indigo-50 shadow-md scale-105' : ''
                       } bg-white hover:ring-2 hover:ring-indigo-400 hover:bg-indigo-50 transition-all overflow-hidden`}
                     >
                       <img 
@@ -543,6 +581,12 @@ export default function SignupScreen() {
                     </button>
                   ))}
                 </div>
+                {touched.chef && !selectedChef && (
+                  <div className="flex items-center gap-1 mt-2 text-red-600 text-sm">
+                    <AlertCircle className="w-4 h-4" />
+                    Please select a chef avatar
+                  </div>
+                )}
               </div>
 
               <div>
@@ -567,7 +611,9 @@ export default function SignupScreen() {
                     {validationErrors.chefNickname}
                   </div>
                 )}
-                <p className="text-xs text-warm-neutral-500 mt-1">Personality: {selectedChef.personality}</p>
+                {selectedChef && (
+                  <p className="text-xs text-warm-neutral-500 mt-1">Personality: {selectedChef.personality}</p>
+                )}
               </div>
             </CardContent>
           </Card>
@@ -577,7 +623,7 @@ export default function SignupScreen() {
             className={`transition-all border-2 cursor-pointer ${
               activeCard === 3 ? 'border-indigo-500 shadow-lg' : 'border-white'
             } ${isVerifiedComplete ? 'ring-2 ring-green-500' : ''}`}
-            onClick={() => setActiveCard(3)}
+            onClick={() => handleCardClick(3)}
           >
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-2 text-lg">
