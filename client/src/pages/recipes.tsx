@@ -593,7 +593,7 @@ export default function RecipesScreen() {
                                 {/* Right side kitchen tools cluster */}
                                 <div className="absolute right-1 top-16 text-base opacity-45">
                                   <div>🔪🥄</div>
-                                  <div className="mt-1">🍳</div>
+                                  <div className="mt-1">🥘</div>
                                 </div>
                                 
                                 {/* Bottom left ginger cluster */}
@@ -617,38 +617,38 @@ export default function RecipesScreen() {
                             {index === 1 && (
                               // Mediterranean Salmon ingredients
                               <>
-                                {/* Top left salmon pieces */}
-                                <div className="absolute top-1 left-2 text-lg opacity-60">
+                                {/* Top right tomato and garlic cluster */}
+                                <div className="absolute top-1 right-3 text-sm opacity-55">
+                                  <div>🍅🍅🧄</div>
+                                  <div className="mt-1">🍅🧄</div>
+                                </div>
+                                
+                                {/* Left side salmon pieces */}
+                                <div className="absolute left-2 top-8 text-lg opacity-60">
                                   <span>🐟</span><span className="ml-1">🐟</span>
                                 </div>
                                 
-                                {/* Top right tomato cluster */}
-                                <div className="absolute top-2 right-2 text-sm opacity-50">
-                                  <div>🍅🍅🍅</div>
-                                  <div className="mt-1">🧄🧄</div>
+                                {/* Top left spinach bunch */}
+                                <div className="absolute top-3 left-1 text-base opacity-50">
+                                  <div>🥬🥬🥬</div>
                                 </div>
                                 
-                                {/* Left side spinach bunch */}
-                                <div className="absolute left-1 top-12 text-lg opacity-55">
-                                  <div>🥬🥬</div>
-                                  <div className="mt-1">🥬</div>
+                                {/* Bottom right kitchen tools */}
+                                <div className="absolute right-2 bottom-4 text-base opacity-45">
+                                  <div>🔪</div>
+                                  <div className="mt-1">🥘🥄</div>
                                 </div>
                                 
-                                {/* Right side kitchen tools */}
-                                <div className="absolute right-1 top-16 text-base opacity-45">
-                                  <div>🔪🥄</div>
-                                  <div className="mt-1">🍳</div>
+                                {/* Bottom left lemon and olive cluster */}
+                                <div className="absolute bottom-2 left-4 text-sm opacity-50">
+                                  <div>🍋🍋🫒</div>
+                                  <div className="mt-1">🫒🍋</div>
                                 </div>
                                 
-                                {/* Bottom left lemon cluster */}
-                                <div className="absolute bottom-3 left-3 text-sm opacity-50">
-                                  <span>🍋</span><span className="ml-1">🍋</span><span className="ml-1">🍋</span>
-                                </div>
-                                
-                                {/* Bottom right olive oil and herbs */}
-                                <div className="absolute bottom-2 right-3 text-xs opacity-40">
-                                  <div>🫒🫒🫒</div>
-                                  <div className="mt-1">🌿🧂🌿</div>
+                                {/* Right side herbs scattered */}
+                                <div className="absolute right-1 top-20 text-xs opacity-40">
+                                  <div>🌿🌿</div>
+                                  <div className="mt-1">🧂</div>
                                 </div>
                               </>
                             )}
@@ -656,38 +656,38 @@ export default function RecipesScreen() {
                             {index === 2 && (
                               // Veggie Omelet ingredients
                               <>
-                                {/* Top left egg cluster */}
-                                <div className="absolute top-1 left-2 text-lg opacity-60">
+                                {/* Center top egg cluster */}
+                                <div className="absolute top-2 left-12 text-lg opacity-60">
                                   <span>🥚</span><span className="ml-1">🥚</span><span className="ml-1">🥚</span>
                                 </div>
                                 
-                                {/* Top right bell pepper cluster */}
-                                <div className="absolute top-2 right-2 text-sm opacity-50">
-                                  <div>🫑🫑🫑</div>
-                                  <div className="mt-1">🧀🧀</div>
+                                {/* Left side cheese and butter */}
+                                <div className="absolute left-1 top-10 text-sm opacity-55">
+                                  <div>🧀🧀</div>
+                                  <div className="mt-2">🧈🧈</div>
                                 </div>
                                 
-                                {/* Left side spinach bunch */}
-                                <div className="absolute left-1 top-12 text-lg opacity-55">
-                                  <div>🥬🥬</div>
-                                  <div className="mt-1">🥬</div>
+                                {/* Right side bell pepper bunch */}
+                                <div className="absolute right-3 top-6 text-base opacity-50">
+                                  <div>🫑🫑</div>
+                                  <div className="mt-1">🫑</div>
                                 </div>
                                 
-                                {/* Right side kitchen tools */}
-                                <div className="absolute right-1 top-16 text-base opacity-45">
+                                {/* Bottom left spinach cluster */}
+                                <div className="absolute bottom-4 left-2 text-lg opacity-50">
+                                  <div>🥬🥬🥬</div>
+                                </div>
+                                
+                                {/* Top right kitchen tools */}
+                                <div className="absolute top-1 right-1 text-base opacity-45">
                                   <div>🔪🥄</div>
-                                  <div className="mt-1">🍳</div>
+                                  <div className="mt-1">🥘</div>
                                 </div>
                                 
-                                {/* Bottom left butter cluster */}
-                                <div className="absolute bottom-3 left-3 text-sm opacity-50">
-                                  <span>🧈</span><span className="ml-1">🧈</span>
-                                </div>
-                                
-                                {/* Bottom right herbs and pepper */}
-                                <div className="absolute bottom-2 right-3 text-xs opacity-40">
-                                  <div>🌿🌿🌿</div>
-                                  <div className="mt-1">🧂🫒🧂</div>
+                                {/* Bottom right seasonings */}
+                                <div className="absolute bottom-1 right-4 text-xs opacity-40">
+                                  <div>🌿🧂</div>
+                                  <div className="mt-1">🫒</div>
                                 </div>
                               </>
                             )}
