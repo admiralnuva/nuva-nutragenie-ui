@@ -546,7 +546,7 @@ export default function HomeScreen() {
                         id="date"
                         value={healthData.date}
                         onChange={(e) => setHealthData({...healthData, date: e.target.value})}
-                        className="h-8 text-sm border border-indigo-400 bg-transparent text-white focus:ring-indigo-400 flex-1"
+                        className="h-8 text-sm border-2 border-white bg-transparent text-white focus:ring-white focus:border-cyan-300 flex-1"
                       />
                     </div>
 
