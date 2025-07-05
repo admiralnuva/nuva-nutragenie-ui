@@ -238,41 +238,31 @@ export default function RecipesScreen() {
               <div className="flex-1">
                 <CardTitle className="text-lg">Dietary Preferences</CardTitle>
                 <div className="flex flex-wrap gap-1 mt-1">
-                  {userData?.dietaryRestrictions?.length > 0 && (
-                    <>
-                      {userData.dietaryRestrictions.slice(0, 3).map((restriction: string) => (
-                        <span key={restriction} className="px-2 py-1 bg-indigo-100 text-indigo-700 text-xs rounded-full">
-                          {restriction}
-                        </span>
-                      ))}
-                      {userData.dietaryRestrictions.length > 3 && (
-                        <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full">
-                          +{userData.dietaryRestrictions.length - 3} more
-                        </span>
-                      )}
-                    </>
+                  {/* Display user dietary restrictions or defaults */}
+                  {(userData?.dietaryRestrictions?.length > 0 ? userData.dietaryRestrictions : ['Vegetarian', 'Gluten-Free']).slice(0, 3).map((restriction: string) => (
+                    <span key={restriction} className="px-2 py-1 bg-indigo-100 text-indigo-700 text-xs rounded-full">
+                      {restriction}
+                    </span>
+                  ))}
+                  {userData?.dietaryRestrictions?.length > 3 && (
+                    <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full">
+                      +{userData.dietaryRestrictions.length - 3} more
+                    </span>
                   )}
-                  {userData?.healthConditions?.length > 0 && (
-                    <>
-                      {userData.healthConditions.slice(0, 2).map((condition: string) => (
-                        <span key={condition} className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">
-                          {condition}
-                        </span>
-                      ))}
-                    </>
-                  )}
-                  {userData?.fitnessGoals?.length > 0 && (
-                    <>
-                      {userData.fitnessGoals.slice(0, 2).map((goal: string) => (
-                        <span key={goal} className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">
-                          {goal}
-                        </span>
-                      ))}
-                    </>
-                  )}
-                  {(!userData?.dietaryRestrictions?.length && !userData?.healthConditions?.length && !userData?.fitnessGoals?.length) && (
-                    <span className="text-sm text-gray-500">No dietary preferences set</span>
-                  )}
+                  
+                  {/* Display user health conditions or defaults */}
+                  {(userData?.healthConditions?.length > 0 ? userData.healthConditions : ['Heart Issues']).slice(0, 2).map((condition: string) => (
+                    <span key={condition} className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">
+                      {condition}
+                    </span>
+                  ))}
+                  
+                  {/* Display user fitness goals or defaults */}
+                  {(userData?.fitnessGoals?.length > 0 ? userData.fitnessGoals : ['Build Muscle', 'Lose Weight']).slice(0, 2).map((goal: string) => (
+                    <span key={goal} className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">
+                      {goal}
+                    </span>
+                  ))}
                 </div>
               </div>
               <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white ml-4">
