@@ -503,7 +503,7 @@ export default function HomeScreen() {
                         {/* Day 7: 122/78 - Normal (green) - Today */}
                         <div className="flex-1 bg-green-600 rounded-sm h-6"></div>
                       </div>
-                      <div className="text-xs text-gray-500 mt-1">Green: Normal • Red: >10% above 120/80</div>
+                      <div className="text-xs text-gray-500 mt-1">Green: Normal • Red: {'>'}10% above 120/80</div>
                     </div>
                     {/* Sugar Trend - Progress Circles */}
                     <div>

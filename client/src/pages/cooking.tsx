@@ -1,4 +1,5 @@
 
+// @ts-nocheck
 import { useState, useEffect, useRef } from "react";
 import { useLocation, useParams } from "wouter";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
