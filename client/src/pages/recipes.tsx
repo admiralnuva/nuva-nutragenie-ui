@@ -909,9 +909,9 @@ export default function RecipesScreen() {
           disabled={currentView === "pantry" ? selectedIngredients.length === 0 : selectedDishes.length === 0}
         >
           {currentView === "dishes" && selectedDishes.length > 0 
-            ? "View Recipes" 
+            ? "Generate Recipes" 
             : currentView === "dishes" 
-            ? "Select Dishes to View Recipes"
+            ? "Select Dishes to Generate Recipes"
             : "Generate Meal Plan"
           }
         </Button>
