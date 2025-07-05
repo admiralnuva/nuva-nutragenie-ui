@@ -381,8 +381,8 @@ export default function RecipesScreen() {
                 onClick={() => setCurrentView("pantry")}
                 className={`flex-1 py-3 px-2 rounded-md text-sm font-medium transition-all ${
                   currentView === "pantry" 
-                    ? "bg-white text-indigo-600 shadow-sm" 
-                    : "text-gray-600 hover:text-gray-900"
+                    ? "bg-indigo-600 text-white shadow-lg" 
+                    : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-200"
                 }`}
               >
                 Pantry Ingredients
@@ -391,8 +391,8 @@ export default function RecipesScreen() {
                 onClick={() => setCurrentView("dishes")}
                 className={`flex-1 py-3 px-2 rounded-md text-sm font-medium transition-all ${
                   currentView === "dishes" 
-                    ? "bg-white text-indigo-600 shadow-sm" 
-                    : "text-gray-600 hover:text-gray-900"
+                    ? "bg-indigo-600 text-white shadow-lg" 
+                    : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-200"
                 }`}
               >
                 Pantry Recipes
@@ -473,9 +473,25 @@ export default function RecipesScreen() {
                   </div>
                 </div>
 
-                {/* Selected Count */}
-                <div className="text-center text-sm text-gray-600 bg-indigo-50 py-2 px-4 rounded-lg">
-                  <span className="font-medium">{selectedIngredients.length}</span> ingredients selected
+                {/* Selected Ingredients Display */}
+                <div className="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+                  <div className="text-sm font-medium text-indigo-800 mb-2">
+                    Selected Ingredients ({selectedIngredients.length})
+                  </div>
+                  {selectedIngredients.length > 0 ? (
+                    <div className="flex flex-wrap gap-1">
+                      {selectedIngredients.map((ingredient) => (
+                        <span 
+                          key={ingredient}
+                          className="px-2 py-1 bg-indigo-100 text-indigo-700 text-xs rounded-full border border-indigo-300"
+                        >
+                          {ingredient}
+                        </span>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="text-xs text-indigo-600">No ingredients selected</div>
+                  )}
                 </div>
               </div>
             ) : (
