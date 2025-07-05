@@ -406,7 +406,7 @@ export default function HomeScreen() {
           <div className="flex items-center justify-between mb-4">
             <h3 
               className={`text-lg font-semibold flex items-center gap-2 cursor-pointer transition-colors ${
-                activeView === 'quickActions' ? 'text-white' : 'text-gray-400'
+                activeView === 'quickActions' ? 'text-indigo-300' : 'text-white'
               }`}
               onClick={() => setActiveView('quickActions')}
             >
@@ -415,12 +415,12 @@ export default function HomeScreen() {
             </h3>
             <h3 
               className={`text-lg font-semibold flex items-center gap-2 cursor-pointer transition-colors ${
-                activeView === 'healthTracking' ? 'text-white' : 'text-gray-400'
+                activeView === 'healthTracking' ? 'text-indigo-300' : 'text-white'
               }`}
               onClick={() => setActiveView('healthTracking')}
             >
               <Activity size={20} />
-              Health & Nutrition Tracking
+              Health & Nutrition
             </h3>
           </div>
 
