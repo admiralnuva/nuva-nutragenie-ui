@@ -74,6 +74,7 @@ export default function SignupScreen() {
   const [isVerified, setIsVerified] = useState(false);
   const [validationErrors, setValidationErrors] = useState<ValidationErrors>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const [activeCard, setActiveCard] = useState<number | null>(null);
 
   const createUserMutation = useMutation({
     mutationFn: async (userData: any) => {
@@ -239,7 +240,14 @@ export default function SignupScreen() {
 
         <div className="space-y-3">
           {/* Profile Section */}
-          <Card className={`transition-all ${isProfileComplete ? 'ring-2 ring-indigo-500' : ''}`}>
+          <Card 
+            className={`transition-all border-2 ${
+              activeCard === 1 ? 'border-indigo-500 shadow-lg' : 'border-white'
+            } ${isProfileComplete ? 'ring-2 ring-green-500' : ''}`}
+            onFocus={() => setActiveCard(1)}
+            onMouseEnter={() => setActiveCard(1)}
+            onMouseLeave={() => setActiveCard(null)}
+          >
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-2 text-lg">
                 <User className="w-5 h-5" />
@@ -489,7 +497,14 @@ export default function SignupScreen() {
           </Card>
 
           {/* Chef Selection Section */}
-          <Card className={`transition-all ${isChefComplete ? 'ring-2 ring-brand-indigo-500' : ''}`}>
+          <Card 
+            className={`transition-all border-2 ${
+              activeCard === 2 ? 'border-indigo-500 shadow-lg' : 'border-white'
+            } ${isChefComplete ? 'ring-2 ring-green-500' : ''}`}
+            onFocus={() => setActiveCard(2)}
+            onMouseEnter={() => setActiveCard(2)}
+            onMouseLeave={() => setActiveCard(null)}
+          >
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-2 text-lg">
                 <ChefHat className="w-5 h-5" />
@@ -553,7 +568,14 @@ export default function SignupScreen() {
           </Card>
 
           {/* Phone Verification Section */}
-          <Card className={`transition-all ${isVerifiedComplete ? 'ring-2 ring-brand-indigo-500' : ''}`}>
+          <Card 
+            className={`transition-all border-2 ${
+              activeCard === 3 ? 'border-indigo-500 shadow-lg' : 'border-white'
+            } ${isVerifiedComplete ? 'ring-2 ring-green-500' : ''}`}
+            onFocus={() => setActiveCard(3)}
+            onMouseEnter={() => setActiveCard(3)}
+            onMouseLeave={() => setActiveCard(null)}
+          >
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-2 text-lg">
                 <Phone className="w-5 h-5" />
