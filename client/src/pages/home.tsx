@@ -520,86 +520,112 @@ export default function HomeScreen() {
           {activeView === 'healthTracking' && (
             <div>
               
-              {/* Add Health Reading Button - Top Position */}
+              {/* Add Health Reading Button - Enhanced */}
               <button 
                 onClick={toggleHealthForm}
-                className="w-full px-3 py-2 mb-2 bg-indigo-600 text-white rounded-lg text-sm hover:bg-indigo-700 transition-colors"
+                className="w-full px-4 py-3 mb-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl text-sm font-medium hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-[1.02] flex items-center justify-center gap-2"
               >
-                {showHealthForm ? '− Cancel' : '+ Add Blood Pressure and Blood Sugar levels'}
+                <div className={`transition-transform duration-200 ${showHealthForm ? 'rotate-180' : ''}`}>
+                  {showHealthForm ? '✕' : '+'}
+                </div>
+                {showHealthForm ? 'Cancel Entry' : 'Add Health Readings'}
               </button>
 
-              {/* Collapsible Health Form */}
-              <div className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                showHealthForm ? 'max-h-80 opacity-100 mb-2' : 'max-h-0 opacity-0'
+              {/* Collapsible Health Form - Enhanced */}
+              <div className={`overflow-hidden transition-all duration-500 ease-out ${
+                showHealthForm ? 'max-h-80 opacity-100 mb-2 transform translate-y-0' : 'max-h-0 opacity-0 transform -translate-y-2'
               }`}>
-                <Card className="p-3 bg-blue-50 border-indigo-200">
-                  <form onSubmit={handleHealthSubmit} className="space-y-2">
-                    {/* Date Selection - Compact */}
-                    <div>
-                      <Label htmlFor="date" className="text-xs font-medium text-gray-700">Date</Label>
-                      <Input
-                        type="date"
-                        id="date"
-                        value={healthData.date}
-                        onChange={(e) => setHealthData({...healthData, date: e.target.value})}
-                        className="mt-0.5 h-8 text-sm"
-                      />
+                <Card className="p-4 bg-gradient-to-br from-white to-blue-50 border-2 border-indigo-200 shadow-lg rounded-xl">
+                  <form onSubmit={handleHealthSubmit} className="space-y-3">
+                    {/* Date Selection with Icon */}
+                    <div className="flex items-center gap-2 bg-white p-2 rounded-lg border border-gray-200">
+                      <div className="text-indigo-500">📅</div>
+                      <div className="flex-1">
+                        <Label htmlFor="date" className="text-xs font-semibold text-indigo-700">Select Date</Label>
+                        <Input
+                          type="date"
+                          id="date"
+                          value={healthData.date}
+                          onChange={(e) => setHealthData({...healthData, date: e.target.value})}
+                          className="mt-0.5 h-8 text-sm border-0 focus:ring-indigo-500"
+                        />
+                      </div>
                     </div>
 
-                    {/* All inputs in one row for ultra-compact layout */}
+                    {/* Health Inputs with Icons */}
                     <div className="grid grid-cols-4 gap-2">
-                      <div>
-                        <Label htmlFor="systolic" className="text-xs font-medium text-gray-700">Sys BP</Label>
+                      {/* Systolic BP */}
+                      <div className="bg-white p-2 rounded-lg border border-red-200 hover:border-red-400 transition-colors">
+                        <div className="flex items-center gap-1 mb-1">
+                          <span className="text-red-500 text-xs">❤️</span>
+                          <Label htmlFor="systolic" className="text-xs font-semibold text-red-700">Sys</Label>
+                        </div>
                         <Input
                           type="number"
                           id="systolic"
                           placeholder="120"
                           value={healthData.bloodPressureSystolic}
                           onChange={(e) => setHealthData({...healthData, bloodPressureSystolic: e.target.value})}
-                          className="mt-0.5 h-8 text-sm"
+                          className="h-8 text-sm border-0 text-center font-bold focus:ring-red-500"
                         />
                       </div>
-                      <div>
-                        <Label htmlFor="diastolic" className="text-xs font-medium text-gray-700">Dia BP</Label>
+
+                      {/* Diastolic BP */}
+                      <div className="bg-white p-2 rounded-lg border border-red-200 hover:border-red-400 transition-colors">
+                        <div className="flex items-center gap-1 mb-1">
+                          <span className="text-red-500 text-xs">💓</span>
+                          <Label htmlFor="diastolic" className="text-xs font-semibold text-red-700">Dia</Label>
+                        </div>
                         <Input
                           type="number"
                           id="diastolic"
                           placeholder="80"
                           value={healthData.bloodPressureDiastolic}
                           onChange={(e) => setHealthData({...healthData, bloodPressureDiastolic: e.target.value})}
-                          className="mt-0.5 h-8 text-sm"
+                          className="h-8 text-sm border-0 text-center font-bold focus:ring-red-500"
                         />
                       </div>
-                      <div>
-                        <Label htmlFor="bloodSugar" className="text-xs font-medium text-gray-700">Sugar</Label>
+
+                      {/* Blood Sugar */}
+                      <div className="bg-white p-2 rounded-lg border border-green-200 hover:border-green-400 transition-colors">
+                        <div className="flex items-center gap-1 mb-1">
+                          <span className="text-green-500 text-xs">🩸</span>
+                          <Label htmlFor="bloodSugar" className="text-xs font-semibold text-green-700">Sugar</Label>
+                        </div>
                         <Input
                           type="number"
                           id="bloodSugar"
                           placeholder="94"
                           value={healthData.bloodSugar}
                           onChange={(e) => setHealthData({...healthData, bloodSugar: e.target.value})}
-                          className="mt-0.5 h-8 text-sm"
+                          className="h-8 text-sm border-0 text-center font-bold focus:ring-green-500"
                         />
                       </div>
-                      <div>
-                        <Label htmlFor="weight" className="text-xs font-medium text-gray-700">Weight</Label>
+
+                      {/* Weight */}
+                      <div className="bg-white p-2 rounded-lg border border-blue-200 hover:border-blue-400 transition-colors">
+                        <div className="flex items-center gap-1 mb-1">
+                          <span className="text-blue-500 text-xs">⚖️</span>
+                          <Label htmlFor="weight" className="text-xs font-semibold text-blue-700">Weight</Label>
+                        </div>
                         <Input
                           type="number"
                           id="weight"
                           placeholder="165"
                           value={healthData.weight}
                           onChange={(e) => setHealthData({...healthData, weight: e.target.value})}
-                          className="mt-0.5 h-8 text-sm"
+                          className="h-8 text-sm border-0 text-center font-bold focus:ring-blue-500"
                         />
                       </div>
                     </div>
 
-                    {/* Compact Submit Button */}
+                    {/* Enhanced Submit Button */}
                     <Button 
                       type="submit" 
-                      className="w-full bg-green-600 hover:bg-green-700 text-white h-8 text-sm mt-2"
+                      className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white h-10 text-sm font-semibold rounded-lg shadow-md hover:shadow-lg transform hover:scale-[1.02] transition-all duration-200 flex items-center justify-center gap-2"
                     >
-                      Save Data
+                      <span>💾</span>
+                      Save Health Data
                     </Button>
                   </form>
                 </Card>
@@ -613,17 +639,29 @@ export default function HomeScreen() {
               <div>
                 <div className="grid grid-cols-2 gap-3 mb-3">
                   {/* Blood Pressure */}
-                  <div className="bg-red-50 p-3 rounded-lg">
-                    <div className="text-xs text-gray-600">Blood Pressure</div>
-                    <div className="text-lg font-bold text-red-600">{currentMetrics.bloodPressure}</div>
-                    <div className="text-xs text-green-600">vs Normal: 120/80</div>
+                  <div className="bg-gradient-to-br from-red-50 to-pink-50 p-4 rounded-xl border border-red-100 shadow-sm hover:shadow-md transition-all duration-200">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-red-500">❤️</span>
+                      <div className="text-xs font-semibold text-red-700">Blood Pressure</div>
+                    </div>
+                    <div className="text-xl font-bold text-red-600 mb-1">{currentMetrics.bloodPressure}</div>
+                    <div className="flex items-center gap-1">
+                      <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                      <div className="text-xs text-green-600">Normal Range</div>
+                    </div>
                   </div>
                   
                   {/* Blood Sugar */}
-                  <div className="bg-green-50 p-3 rounded-lg">
-                    <div className="text-xs text-gray-600">Blood Sugar</div>
-                    <div className="text-lg font-bold text-green-600">{currentMetrics.bloodSugar} mg/dL</div>
-                    <div className="text-xs text-gray-500">Normal Range</div>
+                  <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-4 rounded-xl border border-green-100 shadow-sm hover:shadow-md transition-all duration-200">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-green-500">🩸</span>
+                      <div className="text-xs font-semibold text-green-700">Blood Sugar</div>
+                    </div>
+                    <div className="text-xl font-bold text-green-600 mb-1">{currentMetrics.bloodSugar} mg/dL</div>
+                    <div className="flex items-center gap-1">
+                      <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                      <div className="text-xs text-green-600">Optimal</div>
+                    </div>
                   </div>
                 </div>
                 
