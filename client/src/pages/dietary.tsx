@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useLocation } from "wouter";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useMutation } from "@tanstack/react-query";
@@ -9,6 +9,19 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { BackButton } from "@/components/ui/back-button";
 import { ArrowLeft, Heart, Target, Shield, ThumbsDown } from "lucide-react";
+
+// Import user avatar images
+import userAvatar1 from "@/assets/avatars/user/user1.png";
+import userAvatar2 from "@/assets/avatars/user/user2.png";
+import userAvatar3 from "@/assets/avatars/user/user3.png";
+import userAvatar4 from "@/assets/avatars/user/user4.png";
+
+const userAvatars = {
+  'user1': userAvatar1,
+  'user2': userAvatar2,
+  'user3': userAvatar3,
+  'user4': userAvatar4
+};
 
 const dietaryRestrictions = [
   { label: '🥬 Vegetarian', value: 'vegetarian' },
@@ -42,12 +55,29 @@ export default function DietaryScreen() {
   const [currentUser, setCurrentUser] = useLocalStorage<any>("nutragenie_user", null);
   const { toast } = useToast();
   
+  // Get user's selected avatar
+  const userAvatarSrc = currentUser?.avatar ? userAvatars[currentUser.avatar as keyof typeof userAvatars] : userAvatar1;
+  
+  // Ref for the dietary restrictions card to focus on it
+  const dietaryCardRef = useRef<HTMLDivElement>(null);
+  
   const [selectedDietary, setSelectedDietary] = useState<string[]>([]);
   const [selectedHealth, setSelectedHealth] = useState<string[]>([]);
   const [selectedFitness, setSelectedFitness] = useState<string[]>([]);
   const [foodDislikes, setFoodDislikes] = useState("");
   const [allergies, setAllergies] = useState("");
   const [additionalNotes, setAdditionalNotes] = useState("");
+
+  // Focus on dietary restrictions when page loads
+  useEffect(() => {
+    if (dietaryCardRef.current) {
+      dietaryCardRef.current.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start' 
+      });
+      dietaryCardRef.current.focus();
+    }
+  }, []);
 
   const updateUserMutation = useMutation({
     mutationFn: async (updates: any) => {
@@ -103,13 +133,24 @@ export default function DietaryScreen() {
 
         <form onSubmit={handleSubmit} className="space-y-3">
           {/* Dietary Restrictions */}
-          <Card>
+          <Card ref={dietaryCardRef} tabIndex={-1}>
             <CardHeader className="pb-4">
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Shield className="w-5 h-5" />
-                Dietary Restrictions
-              </CardTitle>
-              <CardDescription>Help us create personalized nutrition<br />Select any dietary restrictions you follow</CardDescription>
+              <div className="flex items-center justify-between">
+                <div className="flex-1">
+                  <CardTitle className="flex items-center gap-2 text-lg">
+                    <Shield className="w-5 h-5" />
+                    Dietary Restrictions
+                  </CardTitle>
+                  <CardDescription>Help us create personalized nutrition<br />Select any dietary restrictions you follow</CardDescription>
+                </div>
+                <div className="flex items-center justify-center w-12 h-12 rounded-lg overflow-hidden bg-gray-100 ml-4">
+                  <img 
+                    src={userAvatarSrc} 
+                    alt="User Avatar"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 gap-3">
@@ -134,11 +175,22 @@ export default function DietaryScreen() {
           {/* Health Conditions */}
           <Card>
             <CardHeader className="pb-4">
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Heart className="w-5 h-5" />
-                Health Considerations
-              </CardTitle>
-              <CardDescription>Select health conditions to consider</CardDescription>
+              <div className="flex items-center justify-between">
+                <div className="flex-1">
+                  <CardTitle className="flex items-center gap-2 text-lg">
+                    <Heart className="w-5 h-5" />
+                    Health Considerations
+                  </CardTitle>
+                  <CardDescription>Select health conditions to consider</CardDescription>
+                </div>
+                <div className="flex items-center justify-center w-12 h-12 rounded-lg overflow-hidden bg-gray-100 ml-4">
+                  <img 
+                    src={userAvatarSrc} 
+                    alt="User Avatar"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 gap-3">
@@ -163,11 +215,22 @@ export default function DietaryScreen() {
           {/* Fitness Goals */}
           <Card>
             <CardHeader className="pb-4">
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Target className="w-5 h-5" />
-                Fitness Goals
-              </CardTitle>
-              <CardDescription>What are your fitness and wellness goals?</CardDescription>
+              <div className="flex items-center justify-between">
+                <div className="flex-1">
+                  <CardTitle className="flex items-center gap-2 text-lg">
+                    <Target className="w-5 h-5" />
+                    Fitness Goals
+                  </CardTitle>
+                  <CardDescription>What are your fitness and wellness goals?</CardDescription>
+                </div>
+                <div className="flex items-center justify-center w-12 h-12 rounded-lg overflow-hidden bg-gray-100 ml-4">
+                  <img 
+                    src={userAvatarSrc} 
+                    alt="User Avatar"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 gap-3">
@@ -192,11 +255,22 @@ export default function DietaryScreen() {
           {/* Food Dislikes */}
           <Card>
             <CardHeader className="pb-4">
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <ThumbsDown className="w-5 h-5" />
-                Food Dislikes
-              </CardTitle>
-              <CardDescription>List ingredients or foods you prefer to avoid</CardDescription>
+              <div className="flex items-center justify-between">
+                <div className="flex-1">
+                  <CardTitle className="flex items-center gap-2 text-lg">
+                    <ThumbsDown className="w-5 h-5" />
+                    Food Dislikes
+                  </CardTitle>
+                  <CardDescription>List ingredients or foods you prefer to avoid</CardDescription>
+                </div>
+                <div className="flex items-center justify-center w-12 h-12 rounded-lg overflow-hidden bg-gray-100 ml-4">
+                  <img 
+                    src={userAvatarSrc} 
+                    alt="User Avatar"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
             </CardHeader>
             <CardContent>
               <Textarea
@@ -211,8 +285,19 @@ export default function DietaryScreen() {
           {/* Allergies */}
           <Card>
             <CardHeader className="pb-4">
-              <CardTitle className="text-lg">Allergies & Serious Restrictions</CardTitle>
-              <CardDescription>List any food allergies or severe restrictions</CardDescription>
+              <div className="flex items-center justify-between">
+                <div className="flex-1">
+                  <CardTitle className="text-lg">Allergies & Serious Restrictions</CardTitle>
+                  <CardDescription>List any food allergies or severe restrictions</CardDescription>
+                </div>
+                <div className="flex items-center justify-center w-12 h-12 rounded-lg overflow-hidden bg-gray-100 ml-4">
+                  <img 
+                    src={userAvatarSrc} 
+                    alt="User Avatar"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
             </CardHeader>
             <CardContent>
               <Textarea
@@ -227,8 +312,19 @@ export default function DietaryScreen() {
           {/* Additional Notes */}
           <Card>
             <CardHeader className="pb-4">
-              <CardTitle className="text-lg">Additional Notes</CardTitle>
-              <CardDescription>Any other preferences or requirements</CardDescription>
+              <div className="flex items-center justify-between">
+                <div className="flex-1">
+                  <CardTitle className="text-lg">Additional Notes</CardTitle>
+                  <CardDescription>Any other preferences or requirements</CardDescription>
+                </div>
+                <div className="flex items-center justify-center w-12 h-12 rounded-lg overflow-hidden bg-gray-100 ml-4">
+                  <img 
+                    src={userAvatarSrc} 
+                    alt="User Avatar"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
             </CardHeader>
             <CardContent>
               <Textarea
