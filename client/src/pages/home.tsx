@@ -632,7 +632,7 @@ export default function HomeScreen() {
               </div>
           
           {/* Compact Health Metrics Card */}
-          <Card className="p-4 mb-2 bg-white/95 backdrop-blur-md border-white/30 shadow-xl">
+          <Card className="p-4 mb-2 bg-transparent border-2 border-indigo-300 shadow-none">
             <div className="space-y-4">
               
               {/* Blood Pressure & Blood Sugar with Trends */}
@@ -666,12 +666,12 @@ export default function HomeScreen() {
                 </div>
                 
                 {/* Trend Visualization - Sample Graph Options */}
-                <div className="bg-gray-50 p-3 rounded-lg">
-                  <div className="text-sm font-bold text-gray-800 mb-2">7-Day Trends</div>
+                <div className="bg-transparent border border-indigo-300 p-3 rounded-lg">
+                  <div className="text-sm font-bold text-indigo-200 mb-2">7-Day Trends</div>
                   <div className="grid grid-cols-2 gap-4">
                     {/* BP Trend - Bar Charts with Color Coding */}
                     <div>
-                      <div className="text-xs font-bold text-gray-700 mb-1">Blood Pressure</div>
+                      <div className="text-xs font-bold text-indigo-200 mb-1">Blood Pressure</div>
                       <div className="flex items-end gap-1 h-8">
                         {/* Day 1: 118/75 - Normal (green) */}
                         <div className="flex-1 bg-green-500 rounded-sm h-5"></div>
@@ -692,7 +692,7 @@ export default function HomeScreen() {
                     </div>
                     {/* Sugar Trend - Bar Charts with Color Coding */}
                     <div>
-                      <div className="text-xs font-bold text-gray-700 mb-1">Blood Sugar</div>
+                      <div className="text-xs font-bold text-indigo-200 mb-1">Blood Sugar</div>
                       <div className="flex items-end gap-1 h-8">
                         {/* Day 1: 88 mg/dL - Normal (green) */}
                         <div className="flex-1 bg-green-500 rounded-sm h-5"></div>
