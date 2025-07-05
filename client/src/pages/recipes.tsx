@@ -365,7 +365,7 @@ export default function RecipesScreen() {
                   {currentView === "pantry" ? "Pantry Ingredients" : "Recipe Suggestions"}
                 </CardTitle>
                 <p className="text-sm text-gray-600 mt-1">
-                  {currentView === "pantry" ? "Select what is available in your pantry" : "Recipes you can make right now"}
+                  {currentView === "pantry" ? "Select available ingredients" : "Recipes you can make right now"}
                 </p>
               </div>
               <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white ml-4">
