@@ -321,7 +321,7 @@ export default function SignupScreen() {
                       }}
                       className={`flex items-center justify-center w-20 h-20 rounded-lg ${
                         selectedAvatar?.id === avatar.id ? 'ring-2 ring-indigo-500 bg-indigo-50 shadow-md scale-105' : 
-                        !selectedAvatar ? 'ring-2 ring-orange-400 animate-pulse' : ''
+                        !selectedAvatar ? 'ring-2 ring-orange-400' : ''
                       } bg-white hover:ring-2 hover:ring-indigo-400 hover:bg-indigo-50 transition-all overflow-hidden`}
                     >
                       <img 
@@ -685,7 +685,7 @@ export default function SignupScreen() {
                       }}
                       className={`flex items-center justify-center w-20 h-20 rounded-lg ${
                         selectedChef?.name === chef.name ? 'ring-2 ring-indigo-500 bg-indigo-50 shadow-md scale-105' : 
-                        !selectedChef ? 'ring-2 ring-orange-400 animate-pulse' : ''
+                        !selectedChef ? 'ring-2 ring-orange-400' : ''
                       } bg-white hover:ring-2 hover:ring-indigo-400 hover:bg-indigo-50 transition-all overflow-hidden`}
                     >
                       <img 
