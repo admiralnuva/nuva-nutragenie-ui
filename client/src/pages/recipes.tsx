@@ -229,7 +229,6 @@ export default function RecipesScreen() {
 
         <div className="text-center space-y-1">
           <h2 className="text-xl font-bold text-gray-900">Explore Recipes</h2>
-          <p className="text-sm text-gray-600">Plan your next delicious meal</p>
         </div>
 
         {/* Card 1: Dietary Preferences */}
@@ -238,7 +237,7 @@ export default function RecipesScreen() {
             <div className="flex items-center justify-between">
               <div className="flex-1">
                 <CardTitle className="text-lg">Meal Preferences</CardTitle>
-                <p className="text-sm text-gray-600 mt-1">Choose your cooking style</p>
+                <p className="text-sm text-gray-600 mt-1">Plan your next delicious meal</p>
               </div>
               <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white ml-4">
                 <img 
