@@ -567,8 +567,31 @@ export default function RecipesScreen() {
                     return (
                       <div key={dish.name} className="bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200 rounded-lg overflow-hidden">
                         {/* Full width image at top */}
-                        <div className="w-full h-32 bg-gradient-to-br from-orange-100 to-orange-200 flex items-center justify-center">
-                          <div className="transform scale-150">
+                        <div className="w-full h-32 bg-gradient-to-br from-orange-100 to-orange-200 relative flex items-center justify-center">
+                          {/* Background ingredients and kitchen items */}
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            {/* Top scattered ingredients */}
+                            <div className="absolute top-2 left-4 text-2xl opacity-60">🥕</div>
+                            <div className="absolute top-3 right-6 text-xl opacity-50">🧄</div>
+                            <div className="absolute top-1 right-12 text-lg opacity-40">🧅</div>
+                            
+                            {/* Left side ingredients */}
+                            <div className="absolute left-2 top-8 text-xl opacity-50">🫑</div>
+                            <div className="absolute left-1 bottom-6 text-lg opacity-40">🥒</div>
+                            
+                            {/* Right side kitchen items */}
+                            <div className="absolute right-2 top-12 text-lg opacity-40">🔪</div>
+                            <div className="absolute right-1 bottom-8 text-xl opacity-50">🍳</div>
+                            <div className="absolute right-4 bottom-2 text-lg opacity-40">🥄</div>
+                            
+                            {/* Bottom scattered spices */}
+                            <div className="absolute bottom-2 left-8 text-sm opacity-30">🌿</div>
+                            <div className="absolute bottom-1 left-16 text-sm opacity-30">🧂</div>
+                            <div className="absolute bottom-3 right-16 text-sm opacity-30">🫒</div>
+                          </div>
+                          
+                          {/* Main dish image in center */}
+                          <div className="transform scale-150 z-10 relative">
                             {dish.dishImage}
                           </div>
                         </div>
