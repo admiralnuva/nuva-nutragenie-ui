@@ -639,28 +639,26 @@ export default function HomeScreen() {
               <div>
                 <div className="grid grid-cols-2 gap-3 mb-3">
                   {/* Blood Pressure */}
-                  <div className="bg-gradient-to-br from-red-50 to-pink-50 p-4 rounded-xl border border-red-100 shadow-sm hover:shadow-md transition-all duration-200">
+                  <div className="bg-transparent p-4 rounded-xl border border-red-300 hover:border-red-400 transition-all duration-200">
                     <div className="flex items-center gap-2 mb-2">
-                      <span className="text-red-500">❤️</span>
-                      <div className="text-xs font-semibold text-red-700">Blood Pressure</div>
+                      <span className="text-red-400">❤️</span>
+                      <div className="text-xs font-semibold text-red-300">Blood Pressure</div>
                     </div>
-                    <div className="text-xl font-bold text-red-600 mb-1">{currentMetrics.bloodPressure}</div>
-                    <div className="flex items-center gap-1">
-                      <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                      <div className="text-xs text-green-600">Normal Range</div>
+                    <div className="flex items-center gap-2">
+                      <div className="text-xl font-bold text-red-400">{currentMetrics.bloodPressure}</div>
+                      <div className="w-3 h-3 rounded-full bg-green-500"></div>
                     </div>
                   </div>
                   
                   {/* Blood Sugar */}
-                  <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-4 rounded-xl border border-green-100 shadow-sm hover:shadow-md transition-all duration-200">
+                  <div className="bg-transparent p-4 rounded-xl border border-green-300 hover:border-green-400 transition-all duration-200">
                     <div className="flex items-center gap-2 mb-2">
-                      <span className="text-green-500">🩸</span>
-                      <div className="text-xs font-semibold text-green-700">Blood Sugar</div>
+                      <span className="text-green-400">🩸</span>
+                      <div className="text-xs font-semibold text-green-300">Blood Sugar</div>
                     </div>
-                    <div className="text-xl font-bold text-green-600 mb-1">{currentMetrics.bloodSugar} mg/dL</div>
-                    <div className="flex items-center gap-1">
-                      <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                      <div className="text-xs text-green-600">Optimal</div>
+                    <div className="flex items-center gap-2">
+                      <div className="text-xl font-bold text-green-400">{currentMetrics.bloodSugar} mg/dL</div>
+                      <div className="w-3 h-3 rounded-full bg-green-500"></div>
                     </div>
                   </div>
                 </div>
@@ -717,24 +715,24 @@ export default function HomeScreen() {
               
               {/* Daily Goals */}
               <div>
-                <h4 className="text-base font-semibold text-gray-800 mb-3 flex items-center gap-2">
-                  <Target className="text-green-500" size={16} />
+                <h4 className="text-base font-semibold text-indigo-200 mb-3 flex items-center gap-2">
+                  <Target className="text-green-400" size={16} />
                   Daily Goals
                 </h4>
                 
-                <div className="bg-gradient-to-r from-green-50 to-blue-50 p-3 rounded-lg">
+                <div className="bg-transparent border border-indigo-300 p-3 rounded-lg">
                   <div className="grid grid-cols-3 gap-2 text-center">
                     <div>
-                      <div className="text-xs text-gray-600">TDEE</div>
-                      <div className="text-lg font-bold text-green-600">2,247</div>
+                      <div className="text-xs text-indigo-200">TDEE</div>
+                      <div className="text-lg font-bold text-green-400">2,247</div>
                     </div>
                     <div>
-                      <div className="text-xs text-gray-600">Protein</div>
-                      <div className="text-lg font-bold text-blue-600">156g</div>
+                      <div className="text-xs text-indigo-200">Protein</div>
+                      <div className="text-lg font-bold text-blue-400">156g</div>
                     </div>
                     <div>
-                      <div className="text-xs text-gray-600">Water</div>
-                      <div className="text-lg font-bold text-cyan-600">2.1L</div>
+                      <div className="text-xs text-indigo-200">Water</div>
+                      <div className="text-lg font-bold text-cyan-400">2.1L</div>
                     </div>
                   </div>
                 </div>
@@ -742,46 +740,46 @@ export default function HomeScreen() {
 
               {/* Today's Activity - Single Row */}
               <div>
-                <h4 className="text-base font-semibold text-gray-800 mb-3 flex items-center justify-between">
+                <h4 className="text-base font-semibold text-indigo-200 mb-3 flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Activity className="text-blue-500" size={16} />
+                    <Activity className="text-blue-400" size={16} />
                     Today's Activity
                   </div>
-                  <Badge className="bg-green-100 text-green-800 text-xs rounded-sm px-2 py-1">Live</Badge>
+                  <Badge className="bg-transparent border border-green-400 text-green-400 text-xs rounded-sm px-2 py-1">Live</Badge>
                 </h4>
                 
                 <div className="grid gap-2" style={{gridTemplateColumns: "1fr 1fr 1fr 1.5fr"}}>
                   {/* Steps */}
-                  <div className="bg-blue-50 p-2 rounded text-center">
-                    <div className="text-xs text-gray-600">Steps</div>
-                    <div className="text-lg font-bold text-blue-600">8,247</div>
+                  <div className="bg-transparent border border-blue-300 p-2 rounded text-center">
+                    <div className="text-xs text-blue-200">Steps</div>
+                    <div className="text-lg font-bold text-blue-400">8,247</div>
                     <div className="flex justify-center mt-1">
                       <div className="w-3 h-3 rounded-full bg-green-500"></div>
                     </div>
                   </div>
                   
                   {/* Calories */}
-                  <div className="bg-orange-50 p-2 rounded text-center">
-                    <div className="text-xs text-gray-600">Calories</div>
-                    <div className="text-lg font-bold text-orange-600">524</div>
+                  <div className="bg-transparent border border-orange-300 p-2 rounded text-center">
+                    <div className="text-xs text-orange-200">Calories</div>
+                    <div className="text-lg font-bold text-orange-400">524</div>
                     <div className="flex justify-center mt-1">
                       <div className="w-3 h-3 rounded-full bg-orange-500"></div>
                     </div>
                   </div>
                   
                   {/* Distance */}
-                  <div className="bg-purple-50 p-2 rounded text-center">
-                    <div className="text-xs text-gray-600">Distance</div>
-                    <div className="text-lg font-bold text-purple-600">4.1 mi</div>
+                  <div className="bg-transparent border border-purple-300 p-2 rounded text-center">
+                    <div className="text-xs text-purple-200">Distance</div>
+                    <div className="text-lg font-bold text-purple-400">4.1 mi</div>
                     <div className="flex justify-center mt-1">
                       <div className="w-3 h-3 rounded-full bg-green-500"></div>
                     </div>
                   </div>
                   
                   {/* Heart Rate - Wider */}
-                  <div className="bg-red-50 p-2 rounded text-center">
-                    <div className="text-xs text-gray-600">Heart Rate</div>
-                    <div className="text-lg font-bold text-red-600">72 bpm</div>
+                  <div className="bg-transparent border border-red-300 p-2 rounded text-center">
+                    <div className="text-xs text-red-200">Heart Rate</div>
+                    <div className="text-lg font-bold text-red-400">72 bpm</div>
                     <div className="flex justify-center mt-1">
                       <div className="w-3 h-3 rounded-full bg-green-500"></div>
                     </div>
