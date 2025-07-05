@@ -259,7 +259,7 @@ const previousRecipes = [
     calories: 480,
     protein: 12,
     difficulty: 'Easy',
-    madeWhen: 'Made 5 days ago',
+    madeWhen: 'Dec 31, 2024',
     dishImage: (
       <div className="w-24 h-24 flex items-center justify-center text-5xl">
         🥞
@@ -274,7 +274,7 @@ const previousRecipes = [
     calories: 520,
     protein: 32,
     difficulty: 'Easy',
-    madeWhen: 'Made yesterday',
+    madeWhen: 'Jan 4, 2025',
     dishImage: (
       <div className="w-24 h-24 flex items-center justify-center text-5xl">
         🌮
