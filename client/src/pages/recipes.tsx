@@ -584,13 +584,13 @@ export default function RecipesScreen() {
 
         {/* Card 4: Nutritional Adjustments */}
         <Card className="bg-white border border-gray-200">
-          <CardHeader className="py-2">
+          <CardHeader className="py-1 pb-0">
             <div className="flex items-center justify-between">
               <div className="flex-1">
-                <CardTitle className="text-lg">Nutritional Adjustments</CardTitle>
-                <p className="text-sm text-gray-600 mt-1">Fine-tune your meal targets</p>
+                <CardTitle className="text-base">Nutritional Adjustments</CardTitle>
+                <p className="text-xs text-gray-600">Fine-tune your meal targets</p>
               </div>
-              <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white ml-4">
+              <div className="flex items-center justify-center w-16 h-16 rounded-lg overflow-hidden bg-white ml-3">
                 <img 
                   src={userAvatarSrc} 
                   alt="User Avatar"
@@ -599,7 +599,7 @@ export default function RecipesScreen() {
               </div>
             </div>
           </CardHeader>
-          <CardContent className="space-y-4 py-3">
+          <CardContent className="space-y-3 pt-2 pb-3 px-4">
             <div>
               <div className="flex justify-between items-center mb-1">
                 <label className="text-xs font-medium text-gray-700">Calories</label>
