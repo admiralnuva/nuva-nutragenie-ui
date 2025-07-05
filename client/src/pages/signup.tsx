@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useMutation } from "@tanstack/react-query";
@@ -74,7 +74,7 @@ export default function SignupScreen() {
   const [isVerified, setIsVerified] = useState(false);
   const [validationErrors, setValidationErrors] = useState<ValidationErrors>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
-  const [activeCard, setActiveCard] = useState<number | null>(null);
+  const [activeCard, setActiveCard] = useState<number | null>(1);
 
   const createUserMutation = useMutation({
     mutationFn: async (userData: any) => {
@@ -219,6 +219,15 @@ export default function SignupScreen() {
   const isChefComplete = chefNickname.trim().length >= 2;
   const isPhoneComplete = phoneNumber.trim().length >= 10;
   const isVerifiedComplete = isVerified;
+
+  // Auto-advance to next card when current section is completed
+  useEffect(() => {
+    if (isProfileComplete && activeCard === 1) {
+      setActiveCard(2);
+    } else if (isChefComplete && activeCard === 2) {
+      setActiveCard(3);
+    }
+  }, [isProfileComplete, isChefComplete, activeCard]);
   const isFormComplete = isProfileComplete && isAddressComplete && isChefComplete && isPhoneComplete && isVerifiedComplete;
 
   return (
@@ -244,7 +253,7 @@ export default function SignupScreen() {
             className={`transition-all border-2 cursor-pointer ${
               activeCard === 1 ? 'border-indigo-500 shadow-lg' : 'border-white'
             } ${isProfileComplete ? 'ring-2 ring-green-500' : ''}`}
-            onClick={() => setActiveCard(activeCard === 1 ? null : 1)}
+            onClick={() => setActiveCard(1)}
           >
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-2 text-lg">
@@ -499,7 +508,7 @@ export default function SignupScreen() {
             className={`transition-all border-2 cursor-pointer ${
               activeCard === 2 ? 'border-indigo-500 shadow-lg' : 'border-white'
             } ${isChefComplete ? 'ring-2 ring-green-500' : ''}`}
-            onClick={() => setActiveCard(activeCard === 2 ? null : 2)}
+            onClick={() => setActiveCard(2)}
           >
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-2 text-lg">
@@ -568,7 +577,7 @@ export default function SignupScreen() {
             className={`transition-all border-2 cursor-pointer ${
               activeCard === 3 ? 'border-indigo-500 shadow-lg' : 'border-white'
             } ${isVerifiedComplete ? 'ring-2 ring-green-500' : ''}`}
-            onClick={() => setActiveCard(activeCard === 3 ? null : 3)}
+            onClick={() => setActiveCard(3)}
           >
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-2 text-lg">
