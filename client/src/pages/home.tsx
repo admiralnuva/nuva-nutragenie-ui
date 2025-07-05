@@ -535,7 +535,7 @@ export default function HomeScreen() {
               <div className={`overflow-hidden transition-all duration-500 ease-out ${
                 showHealthForm ? 'max-h-80 opacity-100 mb-2 transform translate-y-0' : 'max-h-0 opacity-0 transform -translate-y-2'
               }`}>
-                <Card className="p-4 bg-transparent border-2 border-indigo-300 shadow-none rounded-xl">
+                <Card className="p-4 bg-transparent border-2 border-white shadow-none rounded-xl">
                   <form onSubmit={handleHealthSubmit} className="space-y-3">
                     {/* Date Selection - Compact */}
                     <div className="flex items-center gap-2">
@@ -629,14 +629,14 @@ export default function HomeScreen() {
               </div>
           
           {/* Compact Health Metrics Card */}
-          <Card className="p-4 mb-2 bg-transparent border-2 border-indigo-300 shadow-none">
+          <Card className="p-4 mb-2 bg-transparent border-2 border-white shadow-none">
             <div className="space-y-4">
               
               {/* Blood Pressure & Blood Sugar with Trends */}
               <div>
                 <div className="grid grid-cols-2 gap-3 mb-3">
                   {/* Blood Pressure */}
-                  <div className="bg-transparent p-4 rounded-xl border border-red-400 hover:border-red-300 transition-all duration-200">
+                  <div className="bg-transparent p-4 rounded-xl border-2 border-red-400 hover:border-red-300 transition-all duration-200">
                     <div className="flex items-center gap-2 mb-2">
                       <span className="text-red-300">❤️</span>
                       <div className="text-xs font-semibold text-red-100">Blood Pressure</div>
@@ -648,7 +648,7 @@ export default function HomeScreen() {
                   </div>
                   
                   {/* Blood Sugar */}
-                  <div className="bg-transparent p-4 rounded-xl border border-green-400 hover:border-green-300 transition-all duration-200">
+                  <div className="bg-transparent p-4 rounded-xl border-2 border-green-400 hover:border-green-300 transition-all duration-200">
                     <div className="flex items-center gap-2 mb-2">
                       <span className="text-green-300">🩸</span>
                       <div className="text-xs font-semibold text-green-100">Blood Sugar</div>
@@ -661,7 +661,7 @@ export default function HomeScreen() {
                 </div>
                 
                 {/* Trend Visualization - Sample Graph Options */}
-                <div className="bg-transparent border border-indigo-400 p-3 rounded-lg">
+                <div className="bg-transparent border-2 border-indigo-400 p-3 rounded-lg">
                   <div className="text-sm font-bold text-white mb-2">7-Day Trends</div>
                   <div className="grid grid-cols-2 gap-4">
                     {/* BP Trend - Bar Charts with Color Coding */}
@@ -717,7 +717,7 @@ export default function HomeScreen() {
                   Daily Goals
                 </h4>
                 
-                <div className="bg-transparent border border-indigo-400 p-3 rounded-lg">
+                <div className="bg-transparent border-2 border-indigo-400 p-3 rounded-lg">
                   <div className="grid grid-cols-3 gap-2 text-center">
                     <div>
                       <div className="text-xs text-white">TDEE</div>
@@ -747,7 +747,7 @@ export default function HomeScreen() {
                 
                 <div className="grid gap-2" style={{gridTemplateColumns: "1fr 1fr 1fr 1.5fr"}}>
                   {/* Steps */}
-                  <div className="bg-transparent border border-blue-400 p-2 rounded text-center">
+                  <div className="bg-transparent border-2 border-blue-400 p-2 rounded text-center">
                     <div className="text-xs text-blue-100">Steps</div>
                     <div className="text-lg font-bold text-blue-200">8,247</div>
                     <div className="flex justify-center mt-1">
@@ -756,7 +756,7 @@ export default function HomeScreen() {
                   </div>
                   
                   {/* Calories */}
-                  <div className="bg-transparent border border-orange-400 p-2 rounded text-center">
+                  <div className="bg-transparent border-2 border-orange-400 p-2 rounded text-center">
                     <div className="text-xs text-orange-100">Calories</div>
                     <div className="text-lg font-bold text-orange-200">524</div>
                     <div className="flex justify-center mt-1">
@@ -765,7 +765,7 @@ export default function HomeScreen() {
                   </div>
                   
                   {/* Distance */}
-                  <div className="bg-transparent border border-purple-400 p-2 rounded text-center">
+                  <div className="bg-transparent border-2 border-purple-400 p-2 rounded text-center">
                     <div className="text-xs text-purple-100">Distance</div>
                     <div className="text-lg font-bold text-purple-200">4.1 mi</div>
                     <div className="flex justify-center mt-1">
@@ -774,7 +774,7 @@ export default function HomeScreen() {
                   </div>
                   
                   {/* Heart Rate - Wider */}
-                  <div className="bg-transparent border border-red-400 p-2 rounded text-center">
+                  <div className="bg-transparent border-2 border-red-400 p-2 rounded text-center">
                     <div className="text-xs text-red-100">Heart Rate</div>
                     <div className="text-lg font-bold text-red-200">72 bpm</div>
                     <div className="flex justify-center mt-1">
