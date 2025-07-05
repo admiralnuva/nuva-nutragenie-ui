@@ -237,32 +237,22 @@ export default function RecipesScreen() {
             <div className="flex items-center justify-between">
               <div className="flex-1">
                 <CardTitle className="text-lg">Dietary Preferences</CardTitle>
-                <div className="flex flex-wrap gap-1 mt-1">
-                  {/* Display user dietary restrictions or defaults */}
-                  {(userData?.dietaryRestrictions?.length > 0 ? userData.dietaryRestrictions : ['Vegetarian', 'Gluten-Free']).slice(0, 3).map((restriction: string) => (
-                    <span key={restriction} className="px-2 py-1 bg-indigo-100 text-indigo-700 text-xs rounded-full">
-                      {restriction}
-                    </span>
-                  ))}
-                  {userData?.dietaryRestrictions?.length > 3 && (
-                    <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full">
-                      +{userData.dietaryRestrictions.length - 3} more
-                    </span>
-                  )}
+                <div className="space-y-1 mt-1">
+                  {/* Dietary Restrictions Row */}
+                  <div className="text-xs text-gray-600">
+                    <span className="font-medium">Dietary:</span> {(userData?.dietaryRestrictions?.length > 0 ? userData.dietaryRestrictions : ['Vegetarian', 'Gluten-Free']).slice(0, 3).join(', ')}
+                    {userData?.dietaryRestrictions?.length > 3 && ` +${userData.dietaryRestrictions.length - 3} more`}
+                  </div>
                   
-                  {/* Display user health conditions or defaults */}
-                  {(userData?.healthConditions?.length > 0 ? userData.healthConditions : ['Heart Issues']).slice(0, 2).map((condition: string) => (
-                    <span key={condition} className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">
-                      {condition}
-                    </span>
-                  ))}
+                  {/* Health Conditions Row */}
+                  <div className="text-xs text-gray-600">
+                    <span className="font-medium">Health:</span> {(userData?.healthConditions?.length > 0 ? userData.healthConditions : ['Heart Issues']).slice(0, 2).join(', ')}
+                  </div>
                   
-                  {/* Display user fitness goals or defaults */}
-                  {(userData?.fitnessGoals?.length > 0 ? userData.fitnessGoals : ['Build Muscle', 'Lose Weight']).slice(0, 2).map((goal: string) => (
-                    <span key={goal} className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">
-                      {goal}
-                    </span>
-                  ))}
+                  {/* Fitness Goals Row */}
+                  <div className="text-xs text-gray-600">
+                    <span className="font-medium">Goals:</span> {(userData?.fitnessGoals?.length > 0 ? userData.fitnessGoals : ['Build Muscle', 'Lose Weight']).slice(0, 2).join(', ')}
+                  </div>
                 </div>
               </div>
               <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white ml-4">
