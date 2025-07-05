@@ -537,19 +537,17 @@ export default function HomeScreen() {
               }`}>
                 <Card className="p-4 bg-transparent border-2 border-indigo-300 shadow-none rounded-xl">
                   <form onSubmit={handleHealthSubmit} className="space-y-3">
-                    {/* Date Selection with Icon */}
-                    <div className="flex items-center gap-2 bg-transparent p-2 rounded-lg border border-indigo-300">
+                    {/* Date Selection - Compact */}
+                    <div className="flex items-center gap-2">
                       <div className="text-indigo-400">📅</div>
-                      <div className="flex-1">
-                        <Label htmlFor="date" className="text-xs font-semibold text-indigo-200">Select Date</Label>
-                        <Input
-                          type="date"
-                          id="date"
-                          value={healthData.date}
-                          onChange={(e) => setHealthData({...healthData, date: e.target.value})}
-                          className="mt-0.5 h-8 text-sm border-0 bg-transparent text-white focus:ring-indigo-400"
-                        />
-                      </div>
+                      <Label htmlFor="date" className="text-xs font-semibold text-white">Date:</Label>
+                      <Input
+                        type="date"
+                        id="date"
+                        value={healthData.date}
+                        onChange={(e) => setHealthData({...healthData, date: e.target.value})}
+                        className="h-8 text-sm border border-indigo-400 bg-transparent text-white focus:ring-indigo-400 flex-1"
+                      />
                     </div>
 
                     {/* Health Inputs with Icons */}
@@ -566,7 +564,7 @@ export default function HomeScreen() {
                           placeholder="120"
                           value={healthData.bloodPressureSystolic}
                           onChange={(e) => setHealthData({...healthData, bloodPressureSystolic: e.target.value})}
-                          className="h-8 text-sm border-0 bg-transparent text-center font-bold text-white placeholder-red-200 focus:ring-red-400"
+                          className="h-8 text-sm border-0 bg-transparent text-center font-bold text-white placeholder-red-200 focus:ring-red-400 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                         />
                       </div>
 
@@ -582,7 +580,7 @@ export default function HomeScreen() {
                           placeholder="80"
                           value={healthData.bloodPressureDiastolic}
                           onChange={(e) => setHealthData({...healthData, bloodPressureDiastolic: e.target.value})}
-                          className="h-8 text-sm border-0 bg-transparent text-center font-bold text-white placeholder-red-200 focus:ring-red-400"
+                          className="h-8 text-sm border-0 bg-transparent text-center font-bold text-white placeholder-red-200 focus:ring-red-400 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                         />
                       </div>
 
@@ -598,7 +596,7 @@ export default function HomeScreen() {
                           placeholder="94"
                           value={healthData.bloodSugar}
                           onChange={(e) => setHealthData({...healthData, bloodSugar: e.target.value})}
-                          className="h-8 text-sm border-0 bg-transparent text-center font-bold text-white placeholder-green-200 focus:ring-green-400"
+                          className="h-8 text-sm border-0 bg-transparent text-center font-bold text-white placeholder-green-200 focus:ring-green-400 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                         />
                       </div>
 
@@ -614,17 +612,16 @@ export default function HomeScreen() {
                           placeholder="165"
                           value={healthData.weight}
                           onChange={(e) => setHealthData({...healthData, weight: e.target.value})}
-                          className="h-8 text-sm border-0 bg-transparent text-center font-bold text-white placeholder-blue-200 focus:ring-blue-400"
+                          className="h-8 text-sm border-0 bg-transparent text-center font-bold text-white placeholder-blue-200 focus:ring-blue-400 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                         />
                       </div>
                     </div>
 
-                    {/* Enhanced Submit Button */}
+                    {/* Submit Button */}
                     <Button 
                       type="submit" 
-                      className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white h-10 text-sm font-semibold rounded-lg shadow-md hover:shadow-lg transform hover:scale-[1.02] transition-all duration-200 flex items-center justify-center gap-2"
+                      className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white h-10 text-sm font-semibold rounded-lg shadow-md hover:shadow-lg transform hover:scale-[1.02] transition-all duration-200"
                     >
-                      <span>💾</span>
                       Save Health Data
                     </Button>
                   </form>
