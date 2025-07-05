@@ -1052,7 +1052,7 @@ export default function RecipesScreen() {
                           }
                         }}
                       >
-                        Create Custom Dish
+                        Custom Dish
                       </Button>
                       <Button 
                         variant="outline"
