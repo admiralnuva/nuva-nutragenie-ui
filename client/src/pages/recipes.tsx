@@ -307,6 +307,18 @@ export default function RecipesScreen() {
   const [customDishName, setCustomDishName] = useState("");
   const [customDishServings, setCustomDishServings] = useState("2");
   
+  // Maximum dish selection limit
+  const MAX_DISH_SELECTION = 5;
+  
+  // Helper function to calculate total selected dishes
+  const getTotalSelectedDishes = () => {
+    let total = selectedDishes.length;
+    if (customDishName.trim()) {
+      total += 1;
+    }
+    return total;
+  };
+  
   // Collapsible states for ingredient categories
   const [openCategories, setOpenCategories] = useState<Record<string, boolean>>({
     meat: true,
@@ -379,11 +391,20 @@ export default function RecipesScreen() {
   };
 
   const toggleDishSelection = (dishId: string) => {
-    setSelectedDishes(prev => 
-      prev.includes(dishId) 
-        ? prev.filter(id => id !== dishId)
-        : [...prev, dishId]
-    );
+    setSelectedDishes(prev => {
+      if (prev.includes(dishId)) {
+        // Deselecting - always allow
+        return prev.filter(id => id !== dishId);
+      } else {
+        // Selecting - check if we're at limit
+        const totalSelected = getTotalSelectedDishes();
+        if (totalSelected >= MAX_DISH_SELECTION) {
+          // Don't add if at max limit
+          return prev;
+        }
+        return [...prev, dishId];
+      }
+    });
   };
 
   const generateRecipe = () => {
@@ -735,14 +756,16 @@ export default function RecipesScreen() {
                   if (index <= 3) {
                     const dishId = dish.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
                     const isSelected = selectedDishes.includes(dishId);
+                    const isDisabled = !isSelected && getTotalSelectedDishes() >= MAX_DISH_SELECTION;
                     
                     return (
                       <div 
                         key={dish.name} 
-                        className={`bg-gradient-to-r from-indigo-50 to-purple-50 border-2 rounded-lg overflow-hidden cursor-pointer transition-all relative ${
-                          isSelected ? 'border-indigo-500 bg-indigo-100' : 'border-indigo-200 hover:border-indigo-300'
+                        className={`bg-gradient-to-r from-indigo-50 to-purple-50 border-2 rounded-lg overflow-hidden transition-all relative ${
+                          isDisabled ? 'opacity-50 cursor-not-allowed border-gray-200' :
+                          isSelected ? 'border-indigo-500 bg-indigo-100 cursor-pointer' : 'border-indigo-200 hover:border-indigo-300 cursor-pointer'
                         }`}
-                        onClick={() => toggleDishSelection(dishId)}
+                        onClick={() => !isDisabled && toggleDishSelection(dishId)}
                       >
                         {/* Selection Checkbox */}
                         <div className="absolute bottom-2 right-2 z-10">
@@ -1000,9 +1023,23 @@ export default function RecipesScreen() {
                       <label className="text-sm font-medium text-gray-700 mb-2 block">Dish Name</label>
                       <Input
                         value={customDishName}
-                        onChange={(e) => setCustomDishName(e.target.value)}
-                        placeholder="Enter your dish name..."
-                        className="w-full text-lg py-3"
+                        onChange={(e) => {
+                          // Only allow changes if not at limit or if field is currently empty
+                          if (!customDishName.trim() && selectedDishes.length >= MAX_DISH_SELECTION) {
+                            return; // Don't allow new input if at limit
+                          }
+                          setCustomDishName(e.target.value);
+                        }}
+                        placeholder={
+                          !customDishName.trim() && selectedDishes.length >= MAX_DISH_SELECTION 
+                            ? "Maximum dishes selected..."
+                            : "Enter your dish name..."
+                        }
+                        disabled={!customDishName.trim() && selectedDishes.length >= MAX_DISH_SELECTION}
+                        className={`w-full text-lg py-3 ${
+                          !customDishName.trim() && selectedDishes.length >= MAX_DISH_SELECTION 
+                            ? 'opacity-50 cursor-not-allowed' : ''
+                        }`}
                       />
                     </div>
                     <Button 
@@ -1027,20 +1064,16 @@ export default function RecipesScreen() {
                     {suggestedRecipes.map((recipe, index) => {
                       const recipeId = recipe.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
                       const isSelected = selectedDishes.includes(recipeId);
+                      const isDisabled = !isSelected && getTotalSelectedDishes() >= MAX_DISH_SELECTION;
                       
                       return (
                         <div 
                           key={recipe.name} 
-                          className={`bg-gradient-to-r from-indigo-50 to-purple-50 border-2 rounded-lg overflow-hidden cursor-pointer transition-all relative ${
-                            isSelected ? 'border-indigo-600 shadow-lg' : 'border-indigo-200 hover:border-indigo-400'
+                          className={`bg-gradient-to-r from-indigo-50 to-purple-50 border-2 rounded-lg overflow-hidden transition-all relative ${
+                            isDisabled ? 'opacity-50 cursor-not-allowed border-gray-200' :
+                            isSelected ? 'border-indigo-600 shadow-lg cursor-pointer' : 'border-indigo-200 hover:border-indigo-400 cursor-pointer'
                           }`}
-                          onClick={() => {
-                            if (isSelected) {
-                              setSelectedDishes(prev => prev.filter(id => id !== recipeId));
-                            } else {
-                              setSelectedDishes(prev => [...prev, recipeId]);
-                            }
-                          }}
+                          onClick={() => !isDisabled && toggleDishSelection(recipeId)}
                         >
                           {/* Checkbox in bottom right */}
                           <div className="absolute bottom-3 right-3 z-10">
@@ -1084,20 +1117,16 @@ export default function RecipesScreen() {
                     {previousRecipes.map((recipe, index) => {
                       const recipeId = recipe.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
                       const isSelected = selectedDishes.includes(recipeId);
+                      const isDisabled = !isSelected && getTotalSelectedDishes() >= MAX_DISH_SELECTION;
                       
                       return (
                         <div 
                           key={recipe.name} 
-                          className={`bg-gradient-to-r from-indigo-50 to-purple-50 border-2 rounded-lg overflow-hidden cursor-pointer transition-all relative ${
-                            isSelected ? 'border-indigo-600 shadow-lg' : 'border-indigo-200 hover:border-indigo-400'
+                          className={`bg-gradient-to-r from-indigo-50 to-purple-50 border-2 rounded-lg overflow-hidden transition-all relative ${
+                            isDisabled ? 'opacity-50 cursor-not-allowed border-gray-200' :
+                            isSelected ? 'border-indigo-600 shadow-lg cursor-pointer' : 'border-indigo-200 hover:border-indigo-400 cursor-pointer'
                           }`}
-                          onClick={() => {
-                            if (isSelected) {
-                              setSelectedDishes(prev => prev.filter(id => id !== recipeId));
-                            } else {
-                              setSelectedDishes(prev => [...prev, recipeId]);
-                            }
-                          }}
+                          onClick={() => !isDisabled && toggleDishSelection(recipeId)}
                         >
                           {/* Checkbox in bottom right */}
                           <div className="absolute bottom-3 right-3 z-10">
@@ -1240,10 +1269,17 @@ export default function RecipesScreen() {
           }
         </Button>
 
-        {currentView === "dishes" && selectedDishes.length > 0 && (
-          <p className="text-center text-sm text-gray-600">
-            {selectedDishes.length} dish{selectedDishes.length > 1 ? 'es' : ''} selected for detailed recipes
-          </p>
+        {(currentView === "dishes" || currentView === "create") && (
+          <div className="text-center text-sm space-y-1">
+            <p className={`${getTotalSelectedDishes() >= MAX_DISH_SELECTION ? 'text-orange-600' : 'text-gray-600'}`}>
+              {getTotalSelectedDishes()}/{MAX_DISH_SELECTION} dishes selected for weekly meal plan
+            </p>
+            {getTotalSelectedDishes() >= MAX_DISH_SELECTION && (
+              <p className="text-xs text-orange-500">
+                Maximum selection reached. Deselect a dish to choose another.
+              </p>
+            )}
+          </div>
         )}
 
         {currentView === "pantry" && selectedIngredients.length === 0 && (
