@@ -363,8 +363,8 @@ export default function HomeScreen() {
 
       <div className="p-4 space-y-6">
         {/* Compact Welcome Card */}
-        <Card className="p-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white">
-          <div className="space-y-2">
+        <Card className="p-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white">
+          <div className="space-y-1">
             {/* Row 1 - Avatars with Greeting Between */}
             <div className="flex items-center justify-between">
               {/* User Avatar - Left */}
@@ -376,9 +376,10 @@ export default function HomeScreen() {
                 />
               </div>
               
-              {/* Greeting - Center */}
+              {/* Greeting & Username - Center */}
               <div className="text-center">
                 <h2 className="text-lg font-bold">{getPersonalizedGreeting()[0]}</h2>
+                <p className="text-lg font-bold">{currentUser?.nickname || "Chef"}</p>
               </div>
               
               {/* Chef Marcus Avatar - Right */}
@@ -391,12 +392,7 @@ export default function HomeScreen() {
               </div>
             </div>
             
-            {/* Row 2 - User Nickname */}
-            <div className="text-center">
-              <p className="text-blue-100 text-sm font-medium">{currentUser?.nickname || "Chef"}</p>
-            </div>
-            
-            {/* Row 3 - Motivational Text */}
+            {/* Row 2 - Motivational Text */}
             <div className="text-center">
               <p className="text-blue-100 text-xs">Let's cook something exciting today!</p>
             </div>
