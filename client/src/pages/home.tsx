@@ -23,7 +23,11 @@ import {
   AlertCircle,
   Loader2,
   RefreshCw,
-  UserX
+  UserX,
+  History,
+  Activity,
+  Heart,
+  Zap
 } from "lucide-react";
 import {
   Chart as ChartJS,
@@ -294,6 +298,13 @@ export default function HomeScreen() {
       description: "Find new dishes"
     },
     { 
+      label: "Past Recipes", 
+      icon: History, 
+      color: "bg-purple-500", 
+      path: "/recipes?filter=past",
+      description: "Review your history"
+    },
+    { 
       label: "Grocery List", 
       icon: ShoppingCart, 
       color: "bg-emerald-500", 
@@ -336,13 +347,13 @@ export default function HomeScreen() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-black pb-20">
+    <div className="min-h-screen bg-gradient-to-br from-blue-400 via-purple-400 to-indigo-500 pb-20">
       {/* Header */}
-      <div className="bg-gray-800/90 backdrop-blur-sm border-b border-gray-700 px-4 py-4 flex items-center gap-3">
+      <div className="bg-white/20 backdrop-blur-sm border-b border-white/30 px-4 py-4 flex items-center gap-3">
         <BackButton to="/" />
-        <h1 className="text-lg font-semibold text-white">NutraGenie</h1>
+        <h1 className="text-lg font-semibold text-white drop-shadow-md">NutraGenie</h1>
         {chartError && (
-          <div className="ml-auto flex items-center gap-2 text-amber-400 text-sm">
+          <div className="ml-auto flex items-center gap-2 text-amber-300 text-sm">
             <AlertCircle className="w-4 h-4" />
             Data Issue
           </div>
@@ -398,148 +409,166 @@ export default function HomeScreen() {
           </div>
         </div>
 
-        {/* Cooking Analytics Charts */}
+        {/* Health & Nutrition Metrics - Card #1 */}
         <div>
-          <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <BarChart3 size={20} />
-            Cooking Analytics
+          <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2 drop-shadow-md">
+            <Activity size={20} />
+            Health & Nutrition Tracking
           </h3>
           
-          {/* Recipe Progress Bar Chart */}
-          <Card className="p-4 mb-4 bg-white/10 backdrop-blur-md border-white/20 shadow-xl">
-            <div className="flex items-center justify-between mb-3">
-              <h4 className="font-medium text-white">Monthly Recipe Progress</h4>
-              <Badge variant="outline" className="text-indigo-300 border-indigo-300/50 bg-indigo-500/20">
-                Last 6 Months
-              </Badge>
-            </div>
-            <div className="h-48 bg-white rounded-lg p-2">
-              <Bar data={recipesChartData} options={chartOptions} />
+          {/* Comprehensive Health Metrics Card */}
+          <Card className="p-6 mb-4 bg-white/95 backdrop-blur-md border-white/30 shadow-xl">
+            <div className="space-y-6">
+              
+              {/* Wearable Data Section */}
+              <div>
+                <h4 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                  <Heart className="text-red-500" size={18} />
+                  Live Health Data
+                  <Badge className="bg-green-100 text-green-800 text-xs">Synced with Apple/Android</Badge>
+                </h4>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  {/* Steps & Activity */}
+                  <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Zap className="text-blue-600" size={16} />
+                      <span className="text-sm font-medium text-gray-700">Daily Steps</span>
+                    </div>
+                    <div className="text-2xl font-bold text-blue-600">8,247</div>
+                    <div className="text-xs text-gray-600">Goal: 10,000 • 82% complete</div>
+                    <div className="mt-2 bg-blue-200 rounded-full h-2">
+                      <div className="bg-blue-600 h-2 rounded-full w-4/5"></div>
+                    </div>
+                  </div>
+                  
+                  {/* Distance */}
+                  <div className="bg-gradient-to-r from-purple-50 to-pink-50 p-4 rounded-lg">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Target className="text-purple-600" size={16} />
+                      <span className="text-sm font-medium text-gray-700">Distance</span>
+                    </div>
+                    <div className="text-2xl font-bold text-purple-600">4.1 mi</div>
+                    <div className="text-xs text-gray-600">Active: 45 mins</div>
+                  </div>
+                  
+                  {/* Calories Burned */}
+                  <div className="bg-gradient-to-r from-orange-50 to-red-50 p-4 rounded-lg">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Zap className="text-orange-600" size={16} />
+                      <span className="text-sm font-medium text-gray-700">Calories Burned</span>
+                    </div>
+                    <div className="text-2xl font-bold text-orange-600">524</div>
+                    <div className="text-xs text-gray-600">Exercise + BMR</div>
+                  </div>
+                  
+                  {/* Heart Rate */}
+                  <div className="bg-gradient-to-r from-red-50 to-pink-50 p-4 rounded-lg">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Heart className="text-red-600" size={16} />
+                      <span className="text-sm font-medium text-gray-700">Heart Rate</span>
+                    </div>
+                    <div className="text-2xl font-bold text-red-600">72 bpm</div>
+                    <div className="text-xs text-gray-600">Resting • Normal range</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* TDEE & Nutrition Goals */}
+              <div>
+                <h4 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                  <Target className="text-green-600" size={18} />
+                  Daily Nutrition Goals
+                </h4>
+                
+                <div className="grid grid-cols-1 gap-4">
+                  {/* TDEE Calculator Results */}
+                  <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-4 rounded-lg">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <div className="text-sm font-medium text-gray-700 mb-1">Daily Calories Needed</div>
+                        <div className="text-2xl font-bold text-green-600">2,247</div>
+                        <div className="text-xs text-gray-600">TDEE-based calculation</div>
+                      </div>
+                      <div>
+                        <div className="text-sm font-medium text-gray-700 mb-1">Protein Target</div>
+                        <div className="text-2xl font-bold text-blue-600">156g</div>
+                        <div className="text-xs text-gray-600">1.2g per kg body weight</div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Today's Consumption */}
+                  <div className="bg-gradient-to-r from-yellow-50 to-amber-50 p-4 rounded-lg">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <div className="text-sm font-medium text-gray-700 mb-1">Calories Consumed</div>
+                        <div className="text-2xl font-bold text-yellow-600">1,834</div>
+                        <div className="text-xs text-gray-600">From recipes tracked</div>
+                        <div className="mt-2 bg-yellow-200 rounded-full h-2">
+                          <div className="bg-yellow-600 h-2 rounded-full w-4/5"></div>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="text-sm font-medium text-gray-700 mb-1">Protein Consumed</div>
+                        <div className="text-2xl font-bold text-blue-600">127g</div>
+                        <div className="text-xs text-gray-600">81% of daily goal</div>
+                        <div className="mt-2 bg-blue-200 rounded-full h-2">
+                          <div className="bg-blue-600 h-2 rounded-full w-4/5"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Manual Health Input Section */}
+              <div>
+                <h4 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                  <BarChart3 className="text-indigo-600" size={18} />
+                  Health Metrics to Track
+                </h4>
+                
+                <div className="grid grid-cols-2 gap-3">
+                  {/* Blood Pressure Input */}
+                  <div className="bg-gray-50 p-3 rounded-lg">
+                    <div className="text-sm font-medium text-gray-700 mb-2">Blood Pressure</div>
+                    <div className="flex gap-2">
+                      <input className="w-16 px-2 py-1 border rounded text-sm" placeholder="120" />
+                      <span className="text-gray-500">/</span>
+                      <input className="w-16 px-2 py-1 border rounded text-sm" placeholder="80" />
+                    </div>
+                    <div className="text-xs text-gray-500 mt-1">Last: 118/75 (Jan 3)</div>
+                  </div>
+                  
+                  {/* Blood Sugar Input */}
+                  <div className="bg-gray-50 p-3 rounded-lg">
+                    <div className="text-sm font-medium text-gray-700 mb-2">Blood Sugar</div>
+                    <div className="flex gap-2">
+                      <input className="w-20 px-2 py-1 border rounded text-sm" placeholder="95" />
+                      <span className="text-xs text-gray-500 mt-1">mg/dL</span>
+                    </div>
+                    <div className="text-xs text-gray-500 mt-1">Last: 92 (Jan 2)</div>
+                  </div>
+                </div>
+                
+                <button className="mt-3 px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm hover:bg-indigo-700 transition-colors">
+                  Add Today's Readings
+                </button>
+              </div>
             </div>
           </Card>
-
-          {/* Points & Orders Line Chart */}
-          <Card className="p-4 mb-4 bg-white/10 backdrop-blur-md border-white/20 shadow-xl">
-            <div className="flex items-center justify-between mb-3">
-              <h4 className="font-medium text-white">Activity Trends</h4>
-              <Badge variant="outline" className="text-purple-300 border-purple-300/50 bg-purple-500/20">
-                Trending Up
-              </Badge>
-            </div>
-            <div className="h-48 bg-white rounded-lg p-2">
-              <Line data={progressChartData} options={lineChartOptions} />
-            </div>
-          </Card>
-
-          {/* Achievement Breakdown */}
-          <div className="grid grid-cols-2 gap-4">
-            <Card className="p-4 bg-white/10 backdrop-blur-md border-white/20 shadow-xl">
-              <div className="flex items-center justify-between mb-3">
-                <h4 className="font-medium text-white">Achievements</h4>
-                <PieChart size={16} className="text-white/60" />
-              </div>
-              <div className="h-32 bg-white rounded-lg p-2">
-                <Doughnut data={achievementData} options={doughnutOptions} />
-              </div>
-            </Card>
-
-            <Card className="p-4 bg-white/10 backdrop-blur-md border-white/20 shadow-xl">
-              <div className="flex items-center justify-between mb-3">
-                <h4 className="font-medium text-white">This Month</h4>
-                <TrendingUp size={16} className="text-green-400" />
-              </div>
-              <div className="space-y-3">
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-white/80">Recipes</span>
-                  <span className="font-semibold text-indigo-400">
-                    {monthlyData.recipes[monthlyData.recipes.length - 1] || 0}
-                  </span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-white/80">Points</span>
-                  <span className="font-semibold text-purple-400">
-                    {monthlyData.cookingPoints[monthlyData.cookingPoints.length - 1] || 0}
-                  </span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-white/80">Orders</span>
-                  <span className="font-semibold text-emerald-400">
-                    {monthlyData.orders[monthlyData.orders.length - 1] || 0}
-                  </span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-white/80">Streak</span>
-                  <span className="font-semibold text-orange-400">
-                    {currentUser?.weekStreak || 0} days
-                  </span>
-                </div>
-              </div>
-            </Card>
-          </div>
         </div>
 
-        {/* Gaming/Achievements */}
+        {/* Single Achievement Section */}
         <div>
-          <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
+          <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2 drop-shadow-md">
             <Award size={20} />
-            Achievements
+            Achievement
           </h3>
-          <div className="space-y-2">
-            <Card className="p-3 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center">
-                  🏆
-                </div>
-                <div>
-                  <div className="font-medium text-gray-800">Master Chef</div>
-                  <div className="text-sm text-gray-600">Complete 10 recipes</div>
-                </div>
-              </div>
-              <Badge className="bg-green-100 text-green-800">Earned</Badge>
-            </Card>
-            
-            <Card className="p-3 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
-                  🔥
-                </div>
-                <div>
-                  <div className="font-medium text-gray-800">Streak Master</div>
-                  <div className="text-sm text-gray-600">7-day cooking streak</div>
-                </div>
-              </div>
-              <Badge variant="outline">2 more days</Badge>
-            </Card>
-          </div>
-        </div>
-
-        {/* Trending */}
-        <div>
-          <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
-            <Target size={20} />
-            Trending This Week
-          </h3>
-          <div className="space-y-2">
-            {["Quinoa Buddha Bowl", "Spicy Korean Kimchi Soup", "Mediterranean Pasta"].map((dish, index) => (
-              <Card key={index} className="p-3 flex items-center justify-between">
-                <div>
-                  <div className="font-medium text-gray-800">{dish}</div>
-                  <div className="text-sm text-gray-600">{Math.floor(Math.random() * 50) + 20} people cooking</div>
-                </div>
-                <Badge variant="outline">#{index + 1}</Badge>
-              </Card>
-            ))}
-          </div>
-        </div>
-
-        {/* Achievements */}
-        <div>
-          <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <Award size={20} />
-            Achievements
-          </h3>
-          <div className="space-y-3">
-            <Card className="p-4 flex items-center justify-between">
+          
+          <Card className="p-4 mb-4 bg-white/95 backdrop-blur-md border-white/30 shadow-xl">
+            <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
                   🏆
@@ -549,48 +578,16 @@ export default function HomeScreen() {
                   <div className="text-sm text-gray-600">Complete 10 recipes</div>
                 </div>
               </div>
-              <Badge className="bg-green-100 text-green-800 border-green-200">
-                {(currentUser?.recipesCompleted || 0) >= 10 ? "Earned!" : `${Math.max(0, 10 - (currentUser?.recipesCompleted || 0))} left`}
-              </Badge>
-            </Card>
-            
-            <Card className="p-4 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
-                  🔥
-                </div>
-                <div>
-                  <div className="font-medium text-gray-800">Streak Master</div>
-                  <div className="text-sm text-gray-600">7-day cooking streak</div>
-                </div>
-              </div>
-              <Badge variant="outline">
-                {(currentUser?.weekStreak || 0) >= 7 ? "Earned!" : `${Math.max(0, 7 - (currentUser?.weekStreak || 0))} days left`}
-              </Badge>
-            </Card>
-
-            <Card className="p-4 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                  ⭐
-                </div>
-                <div>
-                  <div className="font-medium text-gray-800">Point Collector</div>
-                  <div className="text-sm text-gray-600">Earn 100 cooking points</div>
-                </div>
-              </div>
-              <Badge variant="outline">
-                {(currentUser?.cookingPoints || 0) >= 100 ? "Earned!" : `${Math.max(0, 100 - (currentUser?.cookingPoints || 0))} points left`}
-              </Badge>
-            </Card>
-          </div>
+              <Badge className="bg-green-100 text-green-800">Earned</Badge>
+            </div>
+          </Card>
         </div>
 
-        {/* Today's Suggestions */}
+        {/* Trending This Week */}
         <div>
-          <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <Target size={20} />
-            Suggested for You
+          <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2 drop-shadow-md">
+            <TrendingUp size={20} />
+            Trending This Week
           </h3>
           <div className="space-y-3">
             {["Mediterranean Quinoa Bowl", "Spicy Korean Bibimbap", "Classic Italian Carbonara"].map((dish, index) => (
@@ -618,6 +615,7 @@ export default function HomeScreen() {
             ))}
           </div>
         </div>
+
       </div>
 
       <BottomNavigation />
