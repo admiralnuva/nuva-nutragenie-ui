@@ -11,112 +11,143 @@ import { BackButton } from "@/components/ui/back-button";
 import { BottomNavigation } from "@/components/ui/bottom-navigation";
 import { ChevronDown, ChevronUp, Plus, Minus, ShoppingCart, List, ChefHat, Utensils } from "lucide-react";
 
-// Generated dishes data structure
-const generatedDishes = [
+// Chef Recommends dishes for weekly planning
+const chefRecommendedDishes = [
   {
     id: 1,
-    name: "Grilled Chicken Caesar Salad",
-    servings: 3,
-    cookTime: 25,
+    name: "Mediterranean Herb Chicken",
+    day: "Monday",
+    servings: 4,
+    cookTime: 35,
     nutrition: { calories: 420, protein: 35, carbs: 12, fat: 28, fiber: 4 },
     ingredients: [
       { 
-        name: "Chicken Breast", 
-        quantity: "1.5 lbs", 
-        nutrition: { calories: 231, protein: 44, carbs: 0, fat: 5 },
+        name: "Chicken Thighs", 
+        quantity: "2 lbs", 
+        nutrition: { calories: 250, protein: 24, carbs: 0, fat: 16 },
         substitutions: [
-          { name: "Turkey Breast", quantity: "1.5 lbs", nutrition: { calories: 189, protein: 37, carbs: 0, fat: 4 } },
-          { name: "Tofu", quantity: "14 oz", nutrition: { calories: 144, protein: 15, carbs: 3, fat: 9 } }
+          { name: "Chicken Breast", quantity: "2 lbs", nutrition: { calories: 231, protein: 44, carbs: 0, fat: 5 } },
+          { name: "Turkey Thighs", quantity: "2 lbs", nutrition: { calories: 208, protein: 28, carbs: 0, fat: 10 } }
         ]
       },
       {
-        name: "Romaine Lettuce",
-        quantity: "2 heads",
-        nutrition: { calories: 17, protein: 1, carbs: 3, fat: 0 },
+        name: "Fresh Rosemary",
+        quantity: "4 sprigs",
+        nutrition: { calories: 5, protein: 0, carbs: 1, fat: 0 },
         substitutions: [
-          { name: "Spinach", quantity: "6 cups", nutrition: { calories: 21, protein: 3, carbs: 3, fat: 0 } },
-          { name: "Kale", quantity: "4 cups", nutrition: { calories: 33, protein: 2, carbs: 7, fat: 0 } }
+          { name: "Dried Rosemary", quantity: "2 tsp", nutrition: { calories: 4, protein: 0, carbs: 1, fat: 0 } },
+          { name: "Fresh Thyme", quantity: "6 sprigs", nutrition: { calories: 3, protein: 0, carbs: 1, fat: 0 } }
         ]
       },
       {
-        name: "Parmesan Cheese",
-        quantity: "1/2 cup",
-        nutrition: { calories: 216, protein: 20, carbs: 1, fat: 14 },
+        name: "Cherry Tomatoes",
+        quantity: "2 cups",
+        nutrition: { calories: 54, protein: 3, carbs: 12, fat: 1 },
         substitutions: [
-          { name: "Nutritional Yeast", quantity: "1/4 cup", nutrition: { calories: 60, protein: 8, carbs: 5, fat: 1 } },
-          { name: "Pecorino Romano", quantity: "1/2 cup", nutrition: { calories: 200, protein: 18, carbs: 1, fat: 13 } }
+          { name: "Grape Tomatoes", quantity: "2 cups", nutrition: { calories: 60, protein: 3, carbs: 13, fat: 1 } },
+          { name: "Roma Tomatoes", quantity: "4 medium", nutrition: { calories: 70, protein: 3, carbs: 15, fat: 1 } }
         ]
       }
     ]
   },
   {
     id: 2,
-    name: "Vegetable Stir Fry",
-    servings: 3,
-    cookTime: 15,
-    nutrition: { calories: 280, protein: 12, carbs: 35, fat: 12, fiber: 8 },
+    name: "Asian Sesame Beef Bowl",
+    day: "Tuesday",
+    servings: 4,
+    cookTime: 25,
+    nutrition: { calories: 480, protein: 32, carbs: 35, fat: 22, fiber: 6 },
     ingredients: [
       {
-        name: "Bell Peppers",
-        quantity: "3 large",
-        nutrition: { calories: 37, protein: 1, carbs: 7, fat: 0 },
+        name: "Ground Beef (lean)",
+        quantity: "1.5 lbs",
+        nutrition: { calories: 340, protein: 25, carbs: 0, fat: 26 },
         substitutions: [
-          { name: "Broccoli", quantity: "2 cups", nutrition: { calories: 25, protein: 3, carbs: 5, fat: 0 } },
-          { name: "Snap Peas", quantity: "2 cups", nutrition: { calories: 41, protein: 3, carbs: 7, fat: 0 } }
+          { name: "Ground Turkey", quantity: "1.5 lbs", nutrition: { calories: 240, protein: 30, carbs: 0, fat: 13 } },
+          { name: "Plant-Based Ground", quantity: "1.5 lbs", nutrition: { calories: 270, protein: 20, carbs: 8, fat: 18 } }
         ]
       },
       {
-        name: "Soy Sauce",
-        quantity: "3 tbsp",
-        nutrition: { calories: 11, protein: 2, carbs: 1, fat: 0 },
+        name: "Jasmine Rice",
+        quantity: "2 cups dry",
+        nutrition: { calories: 680, protein: 13, carbs: 148, fat: 1 },
         substitutions: [
-          { name: "Tamari", quantity: "3 tbsp", nutrition: { calories: 11, protein: 2, carbs: 1, fat: 0 } },
-          { name: "Coconut Aminos", quantity: "4 tbsp", nutrition: { calories: 5, protein: 0, carbs: 1, fat: 0 } }
+          { name: "Brown Rice", quantity: "2 cups dry", nutrition: { calories: 649, protein: 13, carbs: 162, fat: 3 } },
+          { name: "Cauliflower Rice", quantity: "6 cups", nutrition: { calories: 150, protein: 11, carbs: 30, fat: 2 } }
+        ]
+      },
+      {
+        name: "Sesame Oil",
+        quantity: "3 tbsp",
+        nutrition: { calories: 360, protein: 0, carbs: 0, fat: 41 },
+        substitutions: [
+          { name: "Avocado Oil", quantity: "3 tbsp", nutrition: { calories: 360, protein: 0, carbs: 0, fat: 41 } },
+          { name: "Olive Oil", quantity: "3 tbsp", nutrition: { calories: 357, protein: 0, carbs: 0, fat: 40 } }
         ]
       }
     ]
   },
   {
     id: 3,
-    name: "Salmon with Quinoa",
-    servings: 3,
-    cookTime: 30,
-    nutrition: { calories: 520, protein: 38, carbs: 42, fat: 22, fiber: 5 },
+    name: "Tuscan White Bean Soup",
+    day: "Wednesday", 
+    servings: 6,
+    cookTime: 45,
+    nutrition: { calories: 320, protein: 18, carbs: 45, fat: 8, fiber: 12 },
     ingredients: [
       {
-        name: "Salmon Fillet",
-        quantity: "1.5 lbs",
-        nutrition: { calories: 412, protein: 58, carbs: 0, fat: 18 },
+        name: "Cannellini Beans",
+        quantity: "3 cans",
+        nutrition: { calories: 945, protein: 63, carbs: 171, fat: 3 },
         substitutions: [
-          { name: "Cod Fillet", quantity: "1.5 lbs", nutrition: { calories: 189, protein: 41, carbs: 0, fat: 2 } },
-          { name: "Tofu", quantity: "14 oz", nutrition: { calories: 144, protein: 15, carbs: 3, fat: 9 } }
+          { name: "Great Northern Beans", quantity: "3 cans", nutrition: { calories: 945, protein: 60, carbs: 174, fat: 3 } },
+          { name: "Navy Beans", quantity: "3 cans", nutrition: { calories: 960, protein: 60, carbs: 180, fat: 4 } }
         ]
       },
       {
-        name: "Quinoa",
-        quantity: "1 cup dry",
-        nutrition: { calories: 626, protein: 24, carbs: 109, fat: 10 },
+        name: "Italian Sausage",
+        quantity: "1 lb",
+        nutrition: { calories: 640, protein: 28, carbs: 4, fat: 56 },
         substitutions: [
-          { name: "Brown Rice", quantity: "1 cup dry", nutrition: { calories: 649, protein: 13, carbs: 162, fat: 3 } },
-          { name: "Cauliflower Rice", quantity: "3 cups", nutrition: { calories: 75, protein: 8, carbs: 15, fat: 1 } }
+          { name: "Turkey Sausage", quantity: "1 lb", nutrition: { calories: 480, protein: 36, carbs: 0, fat: 36 } },
+          { name: "Plant-Based Sausage", quantity: "1 lb", nutrition: { calories: 400, protein: 28, carbs: 12, fat: 28 } }
+        ]
+      },
+      {
+        name: "Fresh Spinach",
+        quantity: "4 cups",
+        nutrition: { calories: 28, protein: 4, carbs: 4, fat: 0 },
+        substitutions: [
+          { name: "Kale (chopped)", quantity: "3 cups", nutrition: { calories: 49, protein: 3, carbs: 10, fat: 1 } },
+          { name: "Swiss Chard", quantity: "4 cups", nutrition: { calories: 28, protein: 3, carbs: 5, fat: 0 } }
         ]
       }
     ]
   },
   {
     id: 4,
-    name: "Lentil Curry",
+    name: "Thai Curry Salmon",
+    day: "Thursday",
     servings: 4,
-    cookTime: 40,
-    nutrition: { calories: 350, protein: 18, carbs: 58, fat: 6, fiber: 16 },
+    cookTime: 30,
+    nutrition: { calories: 520, protein: 38, carbs: 28, fat: 30, fiber: 5 },
     ingredients: [
       {
-        name: "Red Lentils",
-        quantity: "1.5 cups",
-        nutrition: { calories: 679, protein: 49, carbs: 117, fat: 2 },
+        name: "Salmon Fillets",
+        quantity: "2 lbs",
+        nutrition: { calories: 824, protein: 115, carbs: 0, fat: 37 },
         substitutions: [
-          { name: "Green Lentils", quantity: "1.5 cups", nutrition: { calories: 678, protein: 49, carbs: 117, fat: 2 } },
-          { name: "Chickpeas", quantity: "2 cups cooked", nutrition: { calories: 477, protein: 20, carbs: 79, fat: 8 } }
+          { name: "Cod Fillets", quantity: "2 lbs", nutrition: { calories: 378, protein: 82, carbs: 0, fat: 3 } },
+          { name: "Halibut Fillets", quantity: "2 lbs", nutrition: { calories: 476, protein: 91, carbs: 0, fat: 10 } }
+        ]
+      },
+      {
+        name: "Red Curry Paste",
+        quantity: "3 tbsp",
+        nutrition: { calories: 45, protein: 2, carbs: 6, fat: 2 },
+        substitutions: [
+          { name: "Green Curry Paste", quantity: "3 tbsp", nutrition: { calories: 45, protein: 2, carbs: 6, fat: 2 } },
+          { name: "Yellow Curry Paste", quantity: "3 tbsp", nutrition: { calories: 40, protein: 2, carbs: 5, fat: 2 } }
         ]
       },
       {
@@ -124,35 +155,45 @@ const generatedDishes = [
         quantity: "1 can",
         nutrition: { calories: 445, protein: 5, carbs: 6, fat: 48 },
         substitutions: [
-          { name: "Cashew Milk", quantity: "1.5 cups", nutrition: { calories: 75, protein: 1, carbs: 1, fat: 8 } },
-          { name: "Oat Milk", quantity: "1.5 cups", nutrition: { calories: 120, protein: 3, carbs: 19, fat: 5 } }
+          { name: "Light Coconut Milk", quantity: "1 can", nutrition: { calories: 200, protein: 2, carbs: 3, fat: 21 } },
+          { name: "Cashew Cream", quantity: "1.5 cups", nutrition: { calories: 300, protein: 10, carbs: 15, fat: 25 } }
         ]
       }
     ]
   },
   {
     id: 5,
-    name: "Turkey Meatballs",
+    name: "Mexican Street Corn Bowls",
+    day: "Friday",
     servings: 4,
-    cookTime: 35,
-    nutrition: { calories: 380, protein: 32, carbs: 18, fat: 20, fiber: 3 },
+    cookTime: 20,
+    nutrition: { calories: 450, protein: 22, carbs: 58, fat: 16, fiber: 10 },
     ingredients: [
       {
-        name: "Ground Turkey",
-        quantity: "1.5 lbs",
-        nutrition: { calories: 640, protein: 89, carbs: 0, fat: 29 },
+        name: "Black Beans",
+        quantity: "2 cans",
+        nutrition: { calories: 454, protein: 30, carbs: 80, fat: 2 },
         substitutions: [
-          { name: "Ground Chicken", quantity: "1.5 lbs", nutrition: { calories: 540, protein: 81, carbs: 0, fat: 21 } },
-          { name: "Plant-Based Ground", quantity: "1.5 lbs", nutrition: { calories: 480, protein: 54, carbs: 12, fat: 24 } }
+          { name: "Pinto Beans", quantity: "2 cans", nutrition: { calories: 480, protein: 28, carbs: 88, fat: 2 } },
+          { name: "Kidney Beans", quantity: "2 cans", nutrition: { calories: 450, protein: 30, carbs: 81, fat: 1 } }
         ]
       },
       {
-        name: "Breadcrumbs",
-        quantity: "1/2 cup",
-        nutrition: { calories: 110, protein: 4, carbs: 20, fat: 2 },
+        name: "Corn Kernels",
+        quantity: "3 cups",
+        nutrition: { calories: 387, protein: 14, carbs: 90, fat: 4 },
         substitutions: [
-          { name: "Oat Flour", quantity: "1/2 cup", nutrition: { calories: 120, protein: 4, carbs: 22, fat: 2 } },
-          { name: "Almond Flour", quantity: "1/2 cup", nutrition: { calories: 160, protein: 6, carbs: 6, fat: 14 } }
+          { name: "Frozen Corn", quantity: "3 cups", nutrition: { calories: 330, protein: 12, carbs: 78, fat: 3 } },
+          { name: "Grilled Corn (off cob)", quantity: "3 cups", nutrition: { calories: 400, protein: 15, carbs: 92, fat: 5 } }
+        ]
+      },
+      {
+        name: "Cotija Cheese",
+        quantity: "1 cup crumbled",
+        nutrition: { calories: 320, protein: 20, carbs: 4, fat: 24 },
+        substitutions: [
+          { name: "Queso Fresco", quantity: "1 cup crumbled", nutrition: { calories: 320, protein: 20, carbs: 4, fat: 24 } },
+          { name: "Feta Cheese", quantity: "1 cup crumbled", nutrition: { calories: 396, protein: 21, carbs: 6, fat: 32 } }
         ]
       }
     ]
@@ -166,119 +207,74 @@ export default function ReviewRecipesScreen() {
   const [, setLocation] = useLocation();
   const [currentUser] = useLocalStorage("nutragenie_user", null);
 
-  // State management
-  const [selectedDishes, setSelectedDishes] = useState([1]); // Start with first dish selected
-  const [expandedDishes, setExpandedDishes] = useState([]); // Which dishes are expanded in Card 2
-  const [selectedIngredients, setSelectedIngredients] = useState({}); // Track multiple ingredient selections per dish-ingredient
+  // State management for Chef Recommends
+  const [expandedDishes, setExpandedDishes] = useState({}); // Which dishes have expanded dropdowns
+  const [selectedIngredients, setSelectedIngredients] = useState({}); // Track ingredient/substitution selections
   const [shoppingCart, setShoppingCart] = useState([]);
-  const [ingredientQuantities, setIngredientQuantities] = useState({});
 
-  // Initialize shopping cart with missing ingredients
-  useEffect(() => {
-    const cartItems = [];
-    selectedDishes.forEach(dishId => {
-      const dish = generatedDishes.find(d => d.id === dishId);
-      dish?.ingredients.forEach(ingredient => {
-        if (!pantryItems.includes(ingredient.name)) {
-          const selectedOptions = selectedIngredients[`${dishId}-${ingredient.name}`] || ['original'];
-          // Add all selected ingredients/substitutions to cart
-          selectedOptions.forEach(option => {
-            const finalIngredient = option === 'original' ? ingredient : 
-              ingredient.substitutions.find(sub => sub.name === option) || ingredient;
-          
-            const existingItem = cartItems.find(item => item.name === finalIngredient.name);
-            if (existingItem) {
-              existingItem.dishes.push(dish.name);
-            } else {
-              cartItems.push({
-                name: finalIngredient.name,
-                quantity: finalIngredient.quantity,
-                nutrition: finalIngredient.nutrition,
-                dishes: [dish.name],
-                inPantry: false
-              });
-            }
-          });
-        }
-      });
-    });
-    setShoppingCart(cartItems);
-  }, [selectedDishes, selectedIngredients]);
-
-  // Toggle dish selection
-  const toggleDishSelection = (dishId) => {
-    setSelectedDishes(prev => 
-      prev.includes(dishId) 
-        ? prev.filter(id => id !== dishId)
-        : [...prev, dishId]
-    );
-  };
-
-  // Auto expand/collapse dishes in Card 2 based on Card 1 selections
-  useEffect(() => {
-    if (selectedDishes.length === 1) {
-      // If only one dish selected, expand it
-      setExpandedDishes([selectedDishes[0]]);
-    } else {
-      // If multiple or no dishes selected, collapse all
-      setExpandedDishes([]);
-    }
-  }, [selectedDishes]);;
-
-  // Toggle dish expansion in Card 2
+  // Toggle dish dropdown expansion
   const toggleDishExpansion = (dishId) => {
-    setExpandedDishes(prev => 
-      prev.includes(dishId)
-        ? prev.filter(id => id !== dishId)
-        : [...prev, dishId]
-    );
+    setExpandedDishes(prev => ({
+      ...prev,
+      [dishId]: !prev[dishId]
+    }));
   };
 
-  // Handle ingredient selection (multiple selections allowed)
+  // Handle ingredient/substitution selection
   const handleIngredientSelection = (dishId, ingredientName, option) => {
-    const key = `${dishId}-${ingredientName}`;
-    setSelectedIngredients(prev => {
-      const currentSelections = prev[key] || [];
-      const isSelected = currentSelections.includes(option);
-      
-      if (isSelected) {
-        // Remove the option
-        const newSelections = currentSelections.filter(item => item !== option);
-        return {
-          ...prev,
-          [key]: newSelections.length > 0 ? newSelections : ['original'] // Always keep at least original
-        };
-      } else {
-        // Add the option and remove 'original' if selecting substitution
-        let newSelections;
-        if (option === 'original') {
-          newSelections = ['original']; // Only original selected
-        } else {
-          newSelections = currentSelections.filter(item => item !== 'original');
-          newSelections.push(option);
-        }
-        return {
-          ...prev,
-          [key]: newSelections
-        };
-      }
-    });
-  };
+    const key = `${dishId}-${ingredientName}-${option}`;
+    const isSelected = selectedIngredients[key];
+    
+    setSelectedIngredients(prev => ({
+      ...prev,
+      [key]: !isSelected
+    }));
 
-  // Calculate total nutrition for selected dishes
-  const calculateTotalNutrition = () => {
-    let total = { calories: 0, protein: 0, carbs: 0, fat: 0, fiber: 0 };
-    selectedDishes.forEach(dishId => {
-      const dish = generatedDishes.find(d => d.id === dishId);
-      if (dish) {
-        total.calories += dish.nutrition.calories;
-        total.protein += dish.nutrition.protein;
-        total.carbs += dish.nutrition.carbs;
-        total.fat += dish.nutrition.fat;
-        total.fiber += dish.nutrition.fiber;
+    // Update shopping cart
+    if (!isSelected) {
+      // Add to cart
+      const dish = chefRecommendedDishes.find(d => d.id === dishId);
+      const ingredient = dish?.ingredients.find(ing => ing.name === ingredientName);
+      
+      let selectedItem;
+      if (option === 'original') {
+        selectedItem = ingredient;
+      } else {
+        selectedItem = ingredient?.substitutions.find(sub => sub.name === option);
       }
-    });
-    return total;
+
+      if (selectedItem && !pantryItems.includes(selectedItem.name)) {
+        setShoppingCart(prev => {
+          const existingItem = prev.find(item => item.name === selectedItem.name);
+          if (existingItem) {
+            return prev; // Already in cart
+          } else {
+            return [...prev, {
+              name: selectedItem.name,
+              quantity: selectedItem.quantity,
+              nutrition: selectedItem.nutrition,
+              dishName: dish.name,
+              dishDay: dish.day
+            }];
+          }
+        });
+      }
+    } else {
+      // Remove from cart
+      const dish = chefRecommendedDishes.find(d => d.id === dishId);
+      const ingredient = dish?.ingredients.find(ing => ing.name === ingredientName);
+      
+      let selectedItem;
+      if (option === 'original') {
+        selectedItem = ingredient;
+      } else {
+        selectedItem = ingredient?.substitutions.find(sub => sub.name === option);
+      }
+
+      if (selectedItem) {
+        setShoppingCart(prev => prev.filter(item => item.name !== selectedItem.name));
+      }
+    }
   };
 
   // Update cart item quantity
@@ -320,7 +316,7 @@ export default function ReviewRecipesScreen() {
   }
 
   return (
-    <div className="min-h-screen bg-warm-neutral-50 pb-20">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 pb-24">
       {/* Header */}
       <div className="bg-white shadow-sm p-4">
         <div className="flex items-center justify-between mb-2">
@@ -330,229 +326,257 @@ export default function ReviewRecipesScreen() {
           </div>
           <div className="w-8"></div>
         </div>
-        <div className="text-lg font-semibold text-brand-indigo-600 text-center">
-          Recommendations & Substitutions
+        <div className="text-lg font-semibold text-indigo-600 text-center">
+          Chef Recommends
         </div>
       </div>
 
-      <div className="p-4 space-y-3">
-        {/* Card 1 - AI Generated Dishes */}
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-lg flex items-center gap-2">
-              <ChefHat className="w-5 h-5" />
-              Chef Recommends
-              <Badge variant="secondary" className="text-xs">
-                {selectedDishes.length} selected
-              </Badge>
-            </CardTitle>
-            <div className="text-sm text-gray-600 mt-1">
-              Select all five dishes to create your personalized weekly meal planner with perfectly balanced nutrition and variety.
-            </div>
-          </CardHeader>
-          <CardContent className="pt-0">
-            <div className="grid grid-cols-1 gap-3">
-              {generatedDishes.map((dish) => (
-                <div
-                  key={dish.id}
-                  className={`p-3 border rounded-lg cursor-pointer transition-colors ${
-                    selectedDishes.includes(dish.id) 
-                      ? 'border-brand-indigo-500 bg-brand-indigo-50' 
-                      : 'border-gray-200 hover:bg-white'
-                  }`}
-                  onClick={() => toggleDishSelection(dish.id)}
-                >
-                  <div className="flex items-center gap-3">
-                    <Checkbox 
-                      checked={selectedDishes.includes(dish.id)}
-                      onChange={() => toggleDishSelection(dish.id)}
-                    />
-                    <div className="flex-1">
-                      <h4 className="font-medium text-gray-800 mb-1">{dish.name}</h4>
-                      <div className="text-sm text-gray-600">
-                        {dish.nutrition.protein}g protein • {dish.nutrition.carbs}g carbs • {dish.nutrition.fat}g fat • {dish.nutrition.fiber}g fiber • {dish.nutrition.calories} cal
-                      </div>
-                    </div>
-                  </div>
+      <div className="max-w-md mx-auto p-4 space-y-4">
+        {/* Weekly Meal Planning Header */}
+        <div className="text-center space-y-1 mb-6">
+          <h2 className="text-xl font-bold text-gray-900">Weekly Meal Planner</h2>
+          <p className="text-sm text-gray-600">Select dishes and customize ingredients for your perfect week</p>
+        </div>
+
+        {/* Chef Recommends Dishes */}
+        <div className="space-y-4">
+          {chefRecommendedDishes.map((dish, index) => (
+            <div key={dish.id} className="bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200 rounded-lg overflow-hidden">
+              {/* Full width image section with ingredients */}
+              <div className="w-full h-32 bg-gradient-to-br from-purple-100 to-violet-200 relative flex items-center justify-center">
+                {/* Dish emoji icon */}
+                <div className="text-5xl opacity-80">
+                  {index === 0 && "🍗"}
+                  {index === 1 && "🥩"}
+                  {index === 2 && "🍲"}
+                  {index === 3 && "🐟"}
+                  {index === 4 && "🌽"}
                 </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
 
-        {/* Card 2 - Ingredients & Substitutions */}
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-lg">🥬 Ingredients & Substitutions</CardTitle>
-          </CardHeader>
-          <CardContent className="pt-0 space-y-3">
-            {selectedDishes.map((dishId) => {
-              const dish = generatedDishes.find(d => d.id === dishId);
-              const isExpanded = expandedDishes.includes(dishId);
-              const shouldCollapse = selectedDishes.length > 1;
-
-              return (
-                <div key={dishId} className="border rounded-lg p-3">
-                  {/* Dish Header */}
-                  <div 
-                    className="flex items-center justify-between cursor-pointer"
-                    onClick={() => shouldCollapse && toggleDishExpansion(dishId)}
-                  >
-                    <div>
-                      <h4 className="font-semibold text-gray-800">{dish.name}</h4>
-                      <p className="text-sm text-gray-600">
-                        {dish.servings} servings • {dish.nutrition.calories} cal • {dish.nutrition.protein}g protein
-                      </p>
+                {/* Ingredient clusters for each dish */}
+                {index === 0 && (
+                  // Mediterranean Herb Chicken ingredients
+                  <>
+                    <div className="absolute top-2 left-3 text-sm opacity-55">
+                      <div>🍗🍗</div>
                     </div>
-                    {shouldCollapse && (
-                      <Button variant="ghost" size="sm">
-                        {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-                      </Button>
-                    )}
+                    <div className="absolute top-1 right-2 text-xs opacity-50">
+                      <div>🌿🌿🌿</div>
+                      <div className="mt-1">🍅🍅</div>
+                    </div>
+                    <div className="absolute bottom-2 left-4 text-xs opacity-45">
+                      <div>🔪🥄</div>
+                    </div>
+                    <div className="absolute bottom-1 right-3 text-xs opacity-40">
+                      <div>🧂🫒</div>
+                    </div>
+                  </>
+                )}
+
+                {index === 1 && (
+                  // Asian Sesame Beef Bowl ingredients
+                  <>
+                    <div className="absolute top-2 left-2 text-sm opacity-60">
+                      <div>🥩🥩</div>
+                    </div>
+                    <div className="absolute top-1 right-3 text-xs opacity-50">
+                      <div>🍚🍚🍚</div>
+                    </div>
+                    <div className="absolute bottom-3 left-3 text-xs opacity-45">
+                      <div>🥢🥄</div>
+                    </div>
+                    <div className="absolute bottom-2 right-2 text-xs opacity-40">
+                      <div>🌶️🧄</div>
+                    </div>
+                  </>
+                )}
+
+                {index === 2 && (
+                  // Tuscan White Bean Soup ingredients
+                  <>
+                    <div className="absolute top-3 left-2 text-sm opacity-55">
+                      <div>🫘🫘🫘</div>
+                    </div>
+                    <div className="absolute top-1 right-4 text-xs opacity-50">
+                      <div>🥬🥬</div>
+                      <div className="mt-1">🌿</div>
+                    </div>
+                    <div className="absolute bottom-2 left-4 text-xs opacity-45">
+                      <div>🥘🥄</div>
+                    </div>
+                    <div className="absolute bottom-1 right-1 text-xs opacity-40">
+                      <div>🧂🍋</div>
+                    </div>
+                  </>
+                )}
+
+                {index === 3 && (
+                  // Thai Curry Salmon ingredients
+                  <>
+                    <div className="absolute top-2 left-3 text-sm opacity-60">
+                      <div>🐟🐟</div>
+                    </div>
+                    <div className="absolute top-1 right-2 text-xs opacity-50">
+                      <div>🥥🌶️</div>
+                      <div className="mt-1">🌶️🧄</div>
+                    </div>
+                    <div className="absolute bottom-3 left-2 text-xs opacity-45">
+                      <div>🔪🥄</div>
+                    </div>
+                    <div className="absolute bottom-1 right-3 text-xs opacity-40">
+                      <div>🌿🍋</div>
+                    </div>
+                  </>
+                )}
+
+                {index === 4 && (
+                  // Mexican Street Corn Bowls ingredients
+                  <>
+                    <div className="absolute top-2 left-2 text-sm opacity-55">
+                      <div>🌽🌽🌽</div>
+                    </div>
+                    <div className="absolute top-1 right-3 text-xs opacity-50">
+                      <div>🫘🫘</div>
+                      <div className="mt-1">🧀🧀</div>
+                    </div>
+                    <div className="absolute bottom-2 left-4 text-xs opacity-45">
+                      <div>🥄🍴</div>
+                    </div>
+                    <div className="absolute bottom-1 right-2 text-xs opacity-40">
+                      <div>🌶️🍋</div>
+                    </div>
+                  </>
+                )}
+              </div>
+
+              {/* Dish details */}
+              <div className="p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <div>
+                    <h3 className="font-bold text-gray-900 text-lg">{dish.name}</h3>
+                    <p className="text-sm text-gray-600">{dish.day} • {dish.servings} servings • {dish.cookTime} min</p>
                   </div>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => toggleDishExpansion(dish.id)}
+                    className="flex items-center gap-1"
+                  >
+                    Substitutions
+                    {expandedDishes[dish.id] ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                  </Button>
+                </div>
 
-                  {/* Dish Details - Always expanded if single dish, collapsible if multiple */}
-                  {(!shouldCollapse || isExpanded) && (
-                    <div className="mt-3 space-y-3">
-                      {dish.ingredients.map((ingredient, idx) => {
-                        const selectedOptions = selectedIngredients[`${dishId}-${ingredient.name}`] || ['original'];
-                        const isOriginalSelected = selectedOptions.includes('original');
+                {/* Nutrition info */}
+                <div className="flex items-center gap-4 text-xs text-gray-600 mb-3">
+                  <span>{dish.nutrition.calories} cal</span>
+                  <span>{dish.nutrition.protein}g protein</span>
+                  <span>{dish.nutrition.carbs}g carbs</span>
+                  <span>{dish.nutrition.fat}g fat</span>
+                </div>
 
-                        return (
-                          <div key={idx} className="bg-white p-3 rounded-lg">
-                            {/* Main Ingredient */}
-                            <div className={`flex items-center justify-between mb-2 p-2 rounded cursor-pointer transition-colors ${
-                              isOriginalSelected ? 'bg-brand-indigo-100 border border-brand-indigo-300' : 'hover:bg-gray-100'
+                {/* Expanded substitutions dropdown */}
+                {expandedDishes[dish.id] && (
+                  <div className="mt-4 p-3 bg-white rounded-lg border border-gray-200">
+                    <h4 className="font-semibold text-gray-800 mb-3">Substitutions</h4>
+                    <div className="space-y-3">
+                      {dish.ingredients.map((ingredient, ingredientIdx) => (
+                        <div key={ingredientIdx} className="space-y-2">
+                          {/* Original ingredient */}
+                          <div 
+                            className={`flex items-center gap-2 p-2 rounded cursor-pointer transition-colors ${
+                              selectedIngredients[`${dish.id}-${ingredient.name}-original`] 
+                                ? 'bg-indigo-100 border border-indigo-300' 
+                                : 'hover:bg-gray-50'
                             }`}
-                            onClick={() => handleIngredientSelection(dishId, ingredient.name, 'original')}>
-                              <div className="flex items-center gap-2 flex-1">
-                                <Checkbox
-                                  checked={isOriginalSelected}
-                                  onChange={() => {}}
-                                  className="pointer-events-none"
-                                />
-                                <div>
-                                  <h5 className="font-medium text-gray-800">{ingredient.name}</h5>
-                                  <p className="text-sm text-gray-600">{ingredient.quantity}</p>
-                                </div>
-                              </div>
-                              <div className="text-right text-sm text-gray-600">
-                                <div>{ingredient.nutrition.calories} cal</div>
-                                <div>{ingredient.nutrition.protein}g protein</div>
-                              </div>
-                            </div>
-
-                            {/* Substitutions */}
-                            <div className="space-y-2">
-                              <p className="text-xs font-medium text-gray-700">Substitutions:</p>
-                              {ingredient.substitutions.map((sub, subIdx) => {
-                                const isSubSelected = selectedOptions.includes(sub.name);
-                                return (
-                                  <div 
-                                    key={subIdx} 
-                                    className={`flex items-center gap-2 p-2 rounded cursor-pointer transition-colors ${
-                                      isSubSelected ? 'bg-brand-indigo-100 border border-brand-indigo-300' : 'hover:bg-gray-100'
-                                    }`}
-                                    onClick={() => handleIngredientSelection(dishId, ingredient.name, sub.name)}
-                                  >
-                                    <Checkbox
-                                      checked={isSubSelected}
-                                      onChange={() => {}}
-                                      className="pointer-events-none"
-                                    />
-                                    <div className="flex-1 flex justify-between">
-                                      <span className="text-sm">{sub.name} ({sub.quantity})</span>
-                                      <span className="text-sm text-gray-500">
-                                        {sub.nutrition.calories} cal • {sub.nutrition.protein}g protein
-                                      </span>
-                                    </div>
-                                  </div>
-                                );
-                              })}
+                            onClick={() => handleIngredientSelection(dish.id, ingredient.name, 'original')}
+                          >
+                            <Checkbox
+                              checked={selectedIngredients[`${dish.id}-${ingredient.name}-original`] || false}
+                              onChange={() => {}}
+                              className="pointer-events-none"
+                            />
+                            <div className="flex-1 flex justify-between">
+                              <span className="text-sm font-medium">{ingredient.name} ({ingredient.quantity})</span>
+                              <span className="text-xs text-gray-500">{ingredient.nutrition.calories} cal</span>
                             </div>
                           </div>
-                        );
-                      })}
+                          
+                          {/* Substitutions */}
+                          {ingredient.substitutions.map((sub, subIdx) => (
+                            <div 
+                              key={subIdx}
+                              className={`flex items-center gap-2 p-2 ml-4 rounded cursor-pointer transition-colors ${
+                                selectedIngredients[`${dish.id}-${ingredient.name}-${sub.name}`] 
+                                  ? 'bg-indigo-100 border border-indigo-300' 
+                                  : 'hover:bg-gray-50'
+                              }`}
+                              onClick={() => handleIngredientSelection(dish.id, ingredient.name, sub.name)}
+                            >
+                              <Checkbox
+                                checked={selectedIngredients[`${dish.id}-${ingredient.name}-${sub.name}`] || false}
+                                onChange={() => {}}
+                                className="pointer-events-none"
+                              />
+                              <div className="flex-1 flex justify-between">
+                                <span className="text-sm text-gray-700">↳ {sub.name} ({sub.quantity})</span>
+                                <span className="text-xs text-gray-500">{sub.nutrition.calories} cal</span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      ))}
                     </div>
-                  )}
-                </div>
-              );
-            })}
-
-            {/* Nutrition Summary */}
-            {selectedDishes.length > 0 && (
-              <div className="bg-brand-indigo-50 p-3 rounded-lg border border-brand-indigo-200">
-                <h4 className="font-semibold text-brand-indigo-800 mb-2 text-sm">Total Summary</h4>
-                <div className="grid grid-cols-5 gap-2 text-xs">
-                  <div className="text-center">
-                    <div className="text-gray-600">Cal</div>
-                    <div className="font-medium">{calculateTotalNutrition().calories}</div>
                   </div>
-                  <div className="text-center">
-                    <div className="text-gray-600">Protein</div>
-                    <div className="font-medium">{calculateTotalNutrition().protein}g</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-gray-600">Carbs</div>
-                    <div className="font-medium">{calculateTotalNutrition().carbs}g</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-gray-600">Fat</div>
-                    <div className="font-medium">{calculateTotalNutrition().fat}g</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-gray-600">Fiber</div>
-                    <div className="font-medium">{calculateTotalNutrition().fiber}g</div>
-                  </div>
-                </div>
+                )}
               </div>
-            )}
-          </CardContent>
-        </Card>
+            </div>
+          ))}
+        </div>
 
-        {/* Card 3 - Compact Grocery List */}
-        <Card>
-          <CardContent className="pt-4 space-y-3">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="text-2xl">🛒</span>
-                <div>
-                  <h3 className="font-semibold text-gray-800">Grocery List</h3>
-                  <p className="text-sm text-gray-600">
-                    {shoppingCart.length} items selected
-                  </p>
-                </div>
+        {/* Shopping Cart Summary */}
+        {shoppingCart.length > 0 && (
+          <Card className="mt-6">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-lg flex items-center gap-2">
+                <ShoppingCart className="w-5 h-5" />
+                Shopping List
+                <Badge variant="secondary">{shoppingCart.length} items</Badge>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="pt-0">
+              <div className="space-y-2">
+                {shoppingCart.map((item, index) => (
+                  <div key={index} className="flex items-center justify-between p-2 bg-gray-50 rounded">
+                    <div>
+                      <span className="text-sm font-medium">{item.name}</span>
+                      <span className="text-xs text-gray-600 ml-2">({item.quantity})</span>
+                    </div>
+                    <div className="text-xs text-gray-500">
+                      {item.dishDay} - {item.dishName}
+                    </div>
+                  </div>
+                ))}
               </div>
-              <Badge variant="secondary" className="text-lg px-3 py-1">
-                {shoppingCart.length}
-              </Badge>
-            </div>
-
-            {/* Helper Text */}
-            <div className="text-sm text-gray-600 bg-white p-3 rounded-lg">
-              You can print or add items to Instacart using View Grocery List
-            </div>
-
-            {/* Action Buttons */}
-            <div className="grid grid-cols-2 gap-3">
-              <Button 
-                variant="outline" 
-                className="flex items-center gap-2 h-10"
-                onClick={() => setLocation("/grocery-list")}
-              >
-                <List className="w-4 h-4" />
-                View Grocery List
-              </Button>
-              <Button 
-                className="flex items-center gap-2 h-10"
-                onClick={() => setLocation("/voice-cooking")}
-              >
-                <ChefHat className="w-4 h-4" />
-                Start Cooking
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+              <div className="flex gap-2 mt-4">
+                <Button 
+                  className="flex-1" 
+                  onClick={() => setLocation("/grocery-list")}
+                >
+                  <List size={16} className="mr-2" />
+                  View Full List
+                </Button>
+                <Button 
+                  variant="outline" 
+                  onClick={() => setLocation("/instacart")}
+                >
+                  <ShoppingCart size={16} className="mr-2" />
+                  Order Now
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
       </div>
 
       <BottomNavigation />
