@@ -212,6 +212,34 @@ export default function ReviewRecipesScreen() {
   const [selectedIngredients, setSelectedIngredients] = useState({}); // Track ingredient/substitution selections
   const [shoppingCart, setShoppingCart] = useState([]);
 
+  // Initialize main ingredients as selected by default
+  useEffect(() => {
+    const defaultSelections = {};
+    const defaultCart = [];
+
+    chefRecommendedDishes.forEach(dish => {
+      dish.ingredients.forEach(ingredient => {
+        const key = `${dish.id}-${ingredient.name}-original`;
+        defaultSelections[key] = true;
+
+        // Add to default shopping cart (excluding pantry items)
+        if (!pantryItems.includes(ingredient.name)) {
+          defaultCart.push({
+            name: ingredient.name,
+            quantity: ingredient.quantity,
+            dishId: dish.id,
+            dishName: dish.name,
+            dishDay: dish.day,
+            calories: ingredient.nutrition.calories
+          });
+        }
+      });
+    });
+
+    setSelectedIngredients(defaultSelections);
+    setShoppingCart(defaultCart);
+  }, []);
+
   // Toggle dish dropdown expansion
   const toggleDishExpansion = (dishId) => {
     setExpandedDishes(prev => ({
