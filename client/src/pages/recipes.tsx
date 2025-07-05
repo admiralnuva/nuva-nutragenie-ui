@@ -85,7 +85,12 @@ const pantryDishes = [
     calories: 320,
     protein: 28,
     difficulty: 'Easy',
-    badges: ['High-Protein', 'Quick']
+    badges: ['High-Protein', 'Quick'],
+    dishImage: (
+      <div className="w-20 h-20 bg-gradient-to-br from-orange-300 to-red-400 rounded-lg flex items-center justify-center text-2xl shadow-lg">
+        🥘
+      </div>
+    )
   },
   {
     name: 'Mediterranean Salmon',
@@ -95,7 +100,12 @@ const pantryDishes = [
     calories: 380,
     protein: 32,
     difficulty: 'Medium',
-    badges: ['Heart-Healthy', 'Mediterranean']
+    badges: ['Heart-Healthy', 'Mediterranean'],
+    dishImage: (
+      <div className="w-20 h-20 bg-gradient-to-br from-pink-300 to-rose-400 rounded-lg flex items-center justify-center text-2xl shadow-lg">
+        🍣
+      </div>
+    )
   },
   {
     name: 'Veggie Omelet',
@@ -105,7 +115,12 @@ const pantryDishes = [
     calories: 280,
     protein: 22,
     difficulty: 'Easy',
-    badges: ['Vegetarian', 'Quick']
+    badges: ['Vegetarian', 'Quick'],
+    dishImage: (
+      <div className="w-20 h-20 bg-gradient-to-br from-yellow-300 to-orange-400 rounded-lg flex items-center justify-center text-2xl shadow-lg">
+        🍳
+      </div>
+    )
   },
   {
     name: 'Beef & Potato Skillet',
@@ -115,7 +130,12 @@ const pantryDishes = [
     calories: 420,
     protein: 26,
     difficulty: 'Medium',
-    badges: ['Hearty', 'One-Pan']
+    badges: ['Hearty', 'One-Pan'],
+    dishImage: (
+      <div className="w-20 h-20 bg-gradient-to-br from-amber-300 to-brown-400 rounded-lg flex items-center justify-center text-2xl shadow-lg">
+        🥩
+      </div>
+    )
   },
   {
     name: 'Greek Salad Bowl',
@@ -125,7 +145,12 @@ const pantryDishes = [
     calories: 180,
     protein: 8,
     difficulty: 'Easy',
-    badges: ['No-Cook', 'Mediterranean']
+    badges: ['No-Cook', 'Mediterranean'],
+    dishImage: (
+      <div className="w-20 h-20 bg-gradient-to-br from-green-300 to-emerald-400 rounded-lg flex items-center justify-center text-2xl shadow-lg">
+        🥗
+      </div>
+    )
   }
 ];
 
@@ -549,6 +574,10 @@ export default function RecipesScreen() {
                                 <span className="text-indigo-600">{matchingIngredients.length}/{dish.ingredients.length} ingredients</span>
                               </div>
                             </div>
+                          </div>
+                          
+                          <div className="ml-4">
+                            {dish.dishImage}
                           </div>
                         </div>
                       </div>
