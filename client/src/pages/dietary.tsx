@@ -26,7 +26,7 @@ const userAvatars = {
 const dietaryRestrictions = [
   { label: '🥬 Vegetarian', value: 'vegetarian' },
   { label: '🌱 Vegan', value: 'vegan' },
-  { label: '🚫🌾 Gluten-Free', value: 'gluten-free' },
+  { label: '🚫 Gluten-Free', value: 'gluten-free' },
   { label: '🥛 Dairy-Free', value: 'dairy-free' },
   { label: '🥜 Nut-Free', value: 'nut-free' },
   { label: '🐟 Pescatarian', value: 'pescatarian' },
@@ -143,11 +143,11 @@ export default function DietaryScreen() {
                   </CardTitle>
                   <CardDescription>Select dietary choice to create personalized nutrition</CardDescription>
                 </div>
-                <div className="flex items-center justify-center w-5 h-5 rounded overflow-hidden bg-gray-100 ml-4">
+                <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white ml-4">
                   <img 
                     src={userAvatarSrc} 
                     alt="User Avatar"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover rounded-lg"
                   />
                 </div>
               </div>
@@ -183,11 +183,11 @@ export default function DietaryScreen() {
                   </CardTitle>
                   <CardDescription>Select health conditions to consider</CardDescription>
                 </div>
-                <div className="flex items-center justify-center w-5 h-5 rounded overflow-hidden bg-gray-100 ml-4">
+                <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white ml-4">
                   <img 
                     src={userAvatarSrc} 
                     alt="User Avatar"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover rounded-lg"
                   />
                 </div>
               </div>
@@ -223,11 +223,11 @@ export default function DietaryScreen() {
                   </CardTitle>
                   <CardDescription>What are your fitness and wellness goals?</CardDescription>
                 </div>
-                <div className="flex items-center justify-center w-5 h-5 rounded overflow-hidden bg-gray-100 ml-4">
+                <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white ml-4">
                   <img 
                     src={userAvatarSrc} 
                     alt="User Avatar"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover rounded-lg"
                   />
                 </div>
               </div>
@@ -263,11 +263,11 @@ export default function DietaryScreen() {
                   </CardTitle>
                   <CardDescription>List ingredients or foods you prefer to avoid</CardDescription>
                 </div>
-                <div className="flex items-center justify-center w-5 h-5 rounded overflow-hidden bg-gray-100 ml-4">
+                <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white ml-4">
                   <img 
                     src={userAvatarSrc} 
                     alt="User Avatar"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover rounded-lg"
                   />
                 </div>
               </div>
@@ -290,11 +290,11 @@ export default function DietaryScreen() {
                   <CardTitle className="text-lg">Allergies & Serious Restrictions</CardTitle>
                   <CardDescription>List any food allergies or severe restrictions</CardDescription>
                 </div>
-                <div className="flex items-center justify-center w-5 h-5 rounded overflow-hidden bg-gray-100 ml-4">
+                <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white ml-4">
                   <img 
                     src={userAvatarSrc} 
                     alt="User Avatar"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover rounded-lg"
                   />
                 </div>
               </div>
@@ -317,11 +317,11 @@ export default function DietaryScreen() {
                   <CardTitle className="text-lg">Additional Notes</CardTitle>
                   <CardDescription>Any other preferences or requirements</CardDescription>
                 </div>
-                <div className="flex items-center justify-center w-5 h-5 rounded overflow-hidden bg-gray-100 ml-4">
+                <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white ml-4">
                   <img 
                     src={userAvatarSrc} 
                     alt="User Avatar"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover rounded-lg"
                   />
                 </div>
               </div>
