@@ -629,11 +629,11 @@ export default function ReviewRecipesScreen() {
                 {(() => {
                   const currentNutrition = calculateDishNutrition(dish.id);
                   return (
-                    <div className="flex items-center gap-4 text-xs text-gray-600 mb-3">
-                      <span>{Math.round(currentNutrition.calories)} cal</span>
-                      <span>{Math.round(currentNutrition.protein)}g protein</span>
-                      <span>{Math.round(currentNutrition.carbs)}g carbs</span>
-                      <span>{Math.round(currentNutrition.fat)}g fat</span>
+                    <div className="flex items-center gap-4 text-xs mb-3">
+                      <span className="text-orange-600 font-semibold">{Math.round(currentNutrition.calories)} cal</span>
+                      <span className="text-blue-600 font-semibold">{Math.round(currentNutrition.protein)}g protein</span>
+                      <span className="text-green-600 font-semibold">{Math.round(currentNutrition.carbs)}g carbs</span>
+                      <span className="text-purple-600 font-semibold">{Math.round(currentNutrition.fat)}g fat</span>
                     </div>
                   );
                 })()}
