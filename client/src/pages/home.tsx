@@ -361,24 +361,25 @@ export default function HomeScreen() {
       </div>
 
       <div className="p-4 space-y-6">
-        {/* Welcome Card */}
-        <Card className="p-6 bg-gradient-to-r from-blue-500 to-indigo-600 text-white relative overflow-hidden">
-          <div className="relative z-10">
-            <div className="flex items-center gap-3 mb-3">
-              <span className="text-3xl">{currentUser?.avatar || "👨‍🍳"}</span>
-              <div>
-                <h2 className="text-xl font-bold">{getPersonalizedGreeting()[0]}</h2>
-                <p className="text-blue-100">{getPersonalizedGreeting()[1]}</p>
-              </div>
+        {/* Compact Welcome Card */}
+        <Card className="p-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white">
+          <div className="flex items-center justify-between">
+            {/* User Avatar - Left Side */}
+            <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+              <span className="text-2xl">{currentUser?.avatar || "👨‍🍳"}</span>
             </div>
-            {currentUser?.selectedChef && (
-              <div className="flex items-center gap-2 mt-4 text-blue-100">
-                <span className="text-lg">{currentUser.selectedChef.emoji}</span>
-                <span className="text-sm">Chef {currentUser.selectedChef.name} is ready to help!</span>
-              </div>
-            )}
+            
+            {/* Center Greeting */}
+            <div className="text-center flex-1 px-4">
+              <h2 className="text-lg font-bold">{getPersonalizedGreeting()[0]}</h2>
+              <p className="text-blue-100 text-sm">Let's cook something exciting today!</p>
+            </div>
+            
+            {/* Chef Avatar - Right Side */}
+            <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+              <span className="text-2xl">{currentUser?.selectedChef?.emoji || "👨‍🍳"}</span>
+            </div>
           </div>
-          <div className="absolute -right-6 -bottom-6 text-6xl opacity-20">🍳</div>
         </Card>
 
         {/* Quick Actions */}
