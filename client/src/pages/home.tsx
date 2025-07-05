@@ -365,29 +365,32 @@ export default function HomeScreen() {
       <div className="p-4 space-y-6">
         {/* Compact Welcome Card */}
         <Card className="p-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white">
-          <div className="flex items-center justify-between">
-            {/* User Avatar - Left Side */}
-            <div className="w-18 h-18 rounded-full bg-white/20 backdrop-blur-sm overflow-hidden">
-              <img 
-                src={user1Avatar} 
-                alt="User Avatar" 
-                className="w-full h-full object-cover"
-              />
+          <div className="space-y-3">
+            {/* Top Row - Avatars */}
+            <div className="flex justify-between items-start">
+              {/* User Avatar - Left Top */}
+              <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm overflow-hidden">
+                <img 
+                  src={user1Avatar} 
+                  alt="User Avatar" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              
+              {/* Chef Marcus Avatar - Right Top */}
+              <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm overflow-hidden">
+                <img 
+                  src={chef1Avatar} 
+                  alt="Chef Marcus" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
             </div>
             
-            {/* Center Greeting */}
-            <div className="text-center flex-1 px-4">
+            {/* Bottom Row - Greeting */}
+            <div className="text-center">
               <h2 className="text-lg font-bold">{getPersonalizedGreeting()[0]}</h2>
               <p className="text-blue-100 text-sm">Let's cook something exciting today!</p>
-            </div>
-            
-            {/* Chef Marcus Avatar - Right Side */}
-            <div className="w-18 h-18 rounded-full bg-white/20 backdrop-blur-sm overflow-hidden">
-              <img 
-                src={chef1Avatar} 
-                alt="Chef Marcus" 
-                className="w-full h-full object-cover"
-              />
             </div>
           </div>
         </Card>
