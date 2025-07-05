@@ -5,6 +5,8 @@ import { BackButton } from "@/components/ui/back-button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { BottomNavigation } from "@/components/ui/bottom-navigation";
 import { useToast } from "@/hooks/use-toast";
 import user1Avatar from "@/assets/avatars/user/user1.png";
@@ -72,6 +74,23 @@ export default function HomeScreen() {
   });
 
   const [activeView, setActiveView] = useState<'quickActions' | 'healthTracking'>('quickActions');
+  
+  // Health form state management
+  const [showHealthForm, setShowHealthForm] = useState(false);
+  const [healthData, setHealthData] = useState({
+    date: new Date().toISOString().split('T')[0],
+    bloodPressureSystolic: '',
+    bloodPressureDiastolic: '',
+    bloodSugar: '',
+    weight: ''
+  });
+  
+  // Current metrics display (would normally come from API)
+  const [currentMetrics, setCurrentMetrics] = useState({
+    bloodPressure: '122/78',
+    bloodSugar: '94',
+    weight: '165'
+  });
 
   // Check if user exists and redirect if not
   useEffect(() => {
@@ -98,6 +117,54 @@ export default function HomeScreen() {
       });
       setIsLoading(false);
     }
+  };
+
+  // Handle health form submission
+  const handleHealthSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Update current metrics with new data
+    if (healthData.bloodPressureSystolic && healthData.bloodPressureDiastolic) {
+      setCurrentMetrics(prev => ({
+        ...prev,
+        bloodPressure: `${healthData.bloodPressureSystolic}/${healthData.bloodPressureDiastolic}`
+      }));
+    }
+    
+    if (healthData.bloodSugar) {
+      setCurrentMetrics(prev => ({
+        ...prev,
+        bloodSugar: healthData.bloodSugar
+      }));
+    }
+    
+    if (healthData.weight) {
+      setCurrentMetrics(prev => ({
+        ...prev,
+        weight: healthData.weight
+      }));
+    }
+    
+    // Reset form and hide it
+    setHealthData({
+      date: new Date().toISOString().split('T')[0],
+      bloodPressureSystolic: '',
+      bloodPressureDiastolic: '',
+      bloodSugar: '',
+      weight: ''
+    });
+    setShowHealthForm(false);
+    
+    toast({
+      title: "Health Data Updated",
+      description: "Your health metrics have been successfully recorded.",
+      variant: "default"
+    });
+  };
+
+  // Toggle health form visibility
+  const toggleHealthForm = () => {
+    setShowHealthForm(!showHealthForm);
   };
 
   // Generate sample data for charts based on current user data with error handling
@@ -403,7 +470,7 @@ export default function HomeScreen() {
 
         {/* Toggle Header */}
         <div>
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center justify-between mb-2">
             <h3 
               className={`text-lg font-semibold flex items-center gap-2 cursor-pointer transition-colors ${
                 activeView === 'quickActions' ? 'text-indigo-300' : 'text-white'
@@ -455,11 +522,92 @@ export default function HomeScreen() {
               
               {/* Add Health Reading Button - Top Position */}
               <button 
-                onClick={() => handleNavigation("/health")}
-                className="w-full px-3 py-2 mb-0 bg-indigo-600 text-white rounded-lg text-sm hover:bg-indigo-700 transition-colors"
+                onClick={toggleHealthForm}
+                className="w-full px-3 py-2 mb-2 bg-indigo-600 text-white rounded-lg text-sm hover:bg-indigo-700 transition-colors"
               >
-                + Add Blood Pressure and Blood Sugar levels
+                {showHealthForm ? '− Cancel' : '+ Add Blood Pressure and Blood Sugar levels'}
               </button>
+
+              {/* Collapsible Health Form */}
+              <div className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                showHealthForm ? 'max-h-96 opacity-100 mb-2' : 'max-h-0 opacity-0'
+              }`}>
+                <Card className="p-4 bg-blue-50 border-indigo-200">
+                  <form onSubmit={handleHealthSubmit} className="space-y-3">
+                    {/* Date Selection */}
+                    <div>
+                      <Label htmlFor="date" className="text-sm font-medium">Date</Label>
+                      <Input
+                        type="date"
+                        id="date"
+                        value={healthData.date}
+                        onChange={(e) => setHealthData({...healthData, date: e.target.value})}
+                        className="mt-1"
+                      />
+                    </div>
+
+                    {/* Blood Pressure */}
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <Label htmlFor="systolic" className="text-sm font-medium">Systolic BP</Label>
+                        <Input
+                          type="number"
+                          id="systolic"
+                          placeholder="120"
+                          value={healthData.bloodPressureSystolic}
+                          onChange={(e) => setHealthData({...healthData, bloodPressureSystolic: e.target.value})}
+                          className="mt-1"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="diastolic" className="text-sm font-medium">Diastolic BP</Label>
+                        <Input
+                          type="number"
+                          id="diastolic"
+                          placeholder="80"
+                          value={healthData.bloodPressureDiastolic}
+                          onChange={(e) => setHealthData({...healthData, bloodPressureDiastolic: e.target.value})}
+                          className="mt-1"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Blood Sugar and Weight */}
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <Label htmlFor="bloodSugar" className="text-sm font-medium">Blood Sugar (mg/dL)</Label>
+                        <Input
+                          type="number"
+                          id="bloodSugar"
+                          placeholder="94"
+                          value={healthData.bloodSugar}
+                          onChange={(e) => setHealthData({...healthData, bloodSugar: e.target.value})}
+                          className="mt-1"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="weight" className="text-sm font-medium">Weight (lbs)</Label>
+                        <Input
+                          type="number"
+                          id="weight"
+                          placeholder="165"
+                          value={healthData.weight}
+                          onChange={(e) => setHealthData({...healthData, weight: e.target.value})}
+                          className="mt-1"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Submit Button */}
+                    <Button 
+                      type="submit" 
+                      className="w-full bg-green-600 hover:bg-green-700 text-white mt-4"
+                    >
+                      Save Health Data
+                    </Button>
+                  </form>
+                </Card>
+              </div>
           
           {/* Compact Health Metrics Card */}
           <Card className="p-4 mb-2 bg-white/95 backdrop-blur-md border-white/30 shadow-xl">
@@ -471,14 +619,14 @@ export default function HomeScreen() {
                   {/* Blood Pressure */}
                   <div className="bg-red-50 p-3 rounded-lg">
                     <div className="text-xs text-gray-600">Blood Pressure</div>
-                    <div className="text-lg font-bold text-red-600">122/78</div>
+                    <div className="text-lg font-bold text-red-600">{currentMetrics.bloodPressure}</div>
                     <div className="text-xs text-green-600">vs Normal: 120/80</div>
                   </div>
                   
                   {/* Blood Sugar */}
                   <div className="bg-green-50 p-3 rounded-lg">
                     <div className="text-xs text-gray-600">Blood Sugar</div>
-                    <div className="text-lg font-bold text-green-600">94 mg/dL</div>
+                    <div className="text-lg font-bold text-green-600">{currentMetrics.bloodSugar} mg/dL</div>
                     <div className="text-xs text-gray-500">Normal Range</div>
                   </div>
                 </div>
