@@ -87,7 +87,7 @@ const pantryDishes = [
     difficulty: 'Easy',
     badges: ['High-Protein', 'Quick'],
     dishImage: (
-      <div className="w-25 h-25 flex items-center justify-center text-6xl">
+      <div className="w-30 h-30 flex items-center justify-center text-7xl">
         🥘
       </div>
     )
@@ -102,7 +102,7 @@ const pantryDishes = [
     difficulty: 'Medium',
     badges: ['Heart-Healthy', 'Mediterranean'],
     dishImage: (
-      <div className="w-25 h-25 flex items-center justify-center text-6xl">
+      <div className="w-30 h-30 flex items-center justify-center text-7xl">
         🍣
       </div>
     )
@@ -117,7 +117,7 @@ const pantryDishes = [
     difficulty: 'Easy',
     badges: ['Vegetarian', 'Quick'],
     dishImage: (
-      <div className="w-25 h-25 flex items-center justify-center text-6xl">
+      <div className="w-30 h-30 flex items-center justify-center text-7xl">
         🍳
       </div>
     )
@@ -132,7 +132,7 @@ const pantryDishes = [
     difficulty: 'Medium',
     badges: ['Hearty', 'One-Pan'],
     dishImage: (
-      <div className="w-25 h-25 flex items-center justify-center text-6xl">
+      <div className="w-30 h-30 flex items-center justify-center text-7xl">
         🥩
       </div>
     )
@@ -147,7 +147,7 @@ const pantryDishes = [
     difficulty: 'Easy',
     badges: ['No-Cook', 'Mediterranean'],
     dishImage: (
-      <div className="w-25 h-25 flex items-center justify-center text-6xl">
+      <div className="w-30 h-30 flex items-center justify-center text-7xl">
         🥗
       </div>
     )
