@@ -84,6 +84,22 @@ export default function SplashScreen() {
           </div>
         )}
 
+        {/* Reset Button for Testing (only show when user exists) */}
+        {isReturningUser && (
+          <div className="mb-4">
+            <button 
+              onClick={() => {
+                setCurrentUser(null);
+                localStorage.removeItem("nutragenie_user");
+                setLocation("/");
+              }}
+              className="bg-red-500/20 border border-red-300 text-white px-4 py-2 rounded-lg backdrop-blur-sm hover:bg-red-500/30 transition-colors text-sm"
+            >
+              Reset for Testing (Clear User Data)
+            </button>
+          </div>
+        )}
+
         {/* Action Buttons */}
         <div className="space-y-3 w-full">
           {!isReturningUser ? (
