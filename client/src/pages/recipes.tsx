@@ -571,7 +571,6 @@ export default function RecipesScreen() {
                               <div>🔥 {dish.calories} cal • 💪 {dish.protein}g protein</div>
                               <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-1">
-                                  <span className="font-medium">Matching:</span>
                                   <span className="text-indigo-600">{matchingIngredients.length}/{dish.ingredients.length} ingredients</span>
                                 </div>
                                 <div>⏱️ {dish.prepTime + dish.cookTime} min</div>
