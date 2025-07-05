@@ -765,9 +765,9 @@ export default function HomeScreen() {
                   </div>
                   
                   {/* Distance */}
-                  <div className="bg-transparent border-2 border-purple-400 p-2 rounded text-center">
-                    <div className="text-xs text-purple-100">Distance</div>
-                    <div className="text-lg font-bold text-purple-200">4.1 mi</div>
+                  <div className="bg-transparent border-2 border-cyan-400 p-2 rounded text-center">
+                    <div className="text-xs text-cyan-100">Distance</div>
+                    <div className="text-lg font-bold text-cyan-200">4.1 mi</div>
                     <div className="flex justify-center mt-1">
                       <div className="w-3 h-3 rounded-full bg-green-400"></div>
                     </div>
