@@ -562,11 +562,9 @@ export default function RecipesScreen() {
                       <div key={dish.name} className="bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200 rounded-lg p-4">
                         <div className="flex items-start justify-between">
                           <div className="flex-1">
-                            <div className="text-xs text-gray-600 mb-1">
-                              ⏱️ {dish.prepTime + dish.cookTime} min
-                            </div>
                             <div className="flex items-center gap-2 mb-2">
                               <h4 className="font-semibold text-gray-900">{dish.name}</h4>
+                              <span className="text-xs text-gray-600">⏱️ {dish.prepTime + dish.cookTime} min</span>
                               {index === 0 && <Sparkles className="w-4 h-4 text-indigo-500" />}
                             </div>
                             
