@@ -974,7 +974,7 @@ export default function RecipesScreen() {
                         <CardTitle className="text-lg leading-tight">Create Your Custom Dish</CardTitle>
                         <p className="text-sm text-gray-600 mt-1">Design a personalized Dish</p>
                       </div>
-                      <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white ml-3 flex-shrink-0">
+                      <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white ml-4 flex-shrink-0">
                         <img 
                           src={userAvatarSrc} 
                           alt="User Avatar"
