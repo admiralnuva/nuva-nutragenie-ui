@@ -412,6 +412,9 @@ export default function RecipesScreen() {
       // Store selected recipes in localStorage for recipe details page
       localStorage.setItem("selected_recipes", JSON.stringify(selectedDishes));
       setLocation("/recipe-details");
+    } else if (currentView === "create" && (selectedDishes.length > 0 || customDishName.trim())) {
+      // Navigate to meal planning with selected dishes or custom dish
+      setLocation("/review-recipes");
     } else {
       // Navigate to meal planning (Chef Recommends)
       setLocation("/review-recipes");
@@ -1047,8 +1050,8 @@ export default function RecipesScreen() {
                         disabled={!customDishName.trim()}
                         onClick={() => {
                           if (customDishName.trim()) {
-                            // Handle custom dish creation
-                            console.log("Creating custom dish:", customDishName);
+                            // Navigate to meal planning with custom dish
+                            setLocation("/review-recipes");
                           }
                         }}
                       >
@@ -1059,8 +1062,8 @@ export default function RecipesScreen() {
                         className="border-indigo-200 text-indigo-600 hover:bg-indigo-50 text-sm py-2"
                         disabled={getTotalSelectedDishes() >= MAX_DISH_SELECTION}
                         onClick={() => {
-                          // Handle chef's choice
-                          console.log("Chef's choice selected");
+                          // Navigate to meal planning (Chef Recommends)
+                          setLocation("/review-recipes");
                         }}
                       >
                         Chef's Choice
@@ -1271,12 +1274,16 @@ export default function RecipesScreen() {
         <Button 
           onClick={generateRecipe}
           className="w-full py-4 text-lg font-semibold bg-indigo-600 hover:bg-indigo-700"
-          disabled={currentView === "pantry" ? selectedIngredients.length === 0 : selectedDishes.length === 0}
+          disabled={
+            currentView === "pantry" ? selectedIngredients.length === 0 : 
+            currentView === "create" ? (selectedDishes.length === 0 && !customDishName.trim()) :
+            selectedDishes.length === 0
+          }
         >
           {currentView === "dishes" 
             ? "Generate Recipes"
             : currentView === "create"
-            ? "Generate Recipes"
+            ? "Generate Meal Plan"
             : "Generate Meal Plan"
           }
         </Button>
