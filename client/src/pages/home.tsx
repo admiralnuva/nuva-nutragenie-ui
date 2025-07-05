@@ -316,11 +316,10 @@ export default function HomeScreen() {
   ];
 
   const getPersonalizedGreeting = () => {
-    const name = currentUser?.nickname || "Chef";
     const greetings: { [key: string]: string[] } = {
-      morning: [`Good morning, ${name}!`, "What's for breakfast today?"],
-      afternoon: [`Good afternoon, ${name}!`, "Ready for a delicious lunch?"],
-      evening: [`Good evening, ${name}!`, "Time for a wonderful dinner?"]
+      morning: [`Good morning!`, "What's for breakfast today?"],
+      afternoon: [`Good afternoon!`, "Ready for a delicious lunch?"],
+      evening: [`Good evening!`, "Time for a wonderful dinner?"]
     };
     return greetings[timeOfDay] || greetings.morning;
   };
