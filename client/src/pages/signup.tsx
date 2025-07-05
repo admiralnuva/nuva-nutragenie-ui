@@ -361,25 +361,29 @@ export default function SignupScreen() {
                   {!selectedAvatar && <span className="text-xs text-indigo-600 ml-2">(Select first to continue)</span>}
                 </Label>
                 <div className="grid grid-cols-4 gap-2">
-                  {userAvatars.map(avatar => (
-                    <button
-                      key={avatar.id}
-                      type="button"
-                      onClick={() => {
-                        setSelectedAvatar(avatar);
-                        setTouched(prev => ({ ...prev, avatar: true }));
-                      }}
-                      className={`flex items-center justify-center w-20 h-20 rounded-lg ${
-                        selectedAvatar?.id === avatar.id ? 'ring-2 ring-indigo-500 bg-indigo-50 shadow-md scale-105' : 
-                        !selectedAvatar ? 'ring-2 ring-orange-400' : ''
-                      } bg-white hover:ring-2 hover:ring-indigo-400 hover:bg-indigo-50 transition-all overflow-hidden`}
-                    >
-                      <img 
-                        src={avatar.src} 
-                        alt={avatar.alt}
-                        className="w-full h-full object-cover rounded-lg"
-                      />
-                    </button>
+                  {userAvatars.map((avatar, index) => (
+                    <div key={avatar.id} className="flex flex-col items-center">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSelectedAvatar(avatar);
+                          setTouched(prev => ({ ...prev, avatar: true }));
+                        }}
+                        className={`flex items-center justify-center w-20 h-20 rounded-lg ${
+                          selectedAvatar?.id === avatar.id ? 'ring-2 ring-indigo-500 bg-indigo-50 shadow-md scale-105' : 
+                          !selectedAvatar ? 'ring-2 ring-orange-400' : ''
+                        } bg-white hover:ring-2 hover:ring-indigo-400 hover:bg-indigo-50 transition-all overflow-hidden`}
+                      >
+                        <img 
+                          src={avatar.src} 
+                          alt={avatar.alt}
+                          className="w-full h-full object-cover rounded-lg"
+                        />
+                      </button>
+                      <p className="text-xs text-gray-600 mt-1 text-center">
+                        User{index + 1}
+                      </p>
+                    </div>
                   ))}
                 </div>
                 {!selectedAvatar && (
@@ -725,25 +729,29 @@ export default function SignupScreen() {
                 </Label>
                 <div className="grid grid-cols-4 gap-2">
                   {chefs.map(chef => (
-                    <button
-                      key={chef.name}
-                      type="button"
-                      onClick={() => {
-                        setSelectedChef(chef);
-                        setChefNickname(chef.name);
-                        setTouched(prev => ({ ...prev, chef: true }));
-                      }}
-                      className={`flex items-center justify-center w-20 h-20 rounded-lg ${
-                        selectedChef?.name === chef.name ? 'ring-2 ring-indigo-500 bg-indigo-50 shadow-md scale-105' : 
-                        !selectedChef ? 'ring-2 ring-orange-400' : ''
-                      } bg-white hover:ring-2 hover:ring-indigo-400 hover:bg-indigo-50 transition-all overflow-hidden`}
-                    >
-                      <img 
-                        src={chef.avatar} 
-                        alt={chef.name}
-                        className="w-full h-full object-cover rounded-lg"
-                      />
-                    </button>
+                    <div key={chef.name} className="flex flex-col items-center">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSelectedChef(chef);
+                          setChefNickname(chef.name);
+                          setTouched(prev => ({ ...prev, chef: true }));
+                        }}
+                        className={`flex items-center justify-center w-20 h-20 rounded-lg ${
+                          selectedChef?.name === chef.name ? 'ring-2 ring-indigo-500 bg-indigo-50 shadow-md scale-105' : 
+                          !selectedChef ? 'ring-2 ring-orange-400' : ''
+                        } bg-white hover:ring-2 hover:ring-indigo-400 hover:bg-indigo-50 transition-all overflow-hidden`}
+                      >
+                        <img 
+                          src={chef.avatar} 
+                          alt={chef.name}
+                          className="w-full h-full object-cover rounded-lg"
+                        />
+                      </button>
+                      <p className="text-xs text-gray-600 mt-1 text-center">
+                        {chef.name.replace('Chef ', '')}
+                      </p>
+                    </div>
                   ))}
                 </div>
                 {!selectedChef && (

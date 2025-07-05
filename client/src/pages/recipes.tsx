@@ -580,12 +580,19 @@ export default function RecipesScreen() {
                    "Create custom dishes and browse recipes"}
                 </p>
               </div>
-              <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white ml-4">
-                <img 
-                  src={currentView === "pantry" ? userAvatarSrc : chefAvatarSrc} 
-                  alt={currentView === "pantry" ? "User Avatar" : "Chef Avatar"}
-                  className="w-full h-full object-cover rounded-lg"
-                />
+              <div className="flex flex-col items-center ml-4">
+                <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white">
+                  <img 
+                    src={currentView === "pantry" ? userAvatarSrc : chefAvatarSrc} 
+                    alt={currentView === "pantry" ? "User Avatar" : "Chef Avatar"}
+                    className="w-full h-full object-cover rounded-lg"
+                  />
+                </div>
+                <p className="text-xs text-gray-600 mt-1 text-center">
+                  {currentView === "pantry" 
+                    ? (userData?.nickname || "User") 
+                    : (userData?.chefNickname || "Chef")}
+                </p>
               </div>
             </div>
             
@@ -974,12 +981,17 @@ export default function RecipesScreen() {
                         <CardTitle className="text-lg leading-tight">Create Your Custom Dish</CardTitle>
                         <p className="text-sm text-gray-600 mt-1">Design a personalized Dish</p>
                       </div>
-                      <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white ml-4 flex-shrink-0">
-                        <img 
-                          src={userAvatarSrc} 
-                          alt="User Avatar"
-                          className="w-full h-full object-cover rounded-lg"
-                        />
+                      <div className="flex flex-col items-center ml-4 flex-shrink-0">
+                        <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white">
+                          <img 
+                            src={userAvatarSrc} 
+                            alt="User Avatar"
+                            className="w-full h-full object-cover rounded-lg"
+                          />
+                        </div>
+                        <p className="text-xs text-gray-600 mt-1 text-center">
+                          {userData?.nickname || "User"}
+                        </p>
                       </div>
                     </div>
                   </CardHeader>
@@ -1137,12 +1149,17 @@ export default function RecipesScreen() {
                 <CardTitle className="text-base">Nutritional Adjustments</CardTitle>
                 <p className="text-xs text-gray-600">Fine-tune your meal targets</p>
               </div>
-              <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white ml-3">
-                <img 
-                  src={userAvatarSrc} 
-                  alt="User Avatar"
-                  className="w-full h-full object-cover rounded-lg"
-                />
+              <div className="flex flex-col items-center ml-3">
+                <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white">
+                  <img 
+                    src={userAvatarSrc} 
+                    alt="User Avatar"
+                    className="w-full h-full object-cover rounded-lg"
+                  />
+                </div>
+                <p className="text-xs text-gray-600 mt-1 text-center">
+                  {userData?.nickname || "User"}
+                </p>
               </div>
             </div>
           </CardHeader>
