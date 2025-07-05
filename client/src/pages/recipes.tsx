@@ -231,7 +231,62 @@ export default function RecipesScreen() {
           <h2 className="text-xl font-bold text-gray-900">Explore Recipes</h2>
         </div>
 
-        {/* Card 1: Dietary Preferences */}
+        {/* Card 1: Dietary Preferences Summary */}
+        <Card className="bg-white border border-gray-200">
+          <CardHeader className="pb-2">
+            <div className="flex items-center justify-between">
+              <div className="flex-1">
+                <CardTitle className="text-lg">Dietary Preferences</CardTitle>
+                <div className="flex flex-wrap gap-1 mt-1">
+                  {userData?.dietaryRestrictions?.length > 0 && (
+                    <>
+                      {userData.dietaryRestrictions.slice(0, 3).map((restriction: string) => (
+                        <span key={restriction} className="px-2 py-1 bg-indigo-100 text-indigo-700 text-xs rounded-full">
+                          {restriction}
+                        </span>
+                      ))}
+                      {userData.dietaryRestrictions.length > 3 && (
+                        <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full">
+                          +{userData.dietaryRestrictions.length - 3} more
+                        </span>
+                      )}
+                    </>
+                  )}
+                  {userData?.healthConditions?.length > 0 && (
+                    <>
+                      {userData.healthConditions.slice(0, 2).map((condition: string) => (
+                        <span key={condition} className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">
+                          {condition}
+                        </span>
+                      ))}
+                    </>
+                  )}
+                  {userData?.fitnessGoals?.length > 0 && (
+                    <>
+                      {userData.fitnessGoals.slice(0, 2).map((goal: string) => (
+                        <span key={goal} className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">
+                          {goal}
+                        </span>
+                      ))}
+                    </>
+                  )}
+                  {(!userData?.dietaryRestrictions?.length && !userData?.healthConditions?.length && !userData?.fitnessGoals?.length) && (
+                    <span className="text-sm text-gray-500">No dietary preferences set</span>
+                  )}
+                </div>
+              </div>
+              <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white ml-4">
+                <img 
+                  src={userAvatarSrc} 
+                  alt="User Avatar"
+                  className="w-full h-full object-cover rounded-lg"
+                />
+              </div>
+            </div>
+          </CardHeader>
+        </Card>
+
+        {/* Card 2: Meal Preferences */}
         <Card className="bg-white border border-gray-200">
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
@@ -321,7 +376,7 @@ export default function RecipesScreen() {
           </CardContent>
         </Card>
 
-        {/* Card 2: Pantry View Toggle */}
+        {/* Card 3: Pantry View Toggle */}
         <Card className="bg-white border border-gray-200">
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
@@ -494,7 +549,7 @@ export default function RecipesScreen() {
           </CardContent>
         </Card>
 
-        {/* Card 3: Nutritional Adjustments */}
+        {/* Card 4: Nutritional Adjustments */}
         <Card className="bg-white border border-gray-200">
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
