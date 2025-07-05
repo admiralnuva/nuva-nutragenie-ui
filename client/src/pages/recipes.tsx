@@ -552,13 +552,43 @@ export default function RecipesScreen() {
                     selectedIngredients.includes(ingredient)
                   );
                   
+                  // Special rectangular layout for first dish only
+                  if (index === 0) {
+                    return (
+                      <div key={dish.name} className="bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200 rounded-lg overflow-hidden">
+                        {/* Full width image at top */}
+                        <div className="w-full h-32 bg-gradient-to-br from-orange-100 to-orange-200 flex items-center justify-center">
+                          <div className="transform scale-150">
+                            {dish.dishImage}
+                          </div>
+                        </div>
+                        
+                        {/* Content below */}
+                        <div className="p-4">
+                          <div className="flex items-center gap-2 mb-2">
+                            <h4 className="font-semibold text-gray-900">{dish.name}</h4>
+                            <Sparkles className="w-4 h-4 text-indigo-500" />
+                          </div>
+                          
+                          <div className="text-xs text-gray-600 space-y-1">
+                            <div>🔥 {dish.calories} cal • 💪 {dish.protein}g protein</div>
+                            <div className="flex items-center gap-3">
+                              <span className="text-indigo-600">{matchingIngredients.length}/{dish.ingredients.length} ingredients</span>
+                              <span>⏱️ {dish.prepTime + dish.cookTime} min</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  }
+                  
+                  // Regular horizontal layout for other dishes
                   return (
                     <div key={dish.name} className="bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200 rounded-lg p-4">
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-2">
                             <h4 className="font-semibold text-gray-900">{dish.name}</h4>
-                            {index === 0 && <Sparkles className="w-4 h-4 text-indigo-500" />}
                           </div>
                           
                           <div className="text-xs text-gray-600 space-y-1">
