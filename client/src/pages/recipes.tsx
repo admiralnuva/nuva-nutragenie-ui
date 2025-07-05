@@ -479,15 +479,8 @@ export default function RecipesScreen() {
                     Selected Ingredients ({selectedIngredients.length})
                   </div>
                   {selectedIngredients.length > 0 ? (
-                    <div className="flex flex-wrap gap-1">
-                      {selectedIngredients.map((ingredient) => (
-                        <span 
-                          key={ingredient}
-                          className="px-2 py-1 bg-indigo-100 text-indigo-700 text-xs rounded-full border border-indigo-300"
-                        >
-                          {ingredient}
-                        </span>
-                      ))}
+                    <div className="text-xs text-indigo-700 leading-relaxed">
+                      {selectedIngredients.join(', ')}
                     </div>
                   ) : (
                     <div className="text-xs text-indigo-600">No ingredients selected</div>
