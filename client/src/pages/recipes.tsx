@@ -345,8 +345,8 @@ export default function RecipesScreen() {
   const [fiberRange, setFiberRange] = useState([5, 25]);
 
   // Get user avatar
-  const userAvatarSrc = userData && userData.avatar ? userAvatars[userData.avatar as keyof typeof userAvatars] : userAvatar1;
-  const chefAvatarSrc = userData && userData.chefAvatar ? chefAvatars[userData.chefAvatar as keyof typeof chefAvatars] : chefAvatar1;
+  const userAvatarSrc = currentUser && currentUser.avatar ? userAvatars[currentUser.avatar as keyof typeof userAvatars] : userAvatar1;
+  const chefAvatarSrc = currentUser && currentUser.selectedChef?.avatar ? chefAvatars[currentUser.selectedChef.avatar as keyof typeof chefAvatars] : chefAvatar1;
 
   // Initialize with first ingredient from each category checked
   useEffect(() => {
