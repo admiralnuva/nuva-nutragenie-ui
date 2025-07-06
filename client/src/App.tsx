@@ -25,6 +25,7 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={SplashScreen} />
+      <Route path="/splash" component={SplashScreen} />
       <Route path="/signup" component={SignupScreen} />
       <Route path="/dietary" component={DietaryScreen} />
       <Route path="/home" component={HomeScreen} />
