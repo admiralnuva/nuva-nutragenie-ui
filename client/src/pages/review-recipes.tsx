@@ -129,38 +129,7 @@ export default function ReviewRecipesScreen() {
           </div>
         </div>
 
-        {/* Weekly Overview */}
-        <Card className="mb-4">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-base flex items-center gap-2">
-              📅 This Week's Meal Plan
-              <Badge variant="secondary">7 meals planned</Badge>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="pt-0">
-            <div className="grid grid-cols-7 gap-1 text-xs mb-3">
-              {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(day => (
-                <div key={day} className="text-center font-medium text-gray-600 p-1">
-                  {day}
-                </div>
-              ))}
-            </div>
-            <div className="grid grid-cols-7 gap-1">
-              {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(day => {
-                const dayMeals = weeklyMealPlan.filter(meal => meal.day === day + 'day');
-                return (
-                  <div key={day} className="bg-gray-50 rounded p-1 min-h-[40px]">
-                    {dayMeals.map(meal => (
-                      <div key={meal.id} className="text-[10px] text-indigo-600 mb-1 truncate">
-                        {meal.meal}: {meal.name.split(' ')[0]}...
-                      </div>
-                    ))}
-                  </div>
-                );
-              })}
-            </div>
-          </CardContent>
-        </Card>
+
 
         {/* Pantry Ingredients Used */}
         <Card className="mb-4">
