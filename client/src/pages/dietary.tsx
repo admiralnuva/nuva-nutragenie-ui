@@ -125,7 +125,34 @@ export default function DietaryScreen() {
 
   const updateUserMutation = useMutation({
     mutationFn: async (updates: any) => {
-      if (!currentUser?.id) throw new Error('User not found');
+      // If no user exists in localStorage, create a default one first
+      if (!currentUser?.id) {
+        const defaultUser = {
+          nickname: 'User',
+          ageGroup: '25-30',
+          phoneNumber: '1234567890',
+          avatar: 'user1',
+          selectedChef: {
+            name: 'Chef Marcus',
+            personality: 'Precise & Classic',
+            avatar: 'chef1'
+          },
+          dietaryRestrictions: [],
+          healthGoals: [],
+          allergies: ''
+        };
+        
+        // Create the user first
+        const createResponse = await apiRequest("POST", "/api/users", defaultUser);
+        const newUser = await createResponse.json();
+        setCurrentUser(newUser);
+        
+        // Then update with dietary preferences
+        const updateResponse = await apiRequest("PATCH", `/api/users/${newUser.id}`, updates);
+        return updateResponse.json();
+      }
+      
+      // Update existing user
       const response = await apiRequest("PATCH", `/api/users/${currentUser.id}`, updates);
       return response.json();
     },
@@ -135,7 +162,8 @@ export default function DietaryScreen() {
       setLocation("/recipes");
     },
     onError: (error: any) => {
-      toast({ title: "Error", description: error.message, variant: "destructive" });
+      console.error('Update user error:', error);
+      toast({ title: "Error", description: "Failed to update dietary preferences. Please try again.", variant: "destructive" });
     }
   });
 
