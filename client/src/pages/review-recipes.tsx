@@ -953,11 +953,18 @@ export default function ReviewRecipesScreen() {
                     {/* Card 1: Ingredients with Nutritional Values */}
                     <div className="bg-gray-50 rounded-lg p-3">
                       <h4 className="font-semibold text-gray-800 mb-3">Ingredients & Nutrition</h4>
-                      <div className="space-y-2">
+                      <div className="space-y-3">
                         {dish.ingredients.map((ingredient, idx) => (
-                          <div key={idx} className="flex justify-between items-center text-sm">
-                            <span className="font-medium">{ingredient.name} ({ingredient.quantity})</span>
-                            <span className="text-gray-600">{ingredient.nutrition.calories} cal, {ingredient.nutrition.protein}g protein</span>
+                          <div key={idx} className="space-y-1">
+                            {/* First row: Ingredient name and quantity */}
+                            <div className="flex justify-between items-center text-sm">
+                              <span className="font-medium">{ingredient.name}</span>
+                              <span className="text-gray-700">{ingredient.quantity}</span>
+                            </div>
+                            {/* Second row: Nutritional values */}
+                            <div className="text-xs text-gray-600">
+                              {ingredient.nutrition.calories} cal • {ingredient.nutrition.protein}g protein • {ingredient.nutrition.carbs}g carbs • {ingredient.nutrition.fat}g fat
+                            </div>
                           </div>
                         ))}
                       </div>
