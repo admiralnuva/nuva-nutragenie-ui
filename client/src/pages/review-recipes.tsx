@@ -832,7 +832,7 @@ export default function ReviewRecipesScreen() {
                       className={`w-8 h-8 rounded-full border-2 flex items-center justify-center cursor-pointer transition-all ${
                         isSelected 
                           ? 'bg-green-500 border-green-500' 
-                          : 'bg-blue-100 border-blue-300 hover:border-blue-400'
+                          : 'bg-purple-100 border-purple-300 hover:border-purple-400'
                       }`}
                       onClick={(e) => {
                         e.stopPropagation();
@@ -1020,17 +1020,16 @@ export default function ReviewRecipesScreen() {
             )}
             <div className="flex gap-2 mt-4">
               <Button 
+                size="sm"
                 className="flex-1" 
                 onClick={() => setLocation("/grocery-list")}
                 disabled={selectedDishesForAction.length === 0}
               >
-                <List size={16} className="mr-2" />
+                <List size={14} className="mr-2" />
                 Grocery List
-                {selectedDishesForAction.length > 0 && (
-                  <Badge variant="secondary" className="ml-2">{selectedDishesForAction.length}</Badge>
-                )}
               </Button>
               <Button 
+                size="sm"
                 className="flex-1 bg-indigo-600 hover:bg-indigo-700" 
                 onClick={() => {
                   if (selectedDishesForAction.length === 1) {
@@ -1041,11 +1040,8 @@ export default function ReviewRecipesScreen() {
                 }}
                 disabled={selectedDishesForAction.length === 0}
               >
-                <ChefHat size={16} className="mr-2" />
+                <ChefHat size={14} className="mr-2" />
                 Let's Cook
-                {selectedDishesForAction.length === 1 && (
-                  <Badge variant="secondary" className="ml-2">1</Badge>
-                )}
               </Button>
             </div>
           </CardContent>
