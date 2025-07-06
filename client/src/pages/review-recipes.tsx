@@ -564,8 +564,11 @@ export default function ReviewRecipesScreen() {
                                 <div className="mb-1">
                                   <span className="font-medium text-gray-900">{ingredient.name} ({ingredient.quantity})</span>
                                 </div>
-                                <div className="text-xs text-right">
+                                <div className="text-xs text-right mb-1">
                                   <span className="font-semibold text-orange-600">{ingredient.nutrition.calories} cal</span>
+                                </div>
+                                <div className="text-xs text-gray-500">
+                                  P: {ingredient.nutrition.protein}g • C: {ingredient.nutrition.carbs}g • F: {ingredient.nutrition.fat}g
                                 </div>
                               </div>
                             </div>
@@ -596,8 +599,11 @@ export default function ReviewRecipesScreen() {
                                     <div className="mb-1">
                                       <span className="font-medium text-blue-900">⟳ {substitution.name} ({substitution.quantity})</span>
                                     </div>
-                                    <div className="text-xs text-right">
+                                    <div className="text-xs text-right mb-1">
                                       <span className="font-semibold text-orange-600">{substitution.nutrition.calories} cal</span>
+                                    </div>
+                                    <div className="text-xs text-gray-500">
+                                      P: {substitution.nutrition.protein}g • C: {substitution.nutrition.carbs}g • F: {substitution.nutrition.fat}g
                                     </div>
                                   </div>
                                 </div>
