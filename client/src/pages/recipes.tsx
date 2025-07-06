@@ -454,7 +454,7 @@ export default function RecipesScreen() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 pb-24">
-      <div className="max-w-md mx-auto p-4 space-y-3">
+      <div className="max-w-md mx-auto p-3 space-y-2">
         {/* Header */}
         <div className="flex items-center justify-between">
           <BackButton to="/home" />
@@ -462,18 +462,18 @@ export default function RecipesScreen() {
           <div className="w-10"></div>
         </div>
 
-        <div className="text-center space-y-1">
-          <h2 className="text-xl font-bold text-gray-900">
+        <div className="text-center">
+          <h2 className="text-lg font-bold text-gray-900">
             {currentUser?.nickname ? `${currentUser.nickname}'s Recipe Explorer` : 'Explore Recipes'}
           </h2>
         </div>
 
         {/* Card 1: Dietary Preferences Summary */}
         <Card className="bg-white border border-gray-200">
-          <CardHeader className="py-2">
+          <CardHeader className="py-1 pb-2">
             <div className="flex items-center justify-between">
               <div className="flex-1">
-                <CardTitle className="text-lg">Dietary Preferences</CardTitle>
+                <CardTitle className="text-base">Dietary Preferences</CardTitle>
                 <div className="space-y-1 mt-1">
                   {/* Dietary Restrictions Row */}
                   {currentUser?.dietaryRestrictions && currentUser.dietaryRestrictions.length > 0 && (
@@ -526,33 +526,33 @@ export default function RecipesScreen() {
 
         {/* Card 2: Meal Preferences */}
         <Card className="bg-white border border-gray-200">
-          <CardHeader className="py-2">
+          <CardHeader className="py-1 pb-2">
             <div className="flex items-center justify-between">
               <div className="flex-1">
-                <CardTitle className="text-lg">Meal Preferences</CardTitle>
-                <p className="text-sm text-gray-600 mt-1">Plan your next delicious meal</p>
+                <CardTitle className="text-base">Meal Preferences</CardTitle>
+                <p className="text-xs text-gray-600">Plan your next delicious meal</p>
               </div>
-              <div className="flex flex-col items-center ml-4">
-                <div className="w-20 h-20 rounded-lg overflow-hidden bg-white">
+              <div className="flex flex-col items-center ml-3">
+                <div className="w-16 h-16 rounded-lg overflow-hidden bg-white">
                   <img 
                     src={userAvatarSrc} 
                     alt="User Avatar"
                     className="w-full h-full object-cover rounded-lg"
                   />
                 </div>
-                <p className="text-xs text-gray-600 mt-1 text-center font-medium">
+                <p className="text-xs text-gray-600 mt-0.5 text-center font-medium">
                   {currentUser?.nickname || "User"}
                 </p>
               </div>
             </div>
           </CardHeader>
-          <CardContent className="space-y-3">
-            <div className="grid grid-cols-1 gap-3">
-              <div className="grid grid-cols-2 gap-3">
+          <CardContent className="space-y-2 pt-1 pb-2">
+            <div className="grid grid-cols-1 gap-2">
+              <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="text-sm font-medium text-gray-700 mb-1 block">Cuisine</label>
+                  <label className="text-xs font-medium text-gray-700 mb-0.5 block">Cuisine</label>
                   <Select value={selectedCuisine} onValueChange={setSelectedCuisine}>
-                    <SelectTrigger>
+                    <SelectTrigger className="h-8">
                       <SelectValue placeholder="Select cuisine type" />
                     </SelectTrigger>
                     <SelectContent>
@@ -566,9 +566,9 @@ export default function RecipesScreen() {
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium text-gray-700 mb-1 block">Servings</label>
+                  <label className="text-xs font-medium text-gray-700 mb-0.5 block">Servings</label>
                   <Select value={servingSize} onValueChange={setServingSize}>
-                    <SelectTrigger>
+                    <SelectTrigger className="h-8">
                       <SelectValue placeholder="Servings" />
                     </SelectTrigger>
                     <SelectContent>
@@ -582,11 +582,11 @@ export default function RecipesScreen() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="text-sm font-medium text-gray-700 mb-1 block">Meal Type</label>
+                  <label className="text-xs font-medium text-gray-700 mb-0.5 block">Meal Type</label>
                   <Select value={selectedMealType} onValueChange={setSelectedMealType}>
-                    <SelectTrigger>
+                    <SelectTrigger className="h-8">
                       <SelectValue placeholder="Type" />
                     </SelectTrigger>
                     <SelectContent>
@@ -600,9 +600,9 @@ export default function RecipesScreen() {
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium text-gray-700 mb-1 block">Spice Level</label>
+                  <label className="text-xs font-medium text-gray-700 mb-0.5 block">Spice Level</label>
                   <Select value={selectedSpiceLevel} onValueChange={setSelectedSpiceLevel}>
-                    <SelectTrigger>
+                    <SelectTrigger className="h-8">
                       <SelectValue placeholder="Spice" />
                     </SelectTrigger>
                     <SelectContent>
@@ -616,11 +616,11 @@ export default function RecipesScreen() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="text-sm font-medium text-gray-700 mb-1 block">Cooking Method</label>
+                  <label className="text-xs font-medium text-gray-700 mb-0.5 block">Cooking Method</label>
                   <Select value={selectedCookingMethod} onValueChange={setSelectedCookingMethod}>
-                    <SelectTrigger>
+                    <SelectTrigger className="h-8">
                       <SelectValue placeholder="Method" />
                     </SelectTrigger>
                     <SelectContent>
@@ -634,9 +634,9 @@ export default function RecipesScreen() {
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium text-gray-700 mb-1 block">Skill Level</label>
+                  <label className="text-xs font-medium text-gray-700 mb-0.5 block">Skill Level</label>
                   <Select value={selectedSkillLevel} onValueChange={setSelectedSkillLevel}>
-                    <SelectTrigger>
+                    <SelectTrigger className="h-8">
                       <SelectValue placeholder="Skill" />
                     </SelectTrigger>
                     <SelectContent>
@@ -650,11 +650,11 @@ export default function RecipesScreen() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 gap-3">
+              <div className="grid grid-cols-1 gap-2">
                 <div>
-                  <label className="text-sm font-medium text-gray-700 mb-1 block">Time Friendly</label>
+                  <label className="text-xs font-medium text-gray-700 mb-0.5 block">Time Friendly</label>
                   <Select value={selectedTimeFriendly} onValueChange={setSelectedTimeFriendly}>
-                    <SelectTrigger>
+                    <SelectTrigger className="h-8">
                       <SelectValue placeholder="Select time preference" />
                     </SelectTrigger>
                     <SelectContent>
@@ -673,10 +673,10 @@ export default function RecipesScreen() {
 
         {/* Card 3: Pantry View Toggle */}
         <Card className="bg-white border border-gray-200">
-          <CardHeader className="py-2">
+          <CardHeader className="py-1 pb-2">
             <div className="flex items-center justify-between">
               <div className="flex-1">
-                <CardTitle className="text-lg">Your Pantry Ingredients</CardTitle>
+                <CardTitle className="text-base">Your Pantry Ingredients</CardTitle>
                 <p className="text-sm text-gray-600 mt-1">
                   {currentView === "pantry" ? "Select available ingredients" : 
                    currentView === "dishes" ? "Dishes you can make right now" : 
@@ -1283,10 +1283,10 @@ export default function RecipesScreen() {
         {/* Nutritional Summary Card */}
         {currentUser?.nutritionalTargets && (
           <Card className="bg-white border border-gray-200">
-            <CardHeader className="py-3">
+            <CardHeader className="py-1 pb-2">
               <div className="flex items-center justify-between">
                 <div className="flex-1">
-                  <CardTitle className="text-lg">Nutritional Summary</CardTitle>
+                  <CardTitle className="text-base">Nutritional Summary</CardTitle>
                   <p className="text-sm text-gray-600 mt-1">Your daily nutrition targets</p>
                 </div>
                 <div className="flex flex-col items-center ml-4">
@@ -1351,7 +1351,7 @@ export default function RecipesScreen() {
         {/* Generate Recipe Button */}
         <Button 
           onClick={generateRecipe}
-          className="w-full py-4 text-lg font-semibold bg-indigo-600 hover:bg-indigo-700"
+          className="w-full py-3 text-base font-semibold bg-indigo-600 hover:bg-indigo-700"
           disabled={
             currentView === "pantry" ? selectedIngredients.length === 0 : 
             currentView === "create" ? (selectedDishes.length === 0 && !customDishName.trim()) :
