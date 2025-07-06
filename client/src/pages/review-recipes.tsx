@@ -668,7 +668,7 @@ export default function ReviewRecipesScreen() {
               {(() => {
                 // Calculate total nutrition from selected dishes
                 const totalNutrition = selectedDishes.reduce((total, dishId) => {
-                  const dish = mockRecipes[0].dishes.find(d => d.id === dishId);
+                  const dish = weeklyMealPlan.find(d => d.id === dishId);
                   if (!dish) return total;
                   
                   const totalServings = dish.servings || 1;
