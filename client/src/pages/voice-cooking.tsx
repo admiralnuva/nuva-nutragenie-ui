@@ -650,11 +650,12 @@ export default function VoiceCookingScreen() {
 
             {/* Dish Name with Progress */}
             <div className="mb-1">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center justify-between">
                 <div className="bg-indigo-500 text-white px-2 py-1 rounded text-xs font-semibold">
                   {completedSteps.filter(Boolean).length}/{recipe.totalSteps}
                 </div>
-                <h2 className="text-base font-normal text-gray-700">{recipe.name}</h2>
+                <h2 className="text-base font-normal text-gray-700 flex-1 text-center">{recipe.name}</h2>
+                <div className="w-12"></div> {/* Spacer to balance the layout */}
               </div>
             </div>
 
