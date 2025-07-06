@@ -378,8 +378,8 @@ export default function DietaryScreen() {
             <CardHeader className="pb-4">
               <div className="flex items-center justify-between">
                 <div className="flex-1">
-                  <CardTitle className="text-lg">Nutritional Adjustments</CardTitle>
-                  <CardDescription>Fine-tune your meal targets</CardDescription>
+                  <CardTitle className="text-lg">Nutritional Goals</CardTitle>
+                  <CardDescription>Set your daily nutrition targets</CardDescription>
                 </div>
                 <div className="flex flex-col items-center ml-4">
                   <div className="w-20 h-20 rounded-lg overflow-hidden bg-white">

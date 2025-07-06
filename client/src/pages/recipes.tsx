@@ -1194,6 +1194,74 @@ export default function RecipesScreen() {
 
 
 
+        {/* Nutritional Summary Card */}
+        {currentUser?.nutritionalTargets && (
+          <Card className="bg-white border border-gray-200">
+            <CardHeader className="py-3">
+              <div className="flex items-center justify-between">
+                <div className="flex-1">
+                  <CardTitle className="text-lg">Nutritional Summary</CardTitle>
+                  <p className="text-sm text-gray-600 mt-1">Your daily nutrition targets</p>
+                </div>
+                <div className="flex flex-col items-center ml-4">
+                  <div className="w-20 h-20 rounded-lg overflow-hidden bg-white">
+                    <img 
+                      src={userAvatarSrc} 
+                      alt="User Avatar"
+                      className="w-full h-full object-cover rounded-lg"
+                    />
+                  </div>
+                  <p className="text-xs text-gray-600 mt-1 text-center font-medium">
+                    {currentUser?.nickname || "User"}
+                  </p>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent className="pt-0">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-gradient-to-r from-orange-50 to-orange-100 p-3 rounded-lg border border-orange-200">
+                  <div className="text-xs font-medium text-orange-700 mb-1">Daily Calories</div>
+                  <div className="text-lg font-bold text-orange-800">
+                    {currentUser.nutritionalTargets.calories?.[0] || 300} - {currentUser.nutritionalTargets.calories?.[1] || 600}
+                  </div>
+                  <div className="text-xs text-orange-600">cal</div>
+                </div>
+                
+                <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-3 rounded-lg border border-blue-200">
+                  <div className="text-xs font-medium text-blue-700 mb-1">Protein</div>
+                  <div className="text-lg font-bold text-blue-800">
+                    {currentUser.nutritionalTargets.protein?.[0] || 15} - {currentUser.nutritionalTargets.protein?.[1] || 40}
+                  </div>
+                  <div className="text-xs text-blue-600">grams</div>
+                </div>
+                
+                <div className="bg-gradient-to-r from-green-50 to-green-100 p-3 rounded-lg border border-green-200">
+                  <div className="text-xs font-medium text-green-700 mb-1">Carbs</div>
+                  <div className="text-lg font-bold text-green-800">
+                    {currentUser.nutritionalTargets.carbs?.[0] || 20} - {currentUser.nutritionalTargets.carbs?.[1] || 60}
+                  </div>
+                  <div className="text-xs text-green-600">grams</div>
+                </div>
+                
+                <div className="bg-gradient-to-r from-purple-50 to-purple-100 p-3 rounded-lg border border-purple-200">
+                  <div className="text-xs font-medium text-purple-700 mb-1">Fiber</div>
+                  <div className="text-lg font-bold text-purple-800">
+                    {currentUser.nutritionalTargets.fiber?.[0] || 5} - {currentUser.nutritionalTargets.fiber?.[1] || 25}
+                  </div>
+                  <div className="text-xs text-purple-600">grams</div>
+                </div>
+              </div>
+              
+              <div className="mt-4 p-3 bg-indigo-50 rounded-lg border border-indigo-200">
+                <div className="text-xs font-medium text-indigo-700 mb-2">Recipe Alignment</div>
+                <div className="text-sm text-indigo-600">
+                  Generated recipes will match your nutritional goals and dietary preferences for optimal health outcomes.
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
         {/* Generate Recipe Button */}
         <Button 
           onClick={generateRecipe}
