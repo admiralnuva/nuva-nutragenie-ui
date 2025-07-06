@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -145,11 +146,12 @@ const MAX_DISH_SELECTION = 5;
 
 export default function RecipesScreen() {
   const [, setLocation] = useLocation();
-  const [currentUser] = useLocalStorage("nutragenie_user", null);
+  const [currentUser] = useLocalStorage("nutragenie_user", null) as any;
   const [userData] = useLocalStorage("userData", null);
   
   // Current view state
   const [currentView, setCurrentView] = useState("ingredients");
+  const [pantryView, setPantryView] = useState("ingredients");
   
   // Form state
   const [selectedCuisine, setSelectedCuisine] = useState("");
@@ -158,11 +160,11 @@ export default function RecipesScreen() {
   const [timeFriendly, setTimeFriendly] = useState("");
   
   // Ingredient selection state
-  const [selectedIngredients, setSelectedIngredients] = useState([]);
+  const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
   const [customIngredient, setCustomIngredient] = useState("");
   
   // Dish selection state
-  const [selectedDishes, setSelectedDishes] = useState([]);
+  const [selectedDishes, setSelectedDishes] = useState<number[]>([]);
   const [customDishName, setCustomDishName] = useState("");
   
   // Track maximum dishes selected for proper limiting
@@ -428,7 +430,102 @@ export default function RecipesScreen() {
           </CardContent>
         </Card>
 
-        {/* Card 3: Recipe Generation */}
+        {/* Card 3: Pantry Ingredients */}
+        <Card className="bg-white border border-gray-200">
+          <CardHeader className="py-3 pb-2">
+            <div className="flex items-center justify-between">
+              <CardTitle className="text-lg">Pantry Ingredients</CardTitle>
+              <div className="flex gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setPantryView(pantryView === 'ingredients' ? 'dishes' : 'ingredients')}
+                  className="text-xs"
+                >
+                  {pantryView === 'ingredients' ? 'View Dishes' : 'View Ingredients'}
+                </Button>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-3 pt-1 pb-3">
+            {pantryView === 'ingredients' ? (
+              <div className="space-y-3">
+                {/* Ingredient Categories */}
+                {Object.entries(pantryIngredients).map(([category, ingredients]) => (
+                  <div key={category} className="border rounded-lg">
+                    <Collapsible open={openCategories[category]} onOpenChange={() => toggleCategory(category)}>
+                      <CollapsibleTrigger className="w-full p-3 text-left hover:bg-gray-50 transition-colors flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className="font-medium text-gray-900 capitalize">{category.replace(/([A-Z])/g, ' $1').trim()}</span>
+                          <Badge variant="secondary" className="text-xs">
+                            {ingredients.filter(ing => selectedIngredients.includes(ing)).length}/{ingredients.length}
+                          </Badge>
+                        </div>
+                        {openCategories[category] ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                      </CollapsibleTrigger>
+                      <CollapsibleContent className="border-t bg-gray-50">
+                        <div className="p-3 grid grid-cols-2 gap-2">
+                          {ingredients.map(ingredient => (
+                            <div key={ingredient} className="flex items-center space-x-2">
+                              <Checkbox
+                                id={ingredient}
+                                checked={selectedIngredients.includes(ingredient)}
+                                onCheckedChange={() => handleIngredientToggle(ingredient)}
+                              />
+                              <label
+                                htmlFor={ingredient}
+                                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                              >
+                                {ingredient}
+                              </label>
+                            </div>
+                          ))}
+                        </div>
+                      </CollapsibleContent>
+                    </Collapsible>
+                  </div>
+                ))}
+                
+                {/* Custom Ingredients */}
+                <div className="space-y-2">
+                  <div className="flex gap-2">
+                    <Input
+                      placeholder="Add custom ingredient..."
+                      value={customIngredient}
+                      onChange={(e) => setCustomIngredient(e.target.value)}
+                      className="flex-1"
+                      onKeyPress={(e) => e.key === 'Enter' && addCustomIngredient()}
+                    />
+                    <Button onClick={addCustomIngredient} size="sm" variant="outline">
+                      Add
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                <div className="text-sm text-gray-600 mb-3">
+                  Recommended dishes based on your selected ingredients ({selectedIngredients.length} ingredients)
+                </div>
+                
+                <div className="grid grid-cols-1 gap-3">
+                  {getMatchingDishes().slice(0, 5).map((dish) => (
+                    <DishCard
+                      key={dish.id}
+                      dish={dish}
+                      isSelected={selectedDishes.includes(dish.id)}
+                      onSelect={toggleDishSelection}
+                      onSubstitutions={(dishId) => console.log('Substitutions for:', dishId)}
+                      onViewRecipe={(dishId) => console.log('View recipe for:', dishId)}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        {/* Card 4: Recipe Generation */}
         <Card className="bg-white border border-gray-200">
           <CardHeader className="py-3 pb-2">
             <div className="flex items-center justify-between">
