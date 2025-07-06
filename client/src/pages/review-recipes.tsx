@@ -537,7 +537,7 @@ export default function ReviewRecipesScreen() {
                         const isOriginalSelected = currentChoices.original;
                         
                         return (
-                          <div key={ingredientIndex} className="space-y-3 border-b border-gray-200 pb-3 last:border-b-0">
+                          <div key={ingredientIndex} className="space-y-2 border-b border-gray-200 pb-2 last:border-b-0">
                             {/* Original ingredient header */}
                             <div className="font-semibold text-gray-800 text-sm">
                               {ingredient.name} Options:
@@ -545,7 +545,7 @@ export default function ReviewRecipesScreen() {
                             
                             {/* Original ingredient option */}
                             <div 
-                              className={`flex items-center space-x-3 p-3 rounded-lg border-2 transition-all cursor-pointer ${
+                              className={`flex items-center space-x-3 p-2 rounded-lg border-2 transition-all cursor-pointer ${
                                 isOriginalSelected 
                                   ? 'bg-indigo-50 border-indigo-300 shadow-sm' 
                                   : 'bg-gray-50 border-gray-200 hover:border-gray-300'
@@ -561,19 +561,13 @@ export default function ReviewRecipesScreen() {
                                 onCheckedChange={() => toggleIngredient(dish.id, ingredientIndex)}
                               />
                               <div className="flex-1">
-                                <div className="flex items-center justify-between">
-                                  <div>
-                                    <span className="font-medium text-gray-900">{ingredient.name}</span>
-                                    <span className="text-gray-600 ml-2">({ingredient.quantity})</span>
-                                  </div>
-                                  <div className="text-right">
-                                    <div className="text-xs font-semibold text-orange-600">
-                                      {ingredient.nutrition.calories} cal
-                                    </div>
-                                    <div className="text-xs text-gray-500">
-                                      {ingredient.nutrition.protein}g protein • {ingredient.nutrition.carbs}g carbs • {ingredient.nutrition.fat}g fat
-                                    </div>
-                                  </div>
+                                <div className="flex items-center justify-between mb-1">
+                                  <span className="font-medium text-gray-900">{ingredient.name}</span>
+                                  <span className="text-xs font-semibold text-orange-600">{ingredient.nutrition.calories} cal</span>
+                                </div>
+                                <div className="flex items-center justify-between text-xs text-gray-500">
+                                  <span>({ingredient.quantity})</span>
+                                  <span>P: {ingredient.nutrition.protein}g • C: {ingredient.nutrition.carbs}g • F: {ingredient.nutrition.fat}g</span>
                                 </div>
                               </div>
                             </div>
@@ -585,7 +579,7 @@ export default function ReviewRecipesScreen() {
                               return (
                                 <div 
                                   key={substitutionIndex} 
-                                  className={`flex items-center space-x-3 p-3 rounded-lg border-2 transition-all ml-4 cursor-pointer ${
+                                  className={`flex items-center space-x-3 p-2 rounded-lg border-2 transition-all ml-4 cursor-pointer ${
                                     isSubstitutionSelected 
                                       ? 'bg-blue-50 border-blue-300 shadow-sm' 
                                       : 'bg-white border-blue-200 hover:border-blue-300'
@@ -601,19 +595,13 @@ export default function ReviewRecipesScreen() {
                                     onCheckedChange={() => selectSubstitution(dish.id, ingredientIndex, substitutionIndex)}
                                   />
                                   <div className="flex-1">
-                                    <div className="flex items-center justify-between">
-                                      <div>
-                                        <span className="font-medium text-blue-900">⟳ {substitution.name}</span>
-                                        <span className="text-blue-600 ml-2">({substitution.quantity})</span>
-                                      </div>
-                                      <div className="text-right">
-                                        <div className="text-xs font-semibold text-orange-600">
-                                          {substitution.nutrition.calories} cal
-                                        </div>
-                                        <div className="text-xs text-gray-500">
-                                          {substitution.nutrition.protein}g protein • {substitution.nutrition.carbs}g carbs • {substitution.nutrition.fat}g fat
-                                        </div>
-                                      </div>
+                                    <div className="flex items-center justify-between mb-1">
+                                      <span className="font-medium text-blue-900">⟳ {substitution.name}</span>
+                                      <span className="text-xs font-semibold text-orange-600">{substitution.nutrition.calories} cal</span>
+                                    </div>
+                                    <div className="flex items-center justify-between text-xs text-gray-500">
+                                      <span className="text-blue-600">({substitution.quantity})</span>
+                                      <span>P: {substitution.nutrition.protein}g • C: {substitution.nutrition.carbs}g • F: {substitution.nutrition.fat}g</span>
                                     </div>
                                   </div>
                                 </div>
