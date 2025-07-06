@@ -63,6 +63,8 @@ export default function VoiceCookingScreen() {
   const [voiceCommandDetected, setVoiceCommandDetected] = useState<string | null>(null);
   const [aiProcessing, setAiProcessing] = useState(false);
   const [lastVoiceCommand, setLastVoiceCommand] = useState<{command: string, timestamp: number} | null>(null);
+  const [userSpeaking, setUserSpeaking] = useState(false);
+  const [chefSpeaking, setChefSpeaking] = useState(false);
   const [cookingTimer, setCookingTimer] = useState<{minutes: number, seconds: number, isActive: boolean}>({
     minutes: 0,
     seconds: 0,
@@ -373,6 +375,28 @@ export default function VoiceCookingScreen() {
     }
   };
 
+  // Simulate user speaking
+  const simulateUserSpeaking = () => {
+    setUserSpeaking(true);
+    setVoiceCommandDetected("Next step please");
+    setTimeout(() => {
+      setUserSpeaking(false);
+      setVoiceCommandDetected(null);
+      // Chef responds
+      simulateChefResponse();
+    }, 2000);
+  };
+
+  // Simulate chef speaking
+  const simulateChefResponse = () => {
+    setChefSpeaking(true);
+    setAiProcessing(true);
+    setTimeout(() => {
+      setAiProcessing(false);
+      setChefSpeaking(false);
+    }, 3000);
+  };
+
   const markStepComplete = (stepIndex: number) => {
     const updatedSteps = [...completedSteps];
     updatedSteps[stepIndex] = true;
@@ -387,7 +411,8 @@ export default function VoiceCookingScreen() {
       setCurrentStep(stepIndex + 1);
     }
     
-    // Enhanced voice feedback with streaks
+    // Enhanced voice feedback with streaks - trigger chef speaking
+    setChefSpeaking(true);
     const personality = getVoicePersonality();
     const streakBonus = stepCompletionStreak > 1 ? ` 🔥 ${stepCompletionStreak + 1} step streak!` : "";
     const completionMessage = `${personality.celebration} Step ${stepIndex + 1} completed!${streakBonus} ${stepIndex < recipe.steps.length - 1 ? "You're on fire! Next step awaits." : "🎉 Recipe complete! You're a culinary superstar!"}`;
@@ -397,6 +422,9 @@ export default function VoiceCookingScreen() {
       message: completionMessage,
       timestamp: new Date()
     }]);
+    
+    // Stop chef speaking after message
+    setTimeout(() => setChefSpeaking(false), 2500);
 
     // Check if all steps completed
     if (updatedSteps.every(step => step)) {
@@ -486,23 +514,39 @@ export default function VoiceCookingScreen() {
         {/* User and Chef Avatars */}
         <div className="flex items-center justify-center gap-6 mt-4">
           <div className="flex flex-col items-center">
-            <div className="w-20 h-20 rounded-full overflow-hidden border-3 border-blue-200 shadow-lg">
-              <img 
-                src={user1Avatar} 
-                alt="User Avatar" 
-                className="w-full h-full object-cover"
-              />
+            <div className="relative">
+              <div className="w-20 h-20 rounded-full overflow-hidden border-3 border-blue-200 shadow-lg">
+                <img 
+                  src={user1Avatar} 
+                  alt="User Avatar" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              {/* User Speaker Icon */}
+              <div className={`absolute -bottom-1 -right-1 w-6 h-6 rounded-full flex items-center justify-center border-2 border-white shadow-sm transition-all duration-300 ${
+                userSpeaking ? 'bg-green-500 scale-110' : 'bg-gray-300'
+              }`}>
+                <Volume2 className={`w-3 h-3 ${userSpeaking ? 'text-white' : 'text-gray-600'}`} />
+              </div>
             </div>
             <span className="text-xs text-gray-600 mt-1">You</span>
           </div>
           
           <div className="flex flex-col items-center">
-            <div className="w-20 h-20 rounded-full overflow-hidden border-3 border-indigo-200 shadow-lg">
-              <img 
-                src={chef1Avatar} 
-                alt="Chef Avatar" 
-                className="w-full h-full object-cover"
-              />
+            <div className="relative">
+              <div className="w-20 h-20 rounded-full overflow-hidden border-3 border-indigo-200 shadow-lg">
+                <img 
+                  src={chef1Avatar} 
+                  alt="Chef Avatar" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              {/* Chef Speaker Icon */}
+              <div className={`absolute -bottom-1 -right-1 w-6 h-6 rounded-full flex items-center justify-center border-2 border-white shadow-sm transition-all duration-300 ${
+                chefSpeaking ? 'bg-indigo-500 scale-110' : 'bg-gray-300'
+              }`}>
+                <Volume2 className={`w-3 h-3 ${chefSpeaking ? 'text-white' : 'text-gray-600'}`} />
+              </div>
             </div>
             <span className="text-xs text-gray-600 mt-1">Chef Antoine</span>
           </div>
@@ -716,6 +760,9 @@ export default function VoiceCookingScreen() {
                           </Button>
                           <Button size="sm" variant="outline" onClick={() => startTimer(15)}>
                             15min
+                          </Button>
+                          <Button size="sm" variant="outline" onClick={simulateUserSpeaking}>
+                            🎤 Test Voice
                           </Button>
                         </div>
                       )}
