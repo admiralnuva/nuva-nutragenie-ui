@@ -497,7 +497,7 @@ export default function VoiceCookingScreen() {
         </div>
         
         {/* User and Chef Avatars with Control Buttons */}
-        <div className="flex items-center justify-center gap-6 mt-4 relative">
+        <div className="flex items-center justify-center gap-6 mt-4 relative bg-gradient-to-br from-blue-400 via-purple-400 to-indigo-500 rounded-xl p-4">
           {/* Test Voice Button - same spacing as stop button */}
           <div className="absolute left-2 top-1/2 transform -translate-y-1/2">
             <Button 
