@@ -13,10 +13,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // User routes
   app.post("/api/users", async (req, res) => {
     try {
+      console.log('Creating user with data:', req.body);
       const userData = insertUserSchema.parse(req.body);
       const user = await storage.createUser(userData);
+      console.log('Created user:', user);
       res.json(user);
     } catch (error) {
+      console.error('Create user error:', error);
       res.status(400).json({ message: "Invalid user data", error: error.message });
     }
   });
@@ -38,9 +41,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const id = parseInt(req.params.id);
       const updates = req.body;
+      console.log(`Updating user ${id} with:`, updates);
+      
+      // Check if user exists first
+      const existingUser = await storage.getUser(id);
+      if (!existingUser) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      
       const user = await storage.updateUser(id, updates);
+      console.log('Updated user:', user);
       res.json(user);
     } catch (error) {
+      console.error('Update user error:', error);
       res.status(400).json({ message: "Error updating user", error: error.message });
     }
   });
