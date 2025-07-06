@@ -1108,8 +1108,13 @@ export default function ReviewRecipesScreen() {
               <div>
                 <h4 className="text-sm font-medium text-gray-700 mb-2">Daily Meal Plan Analysis</h4>
                 {(() => {
-                  // Calculate total nutrition from all 5 dishes (full day)
-                  const allDishesNutrition = displayData.dishes.reduce((total, dish) => {
+                  // Calculate average nutrition from selected dishes
+                  const selectedDishesData = displayData.dishes.filter(dish => 
+                    selectedDishesForAction.includes(dish.id)
+                  );
+                  
+                  const selectedCount = selectedDishesData.length;
+                  const avgNutrition = selectedCount > 0 ? selectedDishesData.reduce((total, dish) => {
                     const dishNutrition = calculateDishNutrition(dish.id);
                     return {
                       calories: total.calories + dishNutrition.calories,
@@ -1118,168 +1123,188 @@ export default function ReviewRecipesScreen() {
                       fat: total.fat + dishNutrition.fat,
                       fiber: total.fiber + (dishNutrition.fiber || 0)
                     };
-                  }, { calories: 0, protein: 0, carbs: 0, fat: 0, fiber: 0 });
+                  }, { calories: 0, protein: 0, carbs: 0, fat: 0, fiber: 0 }) : { calories: 0, protein: 0, carbs: 0, fat: 0, fiber: 0 };
+
+                  // Calculate daily totals (multiply by number of dishes to get full day estimate)
+                  const dailyEstimate = selectedCount > 0 ? {
+                    calories: (avgNutrition.calories / selectedCount) * 5,
+                    protein: (avgNutrition.protein / selectedCount) * 5,
+                    carbs: (avgNutrition.carbs / selectedCount) * 5,
+                    fat: (avgNutrition.fat / selectedCount) * 5,
+                    fiber: (avgNutrition.fiber / selectedCount) * 5
+                  } : { calories: 0, protein: 0, carbs: 0, fat: 0, fiber: 0 };
 
                   return (
                     <div className="space-y-3">
+                      <div className="text-xs text-gray-600 mb-2">
+                        {selectedCount > 0 
+                          ? `Based on ${selectedCount} selected dish${selectedCount > 1 ? 'es' : ''} (estimated daily totals)`
+                          : 'Select dishes to see daily nutrition estimate'
+                        }
+                      </div>
+                      
                       <div className="grid grid-cols-2 gap-2">
                         <div className="bg-orange-100 p-2 rounded-lg border border-orange-300">
-                          <div className="text-xs text-orange-700">Daily Calories</div>
+                          <div className="text-xs text-orange-700">Est. Daily Calories</div>
                           <div className="text-lg font-bold text-orange-800">
-                            {Math.round(allDishesNutrition.calories)}
+                            {selectedCount > 0 ? Math.round(dailyEstimate.calories) : '—'}
                           </div>
                         </div>
                         <div className="bg-blue-100 p-2 rounded-lg border border-blue-300">
-                          <div className="text-xs text-blue-700">Daily Protein</div>
+                          <div className="text-xs text-blue-700">Est. Daily Protein</div>
                           <div className="text-lg font-bold text-blue-800">
-                            {Math.round(allDishesNutrition.protein)}g
+                            {selectedCount > 0 ? Math.round(dailyEstimate.protein) : '—'}g
                           </div>
                         </div>
                         <div className="bg-green-100 p-2 rounded-lg border border-green-300">
-                          <div className="text-xs text-green-700">Daily Carbs</div>
+                          <div className="text-xs text-green-700">Est. Daily Carbs</div>
                           <div className="text-lg font-bold text-green-800">
-                            {Math.round(allDishesNutrition.carbs)}g
+                            {selectedCount > 0 ? Math.round(dailyEstimate.carbs) : '—'}g
                           </div>
                         </div>
                         <div className="bg-purple-100 p-2 rounded-lg border border-purple-300">
-                          <div className="text-xs text-purple-700">Daily Fiber</div>
+                          <div className="text-xs text-purple-700">Est. Daily Fiber</div>
                           <div className="text-lg font-bold text-purple-800">
-                            {Math.round(allDishesNutrition.fiber)}g
+                            {selectedCount > 0 ? Math.round(dailyEstimate.fiber) : '—'}g
                           </div>
                         </div>
                       </div>
 
                       {/* Goal vs Daily Comparison */}
-                      <div className="p-2 bg-gray-50 rounded-lg border">
-                        <h5 className="text-xs font-medium text-gray-700 mb-1">Goal Alignment</h5>
-                        <div className="space-y-1 text-xs">
-                          <div className="flex justify-between">
-                            <span>Calories:</span>
-                            <span className={`font-semibold ${
-                              allDishesNutrition.calories >= (currentUser?.nutritionalTargets?.calories?.[0] || 300) &&
-                              allDishesNutrition.calories <= (currentUser?.nutritionalTargets?.calories?.[1] || 600)
-                                ? 'text-green-600' : 'text-orange-600'
-                            }`}>
-                              {Math.round(allDishesNutrition.calories)} / {currentUser?.nutritionalTargets?.calories?.[0] || 300}-{currentUser?.nutritionalTargets?.calories?.[1] || 600}
-                            </span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span>Protein:</span>
-                            <span className={`font-semibold ${
-                              allDishesNutrition.protein >= (currentUser?.nutritionalTargets?.protein?.[0] || 15) &&
-                              allDishesNutrition.protein <= (currentUser?.nutritionalTargets?.protein?.[1] || 40)
-                                ? 'text-green-600' : 'text-orange-600'
-                            }`}>
-                              {Math.round(allDishesNutrition.protein)}g / {currentUser?.nutritionalTargets?.protein?.[0] || 15}-{currentUser?.nutritionalTargets?.protein?.[1] || 40}g
-                            </span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span>Carbs:</span>
-                            <span className={`font-semibold ${
-                              allDishesNutrition.carbs >= (currentUser?.nutritionalTargets?.carbs?.[0] || 20) &&
-                              allDishesNutrition.carbs <= (currentUser?.nutritionalTargets?.carbs?.[1] || 60)
-                                ? 'text-green-600' : 'text-orange-600'
-                            }`}>
-                              {Math.round(allDishesNutrition.carbs)}g / {currentUser?.nutritionalTargets?.carbs?.[0] || 20}-{currentUser?.nutritionalTargets?.carbs?.[1] || 60}g
-                            </span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span>Fiber:</span>
-                            <span className={`font-semibold ${
-                              allDishesNutrition.fiber >= (currentUser?.nutritionalTargets?.fiber?.[0] || 5) &&
-                              allDishesNutrition.fiber <= (currentUser?.nutritionalTargets?.fiber?.[1] || 25)
-                                ? 'text-green-600' : 'text-orange-600'
-                            }`}>
-                              {Math.round(allDishesNutrition.fiber)}g / {currentUser?.nutritionalTargets?.fiber?.[0] || 5}-{currentUser?.nutritionalTargets?.fiber?.[1] || 25}g
-                            </span>
+                      {selectedCount > 0 && (
+                        <div className="p-2 bg-gray-50 rounded-lg border">
+                          <h5 className="text-xs font-medium text-gray-700 mb-1">Goal Alignment</h5>
+                          <div className="space-y-1 text-xs">
+                            <div className="flex justify-between">
+                              <span>Calories:</span>
+                              <span className={`font-semibold ${
+                                dailyEstimate.calories >= (currentUser?.nutritionalTargets?.calories?.[0] || 300) &&
+                                dailyEstimate.calories <= (currentUser?.nutritionalTargets?.calories?.[1] || 600)
+                                  ? 'text-green-600' : 'text-orange-600'
+                              }`}>
+                                {Math.round(dailyEstimate.calories)} / {currentUser?.nutritionalTargets?.calories?.[0] || 300}-{currentUser?.nutritionalTargets?.calories?.[1] || 600}
+                              </span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span>Protein:</span>
+                              <span className={`font-semibold ${
+                                dailyEstimate.protein >= (currentUser?.nutritionalTargets?.protein?.[0] || 15) &&
+                                dailyEstimate.protein <= (currentUser?.nutritionalTargets?.protein?.[1] || 40)
+                                  ? 'text-green-600' : 'text-orange-600'
+                              }`}>
+                                {Math.round(dailyEstimate.protein)}g / {currentUser?.nutritionalTargets?.protein?.[0] || 15}-{currentUser?.nutritionalTargets?.protein?.[1] || 40}g
+                              </span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span>Carbs:</span>
+                              <span className={`font-semibold ${
+                                dailyEstimate.carbs >= (currentUser?.nutritionalTargets?.carbs?.[0] || 20) &&
+                                dailyEstimate.carbs <= (currentUser?.nutritionalTargets?.carbs?.[1] || 60)
+                                  ? 'text-green-600' : 'text-orange-600'
+                              }`}>
+                                {Math.round(dailyEstimate.carbs)}g / {currentUser?.nutritionalTargets?.carbs?.[0] || 20}-{currentUser?.nutritionalTargets?.carbs?.[1] || 60}g
+                              </span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span>Fiber:</span>
+                              <span className={`font-semibold ${
+                                dailyEstimate.fiber >= (currentUser?.nutritionalTargets?.fiber?.[0] || 5) &&
+                                dailyEstimate.fiber <= (currentUser?.nutritionalTargets?.fiber?.[1] || 25)
+                                  ? 'text-green-600' : 'text-orange-600'
+                              }`}>
+                                {Math.round(dailyEstimate.fiber)}g / {currentUser?.nutritionalTargets?.fiber?.[0] || 5}-{currentUser?.nutritionalTargets?.fiber?.[1] || 25}g
+                              </span>
+                            </div>
                           </div>
                         </div>
-                      </div>
+                      )}
 
                       {/* Compact Progress Bars */}
-                      <div className="space-y-2">
-                        <h5 className="text-xs font-medium text-gray-700 mb-2">Progress vs Goals</h5>
-                        
-                        {/* Calories Progress */}
-                        <div className="space-y-1">
-                          <div className="flex justify-between text-xs">
-                            <span>Calories</span>
-                            <span className="text-gray-600">{Math.round(allDishesNutrition.calories)} / {currentUser?.nutritionalTargets?.calories?.[0] || 300}-{currentUser?.nutritionalTargets?.calories?.[1] || 600}</span>
+                      {selectedCount > 0 && (
+                        <div className="space-y-2">
+                          <h5 className="text-xs font-medium text-gray-700 mb-2">Progress vs Goals</h5>
+                          
+                          {/* Calories Progress */}
+                          <div className="space-y-1">
+                            <div className="flex justify-between text-xs">
+                              <span>Calories</span>
+                              <span className="text-gray-600">{Math.round(dailyEstimate.calories)} / {currentUser?.nutritionalTargets?.calories?.[0] || 300}-{currentUser?.nutritionalTargets?.calories?.[1] || 600}</span>
+                            </div>
+                            <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                              <div 
+                                className={`h-full transition-all duration-300 ${
+                                  dailyEstimate.calories >= (currentUser?.nutritionalTargets?.calories?.[0] || 300) &&
+                                  dailyEstimate.calories <= (currentUser?.nutritionalTargets?.calories?.[1] || 600)
+                                    ? 'bg-green-500' : 'bg-orange-500'
+                                }`}
+                                style={{ 
+                                  width: `${Math.min(100, (dailyEstimate.calories / (currentUser?.nutritionalTargets?.calories?.[1] || 600)) * 100)}%` 
+                                }}
+                              />
+                            </div>
                           </div>
-                          <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                            <div 
-                              className={`h-full transition-all duration-300 ${
-                                allDishesNutrition.calories >= (currentUser?.nutritionalTargets?.calories?.[0] || 300) &&
-                                allDishesNutrition.calories <= (currentUser?.nutritionalTargets?.calories?.[1] || 600)
-                                  ? 'bg-green-500' : 'bg-orange-500'
-                              }`}
-                              style={{ 
-                                width: `${Math.min(100, (allDishesNutrition.calories / (currentUser?.nutritionalTargets?.calories?.[1] || 600)) * 100)}%` 
-                              }}
-                            />
-                          </div>
-                        </div>
 
-                        {/* Protein Progress */}
-                        <div className="space-y-1">
-                          <div className="flex justify-between text-xs">
-                            <span>Protein</span>
-                            <span className="text-gray-600">{Math.round(allDishesNutrition.protein)}g / {currentUser?.nutritionalTargets?.protein?.[0] || 15}-{currentUser?.nutritionalTargets?.protein?.[1] || 40}g</span>
+                          {/* Protein Progress */}
+                          <div className="space-y-1">
+                            <div className="flex justify-between text-xs">
+                              <span>Protein</span>
+                              <span className="text-gray-600">{Math.round(dailyEstimate.protein)}g / {currentUser?.nutritionalTargets?.protein?.[0] || 15}-{currentUser?.nutritionalTargets?.protein?.[1] || 40}g</span>
+                            </div>
+                            <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                              <div 
+                                className={`h-full transition-all duration-300 ${
+                                  dailyEstimate.protein >= (currentUser?.nutritionalTargets?.protein?.[0] || 15) &&
+                                  dailyEstimate.protein <= (currentUser?.nutritionalTargets?.protein?.[1] || 40)
+                                    ? 'bg-green-500' : 'bg-orange-500'
+                                }`}
+                                style={{ 
+                                  width: `${Math.min(100, (dailyEstimate.protein / (currentUser?.nutritionalTargets?.protein?.[1] || 40)) * 100)}%` 
+                                }}
+                              />
+                            </div>
                           </div>
-                          <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                            <div 
-                              className={`h-full transition-all duration-300 ${
-                                allDishesNutrition.protein >= (currentUser?.nutritionalTargets?.protein?.[0] || 15) &&
-                                allDishesNutrition.protein <= (currentUser?.nutritionalTargets?.protein?.[1] || 40)
-                                  ? 'bg-green-500' : 'bg-orange-500'
-                              }`}
-                              style={{ 
-                                width: `${Math.min(100, (allDishesNutrition.protein / (currentUser?.nutritionalTargets?.protein?.[1] || 40)) * 100)}%` 
-                              }}
-                            />
-                          </div>
-                        </div>
 
-                        {/* Carbs Progress */}
-                        <div className="space-y-1">
-                          <div className="flex justify-between text-xs">
-                            <span>Carbs</span>
-                            <span className="text-gray-600">{Math.round(allDishesNutrition.carbs)}g / {currentUser?.nutritionalTargets?.carbs?.[0] || 20}-{currentUser?.nutritionalTargets?.carbs?.[1] || 60}g</span>
+                          {/* Carbs Progress */}
+                          <div className="space-y-1">
+                            <div className="flex justify-between text-xs">
+                              <span>Carbs</span>
+                              <span className="text-gray-600">{Math.round(dailyEstimate.carbs)}g / {currentUser?.nutritionalTargets?.carbs?.[0] || 20}-{currentUser?.nutritionalTargets?.carbs?.[1] || 60}g</span>
+                            </div>
+                            <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                              <div 
+                                className={`h-full transition-all duration-300 ${
+                                  dailyEstimate.carbs >= (currentUser?.nutritionalTargets?.carbs?.[0] || 20) &&
+                                  dailyEstimate.carbs <= (currentUser?.nutritionalTargets?.carbs?.[1] || 60)
+                                    ? 'bg-green-500' : 'bg-orange-500'
+                                }`}
+                                style={{ 
+                                  width: `${Math.min(100, (dailyEstimate.carbs / (currentUser?.nutritionalTargets?.carbs?.[1] || 60)) * 100)}%` 
+                                }}
+                              />
+                            </div>
                           </div>
-                          <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                            <div 
-                              className={`h-full transition-all duration-300 ${
-                                allDishesNutrition.carbs >= (currentUser?.nutritionalTargets?.carbs?.[0] || 20) &&
-                                allDishesNutrition.carbs <= (currentUser?.nutritionalTargets?.carbs?.[1] || 60)
-                                  ? 'bg-green-500' : 'bg-orange-500'
-                              }`}
-                              style={{ 
-                                width: `${Math.min(100, (allDishesNutrition.carbs / (currentUser?.nutritionalTargets?.carbs?.[1] || 60)) * 100)}%` 
-                              }}
-                            />
-                          </div>
-                        </div>
 
-                        {/* Fiber Progress */}
-                        <div className="space-y-1">
-                          <div className="flex justify-between text-xs">
-                            <span>Fiber</span>
-                            <span className="text-gray-600">{Math.round(allDishesNutrition.fiber)}g / {currentUser?.nutritionalTargets?.fiber?.[0] || 5}-{currentUser?.nutritionalTargets?.fiber?.[1] || 25}g</span>
-                          </div>
-                          <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                            <div 
-                              className={`h-full transition-all duration-300 ${
-                                allDishesNutrition.fiber >= (currentUser?.nutritionalTargets?.fiber?.[0] || 5) &&
-                                allDishesNutrition.fiber <= (currentUser?.nutritionalTargets?.fiber?.[1] || 25)
-                                  ? 'bg-green-500' : 'bg-orange-500'
-                              }`}
-                              style={{ 
-                                width: `${Math.min(100, (allDishesNutrition.fiber / (currentUser?.nutritionalTargets?.fiber?.[1] || 25)) * 100)}%` 
-                              }}
-                            />
+                          {/* Fiber Progress */}
+                          <div className="space-y-1">
+                            <div className="flex justify-between text-xs">
+                              <span>Fiber</span>
+                              <span className="text-gray-600">{Math.round(dailyEstimate.fiber)}g / {currentUser?.nutritionalTargets?.fiber?.[0] || 5}-{currentUser?.nutritionalTargets?.fiber?.[1] || 25}g</span>
+                            </div>
+                            <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                              <div 
+                                className={`h-full transition-all duration-300 ${
+                                  dailyEstimate.fiber >= (currentUser?.nutritionalTargets?.fiber?.[0] || 5) &&
+                                  dailyEstimate.fiber <= (currentUser?.nutritionalTargets?.fiber?.[1] || 25)
+                                    ? 'bg-green-500' : 'bg-orange-500'
+                                }`}
+                                style={{ 
+                                  width: `${Math.min(100, (dailyEstimate.fiber / (currentUser?.nutritionalTargets?.fiber?.[1] || 25)) * 100)}%` 
+                                }}
+                              />
+                            </div>
                           </div>
                         </div>
-                      </div>
+                      )}
                     </div>
                   );
                 })()}
