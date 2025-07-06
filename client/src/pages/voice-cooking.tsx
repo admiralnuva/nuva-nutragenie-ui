@@ -493,11 +493,18 @@ export default function VoiceCookingScreen() {
           </div>
           <div className="flex items-center gap-2">
             <Badge variant="secondary">{completedSteps.filter(Boolean).length}/{recipe.totalSteps}</Badge>
+          </div>
+        </div>
+        
+        {/* User and Chef Avatars with Stop Button */}
+        <div className="flex items-center justify-center gap-6 mt-4 relative">
+          {/* Emergency Stop Button - aligned with user avatar */}
+          <div className="absolute left-8 top-1/2 transform -translate-y-1/2">
             <OnboardingTooltip
               id="emergency-stop"
               title="Emergency Stop"
               description="Instantly pause all cooking activities if you need to step away or handle an emergency situation. You can resume cooking anytime."
-              position="left"
+              position="right"
             >
               <Button 
                 size="sm" 
@@ -509,10 +516,7 @@ export default function VoiceCookingScreen() {
               </Button>
             </OnboardingTooltip>
           </div>
-        </div>
-        
-        {/* User and Chef Avatars */}
-        <div className="flex items-center justify-center gap-6 mt-4">
+
           <div className="flex flex-col items-center">
             <div className="relative">
               <div className="w-20 h-20 rounded-full overflow-hidden border-3 border-blue-200 shadow-lg">
