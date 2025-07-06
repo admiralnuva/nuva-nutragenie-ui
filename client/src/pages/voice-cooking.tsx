@@ -774,10 +774,13 @@ export default function VoiceCookingScreen() {
                           {conversation.slice(-3).map((msg, index) => (
                             <div
                               key={`${msg.timestamp.getTime()}-${index}`}
-                              className={`flex items-start gap-2 ${msg.sender === 'user' ? 'flex-row-reverse' : 'flex-row'}`}
+                              className={`flex items-start gap-2 ${msg.sender === 'user' ? 'flex-row-reverse' : 'flex-row'} 
+                                         animate-in slide-in-from-${msg.sender === 'user' ? 'right' : 'left'}-4 
+                                         duration-500 ease-out`}
                             >
                               {/* Avatar Icons */}
-                              <div className="w-6 h-6 rounded-full overflow-hidden border border-gray-200 flex-shrink-0">
+                              <div className="w-6 h-6 rounded-full overflow-hidden border border-gray-200 flex-shrink-0 
+                                            animate-in fade-in duration-300 delay-200">
                                 <img 
                                   src={msg.sender === 'user' ? user1Avatar : chef1Avatar} 
                                   alt={msg.sender === 'user' ? 'User' : 'Chef'} 
@@ -787,10 +790,11 @@ export default function VoiceCookingScreen() {
                               
                               {/* Message Bubble */}
                               <div
-                                className={`max-w-xs px-3 py-2 rounded-lg text-sm ${
+                                className={`max-w-xs px-3 py-2 rounded-lg text-sm transition-all duration-300 
+                                           transform ${
                                   msg.sender === 'user' 
-                                    ? 'bg-blue-500 text-white rounded-tr-none' 
-                                    : 'bg-green-100 text-green-800 rounded-tl-none'
+                                    ? 'bg-blue-500 text-white rounded-tr-none animate-in slide-in-from-right-2 duration-400 delay-100' 
+                                    : 'bg-green-100 text-green-800 rounded-tl-none animate-in slide-in-from-left-2 duration-400 delay-100'
                                 }`}
                               >
                                 <p>{msg.message}</p>
