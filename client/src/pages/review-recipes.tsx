@@ -287,16 +287,9 @@ export default function ReviewRecipesScreen() {
     const key = `${dishId}-${ingredientIndex}`;
     const currentChoice = ingredientChoices[key];
     
-    console.log('selectSubstitution called:', { dishId, selectedDishes, includes: selectedDishes.includes(dishId) });
-    
     // Auto-select the dish when substitution is clicked
     if (!selectedDishes.includes(dishId)) {
-      console.log('Auto-selecting dish:', dishId);
-      setSelectedDishes(prev => {
-        const newSelected = [...prev, dishId];
-        console.log('New selectedDishes:', newSelected);
-        return newSelected;
-      });
+      setSelectedDishes(prev => [...prev, dishId]);
     }
     
     // If already selected, deselect it (toggle behavior)
@@ -535,12 +528,16 @@ export default function ReviewRecipesScreen() {
                             
                             {/* Original ingredient option */}
                             <div 
-                              className={`flex items-center space-x-3 p-3 rounded-lg border-2 transition-all ${
+                              className={`flex items-center space-x-3 p-3 rounded-lg border-2 transition-all cursor-pointer ${
                                 isOriginalSelected 
                                   ? 'bg-indigo-50 border-indigo-300 shadow-sm' 
                                   : 'bg-gray-50 border-gray-200 hover:border-gray-300'
                               }`}
-                              onClick={(e) => e.stopPropagation()}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                toggleIngredient(dish.id, ingredientIndex);
+                              }}
                             >
                               <Checkbox
                                 checked={isOriginalSelected}
@@ -577,17 +574,14 @@ export default function ReviewRecipesScreen() {
                                       : 'bg-white border-blue-200 hover:border-blue-300'
                                   }`}
                                   onClick={(e) => {
+                                    e.preventDefault();
                                     e.stopPropagation();
-                                    alert(`Clicked substitution: ${substitution.name}`);
                                     selectSubstitution(dish.id, ingredientIndex, substitutionIndex);
                                   }}
                                 >
                                   <Checkbox
                                     checked={isSubstitutionSelected}
-                                    onCheckedChange={() => {
-                                      console.log('Checkbox clicked - calling selectSubstitution');
-                                      selectSubstitution(dish.id, ingredientIndex, substitutionIndex);
-                                    }}
+                                    onCheckedChange={() => selectSubstitution(dish.id, ingredientIndex, substitutionIndex)}
                                   />
                                   <div className="flex-1">
                                     <div className="flex items-center justify-between">
