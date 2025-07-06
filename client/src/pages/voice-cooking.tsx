@@ -30,6 +30,8 @@ import {
   ArrowLeft,
   ArrowRight
 } from "lucide-react";
+import user1Avatar from "@/assets/avatars/user/user1.png";
+import chef1Avatar from "@/assets/avatars/chef/chef1.png";
 
 export default function VoiceCookingScreen() {
   const [, setLocation] = useLocation();
@@ -478,6 +480,31 @@ export default function VoiceCookingScreen() {
                 🚨 STOP
               </Button>
             </OnboardingTooltip>
+          </div>
+        </div>
+        
+        {/* User and Chef Avatars */}
+        <div className="flex items-center justify-center gap-6 mt-4">
+          <div className="flex flex-col items-center">
+            <div className="w-20 h-20 rounded-full overflow-hidden border-3 border-blue-200 shadow-lg">
+              <img 
+                src={user1Avatar} 
+                alt="User Avatar" 
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <span className="text-xs text-gray-600 mt-1">You</span>
+          </div>
+          
+          <div className="flex flex-col items-center">
+            <div className="w-20 h-20 rounded-full overflow-hidden border-3 border-indigo-200 shadow-lg">
+              <img 
+                src={chef1Avatar} 
+                alt="Chef Avatar" 
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <span className="text-xs text-gray-600 mt-1">Chef Antoine</span>
           </div>
         </div>
       </div>
