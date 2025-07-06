@@ -9,7 +9,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { BackButton } from "@/components/ui/back-button";
 import { BottomNavigation } from "@/components/ui/bottom-navigation";
-import { ChevronDown, ChevronUp, Plus, Minus, ShoppingCart, List, ChefHat, Utensils, Check } from "lucide-react";
+import { ChevronDown, ChevronUp, Plus, Minus, ShoppingCart, List, ChefHat, Utensils, Check, X, Save, Printer, Share } from "lucide-react";
+import { SiFacebook, SiInstagram, SiTiktok, SiX } from "react-icons/si";
 import chef1Avatar from "@/assets/avatars/chef/chef1.png";
 
 // Chef Recommends dishes for weekly planning
@@ -947,7 +948,17 @@ export default function ReviewRecipesScreen() {
 
                 {/* Expanded cooking instructions dropdown */}
                 {expandedInstructions[dish.id] && (
-                  <div className="mt-4 p-4 bg-white rounded-lg border border-gray-200 space-y-4">
+                  <div className="mt-4 p-4 bg-white rounded-lg border border-gray-200 space-y-4 relative">
+                    {/* Close button */}
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="absolute top-2 right-2 w-8 h-8 p-0 rounded-full"
+                      onClick={() => toggleInstructionsExpansion(dish.id)}
+                    >
+                      <X className="w-4 h-4" />
+                    </Button>
+
                     {/* Card 1: Ingredients with Nutritional Values */}
                     <div className="bg-gray-50 rounded-lg p-3">
                       <h4 className="font-semibold text-gray-800 mb-3">Ingredients & Nutrition</h4>
@@ -977,13 +988,38 @@ export default function ReviewRecipesScreen() {
                     </div>
 
                     {/* Action buttons */}
-                    <div className="flex gap-2 pt-2">
-                      <Button variant="outline" size="sm" className="flex-1">
-                        Save Recipe
-                      </Button>
-                      <Button variant="outline" size="sm" className="flex-1">
-                        Print Recipe
-                      </Button>
+                    <div className="space-y-3 pt-2">
+                      {/* Main action buttons */}
+                      <div className="flex gap-2">
+                        <Button variant="outline" size="sm" className="flex-1">
+                          <Save className="w-4 h-4 mr-2" />
+                          Save
+                        </Button>
+                        <Button variant="outline" size="sm" className="flex-1">
+                          <Printer className="w-4 h-4 mr-2" />
+                          Print
+                        </Button>
+                        <Button variant="outline" size="sm" className="flex-1">
+                          <Share className="w-4 h-4 mr-2" />
+                          Share
+                        </Button>
+                      </div>
+                      
+                      {/* Social media share buttons */}
+                      <div className="flex gap-2 justify-center">
+                        <Button variant="outline" size="sm" className="w-10 h-10 p-0">
+                          <SiFacebook className="w-4 h-4 text-blue-600" />
+                        </Button>
+                        <Button variant="outline" size="sm" className="w-10 h-10 p-0">
+                          <SiInstagram className="w-4 h-4 text-pink-600" />
+                        </Button>
+                        <Button variant="outline" size="sm" className="w-10 h-10 p-0">
+                          <SiTiktok className="w-4 h-4 text-black" />
+                        </Button>
+                        <Button variant="outline" size="sm" className="w-10 h-10 p-0">
+                          <SiX className="w-4 h-4 text-black" />
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 )}
