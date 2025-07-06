@@ -521,11 +521,14 @@ export default function ReviewRecipesScreen() {
                             </div>
                             
                             {/* Original ingredient option */}
-                            <div className={`flex items-center space-x-3 p-3 rounded-lg border-2 transition-all ${
-                              isOriginalSelected 
-                                ? 'bg-indigo-50 border-indigo-300 shadow-sm' 
-                                : 'bg-gray-50 border-gray-200 hover:border-gray-300'
-                            }`}>
+                            <div 
+                              className={`flex items-center space-x-3 p-3 rounded-lg border-2 transition-all ${
+                                isOriginalSelected 
+                                  ? 'bg-indigo-50 border-indigo-300 shadow-sm' 
+                                  : 'bg-gray-50 border-gray-200 hover:border-gray-300'
+                              }`}
+                              onClick={(e) => e.stopPropagation()}
+                            >
                               <Checkbox
                                 checked={isOriginalSelected}
                                 onCheckedChange={() => toggleIngredient(dish.id, ingredientIndex)}
@@ -553,11 +556,15 @@ export default function ReviewRecipesScreen() {
                               const isSubstitutionSelected = currentChoice === substitutionIndex;
                               
                               return (
-                                <div key={substitutionIndex} className={`flex items-center space-x-3 p-3 rounded-lg border-2 transition-all ml-4 ${
-                                  isSubstitutionSelected 
-                                    ? 'bg-blue-50 border-blue-300 shadow-sm' 
-                                    : 'bg-white border-blue-200 hover:border-blue-300'
-                                }`}>
+                                <div 
+                                  key={substitutionIndex} 
+                                  className={`flex items-center space-x-3 p-3 rounded-lg border-2 transition-all ml-4 ${
+                                    isSubstitutionSelected 
+                                      ? 'bg-blue-50 border-blue-300 shadow-sm' 
+                                      : 'bg-white border-blue-200 hover:border-blue-300'
+                                  }`}
+                                  onClick={(e) => e.stopPropagation()}
+                                >
                                   <Checkbox
                                     checked={isSubstitutionSelected}
                                     onCheckedChange={() => selectSubstitution(dish.id, ingredientIndex, substitutionIndex)}
