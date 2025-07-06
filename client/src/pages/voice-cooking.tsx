@@ -509,7 +509,7 @@ export default function VoiceCookingScreen() {
         </div>
       </div>
 
-      <div className="max-w-md mx-auto p-4 space-y-3">
+      <div className="max-w-md mx-auto p-2 space-y-2">
         
         {/* Celebration Animation */}
         {showCelebration && (
@@ -520,7 +520,7 @@ export default function VoiceCookingScreen() {
 
         {/* Emergency Stop Warning */}
         {emergencyStop && (
-          <div className="bg-red-100 border border-red-300 rounded-lg p-4 mb-4">
+          <div className="bg-red-100 border border-red-300 rounded-lg p-4 mb-2">
             <div className="flex items-center gap-3">
               <div className="text-2xl">🚨</div>
               <div>
@@ -543,9 +543,6 @@ export default function VoiceCookingScreen() {
           <CardHeader className="pb-1">
             <CardTitle className="flex items-center justify-between text-lg">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-2xl">
-                  {chefGender === "female" ? "👩‍🍳" : "👨‍🍳"}
-                </div>
                 {stepCompletionStreak > 1 && (
                   <div className="bg-orange-100 border border-orange-300 rounded-full px-2 py-1">
                     <span className="text-xs font-bold text-orange-600">🔥 {stepCompletionStreak}</span>
