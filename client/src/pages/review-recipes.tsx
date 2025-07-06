@@ -204,6 +204,49 @@ const chefRecommendedDishes = [
 // Mock pantry items
 const pantryItems = ["Olive Oil", "Salt", "Black Pepper", "Garlic", "Onions"];
 
+// Cooking instructions for each dish
+const cookingInstructions = {
+  1: [
+    "Preheat oven to 400°F (200°C)",
+    "Season chicken thighs with salt, pepper, and chopped rosemary",
+    "Heat olive oil in an oven-safe skillet over medium-high heat",
+    "Sear chicken thighs skin-side down for 5-6 minutes until golden",
+    "Flip chicken and add cherry tomatoes to the pan",
+    "Transfer skillet to oven and bake for 20-25 minutes",
+    "Rest for 5 minutes before serving"
+  ],
+  2: [
+    "Cook jasmine rice according to package directions",
+    "Heat sesame oil in a large skillet over medium-high heat",
+    "Add ground beef and cook until browned, breaking into small pieces",
+    "Add soy sauce, ginger, and garlic. Cook for 2 minutes",
+    "Serve beef over rice, garnish with sesame seeds and green onions"
+  ],
+  3: [
+    "Heat olive oil in a large pot over medium heat",
+    "Sauté onions and garlic until fragrant",
+    "Add tomatoes, broth, and herbs. Bring to a boil",
+    "Reduce heat and simmer for 20 minutes",
+    "Season with salt and pepper to taste",
+    "Serve hot with crusty bread"
+  ],
+  4: [
+    "Preheat oven to 425°F (220°C)",
+    "Season salmon fillets with salt, pepper, and lemon zest",
+    "Heat olive oil in an oven-safe pan over medium-high heat",
+    "Sear salmon skin-side up for 3-4 minutes",
+    "Flip and transfer to oven for 8-10 minutes",
+    "Let rest for 2 minutes before serving"
+  ],
+  5: [
+    "Grill corn on the cob until charred, about 10 minutes",
+    "Cut kernels off the cob into a large bowl",
+    "Mix in cotija cheese, lime juice, and chili powder",
+    "Add black beans and toss gently",
+    "Garnish with cilantro and serve immediately"
+  ]
+};
+
 // Mock data for selected pantry dishes
 const mockSelectedPantryDishes = [
   {
@@ -322,7 +365,8 @@ export default function ReviewRecipesScreen() {
   }, [navigationContext.view, navigationContext.selectedDishes.length, navigationContext.customDishName]);
 
   // State management for meal planner
-  const [expandedDishes, setExpandedDishes] = useState({}); // Which dishes have expanded dropdowns
+  const [expandedDishes, setExpandedDishes] = useState({}); // Which dishes have expanded substitutions dropdowns
+  const [expandedInstructions, setExpandedInstructions] = useState({}); // Which dishes have expanded cooking instructions
   const [selectedIngredients, setSelectedIngredients] = useState({}); // Track ingredient/substitution selections
   const [shoppingCart, setShoppingCart] = useState([]);
 
@@ -362,6 +406,14 @@ export default function ReviewRecipesScreen() {
   // Toggle dish dropdown expansion
   const toggleDishExpansion = (dishId) => {
     setExpandedDishes(prev => ({
+      ...prev,
+      [dishId]: !prev[dishId]
+    }));
+  };
+
+  // Toggle cooking instructions expansion
+  const toggleInstructionsExpansion = (dishId) => {
+    setExpandedInstructions(prev => ({
       ...prev,
       [dishId]: !prev[dishId]
     }));
@@ -753,16 +805,28 @@ export default function ReviewRecipesScreen() {
                   );
                 })()}
 
-                {/* Substitutions button at bottom */}
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => toggleDishExpansion(dish.id)}
-                  className="w-full flex items-center justify-center gap-1"
-                >
-                  Substitutions
-                  {expandedDishes[dish.id] ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-                </Button>
+                {/* Action buttons */}
+                <div className="space-y-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => toggleDishExpansion(dish.id)}
+                    className="w-full flex items-center justify-center gap-1"
+                  >
+                    Substitutions
+                    {expandedDishes[dish.id] ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                  </Button>
+                  
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => toggleInstructionsExpansion(dish.id)}
+                    className="w-full flex items-center justify-center gap-1"
+                  >
+                    Cooking Instructions
+                    {expandedInstructions[dish.id] ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                  </Button>
+                </div>
 
                 {/* Expanded substitutions dropdown */}
                 {expandedDishes[dish.id] && (
@@ -828,6 +892,49 @@ export default function ReviewRecipesScreen() {
                     </Button>
                   </div>
                 )}
+
+                {/* Expanded cooking instructions dropdown */}
+                {expandedInstructions[dish.id] && (
+                  <div className="mt-4 p-4 bg-white rounded-lg border border-gray-200 space-y-4">
+                    {/* Card 1: Ingredients with Nutritional Values */}
+                    <div className="bg-gray-50 rounded-lg p-3">
+                      <h4 className="font-semibold text-gray-800 mb-3">Ingredients & Nutrition</h4>
+                      <div className="space-y-2">
+                        {dish.ingredients.map((ingredient, idx) => (
+                          <div key={idx} className="flex justify-between items-center text-sm">
+                            <span className="font-medium">{ingredient.name} ({ingredient.quantity})</span>
+                            <span className="text-gray-600">{ingredient.nutrition.calories} cal, {ingredient.nutrition.protein}g protein</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Card 2: Step-by-step Instructions */}
+                    <div className="bg-gray-50 rounded-lg p-3">
+                      <h4 className="font-semibold text-gray-800 mb-3">Step-by-Step Instructions</h4>
+                      <div className="space-y-3">
+                        {cookingInstructions[dish.id]?.map((step, idx) => (
+                          <div key={idx} className="flex gap-3">
+                            <div className="flex-shrink-0 w-6 h-6 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xs font-bold">
+                              {idx + 1}
+                            </div>
+                            <p className="text-sm text-gray-700 flex-1">{step}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Action buttons */}
+                    <div className="flex gap-2 pt-2">
+                      <Button variant="outline" size="sm" className="flex-1">
+                        Save Recipe
+                      </Button>
+                      <Button variant="outline" size="sm" className="flex-1">
+                        Print Recipe
+                      </Button>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           ))}
@@ -865,15 +972,14 @@ export default function ReviewRecipesScreen() {
                 disabled={shoppingCart.length === 0}
               >
                 <List size={16} className="mr-2" />
-                View Grocery List
+                Grocery List
               </Button>
               <Button 
-                variant="outline" 
-                onClick={() => setLocation("/instacart")}
-                disabled={shoppingCart.length === 0}
+                className="flex-1 bg-indigo-600 hover:bg-indigo-700" 
+                onClick={() => setLocation("/voice-cooking")}
               >
-                <ShoppingCart size={16} className="mr-2" />
-                Order Now
+                <ChefHat size={16} className="mr-2" />
+                Let's Cook
               </Button>
             </div>
           </CardContent>
