@@ -9,7 +9,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { BackButton } from "@/components/ui/back-button";
 import { BottomNavigation } from "@/components/ui/bottom-navigation";
-import { ChevronDown, ChevronUp, Plus, Minus, ShoppingCart, List, ChefHat, Utensils } from "lucide-react";
+import { ChevronDown, ChevronUp, Plus, Minus, ShoppingCart, List, ChefHat, Utensils, Check } from "lucide-react";
 import chef1Avatar from "@/assets/avatars/chef/chef1.png";
 
 // Chef Recommends dishes for weekly planning
@@ -368,6 +368,7 @@ export default function ReviewRecipesScreen() {
   const [expandedDishes, setExpandedDishes] = useState({}); // Which dishes have expanded substitutions dropdowns
   const [expandedInstructions, setExpandedInstructions] = useState({}); // Which dishes have expanded cooking instructions
   const [selectedIngredients, setSelectedIngredients] = useState({}); // Track ingredient/substitution selections
+  const [selectedDishesForAction, setSelectedDishesForAction] = useState([]); // Track which dishes are selected for cooking/grocery
   const [shoppingCart, setShoppingCart] = useState([]);
 
   // Scroll to top when component mounts or navigation context changes
@@ -417,6 +418,17 @@ export default function ReviewRecipesScreen() {
       ...prev,
       [dishId]: !prev[dishId]
     }));
+  };
+
+  // Handle dish selection for cooking/grocery actions
+  const toggleDishSelection = (dishId) => {
+    setSelectedDishesForAction(prev => {
+      if (prev.includes(dishId)) {
+        return prev.filter(id => id !== dishId);
+      } else {
+        return [...prev, dishId];
+      }
+    });
   };
 
   // Calculate nutrition for a specific dish based on selected ingredients
@@ -594,10 +606,41 @@ export default function ReviewRecipesScreen() {
           </div>
         </div>
 
+        {/* Selection Info */}
+        {selectedDishesForAction.length > 0 && (
+          <div className="bg-indigo-50 border border-indigo-200 rounded-lg p-3 mb-4">
+            <p className="text-sm text-indigo-700">
+              <strong>{selectedDishesForAction.length} dish{selectedDishesForAction.length !== 1 ? 'es' : ''} selected</strong>
+              {selectedDishesForAction.length === 1 ? 
+                " - Ready for cooking!" : 
+                selectedDishesForAction.length > 1 ? 
+                " - Multiple dishes selected for grocery list. Select only 1 dish for cooking." :
+                ""
+              }
+            </p>
+          </div>
+        )}
+
         {/* Dynamic Dishes */}
         <div className="space-y-4">
-          {displayData.dishes.map((dish, index) => (
-            <div key={dish.id} className="bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200 rounded-lg overflow-hidden">
+          {displayData.dishes.map((dish, index) => {
+            const isSelected = selectedDishesForAction.includes(dish.id);
+            return (
+            <div 
+              key={dish.id} 
+              className={`bg-gradient-to-r from-indigo-50 to-purple-50 border-2 rounded-lg overflow-hidden relative cursor-pointer transition-all ${
+                isSelected ? 'border-indigo-600 shadow-lg' : 'border-indigo-200 hover:border-indigo-400'
+              }`}
+              onClick={() => toggleDishSelection(dish.id)}
+            >
+              {/* Checkbox in top right corner */}
+              <div className="absolute top-3 right-3 z-10">
+                <div className={`w-6 h-6 rounded-md border-2 flex items-center justify-center ${
+                  isSelected ? 'bg-indigo-600 border-indigo-600' : 'bg-white border-gray-300'
+                }`}>
+                  {isSelected && <Check className="w-4 h-4 text-white" />}
+                </div>
+              </div>
               {/* Full width image at top - same as pantry dishes */}
               <div className="w-full h-32 bg-gradient-to-br from-purple-100 to-violet-200 relative flex items-center justify-center">
                 {/* Large colored bowl/plate */}
@@ -937,7 +980,8 @@ export default function ReviewRecipesScreen() {
                 )}
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Shopping Cart Summary - Always visible */}
@@ -969,17 +1013,30 @@ export default function ReviewRecipesScreen() {
               <Button 
                 className="flex-1" 
                 onClick={() => setLocation("/grocery-list")}
-                disabled={shoppingCart.length === 0}
+                disabled={selectedDishesForAction.length === 0}
               >
                 <List size={16} className="mr-2" />
                 Grocery List
+                {selectedDishesForAction.length > 0 && (
+                  <Badge variant="secondary" className="ml-2">{selectedDishesForAction.length}</Badge>
+                )}
               </Button>
               <Button 
                 className="flex-1 bg-indigo-600 hover:bg-indigo-700" 
-                onClick={() => setLocation("/voice-cooking")}
+                onClick={() => {
+                  if (selectedDishesForAction.length === 1) {
+                    setLocation("/voice-cooking");
+                  } else {
+                    alert(selectedDishesForAction.length === 0 ? "Please select 1 dish to start cooking" : "Please select only 1 dish for cooking");
+                  }
+                }}
+                disabled={selectedDishesForAction.length === 0}
               >
                 <ChefHat size={16} className="mr-2" />
                 Let's Cook
+                {selectedDishesForAction.length === 1 && (
+                  <Badge variant="secondary" className="ml-2">1</Badge>
+                )}
               </Button>
             </div>
           </CardContent>
