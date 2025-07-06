@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -10,7 +9,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 
 import { BackButton } from "@/components/ui/back-button";
-import { DishCard } from "@/components/ui/dish-card";
 import { User, ChefHat, ChevronDown, ChevronUp, Sparkles, Check, ShoppingCart } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 
@@ -40,7 +38,7 @@ const chefAvatars = {
   'chef4': chefAvatar4,
 };
 
-// Pantry ingredients by category with first item checked by default
+// Pantry ingredients by category
 const pantryIngredients = {
   meat: ['Chicken Breast', 'Ground Beef', 'Turkey', 'Pork Chops', 'Bacon', 'Ground Turkey', 'Lamb', 'Duck', 'Sausage'],
   fish: ['Salmon', 'Cod', 'Shrimp', 'Tuna', 'Tilapia', 'Crab', 'Lobster', 'Mussels', 'Scallops', 'Anchovies'],
@@ -49,100 +47,91 @@ const pantryIngredients = {
   leafyVegetables: ['Spinach', 'Lettuce', 'Kale', 'Arugula', 'Basil', 'Cilantro', 'Parsley', 'Mint', 'Chard', 'Cabbage'],
   dairy: ['Milk', 'Eggs', 'Butter', 'Cheese', 'Greek Yogurt', 'Cream', 'Sour Cream', 'Cottage Cheese', 'Ricotta', 'Mozzarella'],
   fruits: ['Apples', 'Bananas', 'Lemons', 'Limes', 'Berries', 'Avocado', 'Oranges', 'Grapes', 'Pears', 'Mangoes'],
-  grains: ['Rice', 'Quinoa', 'Pasta', 'Bread', 'Oats', 'Barley', 'Couscous', 'Bulgur', 'Noodles', 'Tortillas'],
-  legumes: ['Black Beans', 'Chickpeas', 'Lentils', 'Kidney Beans', 'Navy Beans', 'Pinto Beans', 'Split Peas', 'Black-eyed Peas', 'Lima Beans', 'Soybeans'],
-  nuts: ['Almonds', 'Walnuts', 'Pecans', 'Cashews', 'Pistachios', 'Pine Nuts', 'Brazil Nuts', 'Hazelnuts', 'Macadamia', 'Peanuts'],
-  baking: ['Flour', 'Sugar', 'Baking Powder', 'Baking Soda', 'Vanilla Extract', 'Cocoa Powder', 'Yeast', 'Cornstarch', 'Powdered Sugar', 'Brown Sugar'],
-  spices: ['Salt', 'Black Pepper', 'Paprika', 'Cumin', 'Garlic Powder', 'Onion Powder', 'Oregano', 'Thyme', 'Rosemary', 'Bay Leaves'],
-  condiments: ['Olive Oil', 'Vegetable Oil', 'Vinegar', 'Soy Sauce', 'Hot Sauce', 'Mustard', 'Ketchup', 'Mayonnaise', 'Honey', 'Maple Syrup'],
-  pantryStaples: ['Canned Tomatoes', 'Tomato Paste', 'Coconut Milk', 'Broth', 'Wine', 'Stock', 'Canned Beans', 'Pickles', 'Olives', 'Capers']
+  grains: ['Rice', 'Pasta', 'Bread', 'Quinoa', 'Oats', 'Barley', 'Couscous', 'Bulgur', 'Farro', 'Buckwheat'],
+  legumes: ['Black Beans', 'Chickpeas', 'Lentils', 'Kidney Beans', 'Pinto Beans', 'Navy Beans', 'Split Peas', 'Lima Beans', 'Cannellini Beans'],
+  spices: ['Salt', 'Pepper', 'Garlic Powder', 'Onion Powder', 'Paprika', 'Cumin', 'Oregano', 'Thyme', 'Rosemary', 'Bay Leaves'],
+  oils: ['Olive Oil', 'Vegetable Oil', 'Coconut Oil', 'Butter', 'Sesame Oil', 'Avocado Oil', 'Canola Oil', 'Sunflower Oil']
 };
 
+// Cuisine types
 const cuisineTypes = [
-  { label: '🍝 Italian', value: 'italian' },
-  { label: '🥘 Mediterranean', value: 'mediterranean' },
-  { label: '🍜 Asian', value: 'asian' },
-  { label: '🌮 Mexican', value: 'mexican' },
-  { label: '🥖 French', value: 'french' },
-  { label: '🍛 Indian', value: 'indian' },
-  { label: '🍳 American', value: 'american' },
-  { label: '🥙 Middle Eastern', value: 'middle-eastern' }
+  { value: 'italian', label: 'Italian' },
+  { value: 'mediterranean', label: 'Mediterranean' },
+  { value: 'asian', label: 'Asian' },
+  { value: 'mexican', label: 'Mexican' },
+  { value: 'indian', label: 'Indian' },
+  { value: 'american', label: 'American' },
+  { value: 'french', label: 'French' },
+  { value: 'thai', label: 'Thai' },
+  { value: 'middle-eastern', label: 'Middle Eastern' },
+  { value: 'japanese', label: 'Japanese' }
 ];
 
+// Skill levels
 const skillLevels = [
-  { label: '👶 Beginner', value: 'beginner' },
-  { label: '👨‍🍳 Intermediate', value: 'intermediate' },
-  { label: '👨‍🎓 Advanced', value: 'advanced' },
-  { label: '🧒 Kid Friendly', value: 'kid-friendly' }
+  { value: 'beginner', label: 'Beginner' },
+  { value: 'intermediate', label: 'Intermediate' },
+  { value: 'advanced', label: 'Advanced' },
+  { value: 'expert', label: 'Expert' }
 ];
 
+// Time-friendly options
 const timeFriendlyOptions = [
-  { label: '⚡ Quick (under 15 min)', value: 'quick' },
-  { label: '⏰ Moderate (15-30 min)', value: 'moderate' },
-  { label: '🕐 Long (30+ min)', value: 'long' }
+  { value: '15-min', label: '15 minutes' },
+  { value: '30-min', label: '30 minutes' },
+  { value: '45-min', label: '45 minutes' },
+  { value: '60-min', label: '1 hour' },
+  { value: '90-min', label: '1.5 hours' },
+  { value: '2-hours', label: '2+ hours' }
 ];
 
-// Enhanced pantry dishes with matching ingredients
-const pantryDishes = [
+// Smart recommended dishes
+const smartRecommendedDishes = [
   {
-    name: 'Chicken Stir Fry',
-    ingredients: ['Chicken Breast', 'Bell Peppers', 'Onions', 'Garlic', 'Olive Oil'],
+    name: 'Chicken Stir-Fry',
+    ingredients: ['Chicken Breast', 'Bell Peppers', 'Broccoli', 'Garlic', 'Soy Sauce', 'Sesame Oil'],
     prepTime: 15,
-    cookTime: 12,
-    calories: 320,
-    protein: 28,
+    cookTime: 10,
+    calories: 350,
+    protein: 25,
     difficulty: 'Easy',
-    badges: ['High-Protein', 'Quick'],
-    emoji: '🥘'
+    badges: ['High Protein', 'Quick'],
+    emoji: '🍗'
   },
   {
     name: 'Mediterranean Salmon',
-    ingredients: ['Salmon', 'Tomatoes', 'Spinach', 'Garlic', 'Olive Oil', 'Lemons'],
+    ingredients: ['Salmon', 'Lemon', 'Olive Oil', 'Garlic', 'Oregano', 'Tomatoes'],
     prepTime: 10,
-    cookTime: 18,
-    calories: 380,
-    protein: 32,
-    difficulty: 'Medium',
-    badges: ['Heart-Healthy', 'Mediterranean'],
-    emoji: '🍣'
-  },
-  {
-    name: 'Veggie Omelet',
-    ingredients: ['Eggs', 'Bell Peppers', 'Spinach', 'Cheese', 'Butter'],
-    prepTime: 5,
-    cookTime: 8,
-    calories: 280,
-    protein: 22,
-    difficulty: 'Easy',
-    badges: ['Vegetarian', 'Quick'],
-    emoji: '🍳'
-  },
-  {
-    name: 'Beef & Potato Skillet',
-    ingredients: ['Ground Beef', 'Potatoes', 'Onions', 'Garlic', 'Paprika'],
-    prepTime: 12,
-    cookTime: 25,
+    cookTime: 15,
     calories: 420,
-    protein: 26,
+    protein: 35,
     difficulty: 'Medium',
-    badges: ['Hearty', 'One-Pan'],
-    emoji: '🥩'
+    badges: ['Heart Healthy', 'Omega-3'],
+    emoji: '🐟'
   },
   {
-    name: 'Greek Salad Bowl',
-    ingredients: ['Tomatoes', 'Cucumber', 'Cheese', 'Olive Oil', 'Oregano'],
-    prepTime: 8,
-    cookTime: 0,
-    calories: 180,
-    protein: 8,
+    name: 'Vegetable Curry',
+    ingredients: ['Cauliflower', 'Chickpeas', 'Spinach', 'Coconut Oil', 'Cumin', 'Turmeric'],
+    prepTime: 20,
+    cookTime: 25,
+    calories: 280,
+    protein: 12,
+    difficulty: 'Medium',
+    badges: ['Vegetarian', 'Fiber Rich'],
+    emoji: '🍛'
+  },
+  {
+    name: 'Quinoa Bowl',
+    ingredients: ['Quinoa', 'Avocado', 'Black Beans', 'Tomatoes', 'Lime', 'Cilantro'],
+    prepTime: 15,
+    cookTime: 20,
+    calories: 320,
+    protein: 14,
     difficulty: 'Easy',
-    badges: ['No-Cook', 'Mediterranean'],
+    badges: ['Complete Protein', 'Vegan'],
     emoji: '🥗'
   }
 ];
-
-// Constants
-const MAX_DISH_SELECTION = 5;
 
 export default function RecipesScreen() {
   const [, setLocation] = useLocation();
@@ -150,7 +139,6 @@ export default function RecipesScreen() {
   const [userData] = useLocalStorage("userData", null);
   
   // Current view state
-  const [currentView, setCurrentView] = useState("ingredients");
   const [pantryView, setPantryView] = useState("ingredients");
   
   // Form state
@@ -171,90 +159,31 @@ export default function RecipesScreen() {
   const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
   const [customIngredient, setCustomIngredient] = useState("");
   
-  // Dish selection state
-  const [selectedDishes, setSelectedDishes] = useState<number[]>([]);
-  const [customDishName, setCustomDishName] = useState("");
-  
-  // Track maximum dishes selected for proper limiting
-  const getTotalSelectedDishes = () => {
-    let total = selectedDishes.length;
-    if (customDishName.trim()) {
-      total += 1;
+  // Initialize default ingredients based on dietary preferences
+  useEffect(() => {
+    if (currentUser?.dietaryRestrictions) {
+      const defaultIngredients = [];
+      if (currentUser.dietaryRestrictions.includes('vegetarian') || currentUser.dietaryRestrictions.includes('vegan')) {
+        defaultIngredients.push('Spinach', 'Quinoa', 'Chickpeas', 'Avocado', 'Olive Oil');
+      }
+      if (currentUser.dietaryRestrictions.includes('keto')) {
+        defaultIngredients.push('Avocado', 'Salmon', 'Eggs', 'Olive Oil', 'Spinach');
+      }
+      if (defaultIngredients.length > 0) {
+        setSelectedIngredients(defaultIngredients);
+      }
     }
-    return total;
-  };
-  
-  // Collapsible states for ingredient categories
-  const [openCategories, setOpenCategories] = useState({
-    meat: true,
-    fish: false,
-    vegetables: false,
-    rootVegetables: false,
-    leafyVegetables: false,
-    dairy: false,
-    fruits: false,
-    grains: false,
-    legumes: false,
-    nuts: false,
-    baking: false,
-    spices: false,
-    condiments: false,
-    pantryStaples: false
-  });
+  }, [currentUser]);
 
   // Get user avatar
-  const userAvatarSrc = currentUser && currentUser.avatar ? userAvatars[currentUser.avatar] : userAvatar1;
-  
-  // Fix chef avatar mapping
-  let chefAvatarSrc = chefAvatar1;
-  if (currentUser?.selectedChef?.avatar) {
-    const avatarPath = currentUser.selectedChef.avatar;
-    if (avatarPath.includes('chef1')) {
-      chefAvatarSrc = chefAvatar1;
-    } else if (avatarPath.includes('chef2')) {
-      chefAvatarSrc = chefAvatar2;
-    } else if (avatarPath.includes('chef3')) {
-      chefAvatarSrc = chefAvatar3;
-    } else if (avatarPath.includes('chef4')) {
-      chefAvatarSrc = chefAvatar4;
-    }
-  }
+  const userAvatarSrc = currentUser?.selectedAvatar ? userAvatars[currentUser.selectedAvatar] : userAvatar1;
 
-  // Initialize with first ingredient from each category checked
-  useEffect(() => {
-    const firstIngredients = Object.values(pantryIngredients).map(category => category[0]);
-    setSelectedIngredients(firstIngredients);
-  }, []);
-
-  // Filter dishes based on selected ingredients
-  const getMatchingDishes = () => {
-    return pantryDishes.filter(dish => {
-      const matchingIngredients = dish.ingredients.filter(ingredient => 
-        selectedIngredients.includes(ingredient)
-      );
-      return matchingIngredients.length >= 2;
-    }).sort((a, b) => {
-      const aMatches = a.ingredients.filter(ingredient => selectedIngredients.includes(ingredient)).length;
-      const bMatches = b.ingredients.filter(ingredient => selectedIngredients.includes(ingredient)).length;
-      return bMatches - aMatches;
-    });
+  // Generate recipe function
+  const generateRecipe = () => {
+    setLocation("/review-recipes");
   };
 
-  const handleIngredientToggle = (ingredient) => {
-    setSelectedIngredients(prev => 
-      prev.includes(ingredient) 
-        ? prev.filter(i => i !== ingredient)
-        : [...prev, ingredient]
-    );
-  };
-
-  const toggleCategory = (category) => {
-    setOpenCategories(prev => ({
-      ...prev,
-      [category]: !prev[category]
-    }));
-  };
-
+  // Add custom ingredient
   const addCustomIngredient = () => {
     if (customIngredient.trim() && !selectedIngredients.includes(customIngredient.trim())) {
       setSelectedIngredients(prev => [...prev, customIngredient.trim()]);
@@ -262,33 +191,38 @@ export default function RecipesScreen() {
     }
   };
 
-  const toggleDishSelection = (dishId) => {
-    setSelectedDishes(prev => {
-      if (prev.includes(dishId)) {
-        return prev.filter(id => id !== dishId);
-      } else {
-        const totalSelected = getTotalSelectedDishes();
-        if (totalSelected >= MAX_DISH_SELECTION) {
-          return prev;
-        }
-        return [...prev, dishId];
-      }
+  // Get matching ingredients for a dish
+  const getMatchingIngredients = (dish: any) => {
+    return dish.ingredients.filter((ingredient: string) => 
+      selectedIngredients.some(selected => 
+        selected.toLowerCase().includes(ingredient.toLowerCase()) || 
+        ingredient.toLowerCase().includes(selected.toLowerCase())
+      )
+    );
+  };
+
+  // Get dishes sorted by ingredient match
+  const getSortedDishes = () => {
+    return smartRecommendedDishes.sort((a, b) => {
+      const matchA = getMatchingIngredients(a).length;
+      const matchB = getMatchingIngredients(b).length;
+      return matchB - matchA;
     });
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-20">
-      <div className="sticky top-0 z-10 bg-white border-b border-gray-200 px-4 py-3">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <BackButton to="/home" />
-            <h1 className="text-xl font-bold text-gray-900">NutraGenie</h1>
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-purple-50">
+      <div className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-indigo-100">
+        <div className="flex items-center justify-between p-4 max-w-2xl mx-auto">
+          <BackButton to="/home" />
+          <h1 className="text-xl font-bold text-gray-900">NutraGenie</h1>
+          <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center">
+            <ChefHat className="w-4 h-4 text-indigo-600" />
           </div>
-          <ChefHat className="w-6 h-6 text-indigo-600" />
         </div>
       </div>
 
-      <div className="p-4 space-y-4 max-w-2xl mx-auto">
+      <div className="p-4 space-y-4 max-w-2xl mx-auto" style={{ paddingTop: '80px' }}>
         {/* Card 1: Dietary Preferences */}
         <Card className="bg-white border border-gray-200">
           <CardHeader className="py-3 pb-2">
@@ -444,7 +378,6 @@ export default function RecipesScreen() {
               </div>
             </div>
             
-            {/* Goal Alignment Feedback */}
             <div className="mt-3 p-2 bg-indigo-50 rounded-md">
               <div className="flex items-center gap-2">
                 <Check className="h-4 w-4 text-indigo-600" />
@@ -479,75 +412,134 @@ export default function RecipesScreen() {
           <CardContent className="space-y-3 pt-1 pb-3">
             {pantryView === 'ingredients' ? (
               <div className="space-y-3">
-                {/* Ingredient Categories */}
-                {Object.entries(pantryIngredients).map(([category, ingredients]) => (
-                  <div key={category} className="border rounded-lg">
-                    <Collapsible open={openCategories[category]} onOpenChange={() => toggleCategory(category)}>
-                      <CollapsibleTrigger className="w-full p-3 text-left hover:bg-gray-50 transition-colors flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <span className="font-medium text-gray-900 capitalize">{category.replace(/([A-Z])/g, ' $1').trim()}</span>
-                          <Badge variant="secondary" className="text-xs">
-                            {ingredients.filter(ing => selectedIngredients.includes(ing)).length}/{ingredients.length}
-                          </Badge>
-                        </div>
-                        {openCategories[category] ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
-                      </CollapsibleTrigger>
-                      <CollapsibleContent className="border-t bg-gray-50">
-                        <div className="p-3 grid grid-cols-2 gap-2">
-                          {ingredients.map(ingredient => (
-                            <div key={ingredient} className="flex items-center space-x-2">
-                              <Checkbox
-                                id={ingredient}
-                                checked={selectedIngredients.includes(ingredient)}
-                                onCheckedChange={() => handleIngredientToggle(ingredient)}
-                              />
-                              <label
-                                htmlFor={ingredient}
-                                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                              >
-                                {ingredient}
-                              </label>
-                            </div>
-                          ))}
-                        </div>
-                      </CollapsibleContent>
-                    </Collapsible>
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <label className="text-xs font-medium text-gray-700 mb-1 block">Cuisine</label>
+                    <Select value={selectedCuisine} onValueChange={setSelectedCuisine}>
+                      <SelectTrigger className="h-8">
+                        <SelectValue placeholder="Select cuisine" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {cuisineTypes.map(cuisine => (
+                          <SelectItem key={cuisine.value} value={cuisine.value}>
+                            {cuisine.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </div>
-                ))}
-                
-                {/* Custom Ingredients */}
-                <div className="space-y-2">
-                  <div className="flex gap-2">
-                    <Input
-                      placeholder="Add custom ingredient..."
-                      value={customIngredient}
-                      onChange={(e) => setCustomIngredient(e.target.value)}
-                      className="flex-1"
-                      onKeyPress={(e) => e.key === 'Enter' && addCustomIngredient()}
-                    />
-                    <Button onClick={addCustomIngredient} size="sm" variant="outline">
-                      Add
-                    </Button>
+
+                  <div>
+                    <label className="text-xs font-medium text-gray-700 mb-1 block">Servings</label>
+                    <Select value={servingSize} onValueChange={setServingSize}>
+                      <SelectTrigger className="h-8">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {Array.from({length: 10}, (_, i) => i + 1).map(num => (
+                          <SelectItem key={num} value={num.toString()}>
+                            {num} {num === 1 ? 'serving' : 'servings'}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <label className="text-xs font-medium text-gray-700 mb-1 block">Skill Level</label>
+                    <Select value={skillLevel} onValueChange={setSkillLevel}>
+                      <SelectTrigger className="h-8">
+                        <SelectValue placeholder="Select level" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {skillLevels.map(level => (
+                          <SelectItem key={level.value} value={level.value}>
+                            {level.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div>
+                    <label className="text-xs font-medium text-gray-700 mb-1 block">Time Available</label>
+                    <Select value={timeFriendly} onValueChange={setTimeFriendly}>
+                      <SelectTrigger className="h-8">
+                        <SelectValue placeholder="Select time" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {timeFriendlyOptions.map(option => (
+                          <SelectItem key={option.value} value={option.value}>
+                            {option.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+
+                <div className="flex gap-2">
+                  <Input
+                    placeholder="Add custom ingredient..."
+                    value={customIngredient}
+                    onChange={(e) => setCustomIngredient(e.target.value)}
+                    className="flex-1 h-8"
+                    onKeyPress={(e) => e.key === 'Enter' && addCustomIngredient()}
+                  />
+                  <Button
+                    onClick={addCustomIngredient}
+                    size="sm"
+                    className="h-8"
+                  >
+                    Add
+                  </Button>
                 </div>
               </div>
             ) : (
               <div className="space-y-3">
-                <div className="text-sm text-gray-600 mb-3">
-                  Recommended dishes based on your selected ingredients ({selectedIngredients.length} ingredients)
+                <div className="flex items-center gap-2 mb-2">
+                  <Sparkles className="h-4 w-4 text-indigo-500" />
+                  <h4 className="text-sm font-medium text-gray-700">Smart Recommendations</h4>
+                  <Badge variant="secondary" className="text-xs">
+                    {getSortedDishes().length} dishes
+                  </Badge>
                 </div>
                 
-                <div className="grid grid-cols-1 gap-3">
-                  {getMatchingDishes().slice(0, 5).map((dish) => (
-                    <DishCard
-                      key={dish.id}
-                      dish={dish}
-                      isSelected={selectedDishes.includes(dish.id)}
-                      onSelect={toggleDishSelection}
-                      onSubstitutions={(dishId) => console.log('Substitutions for:', dishId)}
-                      onViewRecipe={(dishId) => console.log('View recipe for:', dishId)}
-                    />
-                  ))}
+                <div className="grid grid-cols-1 gap-2">
+                  {getSortedDishes().map((dish, index) => {
+                    const matchingIngredients = getMatchingIngredients(dish);
+                    const matchPercentage = Math.round((matchingIngredients.length / dish.ingredients.length) * 100);
+                    
+                    return (
+                      <div key={index} className="p-3 border border-gray-200 rounded-lg bg-gradient-to-r from-indigo-50 to-purple-50">
+                        <div className="flex items-start justify-between">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2 mb-1">
+                              <span className="text-lg">{dish.emoji}</span>
+                              <h5 className="font-medium text-gray-900">{dish.name}</h5>
+                              <Badge variant="outline" className="text-xs">
+                                {matchPercentage}% match
+                              </Badge>
+                            </div>
+                            <div className="flex items-center gap-4 text-xs text-gray-600 mb-1">
+                              <span>{dish.prepTime + dish.cookTime} min</span>
+                              <span>{dish.calories} cal</span>
+                              <span>{dish.protein}g protein</span>
+                            </div>
+                            <div className="flex flex-wrap gap-1">
+                              {dish.badges.map((badge, badgeIndex) => (
+                                <Badge key={badgeIndex} variant="secondary" className="text-xs">
+                                  {badge}
+                                </Badge>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             )}
@@ -560,216 +552,37 @@ export default function RecipesScreen() {
             <div className="flex items-center justify-between">
               <div className="flex-1">
                 <CardTitle className="text-lg">Recipe Generation</CardTitle>
-                <p className="text-xs text-gray-600">Choose your approach</p>
+                <p className="text-xs text-gray-600 mt-1">Generate personalized recipes based on your selections</p>
               </div>
-              <div className="flex flex-col items-center ml-4">
-                <div className="w-16 h-16 rounded-lg overflow-hidden bg-white">
-                  <img 
-                    src={chefAvatarSrc} 
-                    alt="Chef Avatar"
-                    className="w-full h-full object-cover rounded-lg"
-                  />
-                </div>
-                <p className="text-xs text-gray-600 mt-1 text-center font-medium">
-                  {currentUser?.selectedChef?.name || "Chef Marcus"}
-                </p>
+              <div className="flex items-center gap-2">
+                <ShoppingCart className="h-4 w-4 text-indigo-600" />
+                <Badge variant="secondary" className="text-xs">
+                  {selectedIngredients.length} ingredients
+                </Badge>
               </div>
             </div>
           </CardHeader>
-          <CardContent className="pt-1 pb-2">
-            <div className="mb-3">
-              <div className="flex bg-gray-100 rounded-lg p-1">
-                <button
-                  onClick={() => setCurrentView("ingredients")}
-                  className={`flex-1 py-2 px-3 rounded-md text-xs font-medium transition-all ${
-                    currentView === "ingredients" 
-                      ? "bg-indigo-600 text-white shadow-lg" 
-                      : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-200"
-                  }`}
-                >
-                  Pantry Ingredients
-                </button>
-                <button
-                  onClick={() => setCurrentView("dishes")}
-                  className={`flex-1 py-2 px-1 rounded-md text-xs font-medium transition-all ${
-                    currentView === "dishes" 
-                      ? "bg-indigo-600 text-white shadow-lg" 
-                      : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-200"
-                  }`}
-                >
-                  Pantry Dishes
-                </button>
-                <button
-                  onClick={() => setCurrentView("create")}
-                  className={`flex-1 py-2 px-1 rounded-md text-xs font-medium transition-all ${
-                    currentView === "create" 
-                      ? "bg-indigo-600 text-white shadow-lg" 
-                      : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-200"
-                  }`}
-                >
-                  Create a Dish
-                </button>
+          <CardContent className="space-y-3 pt-1 pb-3">
+            <div className="bg-indigo-50 p-3 rounded-md">
+              <div className="flex items-center gap-2 mb-2">
+                <Check className="h-4 w-4 text-indigo-600" />
+                <span className="text-sm font-medium text-indigo-700">Ready to generate recipes</span>
               </div>
+              <p className="text-xs text-indigo-600">
+                {selectedIngredients.length > 0 ? 
+                  `Using ${selectedIngredients.length} selected ingredients and your dietary preferences` :
+                  'Select ingredients above to get personalized recipe suggestions'
+                }
+              </p>
             </div>
-
-            {currentView === "ingredients" ? (
-              /* Pantry Ingredients View */
-              <div className="space-y-3">
-                <div className="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
-                  <div className="text-xs font-medium text-indigo-700 mb-2">Selected Ingredients</div>
-                  <div className="flex flex-wrap gap-1">
-                    {selectedIngredients.length > 0 ? (
-                      selectedIngredients.slice(0, 8).map((ingredient, index) => (
-                        <Badge
-                          key={ingredient}
-                          variant="secondary"
-                          className={`text-xs ${
-                            index === 0 ? 'font-medium text-indigo-600' : 'text-gray-700'
-                          }`}
-                        >
-                          {ingredient}
-                        </Badge>
-                      ))
-                    ) : (
-                      <div className="text-xs text-indigo-600">No ingredients selected</div>
-                    )}
-                  </div>
-                </div>
-              </div>
-            ) : currentView === "dishes" ? (
-              /* Pantry Dishes View */
-              <div className="space-y-3">
-                {selectedDishes.length === 0 && (
-                  <p className="text-center text-gray-600 text-sm mb-4">
-                    Select dishes and cook
-                  </p>
-                )}
-                <div className="grid grid-cols-1 gap-4">
-                  {pantryDishes.slice(0, 4).map((dish, index) => {
-                    const dishId = dish.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
-                    const isSelected = selectedDishes.includes(dishId);
-                    const isDisabled = !isSelected && getTotalSelectedDishes() >= MAX_DISH_SELECTION;
-
-                    const handleDishSelect = (selectedDishId) => {
-                      if (!isDisabled) {
-                        toggleDishSelection(selectedDishId);
-                      }
-                    };
-
-                    const handleSubstitutions = (selectedDishId) => {
-                      console.log('Substitutions for:', selectedDishId);
-                    };
-
-                    const handleViewRecipe = (selectedDishId) => {
-                      console.log('View recipe for:', selectedDishId);
-                    };
-
-                    return (
-                      <DishCard
-                        key={dish.name}
-                        dish={dish}
-                        isSelected={isSelected}
-                        onSelect={handleDishSelect}
-                        onSubstitutions={handleSubstitutions}
-                        onViewRecipe={handleViewRecipe}
-                        className={isDisabled ? 'opacity-50 cursor-not-allowed' : ''}
-                      />
-                    );
-                  })}
-                </div>
-                
-                {/* Shopping Cart Section */}
-                {selectedDishes.length > 0 && (
-                  <Card className="bg-white border border-gray-200 mt-4">
-                    <CardHeader className="py-3">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <ShoppingCart className="w-5 h-5 text-indigo-600" />
-                          <CardTitle className="text-base">Shopping Cart</CardTitle>
-                        </div>
-                        <Badge variant="secondary" className="bg-indigo-100 text-indigo-800">
-                          {selectedDishes.length} dishes
-                        </Badge>
-                      </div>
-                    </CardHeader>
-                    <CardContent className="py-3">
-                      <div className="space-y-3">
-                        {selectedDishes.map((dishId) => {
-                          const dish = pantryDishes.find(d => d.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') === dishId);
-                          if (!dish) return null;
-                          
-                          return (
-                            <div key={dishId} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg">
-                              <div className="flex items-center gap-3">
-                                <div className="text-2xl">{dish.emoji}</div>
-                                <div>
-                                  <p className="font-medium text-sm">{dish.name}</p>
-                                  <p className="text-xs text-gray-600">{dish.ingredients.slice(0, 3).join(', ')}</p>
-                                </div>
-                              </div>
-                              <div className="text-right">
-                                <p className="text-sm font-medium">{dish.calories} cal</p>
-                                <p className="text-xs text-gray-600">{dish.cookTime} min</p>
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </div>
-                      
-                      <div className="mt-4 pt-3 border-t">
-                        <Button 
-                          className="w-full bg-indigo-600 hover:bg-indigo-700"
-                          onClick={() => setLocation("/review-recipes")}
-                        >
-                          Generate Recipe ({selectedDishes.length} dishes)
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                )}
-              </div>
-            ) : (
-              /* Create a Dish View */
-              <div className="space-y-4">
-                <Card className="bg-white border border-gray-200">
-                  <CardHeader className="py-2">
-                    <div className="flex items-center justify-between">
-                      <div className="flex-1">
-                        <CardTitle className="text-lg leading-tight">Custom Dish</CardTitle>
-                        <p className="text-xs text-gray-600 mt-1">Create your own or let chef decide</p>
-                      </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="space-y-3 py-3">
-                    <div>
-                      <Input
-                        value={customDishName}
-                        onChange={(e) => setCustomDishName(e.target.value)}
-                        placeholder="Enter your dish name..."
-                        className="w-full py-2"
-                      />
-                    </div>
-                    <div className="grid grid-cols-2 gap-2">
-                      <Button 
-                        className="bg-indigo-600 hover:bg-indigo-700 text-sm py-2"
-                        disabled={!customDishName.trim()}
-                        onClick={() => setLocation("/review-recipes")}
-                      >
-                        Let Chef Create
-                      </Button>
-                      <Button 
-                        variant="outline"
-                        className="text-sm py-2"
-                        disabled={!customDishName.trim()}
-                        onClick={() => setLocation("/review-recipes")}
-                      >
-                        I'll Plan It
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            )}
+            
+            <Button
+              onClick={generateRecipe}
+              className="w-full"
+              disabled={selectedIngredients.length === 0}
+            >
+              Generate Recipes
+            </Button>
           </CardContent>
         </Card>
       </div>
