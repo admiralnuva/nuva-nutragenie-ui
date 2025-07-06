@@ -285,6 +285,14 @@ Changelog:
   * Updated chef names to reflect personalities: Chef Marcus (Precise), Chef Luna (Vibrant), Chef Blaze (Bold), Chef Harmony (Zen)
   * Fixed all TypeScript errors and avatar selection logic for image-based avatars
   * Organized custom icons in proper asset folder structure for scalable management
+- July 05, 2025. Comprehensive Substitution System and Auto-Selection Implementation:
+  * Fixed major event handling issues where parent dish container was intercepting substitution clicks
+  * Implemented automatic dish selection when any substitution or original ingredient is selected
+  * Enhanced substitution logic with proper event prevention (preventDefault + stopPropagation)
+  * Made entire ingredient/substitution boxes clickable for better user experience
+  * Resolved checkbox selection bugs that were causing mass ingredient deselection
+  * Cleaned up debugging console logs for production-ready experience
+  * Maintained real-time shopping cart updates with selected ingredients and substitutions
 - July 05, 2025. Health Tracking UI/UX Optimizations:
   * Enhanced typography: Made "7-Day Trends" bold and consistent with Daily Goals styling
   * Implemented alternative graph visualizations: Heatmap style for blood pressure, progress circles for blood sugar
