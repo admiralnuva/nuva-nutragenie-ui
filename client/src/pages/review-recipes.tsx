@@ -564,8 +564,11 @@ export default function ReviewRecipesScreen() {
                                 <div className="mb-1">
                                   <span className="font-medium text-gray-900">{ingredient.name} ({ingredient.quantity})</span>
                                 </div>
-                                <div className="text-xs text-gray-500">
-                                  {ingredient.nutrition.calories} cal • P: {ingredient.nutrition.protein}g • C: {ingredient.nutrition.carbs}g • F: {ingredient.nutrition.fat}g
+                                <div className="text-xs">
+                                  <span className="font-semibold text-orange-600">{ingredient.nutrition.calories} cal</span> • 
+                                  <span className="text-blue-600 font-medium">P: {ingredient.nutrition.protein}g</span> • 
+                                  <span className="text-green-600 font-medium">C: {ingredient.nutrition.carbs}g</span> • 
+                                  <span className="text-purple-600 font-medium">F: {ingredient.nutrition.fat}g</span>
                                 </div>
                               </div>
                             </div>
@@ -596,8 +599,11 @@ export default function ReviewRecipesScreen() {
                                     <div className="mb-1">
                                       <span className="font-medium text-blue-900">⟳ {substitution.name} ({substitution.quantity})</span>
                                     </div>
-                                    <div className="text-xs text-gray-500">
-                                      {substitution.nutrition.calories} cal • P: {substitution.nutrition.protein}g • C: {substitution.nutrition.carbs}g • F: {substitution.nutrition.fat}g
+                                    <div className="text-xs">
+                                      <span className="font-semibold text-orange-600">{substitution.nutrition.calories} cal</span> • 
+                                      <span className="text-blue-600 font-medium">P: {substitution.nutrition.protein}g</span> • 
+                                      <span className="text-green-600 font-medium">C: {substitution.nutrition.carbs}g</span> • 
+                                      <span className="text-purple-600 font-medium">F: {substitution.nutrition.fat}g</span>
                                     </div>
                                   </div>
                                 </div>
