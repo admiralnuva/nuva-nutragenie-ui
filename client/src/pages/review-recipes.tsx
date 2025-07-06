@@ -287,9 +287,16 @@ export default function ReviewRecipesScreen() {
     const key = `${dishId}-${ingredientIndex}`;
     const currentChoice = ingredientChoices[key];
     
+    console.log('selectSubstitution called:', { dishId, selectedDishes, includes: selectedDishes.includes(dishId) });
+    
     // Auto-select the dish when substitution is clicked
     if (!selectedDishes.includes(dishId)) {
-      setSelectedDishes(prev => [...prev, dishId]);
+      console.log('Auto-selecting dish:', dishId);
+      setSelectedDishes(prev => {
+        const newSelected = [...prev, dishId];
+        console.log('New selectedDishes:', newSelected);
+        return newSelected;
+      });
     }
     
     // If already selected, deselect it (toggle behavior)
