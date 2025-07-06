@@ -201,9 +201,8 @@ export default function ReviewRecipesScreen() {
   const [expandedDishes, setExpandedDishes] = useState({});
   const [expandedInstructions, setExpandedInstructions] = useState({});
 
-  // State for ingredient selections and substitutions
-  const [selectedIngredients, setSelectedIngredients] = useState({});
-  const [selectedSubstitutions, setSelectedSubstitutions] = useState({});
+  // Simplified state: each ingredient can have either original OR one substitution selected
+  const [ingredientChoices, setIngredientChoices] = useState({});
 
   const toggleDishSelection = (dishId) => {
     const isCurrentlySelected = selectedDishes.includes(dishId);
@@ -214,43 +213,31 @@ export default function ReviewRecipesScreen() {
         : [...prev, dishId]
     );
 
-    // Auto-select all ingredients when dish is selected
+    // Auto-select all original ingredients when dish is selected
     if (!isCurrentlySelected) {
       const dish = weeklyMealPlan.find(d => d.id === dishId);
       if (dish) {
-        setSelectedIngredients(prev => {
-          const newSelected = { ...prev };
+        setIngredientChoices(prev => {
+          const newChoices = { ...prev };
           dish.ingredients.forEach((ingredient, ingredientIndex) => {
             const ingredientKey = `${dishId}-${ingredientIndex}`;
-            newSelected[ingredientKey] = true;
+            // Default to original ingredient (choice: 'original')
+            newChoices[ingredientKey] = 'original';
           });
-          return newSelected;
+          return newChoices;
         });
       }
     } else {
-      // Deselect all ingredients when dish is deselected
+      // Clear all ingredient choices when dish is deselected
       const dish = weeklyMealPlan.find(d => d.id === dishId);
       if (dish) {
-        setSelectedIngredients(prev => {
-          const newSelected = { ...prev };
+        setIngredientChoices(prev => {
+          const newChoices = { ...prev };
           dish.ingredients.forEach((ingredient, ingredientIndex) => {
             const ingredientKey = `${dishId}-${ingredientIndex}`;
-            delete newSelected[ingredientKey];
+            delete newChoices[ingredientKey];
           });
-          return newSelected;
-        });
-        
-        setSelectedSubstitutions(prev => {
-          const newSelected = { ...prev };
-          dish.ingredients.forEach((ingredient, ingredientIndex) => {
-            if (ingredient.substitutions) {
-              ingredient.substitutions.forEach((_, substitutionIndex) => {
-                const substitutionKey = `${dishId}-${ingredientIndex}-${substitutionIndex}`;
-                delete newSelected[substitutionKey];
-              });
-            }
-          });
-          return newSelected;
+          return newChoices;
         });
       }
     }
@@ -272,27 +259,29 @@ export default function ReviewRecipesScreen() {
     }));
   };
 
-  // Toggle ingredient selection for grocery list
-  const toggleIngredientSelection = (dishId, ingredientIndex) => {
+  // Set ingredient choice: 'original', 'none', or substitution index (0, 1, 2...)
+  const setIngredientChoice = (dishId, ingredientIndex, choice) => {
     const key = `${dishId}-${ingredientIndex}`;
-    setSelectedIngredients(prev => {
-      const newState = { ...prev };
-      newState[key] = !prev[key];
-      return newState;
-    });
+    setIngredientChoices(prev => ({
+      ...prev,
+      [key]: choice
+    }));
   };
 
-  // Toggle substitution selection 
-  const toggleSubstitutionSelection = (dishId, ingredientIndex, substitutionIndex) => {
-    const key = `${dishId}-${ingredientIndex}-${substitutionIndex}`;
-    setSelectedSubstitutions(prev => {
-      const newState = { ...prev };
-      newState[key] = !prev[key];
-      return newState;
-    });
+  // Toggle ingredient on/off (original vs none)
+  const toggleIngredient = (dishId, ingredientIndex) => {
+    const key = `${dishId}-${ingredientIndex}`;
+    const currentChoice = ingredientChoices[key];
+    const newChoice = currentChoice === 'none' ? 'original' : 'none';
+    setIngredientChoice(dishId, ingredientIndex, newChoice);
   };
 
-  // Generate shopping cart from selected ingredients and substitutions
+  // Select substitution (automatically deselects original and other substitutions)
+  const selectSubstitution = (dishId, ingredientIndex, substitutionIndex) => {
+    setIngredientChoice(dishId, ingredientIndex, substitutionIndex);
+  };
+
+  // Generate shopping cart from ingredient choices
   const shoppingCart = useMemo(() => {
     const cart = [];
     
@@ -302,29 +291,10 @@ export default function ReviewRecipesScreen() {
 
       dish.ingredients.forEach((ingredient, ingredientIndex) => {
         const ingredientKey = `${dishId}-${ingredientIndex}`;
-        const isIngredientSelected = selectedIngredients[ingredientKey];
+        const choice = ingredientChoices[ingredientKey];
 
-        // Check if any substitution is selected for this ingredient
-        let hasSelectedSubstitution = false;
-        if (ingredient.substitutions) {
-          ingredient.substitutions.forEach((substitution, substitutionIndex) => {
-            const substitutionKey = `${dishId}-${ingredientIndex}-${substitutionIndex}`;
-            if (selectedSubstitutions[substitutionKey]) {
-              hasSelectedSubstitution = true;
-              cart.push({
-                name: substitution.name,
-                quantity: substitution.quantity,
-                dishId: dishId,
-                dishName: dish.name,
-                originalIngredient: ingredient.name,
-                isSubstitution: true
-              });
-            }
-          });
-        }
-
-        // Add original ingredient if selected (regardless of substitutions)
-        if (isIngredientSelected) {
+        if (choice === 'original') {
+          // Add original ingredient
           cart.push({
             name: ingredient.name,
             quantity: ingredient.quantity,
@@ -333,7 +303,19 @@ export default function ReviewRecipesScreen() {
             originalIngredient: ingredient.name,
             isSubstitution: false
           });
+        } else if (typeof choice === 'number' && ingredient.substitutions && ingredient.substitutions[choice]) {
+          // Add selected substitution
+          const substitution = ingredient.substitutions[choice];
+          cart.push({
+            name: substitution.name,
+            quantity: substitution.quantity,
+            dishId: dishId,
+            dishName: dish.name,
+            originalIngredient: ingredient.name,
+            isSubstitution: true
+          });
         }
+        // If choice === 'none', don't add anything to cart
       });
     });
 
@@ -342,7 +324,6 @@ export default function ReviewRecipesScreen() {
     cart.forEach(item => {
       const existing = combinedCart.find(cartItem => cartItem.name === item.name);
       if (existing) {
-        // Combine quantities intelligently
         const qty1 = existing.quantity;
         const qty2 = item.quantity;
         existing.quantity = `${qty1} + ${qty2}`;
@@ -355,7 +336,7 @@ export default function ReviewRecipesScreen() {
     });
 
     return combinedCart;
-  }, [selectedDishes, selectedIngredients, selectedSubstitutions]);
+  }, [selectedDishes, ingredientChoices]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 pb-24">
@@ -515,7 +496,8 @@ export default function ReviewRecipesScreen() {
                       
                       {dish.ingredients.map((ingredient, ingredientIndex) => {
                         const ingredientKey = `${dish.id}-${ingredientIndex}`;
-                        const isIngredientSelected = !!selectedIngredients[ingredientKey];
+                        const currentChoice = ingredientChoices[ingredientKey];
+                        const isOriginalSelected = currentChoice === 'original';
                         
                         return (
                           <div key={ingredientIndex} className="space-y-3 border-b border-gray-200 pb-3 last:border-b-0">
@@ -526,13 +508,13 @@ export default function ReviewRecipesScreen() {
                             
                             {/* Original ingredient option */}
                             <div className={`flex items-center space-x-3 p-3 rounded-lg border-2 transition-all ${
-                              isIngredientSelected 
+                              isOriginalSelected 
                                 ? 'bg-indigo-50 border-indigo-300 shadow-sm' 
                                 : 'bg-gray-50 border-gray-200 hover:border-gray-300'
                             }`}>
                               <Checkbox
-                                checked={!!isIngredientSelected}
-                                onCheckedChange={(checked) => toggleIngredientSelection(dish.id, ingredientIndex)}
+                                checked={isOriginalSelected}
+                                onCheckedChange={() => toggleIngredient(dish.id, ingredientIndex)}
                               />
                               <div className="flex-1">
                                 <div className="flex items-center justify-between">
@@ -554,8 +536,7 @@ export default function ReviewRecipesScreen() {
 
                             {/* Substitution options */}
                             {ingredient.substitutions && ingredient.substitutions.map((substitution, substitutionIndex) => {
-                              const substitutionKey = `${dish.id}-${ingredientIndex}-${substitutionIndex}`;
-                              const isSubstitutionSelected = !!selectedSubstitutions[substitutionKey];
+                              const isSubstitutionSelected = currentChoice === substitutionIndex;
                               
                               return (
                                 <div key={substitutionIndex} className={`flex items-center space-x-3 p-3 rounded-lg border-2 transition-all ml-4 ${
@@ -564,8 +545,8 @@ export default function ReviewRecipesScreen() {
                                     : 'bg-white border-blue-200 hover:border-blue-300'
                                 }`}>
                                   <Checkbox
-                                    checked={!!isSubstitutionSelected}
-                                    onCheckedChange={(checked) => toggleSubstitutionSelection(dish.id, ingredientIndex, substitutionIndex)}
+                                    checked={isSubstitutionSelected}
+                                    onCheckedChange={() => selectSubstitution(dish.id, ingredientIndex, substitutionIndex)}
                                   />
                                   <div className="flex-1">
                                     <div className="flex items-center justify-between">
