@@ -481,12 +481,12 @@ export default function VoiceCookingScreen() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-400 via-purple-400 to-indigo-500">
       {/* Header */}
-      <div className="bg-white shadow-sm p-4">
+      <div className="bg-gradient-to-br from-blue-400 via-purple-400 to-indigo-500 shadow-sm p-4">
         <div className="flex items-center justify-between">
           <BackButton to="/recipes" />
           <div className="flex-1 text-center">
-            <h1 className="text-xl font-bold text-gray-800">NutraGenie</h1>
-            <div className="text-lg font-semibold text-brand-indigo-600">Let's Cook</div>
+            <h1 className="text-xl font-bold text-white">NutraGenie</h1>
+            <div className="text-lg font-semibold text-white">Let's Cook</div>
             {isOfflineMode && (
               <div className="text-xs text-orange-600 mt-1">📶 Offline Mode Active</div>
             )}
@@ -497,7 +497,7 @@ export default function VoiceCookingScreen() {
         </div>
         
         {/* User and Chef Avatars with Control Buttons */}
-        <div className="flex items-center justify-center gap-6 mt-4 relative bg-gradient-to-br from-blue-400 via-purple-400 to-indigo-500 rounded-xl p-4">
+        <div className="flex items-center justify-center gap-6 pb-0 relative">
           {/* Test Voice Button - same spacing as stop button */}
           <div className="absolute left-2 top-1/2 transform -translate-y-1/2">
             <Button 
@@ -568,7 +568,7 @@ export default function VoiceCookingScreen() {
         </div>
       </div>
 
-      <div className="max-w-md mx-auto p-2 space-y-2">
+      <div className="max-w-md mx-auto px-2 space-y-0">
         
         {/* Celebration Animation */}
         {showCelebration && (
