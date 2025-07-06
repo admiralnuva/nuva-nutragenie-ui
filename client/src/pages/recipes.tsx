@@ -285,6 +285,7 @@ const previousRecipes = [
 
 export default function RecipesScreen() {
   const [, setLocation] = useLocation();
+  const [currentUser] = useLocalStorage<any>("nutragenie_user", null);
   const [userData] = useLocalStorage<any>("userData", null);
   
   // Card visibility states
@@ -445,48 +446,32 @@ export default function RecipesScreen() {
                 <CardTitle className="text-lg">Dietary Preferences</CardTitle>
                 <div className="space-y-1 mt-1">
                   {/* Dietary Restrictions Row */}
-                  {userData?.dietaryRestrictions && userData.dietaryRestrictions.length > 0 && (
+                  {currentUser?.dietaryRestrictions && currentUser.dietaryRestrictions.length > 0 && (
                     <div className="text-xs text-gray-600">
-                      <span className="font-medium">Dietary:</span> {userData.dietaryRestrictions.slice(0, 3).join(', ')}
-                      {userData.dietaryRestrictions.length > 3 && ` +${userData.dietaryRestrictions.length - 3} more`}
+                      <span className="font-medium">Dietary:</span> {currentUser.dietaryRestrictions.slice(0, 3).join(', ')}
+                      {currentUser.dietaryRestrictions.length > 3 && ` +${currentUser.dietaryRestrictions.length - 3} more`}
                     </div>
                   )}
                   
                   {/* Health Goals Row */}
-                  {userData?.healthGoals && userData.healthGoals.length > 0 && (
+                  {currentUser?.healthGoals && currentUser.healthGoals.length > 0 && (
                     <div className="text-xs text-gray-600">
-                      <span className="font-medium">Health:</span> {userData.healthGoals.slice(0, 2).join(', ')}
-                      {userData.healthGoals.length > 2 && ` +${userData.healthGoals.length - 2} more`}
+                      <span className="font-medium">Health:</span> {currentUser.healthGoals.slice(0, 2).join(', ')}
+                      {currentUser.healthGoals.length > 2 && ` +${currentUser.healthGoals.length - 2} more`}
                     </div>
                   )}
                   
                   {/* Allergies Row */}
-                  {userData?.allergies && userData.allergies.trim() && (
+                  {currentUser?.allergies && currentUser.allergies.trim() && (
                     <div className="text-xs text-gray-600">
-                      <span className="font-medium">Allergies:</span> {userData.allergies}
-                    </div>
-                  )}
-                  
-                  {/* Food Dislikes Row */}
-                  {userData?.foodDislikes && userData.foodDislikes.trim() && (
-                    <div className="text-xs text-gray-600">
-                      <span className="font-medium">Dislikes:</span> {userData.foodDislikes}
-                    </div>
-                  )}
-                  
-                  {/* Additional Notes Row */}
-                  {userData?.additionalNotes && userData.additionalNotes.trim() && (
-                    <div className="text-xs text-gray-600">
-                      <span className="font-medium">Notes:</span> {userData.additionalNotes}
+                      <span className="font-medium">Allergies:</span> {currentUser.allergies}
                     </div>
                   )}
                   
                   {/* Fallback message if no data */}
-                  {(!userData?.dietaryRestrictions || userData.dietaryRestrictions.length === 0) &&
-                   (!userData?.healthGoals || userData.healthGoals.length === 0) &&
-                   (!userData?.allergies || !userData.allergies.trim()) &&
-                   (!userData?.foodDislikes || !userData.foodDislikes.trim()) &&
-                   (!userData?.additionalNotes || !userData.additionalNotes.trim()) && (
+                  {(!currentUser?.dietaryRestrictions || currentUser.dietaryRestrictions.length === 0) &&
+                   (!currentUser?.healthGoals || currentUser.healthGoals.length === 0) &&
+                   (!currentUser?.allergies || !currentUser.allergies.trim()) && (
                     <div className="text-xs text-gray-500 italic">
                       No dietary preferences set. Update in profile to see personalized recommendations.
                     </div>

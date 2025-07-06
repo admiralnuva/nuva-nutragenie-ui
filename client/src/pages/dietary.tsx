@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { BackButton } from "@/components/ui/back-button";
 import { OnboardingMascot } from "@/components/ui/onboarding-mascot";
-import { ArrowLeft, Heart, Target, Shield, ThumbsDown } from "lucide-react";
+import { ArrowLeft, Heart, Target, Shield } from "lucide-react";
 
 // Import user avatar images
 import userAvatar1 from "@/assets/avatars/user/user1.png";
@@ -65,9 +65,7 @@ export default function DietaryScreen() {
   const [selectedDietary, setSelectedDietary] = useState<string[]>([]);
   const [selectedHealth, setSelectedHealth] = useState<string[]>([]);
   const [selectedFitness, setSelectedFitness] = useState<string[]>([]);
-  const [foodDislikes, setFoodDislikes] = useState("");
   const [allergies, setAllergies] = useState("");
-  const [additionalNotes, setAdditionalNotes] = useState("");
   
   // Mascot guidance state
   const [showMascot, setShowMascot] = useState(true);
@@ -154,9 +152,7 @@ export default function DietaryScreen() {
     updateUserMutation.mutate({
       dietaryRestrictions: selectedDietary,
       healthGoals: [...selectedHealth, ...selectedFitness],
-      allergies,
-      foodDislikes,
-      additionalNotes
+      allergies
     });
   };
 
@@ -298,36 +294,6 @@ export default function DietaryScreen() {
             </CardContent>
           </Card>
 
-          {/* Food Dislikes */}
-          <Card>
-            <CardHeader className="pb-4">
-              <div className="flex items-center justify-between">
-                <div className="flex-1">
-                  <CardTitle className="flex items-center gap-2 text-lg">
-                    <ThumbsDown className="w-5 h-5" />
-                    Food Dislikes
-                  </CardTitle>
-                  <CardDescription>List ingredients or foods you prefer to avoid</CardDescription>
-                </div>
-                <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white ml-4">
-                  <img 
-                    src={userAvatarSrc} 
-                    alt="User Avatar"
-                    className="w-full h-full object-cover rounded-lg"
-                  />
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <Textarea
-                placeholder="e.g., garlic, onions, mushrooms, spicy food, seafood..."
-                value={foodDislikes}
-                onChange={(e) => setFoodDislikes(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-indigo-500 focus:border-transparent h-20 resize-none"
-              />
-            </CardContent>
-          </Card>
-
           {/* Allergies */}
           <Card>
             <CardHeader className="pb-4">
@@ -350,33 +316,6 @@ export default function DietaryScreen() {
                 placeholder="e.g., Severe peanut allergy, shellfish allergy..."
                 value={allergies}
                 onChange={(e) => setAllergies(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-indigo-500 focus:border-transparent h-20 resize-none"
-              />
-            </CardContent>
-          </Card>
-
-          {/* Additional Notes */}
-          <Card>
-            <CardHeader className="pb-4">
-              <div className="flex items-center justify-between">
-                <div className="flex-1">
-                  <CardTitle className="text-lg">Additional Notes</CardTitle>
-                  <CardDescription>Any other preferences or requirements</CardDescription>
-                </div>
-                <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white ml-4">
-                  <img 
-                    src={userAvatarSrc} 
-                    alt="User Avatar"
-                    className="w-full h-full object-cover rounded-lg"
-                  />
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <Textarea
-                placeholder="e.g., I love spicy food, prefer organic ingredients, cooking for family of 4..."
-                value={additionalNotes}
-                onChange={(e) => setAdditionalNotes(e.target.value)}
                 className="w-full px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-indigo-500 focus:border-transparent h-20 resize-none"
               />
             </CardContent>
