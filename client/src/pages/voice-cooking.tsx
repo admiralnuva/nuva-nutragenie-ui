@@ -596,25 +596,6 @@ export default function VoiceCookingScreen() {
               
               {/* Cooking Mode Toggle */}
               <div className="flex gap-1 bg-white rounded-lg p-1">
-                <OnboardingTooltip
-                  id="voice-cooking-mode"
-                  title="Voice Cooking Assistant"
-                  description="Switch to voice mode for hands-free cooking guidance. Chef Antoine will listen to your questions and provide audio responses. Perfect when your hands are busy!"
-                  position="bottom"
-                >
-                  <Button
-                    variant={cookingMode === "voice" ? "default" : "ghost"}
-                    size="sm"
-                    onClick={() => {
-                      handleModeSwitch("voice");
-                      setIsMuted(false);
-                    }}
-                    className={`text-xs transition-all duration-200 ${modeTransition ? 'scale-95 opacity-50' : ''}`}
-                    disabled={modeTransition}
-                  >
-                    {cookingMode === "voice" ? <Mic className="w-3 h-3" /> : <MicOff className="w-3 h-3" />}
-                  </Button>
-                </OnboardingTooltip>
                 <Button
                   variant={cookingMode === "text" ? "default" : "ghost"}
                   size="sm"
@@ -637,14 +618,33 @@ export default function VoiceCookingScreen() {
             {/* Voice Mode Controls */}
             {cookingMode === "voice" && (
               <div className="bg-white rounded-lg p-3 border border-indigo-200">
-                <div className="flex gap-1">
+                <div className="flex gap-1 items-center">
+                  <OnboardingTooltip
+                    id="voice-cooking-mode"
+                    title="Voice Cooking Assistant"
+                    description="Switch to voice mode for hands-free cooking guidance. Chef Antoine will listen to your questions and provide audio responses. Perfect when your hands are busy!"
+                    position="bottom"
+                  >
+                    <Button
+                      variant={cookingMode === "voice" ? "default" : "ghost"}
+                      size="sm"
+                      onClick={() => {
+                        handleModeSwitch("voice");
+                        setIsMuted(false);
+                      }}
+                      className={`text-xs transition-all duration-200 px-2 ${modeTransition ? 'scale-95 opacity-50' : ''}`}
+                      disabled={modeTransition}
+                    >
+                      {cookingMode === "voice" ? <Mic className="w-3 h-3" /> : <MicOff className="w-3 h-3" />}
+                    </Button>
+                  </OnboardingTooltip>
                   {Object.entries(voiceOptions[chefGender as keyof typeof voiceOptions]).map(([voice, label]) => (
                     <Button
                       key={voice}
                       variant={chefVoice === voice ? "default" : "outline"}
                       size="sm"
                       onClick={() => setChefVoice(voice)}
-                      className="text-xs flex-1"
+                      className="text-xs flex-1 px-2"
                     >
                       {label}
                     </Button>
