@@ -131,26 +131,7 @@ export default function ReviewRecipesScreen() {
 
 
 
-        {/* Pantry Ingredients Used */}
-        <Card className="mb-4">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-base flex items-center gap-2">
-              🥘 Using Your Pantry Ingredients
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="pt-0">
-            <div className="flex flex-wrap gap-1">
-              {Array.from(new Set(weeklyMealPlan.flatMap(dish => dish.ingredients))).map(ingredient => (
-                <Badge key={ingredient} variant="secondary" className="text-xs">
-                  {ingredient}
-                </Badge>
-              ))}
-            </div>
-            <p className="text-xs text-gray-600 mt-2">
-              All meals use ingredients from your pantry selection
-            </p>
-          </CardContent>
-        </Card>
+
 
         {/* Selection Info */}
         {selectedDishes.length > 0 && (
