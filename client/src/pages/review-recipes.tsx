@@ -1107,12 +1107,14 @@ export default function ReviewRecipesScreen() {
               {/* Selected Dishes Nutrition */}
               {selectedDishesForAction.length > 0 && (
                 <div>
-                  <h4 className="text-sm font-medium text-gray-700 mb-2">Selected Dishes Total</h4>
+                  <h4 className="text-sm font-medium text-gray-700 mb-2">Daily Nutrition from Selected Dishes</h4>
                   {(() => {
                     const selectedDishesData = displayData.dishes.filter(dish => 
                       selectedDishesForAction.includes(dish.id)
                     );
-                    const totalNutrition = selectedDishesData.reduce((total, dish) => {
+                    
+                    // Calculate total nutrition from all 5 dishes (full day)
+                    const allDishesNutrition = displayData.dishes.reduce((total, dish) => {
                       const dishNutrition = calculateDishNutrition(dish.id);
                       return {
                         calories: total.calories + dishNutrition.calories,
@@ -1123,32 +1125,92 @@ export default function ReviewRecipesScreen() {
                       };
                     }, { calories: 0, protein: 0, carbs: 0, fat: 0, fiber: 0 });
 
+                    // Calculate average daily nutrition (since we have 5 dishes representing a full day)
+                    const dailyAverageNutrition = {
+                      calories: allDishesNutrition.calories,
+                      protein: allDishesNutrition.protein,
+                      carbs: allDishesNutrition.carbs,
+                      fat: allDishesNutrition.fat,
+                      fiber: allDishesNutrition.fiber
+                    };
+
                     return (
                       <div className="space-y-3">
                         <div className="grid grid-cols-2 gap-2">
                           <div className="bg-orange-100 p-2 rounded-lg border border-orange-300">
-                            <div className="text-xs text-orange-700">Total Calories</div>
+                            <div className="text-xs text-orange-700">Daily Calories</div>
                             <div className="text-lg font-bold text-orange-800">
-                              {Math.round(totalNutrition.calories)}
+                              {Math.round(dailyAverageNutrition.calories)}
                             </div>
                           </div>
                           <div className="bg-blue-100 p-2 rounded-lg border border-blue-300">
-                            <div className="text-xs text-blue-700">Total Protein</div>
+                            <div className="text-xs text-blue-700">Daily Protein</div>
                             <div className="text-lg font-bold text-blue-800">
-                              {Math.round(totalNutrition.protein)}g
+                              {Math.round(dailyAverageNutrition.protein)}g
                             </div>
                           </div>
                           <div className="bg-green-100 p-2 rounded-lg border border-green-300">
-                            <div className="text-xs text-green-700">Total Carbs</div>
+                            <div className="text-xs text-green-700">Daily Carbs</div>
                             <div className="text-lg font-bold text-green-800">
-                              {Math.round(totalNutrition.carbs)}g
+                              {Math.round(dailyAverageNutrition.carbs)}g
                             </div>
                           </div>
                           <div className="bg-purple-100 p-2 rounded-lg border border-purple-300">
-                            <div className="text-xs text-purple-700">Total Fiber</div>
+                            <div className="text-xs text-purple-700">Daily Fiber</div>
                             <div className="text-lg font-bold text-purple-800">
-                              {Math.round(totalNutrition.fiber)}g
+                              {Math.round(dailyAverageNutrition.fiber)}g
                             </div>
+                          </div>
+                        </div>
+
+                        {/* Goal vs Daily Comparison */}
+                        <div className="p-2 bg-gray-50 rounded-lg border">
+                          <h5 className="text-xs font-medium text-gray-700 mb-1">Goal Alignment</h5>
+                          <div className="space-y-1 text-xs">
+                            {currentUser?.nutritionalTargets && (
+                              <>
+                                <div className="flex justify-between">
+                                  <span>Calories:</span>
+                                  <span className={`font-semibold ${
+                                    dailyAverageNutrition.calories >= (currentUser.nutritionalTargets.calories?.[0] || 300) &&
+                                    dailyAverageNutrition.calories <= (currentUser.nutritionalTargets.calories?.[1] || 600)
+                                      ? 'text-green-600' : 'text-orange-600'
+                                  }`}>
+                                    {Math.round(dailyAverageNutrition.calories)} / {currentUser.nutritionalTargets.calories?.[0] || 300}-{currentUser.nutritionalTargets.calories?.[1] || 600}
+                                  </span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span>Protein:</span>
+                                  <span className={`font-semibold ${
+                                    dailyAverageNutrition.protein >= (currentUser.nutritionalTargets.protein?.[0] || 15) &&
+                                    dailyAverageNutrition.protein <= (currentUser.nutritionalTargets.protein?.[1] || 40)
+                                      ? 'text-green-600' : 'text-orange-600'
+                                  }`}>
+                                    {Math.round(dailyAverageNutrition.protein)}g / {currentUser.nutritionalTargets.protein?.[0] || 15}-{currentUser.nutritionalTargets.protein?.[1] || 40}g
+                                  </span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span>Carbs:</span>
+                                  <span className={`font-semibold ${
+                                    dailyAverageNutrition.carbs >= (currentUser.nutritionalTargets.carbs?.[0] || 20) &&
+                                    dailyAverageNutrition.carbs <= (currentUser.nutritionalTargets.carbs?.[1] || 60)
+                                      ? 'text-green-600' : 'text-orange-600'
+                                  }`}>
+                                    {Math.round(dailyAverageNutrition.carbs)}g / {currentUser.nutritionalTargets.carbs?.[0] || 20}-{currentUser.nutritionalTargets.carbs?.[1] || 60}g
+                                  </span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span>Fiber:</span>
+                                  <span className={`font-semibold ${
+                                    dailyAverageNutrition.fiber >= (currentUser.nutritionalTargets.fiber?.[0] || 5) &&
+                                    dailyAverageNutrition.fiber <= (currentUser.nutritionalTargets.fiber?.[1] || 25)
+                                      ? 'text-green-600' : 'text-orange-600'
+                                  }`}>
+                                    {Math.round(dailyAverageNutrition.fiber)}g / {currentUser.nutritionalTargets.fiber?.[0] || 5}-{currentUser.nutritionalTargets.fiber?.[1] || 25}g
+                                  </span>
+                                </div>
+                              </>
+                            )}
                           </div>
                         </div>
 
@@ -1183,12 +1245,12 @@ export default function ReviewRecipesScreen() {
                                   borderWidth: 2,
                                 },
                                 {
-                                  label: 'Selected Dishes',
+                                  label: 'Daily Total (All Dishes)',
                                   data: [
-                                    Math.round(totalNutrition.calories),
-                                    Math.round(totalNutrition.protein),
-                                    Math.round(totalNutrition.carbs),
-                                    Math.round(totalNutrition.fiber)
+                                    Math.round(dailyAverageNutrition.calories),
+                                    Math.round(dailyAverageNutrition.protein),
+                                    Math.round(dailyAverageNutrition.carbs),
+                                    Math.round(dailyAverageNutrition.fiber)
                                   ],
                                   backgroundColor: 'rgba(34, 197, 94, 0.6)',
                                   borderColor: 'rgba(34, 197, 94, 1)',
@@ -1231,7 +1293,8 @@ export default function ReviewRecipesScreen() {
               {selectedDishesForAction.length === 0 && (
                 <div className="text-center py-4 text-gray-500">
                   <BarChart3 className="w-8 h-8 mx-auto mb-2 opacity-50" />
-                  <p className="text-sm">Select dishes above to see nutrition comparison</p>
+                  <p className="text-sm">Daily nutrition analysis for all 5 dishes</p>
+                  <p className="text-xs text-gray-400">Shows total daily intake vs your goals</p>
                 </div>
               )}
             </div>
