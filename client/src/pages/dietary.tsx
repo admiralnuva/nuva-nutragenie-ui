@@ -72,6 +72,7 @@ export default function DietaryScreen() {
   const [calorieRange, setCalorieRange] = useState([300, 600]);
   const [proteinRange, setProteinRange] = useState([15, 40]);
   const [carbRange, setCarbRange] = useState([20, 60]);
+  const [fatRange, setFatRange] = useState([10, 25]);
   const [fiberRange, setFiberRange] = useState([5, 25]);
   
   // Mascot guidance state
@@ -183,6 +184,7 @@ export default function DietaryScreen() {
         calories: calorieRange,
         protein: proteinRange,
         carbs: carbRange,
+        fat: fatRange,
         fiber: fiberRange
       }
     });
@@ -437,6 +439,21 @@ export default function DietaryScreen() {
                   max={100}
                   min={5}
                   step={5}
+                  className="w-full"
+                />
+              </div>
+
+              <div>
+                <div className="flex justify-between items-center mb-2">
+                  <label className="text-sm font-medium text-gray-700">Fat</label>
+                  <span className="text-sm text-gray-600">{fatRange[0]} - {fatRange[1]}g</span>
+                </div>
+                <Slider
+                  value={fatRange}
+                  onValueChange={setFatRange}
+                  max={50}
+                  min={5}
+                  step={2}
                   className="w-full"
                 />
               </div>

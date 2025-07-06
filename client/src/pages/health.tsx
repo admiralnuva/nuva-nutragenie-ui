@@ -91,15 +91,14 @@ export default function HealthAnalyticsScreen() {
     enabled: !!currentUser?.id
   });
 
-  // Fetch nutrition goals
-  const { data: nutritionGoals } = useQuery({
-    queryKey: ['/api/nutrition-goals', currentUser?.id],
-    queryFn: async () => {
-      const response = await apiRequest("GET", `/api/nutrition-goals?userId=${currentUser?.id}`);
-      return response.json();
-    },
-    enabled: !!currentUser?.id
-  });
+  // Use nutritional targets from user profile directly
+  const nutritionGoals = currentUser?.nutritionalTargets ? {
+    dailyCalories: currentUser.nutritionalTargets.calories?.[1] || 600,
+    dailyProtein: currentUser.nutritionalTargets.protein?.[1] || 40,
+    dailyCarbs: currentUser.nutritionalTargets.carbs?.[1] || 60,
+    dailyFat: currentUser.nutritionalTargets.fat?.[1] || 25,
+    dailyFiber: currentUser.nutritionalTargets.fiber?.[1] || 25
+  } : null;
 
   // Add health metric mutation
   const addHealthMetricMutation = useMutation({
