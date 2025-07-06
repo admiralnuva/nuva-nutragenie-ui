@@ -496,8 +496,19 @@ export default function VoiceCookingScreen() {
           </div>
         </div>
         
-        {/* User and Chef Avatars with Stop Button */}
+        {/* User and Chef Avatars with Control Buttons */}
         <div className="flex items-center justify-center gap-6 mt-4 relative">
+          {/* Test Voice Button - aligned with user avatar on the left */}
+          <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1/2">
+            <Button 
+              size="sm" 
+              onClick={simulateUserSpeaking}
+              className="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 text-xs whitespace-nowrap"
+            >
+              🎤 Test
+            </Button>
+          </div>
+
           {/* Emergency Stop Button - aligned with chef avatar on the right */}
           <div className="absolute right-2 top-1/2 transform -translate-y-1/2">
             <OnboardingTooltip
@@ -750,23 +761,7 @@ export default function VoiceCookingScreen() {
                       </div>
                       <p className="font-medium mb-4">{recipe.steps[currentStep]?.instruction}</p>
                       
-                      {/* Quick Timer Controls */}
-                      {!cookingTimer.isActive && (
-                        <div className="flex gap-2 mb-4">
-                          <Button size="sm" variant="outline" onClick={() => startTimer(5)}>
-                            5min
-                          </Button>
-                          <Button size="sm" variant="outline" onClick={() => startTimer(10)}>
-                            10min
-                          </Button>
-                          <Button size="sm" variant="outline" onClick={() => startTimer(15)}>
-                            15min
-                          </Button>
-                          <Button size="sm" variant="outline" onClick={simulateUserSpeaking}>
-                            🎤 Test Voice
-                          </Button>
-                        </div>
-                      )}
+
                       
                       {/* Voice Conversation Bubbles */}
                       {conversation.length > 0 && (
