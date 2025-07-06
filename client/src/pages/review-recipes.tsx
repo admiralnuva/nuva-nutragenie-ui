@@ -206,11 +206,49 @@ export default function ReviewRecipesScreen() {
   const [selectedSubstitutions, setSelectedSubstitutions] = useState({});
 
   const toggleDishSelection = (dishId) => {
+    const isCurrentlySelected = selectedDishes.includes(dishId);
+    
     setSelectedDishes(prev => 
-      prev.includes(dishId) 
+      isCurrentlySelected
         ? prev.filter(id => id !== dishId)
         : [...prev, dishId]
     );
+
+    // Auto-select all ingredients when dish is selected
+    if (!isCurrentlySelected) {
+      const dish = weeklyMealPlan.find(d => d.id === dishId);
+      if (dish) {
+        const newSelectedIngredients = { ...selectedIngredients };
+        dish.ingredients.forEach((ingredient, ingredientIndex) => {
+          const ingredientKey = `${dishId}-${ingredientIndex}`;
+          newSelectedIngredients[ingredientKey] = true;
+        });
+        setSelectedIngredients(newSelectedIngredients);
+      }
+    } else {
+      // Deselect all ingredients when dish is deselected
+      const newSelectedIngredients = { ...selectedIngredients };
+      const newSelectedSubstitutions = { ...selectedSubstitutions };
+      
+      const dish = weeklyMealPlan.find(d => d.id === dishId);
+      if (dish) {
+        dish.ingredients.forEach((ingredient, ingredientIndex) => {
+          const ingredientKey = `${dishId}-${ingredientIndex}`;
+          delete newSelectedIngredients[ingredientKey];
+          
+          // Also clear substitutions
+          if (ingredient.substitutions) {
+            ingredient.substitutions.forEach((_, substitutionIndex) => {
+              const substitutionKey = `${dishId}-${ingredientIndex}-${substitutionIndex}`;
+              delete newSelectedSubstitutions[substitutionKey];
+            });
+          }
+        });
+      }
+      
+      setSelectedIngredients(newSelectedIngredients);
+      setSelectedSubstitutions(newSelectedSubstitutions);
+    }
   };
 
   // Toggle dish expansion for substitutions
@@ -260,43 +298,50 @@ export default function ReviewRecipesScreen() {
         const isIngredientSelected = selectedIngredients[ingredientKey];
 
         // Check if any substitution is selected for this ingredient
-        let substitutionSelected = false;
+        let hasSelectedSubstitution = false;
         if (ingredient.substitutions) {
           ingredient.substitutions.forEach((substitution, substitutionIndex) => {
             const substitutionKey = `${dishId}-${ingredientIndex}-${substitutionIndex}`;
             if (selectedSubstitutions[substitutionKey]) {
-              substitutionSelected = true;
+              hasSelectedSubstitution = true;
               cart.push({
                 name: substitution.name,
                 quantity: substitution.quantity,
                 dishId: dishId,
                 dishName: dish.name,
-                originalIngredient: ingredient.name
+                originalIngredient: ingredient.name,
+                isSubstitution: true
               });
             }
           });
         }
 
-        // If no substitution selected and ingredient is selected, add original
-        if (!substitutionSelected && isIngredientSelected) {
+        // Add original ingredient if selected (regardless of substitutions)
+        if (isIngredientSelected) {
           cart.push({
             name: ingredient.name,
             quantity: ingredient.quantity,
             dishId: dishId,
             dishName: dish.name,
-            originalIngredient: ingredient.name
+            originalIngredient: ingredient.name,
+            isSubstitution: false
           });
         }
       });
     });
 
-    // Combine duplicate items
+    // Combine duplicate items by name
     const combinedCart = [];
     cart.forEach(item => {
       const existing = combinedCart.find(cartItem => cartItem.name === item.name);
       if (existing) {
-        existing.quantity = `${existing.quantity} + ${item.quantity}`;
-        existing.dishName = `${existing.dishName}, ${item.dishName}`;
+        // Combine quantities intelligently
+        const qty1 = existing.quantity;
+        const qty2 = item.quantity;
+        existing.quantity = `${qty1} + ${qty2}`;
+        existing.dishName = existing.dishName.includes(item.dishName) 
+          ? existing.dishName 
+          : `${existing.dishName}, ${item.dishName}`;
       } else {
         combinedCart.push({ ...item });
       }
@@ -466,18 +511,36 @@ export default function ReviewRecipesScreen() {
                         const isIngredientSelected = selectedIngredients[ingredientKey];
                         
                         return (
-                          <div key={ingredientIndex} className="space-y-2">
-                            {/* Original ingredient */}
-                            <div className="flex items-center space-x-3 p-2 bg-gray-50 rounded">
+                          <div key={ingredientIndex} className="space-y-3 border-b border-gray-200 pb-3 last:border-b-0">
+                            {/* Original ingredient header */}
+                            <div className="font-semibold text-gray-800 text-sm">
+                              {ingredient.name} Options:
+                            </div>
+                            
+                            {/* Original ingredient option */}
+                            <div className={`flex items-center space-x-3 p-3 rounded-lg border-2 transition-all ${
+                              isIngredientSelected 
+                                ? 'bg-indigo-50 border-indigo-300 shadow-sm' 
+                                : 'bg-gray-50 border-gray-200 hover:border-gray-300'
+                            }`}>
                               <Checkbox
                                 checked={isIngredientSelected}
                                 onCheckedChange={() => toggleIngredientSelection(dish.id, ingredientIndex)}
                               />
                               <div className="flex-1">
-                                <span className="font-medium">{ingredient.name}</span>
-                                <span className="text-gray-600 ml-2">({ingredient.quantity})</span>
-                                <div className="text-xs text-gray-500">
-                                  {ingredient.nutrition.calories} cal • {ingredient.nutrition.protein}g protein
+                                <div className="flex items-center justify-between">
+                                  <div>
+                                    <span className="font-medium text-gray-900">{ingredient.name}</span>
+                                    <span className="text-gray-600 ml-2">({ingredient.quantity})</span>
+                                  </div>
+                                  <div className="text-right">
+                                    <div className="text-xs font-semibold text-orange-600">
+                                      {ingredient.nutrition.calories} cal
+                                    </div>
+                                    <div className="text-xs text-gray-500">
+                                      {ingredient.nutrition.protein}g protein • {ingredient.nutrition.carbs}g carbs • {ingredient.nutrition.fat}g fat
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -488,16 +551,29 @@ export default function ReviewRecipesScreen() {
                               const isSubstitutionSelected = selectedSubstitutions[substitutionKey];
                               
                               return (
-                                <div key={substitutionIndex} className="flex items-center space-x-3 p-2 bg-blue-50 rounded ml-4">
+                                <div key={substitutionIndex} className={`flex items-center space-x-3 p-3 rounded-lg border-2 transition-all ml-4 ${
+                                  isSubstitutionSelected 
+                                    ? 'bg-blue-50 border-blue-300 shadow-sm' 
+                                    : 'bg-white border-blue-200 hover:border-blue-300'
+                                }`}>
                                   <Checkbox
                                     checked={isSubstitutionSelected}
                                     onCheckedChange={() => toggleSubstitutionSelection(dish.id, ingredientIndex, substitutionIndex)}
                                   />
                                   <div className="flex-1">
-                                    <span className="font-medium">{substitution.name}</span>
-                                    <span className="text-gray-600 ml-2">({substitution.quantity})</span>
-                                    <div className="text-xs text-gray-500">
-                                      {substitution.nutrition.calories} cal • {substitution.nutrition.protein}g protein
+                                    <div className="flex items-center justify-between">
+                                      <div>
+                                        <span className="font-medium text-blue-900">⟳ {substitution.name}</span>
+                                        <span className="text-blue-600 ml-2">({substitution.quantity})</span>
+                                      </div>
+                                      <div className="text-right">
+                                        <div className="text-xs font-semibold text-orange-600">
+                                          {substitution.nutrition.calories} cal
+                                        </div>
+                                        <div className="text-xs text-gray-500">
+                                          {substitution.nutrition.protein}g protein • {substitution.nutrition.carbs}g carbs • {substitution.nutrition.fat}g fat
+                                        </div>
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
@@ -593,20 +669,41 @@ export default function ReviewRecipesScreen() {
             <CardTitle className="text-lg flex items-center gap-2">
               <ShoppingCart className="w-5 h-5" />
               Shopping List
-              <Badge variant="secondary">0 items</Badge>
+              <Badge variant="secondary">{shoppingCart.length} items</Badge>
             </CardTitle>
           </CardHeader>
           <CardContent className="pt-0">
-            <div className="text-center py-4 text-gray-500">
-              <ShoppingCart className="w-8 h-8 mx-auto mb-2 opacity-50" />
-              <p className="text-sm">Select dishes to build your shopping list</p>
-            </div>
+            {shoppingCart.length === 0 ? (
+              <div className="text-center py-4 text-gray-500">
+                <ShoppingCart className="w-8 h-8 mx-auto mb-2 opacity-50" />
+                <p className="text-sm">Select dishes to build your shopping list</p>
+              </div>
+            ) : (
+              <div className="space-y-2 max-h-48 overflow-y-auto">
+                {shoppingCart.map((item, index) => (
+                  <div key={index} className="flex items-center justify-between p-2 bg-gray-50 rounded">
+                    <div className="flex-1">
+                      <div className="font-medium text-gray-900 text-sm">
+                        {item.isSubstitution && <span className="text-blue-600">⟳ </span>}
+                        {item.name}
+                      </div>
+                      <div className="text-xs text-gray-500">
+                        {item.quantity}
+                        {item.isSubstitution && (
+                          <span className="text-blue-600 ml-1">(replaces {item.originalIngredient})</span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
             <div className="flex gap-2 mt-4">
               <Button 
                 size="sm"
                 className="flex-1" 
                 onClick={() => setLocation("/grocery-list")}
-                disabled={selectedDishes.length === 0}
+                disabled={shoppingCart.length === 0}
               >
                 <List size={14} className="mr-2" />
                 Grocery List
