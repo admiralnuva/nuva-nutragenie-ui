@@ -1,4 +1,4 @@
-import { Home, ChefHat, Mic, User, LucideIcon } from "lucide-react";
+import { Home, ChefHat, Mic, User, CreditCard, LucideIcon } from "lucide-react";
 import { useLocation } from "wouter";
 
 interface NavItem {
@@ -11,6 +11,7 @@ const navItems: NavItem[] = [
   { icon: Home, label: "Home", path: "/home" },
   { icon: ChefHat, label: "Recipes", path: "/recipes" },
   { icon: Mic, label: "Voice Cook", path: "/voice-cooking" },
+  { icon: CreditCard, label: "Cards", path: "/cards" },
   { icon: User, label: "Profile", path: "/profile" }
 ];
 
