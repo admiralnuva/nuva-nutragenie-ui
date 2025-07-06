@@ -300,6 +300,11 @@ Changelog:
   * Improved Today's Activity layout: moved "Live" badge to right-aligned position with rectangular styling
   * Optimized card sizing: made heart rate subcard 1.5x wider to accommodate 2-column data display
   * Enhanced heart rate card to show both current BPM and resting status with normal indicator
+- July 06, 2025. Shopping List UX Design Decision:
+  * Maintained natural page scrolling for grocery list instead of constrained card height
+  * Target demographic consideration: users 40+ prefer traditional scrolling over internal card scroll
+  * Design prioritizes accessibility and familiar interaction patterns for older adults
+  * Grocery list displays all items naturally without artificial height constraints
 ```
 
 ## User Preferences
