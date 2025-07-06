@@ -770,17 +770,27 @@ export default function VoiceCookingScreen() {
                       
                       {/* Voice Conversation Bubbles */}
                       {conversation.length > 0 && (
-                        <div className="space-y-2 mb-4 max-h-32 overflow-y-auto">
-                          {conversation.slice(-2).map((msg, index) => (
+                        <div className="space-y-3 mb-4 max-h-48 overflow-y-auto">
+                          {conversation.slice(-3).map((msg, index) => (
                             <div
                               key={`${msg.timestamp.getTime()}-${index}`}
-                              className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+                              className={`flex items-start gap-2 ${msg.sender === 'user' ? 'flex-row-reverse' : 'flex-row'}`}
                             >
+                              {/* Avatar Icons */}
+                              <div className="w-6 h-6 rounded-full overflow-hidden border border-gray-200 flex-shrink-0">
+                                <img 
+                                  src={msg.sender === 'user' ? user1Avatar : chef1Avatar} 
+                                  alt={msg.sender === 'user' ? 'User' : 'Chef'} 
+                                  className="w-full h-full object-cover"
+                                />
+                              </div>
+                              
+                              {/* Message Bubble */}
                               <div
                                 className={`max-w-xs px-3 py-2 rounded-lg text-sm ${
                                   msg.sender === 'user' 
-                                    ? 'bg-blue-500 text-white' 
-                                    : 'bg-green-100 text-green-800'
+                                    ? 'bg-blue-500 text-white rounded-tr-none' 
+                                    : 'bg-green-100 text-green-800 rounded-tl-none'
                                 }`}
                               >
                                 <p>{msg.message}</p>
