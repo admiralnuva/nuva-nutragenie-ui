@@ -6,7 +6,6 @@ import { Input } from "@/components/ui/input";
 import { BackButton } from "@/components/ui/back-button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Plus, Minus, Trash2, Printer, ShoppingCart, Fish, Wheat, Apple, Salad, Carrot, Coffee, Milk, Cookie, Beef, Soup } from "lucide-react";
-import user1Avatar from "@/assets/avatars/user/user1.png";
 
 // Mock grocery items (this would come from the review-recipes page in real implementation)
 const mockGroceryItems = [
@@ -192,13 +191,7 @@ export default function GroceryListScreen() {
             <div className="flex-1 text-center">
               <h1 className="text-xl font-bold text-gray-900">NutraGenie</h1>
             </div>
-            <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-indigo-200 shadow-sm">
-              <img 
-                src={user1Avatar} 
-                alt="User Avatar" 
-                className="w-full h-full object-cover"
-              />
-            </div>
+            <div className="w-8"></div>
           </div>
         </div>
       </div>
