@@ -1,0 +1,12 @@
+Error handling response: Error: runtime/sendMessage: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received
+    at <URL>Understand this error
+sw_iframe.html:1 Error handling response: Error: runtime/sendMessage: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received
+    at chrome-extension://fdjamakpfbbddfjaooikfcpapjohcfmg/content/contentScripts/kwift.CHROME.js:1:184385Understand this error
+sw_iframe.html:1 Error handling response: Error: runtime/sendMessage: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received
+    at chrome-extension://fdjamakpfbbddfjaooikfcpapjohcfmg/content/contentScripts/kwift.CHROME.js:1:184385Understand this error
+m.stripe.network/inner.html#url=https%3A%2F%2Freplit.com%2F%40edwinvincent1%2FCodeCopilot&title=CodeCopilot%20-%20Replit&referrer=https%3A%2F%2Freplit.com%2F%40edwinvincent1%2FCodeCopilot&muid=914c633c-d65a-4e0b-bbe8-58bfedadbe13c40efa&sid=NA&version=6&preview=false&__shared_params__[version]=acacia:1 Error handling response: Error: runtime/sendMessage: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received
+    at chrome-extension://fdjamakpfbbddfjaooikfcpapjohcfmg/content/contentScripts/kwift.CHROME.js:1:184385Understand this error
+m.stripe.network/inner.html#url=https%3A%2F%2Freplit.com%2F%40edwinvincent1%2FCodeCopilot&title=CodeCopilot%20-%20Replit&referrer=https%3A%2F%2Freplit.com%2F%40edwinvincent1%2FCodeCopilot&muid=914c633c-d65a-4e0b-bbe8-58bfedadbe13c40efa&sid=NA&version=6&preview=false&__shared_params__[version]=acacia:1 Error handling response: Error: runtime/sendMessage: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received
+    at chrome-extension://fdjamakpfbbddfjaooikfcpapjohcfmg/content/contentScripts/kwift.CHROME.js:1:184385Understand this error
+CodeCopilot:1 Error handling response: Error: runtime/sendMessage: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received
+    at chrome-extension://fdjamakpfbbddfjaooikfcpapjohcfmg/content/contentScripts/kwift.CHROME.js:1:184385

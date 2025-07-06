@@ -580,7 +580,10 @@ export default function ReviewRecipesScreen() {
                                 >
                                   <Checkbox
                                     checked={isSubstitutionSelected}
-                                    onCheckedChange={() => selectSubstitution(dish.id, ingredientIndex, substitutionIndex)}
+                                    onCheckedChange={() => {
+                                      console.log('Checkbox clicked - calling selectSubstitution');
+                                      selectSubstitution(dish.id, ingredientIndex, substitutionIndex);
+                                    }}
                                   />
                                   <div className="flex-1">
                                     <div className="flex items-center justify-between">
