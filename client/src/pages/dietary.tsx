@@ -185,12 +185,17 @@ export default function DietaryScreen() {
                   </CardTitle>
                   <CardDescription>Select dietary choice to create personalized nutrition</CardDescription>
                 </div>
-                <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white ml-4">
-                  <img 
-                    src={userAvatarSrc} 
-                    alt="User Avatar"
-                    className="w-full h-full object-cover rounded-lg"
-                  />
+                <div className="flex flex-col items-center ml-4">
+                  <div className="w-20 h-20 rounded-lg overflow-hidden bg-white">
+                    <img 
+                      src={userAvatarSrc} 
+                      alt="User Avatar"
+                      className="w-full h-full object-cover rounded-lg"
+                    />
+                  </div>
+                  <p className="text-xs text-gray-600 mt-1 text-center font-medium">
+                    {currentUser?.nickname || "User"}
+                  </p>
                 </div>
               </div>
             </CardHeader>
@@ -225,12 +230,17 @@ export default function DietaryScreen() {
                   </CardTitle>
                   <CardDescription>Select health factors</CardDescription>
                 </div>
-                <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white ml-4">
-                  <img 
-                    src={userAvatarSrc} 
-                    alt="User Avatar"
-                    className="w-full h-full object-cover rounded-lg"
-                  />
+                <div className="flex flex-col items-center ml-4">
+                  <div className="w-20 h-20 rounded-lg overflow-hidden bg-white">
+                    <img 
+                      src={userAvatarSrc} 
+                      alt="User Avatar"
+                      className="w-full h-full object-cover rounded-lg"
+                    />
+                  </div>
+                  <p className="text-xs text-gray-600 mt-1 text-center font-medium">
+                    {currentUser?.nickname || "User"}
+                  </p>
                 </div>
               </div>
             </CardHeader>
@@ -265,12 +275,17 @@ export default function DietaryScreen() {
                   </CardTitle>
                   <CardDescription>Your fitness and wellness goals</CardDescription>
                 </div>
-                <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white ml-4">
-                  <img 
-                    src={userAvatarSrc} 
-                    alt="User Avatar"
-                    className="w-full h-full object-cover rounded-lg"
-                  />
+                <div className="flex flex-col items-center ml-4">
+                  <div className="w-20 h-20 rounded-lg overflow-hidden bg-white">
+                    <img 
+                      src={userAvatarSrc} 
+                      alt="User Avatar"
+                      className="w-full h-full object-cover rounded-lg"
+                    />
+                  </div>
+                  <p className="text-xs text-gray-600 mt-1 text-center font-medium">
+                    {currentUser?.nickname || "User"}
+                  </p>
                 </div>
               </div>
             </CardHeader>
@@ -302,12 +317,17 @@ export default function DietaryScreen() {
                   <CardTitle className="text-lg">Allergies & Restrictions</CardTitle>
                   <CardDescription>List any food allergies or severe restrictions</CardDescription>
                 </div>
-                <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white ml-4">
-                  <img 
-                    src={userAvatarSrc} 
-                    alt="User Avatar"
-                    className="w-full h-full object-cover rounded-lg"
-                  />
+                <div className="flex flex-col items-center ml-4">
+                  <div className="w-20 h-20 rounded-lg overflow-hidden bg-white">
+                    <img 
+                      src={userAvatarSrc} 
+                      alt="User Avatar"
+                      className="w-full h-full object-cover rounded-lg"
+                    />
+                  </div>
+                  <p className="text-xs text-gray-600 mt-1 text-center font-medium">
+                    {currentUser?.nickname || "User"}
+                  </p>
                 </div>
               </div>
             </CardHeader>

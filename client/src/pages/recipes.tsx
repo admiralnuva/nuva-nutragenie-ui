@@ -478,12 +478,17 @@ export default function RecipesScreen() {
                   )}
                 </div>
               </div>
-              <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white ml-4">
-                <img 
-                  src={userAvatarSrc} 
-                  alt="User Avatar"
-                  className="w-full h-full object-cover rounded-lg"
-                />
+              <div className="flex flex-col items-center ml-4">
+                <div className="w-20 h-20 rounded-lg overflow-hidden bg-white">
+                  <img 
+                    src={userAvatarSrc} 
+                    alt="User Avatar"
+                    className="w-full h-full object-cover rounded-lg"
+                  />
+                </div>
+                <p className="text-xs text-gray-600 mt-1 text-center font-medium">
+                  {currentUser?.nickname || "User"}
+                </p>
               </div>
             </div>
           </CardHeader>
@@ -497,12 +502,17 @@ export default function RecipesScreen() {
                 <CardTitle className="text-lg">Meal Preferences</CardTitle>
                 <p className="text-sm text-gray-600 mt-1">Plan your next delicious meal</p>
               </div>
-              <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white ml-4">
-                <img 
-                  src={userAvatarSrc} 
-                  alt="User Avatar"
-                  className="w-full h-full object-cover rounded-lg"
-                />
+              <div className="flex flex-col items-center ml-4">
+                <div className="w-20 h-20 rounded-lg overflow-hidden bg-white">
+                  <img 
+                    src={userAvatarSrc} 
+                    alt="User Avatar"
+                    className="w-full h-full object-cover rounded-lg"
+                  />
+                </div>
+                <p className="text-xs text-gray-600 mt-1 text-center font-medium">
+                  {currentUser?.nickname || "User"}
+                </p>
               </div>
             </div>
           </CardHeader>
