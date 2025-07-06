@@ -16,19 +16,11 @@ import {
   ChefHat,
   Timer,
   CheckCircle,
-  Download,
-  Printer,
-  Camera,
-  Share2,
   Trophy,
-  Star,
-  ShoppingCart,
   ChevronDown,
   ChevronUp,
   Play,
-  Pause,
-  ArrowLeft,
-  ArrowRight
+  Pause
 } from "lucide-react";
 import user1Avatar from "@/assets/avatars/user/user1.png";
 import chef1Avatar from "@/assets/avatars/chef/chef1.png";

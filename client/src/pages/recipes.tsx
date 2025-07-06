@@ -378,8 +378,7 @@ export default function RecipesScreen() {
   const userAvatarSrc = currentUser && currentUser.avatar ? userAvatars[currentUser.avatar as keyof typeof userAvatars] : userAvatar1;
   
   // Debug chef avatar - check what value we're getting
-  console.log('Current user selectedChef:', currentUser?.selectedChef);
-  console.log('Chef avatar value:', currentUser?.selectedChef?.avatar);
+
   
   // Fix chef avatar mapping - the avatar field contains the full path, we need to extract the key
   let chefAvatarSrc = chefAvatar1; // default

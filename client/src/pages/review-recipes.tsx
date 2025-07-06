@@ -1,5 +1,5 @@
-// @ts-nocheck
-import { useState, useMemo } from "react";
+
+import { useState, useMemo, useCallback } from "react";
 import { useLocation } from "wouter";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { Button } from "@/components/ui/button";
@@ -204,7 +204,7 @@ export default function ReviewRecipesScreen() {
   // Updated state: each ingredient can have original AND substitutions selected simultaneously
   const [ingredientChoices, setIngredientChoices] = useState({});
 
-  const toggleDishSelection = (dishId) => {
+  const toggleDishSelection = useCallback((dishId) => {
     const isCurrentlySelected = selectedDishes.includes(dishId);
     
     setSelectedDishes(prev => 
@@ -241,32 +241,32 @@ export default function ReviewRecipesScreen() {
         });
       }
     }
-  };
+  }, [selectedDishes, ingredientChoices]);
 
   // Toggle dish expansion for substitutions
-  const toggleDishExpansion = (dishId) => {
+  const toggleDishExpansion = useCallback((dishId) => {
     setExpandedDishes(prev => ({
       ...prev,
       [dishId]: !prev[dishId]
     }));
-  };
+  }, [expandedDishes]);
 
   // Toggle instructions expansion
-  const toggleInstructionsExpansion = (dishId) => {
+  const toggleInstructionsExpansion = useCallback((dishId) => {
     setExpandedInstructions(prev => ({
       ...prev,
       [dishId]: !prev[dishId]
     }));
-  };
+  }, [expandedInstructions]);
 
   // Set ingredient choice: can have original AND/OR substitutions selected
-  const setIngredientChoice = (dishId, ingredientIndex, choice) => {
+  const setIngredientChoice = useCallback((dishId, ingredientIndex, choice) => {
     const key = `${dishId}-${ingredientIndex}`;
     setIngredientChoices(prev => ({
       ...prev,
       [key]: choice
     }));
-  };
+  }, []);
 
   // Toggle substitution selection (keeps original if selected)
   const toggleSubstitution = (dishId, ingredientIndex, substitutionIndex) => {
@@ -664,8 +664,8 @@ export default function ReviewRecipesScreen() {
           </CardHeader>
           <CardContent className="pt-0">
             <div className="space-y-4">
-              {/* Calculate averages and TDEE */}
-              {(() => {
+              {/* Calculate averages and TDEE - memoized for performance */}
+              {useMemo(() => {
                 // Calculate total nutrition from selected dishes
                 const totalNutrition = selectedDishes.reduce((total, dishId) => {
                   const dish = weeklyMealPlan.find(d => d.id === dishId);
@@ -783,7 +783,7 @@ export default function ReviewRecipesScreen() {
                     </div>
                   </>
                 );
-              })()}
+              }, [selectedDishes, currentUser?.nutritionalTargets])}
             </div>
           </CardContent>
         </Card>
