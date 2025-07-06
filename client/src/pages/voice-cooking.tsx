@@ -498,13 +498,13 @@ export default function VoiceCookingScreen() {
         
         {/* User and Chef Avatars with Stop Button */}
         <div className="flex items-center justify-center gap-6 mt-4 relative">
-          {/* Emergency Stop Button - aligned with user avatar */}
-          <div className="absolute left-8 top-1/2 transform -translate-y-1/2">
+          {/* Emergency Stop Button - aligned with chef avatar on the right */}
+          <div className="absolute right-8 top-1/2 transform -translate-y-1/2">
             <OnboardingTooltip
               id="emergency-stop"
               title="Emergency Stop"
               description="Instantly pause all cooking activities if you need to step away or handle an emergency situation. You can resume cooking anytime."
-              position="right"
+              position="left"
             >
               <Button 
                 size="sm" 
