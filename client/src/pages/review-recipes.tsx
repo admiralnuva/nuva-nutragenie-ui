@@ -633,14 +633,7 @@ export default function ReviewRecipesScreen() {
               }`}
               onClick={() => toggleDishSelection(dish.id)}
             >
-              {/* Checkbox in top right corner */}
-              <div className="absolute top-3 right-3 z-10">
-                <div className={`w-6 h-6 rounded-md border-2 flex items-center justify-center ${
-                  isSelected ? 'bg-indigo-600 border-indigo-600' : 'bg-white border-gray-300'
-                }`}>
-                  {isSelected && <Check className="w-4 h-4 text-white" />}
-                </div>
-              </div>
+
               {/* Full width image at top - same as pantry dishes */}
               <div className="w-full h-32 bg-gradient-to-br from-purple-100 to-violet-200 relative flex items-center justify-center">
                 {/* Large colored bowl/plate */}
@@ -832,7 +825,23 @@ export default function ReviewRecipesScreen() {
               <div className="p-4">
                 <div className="mb-2">
                   <h3 className="font-bold text-gray-900 text-lg">{dish.name}</h3>
-                  <p className="text-sm text-gray-600">{dish.day} • {dish.servings} servings • {dish.cookTime} min</p>
+                  <div className="flex items-center justify-between">
+                    <p className="text-sm text-gray-600">{dish.day} • {dish.servings} servings • {dish.cookTime} min</p>
+                    {/* Round tick selection */}
+                    <div 
+                      className={`w-6 h-6 rounded-full border-2 flex items-center justify-center cursor-pointer transition-all ${
+                        isSelected 
+                          ? 'bg-green-500 border-green-500' 
+                          : 'bg-blue-100 border-blue-300 hover:border-blue-400'
+                      }`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleDishSelection(dish.id);
+                      }}
+                    >
+                      {isSelected && <Check className="w-4 h-4 text-white" />}
+                    </div>
+                  </div>
                 </div>
 
                 {/* Nutrition info - dynamic based on selections */}
