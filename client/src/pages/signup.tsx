@@ -470,7 +470,7 @@ export default function SignupScreen() {
                       <SelectItem value="<16">&lt; 16</SelectItem>
                       <SelectItem value="17-30">17-30</SelectItem>
                       <SelectItem value="31-50">31-50</SelectItem>
-                      <SelectItem value="51+">&gt; 51+</SelectItem>
+                      <SelectItem value="51+">51 and above</SelectItem>
                     </SelectContent>
                   </Select>
                   {validationErrors.ageGroup && (
