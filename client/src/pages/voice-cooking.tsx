@@ -1007,15 +1007,58 @@ export default function VoiceCookingScreen() {
                     </Collapsible>
 
                     {/* View All Steps Toggle - Moved to Bottom */}
-                    <div className="text-center pt-4 border-t border-indigo-200">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => setShowAllSteps(!showAllSteps)}
-                      >
-                        {showAllSteps ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-                        {showAllSteps ? "Hide All Steps" : "View All Steps"}
-                      </Button>
+                    <div className="pt-4 border-t border-indigo-200">
+                      <div className="flex gap-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => setShowAllSteps(!showAllSteps)}
+                          className="flex-1"
+                        >
+                          {showAllSteps ? <ChevronUp className="w-4 h-4 mr-1" /> : <ChevronDown className="w-4 h-4 mr-1" />}
+                          {showAllSteps ? "Hide All Steps" : "View All Steps"}
+                        </Button>
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={downloadRecipe}
+                          className="px-3"
+                          title="Save Recipe"
+                        >
+                          💾
+                        </Button>
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={printRecipe}
+                          className="px-3"
+                          title="Print Recipe"
+                        >
+                          🖨️
+                        </Button>
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={() => navigator.share && navigator.share({
+                            title: recipe.name,
+                            text: `Check out this recipe: ${recipe.name}`,
+                            url: window.location.href
+                          })}
+                          className="px-3"
+                          title="Share Recipe"
+                        >
+                          📤
+                        </Button>
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={() => window.history.back()}
+                          className="px-3"
+                          title="Close"
+                        >
+                          ✕
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 )}
@@ -1034,18 +1077,30 @@ export default function VoiceCookingScreen() {
               {conversation.slice(-4).map((msg, index) => (
                 <div
                   key={index}
-                  className={`p-3 rounded-lg ${
+                  className={`flex items-start gap-2 p-3 rounded-lg ${
                     msg.sender === 'user' 
-                      ? 'bg-blue-50 border border-blue-200 ml-4' 
+                      ? 'bg-blue-50 border border-blue-200 ml-4 flex-row-reverse' 
                       : 'bg-purple-50 border border-indigo-200 mr-4'
                   }`}
                 >
-                  <p className="text-sm">
-                    <strong>{msg.sender === 'user' ? 'You' : 'Chef Antoine'}:</strong> {msg.message}
-                  </p>
-                  <p className="text-xs text-gray-500 mt-1">
-                    {msg.timestamp.toLocaleTimeString()}
-                  </p>
+                  {/* Avatar */}
+                  <div className="w-8 h-8 rounded-full overflow-hidden border border-gray-200 flex-shrink-0">
+                    <img 
+                      src={msg.sender === 'user' ? user1Avatar : chef1Avatar} 
+                      alt={msg.sender === 'user' ? 'User' : 'Chef'} 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  
+                  {/* Message Content */}
+                  <div className="flex-1">
+                    <p className="text-sm">
+                      <strong>{msg.sender === 'user' ? 'You' : 'Chef Antoine'}:</strong> {msg.message}
+                    </p>
+                    <p className="text-xs text-gray-500 mt-1">
+                      {msg.timestamp.toLocaleTimeString()}
+                    </p>
+                  </div>
                 </div>
               ))}
             </CardContent>
