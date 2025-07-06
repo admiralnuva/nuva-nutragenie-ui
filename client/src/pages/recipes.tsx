@@ -691,10 +691,10 @@ export default function RecipesScreen() {
                     className="w-full h-full object-cover rounded-lg"
                   />
                 </div>
-                <p className="text-xs text-gray-600 mt-1 text-center">
+                <p className="text-xs text-gray-600 mt-1 text-center font-medium">
                   {currentView === "pantry" 
-                    ? (userData?.nickname || "User") 
-                    : (userData?.chefNickname || "Chef")}
+                    ? (currentUser?.nickname || "User") 
+                    : (currentUser?.selectedChef?.name || "Chef")}
                 </p>
               </div>
             </div>
