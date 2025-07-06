@@ -326,6 +326,11 @@ export default function ReviewRecipesScreen() {
   const [selectedIngredients, setSelectedIngredients] = useState({}); // Track ingredient/substitution selections
   const [shoppingCart, setShoppingCart] = useState([]);
 
+  // Scroll to top when component mounts or navigation context changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
   // Initialize main ingredients as selected by default
   useEffect(() => {
     const defaultSelections = {};
