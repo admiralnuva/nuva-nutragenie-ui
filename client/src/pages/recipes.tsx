@@ -62,7 +62,11 @@ const cuisineTypes = [
   { label: '🇲🇽 Mexican', value: 'mexican' },
   { label: '🇯🇵 Japanese', value: 'japanese' },
   { label: '🇮🇳 Indian', value: 'indian' },
-  { label: '🇬🇷 Mediterranean', value: 'mediterranean' }
+  { label: '🇬🇷 Mediterranean', value: 'mediterranean' },
+  { label: '🇮🇹 Italian', value: 'italian' },
+  { label: '🇹🇭 Thai', value: 'thai' },
+  { label: '🇰🇷 Korean', value: 'korean' },
+  { label: '🇱🇧 Middle Eastern', value: 'middle-eastern' }
 ];
 
 const mealTypes = [
@@ -71,13 +75,40 @@ const mealTypes = [
   { label: '🍽️ Dinner', value: 'dinner' },
   { label: '🍿 Snack', value: 'snack' },
   { label: '🍲 Soup', value: 'soup' },
-  { label: '🥗 Salad', value: 'salad' }
+  { label: '🥗 Salad', value: 'salad' },
+  { label: '🍰 Desserts', value: 'desserts' },
+  { label: '🍟 Side Dish', value: 'side-dish' },
+  { label: '🥤 Smoothies', value: 'smoothies' },
+  { label: '🥛 Shakes', value: 'shakes' }
 ];
 
 const spiceLevels = [
   { label: '😊 Mild', value: 'mild' },
   { label: '🌶️ Medium', value: 'medium' },
   { label: '🔥 Spicy', value: 'spicy' }
+];
+
+const cookingMethods = [
+  { label: '🍳 Airfryer', value: 'airfryer' },
+  { label: '⏲️ Pressure Cooker', value: 'pressure-cooker' },
+  { label: '🔥 Stove Top', value: 'stove-top' },
+  { label: '🥗 No Cook', value: 'no-cook' },
+  { label: '🔥 Bake', value: 'bake' },
+  { label: '🔥 Grilled', value: 'grilled' },
+  { label: '📱 Microwave', value: 'microwave' }
+];
+
+const skillLevels = [
+  { label: '👶 Beginner', value: 'beginner' },
+  { label: '👨‍🍳 Intermediate', value: 'intermediate' },
+  { label: '👨‍🎓 Advanced', value: 'advanced' },
+  { label: '🧒 Kid Friendly', value: 'kid-friendly' }
+];
+
+const timeFriendlyOptions = [
+  { label: '⚡ Quick (under 15 min)', value: 'quick' },
+  { label: '⏰ Moderate (15-30 min)', value: 'moderate' },
+  { label: '🕐 Long (30+ min)', value: 'long' }
 ];
 
 // Enhanced pantry dishes with matching ingredients
@@ -296,6 +327,9 @@ export default function RecipesScreen() {
   const [selectedMealType, setSelectedMealType] = useState("");
   const [selectedSpiceLevel, setSelectedSpiceLevel] = useState("mild");
   const [servingSize, setServingSize] = useState("2");
+  const [selectedCookingMethod, setSelectedCookingMethod] = useState("");
+  const [selectedSkillLevel, setSelectedSkillLevel] = useState("");
+  const [selectedTimeFriendly, setSelectedTimeFriendly] = useState("");
   
   // Pantry ingredients state (Card 2)
   const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
@@ -575,6 +609,58 @@ export default function RecipesScreen() {
                       {spiceLevels.map(spice => (
                         <SelectItem key={spice.value} value={spice.value}>
                           {spice.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="text-sm font-medium text-gray-700 mb-1 block">Cooking Method</label>
+                  <Select value={selectedCookingMethod} onValueChange={setSelectedCookingMethod}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Method" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {cookingMethods.map(method => (
+                        <SelectItem key={method.value} value={method.value}>
+                          {method.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium text-gray-700 mb-1 block">Skill Level</label>
+                  <Select value={selectedSkillLevel} onValueChange={setSelectedSkillLevel}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Skill" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {skillLevels.map(skill => (
+                        <SelectItem key={skill.value} value={skill.value}>
+                          {skill.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 gap-3">
+                <div>
+                  <label className="text-sm font-medium text-gray-700 mb-1 block">Time Friendly</label>
+                  <Select value={selectedTimeFriendly} onValueChange={setSelectedTimeFriendly}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select time preference" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {timeFriendlyOptions.map(time => (
+                        <SelectItem key={time.value} value={time.value}>
+                          {time.label}
                         </SelectItem>
                       ))}
                     </SelectContent>
