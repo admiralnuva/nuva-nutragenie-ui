@@ -562,12 +562,11 @@ export default function ReviewRecipesScreen() {
                               />
                               <div className="flex-1">
                                 <div className="flex items-center justify-between mb-1">
-                                  <span className="font-medium text-gray-900">{ingredient.name}</span>
+                                  <span className="font-medium text-gray-900">{ingredient.name} ({ingredient.quantity})</span>
                                   <span className="text-xs font-semibold text-orange-600">{ingredient.nutrition.calories} cal</span>
                                 </div>
-                                <div className="flex items-center justify-between text-xs text-gray-500">
-                                  <span>({ingredient.quantity})</span>
-                                  <span>P: {ingredient.nutrition.protein}g • C: {ingredient.nutrition.carbs}g • F: {ingredient.nutrition.fat}g</span>
+                                <div className="text-xs text-gray-500">
+                                  P: {ingredient.nutrition.protein}g • C: {ingredient.nutrition.carbs}g • F: {ingredient.nutrition.fat}g
                                 </div>
                               </div>
                             </div>
@@ -596,12 +595,11 @@ export default function ReviewRecipesScreen() {
                                   />
                                   <div className="flex-1">
                                     <div className="flex items-center justify-between mb-1">
-                                      <span className="font-medium text-blue-900">⟳ {substitution.name}</span>
+                                      <span className="font-medium text-blue-900">⟳ {substitution.name} ({substitution.quantity})</span>
                                       <span className="text-xs font-semibold text-orange-600">{substitution.nutrition.calories} cal</span>
                                     </div>
-                                    <div className="flex items-center justify-between text-xs text-gray-500">
-                                      <span className="text-blue-600">({substitution.quantity})</span>
-                                      <span>P: {substitution.nutrition.protein}g • C: {substitution.nutrition.carbs}g • F: {substitution.nutrition.fat}g</span>
+                                    <div className="text-xs text-gray-500">
+                                      P: {substitution.nutrition.protein}g • C: {substitution.nutrition.carbs}g • F: {substitution.nutrition.fat}g
                                     </div>
                                   </div>
                                 </div>
