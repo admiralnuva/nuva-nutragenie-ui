@@ -578,7 +578,7 @@ export default function ReviewRecipesScreen() {
                                   }`}
                                   onClick={(e) => {
                                     e.stopPropagation();
-                                    console.log('Div clicked - calling selectSubstitution');
+                                    alert(`Clicked substitution: ${substitution.name}`);
                                     selectSubstitution(dish.id, ingredientIndex, substitutionIndex);
                                   }}
                                 >
