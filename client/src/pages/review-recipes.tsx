@@ -1116,16 +1116,27 @@ export default function ReviewRecipesScreen() {
                   const selectedCount = selectedDishesData.length;
                   const avgNutrition = selectedCount > 0 ? selectedDishesData.reduce((total, dish) => {
                     const dishNutrition = calculateDishNutrition(dish.id);
+                    const servings = dish.servings || 1; // Default to 1 serving if not specified
+                    
+                    // Calculate per-serving nutrition
+                    const perServingNutrition = {
+                      calories: dishNutrition.calories / servings,
+                      protein: dishNutrition.protein / servings,
+                      carbs: dishNutrition.carbs / servings,
+                      fat: dishNutrition.fat / servings,
+                      fiber: (dishNutrition.fiber || 0) / servings
+                    };
+                    
                     return {
-                      calories: total.calories + dishNutrition.calories,
-                      protein: total.protein + dishNutrition.protein,
-                      carbs: total.carbs + dishNutrition.carbs,
-                      fat: total.fat + dishNutrition.fat,
-                      fiber: total.fiber + (dishNutrition.fiber || 0)
+                      calories: total.calories + perServingNutrition.calories,
+                      protein: total.protein + perServingNutrition.protein,
+                      carbs: total.carbs + perServingNutrition.carbs,
+                      fat: total.fat + perServingNutrition.fat,
+                      fiber: total.fiber + perServingNutrition.fiber
                     };
                   }, { calories: 0, protein: 0, carbs: 0, fat: 0, fiber: 0 }) : { calories: 0, protein: 0, carbs: 0, fat: 0, fiber: 0 };
 
-                  // Calculate daily totals (multiply by number of dishes to get full day estimate)
+                  // Calculate daily totals (average per dish * 5 meals per day)
                   const dailyEstimate = selectedCount > 0 ? {
                     calories: (avgNutrition.calories / selectedCount) * 5,
                     protein: (avgNutrition.protein / selectedCount) * 5,
@@ -1138,7 +1149,7 @@ export default function ReviewRecipesScreen() {
                     <div className="space-y-3">
                       <div className="text-xs text-gray-600 mb-2">
                         {selectedCount > 0 
-                          ? `Based on ${selectedCount} selected dish${selectedCount > 1 ? 'es' : ''} (estimated daily totals)`
+                          ? `Based on ${selectedCount} selected dish${selectedCount > 1 ? 'es' : ''} (per-serving nutrition × 5 meals)`
                           : 'Select dishes to see daily nutrition estimate'
                         }
                       </div>
