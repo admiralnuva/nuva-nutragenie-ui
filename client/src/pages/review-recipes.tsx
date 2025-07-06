@@ -273,12 +273,26 @@ export default function ReviewRecipesScreen() {
     const key = `${dishId}-${ingredientIndex}`;
     const currentChoice = ingredientChoices[key];
     const newChoice = currentChoice === 'none' ? 'original' : 'none';
+    console.log('Toggling ingredient:', { dishId, ingredientIndex, currentChoice, newChoice });
     setIngredientChoice(dishId, ingredientIndex, newChoice);
   };
 
-  // Select substitution (automatically deselects original and other substitutions)
+  // Select substitution (automatically deselects original and other substitutions for THIS ingredient only)
   const selectSubstitution = (dishId, ingredientIndex, substitutionIndex) => {
-    setIngredientChoice(dishId, ingredientIndex, substitutionIndex);
+    const key = `${dishId}-${ingredientIndex}`;
+    const currentChoice = ingredientChoices[key];
+    
+    console.log('Selecting substitution:', { dishId, ingredientIndex, substitutionIndex, currentChoice });
+    
+    // If already selected, deselect it (toggle behavior)
+    if (currentChoice === substitutionIndex) {
+      console.log('Deselecting substitution');
+      setIngredientChoice(dishId, ingredientIndex, 'none');
+    } else {
+      // Select this substitution (replaces original or other substitutions)
+      console.log('Setting substitution as choice');
+      setIngredientChoice(dishId, ingredientIndex, substitutionIndex);
+    }
   };
 
   // Generate shopping cart from ingredient choices
