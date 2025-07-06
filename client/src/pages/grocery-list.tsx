@@ -199,7 +199,7 @@ export default function GroceryListScreen() {
       {/* Page Title */}
       <div className="max-w-md mx-auto px-4 pb-2">
         <div className="text-lg font-semibold text-brand-indigo-600 text-center">
-          Grocery List
+          {currentUser?.nickname ? `${currentUser.nickname}'s Grocery List` : 'Grocery List'}
         </div>
       </div>
 

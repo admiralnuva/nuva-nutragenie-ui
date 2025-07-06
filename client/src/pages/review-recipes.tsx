@@ -587,7 +587,7 @@ export default function ReviewRecipesScreen() {
           <div className="w-8"></div>
         </div>
         <div className="text-lg font-semibold text-indigo-600 text-center">
-          Chef Recommends
+          {currentUser?.nickname ? `${currentUser.nickname}'s Meal Planner` : 'Chef Recommends'}
         </div>
       </div>
 

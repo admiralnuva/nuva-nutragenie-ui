@@ -294,7 +294,7 @@ export default function RecipeDetailsScreen() {
           <div className="w-8"></div>
         </div>
         <div className="text-lg font-semibold text-indigo-600 text-center">
-          Your Recipes
+          {currentUser?.nickname ? `${currentUser.nickname}'s Recipe Details` : 'Your Recipes'}
         </div>
       </div>
 

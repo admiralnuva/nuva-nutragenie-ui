@@ -486,7 +486,9 @@ export default function VoiceCookingScreen() {
           <BackButton to="/recipes" />
           <div className="flex-1 text-center">
             <h1 className="text-xl font-bold text-white">NutraGenie</h1>
-            <div className="text-lg font-semibold text-white">Let's Cook</div>
+            <div className="text-lg font-semibold text-white">
+              {currentUser?.nickname ? `${currentUser.nickname}'s Kitchen` : "Let's Cook"}
+            </div>
             {isOfflineMode && (
               <div className="text-xs text-orange-600 mt-1">📶 Offline Mode Active</div>
             )}

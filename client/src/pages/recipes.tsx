@@ -432,7 +432,9 @@ export default function RecipesScreen() {
         </div>
 
         <div className="text-center space-y-1">
-          <h2 className="text-xl font-bold text-gray-900">Explore Recipes</h2>
+          <h2 className="text-xl font-bold text-gray-900">
+            {currentUser?.nickname ? `${currentUser.nickname}'s Recipe Explorer` : 'Explore Recipes'}
+          </h2>
         </div>
 
         {/* Card 1: Dietary Preferences Summary */}
