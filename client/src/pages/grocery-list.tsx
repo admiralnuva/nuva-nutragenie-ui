@@ -31,13 +31,6 @@ const mockGroceryItems = [
     inPantry: false
   },
   {
-    name: "Soy Sauce",
-    quantity: "1 bottle",
-    nutrition: { calories: 11, protein: 2 },
-    dishes: ["Vegetable Stir Fry"],
-    inPantry: false
-  },
-  {
     name: "Salmon Fillet",
     quantity: "1.5 lbs",
     nutrition: { calories: 412, protein: 58 },
@@ -66,30 +59,9 @@ const mockGroceryItems = [
     inPantry: false
   },
   {
-    name: "Ground Turkey",
-    quantity: "1.5 lbs",
-    nutrition: { calories: 640, protein: 89 },
-    dishes: ["Turkey Meatballs"],
-    inPantry: false
-  },
-  {
-    name: "Breadcrumbs",
-    quantity: "1 package",
-    nutrition: { calories: 110, protein: 4 },
-    dishes: ["Turkey Meatballs"],
-    inPantry: false
-  },
-  {
     name: "Tomatoes",
-    quantity: "6 pieces",
+    quantity: "4 pieces",
     nutrition: { calories: 22, protein: 1 },
-    dishes: ["Garden Salad"],
-    inPantry: false
-  },
-  {
-    name: "Cucumber",
-    quantity: "2 pieces",
-    nutrition: { calories: 16, protein: 1 },
     dishes: ["Garden Salad"],
     inPantry: false
   }
