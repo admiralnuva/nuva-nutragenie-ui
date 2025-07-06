@@ -734,7 +734,7 @@ export default function VoiceCookingScreen() {
                     )}
 
                     {/* Current Step with Voice Bubbles */}
-                    <div className="bg-white border border-indigo-200 rounded-lg p-4">
+                    <div className="bg-gradient-to-br from-blue-50 to-purple-50 border border-indigo-200 rounded-lg p-4">
                       <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center gap-2 flex-1">
                           <span className="font-semibold text-indigo-600">Step {currentStep + 1}</span>
@@ -789,7 +789,7 @@ export default function VoiceCookingScreen() {
                                            transform ${
                                   msg.sender === 'user' 
                                     ? 'bg-blue-500 text-white rounded-tr-none animate-in slide-in-from-right-2 duration-400 delay-100' 
-                                    : 'bg-green-100 text-green-800 rounded-tl-none animate-in slide-in-from-left-2 duration-400 delay-100'
+                                    : 'bg-gradient-to-r from-blue-400 to-purple-500 text-white rounded-tl-none animate-in slide-in-from-left-2 duration-400 delay-100'
                                 }`}
                               >
                                 <p>{msg.message}</p>
