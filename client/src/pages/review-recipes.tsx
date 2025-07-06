@@ -275,19 +275,21 @@ export default function ReviewRecipesScreen() {
   // Toggle ingredient selection for grocery list
   const toggleIngredientSelection = (dishId, ingredientIndex) => {
     const key = `${dishId}-${ingredientIndex}`;
-    setSelectedIngredients(prev => ({
-      ...prev,
-      [key]: !prev[key]
-    }));
+    setSelectedIngredients(prev => {
+      const newState = { ...prev };
+      newState[key] = !prev[key];
+      return newState;
+    });
   };
 
   // Toggle substitution selection 
   const toggleSubstitutionSelection = (dishId, ingredientIndex, substitutionIndex) => {
     const key = `${dishId}-${ingredientIndex}-${substitutionIndex}`;
-    setSelectedSubstitutions(prev => ({
-      ...prev,
-      [key]: !prev[key]
-    }));
+    setSelectedSubstitutions(prev => {
+      const newState = { ...prev };
+      newState[key] = !prev[key];
+      return newState;
+    });
   };
 
   // Generate shopping cart from selected ingredients and substitutions
@@ -513,7 +515,7 @@ export default function ReviewRecipesScreen() {
                       
                       {dish.ingredients.map((ingredient, ingredientIndex) => {
                         const ingredientKey = `${dish.id}-${ingredientIndex}`;
-                        const isIngredientSelected = selectedIngredients[ingredientKey];
+                        const isIngredientSelected = !!selectedIngredients[ingredientKey];
                         
                         return (
                           <div key={ingredientIndex} className="space-y-3 border-b border-gray-200 pb-3 last:border-b-0">
@@ -529,8 +531,8 @@ export default function ReviewRecipesScreen() {
                                 : 'bg-gray-50 border-gray-200 hover:border-gray-300'
                             }`}>
                               <Checkbox
-                                checked={isIngredientSelected}
-                                onCheckedChange={() => toggleIngredientSelection(dish.id, ingredientIndex)}
+                                checked={!!isIngredientSelected}
+                                onCheckedChange={(checked) => toggleIngredientSelection(dish.id, ingredientIndex)}
                               />
                               <div className="flex-1">
                                 <div className="flex items-center justify-between">
@@ -553,7 +555,7 @@ export default function ReviewRecipesScreen() {
                             {/* Substitution options */}
                             {ingredient.substitutions && ingredient.substitutions.map((substitution, substitutionIndex) => {
                               const substitutionKey = `${dish.id}-${ingredientIndex}-${substitutionIndex}`;
-                              const isSubstitutionSelected = selectedSubstitutions[substitutionKey];
+                              const isSubstitutionSelected = !!selectedSubstitutions[substitutionKey];
                               
                               return (
                                 <div key={substitutionIndex} className={`flex items-center space-x-3 p-3 rounded-lg border-2 transition-all ml-4 ${
@@ -562,8 +564,8 @@ export default function ReviewRecipesScreen() {
                                     : 'bg-white border-blue-200 hover:border-blue-300'
                                 }`}>
                                   <Checkbox
-                                    checked={isSubstitutionSelected}
-                                    onCheckedChange={() => toggleSubstitutionSelection(dish.id, ingredientIndex, substitutionIndex)}
+                                    checked={!!isSubstitutionSelected}
+                                    onCheckedChange={(checked) => toggleSubstitutionSelection(dish.id, ingredientIndex, substitutionIndex)}
                                   />
                                   <div className="flex-1">
                                     <div className="flex items-center justify-between">
