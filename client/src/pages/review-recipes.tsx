@@ -207,7 +207,6 @@ export default function ReviewRecipesScreen() {
 
   const toggleDishSelection = (dishId) => {
     const isCurrentlySelected = selectedDishes.includes(dishId);
-    console.log('Toggling dish:', dishId, 'Currently selected:', isCurrentlySelected);
     
     setSelectedDishes(prev => 
       isCurrentlySelected
@@ -219,38 +218,41 @@ export default function ReviewRecipesScreen() {
     if (!isCurrentlySelected) {
       const dish = weeklyMealPlan.find(d => d.id === dishId);
       if (dish) {
-        console.log('Auto-selecting all ingredients for dish:', dishId);
-        const newSelectedIngredients = { ...selectedIngredients };
-        dish.ingredients.forEach((ingredient, ingredientIndex) => {
-          const ingredientKey = `${dishId}-${ingredientIndex}`;
-          newSelectedIngredients[ingredientKey] = true;
+        setSelectedIngredients(prev => {
+          const newSelected = { ...prev };
+          dish.ingredients.forEach((ingredient, ingredientIndex) => {
+            const ingredientKey = `${dishId}-${ingredientIndex}`;
+            newSelected[ingredientKey] = true;
+          });
+          return newSelected;
         });
-        setSelectedIngredients(newSelectedIngredients);
       }
     } else {
       // Deselect all ingredients when dish is deselected
-      console.log('Auto-deselecting all ingredients for dish:', dishId);
-      const newSelectedIngredients = { ...selectedIngredients };
-      const newSelectedSubstitutions = { ...selectedSubstitutions };
-      
       const dish = weeklyMealPlan.find(d => d.id === dishId);
       if (dish) {
-        dish.ingredients.forEach((ingredient, ingredientIndex) => {
-          const ingredientKey = `${dishId}-${ingredientIndex}`;
-          delete newSelectedIngredients[ingredientKey];
-          
-          // Also clear substitutions
-          if (ingredient.substitutions) {
-            ingredient.substitutions.forEach((_, substitutionIndex) => {
-              const substitutionKey = `${dishId}-${ingredientIndex}-${substitutionIndex}`;
-              delete newSelectedSubstitutions[substitutionKey];
-            });
-          }
+        setSelectedIngredients(prev => {
+          const newSelected = { ...prev };
+          dish.ingredients.forEach((ingredient, ingredientIndex) => {
+            const ingredientKey = `${dishId}-${ingredientIndex}`;
+            delete newSelected[ingredientKey];
+          });
+          return newSelected;
+        });
+        
+        setSelectedSubstitutions(prev => {
+          const newSelected = { ...prev };
+          dish.ingredients.forEach((ingredient, ingredientIndex) => {
+            if (ingredient.substitutions) {
+              ingredient.substitutions.forEach((_, substitutionIndex) => {
+                const substitutionKey = `${dishId}-${ingredientIndex}-${substitutionIndex}`;
+                delete newSelected[substitutionKey];
+              });
+            }
+          });
+          return newSelected;
         });
       }
-      
-      setSelectedIngredients(newSelectedIngredients);
-      setSelectedSubstitutions(newSelectedSubstitutions);
     }
   };
 
@@ -273,7 +275,6 @@ export default function ReviewRecipesScreen() {
   // Toggle ingredient selection for grocery list
   const toggleIngredientSelection = (dishId, ingredientIndex) => {
     const key = `${dishId}-${ingredientIndex}`;
-    console.log('Toggling ingredient:', key, 'Current state:', selectedIngredients[key]);
     setSelectedIngredients(prev => ({
       ...prev,
       [key]: !prev[key]
