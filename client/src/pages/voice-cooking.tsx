@@ -649,8 +649,8 @@ export default function VoiceCookingScreen() {
           <CardContent className="space-y-1">
 
             {/* Dish Name with Progress */}
-            <div className="text-center mb-1">
-              <div className="flex items-center justify-center gap-2">
+            <div className="mb-1">
+              <div className="flex items-center gap-2">
                 <div className="bg-indigo-500 text-white px-2 py-1 rounded text-xs font-semibold">
                   {completedSteps.filter(Boolean).length}/{recipe.totalSteps}
                 </div>
