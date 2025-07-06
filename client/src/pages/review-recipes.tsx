@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { BackButton } from "@/components/ui/back-button";
 import { BottomNavigation } from "@/components/ui/bottom-navigation";
 import { ChevronDown, ChevronUp, Plus, Minus, ShoppingCart, List, ChefHat, Utensils, Check, X, BookOpen, Printer, Share, BarChart3 } from "lucide-react";
+import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel";
 import { SiFacebook, SiInstagram, SiTiktok, SiX } from "react-icons/si";
 import { Bar } from 'react-chartjs-2';
 import {
@@ -1053,7 +1054,6 @@ export default function ReviewRecipesScreen() {
                     </div>
                   </div>
                 )}
-              </div>
             </div>
             );
           })}
