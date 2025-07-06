@@ -273,6 +273,12 @@ export default function ReviewRecipesScreen() {
     const key = `${dishId}-${ingredientIndex}`;
     const currentChoice = ingredientChoices[key];
     const newChoice = currentChoice === 'none' ? 'original' : 'none';
+    
+    // Auto-select the dish when ingredient is clicked
+    if (newChoice === 'original' && !selectedDishes.includes(dishId)) {
+      setSelectedDishes(prev => [...prev, dishId]);
+    }
+    
     setIngredientChoice(dishId, ingredientIndex, newChoice);
   };
 
@@ -280,6 +286,11 @@ export default function ReviewRecipesScreen() {
   const selectSubstitution = (dishId, ingredientIndex, substitutionIndex) => {
     const key = `${dishId}-${ingredientIndex}`;
     const currentChoice = ingredientChoices[key];
+    
+    // Auto-select the dish when substitution is clicked
+    if (!selectedDishes.includes(dishId)) {
+      setSelectedDishes(prev => [...prev, dishId]);
+    }
     
     // If already selected, deselect it (toggle behavior)
     if (currentChoice === substitutionIndex) {
