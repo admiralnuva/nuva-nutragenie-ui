@@ -324,12 +324,12 @@ export default function RecipesScreen() {
   
   // Dietary preferences state (Card 1)
   const [selectedCuisine, setSelectedCuisine] = useState("american");
-  const [selectedMealType, setSelectedMealType] = useState("");
+  const [selectedMealType, setSelectedMealType] = useState("dinner");
   const [selectedSpiceLevel, setSelectedSpiceLevel] = useState("mild");
   const [servingSize, setServingSize] = useState("2");
-  const [selectedCookingMethod, setSelectedCookingMethod] = useState("");
-  const [selectedSkillLevel, setSelectedSkillLevel] = useState("");
-  const [selectedTimeFriendly, setSelectedTimeFriendly] = useState("");
+  const [selectedCookingMethod, setSelectedCookingMethod] = useState("stove-top");
+  const [selectedSkillLevel, setSelectedSkillLevel] = useState("intermediate");
+  const [selectedTimeFriendly, setSelectedTimeFriendly] = useState("moderate");
   
   // Pantry ingredients state (Card 2)
   const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
