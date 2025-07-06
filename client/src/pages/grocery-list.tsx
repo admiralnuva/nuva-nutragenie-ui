@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { BackButton } from "@/components/ui/back-button";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Plus, Minus, Trash2, Printer, ShoppingCart } from "lucide-react";
+import { ArrowLeft, Plus, Minus, Trash2, Printer, ShoppingCart, Fish, Wheat, Apple, Salad, Carrot, Coffee, Milk, Cookie, Beef, Soup } from "lucide-react";
 
 // Mock grocery items (this would come from the review-recipes page in real implementation)
 const mockGroceryItems = [
@@ -95,6 +95,33 @@ const mockGroceryItems = [
   }
 ];
 
+// Function to get appropriate icon for ingredient
+const getIngredientIcon = (ingredientName: string) => {
+  const name = ingredientName.toLowerCase();
+  
+  if (name.includes('chicken') || name.includes('beef') || name.includes('meat')) {
+    return <Beef className="w-4 h-4 text-orange-600" />;
+  } else if (name.includes('salmon') || name.includes('fish') || name.includes('tuna')) {
+    return <Fish className="w-4 h-4 text-blue-600" />;
+  } else if (name.includes('greens') || name.includes('lettuce') || name.includes('salad')) {
+    return <Salad className="w-4 h-4 text-green-600" />;
+  } else if (name.includes('pepper') || name.includes('carrot') || name.includes('cucumber') || name.includes('tomato')) {
+    return <Carrot className="w-4 h-4 text-orange-500" />;
+  } else if (name.includes('quinoa') || name.includes('rice') || name.includes('grain') || name.includes('bread')) {
+    return <Wheat className="w-4 h-4 text-amber-600" />;
+  } else if (name.includes('apple') || name.includes('fruit') || name.includes('berry')) {
+    return <Apple className="w-4 h-4 text-red-500" />;
+  } else if (name.includes('milk') || name.includes('cheese') || name.includes('yogurt')) {
+    return <Milk className="w-4 h-4 text-blue-400" />;
+  } else if (name.includes('sauce') || name.includes('oil') || name.includes('dressing')) {
+    return <Soup className="w-4 h-4 text-brown-600" />;
+  } else if (name.includes('nuts') || name.includes('seeds') || name.includes('snack')) {
+    return <Cookie className="w-4 h-4 text-yellow-600" />;
+  } else {
+    return <Coffee className="w-4 h-4 text-gray-600" />;
+  }
+};
+
 export default function GroceryListScreen() {
   const [, setLocation] = useLocation();
   const [groceryItems, setGroceryItems] = useState(mockGroceryItems);
@@ -155,7 +182,7 @@ export default function GroceryListScreen() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-blue-50">
       {/* Header */}
       <div className="bg-white border-b sticky top-0 z-10">
         <div className="max-w-md mx-auto px-4 py-3">
@@ -179,7 +206,7 @@ export default function GroceryListScreen() {
       {/* Content */}
       <div className="max-w-md mx-auto p-4 space-y-3 pb-20">
         {/* Grocery Items */}
-        <Card>
+        <Card className="bg-white/80 backdrop-blur-sm border-white/50 shadow-lg">
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <CardTitle className="text-lg">Items</CardTitle>
@@ -194,7 +221,8 @@ export default function GroceryListScreen() {
           <CardContent className="pt-0 space-y-1">
             {groceryItems.map((item, idx) => (
               <div key={idx} className="flex items-center gap-2 py-1 border-b border-gray-100 last:border-b-0">
-                <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 flex-1 min-w-0">
+                  {getIngredientIcon(item.name)}
                   <div className="font-medium text-gray-800 text-sm truncate">{item.name}</div>
                 </div>
                 <div className="flex items-center gap-1">
@@ -226,7 +254,7 @@ export default function GroceryListScreen() {
         </Card>
 
         {/* Add New Item */}
-        <div className="flex items-center gap-2 p-3 bg-gray-50 rounded-lg">
+        <div className="flex items-center gap-2 p-3 bg-white/60 backdrop-blur-sm border border-white/30 rounded-lg shadow-md">
           <span className="text-sm text-gray-700">Add</span>
           <Input
             placeholder="Item name"
