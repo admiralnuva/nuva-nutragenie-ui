@@ -10,23 +10,77 @@ import { BottomNavigation } from "@/components/ui/bottom-navigation";
 import { Check, ShoppingCart, List, ChefHat, BarChart3 } from "lucide-react";
 import chef1Avatar from "@/assets/avatars/chef/chef1.png";
 
-// Sample data for dishes
-const sampleDishes = [
+// Weekly meal planner dishes based on pantry ingredients
+const weeklyMealPlan = [
   {
     id: 1,
     name: "Mediterranean Herb Chicken",
     day: "Monday",
+    meal: "Dinner",
     servings: 4,
     cookTime: 35,
-    nutrition: { calories: 420, protein: 35, carbs: 12, fat: 28 }
+    nutrition: { calories: 420, protein: 35, carbs: 12, fat: 28 },
+    ingredients: ["Chicken Breast", "Bell Peppers", "Tomatoes", "Garlic", "Basil"]
   },
   {
     id: 2,
-    name: "Korean Beef Bowl",
+    name: "Veggie Scrambled Eggs",
+    day: "Tuesday", 
+    meal: "Breakfast",
+    servings: 2,
+    cookTime: 10,
+    nutrition: { calories: 280, protein: 18, carbs: 8, fat: 20 },
+    ingredients: ["Eggs", "Bell Peppers", "Spinach", "Cheese"]
+  },
+  {
+    id: 3,
+    name: "Garlic Butter Salmon",
     day: "Tuesday",
+    meal: "Dinner", 
     servings: 3,
     cookTime: 25,
-    nutrition: { calories: 520, protein: 42, carbs: 38, fat: 22 }
+    nutrition: { calories: 380, protein: 42, carbs: 5, fat: 22 },
+    ingredients: ["Salmon", "Garlic", "Butter", "Asparagus"]
+  },
+  {
+    id: 4,
+    name: "Chicken & Rice Bowl",
+    day: "Wednesday",
+    meal: "Lunch",
+    servings: 4,
+    cookTime: 30,
+    nutrition: { calories: 450, protein: 38, carbs: 45, fat: 15 },
+    ingredients: ["Chicken Breast", "Rice", "Broccoli", "Carrots"]
+  },
+  {
+    id: 5,
+    name: "Beef Stir Fry",
+    day: "Thursday", 
+    meal: "Dinner",
+    servings: 3,
+    cookTime: 20,
+    nutrition: { calories: 520, protein: 42, carbs: 25, fat: 28 },
+    ingredients: ["Ground Beef", "Bell Peppers", "Onions", "Garlic"]
+  },
+  {
+    id: 6,
+    name: "Greek Yogurt Parfait",
+    day: "Friday",
+    meal: "Breakfast", 
+    servings: 1,
+    cookTime: 5,
+    nutrition: { calories: 220, protein: 15, carbs: 28, fat: 6 },
+    ingredients: ["Greek Yogurt", "Berries", "Milk"]
+  },
+  {
+    id: 7,
+    name: "Weekend Pasta",
+    day: "Saturday",
+    meal: "Dinner",
+    servings: 4, 
+    cookTime: 25,
+    nutrition: { calories: 480, protein: 20, carbs: 65, fat: 18 },
+    ingredients: ["Pasta", "Tomatoes", "Basil", "Cheese", "Garlic"]
   }
 ];
 
@@ -63,8 +117,8 @@ export default function ReviewRecipesScreen() {
         {/* Header with Chef Avatar */}
         <div className="flex items-center justify-between mb-4">
           <div className="flex-1">
-            <h2 className="text-xl font-bold text-gray-900">Chef Recommends</h2>
-            <p className="text-sm text-gray-600">Select and customize dishes below</p>
+            <h2 className="text-xl font-bold text-gray-900">Weekly Meal Planner</h2>
+            <p className="text-sm text-gray-600">AI-generated meals based on your pantry ingredients</p>
           </div>
           <div className="w-20 h-20 rounded-full flex items-center justify-center ml-4">
             <img 
@@ -75,18 +129,77 @@ export default function ReviewRecipesScreen() {
           </div>
         </div>
 
+        {/* Weekly Overview */}
+        <Card className="mb-4">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-base flex items-center gap-2">
+              📅 This Week's Meal Plan
+              <Badge variant="secondary">7 meals planned</Badge>
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="pt-0">
+            <div className="grid grid-cols-7 gap-1 text-xs mb-3">
+              {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(day => (
+                <div key={day} className="text-center font-medium text-gray-600 p-1">
+                  {day}
+                </div>
+              ))}
+            </div>
+            <div className="grid grid-cols-7 gap-1">
+              {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(day => {
+                const dayMeals = weeklyMealPlan.filter(meal => meal.day === day + 'day');
+                return (
+                  <div key={day} className="bg-gray-50 rounded p-1 min-h-[40px]">
+                    {dayMeals.map(meal => (
+                      <div key={meal.id} className="text-[10px] text-indigo-600 mb-1 truncate">
+                        {meal.meal}: {meal.name.split(' ')[0]}...
+                      </div>
+                    ))}
+                  </div>
+                );
+              })}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Pantry Ingredients Used */}
+        <Card className="mb-4">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-base flex items-center gap-2">
+              🥘 Using Your Pantry Ingredients
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="pt-0">
+            <div className="flex flex-wrap gap-1">
+              {Array.from(new Set(weeklyMealPlan.flatMap(dish => dish.ingredients))).map(ingredient => (
+                <Badge key={ingredient} variant="secondary" className="text-xs">
+                  {ingredient}
+                </Badge>
+              ))}
+            </div>
+            <p className="text-xs text-gray-600 mt-2">
+              All meals use ingredients from your pantry selection
+            </p>
+          </CardContent>
+        </Card>
+
         {/* Selection Info */}
         {selectedDishes.length > 0 && (
           <div className="bg-indigo-50 border border-indigo-200 rounded-lg p-3 mb-4">
             <p className="text-sm text-indigo-700">
-              <strong>{selectedDishes.length} dish{selectedDishes.length !== 1 ? 'es' : ''} selected</strong>
+              <strong>{selectedDishes.length} meal{selectedDishes.length !== 1 ? 's' : ''} selected for this week</strong>
+              {selectedDishes.length === 1 ? 
+                " - Ready for cooking!" : 
+                " - Multiple meals selected for grocery planning."
+              }
             </p>
           </div>
         )}
 
-        {/* Dishes List */}
+        {/* Detailed Meal List */}
         <div className="space-y-4">
-          {sampleDishes.map((dish, index) => {
+          <h3 className="text-lg font-semibold text-gray-900">Select Meals for This Week</h3>
+          {weeklyMealPlan.map((dish, index) => {
             const isSelected = selectedDishes.includes(dish.id);
             
             return (
@@ -110,9 +223,17 @@ export default function ReviewRecipesScreen() {
                 {/* Dish Details */}
                 <div className="p-4">
                   <div className="mb-2">
+                    <div className="flex items-center gap-2 mb-1">
+                      <Badge variant="outline" className="text-xs">
+                        {dish.day} {dish.meal}
+                      </Badge>
+                      <span className="text-xs text-gray-500">
+                        {dish.ingredients.length} ingredients from pantry
+                      </span>
+                    </div>
                     <h3 className="font-bold text-gray-900 text-lg">{dish.name}</h3>
                     <div className="flex items-center justify-between">
-                      <p className="text-sm text-gray-600">{dish.day} • {dish.servings} servings • {dish.cookTime} min</p>
+                      <p className="text-sm text-gray-600">{dish.servings} servings • {dish.cookTime} min</p>
                       <div 
                         className={`w-8 h-8 rounded-full border-2 flex items-center justify-center cursor-pointer transition-all ${
                           isSelected 
