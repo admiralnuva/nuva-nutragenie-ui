@@ -376,7 +376,25 @@ export default function RecipesScreen() {
 
   // Get user avatar
   const userAvatarSrc = currentUser && currentUser.avatar ? userAvatars[currentUser.avatar as keyof typeof userAvatars] : userAvatar1;
-  const chefAvatarSrc = currentUser && currentUser.selectedChef?.avatar ? chefAvatars[currentUser.selectedChef.avatar as keyof typeof chefAvatars] : chefAvatar1;
+  
+  // Debug chef avatar - check what value we're getting
+  console.log('Current user selectedChef:', currentUser?.selectedChef);
+  console.log('Chef avatar value:', currentUser?.selectedChef?.avatar);
+  
+  // Fix chef avatar mapping - the avatar field contains the full path, we need to extract the key
+  let chefAvatarSrc = chefAvatar1; // default
+  if (currentUser?.selectedChef?.avatar) {
+    const avatarPath = currentUser.selectedChef.avatar;
+    if (avatarPath.includes('chef1')) {
+      chefAvatarSrc = chefAvatar1;
+    } else if (avatarPath.includes('chef2')) {
+      chefAvatarSrc = chefAvatar2;
+    } else if (avatarPath.includes('chef3')) {
+      chefAvatarSrc = chefAvatar3;
+    } else if (avatarPath.includes('chef4')) {
+      chefAvatarSrc = chefAvatar4;
+    }
+  }
 
   // Initialize with first ingredient from each category checked
   useEffect(() => {
