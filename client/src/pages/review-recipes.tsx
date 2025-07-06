@@ -571,12 +571,16 @@ export default function ReviewRecipesScreen() {
                               return (
                                 <div 
                                   key={substitutionIndex} 
-                                  className={`flex items-center space-x-3 p-3 rounded-lg border-2 transition-all ml-4 ${
+                                  className={`flex items-center space-x-3 p-3 rounded-lg border-2 transition-all ml-4 cursor-pointer ${
                                     isSubstitutionSelected 
                                       ? 'bg-blue-50 border-blue-300 shadow-sm' 
                                       : 'bg-white border-blue-200 hover:border-blue-300'
                                   }`}
-                                  onClick={(e) => e.stopPropagation()}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    console.log('Div clicked - calling selectSubstitution');
+                                    selectSubstitution(dish.id, ingredientIndex, substitutionIndex);
+                                  }}
                                 >
                                   <Checkbox
                                     checked={isSubstitutionSelected}
