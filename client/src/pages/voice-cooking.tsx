@@ -498,8 +498,8 @@ export default function VoiceCookingScreen() {
         
         {/* User and Chef Avatars with Control Buttons */}
         <div className="flex items-center justify-center gap-6 mt-4 relative">
-          {/* Test Voice Button - aligned with user avatar on the left */}
-          <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1/2">
+          {/* Test Voice Button - closer to user avatar */}
+          <div className="absolute left-8 top-1/2 transform -translate-y-1/2">
             <Button 
               size="sm" 
               onClick={simulateUserSpeaking}
