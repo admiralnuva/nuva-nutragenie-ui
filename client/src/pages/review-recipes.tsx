@@ -204,11 +204,126 @@ const chefRecommendedDishes = [
 // Mock pantry items
 const pantryItems = ["Olive Oil", "Salt", "Black Pepper", "Garlic", "Onions"];
 
+// Mock data for selected pantry dishes
+const mockSelectedPantryDishes = [
+  {
+    id: 1,
+    name: "Mediterranean Herb Chicken",
+    day: "Monday",
+    servings: 4,
+    cookTime: 35,
+    nutrition: { calories: 420, protein: 35, carbs: 12, fat: 28, fiber: 4 },
+    ingredients: [
+      { 
+        name: "Chicken Thighs", 
+        quantity: "2 lbs", 
+        nutrition: { calories: 250, protein: 24, carbs: 0, fat: 16 },
+        substitutions: [
+          { name: "Chicken Breast", quantity: "2 lbs", nutrition: { calories: 231, protein: 44, carbs: 0, fat: 5 } },
+          { name: "Turkey Thighs", quantity: "2 lbs", nutrition: { calories: 208, protein: 28, carbs: 0, fat: 10 } }
+        ]
+      },
+      {
+        name: "Fresh Rosemary",
+        quantity: "4 sprigs",
+        nutrition: { calories: 5, protein: 0, carbs: 1, fat: 0 },
+        substitutions: [
+          { name: "Dried Rosemary", quantity: "2 tsp", nutrition: { calories: 4, protein: 0, carbs: 1, fat: 0 } },
+          { name: "Fresh Thyme", quantity: "6 sprigs", nutrition: { calories: 3, protein: 0, carbs: 1, fat: 0 } }
+        ]
+      }
+    ]
+  },
+  {
+    id: 2,
+    name: "Asian Sesame Beef Bowl",
+    day: "Tuesday",
+    servings: 3,
+    cookTime: 25,
+    nutrition: { calories: 580, protein: 42, carbs: 45, fat: 28, fiber: 3 },
+    ingredients: [
+      { 
+        name: "Ground Beef", 
+        quantity: "1.5 lbs", 
+        nutrition: { calories: 340, protein: 28, carbs: 0, fat: 24 },
+        substitutions: [
+          { name: "Ground Turkey", quantity: "1.5 lbs", nutrition: { calories: 280, protein: 32, carbs: 0, fat: 16 } },
+          { name: "Ground Chicken", quantity: "1.5 lbs", nutrition: { calories: 250, protein: 30, carbs: 0, fat: 14 } }
+        ]
+      }
+    ]
+  }
+];
+
+// Mock data for custom dish
+const createCustomDish = (dishName) => ({
+  id: 1,
+  name: dishName,
+  day: "Custom",
+  servings: 4,
+  cookTime: 30,
+  nutrition: { calories: 400, protein: 30, carbs: 20, fat: 20, fiber: 5 },
+  ingredients: [
+    { 
+      name: "Main Protein", 
+      quantity: "1 lb", 
+      nutrition: { calories: 200, protein: 20, carbs: 0, fat: 12 },
+      substitutions: [
+        { name: "Chicken Breast", quantity: "1 lb", nutrition: { calories: 185, protein: 35, carbs: 0, fat: 4 } },
+        { name: "Salmon Fillet", quantity: "1 lb", nutrition: { calories: 280, protein: 40, carbs: 0, fat: 12 } }
+      ]
+    },
+    {
+      name: "Fresh Vegetables",
+      quantity: "2 cups",
+      nutrition: { calories: 50, protein: 2, carbs: 12, fat: 0 },
+      substitutions: [
+        { name: "Seasonal Mix", quantity: "2 cups", nutrition: { calories: 45, protein: 2, carbs: 10, fat: 0 } },
+        { name: "Frozen Vegetables", quantity: "2 cups", nutrition: { calories: 40, protein: 2, carbs: 8, fat: 0 } }
+      ]
+    }
+  ]
+});
+
 export default function ReviewRecipesScreen() {
   const [, setLocation] = useLocation();
   const [currentUser] = useLocalStorage("nutragenie_user", null);
 
-  // State management for Chef Recommends
+  // Get navigation context to determine what to display
+  const [navigationContext, setNavigationContext] = useState(() => {
+    const stored = localStorage.getItem("meal_planner_context");
+    return stored ? JSON.parse(stored) : { view: "pantry", selectedDishes: [], customDishName: "", selectedIngredients: [] };
+  });
+
+  // Determine what dishes to display based on navigation context
+  const getDisplayData = () => {
+    switch (navigationContext.view) {
+      case "dishes":
+        return {
+          title: "Dishes from your Pantry Ingredients",
+          dishes: mockSelectedPantryDishes.slice(0, navigationContext.selectedDishes.length)
+        };
+      case "custom":
+        return {
+          title: "Custom Dish",
+          dishes: [createCustomDish(navigationContext.customDishName)]
+        };
+      case "chef":
+        return {
+          title: "Chef Recommends",
+          dishes: chefRecommendedDishes
+        };
+      default: // pantry
+        return {
+          title: "Chef Recommends",
+          dishes: chefRecommendedDishes
+        };
+    }
+  };
+
+  const displayData = getDisplayData();
+
+  // State management for meal planner
   const [expandedDishes, setExpandedDishes] = useState({}); // Which dishes have expanded dropdowns
   const [selectedIngredients, setSelectedIngredients] = useState({}); // Track ingredient/substitution selections
   const [shoppingCart, setShoppingCart] = useState([]);
@@ -218,7 +333,7 @@ export default function ReviewRecipesScreen() {
     const defaultSelections = {};
     const defaultCart = [];
 
-    chefRecommendedDishes.forEach(dish => {
+    displayData.dishes.forEach(dish => {
       dish.ingredients.forEach(ingredient => {
         const key = `${dish.id}-${ingredient.name}-original`;
         defaultSelections[key] = true;
@@ -239,7 +354,7 @@ export default function ReviewRecipesScreen() {
 
     setSelectedIngredients(defaultSelections);
     setShoppingCart(defaultCart);
-  }, []);
+  }, [displayData]);
 
   // Toggle dish dropdown expansion
   const toggleDishExpansion = (dishId) => {
@@ -310,7 +425,7 @@ export default function ReviewRecipesScreen() {
     // Update shopping cart
     if (!isSelected) {
       // Add to cart
-      const dish = chefRecommendedDishes.find(d => d.id === dishId);
+      const dish = displayData.dishes.find(d => d.id === dishId);
       const ingredient = dish?.ingredients.find(ing => ing.name === ingredientName);
       
       let selectedItem;
@@ -404,7 +519,7 @@ export default function ReviewRecipesScreen() {
           <div className="w-8"></div>
         </div>
         <div className="text-lg font-semibold text-indigo-600 text-center">
-          Chef Recommends
+          {displayData.title}
         </div>
       </div>
 
@@ -424,9 +539,9 @@ export default function ReviewRecipesScreen() {
           </div>
         </div>
 
-        {/* Chef Recommends Dishes */}
+        {/* Dynamic Dishes */}
         <div className="space-y-4">
-          {chefRecommendedDishes.map((dish, index) => (
+          {displayData.dishes.map((dish, index) => (
             <div key={dish.id} className="bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200 rounded-lg overflow-hidden">
               {/* Full width image at top - same as pantry dishes */}
               <div className="w-full h-32 bg-gradient-to-br from-purple-100 to-violet-200 relative flex items-center justify-center">

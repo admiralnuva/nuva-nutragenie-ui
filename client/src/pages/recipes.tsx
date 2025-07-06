@@ -408,7 +408,16 @@ export default function RecipesScreen() {
   };
 
   const generateRecipe = () => {
-    // All views now navigate to meal planner
+    // Store navigation context for meal planner
+    const navigationData = {
+      view: currentView,
+      selectedDishes: currentView === "dishes" ? selectedDishes : [],
+      customDishName: currentView === "create" ? customDishName.trim() : "",
+      selectedIngredients: currentView === "pantry" ? selectedIngredients : []
+    };
+    localStorage.setItem("meal_planner_context", JSON.stringify(navigationData));
+    
+    // Navigate to meal planner
     setLocation("/review-recipes");
   };
 
@@ -1041,7 +1050,14 @@ export default function RecipesScreen() {
                         disabled={!customDishName.trim()}
                         onClick={() => {
                           if (customDishName.trim()) {
-                            // Navigate to meal planning with custom dish
+                            // Store navigation context for custom dish
+                            const navigationData = {
+                              view: "custom",
+                              selectedDishes: [],
+                              customDishName: customDishName.trim(),
+                              selectedIngredients: []
+                            };
+                            localStorage.setItem("meal_planner_context", JSON.stringify(navigationData));
                             setLocation("/review-recipes");
                           }
                         }}
@@ -1053,7 +1069,14 @@ export default function RecipesScreen() {
                         className="border-indigo-200 text-indigo-600 hover:bg-indigo-50 text-sm py-2"
                         disabled={getTotalSelectedDishes() >= MAX_DISH_SELECTION}
                         onClick={() => {
-                          // Navigate to meal planning (Chef Recommends)
+                          // Store navigation context for chef's choice
+                          const navigationData = {
+                            view: "chef",
+                            selectedDishes: [],
+                            customDishName: "",
+                            selectedIngredients: []
+                          };
+                          localStorage.setItem("meal_planner_context", JSON.stringify(navigationData));
                           setLocation("/review-recipes");
                         }}
                       >
