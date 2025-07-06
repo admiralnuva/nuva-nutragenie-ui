@@ -9,7 +9,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { BackButton } from "@/components/ui/back-button";
 import { BottomNavigation } from "@/components/ui/bottom-navigation";
-import { ChevronDown, ChevronUp, Plus, Minus, ShoppingCart, List, ChefHat, Utensils, Check, X, Save, Printer, Share } from "lucide-react";
+import { ChevronDown, ChevronUp, Plus, Minus, ShoppingCart, List, ChefHat, Utensils, Check, X, BookOpen, Printer, Share } from "lucide-react";
 import { SiFacebook, SiInstagram, SiTiktok, SiX } from "react-icons/si";
 import chef1Avatar from "@/assets/avatars/chef/chef1.png";
 
@@ -949,15 +949,6 @@ export default function ReviewRecipesScreen() {
                 {/* Expanded cooking instructions dropdown */}
                 {expandedInstructions[dish.id] && (
                   <div className="mt-4 p-4 bg-white rounded-lg border border-gray-200 space-y-4 relative">
-                    {/* Close button */}
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="absolute top-2 right-2 w-8 h-8 p-0 rounded-full"
-                      onClick={() => toggleInstructionsExpansion(dish.id)}
-                    >
-                      <X className="w-4 h-4" />
-                    </Button>
 
                     {/* Card 1: Ingredients with Nutritional Values */}
                     <div className="bg-gray-50 rounded-lg p-3">
@@ -992,7 +983,7 @@ export default function ReviewRecipesScreen() {
                       {/* Main action buttons */}
                       <div className="flex gap-2">
                         <Button variant="outline" size="sm" className="flex-1">
-                          <Save className="w-4 h-4 mr-2" />
+                          <BookOpen className="w-4 h-4 mr-2" />
                           Save
                         </Button>
                         <Button variant="outline" size="sm" className="flex-1">
@@ -1018,6 +1009,18 @@ export default function ReviewRecipesScreen() {
                         </Button>
                         <Button variant="outline" size="sm" className="w-10 h-10 p-0">
                           <SiX className="w-4 h-4 text-black" />
+                        </Button>
+                      </div>
+                      
+                      {/* Close button at bottom right */}
+                      <div className="flex justify-end">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="w-8 h-8 p-0 rounded-full"
+                          onClick={() => toggleInstructionsExpansion(dish.id)}
+                        >
+                          <X className="w-4 h-4" />
                         </Button>
                       </div>
                     </div>
