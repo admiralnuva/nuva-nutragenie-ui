@@ -125,45 +125,36 @@ export default function DietaryScreen() {
 
   const updateUserMutation = useMutation({
     mutationFn: async (updates: any) => {
-      // If no user exists in localStorage, create a default one first
-      if (!currentUser?.id) {
-        const defaultUser = {
-          nickname: 'User',
-          ageGroup: '25-30',
-          phoneNumber: '1234567890',
-          avatar: 'user1',
-          selectedChef: {
+      try {
+        // Always create a new user with dietary preferences for simplicity
+        const userData = {
+          nickname: currentUser?.nickname || 'User',
+          ageGroup: currentUser?.ageGroup || '25-30',
+          phoneNumber: currentUser?.phoneNumber || '1234567890',
+          avatar: currentUser?.avatar || 'user1',
+          selectedChef: currentUser?.selectedChef || {
             name: 'Chef Marcus',
             personality: 'Precise & Classic',
             avatar: 'chef1'
           },
-          dietaryRestrictions: [],
-          healthGoals: [],
-          allergies: ''
+          ...updates  // Include the dietary preferences
         };
         
-        // Create the user first
-        const createResponse = await apiRequest("POST", "/api/users", defaultUser);
-        const newUser = await createResponse.json();
-        setCurrentUser(newUser);
-        
-        // Then update with dietary preferences
-        const updateResponse = await apiRequest("PATCH", `/api/users/${newUser.id}`, updates);
-        return updateResponse.json();
+        // Create user with all data including dietary preferences
+        const response = await apiRequest("POST", "/api/users", userData);
+        return response.json();
+      } catch (error) {
+        throw new Error('Failed to save dietary preferences');
       }
-      
-      // Update existing user
-      const response = await apiRequest("PATCH", `/api/users/${currentUser.id}`, updates);
-      return response.json();
     },
-    onSuccess: (updatedUser) => {
-      setCurrentUser(updatedUser);
-      toast({ title: "Profile Updated!", description: "Your dietary preferences have been saved." });
+    onSuccess: (newUser) => {
+      setCurrentUser(newUser);
+      toast({ title: "Profile Created!", description: "Your dietary preferences have been saved." });
       setLocation("/recipes");
     },
     onError: (error: any) => {
-      console.error('Update user error:', error);
-      toast({ title: "Error", description: "Failed to update dietary preferences. Please try again.", variant: "destructive" });
+      console.error('Create user error:', error);
+      toast({ title: "Error", description: "Failed to save dietary preferences. Please try again.", variant: "destructive" });
     }
   });
 
