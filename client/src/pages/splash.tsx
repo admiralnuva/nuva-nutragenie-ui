@@ -8,6 +8,8 @@ export default function SplashScreen() {
   const [currentUser, setCurrentUser] = useLocalStorage<any>("nutragenie_user", null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  
+  console.log("SplashScreen component rendered");
 
   // Smart navigation based on user state
   useEffect(() => {

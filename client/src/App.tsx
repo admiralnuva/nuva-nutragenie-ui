@@ -22,6 +22,9 @@ import GroceryListScreen from "@/pages/grocery-list";
 import InstacartScreen from "@/pages/instacart";
 
 function Router() {
+  const [location] = useLocation();
+  console.log("Current route:", location);
+  
   return (
     <Switch>
       <Route path="/" component={SplashScreen} />
@@ -34,8 +37,6 @@ function Router() {
       <Route path="/review-recipes" component={ReviewRecipesScreen} />
       <Route path="/grocery-list" component={GroceryListScreen} />
       <Route path="/instacart" component={InstacartScreen} />
-
-
       <Route path="/cooking/:recipeId?" component={CookingScreen} />
       <Route path="/voice-cooking" component={VoiceCookingScreen} />
       <Route path="/ai-video-cooking" component={AIVideoCookingScreen} />
