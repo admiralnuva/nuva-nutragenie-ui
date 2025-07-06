@@ -539,7 +539,7 @@ export default function VoiceCookingScreen() {
               </div>
               {/* User Speaker Icon */}
               <div className={`absolute -bottom-1 -right-1 w-6 h-6 rounded-full flex items-center justify-center border-2 border-white transition-all duration-300 ${
-                userSpeaking ? 'bg-green-500 scale-110' : 'bg-gray-300'
+                userSpeaking ? 'bg-blue-500 scale-110' : 'bg-gray-300'
               }`}>
                 <Volume2 className={`w-3 h-3 ${userSpeaking ? 'text-white' : 'text-gray-600'}`} />
               </div>
