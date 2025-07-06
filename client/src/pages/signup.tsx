@@ -361,7 +361,7 @@ export default function SignupScreen() {
                   {!selectedAvatar && <span className="text-xs text-indigo-600 ml-2">(Select first to continue)</span>}
                 </Label>
                 <div className="grid grid-cols-4 gap-2">
-                  {userAvatars.map((avatar, index) => (
+                  {userAvatars.map((avatar) => (
                     <div key={avatar.id} className="flex flex-col items-center">
                       <button
                         type="button"
@@ -380,9 +380,6 @@ export default function SignupScreen() {
                           className="w-full h-full object-cover rounded-lg"
                         />
                       </button>
-                      <p className="text-xs text-gray-600 mt-1 text-center">
-                        User{index + 1}
-                      </p>
                     </div>
                   ))}
                 </div>
