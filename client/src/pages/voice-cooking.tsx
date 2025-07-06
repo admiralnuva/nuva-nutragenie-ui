@@ -499,7 +499,7 @@ export default function VoiceCookingScreen() {
         {/* User and Chef Avatars with Stop Button */}
         <div className="flex items-center justify-center gap-6 mt-4 relative">
           {/* Emergency Stop Button - aligned with chef avatar on the right */}
-          <div className="absolute right-8 top-1/2 transform -translate-y-1/2">
+          <div className="absolute right-2 top-1/2 transform -translate-y-1/2">
             <OnboardingTooltip
               id="emergency-stop"
               title="Emergency Stop"
@@ -588,19 +588,9 @@ export default function VoiceCookingScreen() {
 
         {/* Card 1: Enhanced Cooking Interface (Main Focus) */}
         <Card className="border-2 border-green-300 bg-green-50 min-h-[600px] relative overflow-hidden">
-          <CardHeader className="pb-1">
-            <CardTitle className="flex items-center justify-between text-lg">
-              <div className="flex items-center gap-3">
-                {stepCompletionStreak > 1 && (
-                  <div className="bg-orange-100 border border-orange-300 rounded-full px-2 py-1">
-                    <span className="text-xs font-bold text-orange-600">🔥 {stepCompletionStreak}</span>
-                  </div>
-                )}
-              </div>
-            </CardTitle>
-            
+          <CardHeader className="pb-0">
             {/* Voice Controls and Text Mode Toggle */}
-            <div className="flex gap-2 mt-2">
+            <div className="flex gap-2">
               {/* Voice Controls */}
               <div className="bg-white rounded-lg p-2 border border-indigo-200 flex-1">
                 <div className="flex gap-1 items-center">
@@ -658,9 +648,14 @@ export default function VoiceCookingScreen() {
           
           <CardContent className="space-y-1">
 
-            {/* Dish Name */}
+            {/* Dish Name with Progress */}
             <div className="text-center mb-1">
-              <h2 className="text-base font-normal text-gray-700">{recipe.name}</h2>
+              <div className="flex items-center justify-center gap-2">
+                <div className="bg-indigo-500 text-white px-2 py-1 rounded text-xs font-semibold">
+                  {completedSteps.filter(Boolean).length}/{recipe.totalSteps}
+                </div>
+                <h2 className="text-base font-normal text-gray-700">{recipe.name}</h2>
+              </div>
             </div>
 
             {!isCooking ? (
