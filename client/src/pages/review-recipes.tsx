@@ -561,12 +561,11 @@ export default function ReviewRecipesScreen() {
                                 onCheckedChange={() => toggleIngredient(dish.id, ingredientIndex)}
                               />
                               <div className="flex-1">
-                                <div className="flex items-center justify-between mb-1">
+                                <div className="mb-1">
                                   <span className="font-medium text-gray-900">{ingredient.name} ({ingredient.quantity})</span>
-                                  <span className="text-xs font-semibold text-orange-600">{ingredient.nutrition.calories} cal</span>
                                 </div>
                                 <div className="text-xs text-gray-500">
-                                  P: {ingredient.nutrition.protein}g • C: {ingredient.nutrition.carbs}g • F: {ingredient.nutrition.fat}g
+                                  {ingredient.nutrition.calories} cal • P: {ingredient.nutrition.protein}g • C: {ingredient.nutrition.carbs}g • F: {ingredient.nutrition.fat}g
                                 </div>
                               </div>
                             </div>
@@ -594,12 +593,11 @@ export default function ReviewRecipesScreen() {
                                     onCheckedChange={() => selectSubstitution(dish.id, ingredientIndex, substitutionIndex)}
                                   />
                                   <div className="flex-1">
-                                    <div className="flex items-center justify-between mb-1">
+                                    <div className="mb-1">
                                       <span className="font-medium text-blue-900">⟳ {substitution.name} ({substitution.quantity})</span>
-                                      <span className="text-xs font-semibold text-orange-600">{substitution.nutrition.calories} cal</span>
                                     </div>
                                     <div className="text-xs text-gray-500">
-                                      P: {substitution.nutrition.protein}g • C: {substitution.nutrition.carbs}g • F: {substitution.nutrition.fat}g
+                                      {substitution.nutrition.calories} cal • P: {substitution.nutrition.protein}g • C: {substitution.nutrition.carbs}g • F: {substitution.nutrition.fat}g
                                     </div>
                                   </div>
                                 </div>
