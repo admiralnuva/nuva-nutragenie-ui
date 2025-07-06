@@ -15,7 +15,7 @@ export default function SplashScreen() {
     if (currentUser && currentUser.nickname && currentUser.selectedChef) {
       const timer = setTimeout(() => {
         setLocation("/home");
-      }, 10000); // Extended time for testing
+      }, 3000); // Reduced from 10s to 3s for better UX
       return () => clearTimeout(timer);
     }
   }, [currentUser, setLocation]);
@@ -40,32 +40,40 @@ export default function SplashScreen() {
     <div className="min-h-screen bg-gradient-to-br from-blue-400 via-purple-400 to-indigo-500 flex flex-col items-center justify-center p-4 sm:p-8">
       <div className="text-center max-w-md mx-auto">
         {/* App Logo and Title */}
-        <div className="mb-8">
-          <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 backdrop-blur-sm">
-            <ChefHat className="w-12 h-12 text-white" />
+        <div className="mb-8 animate-in fade-in duration-1000">
+          <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6 backdrop-blur-sm border border-white/30 shadow-2xl animate-in zoom-in duration-700 delay-200">
+            <ChefHat className="w-14 h-14 text-white drop-shadow-lg" />
           </div>
-          <h1 className="text-4xl sm:text-5xl font-bold mb-4 text-white drop-shadow-lg">NutraGenie</h1>
-          <p className="text-white mb-2 text-lg sm:text-xl leading-relaxed font-semibold drop-shadow-md">
-            Your AI nutrition platform that bridges cooking and convenience
+          <h1 className="text-5xl sm:text-6xl font-bold mb-6 text-white drop-shadow-2xl animate-in slide-in-from-bottom-4 duration-800 delay-300">
+            NutraGenie
+          </h1>
+          <p className="text-white mb-3 text-xl sm:text-2xl leading-relaxed font-semibold drop-shadow-lg animate-in slide-in-from-bottom-4 duration-800 delay-500">
+            Your AI nutrition companion that bridges cooking and convenience
           </p>
-          <p className="text-white/95 mb-8 text-base sm:text-lg font-medium drop-shadow-sm">
+          <p className="text-white/95 mb-8 text-lg sm:text-xl font-medium drop-shadow-md animate-in slide-in-from-bottom-4 duration-800 delay-700">
             Personalized recipes, health tracking, and marketplace integration
           </p>
         </div>
 
         {/* Features Preview */}
-        <div className="grid grid-cols-3 gap-4 mb-8 text-white/90">
-          <div className="text-center">
-            <ChefHat className="w-6 h-6 mx-auto mb-2" />
-            <p className="text-sm font-medium">AI Chef</p>
+        <div className="grid grid-cols-3 gap-6 mb-10 text-white/90 animate-in fade-in duration-1000 delay-900">
+          <div className="text-center transform hover:scale-105 transition-transform duration-200">
+            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3 backdrop-blur-sm border border-white/30">
+              <ChefHat className="w-7 h-7" />
+            </div>
+            <p className="text-sm font-semibold">AI Chef</p>
           </div>
-          <div className="text-center">
-            <Heart className="w-6 h-6 mx-auto mb-2" />
-            <p className="text-sm font-medium">Health Tracking</p>
+          <div className="text-center transform hover:scale-105 transition-transform duration-200">
+            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3 backdrop-blur-sm border border-white/30">
+              <Heart className="w-7 h-7" />
+            </div>
+            <p className="text-sm font-semibold">Health Tracking</p>
           </div>
-          <div className="text-center">
-            <Smartphone className="w-6 h-6 mx-auto mb-2" />
-            <p className="text-sm font-medium">Smart Grocery</p>
+          <div className="text-center transform hover:scale-105 transition-transform duration-200">
+            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3 backdrop-blur-sm border border-white/30">
+              <Smartphone className="w-7 h-7" />
+            </div>
+            <p className="text-sm font-semibold">Smart Grocery</p>
           </div>
         </div>
 
