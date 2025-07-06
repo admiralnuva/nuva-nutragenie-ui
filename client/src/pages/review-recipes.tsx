@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useLocation } from "wouter";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { Button } from "@/components/ui/button";
@@ -295,33 +295,31 @@ export default function ReviewRecipesScreen() {
     return stored ? JSON.parse(stored) : { view: "pantry", selectedDishes: [], customDishName: "", selectedIngredients: [] };
   });
 
-  // Determine what dishes to display based on navigation context
-  const getDisplayData = () => {
+  // Determine what dishes to display and card title based on navigation context
+  const displayData = useMemo(() => {
     switch (navigationContext.view) {
       case "dishes":
         return {
-          title: "Dishes from your Pantry Ingredients",
+          cardTitle: "Dishes from your Pantry Ingredients",
           dishes: mockSelectedPantryDishes.slice(0, navigationContext.selectedDishes.length)
         };
       case "custom":
         return {
-          title: "Custom Dish",
+          cardTitle: "Your Custom Dish",
           dishes: [createCustomDish(navigationContext.customDishName)]
         };
       case "chef":
         return {
-          title: "Chef Recommends",
+          cardTitle: "Chef's Choices for You",
           dishes: chefRecommendedDishes
         };
       default: // pantry
         return {
-          title: "Chef Recommends",
+          cardTitle: "Weekly Meal Planner",
           dishes: chefRecommendedDishes
         };
     }
-  };
-
-  const displayData = getDisplayData();
+  }, [navigationContext.view, navigationContext.selectedDishes.length, navigationContext.customDishName]);
 
   // State management for meal planner
   const [expandedDishes, setExpandedDishes] = useState({}); // Which dishes have expanded dropdowns
@@ -354,7 +352,7 @@ export default function ReviewRecipesScreen() {
 
     setSelectedIngredients(defaultSelections);
     setShoppingCart(defaultCart);
-  }, [displayData]);
+  }, [navigationContext.view, navigationContext.selectedDishes.length, navigationContext.customDishName]);
 
   // Toggle dish dropdown expansion
   const toggleDishExpansion = (dishId) => {
@@ -519,7 +517,7 @@ export default function ReviewRecipesScreen() {
           <div className="w-8"></div>
         </div>
         <div className="text-lg font-semibold text-indigo-600 text-center">
-          {displayData.title}
+          Chef Recommends
         </div>
       </div>
 
@@ -527,7 +525,7 @@ export default function ReviewRecipesScreen() {
         {/* Weekly Meal Planning Header */}
         <div className="flex items-center justify-between mb-4">
           <div className="flex-1">
-            <h2 className="text-xl font-bold text-gray-900">Weekly Meal Planner</h2>
+            <h2 className="text-xl font-bold text-gray-900">{displayData.cardTitle}</h2>
             <p className="text-sm text-gray-600">Select and customize dishes below</p>
           </div>
           <div className="w-20 h-20 rounded-full flex items-center justify-center ml-4">
