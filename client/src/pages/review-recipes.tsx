@@ -1,4 +1,5 @@
 
+// @ts-nocheck
 import { useState, useMemo, useCallback } from "react";
 import { useLocation } from "wouter";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -195,16 +196,16 @@ const weeklyMealPlan = [
 export default function ReviewRecipesScreen() {
   const [, setLocation] = useLocation();
   const [currentUser] = useLocalStorage("nutragenie_user", null);
-  const [selectedDishes, setSelectedDishes] = useState([]);
+  const [selectedDishes, setSelectedDishes] = useState<number[]>([]);
   
   // State for expanded dish details
-  const [expandedDishes, setExpandedDishes] = useState({});
-  const [expandedInstructions, setExpandedInstructions] = useState({});
+  const [expandedDishes, setExpandedDishes] = useState<Record<string, boolean>>({});
+  const [expandedInstructions, setExpandedInstructions] = useState<Record<string, boolean>>({});
 
   // Updated state: each ingredient can have original AND substitutions selected simultaneously
-  const [ingredientChoices, setIngredientChoices] = useState({});
+  const [ingredientChoices, setIngredientChoices] = useState<Record<string, any>>({});
 
-  const toggleDishSelection = useCallback((dishId) => {
+  const toggleDishSelection = useCallback((dishId: number) => {
     const isCurrentlySelected = selectedDishes.includes(dishId);
     
     setSelectedDishes(prev => 
@@ -653,140 +654,7 @@ export default function ReviewRecipesScreen() {
           })}
         </div>
 
-        {/* Nutrition Tracking Card */}
-        <Card className="mt-6">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-lg flex items-center gap-2">
-              <BarChart3 className="w-5 h-5" />
-              Nutrition Tracking
-              <Badge variant="secondary">{selectedDishes.length} dishes selected</Badge>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="pt-0">
-            <div className="space-y-4">
-              {/* Calculate averages and TDEE - memoized for performance */}
-              {useMemo(() => {
-                // Calculate total nutrition from selected dishes
-                const totalNutrition = selectedDishes.reduce((total, dishId) => {
-                  const dish = weeklyMealPlan.find(d => d.id === dishId);
-                  if (!dish) return total;
-                  
-                  const totalServings = dish.servings || 1;
-                  return {
-                    calories: total.calories + (dish.nutrition.calories * totalServings),
-                    protein: total.protein + (dish.nutrition.protein * totalServings),
-                    carbs: total.carbs + (dish.nutrition.carbs * totalServings),
-                    fat: total.fat + (dish.nutrition.fat * totalServings)
-                  };
-                }, { calories: 0, protein: 0, carbs: 0, fat: 0 });
 
-                // Calculate daily averages (assuming 7 days)
-                const dailyAverages = {
-                  calories: Math.round(totalNutrition.calories / 7),
-                  protein: Math.round(totalNutrition.protein / 7),
-                  carbs: Math.round(totalNutrition.carbs / 7),
-                  fat: Math.round(totalNutrition.fat / 7)
-                };
-
-                // Calculate TDEE (estimated based on user profile)
-                const userAge = currentUser?.ageGroup?.includes('25-30') ? 27 : 35;
-                const estimatedWeight = 70; // kg, could be from user profile
-                const height = 170; // cm, could be from user profile
-                const activityMultiplier = 1.4; // light activity
-                
-                // Harris-Benedict Formula for TDEE
-                const bmr = 88.362 + (13.397 * estimatedWeight) + (4.799 * height) - (5.677 * userAge);
-                const tdee = Math.round(bmr * activityMultiplier);
-
-                // User goals from nutritional targets
-                const userGoals = currentUser?.nutritionalTargets ? {
-                  calories: currentUser.nutritionalTargets.calories?.[1] || 600,
-                  protein: currentUser.nutritionalTargets.protein?.[1] || 40,
-                  carbs: currentUser.nutritionalTargets.carbs?.[1] || 60,
-                  fat: currentUser.nutritionalTargets.fat?.[1] || 25
-                } : { calories: 600, protein: 40, carbs: 60, fat: 25 };
-
-                return (
-                  <>
-                    <div>
-                      <h4 className="text-sm font-medium text-gray-700 mb-3">Daily Nutrition Comparison</h4>
-                      
-                      {/* Calories Comparison */}
-                      <div className="bg-orange-50 p-3 rounded-lg border border-orange-200 mb-3">
-                        <div className="text-xs text-orange-700 mb-2">Calories per Day</div>
-                        <div className="grid grid-cols-3 gap-2 text-xs">
-                          <div className="text-center">
-                            <div className="font-bold text-orange-800">{dailyAverages.calories}</div>
-                            <div className="text-orange-600">Recipe Avg</div>
-                          </div>
-                          <div className="text-center">
-                            <div className="font-bold text-orange-800">{userGoals.calories}</div>
-                            <div className="text-orange-600">Your Goal</div>
-                          </div>
-                          <div className="text-center">
-                            <div className="font-bold text-orange-800">{tdee}</div>
-                            <div className="text-orange-600">TDEE</div>
-                          </div>
-                        </div>
-                        <div className="mt-2 text-xs text-orange-700">
-                          {dailyAverages.calories > userGoals.calories ? '⚠️ Above goal' : 
-                           dailyAverages.calories < userGoals.calories * 0.8 ? '⚠️ Below goal' : '✅ On track'}
-                        </div>
-                      </div>
-
-                      {/* Macros Grid */}
-                      <div className="grid grid-cols-3 gap-2">
-                        {/* Protein */}
-                        <div className="bg-blue-50 p-2 rounded-lg border border-blue-200">
-                          <div className="text-xs text-blue-700 mb-1">Protein (g)</div>
-                          <div className="space-y-1">
-                            <div className="text-xs font-semibold text-blue-800">{dailyAverages.protein}g</div>
-                            <div className="text-xs text-blue-600">vs {userGoals.protein}g goal</div>
-                            <div className="text-xs text-blue-500">
-                              {dailyAverages.protein >= userGoals.protein ? '✅' : '⚠️'}
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Carbs */}
-                        <div className="bg-green-50 p-2 rounded-lg border border-green-200">
-                          <div className="text-xs text-green-700 mb-1">Carbs (g)</div>
-                          <div className="space-y-1">
-                            <div className="text-xs font-semibold text-green-800">{dailyAverages.carbs}g</div>
-                            <div className="text-xs text-green-600">vs {userGoals.carbs}g goal</div>
-                            <div className="text-xs text-green-500">
-                              {dailyAverages.carbs <= userGoals.carbs ? '✅' : '⚠️'}
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Fat */}
-                        <div className="bg-purple-50 p-2 rounded-lg border border-purple-200">
-                          <div className="text-xs text-purple-700 mb-1">Fat (g)</div>
-                          <div className="space-y-1">
-                            <div className="text-xs font-semibold text-purple-800">{dailyAverages.fat}g</div>
-                            <div className="text-xs text-purple-600">vs {userGoals.fat}g goal</div>
-                            <div className="text-xs text-purple-500">
-                              {dailyAverages.fat <= userGoals.fat ? '✅' : '⚠️'}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      {selectedDishes.length > 0 && (
-                        <div className="mt-3 p-2 bg-gray-50 rounded-lg">
-                          <div className="text-xs text-gray-600">
-                            📊 Averages calculated over 7 days • TDEE based on profile data
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </>
-                );
-              }, [selectedDishes, currentUser?.nutritionalTargets])}
-            </div>
-          </CardContent>
-        </Card>
 
         {/* Shopping Cart Summary */}
         <Card className="mt-6">

@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 
 import { BackButton } from "@/components/ui/back-button";
-import { User, ChefHat, ChevronDown, ChevronUp, Sparkles, Check } from "lucide-react";
+import { User, ChefHat, ChevronDown, ChevronUp, Sparkles, Check, ShoppingCart } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 
 // Import avatar images
@@ -550,7 +550,7 @@ export default function RecipesScreen() {
                 <p className="text-xs text-gray-600">Plan your next delicious meal</p>
               </div>
               <div className="flex flex-col items-center ml-3">
-                <div className="w-16 h-16 rounded-lg overflow-hidden bg-white">
+                <div className="w-12 h-12 rounded-lg overflow-hidden bg-white">
                   <img 
                     src={userAvatarSrc} 
                     alt="User Avatar"
@@ -843,7 +843,7 @@ export default function RecipesScreen() {
               <div className="space-y-3">
                 {selectedDishes.length === 0 && (
                   <p className="text-center text-gray-600 text-sm mb-4">
-                    Select dishes to generate recipes
+                    Select dishes and cook
                   </p>
                 )}
                 {pantryDishes.slice(0, 4).map((dish, index) => {
@@ -1054,12 +1054,38 @@ export default function RecipesScreen() {
                             <Sparkles className="w-4 h-4 text-indigo-500" />
                           </div>
                           
-                          <div className="text-xs text-gray-600 space-y-1">
+                          <div className="text-xs text-gray-600 space-y-1 mb-3">
                             <div>🔥 {dish.calories} cal • 💪 {dish.protein}g protein</div>
                             <div className="flex items-center gap-3">
                               <span className="text-indigo-600">{matchingIngredients.length}/{dish.ingredients.length} ingredients</span>
                               <span>⏱️ {dish.prepTime + dish.cookTime} min</span>
                             </div>
+                          </div>
+                          
+                          {/* Action Buttons */}
+                          <div className="flex gap-2 mt-3">
+                            <Button 
+                              variant="outline"
+                              size="sm"
+                              className="flex-1 h-8 text-xs"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                // TODO: Navigate to substitutions view
+                              }}
+                            >
+                              Substitutions
+                            </Button>
+                            <Button 
+                              variant="outline"
+                              size="sm"
+                              className="flex-1 h-8 text-xs"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                // TODO: Navigate to recipe view
+                              }}
+                            >
+                              View Recipe
+                            </Button>
                           </div>
                         </div>
                       </div>
@@ -1091,6 +1117,56 @@ export default function RecipesScreen() {
                     </div>
                   );
                 })}
+                
+                {/* Shopping Cart Section */}
+                {selectedDishes.length > 0 && (
+                  <Card className="bg-white border border-gray-200 mt-4">
+                    <CardHeader className="py-3">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <ShoppingCart className="w-5 h-5 text-indigo-600" />
+                          <CardTitle className="text-base">Shopping Cart</CardTitle>
+                        </div>
+                        <Badge variant="secondary" className="bg-indigo-100 text-indigo-800">
+                          {selectedDishes.length} dishes
+                        </Badge>
+                      </div>
+                    </CardHeader>
+                    <CardContent className="py-3">
+                      <div className="space-y-3">
+                        {selectedDishes.map((dishId) => {
+                          const dish = pantryDishes.find(d => d.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') === dishId);
+                          if (!dish) return null;
+                          
+                          return (
+                            <div key={dishId} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg">
+                              <div className="flex items-center gap-3">
+                                <div className="text-2xl">{dish.dishImage}</div>
+                                <div>
+                                  <p className="font-medium text-sm">{dish.name}</p>
+                                  <p className="text-xs text-gray-600">{dish.ingredients.slice(0, 3).join(', ')}</p>
+                                </div>
+                              </div>
+                              <div className="text-right">
+                                <p className="text-sm font-medium">{dish.calories} cal</p>
+                                <p className="text-xs text-gray-600">{dish.cookTime} min</p>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                      
+                      <div className="mt-4 pt-3 border-t">
+                        <Button 
+                          className="w-full bg-indigo-600 hover:bg-indigo-700"
+                          onClick={() => setLocation("/review-recipes")}
+                        >
+                          Generate Recipe ({selectedDishes.length} dishes)
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
               </div>
             ) : currentView === "create" ? (
               /* Create a Dish View */
