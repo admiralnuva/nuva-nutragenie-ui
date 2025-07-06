@@ -6,6 +6,7 @@ import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { Slider } from "@/components/ui/slider";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { BackButton } from "@/components/ui/back-button";
 import { OnboardingMascot } from "@/components/ui/onboarding-mascot";
@@ -66,6 +67,12 @@ export default function DietaryScreen() {
   const [selectedHealth, setSelectedHealth] = useState<string[]>([]);
   const [selectedFitness, setSelectedFitness] = useState<string[]>([]);
   const [allergies, setAllergies] = useState("");
+  
+  // Nutritional adjustments state
+  const [calorieRange, setCalorieRange] = useState([300, 600]);
+  const [proteinRange, setProteinRange] = useState([15, 40]);
+  const [carbRange, setCarbRange] = useState([20, 60]);
+  const [fiberRange, setFiberRange] = useState([5, 25]);
   
   // Mascot guidance state
   const [showMascot, setShowMascot] = useState(true);
@@ -171,7 +178,13 @@ export default function DietaryScreen() {
     updateUserMutation.mutate({
       dietaryRestrictions: selectedDietary,
       healthGoals: [...selectedHealth, ...selectedFitness],
-      allergies
+      allergies,
+      nutritionalTargets: {
+        calories: calorieRange,
+        protein: proteinRange,
+        carbs: carbRange,
+        fiber: fiberRange
+      }
     });
   };
 
@@ -357,6 +370,91 @@ export default function DietaryScreen() {
                 onChange={(e) => setAllergies(e.target.value)}
                 className="w-full px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-indigo-500 focus:border-transparent h-20 resize-none"
               />
+            </CardContent>
+          </Card>
+
+          {/* Nutritional Adjustments */}
+          <Card>
+            <CardHeader className="pb-4">
+              <div className="flex items-center justify-between">
+                <div className="flex-1">
+                  <CardTitle className="text-lg">Nutritional Adjustments</CardTitle>
+                  <CardDescription>Fine-tune your meal targets</CardDescription>
+                </div>
+                <div className="flex flex-col items-center ml-4">
+                  <div className="w-20 h-20 rounded-lg overflow-hidden bg-white">
+                    <img 
+                      src={userAvatarSrc} 
+                      alt="User Avatar"
+                      className="w-full h-full object-cover rounded-lg"
+                    />
+                  </div>
+                  <p className="text-xs text-gray-600 mt-1 text-center font-medium">
+                    {currentUser?.nickname || "User"}
+                  </p>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div>
+                <div className="flex justify-between items-center mb-2">
+                  <label className="text-sm font-medium text-gray-700">Calories</label>
+                  <span className="text-sm text-gray-600">{calorieRange[0]} - {calorieRange[1]} cal</span>
+                </div>
+                <Slider
+                  value={calorieRange}
+                  onValueChange={setCalorieRange}
+                  max={1000}
+                  min={100}
+                  step={50}
+                  className="w-full"
+                />
+              </div>
+
+              <div>
+                <div className="flex justify-between items-center mb-2">
+                  <label className="text-sm font-medium text-gray-700">Protein</label>
+                  <span className="text-sm text-gray-600">{proteinRange[0]} - {proteinRange[1]}g</span>
+                </div>
+                <Slider
+                  value={proteinRange}
+                  onValueChange={setProteinRange}
+                  max={60}
+                  min={5}
+                  step={5}
+                  className="w-full"
+                />
+              </div>
+
+              <div>
+                <div className="flex justify-between items-center mb-2">
+                  <label className="text-sm font-medium text-gray-700">Carbs</label>
+                  <span className="text-sm text-gray-600">{carbRange[0]} - {carbRange[1]}g</span>
+                </div>
+                <Slider
+                  value={carbRange}
+                  onValueChange={setCarbRange}
+                  max={100}
+                  min={5}
+                  step={5}
+                  className="w-full"
+                />
+              </div>
+
+              <div>
+                <div className="flex justify-between items-center mb-2">
+                  <label className="text-sm font-medium text-gray-700">Fiber</label>
+                  <span className="text-sm text-gray-600">{fiberRange[0]} - {fiberRange[1]}g</span>
+                </div>
+                <Slider
+                  value={fiberRange}
+                  onValueChange={setFiberRange}
+                  max={25}
+                  min={5}
+                  step={1}
+                  className="w-full"
+                />
+              </div>
             </CardContent>
           </Card>
 

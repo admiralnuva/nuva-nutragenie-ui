@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Slider } from "@/components/ui/slider";
+
 import { BackButton } from "@/components/ui/back-button";
 import { User, ChefHat, ChevronDown, ChevronUp, Sparkles, Check } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
@@ -338,11 +338,7 @@ export default function RecipesScreen() {
     pantryStaples: false
   });
 
-  // Nutritional adjustments (Card 3)
-  const [calorieRange, setCalorieRange] = useState([300, 600]);
-  const [proteinRange, setProteinRange] = useState([15, 40]);
-  const [carbRange, setCarbRange] = useState([20, 60]);
-  const [fiberRange, setFiberRange] = useState([5, 25]);
+
 
   // Get user avatar
   const userAvatarSrc = currentUser && currentUser.avatar ? userAvatars[currentUser.avatar as keyof typeof userAvatars] : userAvatar1;
@@ -1196,90 +1192,7 @@ export default function RecipesScreen() {
           </CardContent>
         </Card>
 
-        {/* Card 4: Nutritional Adjustments */}
-        <Card className="bg-white border border-gray-200">
-          <CardHeader className="py-1 pb-0">
-            <div className="flex items-center justify-between">
-              <div className="flex-1">
-                <CardTitle className="text-base">Nutritional Adjustments</CardTitle>
-                <p className="text-xs text-gray-600">Fine-tune your meal targets</p>
-              </div>
-              <div className="flex flex-col items-center ml-3">
-                <div className="flex items-center justify-center w-20 h-20 rounded-lg overflow-hidden bg-white">
-                  <img 
-                    src={userAvatarSrc} 
-                    alt="User Avatar"
-                    className="w-full h-full object-cover rounded-lg"
-                  />
-                </div>
-                <p className="text-xs text-gray-600 mt-1 text-center">
-                  {userData?.nickname || "User"}
-                </p>
-              </div>
-            </div>
-          </CardHeader>
-          <CardContent className="space-y-3 pt-2 pb-3 px-4">
-            <div>
-              <div className="flex justify-between items-center mb-1">
-                <label className="text-xs font-medium text-gray-700">Calories</label>
-                <span className="text-xs text-gray-600">{calorieRange[0]} - {calorieRange[1]} cal</span>
-              </div>
-              <Slider
-                value={calorieRange}
-                onValueChange={setCalorieRange}
-                max={1000}
-                min={100}
-                step={50}
-                className="w-full"
-              />
-            </div>
 
-            <div>
-              <div className="flex justify-between items-center mb-1">
-                <label className="text-xs font-medium text-gray-700">Protein</label>
-                <span className="text-xs text-gray-600">{proteinRange[0]} - {proteinRange[1]}g</span>
-              </div>
-              <Slider
-                value={proteinRange}
-                onValueChange={setProteinRange}
-                max={60}
-                min={5}
-                step={5}
-                className="w-full"
-              />
-            </div>
-
-            <div>
-              <div className="flex justify-between items-center mb-1">
-                <label className="text-xs font-medium text-gray-700">Carbs</label>
-                <span className="text-xs text-gray-600">{carbRange[0]} - {carbRange[1]}g</span>
-              </div>
-              <Slider
-                value={carbRange}
-                onValueChange={setCarbRange}
-                max={100}
-                min={5}
-                step={5}
-                className="w-full"
-              />
-            </div>
-
-            <div>
-              <div className="flex justify-between items-center mb-1">
-                <label className="text-xs font-medium text-gray-700">Fiber</label>
-                <span className="text-xs text-gray-600">{fiberRange[0]} - {fiberRange[1]}g</span>
-              </div>
-              <Slider
-                value={fiberRange}
-                onValueChange={setFiberRange}
-                max={25}
-                min={5}
-                step={1}
-                className="w-full"
-              />
-            </div>
-          </CardContent>
-        </Card>
 
         {/* Generate Recipe Button */}
         <Button 
