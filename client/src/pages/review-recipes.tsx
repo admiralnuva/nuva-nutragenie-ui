@@ -829,7 +829,7 @@ export default function ReviewRecipesScreen() {
                     <p className="text-sm text-gray-600">{dish.day} • {dish.servings} servings • {dish.cookTime} min</p>
                     {/* Round tick selection */}
                     <div 
-                      className={`w-6 h-6 rounded-full border-2 flex items-center justify-center cursor-pointer transition-all ${
+                      className={`w-8 h-8 rounded-full border-2 flex items-center justify-center cursor-pointer transition-all ${
                         isSelected 
                           ? 'bg-green-500 border-green-500' 
                           : 'bg-blue-100 border-blue-300 hover:border-blue-400'
@@ -839,7 +839,7 @@ export default function ReviewRecipesScreen() {
                         toggleDishSelection(dish.id);
                       }}
                     >
-                      {isSelected && <Check className="w-4 h-4 text-white" />}
+                      {isSelected && <Check className="w-5 h-5 text-white" />}
                     </div>
                   </div>
                 </div>
