@@ -589,7 +589,7 @@ export default function VoiceCookingScreen() {
               <Button 
                 size="sm" 
                 onClick={() => setEmergencyStop(false)}
-                className="bg-indigo-600 hover:bg-green-700"
+                className="bg-indigo-600 hover:bg-purple-700"
               >
                 Resume
               </Button>
@@ -598,7 +598,7 @@ export default function VoiceCookingScreen() {
         )}
 
         {/* Card 1: Enhanced Cooking Interface (Main Focus) */}
-        <Card className="border-2 border-green-300 bg-green-50 min-h-[600px] relative overflow-hidden">
+        <Card className="border-2 border-purple-300 bg-gradient-to-br from-blue-50 to-purple-50 min-h-[600px] relative overflow-hidden">
           <CardHeader className="pb-0">
             {/* Voice Controls and Text Mode Toggle */}
             <div className="flex gap-2">
@@ -693,12 +693,12 @@ export default function VoiceCookingScreen() {
                     </span>
                   </div>
                   <p className="font-medium mb-4 text-lg leading-relaxed">{recipe.steps[0]?.instruction}</p>
-                  <p className="text-sm text-green-700">💡 {recipe.steps[0]?.tips}</p>
+                  <p className="text-sm text-purple-700">💡 {recipe.steps[0]?.tips}</p>
                 </div>
                 
                 <Button 
                   onClick={() => setIsCooking(true)}
-                  className="w-full bg-indigo-600 hover:bg-green-700 text-lg py-4 mt-auto"
+                  className="w-full bg-indigo-600 hover:bg-purple-700 text-lg py-4 mt-auto"
                 >
                   <Play className="w-4 h-4 mr-2" />
                   {cookingMode === "voice" ? "Start Voice Cooking" : "Start Text Cooking"}
@@ -837,7 +837,7 @@ export default function VoiceCookingScreen() {
                               completedSteps[index] 
                                 ? 'bg-white border-border' 
                                 : index === currentStep 
-                                  ? 'bg-white border-green-300' 
+                                  ? 'bg-white border-purple-300' 
                                   : 'bg-white border-gray-200'
                             }`}
                           >
@@ -899,7 +899,7 @@ export default function VoiceCookingScreen() {
                           </span>
                         </div>
                         <p className="font-medium mb-4 text-lg leading-relaxed">{recipe.steps[currentStep]?.instruction}</p>
-                        <p className="text-sm text-green-700 mb-6">💡 {recipe.steps[currentStep]?.tips}</p>
+                        <p className="text-sm text-purple-700 mb-6">💡 {recipe.steps[currentStep]?.tips}</p>
                         
                         {/* Step Navigation Controls */}
                         <div className="flex items-center gap-3 mb-4">
@@ -951,7 +951,7 @@ export default function VoiceCookingScreen() {
                               completedSteps[index] 
                                 ? 'bg-white border-border' 
                                 : index === currentStep 
-                                  ? 'bg-white border-green-300' 
+                                  ? 'bg-white border-purple-300' 
                                   : 'bg-white border-gray-200'
                             }`}
                           >
@@ -1037,7 +1037,7 @@ export default function VoiceCookingScreen() {
                   className={`p-3 rounded-lg ${
                     msg.sender === 'user' 
                       ? 'bg-blue-50 border border-blue-200 ml-4' 
-                      : 'bg-green-50 border border-indigo-200 mr-4'
+                      : 'bg-purple-50 border border-indigo-200 mr-4'
                   }`}
                 >
                   <p className="text-sm">
