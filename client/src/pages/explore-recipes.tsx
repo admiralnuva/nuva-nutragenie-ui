@@ -6,9 +6,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 export default function ExploreRecipesScreen() {
   const [, setLocation] = useLocation();
   const [currentUser] = useLocalStorage<any>("nutragenie_user", null);
+  const [tempUser] = useLocalStorage<any>("nutragenie_temp_user", null);
   
-  // Get user data
-  const userData = currentUser;
+  // Get user data - check both current and temp user
+  const userData = currentUser || tempUser;
+
+  // Remove debug logs for production
 
   // Format dietary preferences data into text rows (max 6 rows)
   const formatDietaryData = () => {
@@ -83,7 +86,17 @@ export default function ExploreRecipesScreen() {
               <CardTitle className="text-base text-purple-600">Your Dietary Profile</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
-              {dietaryRows.length > 0 ? (
+              {!userData ? (
+                <div className="text-center py-6">
+                  <p className="text-gray-500 text-sm mb-3">Please create your account first to view dietary preferences</p>
+                  <button 
+                    onClick={() => setLocation("/nuva-signup")}
+                    className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-purple-700"
+                  >
+                    Create Account
+                  </button>
+                </div>
+              ) : dietaryRows.length > 0 ? (
                 dietaryRows.map((row, index) => (
                   <div key={index} className="flex justify-between items-start text-sm">
                     <span className="font-medium text-gray-700 w-20 flex-shrink-0">{row.label}:</span>
@@ -92,12 +105,12 @@ export default function ExploreRecipesScreen() {
                 ))
               ) : (
                 <div className="text-center py-4">
-                  <p className="text-gray-500 text-sm">No dietary preferences set</p>
+                  <p className="text-gray-500 text-sm mb-3">Welcome {userData?.nickname}! Complete your dietary profile to see personalized recipes.</p>
                   <button 
                     onClick={() => setLocation("/dietary")}
-                    className="text-purple-600 text-sm mt-1 hover:underline"
+                    className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-purple-700"
                   >
-                    Set up your preferences
+                    Complete Dietary Setup
                   </button>
                 </div>
               )}
