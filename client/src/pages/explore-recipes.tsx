@@ -174,11 +174,11 @@ export default function ExploreRecipesScreen() {
         <div className="space-y-4">
           {/* Card 1: Dietary Preferences Summary */}
           <Card className="bg-white border border-gray-200">
-            <CardHeader className="pb-2">
-              <div className="flex items-center justify-between">
-                <CardTitle className="text-base text-purple-600">Your dietary preferences:</CardTitle>
-                <div className="flex flex-col items-center">
-                  <div className="rounded-lg overflow-hidden bg-white shadow-sm" style={{width: '80px', height: '80px'}}>
+            <CardHeader className="pb-1 pt-2">
+              <div className="flex items-start justify-between">
+                <CardTitle className="text-base text-purple-600 mt-2">Your dietary preferences:</CardTitle>
+                <div className="flex flex-col items-center -mt-2">
+                  <div className="rounded-lg overflow-hidden bg-white shadow-sm" style={{width: '70px', height: '70px'}}>
                     <img 
                       src={userAvatarSrc} 
                       alt="User Avatar"
@@ -191,7 +191,7 @@ export default function ExploreRecipesScreen() {
                 </div>
               </div>
             </CardHeader>
-            <CardContent className="pt-1">
+            <CardContent className="pt-0 pb-3">
               {!userData ? (
                 <div className="text-center py-4">
                   <p className="text-gray-500 text-sm mb-3">Please create your account first to view dietary preferences</p>
@@ -203,9 +203,9 @@ export default function ExploreRecipesScreen() {
                   </button>
                 </div>
               ) : dietaryRows.length > 0 ? (
-                <div className="space-y-0">
+                <div className="space-y-0 -mt-1">
                   {dietaryRows.map((row, index) => (
-                    <div key={index} className="flex items-center text-sm py-1">
+                    <div key={index} className="flex items-center text-sm py-0.5">
                       {row.label ? (
                         <>
                           <span className="font-medium text-gray-700">{row.label}:</span>
