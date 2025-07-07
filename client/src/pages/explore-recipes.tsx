@@ -69,7 +69,7 @@ export default function ExploreRecipesScreen() {
 
   // Pantry management state
   const [activeCard, setActiveCard] = useState<string>('pantry-ingredients');
-  const [selectedIngredients, setSelectedIngredients] = useState<string[]>(['chicken-breast', 'salmon', 'onions', 'garlic', 'olive-oil']);
+  const [selectedIngredients, setSelectedIngredients] = useState<string[]>(['chicken-breast', 'salmon', 'onions', 'rice', 'milk', 'olive-oil', 'apples', 'basil', 'cumin', 'ketchup']);
   const [customIngredients, setCustomIngredients] = useState<string[]>([]);
   const [newIngredient, setNewIngredient] = useState<string>('');
   const [isPantryExpanded, setIsPantryExpanded] = useState<boolean>(true);
@@ -77,12 +77,16 @@ export default function ExploreRecipesScreen() {
 
   // Ingredient categories
   const ingredientCategories = {
-    'Meat': ['chicken-breast', 'ground-beef', 'pork-chops', 'turkey', 'lamb'],
-    'Fish': ['salmon', 'tuna', 'cod', 'shrimp', 'crab'],
-    'Vegetables': ['onions', 'garlic', 'tomatoes', 'carrots', 'broccoli', 'spinach', 'bell-peppers'],
-    'Grains': ['rice', 'pasta', 'quinoa', 'bread', 'oats'],
-    'Dairy': ['milk', 'cheese', 'yogurt', 'butter', 'eggs'],
-    'Pantry': ['olive-oil', 'salt', 'pepper', 'flour', 'sugar', 'vinegar']
+    'Meat': ['chicken-breast', 'ground-beef', 'pork-chops', 'turkey', 'lamb', 'bacon', 'ham', 'sausage'],
+    'Fish': ['salmon', 'tuna', 'cod', 'shrimp', 'crab', 'tilapia', 'mahi-mahi', 'scallops'],
+    'Vegetables': ['onions', 'garlic', 'tomatoes', 'carrots', 'broccoli', 'spinach', 'bell-peppers', 'mushrooms', 'zucchini', 'potatoes'],
+    'Grains': ['rice', 'pasta', 'quinoa', 'bread', 'oats', 'barley', 'couscous', 'bulgur'],
+    'Dairy': ['milk', 'cheese', 'yogurt', 'butter', 'eggs', 'cream-cheese', 'sour-cream', 'heavy-cream'],
+    'Pantry': ['olive-oil', 'salt', 'pepper', 'flour', 'sugar', 'vinegar', 'soy-sauce', 'honey', 'garlic-powder'],
+    'Fruits': ['apples', 'bananas', 'lemons', 'limes', 'oranges', 'berries', 'avocados', 'grapes'],
+    'Herbs': ['basil', 'oregano', 'thyme', 'rosemary', 'parsley', 'cilantro', 'mint', 'dill'],
+    'Spices': ['cumin', 'paprika', 'chili-powder', 'cinnamon', 'ginger', 'turmeric', 'bay-leaves'],
+    'Condiments': ['ketchup', 'mustard', 'mayo', 'hot-sauce', 'worcestershire', 'balsamic-vinegar']
   };
 
   const handleIngredientToggle = (ingredient: string) => {
