@@ -173,7 +173,7 @@ export default function ExploreRecipesScreen() {
               <div className="flex items-center justify-between">
                 <CardTitle className="text-base text-purple-600">Meal Preferences</CardTitle>
                 <div className="flex items-center">
-                  <div className="w-10 h-10 rounded-lg overflow-hidden bg-white shadow-sm">
+                  <div className="rounded-lg overflow-hidden bg-white shadow-sm" style={{width: '80px', height: '80px'}}>
                     <img 
                       src={userAvatarSrc} 
                       alt="User Avatar"
