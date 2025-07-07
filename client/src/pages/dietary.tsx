@@ -224,6 +224,13 @@ export default function DietaryScreen() {
     localStorage.setItem('nutragenie_temp_user', JSON.stringify(updatedUserData));
     setCurrentUser(updatedUserData);
     
+    // Debug: Log what we're saving
+    console.log("Saving dietary data:", updatedUserData);
+    console.log("Selected dietary:", selectedDietary);
+    console.log("Selected health:", selectedHealth);
+    console.log("Selected fitness:", selectedFitness);
+    console.log("Allergies:", allergies);
+    
     // Show success message and navigate
     toast({ title: "Dietary preferences saved successfully!" });
     setLocation("/explore-recipes");
