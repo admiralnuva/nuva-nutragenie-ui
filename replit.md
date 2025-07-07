@@ -350,7 +350,8 @@ Changelog:
   * Added visual feedback for user speech detection and chef response states
   * Removed images from Chef's Choice section per user request for cleaner interface
   * Enhanced Chef's Choice dish layout: dish name in first row, calories/timer left-aligned in second row, difficulty right-aligned at bottom
-  * Improved card structure with proper flexbox layout for consistent visual hierarchy
+  * Standardized Pantry Dishes layout to match Chef's Choice structure for consistent visual hierarchy across all dish cards
+  * Improved card structure with proper flexbox layout ensuring difficulty badges are consistently right-aligned in fixed positions
 ```
 
 ## User Preferences

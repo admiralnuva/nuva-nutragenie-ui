@@ -496,17 +496,24 @@ export default function ExploreRecipesScreen() {
                       { name: "Simple Soup", time: "25 min", calories: "120", difficulty: "Easy" },
                       { name: "Toast & Jam", time: "3 min", calories: "140", difficulty: "Beginner" }
                     ].map((dish, index) => (
-                      <div key={index} className="bg-gray-50 rounded-lg p-3 border border-gray-200">
-                        <h4 className="font-medium text-sm text-gray-900 mb-1">{dish.name}</h4>
-                        <div className="flex items-center justify-between text-xs text-gray-600">
-                          <div className="flex items-center space-x-1">
-                            <Clock size={12} />
-                            <span>{dish.time}</span>
+                      <div key={index} className="bg-gray-50 rounded-lg border border-gray-200">
+                        <div className="p-3 h-full flex flex-col">
+                          {/* Row 1: Dish Name */}
+                          <h4 className="font-medium text-sm text-gray-900 mb-2 truncate">{dish.name}</h4>
+                          
+                          {/* Row 2: Calories and Timer (left aligned) */}
+                          <div className="flex items-center space-x-3 text-xs text-gray-600 mb-auto">
+                            <span>{dish.calories} cal</span>
+                            <div className="flex items-center space-x-1">
+                              <Clock size={12} />
+                              <span>{dish.time}</span>
+                            </div>
                           </div>
-                          <span>{dish.calories} cal</span>
-                        </div>
-                        <div className="mt-1">
-                          <span className="text-xs bg-purple-100 text-purple-600 px-2 py-0.5 rounded">{dish.difficulty}</span>
+                          
+                          {/* Bottom Row: Difficulty Badge (right aligned) */}
+                          <div className="w-full flex justify-end mt-2">
+                            <span className="text-xs bg-purple-100 text-purple-600 px-2 py-0.5 rounded font-medium">{dish.difficulty}</span>
+                          </div>
                         </div>
                       </div>
                     ))}
