@@ -836,12 +836,15 @@ export default function ExploreRecipesScreen() {
                   <div className="grid grid-cols-2 gap-2 mt-4">
                     <Button 
                       variant="outline"
-                      className="border-purple-200 text-purple-600 hover:bg-purple-50"
+                      className="border-blue-200 text-blue-600 hover:bg-blue-50"
+                      onClick={() => setLocation("/grocery-list")}
                     >
                       Grocery List
                     </Button>
                     <Button 
-                      className="bg-purple-600 hover:bg-purple-700 text-white"
+                      variant="outline"
+                      className="border-blue-200 text-blue-600 hover:bg-blue-50"
+                      onClick={() => setLocation("/review-recipes")}
                     >
                       Weekly Plan
                     </Button>
