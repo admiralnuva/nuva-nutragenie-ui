@@ -206,7 +206,7 @@ export default function ExploreRecipesScreen() {
                   <p className="text-gray-500 text-sm py-2">No dietary preferences set</p>
                 )}
               </div>
-              <div className="absolute top-0 right-0 flex flex-col items-center">
+              <div className="absolute top-0 right-0">
                 <div className="rounded-lg overflow-hidden" style={{width: '80px', height: '80px'}}>
                   <img 
                     src={userAvatarSrc} 
@@ -214,9 +214,6 @@ export default function ExploreRecipesScreen() {
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <p className="text-xs text-gray-600 mt-1 font-medium text-center">
-                  {userData?.nickname || "User"}
-                </p>
               </div>
             </CardHeader>
           </Card>
@@ -227,7 +224,7 @@ export default function ExploreRecipesScreen() {
               <div className="pr-20">
                 <CardTitle className="text-base text-purple-600 mt-2">Meal Preferences</CardTitle>
               </div>
-              <div className="absolute top-0 right-0 flex flex-col items-center">
+              <div className="absolute top-0 right-0">
                 <div className="rounded-lg overflow-hidden" style={{width: '80px', height: '80px'}}>
                   <img 
                     src={userAvatarSrc} 
@@ -235,9 +232,6 @@ export default function ExploreRecipesScreen() {
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <p className="text-xs text-gray-600 mt-1 font-medium text-center">
-                  {userData?.nickname || "User"}
-                </p>
               </div>
             </CardHeader>
             {isMealPreferencesExpanded && (
@@ -430,9 +424,11 @@ export default function ExploreRecipesScreen() {
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <p className="text-xs text-gray-600 mt-1 font-medium text-center">
-                  {activeCard === 'pantry-dishes' || activeCard === 'chefs-choice' ? userData?.chefName || "Chef" : userData?.nickname || "User"}
-                </p>
+                {(activeCard === 'pantry-dishes' || activeCard === 'chefs-choice') && (
+                  <p className="text-xs text-gray-600 mt-1 font-medium text-center">
+                    {userData?.chefName || "Chef"}
+                  </p>
+                )}
               </div>
             </CardHeader>
             <CardContent className="space-y-3">
@@ -716,7 +712,7 @@ export default function ExploreRecipesScreen() {
                       <p className="text-xs text-gray-500 mt-1">Click the Expand button below to select your ingredients</p>
                     </div>
                   </div>
-                  <div className="absolute top-0 right-0 flex flex-col items-center">
+                  <div className="absolute top-0 right-0">
                     <div className="rounded-lg overflow-hidden" style={{width: '80px', height: '80px'}}>
                       <img 
                         src={userAvatarSrc} 
@@ -724,9 +720,6 @@ export default function ExploreRecipesScreen() {
                         className="w-full h-full object-cover"
                       />
                     </div>
-                    <p className="text-xs text-gray-600 mt-1 font-medium text-center">
-                      {userData?.nickname || "User"}
-                    </p>
                   </div>
                 </CardHeader>
                 
