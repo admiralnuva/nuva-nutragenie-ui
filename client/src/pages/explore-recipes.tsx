@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
+import { Clock, Users, ChefHat, Flame, Target, Utensils } from "lucide-react";
 
 // Import user avatar images
 import userAvatar1 from "@/assets/avatars/user/user1.png";
@@ -36,7 +37,9 @@ export default function ExploreRecipesScreen() {
     mealType: "",
     spiceLevel: "",
     skillLevel: "",
-    cookingMethod: ""
+    cookingMethod: "",
+    prepTime: "",
+    servingSize: ""
   });
 
   // Format dietary preferences data into text rows (max 6 rows)
@@ -167,13 +170,27 @@ export default function ExploreRecipesScreen() {
           {/* Card 2: Meal Preferences */}
           <Card className="bg-white border border-gray-200">
             <CardHeader className="pb-3">
-              <CardTitle className="text-base text-purple-600">Meal Preferences</CardTitle>
+              <div className="flex items-center justify-between">
+                <CardTitle className="text-base text-purple-600">Meal Preferences</CardTitle>
+                <div className="flex items-center">
+                  <div className="w-10 h-10 rounded-lg overflow-hidden bg-white shadow-sm">
+                    <img 
+                      src={userAvatarSrc} 
+                      alt="User Avatar"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+              </div>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 {/* Cuisine */}
                 <div className="space-y-2">
-                  <Label htmlFor="cuisine" className="text-sm font-medium text-gray-700">Cuisine</Label>
+                  <Label htmlFor="cuisine" className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                    <ChefHat size={16} className="text-purple-600" />
+                    Cuisine
+                  </Label>
                   <Select value={mealPreferences.cuisine} onValueChange={(value) => setMealPreferences(prev => ({...prev, cuisine: value}))}>
                     <SelectTrigger>
                       <SelectValue placeholder="Select cuisine" />
@@ -193,7 +210,10 @@ export default function ExploreRecipesScreen() {
 
                 {/* Meal Type */}
                 <div className="space-y-2">
-                  <Label htmlFor="mealType" className="text-sm font-medium text-gray-700">Meal Type</Label>
+                  <Label htmlFor="mealType" className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                    <Utensils size={16} className="text-purple-600" />
+                    Meal Type
+                  </Label>
                   <Select value={mealPreferences.mealType} onValueChange={(value) => setMealPreferences(prev => ({...prev, mealType: value}))}>
                     <SelectTrigger>
                       <SelectValue placeholder="Select meal type" />
@@ -211,7 +231,10 @@ export default function ExploreRecipesScreen() {
 
                 {/* Spice Level */}
                 <div className="space-y-2">
-                  <Label htmlFor="spiceLevel" className="text-sm font-medium text-gray-700">Spice Level</Label>
+                  <Label htmlFor="spiceLevel" className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                    <Flame size={16} className="text-purple-600" />
+                    Spice Level
+                  </Label>
                   <Select value={mealPreferences.spiceLevel} onValueChange={(value) => setMealPreferences(prev => ({...prev, spiceLevel: value}))}>
                     <SelectTrigger>
                       <SelectValue placeholder="Select spice level" />
@@ -228,7 +251,10 @@ export default function ExploreRecipesScreen() {
 
                 {/* Skill Level */}
                 <div className="space-y-2">
-                  <Label htmlFor="skillLevel" className="text-sm font-medium text-gray-700">Skill Level</Label>
+                  <Label htmlFor="skillLevel" className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                    <Target size={16} className="text-purple-600" />
+                    Skill Level
+                  </Label>
                   <Select value={mealPreferences.skillLevel} onValueChange={(value) => setMealPreferences(prev => ({...prev, skillLevel: value}))}>
                     <SelectTrigger>
                       <SelectValue placeholder="Select skill level" />
@@ -244,7 +270,10 @@ export default function ExploreRecipesScreen() {
 
                 {/* Cooking Method */}
                 <div className="space-y-2">
-                  <Label htmlFor="cookingMethod" className="text-sm font-medium text-gray-700">Cooking Method</Label>
+                  <Label htmlFor="cookingMethod" className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                    <ChefHat size={16} className="text-purple-600" />
+                    Cooking Method
+                  </Label>
                   <Select value={mealPreferences.cookingMethod} onValueChange={(value) => setMealPreferences(prev => ({...prev, cookingMethod: value}))}>
                     <SelectTrigger>
                       <SelectValue placeholder="Select cooking method" />
@@ -262,6 +291,47 @@ export default function ExploreRecipesScreen() {
                   </Select>
                 </div>
 
+                {/* Prep Time */}
+                <div className="space-y-2">
+                  <Label htmlFor="prepTime" className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                    <Clock size={16} className="text-purple-600" />
+                    Prep Time
+                  </Label>
+                  <Select value={mealPreferences.prepTime} onValueChange={(value) => setMealPreferences(prev => ({...prev, prepTime: value}))}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select prep time" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="15-min">15 minutes</SelectItem>
+                      <SelectItem value="30-min">30 minutes</SelectItem>
+                      <SelectItem value="45-min">45 minutes</SelectItem>
+                      <SelectItem value="1-hour">1 hour</SelectItem>
+                      <SelectItem value="1.5-hour">1.5 hours</SelectItem>
+                      <SelectItem value="2-hour">2+ hours</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Serving Size */}
+                <div className="space-y-2">
+                  <Label htmlFor="servingSize" className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                    <Users size={16} className="text-purple-600" />
+                    Serving Size
+                  </Label>
+                  <Select value={mealPreferences.servingSize} onValueChange={(value) => setMealPreferences(prev => ({...prev, servingSize: value}))}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select serving size" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="1-person">1 person</SelectItem>
+                      <SelectItem value="2-people">2 people</SelectItem>
+                      <SelectItem value="3-4-people">3-4 people</SelectItem>
+                      <SelectItem value="5-6-people">5-6 people</SelectItem>
+                      <SelectItem value="7-8-people">7-8 people</SelectItem>
+                      <SelectItem value="large-group">Large group (9+)</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
 
               </div>
             </CardContent>
