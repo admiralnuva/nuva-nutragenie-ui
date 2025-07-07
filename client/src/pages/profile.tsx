@@ -8,6 +8,10 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { BackButton } from "@/components/ui/back-button";
 import { BottomNavigation } from "@/components/ui/bottom-navigation";
+import { ProfileCard } from "@/components/ui/profile-card";
+import { DietaryPreferencesCard } from "@/components/ui/dietary-preferences-card";
+import { ScreenHeader } from "@/components/ui/screen-header";
+import { useToast } from "@/hooks/use-toast";
 import { 
   User, 
   Edit, 
@@ -25,18 +29,16 @@ export default function ProfileScreen() {
   const [, setLocation] = useLocation();
   const [currentUser, setCurrentUser] = useLocalStorage<any>("nutragenie_user", null);
   const [activeSection, setActiveSection] = useState("account");
-  const [isEditing, setIsEditing] = useState(false);
-  const [editedUser, setEditedUser] = useState({
-    ...currentUser,
-    streetAddress: currentUser?.streetAddress || "",
-    city: currentUser?.city || "",
-    state: currentUser?.state || "",
-    zipCode: currentUser?.zipCode || ""
-  });
+  const { toast } = useToast();
 
-  const handleSaveProfile = () => {
-    setCurrentUser(editedUser);
-    setIsEditing(false);
+  const handleSaveProfile = (data: any) => {
+    setCurrentUser({ ...currentUser, ...data });
+    toast({ title: "Profile Updated", description: "Your profile information has been saved." });
+  };
+
+  const handleSaveDietary = (data: any) => {
+    setCurrentUser({ ...currentUser, ...data });
+    toast({ title: "Dietary Preferences Updated", description: "Your dietary preferences have been saved." });
   };
 
   const sections = [
@@ -589,14 +591,14 @@ export default function ProfileScreen() {
 
   const renderActiveSection = () => {
     switch (activeSection) {
-      case "account": return renderAccountSection();
-      case "dietary": return renderDietarySection();
+      case "account": return <ProfileCard userData={currentUser} onSave={handleSaveProfile} />;
+      case "dietary": return <DietaryPreferencesCard userData={currentUser} onSave={handleSaveDietary} />;
       case "health": return renderHealthSection();
       case "grocery": return renderGroceryHistory();
       case "orders": return renderOrderHistory();
       case "recipes": return renderRecipesCreated();
       case "cooking": return renderCookingHistory();
-      default: return renderAccountSection();
+      default: return <ProfileCard userData={currentUser} onSave={handleSaveProfile} />;
     }
   };
 
@@ -616,42 +618,44 @@ export default function ProfileScreen() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-20">
-      {/* Header */}
-      <div className="bg-white shadow-sm p-4">
-        <div className="flex items-center justify-between mb-4">
-          <BackButton to="/home" />
-          <div className="flex-1 text-center">
-            <h1 className="text-2xl font-bold text-gray-800">Profile</h1>
-          </div>
-          <div className="w-8"></div>
+    <div className="min-h-screen bg-white pb-20">
+      <div className="p-6">
+        <div className="max-w-md mx-auto">
+          <ScreenHeader 
+            title="NutraGenie"
+            subtitle="Profile"
+            backTo="/home"
+          />
         </div>
       </div>
+      
+      {/* Profile Content */}
+      <div className="bg-gray-50 min-h-screen">
+        {/* Card 1: Navigation Buttons */}
+        <div className="max-w-md mx-auto p-4 space-y-3">
+          <Card>
+            <CardContent className="p-4">
+              <div className="grid grid-cols-2 gap-3">
+                {sections.map((section) => (
+                  <Button
+                    key={section.id}
+                    variant={activeSection === section.id ? "default" : "outline"}
+                    onClick={() => setActiveSection(section.id)}
+                    className="flex items-center gap-2 h-12 text-sm"
+                  >
+                    <section.icon className="w-4 h-4" />
+                    {section.title}
+                  </Button>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
 
-      {/* Card 1: Navigation Buttons */}
-      <div className="max-w-md mx-auto p-4 space-y-3">
-        <Card>
-          <CardContent className="p-4">
-            <div className="grid grid-cols-2 gap-3">
-              {sections.map((section) => (
-                <Button
-                  key={section.id}
-                  variant={activeSection === section.id ? "default" : "outline"}
-                  onClick={() => setActiveSection(section.id)}
-                  className="flex items-center gap-2 h-12 text-sm"
-                >
-                  <section.icon className="w-4 h-4" />
-                  {section.title}
-                </Button>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Card 2: Content */}
-        <Card>
-          {renderActiveSection()}
-        </Card>
+          {/* Card 2: Content */}
+          <Card>
+            {renderActiveSection()}
+          </Card>
+        </div>
       </div>
 
       <BottomNavigation />
