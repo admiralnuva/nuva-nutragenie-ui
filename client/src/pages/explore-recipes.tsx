@@ -90,7 +90,7 @@ export default function ExploreRecipesScreen() {
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <p className="text-xs text-gray-600 mt-1 font-medium">
+                  <p className="text-xs text-gray-600 mt-0.5 font-medium">
                     {userData?.nickname || "User"}
                   </p>
                 </div>
