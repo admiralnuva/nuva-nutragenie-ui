@@ -466,17 +466,20 @@ export default function ExploreRecipesScreen() {
                         </SelectTrigger>
                         <SelectContent>
                           {ingredients.map((ingredient) => (
-                            <div key={ingredient} className="flex items-center space-x-2 p-2 hover:bg-purple-50">
+                            <div 
+                              key={ingredient} 
+                              className="flex items-center space-x-3 p-3 hover:bg-purple-50 cursor-pointer"
+                              onClick={() => handleIngredientToggle(ingredient)}
+                            >
                               <Checkbox
                                 id={ingredient}
                                 checked={selectedIngredients.includes(ingredient)}
                                 onCheckedChange={() => handleIngredientToggle(ingredient)}
-                                className="data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600"
+                                className="data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600 w-5 h-5"
                               />
                               <Label 
                                 htmlFor={ingredient}
                                 className="text-sm text-gray-700 capitalize cursor-pointer flex-1"
-                                onClick={() => handleIngredientToggle(ingredient)}
                               >
                                 {ingredient.replace('-', ' ')}
                               </Label>
@@ -509,12 +512,16 @@ export default function ExploreRecipesScreen() {
                     {customIngredients.length > 0 && (
                       <div className="grid grid-cols-2 gap-2">
                         {customIngredients.map((ingredient) => (
-                          <div key={ingredient} className="flex items-center space-x-2">
+                          <div 
+                            key={ingredient} 
+                            className="flex items-center space-x-3 p-2 hover:bg-purple-50 rounded cursor-pointer"
+                            onClick={() => handleIngredientToggle(ingredient)}
+                          >
                             <Checkbox
                               id={`custom-${ingredient}`}
                               checked={selectedIngredients.includes(ingredient)}
                               onCheckedChange={() => handleIngredientToggle(ingredient)}
-                              className="data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600"
+                              className="data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600 w-5 h-5"
                             />
                             <Label 
                               htmlFor={`custom-${ingredient}`}
