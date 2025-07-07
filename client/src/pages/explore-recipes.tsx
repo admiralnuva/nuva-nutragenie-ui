@@ -441,8 +441,8 @@ export default function ExploreRecipesScreen() {
           {/* Pantry Ingredients Large Card */}
           {activeCard === 'pantry-ingredients' && (
             <>
-              <Card className="bg-white border border-gray-200">
-                <CardHeader className="pb-3">
+              <Card className="bg-white border border-gray-200 shadow-lg">
+                <CardHeader className="pb-2">
                   <div className="flex items-center justify-between">
                     <CardTitle className="text-base text-purple-600">Select Pantry Ingredients</CardTitle>
                     <Button 
@@ -455,7 +455,7 @@ export default function ExploreRecipesScreen() {
                     </Button>
                   </div>
                 </CardHeader>
-                <CardContent className="space-y-6">
+                <CardContent className="space-y-3">
                   {Object.entries(ingredientCategories).map(([category, ingredients]) => (
                     <div key={category} className="flex items-center gap-3">
                       <Label htmlFor={`${category}-select`} className="text-sm font-medium text-gray-700 flex items-center gap-2 min-w-[100px]">
@@ -463,7 +463,7 @@ export default function ExploreRecipesScreen() {
                         {category}
                       </Label>
                       <Select>
-                        <SelectTrigger className="flex-1">
+                        <SelectTrigger className="flex-1 shadow-sm border-gray-300">
                           <SelectValue placeholder={`Select ${category.toLowerCase()}`} />
                         </SelectTrigger>
                         <SelectContent>
@@ -490,26 +490,26 @@ export default function ExploreRecipesScreen() {
                   ))}
 
                   {/* Custom Ingredients Section */}
-                  <div className="space-y-3 border-t border-gray-200 pt-4">
-                    <h3 className="font-medium text-gray-800">Add Custom Ingredients</h3>
+                  <div className="space-y-2 border-t border-gray-200 pt-3">
+                    <h3 className="font-medium text-gray-800 text-sm">Add Custom Ingredients</h3>
                     <div className="flex space-x-2">
                       <Input
                         value={newIngredient}
                         onChange={(e) => setNewIngredient(e.target.value)}
                         placeholder="Enter ingredient name"
-                        className="flex-1"
+                        className="flex-1 shadow-sm"
                         onKeyPress={(e) => e.key === 'Enter' && addCustomIngredient()}
                       />
                       <Button 
                         onClick={addCustomIngredient}
                         size="sm"
-                        className="bg-purple-600 hover:bg-purple-700"
+                        className="bg-purple-600 hover:bg-purple-700 shadow-sm"
                       >
                         <Plus size={16} />
                       </Button>
                     </div>
                     {customIngredients.length > 0 && (
-                      <div className="grid grid-cols-2 gap-3">
+                      <div className="grid grid-cols-2 gap-2">
                         {customIngredients.map((ingredient) => (
                           <div key={ingredient} className="flex items-center space-x-2">
                             <Checkbox
@@ -531,13 +531,13 @@ export default function ExploreRecipesScreen() {
                   </div>
 
                   {/* Summary Section */}
-                  <div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
-                    <h3 className="font-medium text-purple-800 mb-2">Selected Ingredients ({selectedIngredients.length})</h3>
-                    <div className="flex flex-wrap gap-2">
+                  <div className="bg-purple-50 rounded-lg p-3 border border-purple-200 shadow-sm">
+                    <h3 className="font-medium text-purple-800 mb-2 text-sm">Selected Ingredients ({selectedIngredients.length})</h3>
+                    <div className="flex flex-wrap gap-1.5">
                       {selectedIngredients.map((ingredient) => (
                         <span 
                           key={ingredient}
-                          className="bg-white text-purple-700 px-3 py-1 rounded-full text-sm border border-purple-300"
+                          className="bg-white text-purple-700 px-2 py-1 rounded-full text-xs border border-purple-300 shadow-sm"
                         >
                           {ingredient.replace('-', ' ')}
                         </span>
@@ -548,15 +548,15 @@ export default function ExploreRecipesScreen() {
               </Card>
 
               {/* Grocery List Card */}
-              <Card className="bg-white border border-gray-200">
-                <CardHeader className="pb-3">
+              <Card className="bg-white border border-gray-200 shadow-lg">
+                <CardHeader className="pb-2">
                   <CardTitle className="text-base text-purple-600 flex items-center gap-2">
                     <List size={18} />
                     Grocery List ({selectedIngredients.length} items)
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="bg-gray-50 rounded-lg p-4 max-h-48 overflow-y-auto">
+                <CardContent className="space-y-3">
+                  <div className="bg-gray-50 rounded-lg p-3 max-h-40 overflow-y-auto shadow-inner">
                     {selectedIngredients.length > 0 ? (
                       <div className="space-y-2">
                         {selectedIngredients.map((ingredient) => (
@@ -571,15 +571,15 @@ export default function ExploreRecipesScreen() {
                     )}
                   </div>
                   
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-2 gap-2">
                     <Button 
                       variant="outline"
-                      className="border-purple-200 text-purple-600 hover:bg-purple-50"
+                      className="border-purple-200 text-purple-600 hover:bg-purple-50 shadow-sm"
                     >
                       Grocery List
                     </Button>
                     <Button 
-                      className="bg-purple-600 hover:bg-purple-700 text-white"
+                      className="bg-purple-600 hover:bg-purple-700 text-white shadow-sm"
                     >
                       Weekly Plan
                     </Button>
