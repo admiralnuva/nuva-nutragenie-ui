@@ -352,27 +352,25 @@ export default function ExploreRecipesScreen() {
 
                 {/* Cooking Method */}
                 <div className="space-y-2">
-                  <div className="flex items-center gap-2">
-                    <Label htmlFor="cookingMethod" className="text-sm font-medium text-gray-700 flex items-center gap-2 flex-shrink-0">
-                      <ChefHat size={16} className="text-purple-600" />
-                      Cooking Method
-                    </Label>
-                    <Select value={mealPreferences.cookingMethod} onValueChange={(value) => setMealPreferences(prev => ({...prev, cookingMethod: value}))}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select method" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="baking">Baking</SelectItem>
-                        <SelectItem value="grilling">Grilling</SelectItem>
-                        <SelectItem value="frying">Frying</SelectItem>
-                        <SelectItem value="steaming">Steaming</SelectItem>
-                        <SelectItem value="roasting">Roasting</SelectItem>
-                        <SelectItem value="slow-cooking">Slow Cooking</SelectItem>
-                        <SelectItem value="stir-frying">Stir Frying</SelectItem>
-                        <SelectItem value="no-cook">No Cook</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
+                  <Label htmlFor="cookingMethod" className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                    <ChefHat size={16} className="text-purple-600" />
+                    Cooking Method
+                  </Label>
+                  <Select value={mealPreferences.cookingMethod} onValueChange={(value) => setMealPreferences(prev => ({...prev, cookingMethod: value}))}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select cooking method" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="baking">Baking</SelectItem>
+                      <SelectItem value="grilling">Grilling</SelectItem>
+                      <SelectItem value="frying">Frying</SelectItem>
+                      <SelectItem value="steaming">Steaming</SelectItem>
+                      <SelectItem value="roasting">Roasting</SelectItem>
+                      <SelectItem value="slow-cooking">Slow Cooking</SelectItem>
+                      <SelectItem value="stir-frying">Stir Frying</SelectItem>
+                      <SelectItem value="no-cook">No Cook</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
 
                 {/* Prep Time */}
@@ -381,41 +379,39 @@ export default function ExploreRecipesScreen() {
                     <Clock size={16} className="text-purple-600" />
                     Prep Time
                   </Label>
-                  <Select value={mealPreferences.prepTime} onValueChange={(value) => setMealPreferences(prev => ({...prev, prepTime: value}))}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select prep time" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="15-min">15 minutes</SelectItem>
-                      <SelectItem value="30-min">30 minutes</SelectItem>
-                      <SelectItem value="45-min">45 minutes</SelectItem>
-                      <SelectItem value="1-hour">1 hour</SelectItem>
-                      <SelectItem value="1.5-hour">1.5 hours</SelectItem>
-                      <SelectItem value="2-hour">2+ hours</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <div className="flex items-center gap-2">
+                    <Select value={mealPreferences.prepTime} onValueChange={(value) => setMealPreferences(prev => ({...prev, prepTime: value}))}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select prep time" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="15-min">15 minutes</SelectItem>
+                        <SelectItem value="30-min">30 minutes</SelectItem>
+                        <SelectItem value="45-min">45 minutes</SelectItem>
+                        <SelectItem value="1-hour">1 hour</SelectItem>
+                        <SelectItem value="1.5-hour">1.5 hours</SelectItem>
+                        <SelectItem value="2-hour">2+ hours</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <Button 
+                      className="h-8 px-2 flex items-center justify-center gap-1 bg-purple-600 hover:bg-purple-700 text-white flex-shrink-0"
+                      onClick={() => setIsMealPreferencesExpanded(!isMealPreferencesExpanded)}
+                    >
+                      {isMealPreferencesExpanded ? (
+                        <>
+                          <Minus size={14} className="text-white" />
+                          <span className="text-xs font-medium text-white">Collapse</span>
+                        </>
+                      ) : (
+                        <>
+                          <Plus size={14} className="text-white" />
+                          <span className="text-xs font-medium text-white">Expand</span>
+                        </>
+                      )}
+                    </Button>
+                  </div>
                 </div>
 
-                </div>
-
-                {/* Expand/Collapse Button */}
-                <div className="pt-4">
-                  <Button 
-                    className="w-full h-12 flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-700 text-white"
-                    onClick={() => setIsMealPreferencesExpanded(!isMealPreferencesExpanded)}
-                  >
-                    {isMealPreferencesExpanded ? (
-                      <>
-                        <Minus size={20} className="text-white" />
-                        <span className="text-sm font-medium text-white">Collapse</span>
-                      </>
-                    ) : (
-                      <>
-                        <Plus size={20} className="text-white" />
-                        <span className="text-sm font-medium text-white">Expand</span>
-                      </>
-                    )}
-                  </Button>
                 </div>
               </CardContent>
             )}
