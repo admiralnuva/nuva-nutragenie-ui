@@ -32,10 +32,10 @@ const userAvatars = [
 ];
 
 const chefs = [
-  { id: 'chef1', name: 'Chef Marcus', personality: 'Precise & Classic', avatar: chefAvatar1 },
-  { id: 'chef2', name: 'Chef Luna', personality: 'Friendly & Vibrant', avatar: chefAvatar2 },
-  { id: 'chef3', name: 'Chef Blaze', personality: 'Bold & Spicy', avatar: chefAvatar3 },
-  { id: 'chef4', name: 'Chef Harmony', personality: 'Zen & Delicate', avatar: chefAvatar4 }
+  { id: 'chef1', name: 'Chef Marcus', displayName: 'Marcus', personality: 'Precise & Classic', avatar: chefAvatar1 },
+  { id: 'chef2', name: 'Chef Luna', displayName: 'Luna', personality: 'Friendly & Vibrant', avatar: chefAvatar2 },
+  { id: 'chef3', name: 'Chef Blaze', displayName: 'Blaze', personality: 'Bold & Spicy', avatar: chefAvatar3 },
+  { id: 'chef4', name: 'Chef Harmony', displayName: 'Harmony', personality: 'Zen & Delicate', avatar: chefAvatar4 }
 ];
 
 export default function NuvaSignupScreen() {
@@ -256,28 +256,38 @@ export default function NuvaSignupScreen() {
         {/* Chef Card */}
         <MediumCard
           title="Choose Your AI Chef"
-          cardName=""
+          cardName={selectedChef ? chefs.find(chef => chef.id === selectedChef)?.displayName : ""}
           description="Select your personal cooking assistant"
           avatar={
-            <div className="w-full h-full bg-orange-100 rounded-full flex items-center justify-center">
-              <ChefHat className="w-1/2 h-1/2 text-orange-600" />
-            </div>
+            selectedChef ? (
+              <img 
+                src={chefs.find(chef => chef.id === selectedChef)?.avatar} 
+                alt={chefs.find(chef => chef.id === selectedChef)?.name}
+                className="w-full h-full object-cover rounded-full"
+              />
+            ) : (
+              <div className="w-full h-full bg-orange-100 rounded-full flex items-center justify-center">
+                <ChefHat className="w-1/2 h-1/2 text-orange-600" />
+              </div>
+            )
           }
         >
           {/* Chef Selection - 4 avatars in a row */}
           <div className="grid grid-cols-4 gap-3">
             {chefs.map((chef) => (
-              <button
-                key={chef.id}
-                onClick={() => setSelectedChef(chef.id)}
-                className={`w-20 h-20 rounded-lg border-2 overflow-hidden transition-all ${
-                  selectedChef === chef.id 
-                    ? 'ring-2 ring-indigo-500 border-indigo-500 scale-105' 
-                    : 'border-gray-300 hover:border-indigo-400'
-                }`}
-              >
-                <img src={chef.avatar} alt={chef.name} className="w-full h-full object-cover" />
-              </button>
+              <div key={chef.id} className="flex flex-col items-center">
+                <button
+                  onClick={() => setSelectedChef(chef.id)}
+                  className={`w-20 h-20 rounded-lg border-2 overflow-hidden transition-all ${
+                    selectedChef === chef.id 
+                      ? 'ring-2 ring-indigo-500 border-indigo-500 scale-105' 
+                      : 'border-gray-300 hover:border-indigo-400'
+                  }`}
+                >
+                  <img src={chef.avatar} alt={chef.name} className="w-full h-full object-cover" />
+                </button>
+                <p className="text-xs text-center mt-1 font-medium">{chef.displayName}</p>
+              </div>
             ))}
           </div>
         </MediumCard>
