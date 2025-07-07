@@ -25,6 +25,7 @@ import HomeScreen from "@/pages/home";
 
 import GroceryListScreen from "@/pages/grocery-list";
 import InstacartScreen from "@/pages/instacart";
+import WeeklyMealPlanningScreen from "@/pages/weekly-meal-planning";
 
 function Router() {
   const [location, setLocation] = useLocation();
@@ -58,6 +59,7 @@ function Router() {
       <Route path="/cooking/:recipeId?" component={CookingScreen} />
       <Route path="/voice-cooking" component={VoiceCookingScreen} />
       <Route path="/ai-video-cooking" component={AIVideoCookingScreen} />
+      <Route path="/weekly-meal-planning" component={WeeklyMealPlanningScreen} />
       <Route path="/cards" component={CardsScreen} />
       <Route path="/nuva-signup" component={NuvaSignupScreen} />
       <Route path="/profile" component={ProfileScreen} />
