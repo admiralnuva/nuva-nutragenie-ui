@@ -47,118 +47,101 @@ export default function NuvaSplashScreen() {
           <h1 className="text-5xl sm:text-6xl font-bold mb-6 text-white drop-shadow-2xl animate-in slide-in-from-bottom-4 duration-800 delay-300">
             NutraGenie
           </h1>
-          
-          {/* AI + Health Indicator */}
-          <div className="flex items-center justify-center gap-3 mb-4 text-white/90">
-            <div className="flex items-center gap-1">
-              <div className="w-3 h-3 bg-emerald-400 rounded-full animate-pulse"></div>
-              <span className="text-sm font-medium">AI Powered</span>
+          <p className="text-white mb-3 text-xl sm:text-2xl leading-relaxed font-semibold drop-shadow-lg animate-in slide-in-from-bottom-4 duration-800 delay-500">
+            Your AI nutrition companion that bridges cooking and convenience
+          </p>
+          <p className="text-white/95 mb-8 text-lg sm:text-xl font-medium drop-shadow-md animate-in slide-in-from-bottom-4 duration-800 delay-700">
+            Personalized recipes, health tracking, and marketplace integration
+          </p>
+        </div>
+
+        {/* Features Preview */}
+        <div className="grid grid-cols-3 gap-6 mb-10 text-white/90 animate-in fade-in duration-1000 delay-900">
+          <div className="text-center transform hover:scale-105 transition-transform duration-200">
+            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3 backdrop-blur-sm border border-white/30">
+              <ChefHat className="w-7 h-7" />
             </div>
-            <div className="w-2 h-2 bg-white/40 rounded-full"></div>
-            <div className="flex items-center gap-1">
-              <Heart className="w-4 h-4 text-red-400" fill="currentColor" />
-              <span className="text-sm font-medium">Health Focused</span>
+            <p className="text-sm font-semibold">AI Chef</p>
+          </div>
+          <div className="text-center transform hover:scale-105 transition-transform duration-200">
+            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3 backdrop-blur-sm border border-white/30">
+              <Heart className="w-7 h-7" />
             </div>
+            <p className="text-sm font-semibold">Health Tracking</p>
+          </div>
+          <div className="text-center transform hover:scale-105 transition-transform duration-200">
+            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3 backdrop-blur-sm border border-white/30">
+              <Smartphone className="w-7 h-7" />
+            </div>
+            <p className="text-sm font-semibold">Smart Grocery</p>
           </div>
         </div>
 
-        {/* App Description */}
-        <div className="mb-8 space-y-3 animate-in slide-in-from-bottom-6 duration-1000 delay-500">
-          <p className="text-lg sm:text-xl text-white/95 font-medium drop-shadow-lg leading-relaxed">
-            AI-powered nutrition platform designed to enhance wellness for users 40+
-          </p>
-          <p className="text-base sm:text-lg text-white/85 drop-shadow-md leading-relaxed">
-            Intelligent, personalized nutritional guidance through interactive meal experiences
-          </p>
-        </div>
+        {/* Error Display */}
+        {error && (
+          <div className="bg-red-500/20 border border-red-300 text-white p-3 rounded-lg mb-4 backdrop-blur-sm">
+            {error}
+          </div>
+        )}
 
-        {/* Feature Highlights */}
-        <div className="grid grid-cols-3 gap-4 mb-8 animate-in slide-in-from-bottom-8 duration-1000 delay-700">
-          {[
-            { icon: ChefHat, label: "AI Chef", description: "Personal cooking assistant" },
-            { icon: Heart, label: "Health Tracking", description: "Nutrition & wellness monitoring" },
-            { icon: Smartphone, label: "Voice Commands", description: "Hands-free cooking guidance" }
-          ].map((feature, index) => (
-            <div key={index} className="text-center">
-              <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-2 backdrop-blur-sm border border-white/30">
-                <feature.icon className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="text-sm font-semibold text-white drop-shadow-md">{feature.label}</h3>
-              <p className="text-xs text-white/70 drop-shadow-sm">{feature.description}</p>
-            </div>
-          ))}
-        </div>
+        {/* Returning User Welcome */}
+        {isReturningUser && (
+          <div className="bg-white/20 p-4 rounded-lg mb-6 backdrop-blur-sm">
+            <p className="text-white font-medium">Welcome back, {currentUser.nickname}! 👋</p>
+            <p className="text-white/90 text-sm">Redirecting to your dashboard...</p>
+          </div>
+        )}
+
+        {/* Reset Button for Testing (only show when user exists) */}
+        {isReturningUser && (
+          <div className="mb-4">
+            <button 
+              onClick={() => {
+                setCurrentUser(null);
+                localStorage.removeItem("nutragenie_user");
+                setLocation("/nuva");
+              }}
+              className="bg-red-500/20 border border-red-300 text-white px-4 py-2 rounded-lg backdrop-blur-sm hover:bg-red-500/30 transition-colors text-sm"
+            >
+              Reset for Testing (Clear User Data)
+            </button>
+          </div>
+        )}
 
         {/* Action Buttons */}
-        <div className="space-y-4 animate-in slide-in-from-bottom-10 duration-1000 delay-900">
-          {isReturningUser ? (
+        <div className="space-y-3 w-full">
+          {!isReturningUser ? (
             <>
-              <div className="text-white/90 mb-4">
-                <p className="text-lg font-medium drop-shadow-md">Welcome back, {currentUser.nickname}! 👋</p>
-                <p className="text-sm text-white/75 drop-shadow-sm">Redirecting to your dashboard...</p>
-              </div>
-              <div className="flex justify-center">
-                <Loader2 className="w-6 h-6 text-white animate-spin" />
-              </div>
-              
-              {/* Reset Button for Testing */}
-              <div className="pt-4">
-                <button 
-                  onClick={() => {
-                    setCurrentUser(null);
-                    localStorage.removeItem("nutragenie_user");
-                    window.location.reload();
-                  }}
-                  className="w-full bg-red-500/20 border border-red-300/50 text-white px-4 py-3 rounded-xl backdrop-blur-sm hover:bg-red-500/30 transition-all duration-300 text-sm font-medium"
-                >
-                  Reset Data (Testing)
-                </button>
-              </div>
-            </>
-          ) : (
-            <>
-              <button
+              <button 
                 onClick={() => handleNavigation("/nuva-signup")}
                 disabled={isLoading}
-                className="w-full bg-white text-indigo-600 font-semibold py-4 px-6 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-white text-indigo-600 py-4 px-6 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2"
               >
-                {isLoading ? (
-                  <div className="flex items-center justify-center gap-2">
-                    <Loader2 className="w-5 h-5 animate-spin" />
-                    <span>Loading...</span>
-                  </div>
-                ) : (
-                  "Get Started"
-                )}
+                {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : null}
+                Get Started
               </button>
-              
-              {/* Reset Button for Testing - Always Available */}
-              <div className="pt-2">
-                <button 
-                  onClick={() => {
-                    setCurrentUser(null);
-                    localStorage.removeItem("nutragenie_user");
-                    window.location.reload();
-                  }}
-                  className="w-full bg-red-500/20 border border-red-300/50 text-white px-4 py-2 rounded-xl backdrop-blur-sm hover:bg-red-500/30 transition-all duration-300 text-sm font-medium"
-                >
-                  Reset Data (Testing)
-                </button>
-              </div>
-              
-              {error && (
-                <div className="text-red-200 text-sm bg-red-500/20 backdrop-blur-sm border border-red-300/30 rounded-lg p-3">
-                  {error}
-                </div>
-              )}
+              <button 
+                onClick={() => handleNavigation("/recipes")}
+                disabled={isLoading}
+                className="w-full bg-transparent border-2 border-white text-white py-4 px-6 rounded-xl font-semibold text-lg hover:bg-white hover:text-indigo-600 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Browse Recipes
+              </button>
+              <p className="text-white/80 text-sm mt-3">
+                New users start with account creation for personalized experience
+              </p>
             </>
+          ) : (
+            <button 
+              onClick={() => handleNavigation("/nuva-home")}
+              disabled={isLoading}
+              className="w-full bg-white text-indigo-600 py-4 px-6 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            >
+              {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : null}
+              Continue to Dashboard
+            </button>
           )}
         </div>
-
-        {/* Footer */}
-        <p className="text-xs text-white/50 mt-8 drop-shadow-sm animate-in fade-in duration-1000 delay-1100">
-          Nuva v1.0 • Clean Architecture • Enhanced for wellness-focused users
-        </p>
       </div>
     </div>
   );
