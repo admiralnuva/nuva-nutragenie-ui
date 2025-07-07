@@ -59,8 +59,8 @@ export function SelectionButton({ children, onClick, isSelected = false, disable
       disabled={disabled}
       className={`h-11 px-4 text-sm font-medium transition-all ${
         isSelected 
-          ? 'bg-indigo-600 text-white border-indigo-600 shadow-md scale-105' 
-          : 'bg-white text-gray-700 border-gray-300 hover:border-indigo-400 hover:bg-indigo-50'
+          ? 'bg-purple-600 text-white border-purple-600 shadow-md scale-105' 
+          : 'bg-white text-gray-700 border-gray-300 hover:border-purple-400 hover:bg-purple-50'
       }`}
     >
       {children}
