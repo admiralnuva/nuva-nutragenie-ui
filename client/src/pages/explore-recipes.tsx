@@ -575,12 +575,12 @@ export default function ExploreRecipesScreen() {
                       }
                     ].map((dish, index) => (
                       <div key={index} className="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                        <div className="p-3 h-full flex flex-col justify-between">
+                        <div className="p-3 h-full flex flex-col">
                           {/* Row 1: Dish Name */}
                           <h4 className="font-medium text-sm text-gray-900 mb-2 truncate">{dish.name}</h4>
                           
                           {/* Row 2: Calories and Timer (left aligned) */}
-                          <div className="flex items-center space-x-3 text-xs text-gray-600 mb-2">
+                          <div className="flex items-center space-x-3 text-xs text-gray-600 mb-auto">
                             <span>{dish.calories} cal</span>
                             <div className="flex items-center space-x-1">
                               <Clock size={12} />
@@ -588,8 +588,8 @@ export default function ExploreRecipesScreen() {
                             </div>
                           </div>
                           
-                          {/* Bottom: Difficulty (right aligned) */}
-                          <div className="flex justify-end">
+                          {/* Last Row: Difficulty (right aligned) */}
+                          <div className="flex justify-end mt-2">
                             <span className="text-xs bg-purple-100 text-purple-600 px-2 py-0.5 rounded">{dish.difficulty}</span>
                           </div>
                         </div>
