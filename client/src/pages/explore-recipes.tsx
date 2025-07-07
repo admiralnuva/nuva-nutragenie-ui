@@ -416,7 +416,9 @@ export default function ExploreRecipesScreen() {
           <Card className="bg-white border border-gray-200">
             <CardHeader className="pb-2 pt-2 relative">
               <div className="pr-20">
-                <CardTitle className="text-base text-purple-600 mt-2">Recipe Options</CardTitle>
+                <div className="mt-2">
+                  <CardTitle className="text-base text-purple-600">Recipe Options</CardTitle>
+                </div>
               </div>
               <div className="absolute top-0 right-0 flex flex-col items-center">
                 <div className="rounded-lg overflow-hidden" style={{width: '80px', height: '80px'}}>
@@ -433,7 +435,7 @@ export default function ExploreRecipesScreen() {
                 )}
               </div>
             </CardHeader>
-            <CardContent className="space-y-3">
+            <CardContent className="space-y-3 pr-20">
               <div className="grid grid-cols-2 gap-2">
                 <Button 
                   variant="outline" 
