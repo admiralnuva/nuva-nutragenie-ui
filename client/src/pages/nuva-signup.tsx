@@ -64,7 +64,7 @@ export default function NuvaSignupScreen() {
     onSuccess: (user) => {
       setCurrentUser(user);
       toast({ title: "Account Created!", description: "Welcome to NutraGenie!" });
-      setLocation("/nuva-dietary");
+      setLocation("/dietary");
     },
     onError: (error: any) => {
       toast({ 
@@ -89,9 +89,10 @@ export default function NuvaSignupScreen() {
       setIsVerified(true);
       toast({ title: "Phone Verified!", description: "Your phone number has been verified successfully." });
       
+      // Navigate directly to dietary screen without creating user first
       setTimeout(() => {
-        const selectedChefData = chefs.find(chef => chef.id === selectedChef);
-        createUserMutation.mutate({
+        // Store temporary user data in localStorage
+        const tempUserData = {
           nickname: nickname || 'TestUser',
           ageGroup: ageGroup || '25-30',
           phoneNumber: phoneNumber || '1234567890',
@@ -100,15 +101,11 @@ export default function NuvaSignupScreen() {
           state: state || '',
           zipCode: zipCode || '',
           avatar: selectedAvatar?.id || 'user1',
-          selectedChef: {
-            name: chefNickname || selectedChefData?.name || 'Chef',
-            personality: selectedChefData?.personality || 'Friendly & Encouraging',
-            emoji: selectedChefData?.displayName || 'Chef'
-          },
-          dietaryRestrictions: [],
-          healthGoals: [],
-          allergies: ''
-        });
+          selectedChef: selectedChef ? chefs.find(chef => chef.id === selectedChef) : null,
+          chefNickname: chefNickname || ''
+        };
+        localStorage.setItem('nutragenie_temp_user', JSON.stringify(tempUserData));
+        setLocation("/dietary");
       }, 1000);
     } else {
       toast({ title: "Invalid Code", description: "Please enter the correct verification code.", variant: "destructive" });
