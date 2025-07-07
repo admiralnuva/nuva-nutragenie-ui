@@ -231,21 +231,7 @@ export default function ExploreRecipesScreen() {
           <Card className="bg-white border border-gray-200">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <CardTitle className="text-base text-purple-600">Meal Preferences</CardTitle>
-                  <div className="flex items-center gap-1 text-xs text-gray-500">
-                    <Clock className="w-3 h-3" />
-                    <span>Prep Time</span>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => setIsMealPreferencesExpanded(!isMealPreferencesExpanded)}
-                      className="h-6 w-6 p-0 ml-1 text-purple-600 hover:bg-purple-50"
-                    >
-                      {isMealPreferencesExpanded ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
-                    </Button>
-                  </div>
-                </div>
+                <CardTitle className="text-base text-purple-600">Meal Preferences</CardTitle>
                 <div className="flex items-center">
                   <div className="rounded-lg overflow-hidden bg-white shadow-sm" style={{width: '80px', height: '80px'}}>
                     <img 
@@ -393,19 +379,29 @@ export default function ExploreRecipesScreen() {
                     <Clock size={16} className="text-purple-600" />
                     Prep Time
                   </Label>
-                  <Select value={mealPreferences.prepTime} onValueChange={(value) => setMealPreferences(prev => ({...prev, prepTime: value}))}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select prep time" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="15-min">15 minutes</SelectItem>
-                      <SelectItem value="30-min">30 minutes</SelectItem>
-                      <SelectItem value="45-min">45 minutes</SelectItem>
-                      <SelectItem value="1-hour">1 hour</SelectItem>
-                      <SelectItem value="1.5-hour">1.5 hours</SelectItem>
-                      <SelectItem value="2-hour">2+ hours</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <div className="flex items-center gap-2">
+                    <Select value={mealPreferences.prepTime} onValueChange={(value) => setMealPreferences(prev => ({...prev, prepTime: value}))}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select prep time" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="15-min">15 minutes</SelectItem>
+                        <SelectItem value="30-min">30 minutes</SelectItem>
+                        <SelectItem value="45-min">45 minutes</SelectItem>
+                        <SelectItem value="1-hour">1 hour</SelectItem>
+                        <SelectItem value="1.5-hour">1.5 hours</SelectItem>
+                        <SelectItem value="2-hour">2+ hours</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setIsMealPreferencesExpanded(!isMealPreferencesExpanded)}
+                      className="h-8 w-8 p-0 text-purple-600 hover:bg-purple-50 flex-shrink-0"
+                    >
+                      {isMealPreferencesExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                    </Button>
+                  </div>
                 </div>
 
                 </div>
