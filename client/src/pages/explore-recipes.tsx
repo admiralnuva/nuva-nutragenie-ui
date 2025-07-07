@@ -208,7 +208,7 @@ export default function ExploreRecipesScreen() {
                   )}
                 </div>
                 <div className="flex flex-col items-end -mt-2 -mr-2">
-                  <div className="rounded-lg overflow-hidden bg-white shadow-sm" style={{width: '80px', height: '80px'}}>
+                  <div className="rounded-lg overflow-hidden" style={{width: '80px', height: '80px'}}>
                     <img 
                       src={userAvatarSrc} 
                       alt="User Avatar"
@@ -229,7 +229,7 @@ export default function ExploreRecipesScreen() {
               <div className="flex items-start justify-between">
                 <CardTitle className="text-base text-purple-600 mt-2">Meal Preferences</CardTitle>
                 <div className="flex items-end -mt-2 -mr-2">
-                  <div className="rounded-lg overflow-hidden bg-white shadow-sm" style={{width: '80px', height: '80px'}}>
+                  <div className="rounded-lg overflow-hidden" style={{width: '80px', height: '80px'}}>
                     <img 
                       src={userAvatarSrc} 
                       alt="User Avatar"
@@ -421,7 +421,7 @@ export default function ExploreRecipesScreen() {
               <div className="flex items-start justify-between">
                 <CardTitle className="text-base text-purple-600 mt-2">Recipe Options</CardTitle>
                 <div className="flex items-end -mt-2 -mr-2">
-                  <div className="rounded-lg overflow-hidden bg-white shadow-sm" style={{width: '80px', height: '80px'}}>
+                  <div className="rounded-lg overflow-hidden" style={{width: '80px', height: '80px'}}>
                     <img 
                       src={getDynamicAvatar()} 
                       alt={activeCard === 'pantry-dishes' || activeCard === 'chefs-choice' ? "Chef Avatar" : "User Avatar"}
@@ -496,7 +496,7 @@ export default function ExploreRecipesScreen() {
                   <div className="flex items-start justify-between">
                     <CardTitle className="text-base text-purple-600 mt-2">Dishes that can be cooked from pantry ingredients</CardTitle>
                     <div className="flex items-end -mt-2 -mr-2">
-                      <div className="rounded-lg overflow-hidden bg-white shadow-sm" style={{width: '80px', height: '80px'}}>
+                      <div className="rounded-lg overflow-hidden" style={{width: '80px', height: '80px'}}>
                         <img 
                           src={chefAvatarSrc} 
                           alt="Chef Avatar"
@@ -551,7 +551,7 @@ export default function ExploreRecipesScreen() {
                   <div className="flex items-start justify-between">
                     <CardTitle className="text-base text-purple-600 mt-2">Chef's Special Recommendations</CardTitle>
                     <div className="flex items-end -mt-2 -mr-2">
-                      <div className="rounded-lg overflow-hidden bg-white shadow-sm" style={{width: '80px', height: '80px'}}>
+                      <div className="rounded-lg overflow-hidden" style={{width: '80px', height: '80px'}}>
                         <img 
                           src={chefAvatarSrc} 
                           alt="Chef Avatar"
@@ -706,7 +706,7 @@ export default function ExploreRecipesScreen() {
                       <p className="text-xs text-gray-500 mt-1">Click the Expand button below to select your ingredients</p>
                     </div>
                     <div className="flex items-end -mt-2 -mr-2">
-                      <div className="rounded-lg overflow-hidden bg-white shadow-sm" style={{width: '80px', height: '80px'}}>
+                      <div className="rounded-lg overflow-hidden" style={{width: '80px', height: '80px'}}>
                         <img 
                           src={userAvatarSrc} 
                           alt="User Avatar"
