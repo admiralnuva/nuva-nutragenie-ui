@@ -853,6 +853,8 @@ export default function ExploreRecipesScreen() {
 
         </div>
       </div>
+      {/* Bottom spacing to account for bottom navigation */}
+      <div className="h-20"></div>
     </div>
   );
 }
