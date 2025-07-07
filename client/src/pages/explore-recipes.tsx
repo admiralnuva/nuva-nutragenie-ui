@@ -379,37 +379,39 @@ export default function ExploreRecipesScreen() {
                     <Clock size={16} className="text-purple-600" />
                     Prep Time
                   </Label>
-                  <div className="flex items-center gap-2">
-                    <Select value={mealPreferences.prepTime} onValueChange={(value) => setMealPreferences(prev => ({...prev, prepTime: value}))}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select prep time" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="15-min">15 minutes</SelectItem>
-                        <SelectItem value="30-min">30 minutes</SelectItem>
-                        <SelectItem value="45-min">45 minutes</SelectItem>
-                        <SelectItem value="1-hour">1 hour</SelectItem>
-                        <SelectItem value="1.5-hour">1.5 hours</SelectItem>
-                        <SelectItem value="2-hour">2+ hours</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <Button 
-                      className="h-8 px-2 flex items-center justify-center gap-1 bg-purple-600 hover:bg-purple-700 text-white flex-shrink-0"
-                      onClick={() => setIsMealPreferencesExpanded(!isMealPreferencesExpanded)}
-                    >
-                      {isMealPreferencesExpanded ? (
-                        <>
-                          <Minus size={14} className="text-white" />
-                          <span className="text-xs font-medium text-white">Collapse</span>
-                        </>
-                      ) : (
-                        <>
-                          <Plus size={14} className="text-white" />
-                          <span className="text-xs font-medium text-white">Expand</span>
-                        </>
-                      )}
-                    </Button>
-                  </div>
+                  <Select value={mealPreferences.prepTime} onValueChange={(value) => setMealPreferences(prev => ({...prev, prepTime: value}))}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select prep time" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="15-min">15 minutes</SelectItem>
+                      <SelectItem value="30-min">30 minutes</SelectItem>
+                      <SelectItem value="45-min">45 minutes</SelectItem>
+                      <SelectItem value="1-hour">1 hour</SelectItem>
+                      <SelectItem value="1.5-hour">1.5 hours</SelectItem>
+                      <SelectItem value="2-hour">2+ hours</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Expand/Collapse Button - Right Aligned */}
+                <div className="flex justify-end pt-2">
+                  <Button 
+                    className="h-10 px-3 flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-700 text-white"
+                    onClick={() => setIsMealPreferencesExpanded(!isMealPreferencesExpanded)}
+                  >
+                    {isMealPreferencesExpanded ? (
+                      <>
+                        <Minus size={16} className="text-white" />
+                        <span className="text-sm font-medium text-white">Collapse</span>
+                      </>
+                    ) : (
+                      <>
+                        <Plus size={16} className="text-white" />
+                        <span className="text-sm font-medium text-white">Expand</span>
+                      </>
+                    )}
+                  </Button>
                 </div>
 
                 </div>
