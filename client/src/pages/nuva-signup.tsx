@@ -51,9 +51,8 @@ export default function NuvaSignupScreen() {
   const [state, setState] = useState("");
   const [zipCode, setZipCode] = useState("");
   const [verificationCode, setVerificationCode] = useState("");
-  const [selectedChef, setSelectedChef] = useState("");
-  const [selectedAvatar, setSelectedAvatar] = useState<any>(null);
   const [selectedChef, setSelectedChef] = useState<any>(null);
+  const [selectedAvatar, setSelectedAvatar] = useState<any>(null);
   const [chefNickname, setChefNickname] = useState("");
   const [isVerifying, setIsVerifying] = useState(false);
   const [codeSent, setCodeSent] = useState(false);
@@ -97,7 +96,7 @@ export default function NuvaSignupScreen() {
           phoneNumber: phoneNumber || '1234567890',
           avatar: selectedAvatar?.id || 'user1',
           selectedChef: {
-            name: chefNickname || 'Chef',
+            name: chefNickname || selectedChef?.name || 'Chef',
             personality: selectedChef?.personality || 'Friendly & Encouraging',
             avatar: selectedChef?.avatar || chefAvatar1
           },
@@ -269,9 +268,9 @@ export default function NuvaSignupScreen() {
             {/* Chef 1 - Marcus */}
             <div 
               className={`relative cursor-pointer transition-all duration-200 ${
-                selectedChef === 'chef1' ? 'ring-2 ring-blue-500 bg-blue-50 rounded-lg scale-105' : 'hover:scale-105'
+                selectedChef?.name === 'Chef Marcus' ? 'ring-2 ring-blue-500 bg-blue-50 rounded-lg scale-105' : 'hover:scale-105'
               }`}
-              onClick={() => setSelectedChef('chef1')}
+              onClick={() => setSelectedChef(chefs[0])}
             >
               <div className="w-20 h-20 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden">
                 <img 
@@ -281,7 +280,7 @@ export default function NuvaSignupScreen() {
                 />
               </div>
               <p className="text-xs text-center mt-1 font-medium">Marcus</p>
-              {selectedChef === 'chef1' && (
+              {selectedChef?.name === 'Chef Marcus' && (
                 <div className="absolute -top-1 -right-1 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
                   <Check className="w-4 h-4 text-white" />
                 </div>
@@ -291,9 +290,9 @@ export default function NuvaSignupScreen() {
             {/* Chef 2 - Luna */}
             <div 
               className={`relative cursor-pointer transition-all duration-200 ${
-                selectedChef === 'chef2' ? 'ring-2 ring-blue-500 bg-blue-50 rounded-lg scale-105' : 'hover:scale-105'
+                selectedChef?.name === 'Chef Luna' ? 'ring-2 ring-blue-500 bg-blue-50 rounded-lg scale-105' : 'hover:scale-105'
               }`}
-              onClick={() => setSelectedChef('chef2')}
+              onClick={() => setSelectedChef(chefs[1])}
             >
               <div className="w-20 h-20 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden">
                 <img 
@@ -303,7 +302,7 @@ export default function NuvaSignupScreen() {
                 />
               </div>
               <p className="text-xs text-center mt-1 font-medium">Luna</p>
-              {selectedChef === 'chef2' && (
+              {selectedChef?.name === 'Chef Luna' && (
                 <div className="absolute -top-1 -right-1 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
                   <Check className="w-4 h-4 text-white" />
                 </div>
@@ -313,9 +312,9 @@ export default function NuvaSignupScreen() {
             {/* Chef 3 - Blaze */}
             <div 
               className={`relative cursor-pointer transition-all duration-200 ${
-                selectedChef === 'chef3' ? 'ring-2 ring-blue-500 bg-blue-50 rounded-lg scale-105' : 'hover:scale-105'
+                selectedChef?.name === 'Chef Blaze' ? 'ring-2 ring-blue-500 bg-blue-50 rounded-lg scale-105' : 'hover:scale-105'
               }`}
-              onClick={() => setSelectedChef('chef3')}
+              onClick={() => setSelectedChef(chefs[2])}
             >
               <div className="w-20 h-20 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden">
                 <img 
@@ -325,7 +324,7 @@ export default function NuvaSignupScreen() {
                 />
               </div>
               <p className="text-xs text-center mt-1 font-medium">Blaze</p>
-              {selectedChef === 'chef3' && (
+              {selectedChef?.name === 'Chef Blaze' && (
                 <div className="absolute -top-1 -right-1 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
                   <Check className="w-4 h-4 text-white" />
                 </div>
@@ -335,9 +334,9 @@ export default function NuvaSignupScreen() {
             {/* Chef 4 - Harmony */}
             <div 
               className={`relative cursor-pointer transition-all duration-200 ${
-                selectedChef === 'chef4' ? 'ring-2 ring-blue-500 bg-blue-50 rounded-lg scale-105' : 'hover:scale-105'
+                selectedChef?.name === 'Chef Harmony' ? 'ring-2 ring-blue-500 bg-blue-50 rounded-lg scale-105' : 'hover:scale-105'
               }`}
-              onClick={() => setSelectedChef('chef4')}
+              onClick={() => setSelectedChef(chefs[3])}
             >
               <div className="w-20 h-20 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden">
                 <img 
@@ -347,7 +346,7 @@ export default function NuvaSignupScreen() {
                 />
               </div>
               <p className="text-xs text-center mt-1 font-medium">Harmony</p>
-              {selectedChef === 'chef4' && (
+              {selectedChef?.name === 'Chef Harmony' && (
                 <div className="absolute -top-1 -right-1 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
                   <Check className="w-4 h-4 text-white" />
                 </div>
