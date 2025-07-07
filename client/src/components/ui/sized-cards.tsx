@@ -35,7 +35,7 @@ export function ExtraSmallCard({ title, cardName, description, avatar, children 
 
 export function SmallCard({ title, cardName, description, avatar, children }: SizedCardProps) {
   return (
-    <Card className="w-full h-32 bg-white border border-gray-200">
+    <Card className="w-full min-h-32 h-auto bg-white border border-gray-200">
       <CardContent className="p-4 h-full">
         <div className="flex items-start justify-between h-full">
           <div className="flex-1 min-w-0">
