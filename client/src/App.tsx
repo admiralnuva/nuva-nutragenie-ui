@@ -16,6 +16,8 @@ import CookingScreen from "@/pages/cooking";
 import VoiceCookingScreen from "@/pages/voice-cooking";
 import AIVideoCookingScreen from "@/pages/ai-video-cooking";
 import CardsScreen from "@/pages/cards";
+import NuvaSplashScreen from "@/pages/nuva-splash";
+import NuvaSignupScreen from "@/pages/nuva-signup";
 import ProfileScreen from "@/pages/profile";
 import HealthAnalyticsScreen from "@/pages/health";
 import HomeScreen from "@/pages/home";
@@ -41,6 +43,7 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={SplashScreen} />
+      <Route path="/nuva" component={NuvaSplashScreen} />
       <Route path="/splash" component={SplashScreen} />
       <Route path="/signup" component={SignupScreen} />
       <Route path="/dietary" component={DietaryScreen} />
@@ -54,6 +57,7 @@ function Router() {
       <Route path="/voice-cooking" component={VoiceCookingScreen} />
       <Route path="/ai-video-cooking" component={AIVideoCookingScreen} />
       <Route path="/cards" component={CardsScreen} />
+      <Route path="/nuva-signup" component={NuvaSignupScreen} />
       <Route path="/profile" component={ProfileScreen} />
       <Route path="/health" component={HealthAnalyticsScreen} />
       <Route component={NotFound} />
