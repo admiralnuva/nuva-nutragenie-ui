@@ -89,7 +89,7 @@ export default function ExploreRecipesScreen() {
           <Card className="bg-white border border-gray-200">
             <CardHeader className="pb-2">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-base text-purple-600">Your Dietary Profile</CardTitle>
+                <CardTitle className="text-base text-purple-600">Summary of your dietary Preferences</CardTitle>
                 <div className="flex flex-col items-center">
                   <div className="w-12 h-12 rounded-lg overflow-hidden bg-white shadow-sm">
                     <img 
