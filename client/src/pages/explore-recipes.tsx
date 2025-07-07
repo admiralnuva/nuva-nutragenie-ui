@@ -537,56 +537,40 @@ export default function ExploreRecipesScreen() {
                     )}
                   </div>
 
-                  {/* Summary Section */}
-                  <div className="bg-purple-50 rounded-lg p-3 border border-purple-200 shadow-sm">
-                    <h3 className="font-medium text-purple-800 mb-2 text-sm">Selected Ingredients ({selectedIngredients.length})</h3>
-                    <div className="flex flex-wrap gap-1.5">
-                      {selectedIngredients.map((ingredient) => (
-                        <span 
-                          key={ingredient}
-                          className="bg-white text-purple-700 px-2 py-1 rounded-full text-xs border border-purple-300 shadow-sm"
-                        >
-                          {ingredient.replace('-', ' ')}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
+
                 </CardContent>
               </Card>
 
-              {/* Grocery List Card */}
-              <Card className="bg-white border border-gray-200 shadow-lg">
+              {/* Ingredients in Your Pantry Card */}
+              <Card className="bg-white border border-gray-200">
                 <CardHeader className="pb-2">
-                  <CardTitle className="text-base text-purple-600 flex items-center gap-2">
-                    <List size={18} />
-                    Grocery List ({selectedIngredients.length} items)
+                  <CardTitle className="text-base text-purple-600">
+                    Ingredients in your pantry
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-3">
-                  <div className="bg-gray-50 rounded-lg p-3 max-h-40 overflow-y-auto shadow-inner">
+                <CardContent>
+                  <div className="text-purple-600 leading-relaxed">
                     {selectedIngredients.length > 0 ? (
-                      <div className="space-y-2">
-                        {selectedIngredients.map((ingredient) => (
-                          <div key={ingredient} className="flex items-center justify-between">
-                            <span className="text-gray-700 capitalize">{ingredient.replace('-', ' ')}</span>
-                            <span className="text-sm text-gray-500">1x</span>
-                          </div>
-                        ))}
-                      </div>
+                      selectedIngredients.map((ingredient, index) => (
+                        <span key={ingredient} className="capitalize">
+                          {ingredient.replace('-', ' ')}
+                          {index < selectedIngredients.length - 1 ? ', ' : ''}
+                        </span>
+                      ))
                     ) : (
-                      <p className="text-gray-500 text-center">No ingredients selected</p>
+                      <span className="text-gray-500">No ingredients selected</span>
                     )}
                   </div>
                   
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-2 gap-2 mt-4">
                     <Button 
                       variant="outline"
-                      className="border-purple-200 text-purple-600 hover:bg-purple-50 shadow-sm"
+                      className="border-purple-200 text-purple-600 hover:bg-purple-50"
                     >
                       Grocery List
                     </Button>
                     <Button 
-                      className="bg-purple-600 hover:bg-purple-700 text-white shadow-sm"
+                      className="bg-purple-600 hover:bg-purple-700 text-white"
                     >
                       Weekly Plan
                     </Button>
