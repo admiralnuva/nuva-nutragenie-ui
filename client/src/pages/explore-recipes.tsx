@@ -394,10 +394,11 @@ export default function ExploreRecipesScreen() {
                   </Select>
                 </div>
 
-                {/* Expand/Collapse Button - Right Aligned */}
-                <div className="flex justify-end pt-2">
+                {/* Expand/Collapse Button - Same Row as Prep Time */}
+                <div className="space-y-2">
+                  <div className="h-6"></div> {/* Spacer to align with dropdown */}
                   <Button 
-                    className="h-10 px-3 flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-700 text-white"
+                    className="w-full h-10 flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-700 text-white"
                     onClick={() => setIsMealPreferencesExpanded(!isMealPreferencesExpanded)}
                   >
                     {isMealPreferencesExpanded ? (
