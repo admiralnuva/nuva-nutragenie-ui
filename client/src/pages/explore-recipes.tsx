@@ -352,25 +352,27 @@ export default function ExploreRecipesScreen() {
 
                 {/* Cooking Method */}
                 <div className="space-y-2">
-                  <Label htmlFor="cookingMethod" className="text-sm font-medium text-gray-700 flex items-center gap-2">
-                    <ChefHat size={16} className="text-purple-600" />
-                    Cooking Method
-                  </Label>
-                  <Select value={mealPreferences.cookingMethod} onValueChange={(value) => setMealPreferences(prev => ({...prev, cookingMethod: value}))}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select cooking method" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="baking">Baking</SelectItem>
-                      <SelectItem value="grilling">Grilling</SelectItem>
-                      <SelectItem value="frying">Frying</SelectItem>
-                      <SelectItem value="steaming">Steaming</SelectItem>
-                      <SelectItem value="roasting">Roasting</SelectItem>
-                      <SelectItem value="slow-cooking">Slow Cooking</SelectItem>
-                      <SelectItem value="stir-frying">Stir Frying</SelectItem>
-                      <SelectItem value="no-cook">No Cook</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <div className="flex items-center gap-2">
+                    <Label htmlFor="cookingMethod" className="text-sm font-medium text-gray-700 flex items-center gap-2 flex-shrink-0">
+                      <ChefHat size={16} className="text-purple-600" />
+                      Cooking Method
+                    </Label>
+                    <Select value={mealPreferences.cookingMethod} onValueChange={(value) => setMealPreferences(prev => ({...prev, cookingMethod: value}))}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select method" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="baking">Baking</SelectItem>
+                        <SelectItem value="grilling">Grilling</SelectItem>
+                        <SelectItem value="frying">Frying</SelectItem>
+                        <SelectItem value="steaming">Steaming</SelectItem>
+                        <SelectItem value="roasting">Roasting</SelectItem>
+                        <SelectItem value="slow-cooking">Slow Cooking</SelectItem>
+                        <SelectItem value="stir-frying">Stir Frying</SelectItem>
+                        <SelectItem value="no-cook">No Cook</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
 
                 {/* Prep Time */}
