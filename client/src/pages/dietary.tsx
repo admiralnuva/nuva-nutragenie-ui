@@ -137,8 +137,22 @@ export default function DietaryScreen() {
 
   const updateUserMutation = useMutation({
     mutationFn: async (updates: any) => {
+      // Save dietary data to localStorage immediately
+      const currentUserData = userData || JSON.parse(localStorage.getItem('nutragenie_temp_user') || '{}');
+      const updatedUserData = { 
+        ...currentUserData, 
+        ...updates, 
+        foodDislikes, 
+        additionalNotes 
+      };
+      
+      // Save to both temp and permanent user storage
+      localStorage.setItem('nutragenie_temp_user', JSON.stringify(updatedUserData));
+      localStorage.setItem('nutragenie_user', JSON.stringify(updatedUserData));
+      setCurrentUser(updatedUserData);
+      
+      // Also try to save to backend
       try {
-        // Always create a new user with dietary preferences for simplicity
         const userSubmissionData = {
           nickname: userData?.nickname || 'User',
           ageGroup: userData?.ageGroup || '25-30',
@@ -156,21 +170,23 @@ export default function DietaryScreen() {
           ...updates  // Include the dietary preferences
         };
         
-        // Create user with all data including dietary preferences
-        const response = await apiRequest("POST", "/api/users", userData);
+        const response = await apiRequest("POST", "/api/users", userSubmissionData);
         return response.json();
       } catch (error) {
-        throw new Error('Failed to save dietary preferences');
+        console.error('Backend save failed:', error);
+        // Don't throw - we already saved to localStorage
+        return updatedUserData;
       }
     },
     onSuccess: (newUser) => {
-      setCurrentUser(newUser);
-      toast({ title: "Profile Created!", description: "Your dietary preferences have been saved." });
+      toast({ title: "Dietary preferences saved successfully!" });
       setLocation("/explore-recipes");
     },
     onError: (error: any) => {
-      console.error('Create user error:', error);
-      toast({ title: "Error", description: "Failed to save dietary preferences. Please try again.", variant: "destructive" });
+      console.error('Save error:', error);
+      // Even if there's an error, localStorage data is saved, so navigate anyway
+      toast({ title: "Preferences saved locally. Continuing to recipes..." });
+      setLocation("/explore-recipes");
     }
   });
 
