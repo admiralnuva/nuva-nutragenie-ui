@@ -9,7 +9,7 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { icon: Home, label: "Home", path: "/home" },
-  { icon: ChefHat, label: "Recipes", path: "/recipes" },
+  { icon: ChefHat, label: "Recipes", path: "/explore-recipes" },
   { icon: Mic, label: "Voice Cook", path: "/voice-cooking" },
   { icon: CreditCard, label: "Cards", path: "/cards" },
   { icon: User, label: "Profile", path: "/profile" }
@@ -31,11 +31,11 @@ export function BottomNavigation() {
               onClick={() => setLocation(item.path)}
               className={`flex flex-col items-center gap-1 px-3 py-2 rounded-lg transition-colors ${
                 isActive 
-                  ? "text-green-600 bg-green-50" 
+                  ? "text-purple-600 bg-purple-50" 
                   : "text-gray-500 hover:text-gray-700 hover:bg-gray-50"
               }`}
             >
-              <Icon size={20} className={isActive ? "text-green-600" : ""} />
+              <Icon size={20} className={isActive ? "text-purple-600" : ""} />
               <span className="text-xs font-medium">{item.label}</span>
             </button>
           );
