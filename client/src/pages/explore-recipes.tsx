@@ -563,13 +563,7 @@ export default function ExploreRecipesScreen() {
                         time: "45 min", 
                         calories: "350", 
                         difficulty: "Medium",
-                        image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjgwIiB2aWV3Qm94PSIwIDAgMTAwIDgwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJwZXBwZXJHcmFkaWVudCIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+CjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNGQjcxODUiLz4KPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjRUE1NTMyIi8+CjwvbGluZWFyR3JhZGllbnQ+CjwvZGVmcz4KPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSI4MCIgZmlsbD0idXJsKCNwZXBwZXJHcmFkaWVudCkiIHJ4PSI4Ii8+CjxlbGxpcHNlIGN4PSI1MCIgY3k9IjQwIiByeD0iMjAiIHJ5PSIyNSIgZmlsbD0iI0ZCOTYYUSIBVBZ3bG1m9w=="#FB7185" opacity="0.9"/>
-<ellipse cx="50" cy="35" rx="15" ry="8" fill="#FFE4E1"/>
-<circle cx="45" cy="32" r="2" fill="#F59542"/>
-<circle cx="55" cy="32" r="2" fill="#F59542"/>
-<circle cx="50" cy="40" r="3" fill="#10B981"/>
-<rect x="48" y="20" width="4" height="8" rx="2" fill="#059F46"/>
-</svg>"
+                        image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjgwIiB2aWV3Qm94PSIwIDAgMTAwIDgwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0icGVwcGVyR3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNGQjcxODUiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNFQTU1MzIiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjgwIiBmaWxsPSJ1cmwoI3BlcHBlckdyYWRpZW50KSIgcng9IjgiLz48ZWxsaXBzZSBjeD0iNTAiIGN5PSI0MCIgcng9IjIwIiByeT0iMjUiIGZpbGw9IiNGQjcxODUiIG9wYWNpdHk9IjAuOSIvPjxlbGxpcHNlIGN4PSI1MCIgY3k9IjM1IiByeD0iMTUiIHJ5PSI4IiBmaWxsPSIjRkZFNEUxIi8+PGNpcmNsZSBjeD0iNDUiIGN5PSIzMiIgcj0iMiIgZmlsbD0iI0Y1OTU0MiIvPjxjaXJjbGUgY3g9IjU1IiBjeT0iMzIiIHI9IjIiIGZpbGw9IiNGNTk1NDIiLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjQwIiByPSIzIiBmaWxsPSIjMTBCOTgxIi8+PHJlY3QgeD0iNDgiIHk9IjIwIiB3aWR0aD0iNCIgaGVpZ2h0PSI4IiByeD0iMiIgZmlsbD0iIzA1OUY0NiIvPjwvc3ZnPg=="
                       },
                       { 
                         name: "Herb Crusted Fish", 
