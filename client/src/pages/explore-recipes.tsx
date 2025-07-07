@@ -4,8 +4,11 @@ import { ScreenHeader } from "@/components/ui/screen-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
 import { useState } from "react";
-import { Clock, Users, ChefHat, Flame, Target, Utensils } from "lucide-react";
+import { Clock, Users, ChefHat, Flame, Target, Utensils, ShoppingCart, Sparkles, Plus, List } from "lucide-react";
 
 // Import user avatar images
 import userAvatar1 from "@/assets/avatars/user/user1.png";
@@ -41,6 +44,38 @@ export default function ExploreRecipesScreen() {
     prepTime: "",
     servingSize: ""
   });
+
+  // Pantry management state
+  const [activeCard, setActiveCard] = useState<string>('');
+  const [selectedIngredients, setSelectedIngredients] = useState<string[]>(['chicken-breast', 'salmon', 'onions', 'garlic', 'olive-oil']);
+  const [customIngredients, setCustomIngredients] = useState<string[]>([]);
+  const [newIngredient, setNewIngredient] = useState<string>('');
+
+  // Ingredient categories
+  const ingredientCategories = {
+    'Meat': ['chicken-breast', 'ground-beef', 'pork-chops', 'turkey', 'lamb'],
+    'Fish': ['salmon', 'tuna', 'cod', 'shrimp', 'crab'],
+    'Vegetables': ['onions', 'garlic', 'tomatoes', 'carrots', 'broccoli', 'spinach', 'bell-peppers'],
+    'Grains': ['rice', 'pasta', 'quinoa', 'bread', 'oats'],
+    'Dairy': ['milk', 'cheese', 'yogurt', 'butter', 'eggs'],
+    'Pantry': ['olive-oil', 'salt', 'pepper', 'flour', 'sugar', 'vinegar']
+  };
+
+  const handleIngredientToggle = (ingredient: string) => {
+    setSelectedIngredients(prev => 
+      prev.includes(ingredient) 
+        ? prev.filter(item => item !== ingredient)
+        : [...prev, ingredient]
+    );
+  };
+
+  const addCustomIngredient = () => {
+    if (newIngredient.trim() && !customIngredients.includes(newIngredient.trim())) {
+      setCustomIngredients(prev => [...prev, newIngredient.trim()]);
+      setSelectedIngredients(prev => [...prev, newIngredient.trim()]);
+      setNewIngredient('');
+    }
+  };
 
   // Format dietary preferences data into text rows (max 6 rows)
   const formatDietaryData = () => {
@@ -336,6 +371,205 @@ export default function ExploreRecipesScreen() {
               </div>
             </CardContent>
           </Card>
+
+          {/* Card 3 - Pantry Options */}
+          <Card className="bg-white border border-gray-200">
+            <CardHeader className="pb-3">
+              <div className="flex items-center justify-between">
+                <CardTitle className="text-base text-purple-600">Pantry Options</CardTitle>
+                <div className="flex items-center">
+                  <div className="rounded-lg overflow-hidden bg-white shadow-sm" style={{width: '80px', height: '80px'}}>
+                    <img 
+                      src={userAvatarSrc} 
+                      alt="User Avatar"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-2 gap-3">
+                <Button 
+                  variant="outline" 
+                  className="h-20 flex flex-col items-center justify-center space-y-2 border-purple-200 hover:bg-purple-50 hover:border-purple-300"
+                  onClick={() => setActiveCard('pantry-ingredients')}
+                >
+                  <ShoppingCart size={20} className="text-purple-600" />
+                  <span className="text-sm font-medium text-gray-700">Pantry Ingredients</span>
+                </Button>
+
+                <Button 
+                  variant="outline" 
+                  className="h-20 flex flex-col items-center justify-center space-y-2 border-purple-200 hover:bg-purple-50 hover:border-purple-300"
+                  onClick={() => setActiveCard('pantry-dishes')}
+                >
+                  <Utensils size={20} className="text-purple-600" />
+                  <span className="text-sm font-medium text-gray-700">Pantry Dishes</span>
+                </Button>
+
+                <Button 
+                  variant="outline" 
+                  className="h-20 flex flex-col items-center justify-center space-y-2 border-purple-200 hover:bg-purple-50 hover:border-purple-300"
+                  onClick={() => setActiveCard('chefs-choice')}
+                >
+                  <Sparkles size={20} className="text-purple-600" />
+                  <span className="text-sm font-medium text-gray-700">Chef's Choice</span>
+                </Button>
+
+                <Button 
+                  variant="outline" 
+                  className="h-20 flex flex-col items-center justify-center space-y-2 border-purple-200 hover:bg-purple-50 hover:border-purple-300"
+                  onClick={() => setActiveCard('create-dish')}
+                >
+                  <Plus size={20} className="text-purple-600" />
+                  <span className="text-sm font-medium text-gray-700">Create Dish</span>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Pantry Ingredients Large Card */}
+          {activeCard === 'pantry-ingredients' && (
+            <>
+              <Card className="bg-white border border-gray-200">
+                <CardHeader className="pb-3">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-base text-purple-600">Select Pantry Ingredients</CardTitle>
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      onClick={() => setActiveCard('')}
+                      className="text-gray-500 hover:text-gray-700"
+                    >
+                      ✕
+                    </Button>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  {Object.entries(ingredientCategories).map(([category, ingredients]) => (
+                    <div key={category} className="space-y-3">
+                      <h3 className="font-medium text-gray-800 border-b border-gray-200 pb-1">{category}</h3>
+                      <div className="grid grid-cols-2 gap-3">
+                        {ingredients.map((ingredient) => (
+                          <div key={ingredient} className="flex items-center space-x-2">
+                            <Checkbox
+                              id={ingredient}
+                              checked={selectedIngredients.includes(ingredient)}
+                              onCheckedChange={() => handleIngredientToggle(ingredient)}
+                              className="data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600"
+                            />
+                            <Label 
+                              htmlFor={ingredient}
+                              className="text-sm text-gray-700 capitalize cursor-pointer"
+                            >
+                              {ingredient.replace('-', ' ')}
+                            </Label>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+
+                  {/* Custom Ingredients Section */}
+                  <div className="space-y-3 border-t border-gray-200 pt-4">
+                    <h3 className="font-medium text-gray-800">Add Custom Ingredients</h3>
+                    <div className="flex space-x-2">
+                      <Input
+                        value={newIngredient}
+                        onChange={(e) => setNewIngredient(e.target.value)}
+                        placeholder="Enter ingredient name"
+                        className="flex-1"
+                        onKeyPress={(e) => e.key === 'Enter' && addCustomIngredient()}
+                      />
+                      <Button 
+                        onClick={addCustomIngredient}
+                        size="sm"
+                        className="bg-purple-600 hover:bg-purple-700"
+                      >
+                        <Plus size={16} />
+                      </Button>
+                    </div>
+                    {customIngredients.length > 0 && (
+                      <div className="grid grid-cols-2 gap-3">
+                        {customIngredients.map((ingredient) => (
+                          <div key={ingredient} className="flex items-center space-x-2">
+                            <Checkbox
+                              id={`custom-${ingredient}`}
+                              checked={selectedIngredients.includes(ingredient)}
+                              onCheckedChange={() => handleIngredientToggle(ingredient)}
+                              className="data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600"
+                            />
+                            <Label 
+                              htmlFor={`custom-${ingredient}`}
+                              className="text-sm text-gray-700 capitalize cursor-pointer"
+                            >
+                              {ingredient}
+                            </Label>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Summary Section */}
+                  <div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
+                    <h3 className="font-medium text-purple-800 mb-2">Selected Ingredients ({selectedIngredients.length})</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedIngredients.map((ingredient) => (
+                        <span 
+                          key={ingredient}
+                          className="bg-white text-purple-700 px-3 py-1 rounded-full text-sm border border-purple-300"
+                        >
+                          {ingredient.replace('-', ' ')}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Grocery List Card */}
+              <Card className="bg-white border border-gray-200">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-base text-purple-600 flex items-center gap-2">
+                    <List size={18} />
+                    Grocery List ({selectedIngredients.length} items)
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="bg-gray-50 rounded-lg p-4 max-h-48 overflow-y-auto">
+                    {selectedIngredients.length > 0 ? (
+                      <div className="space-y-2">
+                        {selectedIngredients.map((ingredient) => (
+                          <div key={ingredient} className="flex items-center justify-between">
+                            <span className="text-gray-700 capitalize">{ingredient.replace('-', ' ')}</span>
+                            <span className="text-sm text-gray-500">1x</span>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-gray-500 text-center">No ingredients selected</p>
+                    )}
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-3">
+                    <Button 
+                      variant="outline"
+                      className="border-purple-200 text-purple-600 hover:bg-purple-50"
+                    >
+                      Grocery List
+                    </Button>
+                    <Button 
+                      className="bg-purple-600 hover:bg-purple-700 text-white"
+                    >
+                      Weekly Plan
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </>
+          )}
 
         </div>
       </div>
