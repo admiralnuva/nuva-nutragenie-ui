@@ -25,7 +25,8 @@ import {
   ShoppingCart,
   MessageCircle,
   Phone,
-  Bot
+  Bot,
+  Star
 } from "lucide-react";
 import user1Avatar from "@/assets/avatars/user/user1.png";
 import chef1Avatar from "@/assets/avatars/chef/chef1.png";
