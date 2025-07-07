@@ -146,7 +146,7 @@ export default function NuvaSignupScreen() {
               <button
                 key={avatar.id}
                 onClick={() => setSelectedAvatar(avatar)}
-                className={`w-16 h-16 rounded-lg border-2 overflow-hidden transition-all ${
+                className={`w-20 h-20 rounded-lg border-2 overflow-hidden transition-all ${
                   selectedAvatar?.id === avatar.id 
                     ? 'ring-2 ring-indigo-500 border-indigo-500 scale-105' 
                     : 'border-gray-300 hover:border-indigo-400'
