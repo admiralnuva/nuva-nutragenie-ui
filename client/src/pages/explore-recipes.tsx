@@ -354,7 +354,7 @@ export default function ExploreRecipesScreen() {
                 <div className="space-y-2">
                   <Label htmlFor="cookingMethod" className="text-sm font-medium text-gray-700 flex items-center gap-2">
                     <ChefHat size={16} className="text-purple-600" />
-                    Cooking Method
+                    Cook Method
                   </Label>
                   <Select value={mealPreferences.cookingMethod} onValueChange={(value) => setMealPreferences(prev => ({...prev, cookingMethod: value}))}>
                     <SelectTrigger>
