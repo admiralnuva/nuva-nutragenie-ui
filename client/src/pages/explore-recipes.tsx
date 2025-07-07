@@ -389,11 +389,20 @@ export default function ExploreRecipesScreen() {
               </div>
             </CardHeader>
             <CardContent className="space-y-4">
+              {/* Debug indicator */}
+              {activeCard && (
+                <div className="text-xs text-purple-600 bg-purple-50 p-2 rounded">
+                  Active: {activeCard}
+                </div>
+              )}
               <div className="grid grid-cols-2 gap-3">
                 <Button 
                   variant="outline" 
                   className="h-20 flex flex-col items-center justify-center space-y-2 border-purple-200 hover:bg-purple-50 hover:border-purple-300"
-                  onClick={() => setActiveCard('pantry-ingredients')}
+                  onClick={() => {
+                    console.log('Setting activeCard to pantry-ingredients');
+                    setActiveCard('pantry-ingredients');
+                  }}
                 >
                   <ShoppingCart size={20} className="text-purple-600" />
                   <span className="text-sm font-medium text-gray-700">Pantry Ingredients</span>
