@@ -18,6 +18,7 @@ import AIVideoCookingScreen from "@/pages/ai-video-cooking";
 import CardsScreen from "@/pages/cards";
 import NuvaSplashScreen from "@/pages/nuva-splash";
 import NuvaSignupScreen from "@/pages/nuva-signup";
+import ExploreRecipesScreen from "@/pages/explore-recipes";
 import ProfileScreen from "@/pages/profile";
 import HealthAnalyticsScreen from "@/pages/health";
 import HomeScreen from "@/pages/home";
@@ -47,6 +48,7 @@ function Router() {
       <Route path="/splash" component={SplashScreen} />
       <Route path="/signup" component={SignupScreen} />
       <Route path="/dietary" component={DietaryScreen} />
+      <Route path="/explore-recipes" component={ExploreRecipesScreen} />
       <Route path="/home" component={HomeScreen} />
       <Route path="/recipes" component={RecipesScreen} />
       <Route path="/recipe-details" component={RecipeDetailsScreen} />

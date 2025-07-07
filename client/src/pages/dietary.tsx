@@ -166,7 +166,7 @@ export default function DietaryScreen() {
     onSuccess: (newUser) => {
       setCurrentUser(newUser);
       toast({ title: "Profile Created!", description: "Your dietary preferences have been saved." });
-      setLocation("/recipes");
+      setLocation("/explore-recipes");
     },
     onError: (error: any) => {
       console.error('Create user error:', error);
