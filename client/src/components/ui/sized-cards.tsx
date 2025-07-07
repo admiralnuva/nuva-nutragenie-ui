@@ -85,7 +85,7 @@ export function MediumCard({ title, cardName, description, avatar, children }: S
 
 export function LargeCard({ title, cardName, description, avatar, children }: SizedCardProps) {
   return (
-    <Card className="w-full h-64 bg-white border border-gray-200">
+    <Card className="w-full h-96 bg-white border border-gray-200">
       <CardHeader className="pb-4">
         <div className="flex items-start justify-between">
           <div className="flex-1 min-w-0">
