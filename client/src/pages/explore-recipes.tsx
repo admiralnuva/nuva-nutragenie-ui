@@ -489,26 +489,15 @@ export default function ExploreRecipesScreen() {
                 <CardContent>
                   <div className="grid grid-cols-2 gap-3">
                     {[
-                      { name: "Pasta Aglio e Olio", time: "15 min", calories: "340", difficulty: "Easy", image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjgwIiB2aWV3Qm94PSIwIDAgMTAwIDgwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0icGFzdGFHcmFkaWVudCIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI0ZGRjlEMCIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI0ZCOTJENEQILz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjgwIiBmaWxsPSJ1cmwoI3Bhc3RhR3JhZGllbnQpIiByeD0iOCIvPjxlbGxpcHNlIGN4PSI1MCIgY3k9IjQwIiByeD0iMzAiIHJ5PSI4IiBmaWxsPSIjRkJGQzA0IiBvcGFjaXR5PSIwLjgiLz48Y2lyY2xlIGN4PSIzNSIgY3k9IjI1IiByPSIzIiBmaWxsPSIjMTA5OTgxIi8+PGNpcmNsZSBjeD0iNjUiIGN5PSIzNSIgcj0iMyIgZmlsbD0iIzEwOTk4MSIvPjxjaXJjbGUgY3g9IjUwIiBjeT0iNTUiIHI9IjIiIGZpbGw9IiNGNTk1NDIiLz48L3N2Zz4=" },
-                      { name: "Fried Rice", time: "20 min", calories: "280", difficulty: "Easy", image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjgwIiB2aWV3Qm94PSIwIDAgMTAwIDgwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0icmljZUdyYWRpZW50IiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjRkZGOUQwIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjRkZGNEUxIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSI4MCIgZmlsbD0idXJsKCNyaWNlR3JhZGllbnQpIiByeD0iOCIvPjxjaXJjbGUgY3g9IjMwIiBjeT0iMzAiIHI9IjIiIGZpbGw9IiNGRkZGRkYiLz48Y2lyY2xlIGN4PSI3MCIgY3k9IjI1IiByPSIyIiBmaWxsPSIjRkZGRkZGIi8+PGNpcmNsZSBjeD0iNDUiIGN5PSI1MCIgcj0iMiIgZmlsbD0iI0ZGRkZGRiIvPjxjaXJjbGUgY3g9IjI1IiBjeT0iNTUiIHI9IjMiIGZpbGw9IiNGNTk1NDIiLz48Y2lyY2xlIGN4PSI3NSIgY3k9IjUwIiByPSIzIiBmaWxsPSIjMTA5OTgxIi8+PC9zdmc+" },
-                      { name: "Scrambled Eggs", time: "5 min", calories: "190", difficulty: "Beginner", image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjgwIiB2aWV3Qm94PSIwIDAgMTAwIDgwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0iZWdnR3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNGRkY5RDAiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNGQkZDMDQiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjgwIiBmaWxsPSJ1cmwoI2VnZ0dyYWRpZW50KSIgcng9IjgiLz48ZWxsaXBzZSBjeD0iNDAiIGN5PSI0MCIgcng9IjE1IiByeT0iMTAiIGZpbGw9IiNGRkZGRkYiIG9wYWNpdHk9IjAuOSIvPjxlbGxpcHNlIGN4PSI2NSIgY3k9IjQ1IiByeD0iMTIiIHJ5PSI4IiBmaWxsPSIjRkZGRkZGIiBvcGFjaXR5PSIwLjkiLz48Y2lyY2xlIGN4PSIzNSIgY3k9IjM1IiByPSIyIiBmaWxsPSIjRkY3ODQzIi8+PC9zdmc+" },
-                      { name: "Garlic Bread", time: "10 min", calories: "160", difficulty: "Easy", image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjgwIiB2aWV3Qm94PSIwIDAgMTAwIDgwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0iYnJlYWRHcmFkaWVudCIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI0ZGRjREMSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI0ZCOTJENCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iODAiIGZpbGw9InVybCgjYnJlYWRHcmFkaWVudCkiIHJ4PSI4Ii8+PHJlY3QgeD0iMjAiIHk9IjMwIiB3aWR0aD0iNjAiIGhlaWdodD0iMjAiIHJ4PSI0IiBmaWxsPSIjRkJGQzA0IiBvcGFjaXR5PSIwLjgiLz48Y2lyY2xlIGN4PSIzMCIgY3k9IjI1IiByPSIyIiBmaWxsPSIjMTA5OTgxIi8+PGNpcmNsZSBjeD0iNzAiIGN5PSIyOCIgcj0iMiIgZmlsbD0iIzEwOTk4MSIvPjwvc3ZnPg==" },
-                      { name: "Simple Soup", time: "25 min", calories: "120", difficulty: "Easy", image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjgwIiB2aWV3Qm94PSIwIDAgMTAwIDgwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0ic291cEdyYWRpZW50IiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjRkZGOUQwIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjRkY3ODQzIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSI4MCIgZmlsbD0idXJsKCNzb3VwR3JhZGllbnQpIiByeD0iOCIvPjxlbGxpcHNlIGN4PSI1MCIgY3k9IjQwIiByeD0iMjUiIHJ5PSIxNSIgZmlsbD0iI0ZGNzg0MyIgb3BhY2l0eT0iMC43Ii8+PGNpcmNsZSBjeD0iNDAiIGN5PSIzNSIgcj0iMyIgZmlsbD0iIzEwOTk4MSIvPjxjaXJjbGUgY3g9IjYwIiBjeT0iNDUiIHI9IjMiIGZpbGw9IiNGNTk1NDIiLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSIyIiBmaWxsPSIjRkZGRkZGIi8+PC9zdmc+" },
-                      { name: "Toast & Jam", time: "3 min", calories: "140", difficulty: "Beginner", image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjgwIiB2aWV3Qm94PSIwIDAgMTAwIDgwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0idG9hc3RHcmFkaWVudCIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI0ZCOTJENCIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI0ZCNzE4NSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iODAiIGZpbGw9InVybCgjdG9hc3RHcmFkaWVudCkiIHJ4PSI4Ii8+PHJlY3QgeD0iMzAiIHk9IjMwIiB3aWR0aD0iNDAiIGhlaWdodD0iMjAiIHJ4PSI0IiBmaWxsPSIjRkJGQzA0IiBvcGFjaXR5PSIwLjgiLz48ZWxsaXBzZSBjeD0iNTAiIGN5PSIyNSIgcng9IjEwIiByeT0iNSIgZmlsbD0iI0ZCNzE4NSIvPjwvc3ZnPg==" }
+                      { name: "Pasta Aglio e Olio", time: "15 min", calories: "340", difficulty: "Easy" },
+                      { name: "Fried Rice", time: "20 min", calories: "280", difficulty: "Easy" },
+                      { name: "Scrambled Eggs", time: "5 min", calories: "190", difficulty: "Beginner" },
+                      { name: "Garlic Bread", time: "10 min", calories: "160", difficulty: "Easy" },
+                      { name: "Simple Soup", time: "25 min", calories: "120", difficulty: "Easy" },
+                      { name: "Toast & Jam", time: "3 min", calories: "140", difficulty: "Beginner" }
                     ].map((dish, index) => (
-                      <div key={index} className="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                        {/* Upper Half: Image */}
-                        <div className="h-20 relative">
-                          <img 
-                            src={dish.image} 
-                            alt={dish.name}
-                            className="w-full h-full object-cover"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
-                        </div>
-                        
-                        {/* Lower Half: Dish Information */}
-                        <div className="p-3 h-20 flex flex-col">
+                      <div key={index} className="bg-gray-50 rounded-lg border border-gray-200">
+                        <div className="p-3 h-full flex flex-col">
                           {/* Row 1: Dish Name */}
                           <h4 className="font-medium text-sm text-gray-900 mb-2 truncate">{dish.name}</h4>
                           
@@ -522,7 +511,7 @@ export default function ExploreRecipesScreen() {
                           </div>
                           
                           {/* Bottom Row: Difficulty Badge (right aligned) */}
-                          <div className="w-full flex justify-end mt-1">
+                          <div className="w-full flex justify-end mt-2">
                             <span className="text-xs bg-purple-100 text-purple-600 px-2 py-0.5 rounded font-medium">{dish.difficulty}</span>
                           </div>
                         </div>
@@ -559,58 +548,41 @@ export default function ExploreRecipesScreen() {
                         name: "Mediterranean Bowl", 
                         time: "30 min", 
                         calories: "420", 
-                        difficulty: "Medium",
-                        image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjgwIiB2aWV3Qm94PSIwIDAgMTAwIDgwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0ibWVkaXRlcnJhbmVhbkdyYWRpZW50IiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMTBCOTgxIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMDU5RjQ2Ii8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSI4MCIgZmlsbD0idXJsKCNtZWRpdGVycmFuZWFuR3JhZGllbnQpIiByeD0iOCIvPjxjaXJjbGUgY3g9IjMwIiBjeT0iMzUiIHI9IjYiIGZpbGw9IiNGQjcxODUiLz48Y2lyY2xlIGN4PSI3MCIgY3k9IjQ1IiByPSI1IiBmaWxsPSIjRkJGQzA0Ii8+PHJlY3QgeD0iNDUiIHk9IjMwIiB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHJ4PSIyIiBmaWxsPSIjRkZGRkZGIi8+PGVsbGlwc2UgY3g9IjI1IiBjeT0iNTUiIHJ4PSI4IiByeT0iNCIgZmlsbD0iIzM5OTFGOSIvPjxjaXJjbGUgY3g9IjU1IiBjeT0iNTUiIHI9IjMiIGZpbGw9IiNGNTk1NDIiLz48L3N2Zz4="
+                        difficulty: "Medium"
                       },
                       { 
                         name: "Thai Curry", 
                         time: "35 min", 
                         calories: "380", 
-                        difficulty: "Medium",
-                        image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjgwIiB2aWV3Qm94PSIwIDAgMTAwIDgwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0idGhhaUdyYWRpZW50IiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjRkY3ODQzIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjRUE1NTMyIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSI4MCIgZmlsbD0idXJsKCN0aGFpR3JhZGllbnQpIiByeD0iOCIvPjxlbGxpcHNlIGN4PSI1MCIgY3k9IjQwIiByeD0iMjUiIHJ5PSIxNSIgZmlsbD0iI0ZGRkZGRiIgb3BhY2l0eT0iMC44Ii8+PHJlY3QgeD0iNDAiIHk9IjMwIiB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHJ4PSI0IiBmaWxsPSIjRkZGOTAwIi8+PGNpcmNsZSBjeD0iMzAiIGN5PSI0MCIgcj0iNCIgZmlsbD0iIzM0OTgxNyIvPjxjaXJjbGUgY3g9IjcwIiBjeT0iNDAiIHI9IjQiIGZpbGw9IiMzNDk4MTciLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjI1IiByPSIzIiBmaWxsPSIjRkY1NTQzIi8+PC9zdmc+"
+                        difficulty: "Medium"
                       },
                       { 
                         name: "Quinoa Salad", 
                         time: "20 min", 
                         calories: "310", 
-                        difficulty: "Easy",
-                        image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjgwIiB2aWV3Qm94PSIwIDAgMTAwIDgwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0icXVpbm9hR3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNFRUY4RTciLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNEMkY2Q0QiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjgwIiBmaWxsPSJ1cmwoI3F1aW5vYUdyYWRpZW50KSIgcng9IjgiLz48Y2lyY2xlIGN4PSIyMCIgY3k9IjI1IiByPSIzIiBmaWxsPSIjRkI3MTg1Ii8+PGNpcmNsZSBjeD0iODAiIGN5PSIzNSIgcj0iNCIgZmlsbD0iI0Y1OTU0MiIvPjxjaXJjbGUgY3g9IjY1IiBjeT0iNTUiIHI9IjMiIGZpbGw9IiNGQjcxODUiLz48Y2lyY2xlIGN4PSIzNSIgY3k9IjUwIiByPSI1IiBmaWxsPSIjRkZGOTAwIi8+PGNpcmNsZSBjeD0iNTAiIGN5PSIzMCIgcj0iNCIgZmlsbD0iIzEwQjk4MSIvPjxjaXJjbGUgY3g9IjQ1IiBjeT0iNTAiIHI9IjIiIGZpbGw9IiNGRkZGRkYiLz48Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIyIiBmaWxsPSIjRkZGRkZGIi8+PC9zdmc+"
+                        difficulty: "Easy"
                       },
                       { 
                         name: "Stuffed Peppers", 
                         time: "45 min", 
                         calories: "350", 
-                        difficulty: "Medium",
-                        image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjgwIiB2aWV3Qm94PSIwIDAgMTAwIDgwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0icGVwcGVyR3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNGQjcxODUiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNFQTU1MzIiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjgwIiBmaWxsPSJ1cmwoI3BlcHBlckdyYWRpZW50KSIgcng9IjgiLz48ZWxsaXBzZSBjeD0iNTAiIGN5PSI0MCIgcng9IjIwIiByeT0iMjUiIGZpbGw9IiNGQjcxODUiIG9wYWNpdHk9IjAuOSIvPjxlbGxpcHNlIGN4PSI1MCIgY3k9IjM1IiByeD0iMTUiIHJ5PSI4IiBmaWxsPSIjRkZFNEUxIi8+PGNpcmNsZSBjeD0iNDUiIGN5PSIzMiIgcj0iMiIgZmlsbD0iI0Y1OTU0MiIvPjxjaXJjbGUgY3g9IjU1IiBjeT0iMzIiIHI9IjIiIGZpbGw9IiNGNTk1NDIiLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjQwIiByPSIzIiBmaWxsPSIjMTBCOTgxIi8+PHJlY3QgeD0iNDgiIHk9IjIwIiB3aWR0aD0iNCIgaGVpZ2h0PSI4IiByeD0iMiIgZmlsbD0iIzA1OUY0NiIvPjwvc3ZnPg=="
+                        difficulty: "Medium"
                       },
                       { 
                         name: "Herb Crusted Fish", 
                         time: "25 min", 
                         calories: "290", 
-                        difficulty: "Medium",
-                        image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjgwIiB2aWV3Qm94PSIwIDAgMTAwIDgwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0iZmlzaEdyYWRpZW50IiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMzk5MUY5Ii8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMjU2M0VCIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSI4MCIgZmlsbD0idXJsKCNmaXNoR3JhZGllbnQpIiByeD0iOCIvPjxlbGxpcHNlIGN4PSI1MCIgY3k9IjQwIiByeD0iMzAiIHJ5PSIxNSIgZmlsbD0iI0ZGRkZGRiIgb3BhY2l0eT0iMC45Ii8+PGVsbGlwc2UgY3g9IjY1IiBjeT0iNDAiIHJ4PSI4IiByeT0iMTIiIGZpbGw9IiNGRkY5MDAiLz48Y2lyY2xlIGN4PSI2OCIgY3k9IjM3IiByPSIyIiBmaWxsPSIjMDAwMDAwIi8+PGNpcmNsZSBjeD0iMzUiIGN5PSIzNSIgcj0iMiIgZmlsbD0iIzEwOTk4MSIvPjxjaXJjbGUgY3g9IjQwIiBjeT0iNDUiIHI9IjIiIGZpbGw9IiMxMDk5ODEiLz48Y2lyY2xlIGN4PSI0NSIgY3k9IjMwIiByPSIyIiBmaWxsPSIjMTA5OTgxIi8+PC9zdmc+"
+                        difficulty: "Medium"
                       },
                       { 
                         name: "Power Smoothie Bowl", 
                         time: "10 min", 
                         calories: "240", 
-                        difficulty: "Easy",
-                        image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjgwIiB2aWV3Qm94PSIwIDAgMTAwIDgwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0ic21vb3RoaWVHcmFkaWVudCIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI0E4NTVGNyIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzdDM0FFRCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iODAiIGZpbGw9InVybCgjc21vb3RoaWVHcmFkaWVudCkiIHJ4PSI4Ii8+PGVsbGlwc2UgY3g9IjUwIiBjeT0iNDUiIHJ4PSIyNSIgcnk9IjE1IiBmaWxsPSIjRkZGRkZGIiBvcGFjaXR5PSIwLjkiLz48Y2lyY2xlIGN4PSI0MCIgY3k9IjM1IiByPSI0IiBmaWxsPSIjRkI3MTg1Ii8+PGNpcmNsZSBjeD0iNjAiIGN5PSI0MCIgcj0iMyIgZmlsbD0iI0ZCNzE4NSIvPjxjaXJjbGUgY3g9IjQ1IiBjeT0iNTAiIHI9IjIiIGZpbGw9IiMxMEI5ODEiLz48Y2lyY2xlIGN4PSI1NSIgY3k9IjUwIiByPSIyIiBmaWxsPSIjMTA5OTgxIi8+PGVsbGlwc2UgY3g9IjUwIiBjeT0iNDAiIHJ4PSI1IiByeT0iMyIgZmlsbD0iI0ZGRjkwMCIvPjwvc3ZnPg=="
+                        difficulty: "Easy"
                       }
                     ].map((dish, index) => (
                       <div key={index} className="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                        {/* Upper Half: Image */}
-                        <div className="h-20 relative">
-                          <img 
-                            src={dish.image} 
-                            alt={dish.name}
-                            className="w-full h-full object-cover"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
-                        </div>
-                        
-                        {/* Lower Half: Dish Information */}
-                        <div className="p-3 h-20 flex flex-col">
+                        <div className="p-3 h-full flex flex-col">
                           {/* Row 1: Dish Name */}
                           <h4 className="font-medium text-sm text-gray-900 mb-2 truncate">{dish.name}</h4>
                           
@@ -624,7 +596,7 @@ export default function ExploreRecipesScreen() {
                           </div>
                           
                           {/* Bottom Row: Difficulty Badge (right aligned) */}
-                          <div className="w-full flex justify-end mt-1">
+                          <div className="w-full flex justify-end mt-2">
                             <span className="text-xs bg-purple-100 text-purple-600 px-2 py-0.5 rounded font-medium">{dish.difficulty}</span>
                           </div>
                         </div>
