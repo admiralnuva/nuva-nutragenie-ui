@@ -108,7 +108,7 @@ export default function ExploreRecipesScreen() {
                   </button>
                 </div>
               ) : dietaryRows.length > 0 ? (
-                <div className="space-y-1">
+                <div className="space-y-0">
                   {dietaryRows.map((row, index) => (
                     <div key={index} className="flex items-center text-sm py-1">
                       {row.label ? (
