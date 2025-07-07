@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useLocation } from "wouter";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -96,6 +97,12 @@ const getIngredientIcon = (ingredientName: string) => {
 
 export default function GroceryListScreen() {
   const [, setLocation] = useLocation();
+  const [currentUser] = useLocalStorage<any>("nutragenie_user", null);
+  const [tempUser] = useLocalStorage<any>("nutragenie_temp_user", null);
+  
+  // Get user data - check both current and temp user
+  const userData = currentUser || tempUser;
+  
   const [groceryItems, setGroceryItems] = useState(mockGroceryItems);
   const [newItemName, setNewItemName] = useState("");
   const [newItemQuantity, setNewItemQuantity] = useState("");
@@ -170,8 +177,8 @@ export default function GroceryListScreen() {
 
       {/* Page Title */}
       <div className="max-w-md mx-auto px-4 pb-2">
-        <div className="text-lg font-semibold text-brand-indigo-600 text-center">
-          {currentUser?.nickname ? `${currentUser.nickname}'s Grocery List` : 'Grocery List'}
+        <div className="text-lg font-semibold text-purple-600 text-center">
+          {userData?.nickname ? `${userData.nickname}'s Grocery List` : 'Grocery List'}
         </div>
       </div>
 
