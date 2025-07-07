@@ -454,7 +454,7 @@ export default function ExploreRecipesScreen() {
                   <div className="flex items-center justify-between">
                     <CardTitle className="text-base text-purple-600">Select Pantry Ingredients</CardTitle>
                     <div className="flex items-center">
-                      <div className="rounded-lg overflow-hidden bg-white shadow-sm" style={{width: '60px', height: '60px'}}>
+                      <div className="rounded-lg overflow-hidden bg-white shadow-sm" style={{width: '80px', height: '80px'}}>
                         <img 
                           src={userAvatarSrc} 
                           alt="User Avatar"
@@ -556,7 +556,7 @@ export default function ExploreRecipesScreen() {
                       Ingredients in your pantry
                     </CardTitle>
                     <div className="flex items-center">
-                      <div className="rounded-lg overflow-hidden bg-white shadow-sm" style={{width: '60px', height: '60px'}}>
+                      <div className="rounded-lg overflow-hidden bg-white shadow-sm" style={{width: '80px', height: '80px'}}>
                         <img 
                           src={userAvatarSrc} 
                           alt="User Avatar"
