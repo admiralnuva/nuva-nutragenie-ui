@@ -193,17 +193,17 @@ export default function DietaryScreen() {
   const isFormValid = selectedDietary.length > 0 || selectedHealth.length > 0 || selectedFitness.length > 0;
 
   return (
-    <div className="min-h-screen bg-warm-neutral-50 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-indigo-50 p-6">
       <div className="max-w-md mx-auto pt-2">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
-          <BackButton to="/signup" />
+          <BackButton to="/nuva-signup" />
           <div className="flex-1 text-center">
             <h1 className="text-2xl font-bold text-gray-800">NutraGenie</h1>
           </div>
           <div className="w-8"></div>
         </div>
-        <div className="text-lg font-semibold text-brand-indigo-600 text-center mb-6">
+        <div className="text-lg font-semibold text-purple-600 text-center mb-6">
           Dietary Preferences
         </div>
 
@@ -370,7 +370,7 @@ export default function DietaryScreen() {
                 placeholder="e.g., Severe peanut allergy, shellfish allergy..."
                 value={allergies}
                 onChange={(e) => setAllergies(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg border border-warm-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-indigo-500 focus:border-transparent h-20 resize-none"
+                className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent h-20 resize-none"
               />
             </CardContent>
           </Card>
@@ -485,7 +485,7 @@ export default function DietaryScreen() {
           </Button>
 
           {!isFormValid && (
-            <p className="text-center text-sm text-warm-neutral-500">
+            <p className="text-center text-sm text-purple-500">
               Please select at least one dietary restriction, health condition, or fitness goal
             </p>
           )}
