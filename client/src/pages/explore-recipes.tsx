@@ -394,10 +394,10 @@ export default function ExploreRecipesScreen() {
                       </SelectContent>
                     </Select>
                     <Button
-                      variant="ghost"
+                      variant="outline"
                       size="sm"
                       onClick={() => setIsMealPreferencesExpanded(!isMealPreferencesExpanded)}
-                      className="h-8 w-8 p-0 text-purple-600 hover:bg-purple-50 flex-shrink-0"
+                      className="h-8 px-3 bg-white border-purple-200 text-purple-600 hover:bg-purple-50 hover:border-purple-300 flex-shrink-0 shadow-sm"
                     >
                       {isMealPreferencesExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                     </Button>
