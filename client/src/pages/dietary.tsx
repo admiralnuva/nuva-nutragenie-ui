@@ -532,7 +532,7 @@ export default function DietaryScreen() {
           <Button
             type="submit"
             disabled={!isFormValid}
-            className="w-full py-4 px-6 font-semibold text-lg"
+            className="w-full py-4 px-6 font-semibold text-lg bg-blue-500 text-white border-blue-500 hover:bg-blue-600 active:bg-purple-600 active:border-purple-600 disabled:bg-gray-300 disabled:text-gray-500 disabled:border-gray-300"
           >
             Explore Recipes
           </Button>
