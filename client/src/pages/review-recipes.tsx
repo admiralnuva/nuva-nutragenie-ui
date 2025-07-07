@@ -350,7 +350,7 @@ export default function ReviewRecipesScreen() {
               </Button>
               <Button 
                 onClick={() => setLocation('/voice-cooking')}
-                className="flex-1"
+                className="flex-1 bg-blue-500 text-white border-blue-500 hover:bg-blue-600 active:bg-purple-600 active:border-purple-600 disabled:bg-gray-300 disabled:text-gray-500 disabled:border-gray-300"
                 disabled={selectedDishes.length === 0}
               >
                 <ChefHat className="h-4 w-4 mr-2" />

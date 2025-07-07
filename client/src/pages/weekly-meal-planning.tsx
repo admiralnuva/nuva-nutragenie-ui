@@ -151,7 +151,7 @@ export default function WeeklyMealPlanningScreen() {
             View Shopping List
           </Button>
           <Button 
-            className="bg-purple-600 hover:bg-purple-700 text-white"
+            className="bg-blue-500 text-white border-blue-500 hover:bg-blue-600 active:bg-purple-600 active:border-purple-600"
             onClick={() => setLocation("/voice-cooking")}
           >
             Start Cooking

@@ -117,7 +117,7 @@ export default function SplashScreen() {
               <button 
                 onClick={() => handleNavigation("/signup")}
                 disabled={isLoading}
-                className="w-full bg-white text-indigo-600 py-4 px-6 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2"
+                className="w-full bg-blue-500 text-white border-blue-500 py-4 px-6 rounded-xl font-semibold text-lg shadow-lg hover:bg-blue-600 active:bg-purple-600 transition-all duration-200 transform hover:scale-105 disabled:bg-gray-300 disabled:text-gray-500 disabled:border-gray-300 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2"
               >
                 {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : null}
                 Get Started
@@ -125,7 +125,7 @@ export default function SplashScreen() {
               <button 
                 onClick={() => handleNavigation("/recipes")}
                 disabled={isLoading}
-                className="w-full bg-transparent border-2 border-white text-white py-4 px-6 rounded-xl font-semibold text-lg hover:bg-white hover:text-indigo-600 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-blue-500 text-white border-blue-500 py-4 px-6 rounded-xl font-semibold text-lg hover:bg-blue-600 active:bg-purple-600 transition-all duration-200 disabled:bg-gray-300 disabled:text-gray-500 disabled:border-gray-300 disabled:cursor-not-allowed"
               >
                 Browse Recipes
               </button>
@@ -137,7 +137,7 @@ export default function SplashScreen() {
             <button 
               onClick={() => handleNavigation("/home")}
               disabled={isLoading}
-              className="w-full bg-white text-indigo-600 py-4 px-6 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full bg-blue-500 text-white border-blue-500 py-4 px-6 rounded-xl font-semibold text-lg shadow-lg hover:bg-blue-600 active:bg-purple-600 transition-all duration-200 transform hover:scale-105 disabled:bg-gray-300 disabled:text-gray-500 disabled:border-gray-300 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2"
             >
               {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : null}
               Continue to Dashboard

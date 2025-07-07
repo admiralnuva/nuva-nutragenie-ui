@@ -578,7 +578,7 @@ export default function RecipesScreen() {
             
             <Button
               onClick={generateRecipe}
-              className="w-full"
+              className="w-full bg-blue-500 text-white border-blue-500 hover:bg-blue-600 active:bg-purple-600 active:border-purple-600 disabled:bg-gray-300 disabled:text-gray-500 disabled:border-gray-300"
               disabled={selectedIngredients.length === 0}
             >
               Generate Recipes

@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 interface NavigationButtonProps {
   children: ReactNode;
   onClick?: () => void;
-  variant?: "default" | "outline" | "secondary";
   disabled?: boolean;
 }
 
@@ -22,14 +21,13 @@ interface SelectionButtonProps {
   disabled?: boolean;
 }
 
-// Navigation buttons - consistent size for all navigation
-export function NavigationButton({ children, onClick, variant = "default", disabled }: NavigationButtonProps) {
+// Navigation buttons - consistent size and blue styling for all navigation
+export function NavigationButton({ children, onClick, disabled }: NavigationButtonProps) {
   return (
     <Button
       onClick={onClick}
-      variant={variant}
       disabled={disabled}
-      className="w-full h-12 text-base font-medium"
+      className="w-full h-12 text-base font-medium bg-blue-500 text-white border-blue-500 hover:bg-blue-600 active:bg-purple-600 active:border-purple-600 disabled:bg-gray-300 disabled:text-gray-500 disabled:border-gray-300"
     >
       {children}
     </Button>
