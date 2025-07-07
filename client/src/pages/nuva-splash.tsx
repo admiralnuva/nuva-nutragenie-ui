@@ -100,6 +100,20 @@ export default function NuvaSplashScreen() {
               <div className="flex justify-center">
                 <Loader2 className="w-6 h-6 text-white animate-spin" />
               </div>
+              
+              {/* Reset Button for Testing */}
+              <div className="pt-4">
+                <button 
+                  onClick={() => {
+                    setCurrentUser(null);
+                    localStorage.removeItem("nutragenie_user");
+                    window.location.reload();
+                  }}
+                  className="w-full bg-red-500/20 border border-red-300/50 text-white px-4 py-3 rounded-xl backdrop-blur-sm hover:bg-red-500/30 transition-all duration-300 text-sm font-medium"
+                >
+                  Reset Data (Testing)
+                </button>
+              </div>
             </>
           ) : (
             <>
@@ -117,6 +131,20 @@ export default function NuvaSplashScreen() {
                   "Get Started"
                 )}
               </button>
+              
+              {/* Reset Button for Testing - Always Available */}
+              <div className="pt-2">
+                <button 
+                  onClick={() => {
+                    setCurrentUser(null);
+                    localStorage.removeItem("nutragenie_user");
+                    window.location.reload();
+                  }}
+                  className="w-full bg-red-500/20 border border-red-300/50 text-white px-4 py-2 rounded-xl backdrop-blur-sm hover:bg-red-500/30 transition-all duration-300 text-sm font-medium"
+                >
+                  Reset Data (Testing)
+                </button>
+              </div>
               
               {error && (
                 <div className="text-red-200 text-sm bg-red-500/20 backdrop-blur-sm border border-red-300/30 rounded-lg p-3">
