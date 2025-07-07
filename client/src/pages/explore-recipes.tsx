@@ -47,22 +47,10 @@ export default function ExploreRecipesScreen() {
       }
     }
     
-    // Row 4: Food Dislikes
-    if (userData?.foodDislikes && userData.foodDislikes.trim()) {
-      const dislikes = userData.foodDislikes.length > 30 ? userData.foodDislikes.substring(0, 30) + '...' : userData.foodDislikes;
-      rows.push({ label: "Dislikes", value: dislikes });
-    }
-    
-    // Row 5: Allergies
+    // Row 4: Allergies
     if (userData?.allergies && userData.allergies.trim()) {
       const allergies = userData.allergies.length > 30 ? userData.allergies.substring(0, 30) + '...' : userData.allergies;
       rows.push({ label: "Allergies", value: allergies });
-    }
-    
-    // Row 6: Additional Notes
-    if (userData?.additionalNotes && userData.additionalNotes.trim()) {
-      const notes = userData.additionalNotes.length > 30 ? userData.additionalNotes.substring(0, 30) + '...' : userData.additionalNotes;
-      rows.push({ label: "Notes", value: notes });
     }
     
     return rows.slice(0, 6); // Ensure max 6 rows
@@ -71,7 +59,7 @@ export default function ExploreRecipesScreen() {
   const dietaryRows = formatDietaryData();
   
   // Check if user has any dietary data
-  const hasDietaryData = userData?.dietaryRestrictions || userData?.healthGoals || userData?.foodDislikes || userData?.allergies;
+  const hasDietaryData = userData?.dietaryRestrictions || userData?.healthGoals || userData?.allergies;
 
   return (
     <div className="min-h-screen bg-white p-6">
