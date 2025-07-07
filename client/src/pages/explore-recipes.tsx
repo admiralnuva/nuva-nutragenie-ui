@@ -11,7 +11,10 @@ export default function ExploreRecipesScreen() {
   // Get user data - check both current and temp user
   const userData = currentUser || tempUser;
 
-  // Remove debug logs for production
+  // Debug: Log user data to see what's available
+  console.log("Current user data:", currentUser);
+  console.log("Temp user data:", tempUser);
+  console.log("Using userData:", userData);
 
   // Format dietary preferences data into text rows (max 6 rows)
   const formatDietaryData = () => {
@@ -69,6 +72,14 @@ export default function ExploreRecipesScreen() {
   };
 
   const dietaryRows = formatDietaryData();
+  
+  // Debug: Log dietary rows
+  console.log("Dietary rows:", dietaryRows);
+  console.log("Available properties:", Object.keys(userData || {}));
+  
+  // Debug: Add temporary sample data to show how it would look
+  const hasDietaryData = userData?.dietaryRestrictions || userData?.healthGoals || userData?.foodDislikes || userData?.allergies;
+  console.log("Has dietary data:", hasDietaryData);
 
   return (
     <div className="min-h-screen bg-white p-6">
@@ -104,13 +115,44 @@ export default function ExploreRecipesScreen() {
                   </div>
                 ))
               ) : (
-                <div className="text-center py-4">
-                  <p className="text-gray-500 text-sm mb-3">Welcome {userData?.nickname}! Complete your dietary profile to see personalized recipes.</p>
+                <div className="space-y-3 py-4">
+                  <p className="text-gray-600 text-sm text-center mb-4">Welcome {userData?.nickname}! Let's complete your dietary profile to get personalized recipes.</p>
+                  
+                  {/* Quick Setup Options */}
+                  <div className="space-y-2">
+                    <p className="text-xs font-medium text-gray-700 text-center">Quick setup for testing:</p>
+                    <div className="grid grid-cols-2 gap-2 text-xs">
+                      <button 
+                        onClick={() => {
+                          const sampleData = {
+                            ...userData,
+                            dietaryRestrictions: ['vegetarian', 'gluten-free'],
+                            healthGoals: ['diabetes', 'lose-weight'],
+                            foodDislikes: 'mushrooms, spicy food',
+                            allergies: 'nuts, shellfish',
+                            additionalNotes: 'Prefer Mediterranean meals'
+                          };
+                          localStorage.setItem('nutragenie_user', JSON.stringify(sampleData));
+                          window.location.reload();
+                        }}
+                        className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs"
+                      >
+                        Add Sample Data
+                      </button>
+                      <button 
+                        onClick={() => setLocation("/dietary")}
+                        className="bg-purple-100 text-purple-700 px-2 py-1 rounded text-xs"
+                      >
+                        Manual Setup
+                      </button>
+                    </div>
+                  </div>
+                  
                   <button 
                     onClick={() => setLocation("/dietary")}
-                    className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-purple-700"
+                    className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-purple-700 w-full"
                   >
-                    Complete Dietary Setup
+                    Complete Dietary Preferences
                   </button>
                 </div>
               )}
