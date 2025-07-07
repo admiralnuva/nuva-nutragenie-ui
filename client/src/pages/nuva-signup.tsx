@@ -158,8 +158,8 @@ export default function NuvaSignupScreen() {
           </div>
 
           {/* Nickname and Age Group in same row */}
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
+          <div className="grid grid-cols-3 gap-4">
+            <div className="space-y-2 col-span-2">
               <Label htmlFor="nickname">Nickname</Label>
               <Input
                 id="nickname"
@@ -168,7 +168,7 @@ export default function NuvaSignupScreen() {
                 placeholder="Enter your nickname"
               />
             </div>
-            <div className="space-y-2">
+            <div className="space-y-2 col-span-1">
               <Label>Age Group</Label>
               <Select value={ageGroup} onValueChange={setAgeGroup}>
                 <SelectTrigger>
