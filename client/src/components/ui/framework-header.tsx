@@ -22,7 +22,7 @@ export function FrameworkHeader({ screenName, showBack = false, onBack }: Framew
         )}
         <div className="text-center">
           <h1 className="text-xl font-bold text-gray-800">NutraGenie</h1>
-          <p className="text-lg font-bold text-gray-800">{screenName}</p>
+          <p className="text-lg font-bold text-purple-600">{screenName}</p>
         </div>
         <div className="w-8"></div>
       </div>

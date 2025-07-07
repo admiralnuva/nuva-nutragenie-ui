@@ -324,4 +324,5 @@ Changelog:
 
 ```
 Preferred communication style: Simple, everyday language.
+Framework Header Standard: Screen names always use purple color (text-purple-600).
 ```
