@@ -698,19 +698,18 @@ export default function ExploreRecipesScreen() {
                 {/* Expand/Collapse Button */}
                 <div className="px-6 pb-3">
                   <Button 
-                    variant="outline" 
-                    className="w-full h-12 flex items-center justify-center gap-2 border-purple-200 hover:border-purple-300 hover:bg-purple-50"
+                    className="w-full h-12 flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-700 text-white"
                     onClick={() => setIsPantryExpanded(!isPantryExpanded)}
                   >
                     {isPantryExpanded ? (
                       <>
-                        <Minus size={20} className="text-purple-600" />
-                        <span className="text-sm font-medium text-gray-700">Collapse</span>
+                        <Minus size={20} className="text-white" />
+                        <span className="text-sm font-medium text-white">Collapse</span>
                       </>
                     ) : (
                       <>
-                        <Plus size={20} className="text-purple-600" />
-                        <span className="text-sm font-medium text-gray-700">Expand</span>
+                        <Plus size={20} className="text-white" />
+                        <span className="text-sm font-medium text-white">Expand</span>
                       </>
                     )}
                   </Button>
