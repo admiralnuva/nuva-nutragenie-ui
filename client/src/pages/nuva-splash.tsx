@@ -130,6 +130,21 @@ export default function NuvaSplashScreen() {
               <p className="text-white/80 text-sm mt-3">
                 New users start with account creation for personalized experience
               </p>
+              
+              {/* Reset Button for Testing - Always Available */}
+              <div className="pt-2">
+                <button 
+                  onClick={() => {
+                    setCurrentUser(null);
+                    localStorage.removeItem("nutragenie_user");
+                    localStorage.removeItem("nutragenie_temp_user");
+                    window.location.reload();
+                  }}
+                  className="w-full bg-red-500/20 border border-red-300/50 text-white px-4 py-2 rounded-xl backdrop-blur-sm hover:bg-red-500/30 transition-all duration-300 text-sm font-medium"
+                >
+                  Reset Data (Testing)
+                </button>
+              </div>
             </>
           ) : (
             <button 
