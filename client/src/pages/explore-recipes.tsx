@@ -2,6 +2,9 @@ import { useLocation } from "wouter";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { ScreenHeader } from "@/components/ui/screen-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
+import { useState } from "react";
 
 // Import user avatar images
 import userAvatar1 from "@/assets/avatars/user/user1.png";
@@ -26,6 +29,16 @@ export default function ExploreRecipesScreen() {
 
   // Get user avatar
   const userAvatarSrc = userData?.avatar ? userAvatars[userData.avatar as keyof typeof userAvatars] : userAvatar1;
+
+  // Meal preferences state
+  const [mealPreferences, setMealPreferences] = useState({
+    cuisine: "",
+    mealType: "",
+    spiceLevel: "",
+    skillLevel: "",
+    cookingMethod: "",
+    kidFriendly: ""
+  });
 
   // Format dietary preferences data into text rows (max 6 rows)
   const formatDietaryData = () => {
@@ -149,6 +162,122 @@ export default function ExploreRecipesScreen() {
                   </button>
                 </div>
               )}
+            </CardContent>
+          </Card>
+
+          {/* Card 2: Meal Preferences */}
+          <Card className="bg-white border border-gray-200">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-base text-purple-600">Meal Preferences</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                {/* Cuisine */}
+                <div className="space-y-2">
+                  <Label htmlFor="cuisine" className="text-sm font-medium text-gray-700">Cuisine</Label>
+                  <Select value={mealPreferences.cuisine} onValueChange={(value) => setMealPreferences(prev => ({...prev, cuisine: value}))}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select cuisine" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="italian">Italian</SelectItem>
+                      <SelectItem value="mexican">Mexican</SelectItem>
+                      <SelectItem value="asian">Asian</SelectItem>
+                      <SelectItem value="american">American</SelectItem>
+                      <SelectItem value="mediterranean">Mediterranean</SelectItem>
+                      <SelectItem value="indian">Indian</SelectItem>
+                      <SelectItem value="french">French</SelectItem>
+                      <SelectItem value="thai">Thai</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Meal Type */}
+                <div className="space-y-2">
+                  <Label htmlFor="mealType" className="text-sm font-medium text-gray-700">Meal Type</Label>
+                  <Select value={mealPreferences.mealType} onValueChange={(value) => setMealPreferences(prev => ({...prev, mealType: value}))}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select meal type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="breakfast">Breakfast</SelectItem>
+                      <SelectItem value="lunch">Lunch</SelectItem>
+                      <SelectItem value="dinner">Dinner</SelectItem>
+                      <SelectItem value="snack">Snack</SelectItem>
+                      <SelectItem value="dessert">Dessert</SelectItem>
+                      <SelectItem value="appetizer">Appetizer</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Spice Level */}
+                <div className="space-y-2">
+                  <Label htmlFor="spiceLevel" className="text-sm font-medium text-gray-700">Spice Level</Label>
+                  <Select value={mealPreferences.spiceLevel} onValueChange={(value) => setMealPreferences(prev => ({...prev, spiceLevel: value}))}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select spice level" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="mild">Mild</SelectItem>
+                      <SelectItem value="medium">Medium</SelectItem>
+                      <SelectItem value="hot">Hot</SelectItem>
+                      <SelectItem value="extra-hot">Extra Hot</SelectItem>
+                      <SelectItem value="no-spice">No Spice</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Skill Level */}
+                <div className="space-y-2">
+                  <Label htmlFor="skillLevel" className="text-sm font-medium text-gray-700">Skill Level</Label>
+                  <Select value={mealPreferences.skillLevel} onValueChange={(value) => setMealPreferences(prev => ({...prev, skillLevel: value}))}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select skill level" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="beginner">Beginner</SelectItem>
+                      <SelectItem value="intermediate">Intermediate</SelectItem>
+                      <SelectItem value="advanced">Advanced</SelectItem>
+                      <SelectItem value="expert">Expert</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Cooking Method */}
+                <div className="space-y-2">
+                  <Label htmlFor="cookingMethod" className="text-sm font-medium text-gray-700">Cooking Method</Label>
+                  <Select value={mealPreferences.cookingMethod} onValueChange={(value) => setMealPreferences(prev => ({...prev, cookingMethod: value}))}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select cooking method" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="baking">Baking</SelectItem>
+                      <SelectItem value="grilling">Grilling</SelectItem>
+                      <SelectItem value="frying">Frying</SelectItem>
+                      <SelectItem value="steaming">Steaming</SelectItem>
+                      <SelectItem value="roasting">Roasting</SelectItem>
+                      <SelectItem value="slow-cooking">Slow Cooking</SelectItem>
+                      <SelectItem value="stir-frying">Stir Frying</SelectItem>
+                      <SelectItem value="no-cook">No Cook</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Kid Friendly */}
+                <div className="space-y-2">
+                  <Label htmlFor="kidFriendly" className="text-sm font-medium text-gray-700">Kid Friendly</Label>
+                  <Select value={mealPreferences.kidFriendly} onValueChange={(value) => setMealPreferences(prev => ({...prev, kidFriendly: value}))}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select option" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="yes">Yes</SelectItem>
+                      <SelectItem value="no">No</SelectItem>
+                      <SelectItem value="no-preference">No Preference</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
             </CardContent>
           </Card>
 
