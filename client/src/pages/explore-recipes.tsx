@@ -220,9 +220,11 @@ export default function ExploreRecipesScreen() {
 
           {/* Card 2: Meal Preferences */}
           <Card className="bg-white border border-gray-200">
-            <CardHeader className="pb-3 pt-2 relative">
+            <CardHeader className="pb-2 pt-2 relative">
               <div className="pr-20">
-                <CardTitle className="text-base text-purple-600 mt-2">Meal Preferences</CardTitle>
+                <div className="mt-2">
+                  <CardTitle className="text-base text-purple-600">Meal Preferences</CardTitle>
+                </div>
               </div>
               <div className="absolute top-0 right-0">
                 <div className="rounded-lg overflow-hidden" style={{width: '80px', height: '80px'}}>
