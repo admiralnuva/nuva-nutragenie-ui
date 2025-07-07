@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
-import { Clock, Users, ChefHat, Flame, Target, Utensils, ShoppingCart, Sparkles, Plus, List, Minus } from "lucide-react";
+import { Clock, Users, ChefHat, Flame, Target, Utensils, ShoppingCart, Sparkles, Plus, List, Minus, ChevronDown, ChevronUp } from "lucide-react";
 
 // Import user avatar images
 import userAvatar1 from "@/assets/avatars/user/user1.png";
@@ -73,6 +73,7 @@ export default function ExploreRecipesScreen() {
   const [customIngredients, setCustomIngredients] = useState<string[]>([]);
   const [newIngredient, setNewIngredient] = useState<string>('');
   const [isPantryExpanded, setIsPantryExpanded] = useState<boolean>(true);
+  const [isMealPreferencesExpanded, setIsMealPreferencesExpanded] = useState<boolean>(true);
 
   // Ingredient categories
   const ingredientCategories = {
@@ -230,7 +231,21 @@ export default function ExploreRecipesScreen() {
           <Card className="bg-white border border-gray-200">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-base text-purple-600">Meal Preferences</CardTitle>
+                <div className="flex items-center gap-3">
+                  <CardTitle className="text-base text-purple-600">Meal Preferences</CardTitle>
+                  <div className="flex items-center gap-1 text-xs text-gray-500">
+                    <Clock className="w-3 h-3" />
+                    <span>Prep Time</span>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setIsMealPreferencesExpanded(!isMealPreferencesExpanded)}
+                      className="h-6 w-6 p-0 ml-1 text-purple-600 hover:bg-purple-50"
+                    >
+                      {isMealPreferencesExpanded ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
+                    </Button>
+                  </div>
+                </div>
                 <div className="flex items-center">
                   <div className="rounded-lg overflow-hidden bg-white shadow-sm" style={{width: '80px', height: '80px'}}>
                     <img 
@@ -242,8 +257,9 @@ export default function ExploreRecipesScreen() {
                 </div>
               </div>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
+            {isMealPreferencesExpanded && (
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
                 {/* Serving Size */}
                 <div className="space-y-2">
                   <Label htmlFor="servingSize" className="text-sm font-medium text-gray-700 flex items-center gap-2">
@@ -392,8 +408,9 @@ export default function ExploreRecipesScreen() {
                   </Select>
                 </div>
 
-              </div>
-            </CardContent>
+                </div>
+              </CardContent>
+            )}
           </Card>
 
           {/* Card 3 - Recipe Options */}
