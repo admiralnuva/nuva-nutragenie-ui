@@ -36,8 +36,7 @@ export default function ExploreRecipesScreen() {
     mealType: "",
     spiceLevel: "",
     skillLevel: "",
-    cookingMethod: "",
-    kidFriendly: ""
+    cookingMethod: ""
   });
 
   // Format dietary preferences data into text rows (max 6 rows)
@@ -263,20 +262,7 @@ export default function ExploreRecipesScreen() {
                   </Select>
                 </div>
 
-                {/* Kid Friendly */}
-                <div className="space-y-2">
-                  <Label htmlFor="kidFriendly" className="text-sm font-medium text-gray-700">Kid Friendly</Label>
-                  <Select value={mealPreferences.kidFriendly} onValueChange={(value) => setMealPreferences(prev => ({...prev, kidFriendly: value}))}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select option" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="yes">Yes</SelectItem>
-                      <SelectItem value="no">No</SelectItem>
-                      <SelectItem value="no-preference">No Preference</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+
               </div>
             </CardContent>
           </Card>
