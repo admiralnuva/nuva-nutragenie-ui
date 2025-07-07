@@ -588,9 +588,9 @@ export default function ExploreRecipesScreen() {
                             </div>
                           </div>
                           
-                          {/* Last Row: Difficulty (right aligned) */}
-                          <div className="flex justify-end mt-2">
-                            <span className="text-xs bg-purple-100 text-purple-600 px-2 py-0.5 rounded">{dish.difficulty}</span>
+                          {/* Bottom Row: Difficulty Badge (right aligned) */}
+                          <div className="w-full flex justify-end mt-2">
+                            <span className="text-xs bg-purple-100 text-purple-600 px-2 py-0.5 rounded font-medium">{dish.difficulty}</span>
                           </div>
                         </div>
                       </div>
