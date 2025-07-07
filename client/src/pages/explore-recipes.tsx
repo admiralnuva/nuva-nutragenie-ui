@@ -394,30 +394,29 @@ export default function ExploreRecipesScreen() {
                   </Select>
                 </div>
 
-                {/* Expand/Collapse Button - Same Row as Prep Time */}
-                <div className="space-y-2">
-                  <div className="h-5"></div> {/* Spacer to align with dropdown */}
-                  <Button 
-                    className="w-full h-10 flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-700 text-white"
-                    onClick={() => setIsMealPreferencesExpanded(!isMealPreferencesExpanded)}
-                  >
-                    {isMealPreferencesExpanded ? (
-                      <>
-                        <Minus size={16} className="text-white" />
-                        <span className="text-sm font-medium text-white">Collapse</span>
-                      </>
-                    ) : (
-                      <>
-                        <Plus size={16} className="text-white" />
-                        <span className="text-sm font-medium text-white">Expand</span>
-                      </>
-                    )}
-                  </Button>
-                </div>
-
                 </div>
               </CardContent>
             )}
+            
+            {/* Expand/Collapse Button - Outside collapsible content */}
+            <div className="px-6 pb-3">
+              <Button 
+                className="w-full h-12 flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-700 text-white"
+                onClick={() => setIsMealPreferencesExpanded(!isMealPreferencesExpanded)}
+              >
+                {isMealPreferencesExpanded ? (
+                  <>
+                    <Minus size={20} className="text-white" />
+                    <span className="text-sm font-medium text-white">Collapse</span>
+                  </>
+                ) : (
+                  <>
+                    <Plus size={20} className="text-white" />
+                    <span className="text-sm font-medium text-white">Expand</span>
+                  </>
+                )}
+              </Button>
+            </div>
           </Card>
 
           {/* Card 3 - Recipe Options */}
