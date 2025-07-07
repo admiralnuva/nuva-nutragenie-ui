@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
-import { Clock, Users, ChefHat, Flame, Target, Utensils, ShoppingCart, Sparkles, Plus, List } from "lucide-react";
+import { Clock, Users, ChefHat, Flame, Target, Utensils, ShoppingCart, Sparkles, Plus, List, Minus } from "lucide-react";
 
 // Import user avatar images
 import userAvatar1 from "@/assets/avatars/user/user1.png";
@@ -72,6 +72,7 @@ export default function ExploreRecipesScreen() {
   const [selectedIngredients, setSelectedIngredients] = useState<string[]>(['chicken-breast', 'salmon', 'onions', 'garlic', 'olive-oil']);
   const [customIngredients, setCustomIngredients] = useState<string[]>([]);
   const [newIngredient, setNewIngredient] = useState<string>('');
+  const [isPantryExpanded, setIsPantryExpanded] = useState<boolean>(true);
 
   // Ingredient categories
   const ingredientCategories = {
@@ -693,7 +694,30 @@ export default function ExploreRecipesScreen() {
                     </div>
                   </div>
                 </CardHeader>
-                <CardContent className="space-y-2 max-h-96 overflow-y-auto pb-4">
+                
+                {/* Expand/Collapse Button */}
+                <div className="px-6 pb-3">
+                  <Button 
+                    variant="outline" 
+                    className="w-full h-12 flex items-center justify-center gap-2 border-purple-200 hover:border-purple-300 hover:bg-purple-50"
+                    onClick={() => setIsPantryExpanded(!isPantryExpanded)}
+                  >
+                    {isPantryExpanded ? (
+                      <>
+                        <Minus size={20} className="text-purple-600" />
+                        <span className="text-sm font-medium text-gray-700">Collapse</span>
+                      </>
+                    ) : (
+                      <>
+                        <Plus size={20} className="text-purple-600" />
+                        <span className="text-sm font-medium text-gray-700">Expand</span>
+                      </>
+                    )}
+                  </Button>
+                </div>
+                
+                {isPantryExpanded && (
+                  <CardContent className="space-y-2 max-h-96 overflow-y-auto pb-4">
                   {Object.entries(ingredientCategories).map(([category, ingredients]) => (
                     <div key={category} className="flex items-center gap-1.5 bg-gray-50 p-1 rounded-md shadow-lg shadow-purple-200/50 border border-purple-100">
                       <Label htmlFor={`${category}-select`} className="text-sm font-medium text-gray-800 flex items-center gap-2 min-w-[100px]">
@@ -774,7 +798,8 @@ export default function ExploreRecipesScreen() {
                       </div>
                     )}
                   </div>
-                </CardContent>
+                  </CardContent>
+                )}
               </Card>
 
               {/* Ingredients in Your Pantry Card */}
