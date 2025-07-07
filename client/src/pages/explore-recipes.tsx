@@ -705,7 +705,10 @@ export default function ExploreRecipesScreen() {
               <Card className="bg-white border border-gray-200 shadow-lg">
                 <CardHeader className="pb-2">
                   <div className="flex items-center justify-between">
-                    <CardTitle className="text-base text-purple-600">Select Pantry Ingredients</CardTitle>
+                    <div>
+                      <CardTitle className="text-base text-purple-600">Select Pantry Ingredients</CardTitle>
+                      <p className="text-xs text-gray-500 mt-1">Click the Expand button below to select your ingredients</p>
+                    </div>
                     <div className="flex items-center">
                       <div className="rounded-lg overflow-hidden bg-white shadow-sm" style={{width: '80px', height: '80px'}}>
                         <img 
