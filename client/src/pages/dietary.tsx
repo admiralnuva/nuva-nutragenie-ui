@@ -57,8 +57,12 @@ export default function DietaryScreen() {
   const [currentUser, setCurrentUser] = useLocalStorage<any>("nutragenie_user", null);
   const { toast } = useToast();
   
+  // Get temporary user data if user not created yet
+  const tempUserData = JSON.parse(localStorage.getItem('nutragenie_temp_user') || '{}');
+  const userData = currentUser || tempUserData;
+  
   // Get user's selected avatar
-  const userAvatarSrc = currentUser?.avatar ? userAvatars[currentUser.avatar as keyof typeof userAvatars] : userAvatar1;
+  const userAvatarSrc = userData?.avatar ? userAvatars[userData.avatar as keyof typeof userAvatars] : userAvatar1;
   
   // Ref for the dietary restrictions card to focus on it
   const dietaryCardRef = useRef<HTMLDivElement>(null);
@@ -135,15 +139,19 @@ export default function DietaryScreen() {
     mutationFn: async (updates: any) => {
       try {
         // Always create a new user with dietary preferences for simplicity
-        const userData = {
-          nickname: currentUser?.nickname || 'User',
-          ageGroup: currentUser?.ageGroup || '25-30',
-          phoneNumber: currentUser?.phoneNumber || '1234567890',
-          avatar: currentUser?.avatar || 'user1',
-          selectedChef: currentUser?.selectedChef || {
-            name: 'Chef Marcus',
-            personality: 'Precise & Classic',
-            avatar: 'chef1'
+        const userSubmissionData = {
+          nickname: userData?.nickname || 'User',
+          ageGroup: userData?.ageGroup || '25-30',
+          phoneNumber: userData?.phoneNumber || '1234567890',
+          streetAddress: userData?.streetAddress || '',
+          city: userData?.city || '',
+          state: userData?.state || '',
+          zipCode: userData?.zipCode || '',
+          avatar: userData?.avatar || 'user1',
+          selectedChef: {
+            name: userData?.chefNickname || userData?.selectedChef?.name || 'Chef Marcus',
+            personality: userData?.selectedChef?.personality || 'Precise & Classic',
+            emoji: userData?.selectedChef?.displayName || 'Chef'
           },
           ...updates  // Include the dietary preferences
         };
@@ -228,7 +236,7 @@ export default function DietaryScreen() {
                     />
                   </div>
                   <p className="text-xs text-gray-600 mt-1 text-center font-medium">
-                    {currentUser?.nickname || "User"}
+                    {userData?.nickname || "User"}
                   </p>
                 </div>
               </div>
@@ -273,7 +281,7 @@ export default function DietaryScreen() {
                     />
                   </div>
                   <p className="text-xs text-gray-600 mt-1 text-center font-medium">
-                    {currentUser?.nickname || "User"}
+                    {userData?.nickname || "User"}
                   </p>
                 </div>
               </div>
@@ -318,7 +326,7 @@ export default function DietaryScreen() {
                     />
                   </div>
                   <p className="text-xs text-gray-600 mt-1 text-center font-medium">
-                    {currentUser?.nickname || "User"}
+                    {userData?.nickname || "User"}
                   </p>
                 </div>
               </div>
@@ -360,7 +368,7 @@ export default function DietaryScreen() {
                     />
                   </div>
                   <p className="text-xs text-gray-600 mt-1 text-center font-medium">
-                    {currentUser?.nickname || "User"}
+                    {userData?.nickname || "User"}
                   </p>
                 </div>
               </div>
@@ -392,7 +400,7 @@ export default function DietaryScreen() {
                     />
                   </div>
                   <p className="text-xs text-gray-600 mt-1 text-center font-medium">
-                    {currentUser?.nickname || "User"}
+                    {userData?.nickname || "User"}
                   </p>
                 </div>
               </div>
