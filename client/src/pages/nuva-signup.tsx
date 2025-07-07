@@ -51,6 +51,7 @@ export default function NuvaSignupScreen() {
   const [state, setState] = useState("");
   const [zipCode, setZipCode] = useState("");
   const [verificationCode, setVerificationCode] = useState("");
+  const [selectedChef, setSelectedChef] = useState("");
   const [selectedAvatar, setSelectedAvatar] = useState<any>(null);
   const [selectedChef, setSelectedChef] = useState<any>(null);
   const [chefNickname, setChefNickname] = useState("");
@@ -255,50 +256,103 @@ export default function NuvaSignupScreen() {
         {/* Chef Card */}
         <MediumCard
           title="Choose Your AI Chef"
-          cardName="Chef Selection"
+          cardName=""
           description="Select your personal cooking assistant"
           avatar={
-            selectedChef ? (
-              <img 
-                src={selectedChef.avatar} 
-                alt={selectedChef.name}
-                className="w-full h-full object-cover rounded-full"
-              />
-            ) : (
-              <div className="w-full h-full bg-orange-100 rounded-full flex items-center justify-center">
-                <ChefHat className="w-1/2 h-1/2 text-orange-600" />
-              </div>
-            )
+            <div className="w-full h-full bg-orange-100 rounded-full flex items-center justify-center">
+              <ChefHat className="w-1/2 h-1/2 text-orange-600" />
+            </div>
           }
         >
-          {/* Chef Selection */}
-          <div className="grid grid-cols-2 gap-3 mb-4">
-            {chefs.map((chef, index) => (
-              <button
-                key={index}
-                onClick={() => setSelectedChef(chef)}
-                className={`p-3 rounded-lg border-2 text-left transition-all ${
-                  selectedChef?.name === chef.name 
-                    ? 'ring-2 ring-indigo-500 border-indigo-500 bg-indigo-50' 
-                    : 'border-gray-300 hover:border-indigo-400'
-                }`}
-              >
-                <img src={chef.avatar} alt={chef.name} className="w-12 h-12 rounded-full mx-auto mb-2" />
-                <p className="text-sm font-medium text-center">{chef.name}</p>
-                <p className="text-xs text-gray-500 text-center">{chef.personality}</p>
-              </button>
-            ))}
-          </div>
+          {/* Chef Selection - 4 avatars in a row */}
+          <div className="grid grid-cols-4 gap-3">
+            {/* Chef 1 - Marcus */}
+            <div 
+              className={`relative cursor-pointer transition-all duration-200 ${
+                selectedChef === 'chef1' ? 'ring-2 ring-blue-500 bg-blue-50 rounded-lg scale-105' : 'hover:scale-105'
+              }`}
+              onClick={() => setSelectedChef('chef1')}
+            >
+              <div className="w-20 h-20 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden">
+                <img 
+                  src={chefAvatar1} 
+                  alt="Chef Marcus" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <p className="text-xs text-center mt-1 font-medium">Marcus</p>
+              {selectedChef === 'chef1' && (
+                <div className="absolute -top-1 -right-1 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+                  <Check className="w-4 h-4 text-white" />
+                </div>
+              )}
+            </div>
 
-          {/* Chef Nickname */}
-          <div className="space-y-2">
-            <Label htmlFor="chefNickname">Chef Nickname</Label>
-            <Input
-              id="chefNickname"
-              value={chefNickname}
-              onChange={(e) => setChefNickname(e.target.value)}
-              placeholder="What should we call your chef?"
-            />
+            {/* Chef 2 - Luna */}
+            <div 
+              className={`relative cursor-pointer transition-all duration-200 ${
+                selectedChef === 'chef2' ? 'ring-2 ring-blue-500 bg-blue-50 rounded-lg scale-105' : 'hover:scale-105'
+              }`}
+              onClick={() => setSelectedChef('chef2')}
+            >
+              <div className="w-20 h-20 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden">
+                <img 
+                  src={chefAvatar2} 
+                  alt="Chef Luna" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <p className="text-xs text-center mt-1 font-medium">Luna</p>
+              {selectedChef === 'chef2' && (
+                <div className="absolute -top-1 -right-1 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+                  <Check className="w-4 h-4 text-white" />
+                </div>
+              )}
+            </div>
+
+            {/* Chef 3 - Blaze */}
+            <div 
+              className={`relative cursor-pointer transition-all duration-200 ${
+                selectedChef === 'chef3' ? 'ring-2 ring-blue-500 bg-blue-50 rounded-lg scale-105' : 'hover:scale-105'
+              }`}
+              onClick={() => setSelectedChef('chef3')}
+            >
+              <div className="w-20 h-20 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden">
+                <img 
+                  src={chefAvatar3} 
+                  alt="Chef Blaze" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <p className="text-xs text-center mt-1 font-medium">Blaze</p>
+              {selectedChef === 'chef3' && (
+                <div className="absolute -top-1 -right-1 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+                  <Check className="w-4 h-4 text-white" />
+                </div>
+              )}
+            </div>
+
+            {/* Chef 4 - Harmony */}
+            <div 
+              className={`relative cursor-pointer transition-all duration-200 ${
+                selectedChef === 'chef4' ? 'ring-2 ring-blue-500 bg-blue-50 rounded-lg scale-105' : 'hover:scale-105'
+              }`}
+              onClick={() => setSelectedChef('chef4')}
+            >
+              <div className="w-20 h-20 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden">
+                <img 
+                  src={chefAvatar4} 
+                  alt="Chef Harmony" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <p className="text-xs text-center mt-1 font-medium">Harmony</p>
+              {selectedChef === 'chef4' && (
+                <div className="absolute -top-1 -right-1 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+                  <Check className="w-4 h-4 text-white" />
+                </div>
+              )}
+            </div>
           </div>
         </MediumCard>
 
