@@ -31,37 +31,21 @@ export default function ExploreRecipesScreen() {
   const formatDietaryData = () => {
     const rows = [];
     
-    // Row 1: Dietary Restrictions
+    // Add dietary restrictions without labels
     if (userData?.dietaryRestrictions && userData.dietaryRestrictions.length > 0) {
-      const restrictions = userData.dietaryRestrictions.slice(0, 3).join(', ');
-      const extra = userData.dietaryRestrictions.length > 3 ? ` +${userData.dietaryRestrictions.length - 3} more` : '';
-      rows.push({ label: "Dietary", value: restrictions + extra });
+      userData.dietaryRestrictions.forEach(restriction => {
+        rows.push({ value: restriction });
+      });
     }
     
-    // Row 2: Health Conditions (from healthGoals array)
+    // Add health goals without labels
     if (userData?.healthGoals && userData.healthGoals.length > 0) {
-      // Filter health conditions vs fitness goals
-      const healthConditions = userData.healthGoals.filter((goal: string) => 
-        ['diabetes', 'cardiovascular', 'kidney', 'blood-pressure', 'cancer', 'bone-health'].includes(goal)
-      );
-      if (healthConditions.length > 0) {
-        const conditions = healthConditions.slice(0, 2).join(', ');
-        const extra = healthConditions.length > 2 ? ` +${healthConditions.length - 2} more` : '';
-        rows.push({ label: "Health", value: conditions + extra });
-      }
-      
-      // Row 3: Fitness Goals
-      const fitnessGoals = userData.healthGoals.filter((goal: string) => 
-        ['build-muscle', 'lose-weight', 'endurance', 'wellness'].includes(goal)
-      );
-      if (fitnessGoals.length > 0) {
-        const goals = fitnessGoals.slice(0, 2).join(', ');
-        const extra = fitnessGoals.length > 2 ? ` +${fitnessGoals.length - 2} more` : '';
-        rows.push({ label: "Fitness", value: goals + extra });
-      }
+      userData.healthGoals.forEach(goal => {
+        rows.push({ value: goal });
+      });
     }
     
-    // Row 4: Allergies
+    // Keep allergies with label
     if (userData?.allergies && userData.allergies.trim()) {
       const allergies = userData.allergies.length > 30 ? userData.allergies.substring(0, 30) + '...' : userData.allergies;
       rows.push({ label: "Allergies", value: allergies });
@@ -118,9 +102,15 @@ export default function ExploreRecipesScreen() {
               ) : dietaryRows.length > 0 ? (
                 <div className="space-y-1">
                   {dietaryRows.map((row, index) => (
-                    <div key={index} className="flex justify-between items-center text-sm py-1">
-                      <span className="font-medium text-gray-700">{row.label}:</span>
-                      <span className="text-gray-600 text-right flex-1 ml-2">{row.value}</span>
+                    <div key={index} className="flex items-center text-sm py-1">
+                      {row.label ? (
+                        <>
+                          <span className="font-medium text-gray-700">{row.label}:</span>
+                          <span className="text-gray-600 ml-2">{row.value}</span>
+                        </>
+                      ) : (
+                        <span className="text-gray-600">{row.value}</span>
+                      )}
                     </div>
                   ))}
                 </div>
