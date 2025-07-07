@@ -20,7 +20,12 @@ import {
   ChevronDown,
   ChevronUp,
   Play,
-  Pause
+  Pause,
+  Camera,
+  ShoppingCart,
+  MessageCircle,
+  Phone,
+  Bot
 } from "lucide-react";
 import user1Avatar from "@/assets/avatars/user/user1.png";
 import chef1Avatar from "@/assets/avatars/chef/chef1.png";
@@ -36,6 +41,9 @@ export default function VoiceCookingScreen() {
   const [chefResponse, setChefResponse] = useState("");
   const [chefGender, setChefGender] = useState("female");
   const [chefVoice, setChefVoice] = useState("energetic");
+  const [speechRecognition, setSpeechRecognition] = useState<any>(null);
+  const [speechSynthesis, setSpeechSynthesis] = useState<any>(null);
+  const [isRealVoiceEnabled, setIsRealVoiceEnabled] = useState(false);
   const [showAllSteps, setShowAllSteps] = useState(false);
   const [completedSteps, setCompletedSteps] = useState<boolean[]>(new Array(8).fill(false));
   const [isCooking, setIsCooking] = useState(false);
@@ -198,9 +206,117 @@ export default function VoiceCookingScreen() {
     }
   };
 
-  // Mock voice recognition - only in voice mode when cooking
+  // Initialize real voice chat on component mount
   useEffect(() => {
-    if (isListening && isCooking && !isMuted && cookingMode === "voice") {
+    initializeVoiceChat();
+  }, []);
+
+  const initializeVoiceChat = () => {
+    // Check for speech recognition support
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (SpeechRecognition) {
+      const recognition = new SpeechRecognition();
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.lang = 'en-US';
+      
+      recognition.onstart = () => {
+        setUserSpeaking(true);
+      };
+      
+      recognition.onresult = (event: any) => {
+        const last = event.results.length - 1;
+        const userMessage = event.results[last][0].transcript;
+        
+        if (event.results[last].isFinal) {
+          setTranscript(userMessage);
+          setVoiceCommandDetected(userMessage);
+          setLastVoiceCommand({command: userMessage, timestamp: Date.now()});
+          
+          // Clear voice command feedback after 2 seconds
+          setTimeout(() => setVoiceCommandDetected(null), 2000);
+          
+          // Add to conversation
+          setConversation(prev => [...prev, {
+            sender: 'user',
+            message: userMessage,
+            timestamp: new Date()
+          }]);
+          
+          handleVoiceCommand(userMessage);
+          setUserSpeaking(false);
+        }
+      };
+      
+      recognition.onerror = (event: any) => {
+        console.warn('Speech recognition error:', event.error);
+        setUserSpeaking(false);
+      };
+      
+      recognition.onend = () => {
+        setUserSpeaking(false);
+        // Restart listening if still in voice mode
+        if (isListening && cookingMode === "voice" && !isMuted && isCooking) {
+          setTimeout(() => recognition.start(), 1000);
+        }
+      };
+      
+      setSpeechRecognition(recognition);
+      setIsRealVoiceEnabled(true);
+    } else {
+      console.warn('Speech recognition not supported - using mock mode');
+      setIsRealVoiceEnabled(false);
+    }
+    
+    // Initialize speech synthesis
+    if ('speechSynthesis' in window) {
+      setSpeechSynthesis(window.speechSynthesis);
+    }
+  };
+
+  // Start/stop real voice recognition
+  useEffect(() => {
+    if (speechRecognition && isRealVoiceEnabled) {
+      if (isListening && cookingMode === "voice" && !isMuted && isCooking) {
+        speechRecognition.start();
+      } else {
+        speechRecognition.stop();
+      }
+    }
+  }, [isListening, cookingMode, isMuted, isCooking, speechRecognition, isRealVoiceEnabled]);
+
+  // Text-to-speech for chef responses
+  const speakChefResponse = (message: string) => {
+    if (speechSynthesis && !isMuted) {
+      // Cancel any ongoing speech
+      speechSynthesis.cancel();
+      
+      const utterance = new SpeechSynthesisUtterance(message);
+      const voices = speechSynthesis.getVoices();
+      
+      // Select appropriate voice based on gender preference
+      utterance.voice = voices.find(voice => 
+        voice.lang.includes('en') && 
+        (chefGender === 'female' ? 
+          voice.name.toLowerCase().includes('female') || voice.name.toLowerCase().includes('samantha') :
+          voice.name.toLowerCase().includes('male') || voice.name.toLowerCase().includes('alex'))
+      ) || voices[0];
+      
+      // Adjust speech characteristics based on personality
+      utterance.rate = chefVoice === 'energetic' ? 1.1 : chefVoice === 'calm' ? 0.9 : 1.0;
+      utterance.pitch = chefVoice === 'playful' ? 1.2 : 1.0;
+      
+      utterance.onstart = () => setChefSpeaking(true);
+      utterance.onend = () => setChefSpeaking(false);
+      
+      speechSynthesis.speak(utterance);
+    }
+  };
+
+  // Mock voice recognition fallback - only when real voice is not available
+  useEffect(() => {
+    // Only use mock voice when real voice is not available
+    if (!isRealVoiceEnabled && isListening && isCooking && !isMuted && cookingMode === "voice") {
       const timer = setTimeout(() => {
         const responses = [
           "How much quinoa should I use?",
@@ -233,7 +349,7 @@ export default function VoiceCookingScreen() {
       }, 1500 + Math.random() * 1000); // Faster response times
       return () => clearTimeout(timer);
     }
-  }, [isListening, currentStep, isCooking, isMuted, cookingMode]);
+  }, [isListening, currentStep, isCooking, isMuted, cookingMode, isRealVoiceEnabled]);
 
   const handleVoiceCommand = (userMessage: string) => {
     // Show AI processing feedback
@@ -255,6 +371,9 @@ export default function VoiceCookingScreen() {
       const chefMessage = chefResponses[Math.floor(Math.random() * chefResponses.length)];
       setChefResponse(chefMessage);
       setAiProcessing(false);
+      
+      // Speak the chef response if voice is enabled
+      speakChefResponse(chefMessage);
       
       // Add chef response to conversation after processing
       setConversation(prev => [...prev, {
@@ -703,20 +822,63 @@ export default function VoiceCookingScreen() {
                 {/* Voice Mode Display */}
                 {cookingMode === "voice" ? (
                   <div className="space-y-4">
-                    {/* Voice Command Feedback */}
-                    {voiceCommandDetected && (
+                    {/* Real Voice Status */}
+                    {isRealVoiceEnabled && (
+                      <div className="bg-green-50 border border-green-200 rounded-lg p-2 mb-2">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center">
+                            <div className={`w-2 h-2 rounded-full mr-2 ${isListening ? 'bg-green-500 animate-pulse' : 'bg-gray-400'}`}></div>
+                            <span className="text-xs text-green-700">
+                              {isListening ? 'Voice Active' : 'Voice Paused'}
+                            </span>
+                          </div>
+                          {isRealVoiceEnabled && (
+                            <Badge variant="outline" className="text-xs bg-green-100 text-green-700">
+                              Real Voice
+                            </Badge>
+                          )}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* User Speaking Indicator */}
+                    {userSpeaking && (
                       <div className="bg-blue-50 border-l-4 border-blue-400 p-3 animate-pulse">
                         <div className="flex items-center">
-                          <Mic className="w-4 h-4 text-blue-600 mr-2" />
+                          <Mic className="w-4 h-4 text-blue-600 mr-2 animate-pulse" />
                           <span className="text-sm font-medium text-blue-800">
-                            Heard: "{voiceCommandDetected}"
+                            Listening to you...
+                          </span>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Voice Command Feedback */}
+                    {voiceCommandDetected && !userSpeaking && (
+                      <div className="bg-blue-50 border-l-4 border-blue-400 p-3">
+                        <div className="flex items-center">
+                          <MessageCircle className="w-4 h-4 text-blue-600 mr-2" />
+                          <span className="text-sm font-medium text-blue-800">
+                            You said: "{voiceCommandDetected}"
+                          </span>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Chef Speaking Indicator */}
+                    {chefSpeaking && (
+                      <div className="bg-purple-50 border-l-4 border-purple-400 p-3 animate-pulse">
+                        <div className="flex items-center">
+                          <Bot className="w-4 h-4 text-purple-600 mr-2 animate-pulse" />
+                          <span className="text-sm font-medium text-purple-800">
+                            Chef is speaking...
                           </span>
                         </div>
                       </div>
                     )}
 
                     {/* AI Processing Feedback */}
-                    {aiProcessing && (
+                    {aiProcessing && !chefSpeaking && (
                       <div className="bg-indigo-50 border-l-4 border-indigo-400 p-3">
                         <div className="flex items-center">
                           <div className="w-4 h-4 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin mr-2"></div>
