@@ -468,6 +468,169 @@ export default function ExploreRecipesScreen() {
             </CardContent>
           </Card>
 
+          {/* Pantry Dishes Large Card */}
+          {activeCard === 'pantry-dishes' && (
+            <>
+              <Card className="bg-white border border-gray-200 shadow-lg">
+                <CardHeader className="pb-2">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-base text-purple-600">Dishes that can be cooked from pantry ingredients</CardTitle>
+                    <div className="flex items-center">
+                      <div className="rounded-lg overflow-hidden bg-white shadow-sm" style={{width: '80px', height: '80px'}}>
+                        <img 
+                          src={chefAvatarSrc} 
+                          alt="Chef Avatar"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-2 gap-3">
+                    {[
+                      { name: "Pasta Aglio e Olio", time: "15 min", calories: "340", difficulty: "Easy" },
+                      { name: "Fried Rice", time: "20 min", calories: "280", difficulty: "Easy" },
+                      { name: "Scrambled Eggs", time: "5 min", calories: "190", difficulty: "Beginner" },
+                      { name: "Garlic Bread", time: "10 min", calories: "160", difficulty: "Easy" },
+                      { name: "Simple Soup", time: "25 min", calories: "120", difficulty: "Easy" },
+                      { name: "Toast & Jam", time: "3 min", calories: "140", difficulty: "Beginner" }
+                    ].map((dish, index) => (
+                      <div key={index} className="bg-gray-50 rounded-lg p-3 border border-gray-200">
+                        <h4 className="font-medium text-sm text-gray-900 mb-1">{dish.name}</h4>
+                        <div className="flex items-center justify-between text-xs text-gray-600">
+                          <div className="flex items-center space-x-1">
+                            <Clock size={12} />
+                            <span>{dish.time}</span>
+                          </div>
+                          <span>{dish.calories} cal</span>
+                        </div>
+                        <div className="mt-1">
+                          <span className="text-xs bg-purple-100 text-purple-600 px-2 py-0.5 rounded">{dish.difficulty}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </>
+          )}
+
+          {/* Chef's Choice Large Card */}
+          {activeCard === 'chefs-choice' && (
+            <>
+              <Card className="bg-white border border-gray-200 shadow-lg">
+                <CardHeader className="pb-2">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-base text-purple-600">Chef's Special Recommendations</CardTitle>
+                    <div className="flex items-center">
+                      <div className="rounded-lg overflow-hidden bg-white shadow-sm" style={{width: '80px', height: '80px'}}>
+                        <img 
+                          src={chefAvatarSrc} 
+                          alt="Chef Avatar"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-2 gap-3">
+                    {[
+                      { name: "Mediterranean Bowl", time: "30 min", calories: "420", difficulty: "Medium" },
+                      { name: "Thai Curry", time: "35 min", calories: "380", difficulty: "Medium" },
+                      { name: "Quinoa Salad", time: "20 min", calories: "310", difficulty: "Easy" },
+                      { name: "Stuffed Peppers", time: "45 min", calories: "350", difficulty: "Medium" },
+                      { name: "Herb Crusted Fish", time: "25 min", calories: "290", difficulty: "Medium" },
+                      { name: "Power Smoothie Bowl", time: "10 min", calories: "240", difficulty: "Easy" }
+                    ].map((dish, index) => (
+                      <div key={index} className="bg-gray-50 rounded-lg p-3 border border-gray-200">
+                        <h4 className="font-medium text-sm text-gray-900 mb-1">{dish.name}</h4>
+                        <div className="flex items-center justify-between text-xs text-gray-600">
+                          <div className="flex items-center space-x-1">
+                            <Clock size={12} />
+                            <span>{dish.time}</span>
+                          </div>
+                          <span>{dish.calories} cal</span>
+                        </div>
+                        <div className="mt-1">
+                          <span className="text-xs bg-purple-100 text-purple-600 px-2 py-0.5 rounded">{dish.difficulty}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </>
+          )}
+
+          {/* Create Dish Large Card */}
+          {activeCard === 'create-dish' && (
+            <>
+              <Card className="bg-white border border-gray-200 shadow-lg">
+                <CardHeader className="pb-2">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-base text-purple-600">Create Your Custom Dish</CardTitle>
+                    <div className="flex items-center">
+                      <div className="rounded-lg overflow-hidden bg-white shadow-sm" style={{width: '80px', height: '80px'}}>
+                        <img 
+                          src={userAvatarSrc} 
+                          alt="User Avatar"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Dish Name</label>
+                      <Input placeholder="Enter your dish name..." className="w-full" />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Main Ingredients</label>
+                      <Input placeholder="e.g., chicken, rice, vegetables..." className="w-full" />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Cooking Style</label>
+                      <select className="w-full p-2 border border-gray-300 rounded-md">
+                        <option>Grilled</option>
+                        <option>Baked</option>
+                        <option>Stir-fried</option>
+                        <option>Steamed</option>
+                        <option>Raw/Salad</option>
+                      </select>
+                    </div>
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Prep Time</label>
+                        <select className="w-full p-2 border border-gray-300 rounded-md">
+                          <option>Under 15 min</option>
+                          <option>15-30 min</option>
+                          <option>30-60 min</option>
+                          <option>Over 1 hour</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Difficulty</label>
+                        <select className="w-full p-2 border border-gray-300 rounded-md">
+                          <option>Beginner</option>
+                          <option>Easy</option>
+                          <option>Medium</option>
+                          <option>Advanced</option>
+                        </select>
+                      </div>
+                    </div>
+                    <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white">
+                      Create Recipe
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </>
+          )}
+
           {/* Pantry Ingredients Large Card */}
           {activeCard === 'pantry-ingredients' && (
             <>
