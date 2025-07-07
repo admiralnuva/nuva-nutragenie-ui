@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { BackButton } from "@/components/ui/back-button";
 import { ScreenHeader } from "@/components/ui/screen-header";
-import { Clock, Users, Flame } from "lucide-react";
+import { Clock, Users, Flame, ChevronDown, ChevronUp } from "lucide-react";
 
 // Mock weekly meal data
 const weeklyMeals = [
@@ -63,6 +63,7 @@ export default function WeeklyMealPlanningScreen() {
   const [, setLocation] = useLocation();
   const [currentUser] = useLocalStorage<any>("nutragenie_user", null);
   const [tempUser] = useLocalStorage<any>("nutragenie_temp_user", null);
+  const [isExpanded, setIsExpanded] = useState(true);
   
   // Get user data - check both current and temp user
   const userData = currentUser || tempUser;
@@ -101,12 +102,31 @@ export default function WeeklyMealPlanningScreen() {
         {/* Weekly Meals Card */}
         <Card className="bg-white/80 backdrop-blur-sm border-white/50 shadow-lg">
           <CardHeader className="pb-3">
-            <CardTitle className="text-lg text-gray-800">This Week's Meals</CardTitle>
-            <p className="text-sm text-gray-600">6 planned meals for the week</p>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle className="text-lg text-gray-800">This Week's Meals</CardTitle>
+                <div className="flex items-center gap-3 mt-1">
+                  <p className="text-sm text-gray-600">6 planned meals for the week</p>
+                  <div className="flex items-center gap-1 text-xs text-gray-500">
+                    <Clock className="w-3 h-3" />
+                    <span>Avg 26 min prep</span>
+                  </div>
+                </div>
+              </div>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setIsExpanded(!isExpanded)}
+                className="h-8 w-8 p-0 text-purple-600 hover:bg-purple-50"
+              >
+                {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+              </Button>
+            </div>
           </CardHeader>
-          <CardContent className="pt-0 space-y-2">
-            {weeklyMeals.map((meal) => (
-              <div 
+          {isExpanded && (
+            <CardContent className="pt-0 space-y-2">
+              {weeklyMeals.map((meal) => (
+                <div 
                 key={meal.id}
                 className="flex flex-col p-3 bg-gray-50 rounded-lg border border-gray-200 hover:bg-gray-100 transition-colors cursor-pointer"
               >
@@ -136,9 +156,10 @@ export default function WeeklyMealPlanningScreen() {
                     {meal.difficulty}
                   </span>
                 </div>
-              </div>
-            ))}
-          </CardContent>
+                </div>
+              ))}
+            </CardContent>
+          )}
         </Card>
 
         {/* Action Buttons */}
