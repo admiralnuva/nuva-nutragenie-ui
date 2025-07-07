@@ -1,7 +1,7 @@
 import { useLocation } from "wouter";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { ScreenHeader } from "@/components/ui/screen-header";
-import { DietaryPreferencesSummary } from "@/components/ui/dietary-preferences-summary";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function ExploreRecipesScreen() {
   const [, setLocation] = useLocation();
@@ -9,6 +9,63 @@ export default function ExploreRecipesScreen() {
   
   // Get user data
   const userData = currentUser;
+
+  // Format dietary preferences data into text rows (max 6 rows)
+  const formatDietaryData = () => {
+    const rows = [];
+    
+    // Row 1: Dietary Restrictions
+    if (userData?.dietaryRestrictions && userData.dietaryRestrictions.length > 0) {
+      const restrictions = userData.dietaryRestrictions.slice(0, 3).join(', ');
+      const extra = userData.dietaryRestrictions.length > 3 ? ` +${userData.dietaryRestrictions.length - 3} more` : '';
+      rows.push({ label: "Dietary", value: restrictions + extra });
+    }
+    
+    // Row 2: Health Conditions (from healthGoals array)
+    if (userData?.healthGoals && userData.healthGoals.length > 0) {
+      // Filter health conditions vs fitness goals
+      const healthConditions = userData.healthGoals.filter((goal: string) => 
+        ['diabetes', 'cardiovascular', 'kidney', 'blood-pressure', 'cancer', 'bone-health'].includes(goal)
+      );
+      if (healthConditions.length > 0) {
+        const conditions = healthConditions.slice(0, 2).join(', ');
+        const extra = healthConditions.length > 2 ? ` +${healthConditions.length - 2} more` : '';
+        rows.push({ label: "Health", value: conditions + extra });
+      }
+      
+      // Row 3: Fitness Goals
+      const fitnessGoals = userData.healthGoals.filter((goal: string) => 
+        ['build-muscle', 'lose-weight', 'endurance', 'wellness'].includes(goal)
+      );
+      if (fitnessGoals.length > 0) {
+        const goals = fitnessGoals.slice(0, 2).join(', ');
+        const extra = fitnessGoals.length > 2 ? ` +${fitnessGoals.length - 2} more` : '';
+        rows.push({ label: "Fitness", value: goals + extra });
+      }
+    }
+    
+    // Row 4: Food Dislikes
+    if (userData?.foodDislikes && userData.foodDislikes.trim()) {
+      const dislikes = userData.foodDislikes.length > 30 ? userData.foodDislikes.substring(0, 30) + '...' : userData.foodDislikes;
+      rows.push({ label: "Dislikes", value: dislikes });
+    }
+    
+    // Row 5: Allergies
+    if (userData?.allergies && userData.allergies.trim()) {
+      const allergies = userData.allergies.length > 30 ? userData.allergies.substring(0, 30) + '...' : userData.allergies;
+      rows.push({ label: "Allergies", value: allergies });
+    }
+    
+    // Row 6: Additional Notes
+    if (userData?.additionalNotes && userData.additionalNotes.trim()) {
+      const notes = userData.additionalNotes.length > 30 ? userData.additionalNotes.substring(0, 30) + '...' : userData.additionalNotes;
+      rows.push({ label: "Notes", value: notes });
+    }
+    
+    return rows.slice(0, 6); // Ensure max 6 rows
+  };
+
+  const dietaryRows = formatDietaryData();
 
   return (
     <div className="min-h-screen bg-white p-6">
@@ -21,7 +78,31 @@ export default function ExploreRecipesScreen() {
 
         <div className="space-y-4">
           {/* Card 1: Dietary Preferences Summary */}
-          <DietaryPreferencesSummary userData={userData} />
+          <Card className="bg-white border border-gray-200">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-base text-purple-600">Your Dietary Profile</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2">
+              {dietaryRows.length > 0 ? (
+                dietaryRows.map((row, index) => (
+                  <div key={index} className="flex justify-between items-start text-sm">
+                    <span className="font-medium text-gray-700 w-20 flex-shrink-0">{row.label}:</span>
+                    <span className="text-gray-600 flex-1 text-right">{row.value}</span>
+                  </div>
+                ))
+              ) : (
+                <div className="text-center py-4">
+                  <p className="text-gray-500 text-sm">No dietary preferences set</p>
+                  <button 
+                    onClick={() => setLocation("/dietary")}
+                    className="text-purple-600 text-sm mt-1 hover:underline"
+                  >
+                    Set up your preferences
+                  </button>
+                </div>
+              )}
+            </CardContent>
+          </Card>
 
         </div>
       </div>
