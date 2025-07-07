@@ -112,7 +112,7 @@ export default function ExploreRecipesScreen() {
                 </div>
               </div>
             </CardHeader>
-            <CardContent className="pt-2">
+            <CardContent className="pt-1">
               {!userData ? (
                 <div className="text-center py-4">
                   <p className="text-gray-500 text-sm mb-3">Please create your account first to view dietary preferences</p>
