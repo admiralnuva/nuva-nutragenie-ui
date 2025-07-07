@@ -451,7 +451,18 @@ export default function ExploreRecipesScreen() {
             <>
               <Card className="bg-white border border-gray-200 shadow-lg">
                 <CardHeader className="pb-2">
-                  <CardTitle className="text-base text-purple-600">Select Pantry Ingredients</CardTitle>
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-base text-purple-600">Select Pantry Ingredients</CardTitle>
+                    <div className="flex items-center">
+                      <div className="rounded-lg overflow-hidden bg-white shadow-sm" style={{width: '60px', height: '60px'}}>
+                        <img 
+                          src={userAvatarSrc} 
+                          alt="User Avatar"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    </div>
+                  </div>
                 </CardHeader>
                 <CardContent className="space-y-2 max-h-96 overflow-y-auto pb-4">
                   {Object.entries(ingredientCategories).map(([category, ingredients]) => (
@@ -540,9 +551,20 @@ export default function ExploreRecipesScreen() {
               {/* Ingredients in Your Pantry Card */}
               <Card className="bg-white border border-gray-200">
                 <CardHeader className="pb-2">
-                  <CardTitle className="text-base text-purple-600">
-                    Ingredients in your pantry
-                  </CardTitle>
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-base text-purple-600">
+                      Ingredients in your pantry
+                    </CardTitle>
+                    <div className="flex items-center">
+                      <div className="rounded-lg overflow-hidden bg-white shadow-sm" style={{width: '60px', height: '60px'}}>
+                        <img 
+                          src={userAvatarSrc} 
+                          alt="User Avatar"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    </div>
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <div className="text-purple-600 leading-relaxed">
