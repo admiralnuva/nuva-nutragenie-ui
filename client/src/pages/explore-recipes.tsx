@@ -541,57 +541,43 @@ export default function ExploreRecipesScreen() {
                         name: "Mediterranean Bowl", 
                         time: "30 min", 
                         calories: "420", 
-                        difficulty: "Medium",
-                        image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjgwIiB2aWV3Qm94PSIwIDAgMTAwIDgwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJtZWRpdGVycmFuZWFuR3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgo8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMTBCOTgxIi8+CjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzA1OUY0NiIvPgo8L2xpbmVhckdyYWRpZW50Pgo8L2RlZnM+CjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iODAiIGZpbGw9InVybCgjbWVkaXRlcnJhbmVhbkdyYWRpZW50KSIgcng9IjgiLz4KPGNpcmNsZSBjeD0iMzAiIGN5PSIzNSIgcj0iNiIgZmlsbD0iI0ZCNzE4NSIvPgo8Y2lyY2xlIGN4PSI3MCIgY3k9IjQ1IiByPSI1IiBmaWxsPSIjRkJGQzA0Ii8+CjxyZWN0IHg9IjQ1IiB5PSIzMCIgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIiByeD0iMiIgZmlsbD0iI0ZGRkZGRiIvPgo8ZWxsaXBzZSBjeD0iMjUiIGN5PSI1NSIgcng9IjgiIHJ5PSI0IiBmaWxsPSIjMzk5MUY5Ii8+CjxjaXJjbGUgY3g9IjU1IiBjeT0iNTUiIHI9IjMiIGZpbGw9IiNGNTk1NDIiLz4KPC9zdmc+"
+                        difficulty: "Medium"
                       },
                       { 
                         name: "Thai Curry", 
                         time: "35 min", 
                         calories: "380", 
-                        difficulty: "Medium",
-                        image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjgwIiB2aWV3Qm94PSIwIDAgMTAwIDgwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJ0aGFpR3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgo8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjRkY3ODQzIi8+CjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI0VBNTUzMiIvPgo8L2xpbmVhckdyYWRpZW50Pgo8L2RlZnM+CjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iODAiIGZpbGw9InVybCgjdGhhaUdyYWRpZW50KSIgcng9IjgiLz4KPGVsbGlwc2UgY3g9IjUwIiBjeT0iNDAiIHJ4PSIyNSIgcnk9IjE1IiBmaWxsPSIjRkZGRkZGIiBvcGFjaXR5PSIwLjgiLz4KPHJlY3QgeD0iNDAiIHk9IjMwIiB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHJ4PSI0IiBmaWxsPSIjRkZGOTAwIi8+CjxjaXJjbGUgY3g9IjMwIiBjeT0iNDAiIHI9IjQiIGZpbGw9IiMzNDk4MTciLz4KPGNpcmNsZSBjeD0iNzAiIGN5PSI0MCIgcj0iNCIgZmlsbD0iIzM0OTgxNyIvPgo8Y2lyY2xlIGN4PSI1MCIgY3k9IjI1IiByPSIzIiBmaWxsPSIjRkY1NTQzIi8+Cjwvc3ZnPg=="
+                        difficulty: "Medium"
                       },
                       { 
                         name: "Quinoa Salad", 
                         time: "20 min", 
                         calories: "310", 
-                        difficulty: "Easy",
-                        image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjgwIiB2aWV3Qm94PSIwIDAgMTAwIDgwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJxdWlub2FHcmFkaWVudCIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+CjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNFRUY4RTciLz4KPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjRDJGNkNEIi8+CjwvbGluZWFyR3JhZGllbnQ+CjwvZGVmcz4KPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSI4MCIgZmlsbD0idXJsKCNxdWlub2FHcmFkaWVudCkiIHJ4PSI4Ii8+CjxjaXJjbGUgY3g9IjIwIiBjeT0iMjUiIHI9IjMiIGZpbGw9IiNGQjcxODUiLz4KPGNpcmNsZSBjeD0iODAiIGN5PSIzNSIgcj0iNCIgZmlsbD0iI0Y1OTU0MiIvPgo8Y2lyY2xlIGN4PSI2NSIgY3k9IjU1IiByPSIzIiBmaWxsPSIjRkI3MTg1Ii8+CjxjaXJjbGUgY3g9IjM1IiBjeT0iNTAiIHI9IjUiIGZpbGw9IiNGRkY5MDAiLz4KPGNpcmNsZSBjeD0iNTAiIGN5PSIzMCIgcj0iNCIgZmlsbD0iIzEwQjk4MSIvPgo8Y2lyY2xlIGN4PSI0NSIgY3k9IjUwIiByPSIyIiBmaWxsPSIjRkZGRkZGIi8+CjxjaXJjbGUgY3g9IjMwIiBjeT0iMzAiIHI9IjIiIGZpbGw9IiNGRkZGRkYiLz4KPC9zdmc+"
+                        difficulty: "Easy"
                       },
                       { 
                         name: "Stuffed Peppers", 
                         time: "45 min", 
                         calories: "350", 
-                        difficulty: "Medium",
-                        image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjgwIiB2aWV3Qm94PSIwIDAgMTAwIDgwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0icGVwcGVyR3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNGQjcxODUiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNFQTU1MzIiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjgwIiBmaWxsPSJ1cmwoI3BlcHBlckdyYWRpZW50KSIgcng9IjgiLz48ZWxsaXBzZSBjeD0iNTAiIGN5PSI0MCIgcng9IjIwIiByeT0iMjUiIGZpbGw9IiNGQjcxODUiIG9wYWNpdHk9IjAuOSIvPjxlbGxpcHNlIGN4PSI1MCIgY3k9IjM1IiByeD0iMTUiIHJ5PSI4IiBmaWxsPSIjRkZFNEUxIi8+PGNpcmNsZSBjeD0iNDUiIGN5PSIzMiIgcj0iMiIgZmlsbD0iI0Y1OTU0MiIvPjxjaXJjbGUgY3g9IjU1IiBjeT0iMzIiIHI9IjIiIGZpbGw9IiNGNTk1NDIiLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjQwIiByPSIzIiBmaWxsPSIjMTBCOTgxIi8+PHJlY3QgeD0iNDgiIHk9IjIwIiB3aWR0aD0iNCIgaGVpZ2h0PSI4IiByeD0iMiIgZmlsbD0iIzA1OUY0NiIvPjwvc3ZnPg=="
+                        difficulty: "Medium"
                       },
                       { 
                         name: "Herb Crusted Fish", 
                         time: "25 min", 
                         calories: "290", 
-                        difficulty: "Medium",
-                        image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjgwIiB2aWV3Qm94PSIwIDAgMTAwIDgwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJmaXNoR3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgo8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMzk5MUY5Ii8+CjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzI1NjNFQiIvPgo8L2xpbmVhckdyYWRpZW50Pgo8L2RlZnM+CjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iODAiIGZpbGw9InVybCgjZmlzaEdyYWRpZW50KSIgcng9IjgiLz4KPGVsbGlwc2UgY3g9IjUwIiBjeT0iNDAiIHJ4PSIzMCIgcnk9IjE1IiBmaWxsPSIjRkZGRkZGIiBvcGFjaXR5PSIwLjkiLz4KPGVsbGlwc2UgY3g9IjY1IiBjeT0iNDAiIHJ4PSI4IiByeT0iMTIiIGZpbGw9IiNGRkY5MDAiLz4KPGNpcmNsZSBjeD0iNjgiIGN5PSIzNyIgcj0iMiIgZmlsbD0iIzAwMDAwMCIvPgo8Y2lyY2xlIGN4PSIzNSIgY3k9IjM1IiByPSIyIiBmaWxsPSIjMTA5OTgxIi8+CjxjaXJjbGUgY3g9IjQwIiBjeT0iNDUiIHI9IjIiIGZpbGw9IiMxMDk5ODEiLz4KPGNpcmNsZSBjeD0iNDUiIGN5PSIzMCIgcj0iMiIgZmlsbD0iIzEwOTk4MSIvPgo8L3N2Zz4="
+                        difficulty: "Medium"
                       },
                       { 
                         name: "Power Smoothie Bowl", 
                         time: "10 min", 
                         calories: "240", 
-                        difficulty: "Easy",
-                        image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjgwIiB2aWV3Qm94PSIwIDAgMTAwIDgwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJzbW9vdGhpZUdyYWRpZW50IiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj4KPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI0E4NTVGNyIvPgo8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM3QzNBRUQiLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjgwIiBmaWxsPSJ1cmwoI3Ntb290aGllR3JhZGllbnQpIiByeD0iOCIvPgo8ZWxsaXBzZSBjeD0iNTAiIGN5PSI0NSIgcng9IjI1IiByeT0iMTUiIGZpbGw9IiNGRkZGRkYiIG9wYWNpdHk9IjAuOSIvPgo8Y2lyY2xlIGN4PSI0MCIgY3k9IjM1IiByPSI0IiBmaWxsPSIjRkI3MTg1Ii8+CjxjaXJjbGUgY3g9IjYwIiBjeT0iNDAiIHI9IjMiIGZpbGw9IiNGQjcxODUiLz4KPGNpcmNsZSBjeD0iNDUiIGN5PSI1MCIgcj0iMiIgZmlsbD0iIzEwQjk4MSIvPgo8Y2lyY2xlIGN4PSI1NSIgY3k9IjUwIiByPSIyIiBmaWxsPSIjMTA5OTgxIi8+CjxlbGxpcHNlIGN4PSI1MCIgY3k9IjQwIiByeD0iNSIgcnk9IjMiIGZpbGw9IiNGRkY5MDAiLz4KPC9zdmc+"
+                        difficulty: "Easy"
                       }
                     ].map((dish, index) => (
                       <div key={index} className="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                        <div className="relative h-20">
-                          <img 
-                            src={dish.image} 
-                            alt={dish.name}
-                            className="w-full h-full object-cover"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                        </div>
-                        <div className="p-2">
-                          <h4 className="font-medium text-sm text-gray-900 mb-1 truncate">{dish.name}</h4>
-                          <div className="flex items-center justify-between text-xs text-gray-600 mb-1">
+                        <div className="p-3">
+                          <h4 className="font-medium text-sm text-gray-900 mb-2 truncate">{dish.name}</h4>
+                          <div className="flex items-center justify-between text-xs text-gray-600 mb-2">
                             <div className="flex items-center space-x-1">
                               <Clock size={12} />
                               <span>{dish.time}</span>
