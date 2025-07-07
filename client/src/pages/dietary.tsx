@@ -385,14 +385,14 @@ export default function DietaryScreen() {
 
           {/* Nutritional Adjustments */}
           <Card>
-            <CardHeader className="pb-4">
+            <CardHeader className="pb-2">
               <div className="flex items-center justify-between">
                 <div className="flex-1">
                   <CardTitle className="text-lg">Nutritional Goals</CardTitle>
                   <CardDescription>Set your daily nutrition targets</CardDescription>
                 </div>
                 <div className="flex flex-col items-center ml-4">
-                  <div className="w-20 h-20 rounded-lg overflow-hidden bg-white">
+                  <div className="w-16 h-16 rounded-lg overflow-hidden bg-white">
                     <img 
                       src={userAvatarSrc} 
                       alt="User Avatar"
@@ -405,80 +405,87 @@ export default function DietaryScreen() {
                 </div>
               </div>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <div className="flex justify-between items-center mb-2">
-                  <label className="text-sm font-medium text-gray-700">Calories</label>
-                  <span className="text-sm text-gray-600">{calorieRange[0]} - {calorieRange[1]} cal</span>
+            <CardContent className="space-y-2">
+              {/* First row: Calories and Protein */}
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <div className="flex justify-between items-center mb-1">
+                    <label className="text-xs font-medium text-gray-700">Calories</label>
+                    <span className="text-xs text-gray-600">{calorieRange[0]}-{calorieRange[1]}</span>
+                  </div>
+                  <Slider
+                    value={calorieRange}
+                    onValueChange={setCalorieRange}
+                    max={1000}
+                    min={100}
+                    step={50}
+                    className="w-full"
+                  />
                 </div>
-                <Slider
-                  value={calorieRange}
-                  onValueChange={setCalorieRange}
-                  max={1000}
-                  min={100}
-                  step={50}
-                  className="w-full"
-                />
+                <div>
+                  <div className="flex justify-between items-center mb-1">
+                    <label className="text-xs font-medium text-gray-700">Protein</label>
+                    <span className="text-xs text-gray-600">{proteinRange[0]}-{proteinRange[1]}g</span>
+                  </div>
+                  <Slider
+                    value={proteinRange}
+                    onValueChange={setProteinRange}
+                    max={60}
+                    min={5}
+                    step={5}
+                    className="w-full"
+                  />
+                </div>
               </div>
 
-              <div>
-                <div className="flex justify-between items-center mb-2">
-                  <label className="text-sm font-medium text-gray-700">Protein</label>
-                  <span className="text-sm text-gray-600">{proteinRange[0]} - {proteinRange[1]}g</span>
+              {/* Second row: Carbs and Fat */}
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <div className="flex justify-between items-center mb-1">
+                    <label className="text-xs font-medium text-gray-700">Carbs</label>
+                    <span className="text-xs text-gray-600">{carbRange[0]}-{carbRange[1]}g</span>
+                  </div>
+                  <Slider
+                    value={carbRange}
+                    onValueChange={setCarbRange}
+                    max={100}
+                    min={5}
+                    step={5}
+                    className="w-full"
+                  />
                 </div>
-                <Slider
-                  value={proteinRange}
-                  onValueChange={setProteinRange}
-                  max={60}
-                  min={5}
-                  step={5}
-                  className="w-full"
-                />
+                <div>
+                  <div className="flex justify-between items-center mb-1">
+                    <label className="text-xs font-medium text-gray-700">Fat</label>
+                    <span className="text-xs text-gray-600">{fatRange[0]}-{fatRange[1]}g</span>
+                  </div>
+                  <Slider
+                    value={fatRange}
+                    onValueChange={setFatRange}
+                    max={50}
+                    min={5}
+                    step={2}
+                    className="w-full"
+                  />
+                </div>
               </div>
 
-              <div>
-                <div className="flex justify-between items-center mb-2">
-                  <label className="text-sm font-medium text-gray-700">Carbs</label>
-                  <span className="text-sm text-gray-600">{carbRange[0]} - {carbRange[1]}g</span>
+              {/* Third row: Fiber (centered) */}
+              <div className="flex justify-center">
+                <div className="w-1/2">
+                  <div className="flex justify-between items-center mb-1">
+                    <label className="text-xs font-medium text-gray-700">Fiber</label>
+                    <span className="text-xs text-gray-600">{fiberRange[0]}-{fiberRange[1]}g</span>
+                  </div>
+                  <Slider
+                    value={fiberRange}
+                    onValueChange={setFiberRange}
+                    max={25}
+                    min={5}
+                    step={1}
+                    className="w-full"
+                  />
                 </div>
-                <Slider
-                  value={carbRange}
-                  onValueChange={setCarbRange}
-                  max={100}
-                  min={5}
-                  step={5}
-                  className="w-full"
-                />
-              </div>
-
-              <div>
-                <div className="flex justify-between items-center mb-2">
-                  <label className="text-sm font-medium text-gray-700">Fat</label>
-                  <span className="text-sm text-gray-600">{fatRange[0]} - {fatRange[1]}g</span>
-                </div>
-                <Slider
-                  value={fatRange}
-                  onValueChange={setFatRange}
-                  max={50}
-                  min={5}
-                  step={2}
-                  className="w-full"
-                />
-              </div>
-
-              <div>
-                <div className="flex justify-between items-center mb-2">
-                  <label className="text-sm font-medium text-gray-700">Fiber</label>
-                  <span className="text-sm text-gray-600">{fiberRange[0]} - {fiberRange[1]}g</span>
-                </div>
-                <Slider
-                  value={fiberRange}
-                  onValueChange={setFiberRange}
-                  max={25}
-                  min={5}
-                  step={1}
-                  className="w-full"
-                />
               </div>
             </CardContent>
           </Card>
