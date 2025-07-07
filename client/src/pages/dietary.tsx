@@ -200,10 +200,16 @@ export default function DietaryScreen() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    updateUserMutation.mutate({
+    
+    // Save directly to localStorage first for immediate feedback
+    const currentUserData = userData || JSON.parse(localStorage.getItem('nutragenie_temp_user') || '{}');
+    const updatedUserData = {
+      ...currentUserData,
       dietaryRestrictions: selectedDietary,
       healthGoals: [...selectedHealth, ...selectedFitness],
+      foodDislikes,
       allergies,
+      additionalNotes,
       nutritionalTargets: {
         calories: calorieRange,
         protein: proteinRange,
@@ -211,7 +217,16 @@ export default function DietaryScreen() {
         fat: fatRange,
         fiber: fiberRange
       }
-    });
+    };
+    
+    // Save to both localStorage locations
+    localStorage.setItem('nutragenie_user', JSON.stringify(updatedUserData));
+    localStorage.setItem('nutragenie_temp_user', JSON.stringify(updatedUserData));
+    setCurrentUser(updatedUserData);
+    
+    // Show success message and navigate
+    toast({ title: "Dietary preferences saved successfully!" });
+    setLocation("/explore-recipes");
   };
 
   const isFormValid = selectedDietary.length > 0 || selectedHealth.length > 0 || selectedFitness.length > 0;
@@ -509,10 +524,10 @@ export default function DietaryScreen() {
           {/* Submit Button */}
           <Button
             type="submit"
-            disabled={!isFormValid || updateUserMutation.isPending}
+            disabled={!isFormValid}
             className="w-full py-4 px-6 font-semibold text-lg"
           >
-            {updateUserMutation.isPending ? "Saving Profile..." : "Explore Recipes"}
+            Explore Recipes
           </Button>
 
           {!isFormValid && (
