@@ -185,6 +185,27 @@ export default function ExploreRecipesScreen() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
+                {/* Serving Size */}
+                <div className="space-y-2">
+                  <Label htmlFor="servingSize" className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                    <Users size={16} className="text-purple-600" />
+                    Serving Size
+                  </Label>
+                  <Select value={mealPreferences.servingSize} onValueChange={(value) => setMealPreferences(prev => ({...prev, servingSize: value}))}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select serving size" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="1-person">1 person</SelectItem>
+                      <SelectItem value="2-people">2 people</SelectItem>
+                      <SelectItem value="3-4-people">3-4 people</SelectItem>
+                      <SelectItem value="5-6-people">5-6 people</SelectItem>
+                      <SelectItem value="7-8-people">7-8 people</SelectItem>
+                      <SelectItem value="large-group">Large group (9+)</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
                 {/* Cuisine */}
                 <div className="space-y-2">
                   <Label htmlFor="cuisine" className="text-sm font-medium text-gray-700 flex items-center gap-2">
@@ -308,27 +329,6 @@ export default function ExploreRecipesScreen() {
                       <SelectItem value="1-hour">1 hour</SelectItem>
                       <SelectItem value="1.5-hour">1.5 hours</SelectItem>
                       <SelectItem value="2-hour">2+ hours</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                {/* Serving Size */}
-                <div className="space-y-2">
-                  <Label htmlFor="servingSize" className="text-sm font-medium text-gray-700 flex items-center gap-2">
-                    <Users size={16} className="text-purple-600" />
-                    Serving Size
-                  </Label>
-                  <Select value={mealPreferences.servingSize} onValueChange={(value) => setMealPreferences(prev => ({...prev, servingSize: value}))}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select serving size" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="1-person">1 person</SelectItem>
-                      <SelectItem value="2-people">2 people</SelectItem>
-                      <SelectItem value="3-4-people">3-4 people</SelectItem>
-                      <SelectItem value="5-6-people">5-6 people</SelectItem>
-                      <SelectItem value="7-8-people">7-8 people</SelectItem>
-                      <SelectItem value="large-group">Large group (9+)</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
