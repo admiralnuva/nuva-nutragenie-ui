@@ -31,9 +31,19 @@ export default function ExploreRecipesScreen() {
   const formatDietaryData = () => {
     const rows = [];
     
+    // Helper function to capitalize first letter of each word
+    const capitalizeWords = (str: string) => {
+      return str.split('-').map(word => 
+        word.charAt(0).toUpperCase() + word.slice(1)
+      ).join(' ');
+    };
+
     // Row 1: Dietary Restrictions (comma-separated)
     if (userData?.dietaryRestrictions && userData.dietaryRestrictions.length > 0) {
-      rows.push({ value: userData.dietaryRestrictions.join(", ") });
+      const formattedRestrictions = userData.dietaryRestrictions.map(restriction => 
+        capitalizeWords(restriction)
+      );
+      rows.push({ value: formattedRestrictions.join(", ") });
     }
     
     // Row 2: Health Conditions (comma-separated)
@@ -42,7 +52,10 @@ export default function ExploreRecipesScreen() {
         ['diabetes', 'cardiovascular', 'kidney', 'blood-pressure', 'cancer', 'bone-health'].includes(goal)
       );
       if (healthConditions.length > 0) {
-        rows.push({ value: healthConditions.join(", ") });
+        const formattedConditions = healthConditions.map(condition => 
+          capitalizeWords(condition)
+        );
+        rows.push({ value: formattedConditions.join(", ") });
       }
       
       // Row 3: Fitness Goals (comma-separated)
@@ -50,7 +63,10 @@ export default function ExploreRecipesScreen() {
         ['build-muscle', 'lose-weight', 'endurance', 'wellness'].includes(goal)
       );
       if (fitnessGoals.length > 0) {
-        rows.push({ value: fitnessGoals.join(", ") });
+        const formattedGoals = fitnessGoals.map(goal => 
+          capitalizeWords(goal)
+        );
+        rows.push({ value: formattedGoals.join(", ") });
       }
     }
     
