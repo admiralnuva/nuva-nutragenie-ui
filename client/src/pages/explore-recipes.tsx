@@ -708,7 +708,7 @@ export default function ExploreRecipesScreen() {
           {/* Pantry Ingredients Large Card */}
           {activeCard === 'pantry-ingredients' && (
             <>
-              <Card className="bg-white border border-gray-200 shadow-lg">
+              <Card className="bg-white border border-gray-200">
                 <CardHeader className="pb-2 pt-2 relative">
                   <div className="pr-20">
                     <div className="mt-2">
@@ -728,7 +728,7 @@ export default function ExploreRecipesScreen() {
                 </CardHeader>
                 
                 {/* Expand/Collapse Button */}
-                <div className="px-6 pb-3">
+                <div className="px-6 pb-2">
                   <Button 
                     className="w-full h-12 flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-700 text-white"
                     onClick={() => setIsPantryExpanded(!isPantryExpanded)}
