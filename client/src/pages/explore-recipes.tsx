@@ -95,11 +95,11 @@ export default function ExploreRecipesScreen() {
         <div className="space-y-4">
           {/* Card 1: Dietary Preferences Summary */}
           <Card className="bg-white border border-gray-200">
-            <CardHeader className="pb-2">
-              <div className="flex items-center justify-between">
-                <CardTitle className="text-base text-purple-600">Summary of your dietary Preferences</CardTitle>
-                <div className="flex flex-col items-center">
-                  <div className="w-12 h-12 rounded-lg overflow-hidden bg-white shadow-sm">
+            <CardHeader className="pb-1 pt-3">
+              <div className="flex items-start justify-between">
+                <CardTitle className="text-sm text-purple-600 leading-tight">Summary of your dietary Preferences</CardTitle>
+                <div className="flex flex-col items-center ml-2">
+                  <div className="w-10 h-10 rounded-lg overflow-hidden bg-white shadow-sm">
                     <img 
                       src={userAvatarSrc} 
                       alt="User Avatar"
@@ -112,7 +112,7 @@ export default function ExploreRecipesScreen() {
                 </div>
               </div>
             </CardHeader>
-            <CardContent className="pt-2">
+            <CardContent className="pt-1 pb-3">
               {!userData ? (
                 <div className="text-center py-4">
                   <p className="text-gray-500 text-sm mb-3">Please create your account first to view dietary preferences</p>
@@ -126,7 +126,7 @@ export default function ExploreRecipesScreen() {
               ) : dietaryRows.length > 0 ? (
                 <div className="space-y-0">
                   {dietaryRows.map((row, index) => (
-                    <div key={index} className="flex items-center text-sm py-1">
+                    <div key={index} className="flex items-center text-xs py-0.5">
                       {row.label ? (
                         <>
                           <span className="font-medium text-gray-700">{row.label}:</span>
