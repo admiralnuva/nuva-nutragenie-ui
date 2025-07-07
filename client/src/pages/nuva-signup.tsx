@@ -32,10 +32,10 @@ const userAvatars = [
 ];
 
 const chefs = [
-  { name: 'Chef Marcus', personality: 'Precise & Classic', avatar: chefAvatar1 },
-  { name: 'Chef Luna', personality: 'Friendly & Vibrant', avatar: chefAvatar2 },
-  { name: 'Chef Blaze', personality: 'Bold & Spicy', avatar: chefAvatar3 },
-  { name: 'Chef Harmony', personality: 'Zen & Delicate', avatar: chefAvatar4 }
+  { id: 'chef1', name: 'Chef Marcus', personality: 'Precise & Classic', avatar: chefAvatar1 },
+  { id: 'chef2', name: 'Chef Luna', personality: 'Friendly & Vibrant', avatar: chefAvatar2 },
+  { id: 'chef3', name: 'Chef Blaze', personality: 'Bold & Spicy', avatar: chefAvatar3 },
+  { id: 'chef4', name: 'Chef Harmony', personality: 'Zen & Delicate', avatar: chefAvatar4 }
 ];
 
 export default function NuvaSignupScreen() {
@@ -51,7 +51,7 @@ export default function NuvaSignupScreen() {
   const [state, setState] = useState("");
   const [zipCode, setZipCode] = useState("");
   const [verificationCode, setVerificationCode] = useState("");
-  const [selectedChef, setSelectedChef] = useState<any>(null);
+  const [selectedChef, setSelectedChef] = useState("");
   const [selectedAvatar, setSelectedAvatar] = useState<any>(null);
   const [chefNickname, setChefNickname] = useState("");
   const [isVerifying, setIsVerifying] = useState(false);
@@ -90,15 +90,16 @@ export default function NuvaSignupScreen() {
       toast({ title: "Phone Verified!", description: "Your phone number has been verified successfully." });
       
       setTimeout(() => {
+        const selectedChefData = chefs.find(chef => chef.id === selectedChef);
         createUserMutation.mutate({
           nickname: nickname || 'TestUser',
           ageGroup: ageGroup || '25-30',
           phoneNumber: phoneNumber || '1234567890',
           avatar: selectedAvatar?.id || 'user1',
           selectedChef: {
-            name: chefNickname || selectedChef?.name || 'Chef',
-            personality: selectedChef?.personality || 'Friendly & Encouraging',
-            avatar: selectedChef?.avatar || chefAvatar1
+            name: chefNickname || selectedChefData?.name || 'Chef',
+            personality: selectedChefData?.personality || 'Friendly & Encouraging',
+            avatar: selectedChefData?.avatar || chefAvatar1
           },
           dietaryRestrictions: [],
           healthGoals: [],
@@ -265,93 +266,19 @@ export default function NuvaSignupScreen() {
         >
           {/* Chef Selection - 4 avatars in a row */}
           <div className="grid grid-cols-4 gap-3">
-            {/* Chef 1 - Marcus */}
-            <div 
-              className={`relative cursor-pointer transition-all duration-200 ${
-                selectedChef?.name === 'Chef Marcus' ? 'ring-2 ring-blue-500 bg-blue-50 rounded-lg scale-105' : 'hover:scale-105'
-              }`}
-              onClick={() => setSelectedChef(chefs[0])}
-            >
-              <div className="w-20 h-20 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden">
-                <img 
-                  src={chefAvatar1} 
-                  alt="Chef Marcus" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <p className="text-xs text-center mt-1 font-medium">Marcus</p>
-              {selectedChef?.name === 'Chef Marcus' && (
-                <div className="absolute -top-1 -right-1 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
-                  <Check className="w-4 h-4 text-white" />
-                </div>
-              )}
-            </div>
-
-            {/* Chef 2 - Luna */}
-            <div 
-              className={`relative cursor-pointer transition-all duration-200 ${
-                selectedChef?.name === 'Chef Luna' ? 'ring-2 ring-blue-500 bg-blue-50 rounded-lg scale-105' : 'hover:scale-105'
-              }`}
-              onClick={() => setSelectedChef(chefs[1])}
-            >
-              <div className="w-20 h-20 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden">
-                <img 
-                  src={chefAvatar2} 
-                  alt="Chef Luna" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <p className="text-xs text-center mt-1 font-medium">Luna</p>
-              {selectedChef?.name === 'Chef Luna' && (
-                <div className="absolute -top-1 -right-1 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
-                  <Check className="w-4 h-4 text-white" />
-                </div>
-              )}
-            </div>
-
-            {/* Chef 3 - Blaze */}
-            <div 
-              className={`relative cursor-pointer transition-all duration-200 ${
-                selectedChef?.name === 'Chef Blaze' ? 'ring-2 ring-blue-500 bg-blue-50 rounded-lg scale-105' : 'hover:scale-105'
-              }`}
-              onClick={() => setSelectedChef(chefs[2])}
-            >
-              <div className="w-20 h-20 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden">
-                <img 
-                  src={chefAvatar3} 
-                  alt="Chef Blaze" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <p className="text-xs text-center mt-1 font-medium">Blaze</p>
-              {selectedChef?.name === 'Chef Blaze' && (
-                <div className="absolute -top-1 -right-1 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
-                  <Check className="w-4 h-4 text-white" />
-                </div>
-              )}
-            </div>
-
-            {/* Chef 4 - Harmony */}
-            <div 
-              className={`relative cursor-pointer transition-all duration-200 ${
-                selectedChef?.name === 'Chef Harmony' ? 'ring-2 ring-blue-500 bg-blue-50 rounded-lg scale-105' : 'hover:scale-105'
-              }`}
-              onClick={() => setSelectedChef(chefs[3])}
-            >
-              <div className="w-20 h-20 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden">
-                <img 
-                  src={chefAvatar4} 
-                  alt="Chef Harmony" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <p className="text-xs text-center mt-1 font-medium">Harmony</p>
-              {selectedChef?.name === 'Chef Harmony' && (
-                <div className="absolute -top-1 -right-1 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
-                  <Check className="w-4 h-4 text-white" />
-                </div>
-              )}
-            </div>
+            {chefs.map((chef) => (
+              <button
+                key={chef.id}
+                onClick={() => setSelectedChef(chef.id)}
+                className={`w-20 h-20 rounded-lg border-2 overflow-hidden transition-all ${
+                  selectedChef === chef.id 
+                    ? 'ring-2 ring-indigo-500 border-indigo-500 scale-105' 
+                    : 'border-gray-300 hover:border-indigo-400'
+                }`}
+              >
+                <img src={chef.avatar} alt={chef.name} className="w-full h-full object-cover" />
+              </button>
+            ))}
           </div>
         </MediumCard>
 
