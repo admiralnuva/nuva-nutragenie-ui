@@ -10,7 +10,7 @@ import { NavigationButton, SelectionButton } from "@/components/ui/reusable-butt
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { User, ChefHat, Phone, Check } from "lucide-react";
+import { User, ChefHat, Phone, Check, MapPin } from "lucide-react";
 
 // Import user avatar images
 import userAvatar1 from "@/assets/avatars/user/user1.png";
@@ -46,6 +46,10 @@ export default function NuvaSignupScreen() {
   const [nickname, setNickname] = useState("");
   const [ageGroup, setAgeGroup] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [streetAddress, setStreetAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zipCode, setZipCode] = useState("");
   const [verificationCode, setVerificationCode] = useState("");
   const [selectedAvatar, setSelectedAvatar] = useState<any>(null);
   const [selectedChef, setSelectedChef] = useState<any>(null);
@@ -186,6 +190,67 @@ export default function NuvaSignupScreen() {
             </div>
           </div>
         </MediumCard>
+
+        {/* Address Card */}
+        <SmallCard
+          title="Your Address"
+          cardName="Address Setup"
+          description="Enter your delivery address"
+          avatar={
+            <div className="w-full h-full bg-blue-100 rounded-full flex items-center justify-center">
+              <MapPin className="w-1/2 h-1/2 text-blue-600" />
+            </div>
+          }
+        >
+          {/* Address 1 */}
+          <div className="space-y-2 mb-3">
+            <Label htmlFor="address1">Address</Label>
+            <Input
+              id="address1"
+              value={streetAddress}
+              onChange={(e) => setStreetAddress(e.target.value)}
+              placeholder="Enter street address"
+            />
+          </div>
+
+          {/* City, State, Zip in same row */}
+          <div className="grid grid-cols-12 gap-2">
+            <div className="space-y-2 col-span-6">
+              <Label htmlFor="city">City</Label>
+              <Input
+                id="city"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+                placeholder="City"
+              />
+            </div>
+            <div className="space-y-2 col-span-3">
+              <Label>State</Label>
+              <Select value={state} onValueChange={setState}>
+                <SelectTrigger>
+                  <SelectValue placeholder="State" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="AL">AL</SelectItem>
+                  <SelectItem value="CA">CA</SelectItem>
+                  <SelectItem value="FL">FL</SelectItem>
+                  <SelectItem value="NY">NY</SelectItem>
+                  <SelectItem value="TX">TX</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-2 col-span-3">
+              <Label htmlFor="zip">Zip</Label>
+              <Input
+                id="zip"
+                value={zipCode}
+                onChange={(e) => setZipCode(e.target.value)}
+                placeholder="12345"
+                maxLength={6}
+              />
+            </div>
+          </div>
+        </SmallCard>
 
         {/* Chef Card */}
         <MediumCard
