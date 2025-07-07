@@ -71,6 +71,8 @@ export default function DietaryScreen() {
   const [selectedHealth, setSelectedHealth] = useState<string[]>([]);
   const [selectedFitness, setSelectedFitness] = useState<string[]>([]);
   const [allergies, setAllergies] = useState("");
+  const [foodDislikes, setFoodDislikes] = useState("");
+  const [additionalNotes, setAdditionalNotes] = useState("");
   
   // Nutritional adjustments state
   const [calorieRange, setCalorieRange] = useState([300, 600]);
@@ -207,9 +209,9 @@ export default function DietaryScreen() {
       ...currentUserData,
       dietaryRestrictions: selectedDietary,
       healthGoals: [...selectedHealth, ...selectedFitness],
-      foodDislikes,
-      allergies,
-      additionalNotes,
+      foodDislikes: foodDislikes,
+      allergies: allergies,
+      additionalNotes: additionalNotes,
       nutritionalTargets: {
         calories: calorieRange,
         protein: proteinRange,
@@ -404,13 +406,36 @@ export default function DietaryScreen() {
                 </div>
               </div>
             </CardHeader>
-            <CardContent>
-              <Textarea
-                placeholder="e.g., Severe peanut allergy, shellfish allergy..."
-                value={allergies}
-                onChange={(e) => setAllergies(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent h-20 resize-none"
-              />
+            <CardContent className="space-y-4">
+              <div>
+                <label className="text-sm font-medium text-gray-700 block mb-2">Allergies</label>
+                <Textarea
+                  placeholder="e.g., Severe peanut allergy, shellfish allergy..."
+                  value={allergies}
+                  onChange={(e) => setAllergies(e.target.value)}
+                  className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent h-16 resize-none"
+                />
+              </div>
+              
+              <div>
+                <label className="text-sm font-medium text-gray-700 block mb-2">Food Dislikes</label>
+                <Textarea
+                  placeholder="e.g., mushrooms, spicy food, fish..."
+                  value={foodDislikes}
+                  onChange={(e) => setFoodDislikes(e.target.value)}
+                  className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent h-16 resize-none"
+                />
+              </div>
+              
+              <div>
+                <label className="text-sm font-medium text-gray-700 block mb-2">Additional Notes</label>
+                <Textarea
+                  placeholder="e.g., Prefer Mediterranean meals, avoid processed foods..."
+                  value={additionalNotes}
+                  onChange={(e) => setAdditionalNotes(e.target.value)}
+                  className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent h-16 resize-none"
+                />
+              </div>
             </CardContent>
           </Card>
 
