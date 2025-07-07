@@ -174,9 +174,39 @@ export default function ExploreRecipesScreen() {
         <div className="space-y-4">
           {/* Card 1: Dietary Preferences Summary */}
           <Card className="bg-white border border-gray-200">
-            <CardHeader className="pb-1 pt-2">
+            <CardHeader className="pb-0 pt-2">
               <div className="flex items-start justify-between">
-                <CardTitle className="text-base text-purple-600 mt-2">Your dietary preferences:</CardTitle>
+                <div className="flex-1">
+                  <CardTitle className="text-base text-purple-600 mt-2 mb-1">Your dietary preferences:</CardTitle>
+                  {!userData ? (
+                    <div className="mt-2">
+                      <p className="text-gray-500 text-sm mb-3">Please create your account first to view dietary preferences</p>
+                      <button 
+                        onClick={() => setLocation("/nuva-signup")}
+                        className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-purple-700"
+                      >
+                        Create Account
+                      </button>
+                    </div>
+                  ) : dietaryRows.length > 0 ? (
+                    <div className="space-y-0">
+                      {dietaryRows.map((row, index) => (
+                        <div key={index} className="flex items-center text-sm py-0.5">
+                          {row.label ? (
+                            <>
+                              <span className="font-medium text-gray-700">{row.label}:</span>
+                              <span className="text-gray-600 ml-2">{row.value}</span>
+                            </>
+                          ) : (
+                            <span className="text-gray-600">{row.value}</span>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="text-gray-500 text-sm py-2">No dietary preferences set</p>
+                  )}
+                </div>
                 <div className="flex flex-col items-center -mt-2">
                   <div className="rounded-lg overflow-hidden bg-white shadow-sm" style={{width: '70px', height: '70px'}}>
                     <img 
@@ -191,44 +221,6 @@ export default function ExploreRecipesScreen() {
                 </div>
               </div>
             </CardHeader>
-            <CardContent className="pt-0 pb-3">
-              {!userData ? (
-                <div className="text-center py-4">
-                  <p className="text-gray-500 text-sm mb-3">Please create your account first to view dietary preferences</p>
-                  <button 
-                    onClick={() => setLocation("/nuva-signup")}
-                    className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-purple-700"
-                  >
-                    Create Account
-                  </button>
-                </div>
-              ) : dietaryRows.length > 0 ? (
-                <div className="space-y-0 -mt-1">
-                  {dietaryRows.map((row, index) => (
-                    <div key={index} className="flex items-center text-sm py-0.5">
-                      {row.label ? (
-                        <>
-                          <span className="font-medium text-gray-700">{row.label}:</span>
-                          <span className="text-gray-600 ml-2">{row.value}</span>
-                        </>
-                      ) : (
-                        <span className="text-gray-600">{row.value}</span>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-3">
-                  <p className="text-gray-500 text-sm mb-3">Welcome {userData?.nickname}! Complete your dietary profile to see personalized recipes.</p>
-                  <button 
-                    onClick={() => setLocation("/dietary")}
-                    className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-purple-700"
-                  >
-                    Complete Dietary Setup
-                  </button>
-                </div>
-              )}
-            </CardContent>
           </Card>
 
           {/* Card 2: Meal Preferences */}
