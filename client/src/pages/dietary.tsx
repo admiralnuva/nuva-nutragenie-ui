@@ -201,7 +201,7 @@ export default function DietaryScreen() {
   const isFormValid = selectedDietary.length > 0 || selectedHealth.length > 0 || selectedFitness.length > 0;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-indigo-50 p-6">
+    <div className="min-h-screen bg-white p-6">
       <div className="max-w-md mx-auto pt-2">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">

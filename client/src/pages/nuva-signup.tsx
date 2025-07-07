@@ -118,7 +118,7 @@ export default function NuvaSignupScreen() {
   const isPhoneComplete = phoneNumber.length >= 10;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-500 via-purple-600 to-indigo-700">
+    <div className="min-h-screen bg-white">
       <FrameworkHeader 
         screenName="Create Account" 
         showBack 
