@@ -341,6 +341,16 @@ Changelog:
   * Set Pantry Ingredients as default selected option with purple selection highlighting
   * Established purple color consistency across all selection states (dietary preferences, recipe options)
   * Updated reusable-buttons component to use purple theme for consistent brand experience
+- July 07, 2025. Voice Cooking Integration and Chef's Choice Layout Enhancement:
+  * Fixed runtime error in voice cooking screen by adding missing Camera and ShoppingCart imports
+  * Integrated real voice chat using Web Speech API for hands-free cooking assistance
+  * Added text-to-speech for chef responses with personality-based voice characteristics (energetic, calm, playful)
+  * Enhanced UI with real-time voice status indicators showing listening, speaking, and processing states
+  * Implemented fallback to mock voice simulation when browser doesn't support speech recognition
+  * Added visual feedback for user speech detection and chef response states
+  * Removed images from Chef's Choice section per user request for cleaner interface
+  * Enhanced Chef's Choice dish layout: dish name in first row, calories/timer left-aligned in second row, difficulty right-aligned at bottom
+  * Improved card structure with proper flexbox layout for consistent visual hierarchy
 ```
 
 ## User Preferences

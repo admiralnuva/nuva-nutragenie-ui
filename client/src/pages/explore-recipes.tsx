@@ -575,16 +575,23 @@ export default function ExploreRecipesScreen() {
                       }
                     ].map((dish, index) => (
                       <div key={index} className="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                        <div className="p-3">
+                        <div className="p-3 h-full flex flex-col justify-between">
+                          {/* Row 1: Dish Name */}
                           <h4 className="font-medium text-sm text-gray-900 mb-2 truncate">{dish.name}</h4>
-                          <div className="flex items-center justify-between text-xs text-gray-600 mb-2">
+                          
+                          {/* Row 2: Calories and Timer (left aligned) */}
+                          <div className="flex items-center space-x-3 text-xs text-gray-600 mb-2">
+                            <span>{dish.calories} cal</span>
                             <div className="flex items-center space-x-1">
                               <Clock size={12} />
                               <span>{dish.time}</span>
                             </div>
-                            <span>{dish.calories} cal</span>
                           </div>
-                          <span className="text-xs bg-purple-100 text-purple-600 px-2 py-0.5 rounded">{dish.difficulty}</span>
+                          
+                          {/* Bottom: Difficulty (right aligned) */}
+                          <div className="flex justify-end">
+                            <span className="text-xs bg-purple-100 text-purple-600 px-2 py-0.5 rounded">{dish.difficulty}</span>
+                          </div>
                         </div>
                       </div>
                     ))}
