@@ -396,8 +396,10 @@ export default function ExploreRecipesScreen() {
                   </Select>
                 </div>
 
+                </div>
+
                 {/* Expand/Collapse Button */}
-                <div className="pt-2">
+                <div className="pt-4">
                   <Button 
                     className="w-full h-12 flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-700 text-white"
                     onClick={() => setIsMealPreferencesExpanded(!isMealPreferencesExpanded)}
@@ -414,8 +416,6 @@ export default function ExploreRecipesScreen() {
                       </>
                     )}
                   </Button>
-                </div>
-
                 </div>
               </CardContent>
             )}
