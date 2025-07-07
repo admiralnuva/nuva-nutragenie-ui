@@ -11,7 +11,9 @@ export default function ExploreRecipesScreen() {
   // Get user data - check both current and temp user
   const userData = currentUser || tempUser;
 
-  // Clean implementation without debug logs
+  // Add debug logging to see current user data
+  console.log("Explore Recipes - User Data:", userData);
+  console.log("Available properties:", userData ? Object.keys(userData) : "No user data");
 
   // Format dietary preferences data into text rows (max 6 rows)
   const formatDietaryData = () => {
@@ -57,6 +59,9 @@ export default function ExploreRecipesScreen() {
   };
 
   const dietaryRows = formatDietaryData();
+  
+  // Debug dietary rows
+  console.log("Formatted dietary rows:", dietaryRows);
   
   // Check if user has any dietary data
   const hasDietaryData = userData?.dietaryRestrictions || userData?.healthGoals || userData?.allergies;
