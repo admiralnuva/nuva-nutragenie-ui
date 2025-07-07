@@ -16,11 +16,24 @@ import userAvatar2 from "@/assets/avatars/user/user2.png";
 import userAvatar3 from "@/assets/avatars/user/user3.png";
 import userAvatar4 from "@/assets/avatars/user/user4.png";
 
+// Import chef avatar images
+import chefAvatar1 from "@/assets/avatars/chef/chef1.png";
+import chefAvatar2 from "@/assets/avatars/chef/chef2.png";
+import chefAvatar3 from "@/assets/avatars/chef/chef3.png";
+import chefAvatar4 from "@/assets/avatars/chef/chef4.png";
+
 const userAvatars = {
   'user1': userAvatar1,
   'user2': userAvatar2,
   'user3': userAvatar3,
   'user4': userAvatar4
+};
+
+const chefAvatars = {
+  'chef1': chefAvatar1,
+  'chef2': chefAvatar2,
+  'chef3': chefAvatar3,
+  'chef4': chefAvatar4
 };
 
 export default function ExploreRecipesScreen() {
@@ -31,8 +44,17 @@ export default function ExploreRecipesScreen() {
   // Get user data - check both current and temp user
   const userData = currentUser || tempUser;
 
-  // Get user avatar
+  // Get user and chef avatars
   const userAvatarSrc = userData?.avatar ? userAvatars[userData.avatar as keyof typeof userAvatars] : userAvatar1;
+  const chefAvatarSrc = userData?.chef ? chefAvatars[userData.chef as keyof typeof chefAvatars] : chefAvatar1;
+  
+  // Get dynamic avatar for Card 3 based on active selection
+  const getDynamicAvatar = () => {
+    if (activeCard === 'pantry-dishes' || activeCard === 'chefs-choice') {
+      return chefAvatarSrc;
+    }
+    return userAvatarSrc;
+  };
 
   // Meal preferences state
   const [mealPreferences, setMealPreferences] = useState({
@@ -381,8 +403,8 @@ export default function ExploreRecipesScreen() {
                 <div className="flex items-center">
                   <div className="rounded-lg overflow-hidden bg-white shadow-sm" style={{width: '80px', height: '80px'}}>
                     <img 
-                      src={userAvatarSrc} 
-                      alt="User Avatar"
+                      src={getDynamicAvatar()} 
+                      alt={activeCard === 'pantry-dishes' || activeCard === 'chefs-choice' ? "Chef Avatar" : "User Avatar"}
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -402,6 +424,19 @@ export default function ExploreRecipesScreen() {
                 >
                   <ShoppingCart size={18} className={activeCard === 'pantry-ingredients' ? 'text-white' : 'text-purple-600'} />
                   <span className={`text-sm font-medium ${activeCard === 'pantry-ingredients' ? 'text-white' : 'text-gray-700'} text-center leading-tight`}>Pantry Ingredients</span>
+                </Button>
+
+                <Button 
+                  variant="outline" 
+                  className={`h-16 flex flex-col items-center justify-center space-y-1 border-purple-200 hover:border-purple-300 ${
+                    activeCard === 'create-dish' 
+                      ? 'bg-purple-600 text-white border-purple-600 hover:bg-purple-700' 
+                      : 'hover:bg-purple-50'
+                  }`}
+                  onClick={() => setActiveCard('create-dish')}
+                >
+                  <Plus size={18} className={activeCard === 'create-dish' ? 'text-white' : 'text-purple-600'} />
+                  <span className={`text-sm font-medium ${activeCard === 'create-dish' ? 'text-white' : 'text-gray-700'} text-center leading-tight`}>Create Dish</span>
                 </Button>
 
                 <Button 
@@ -428,19 +463,6 @@ export default function ExploreRecipesScreen() {
                 >
                   <Sparkles size={18} className={activeCard === 'chefs-choice' ? 'text-white' : 'text-purple-600'} />
                   <span className={`text-sm font-medium ${activeCard === 'chefs-choice' ? 'text-white' : 'text-gray-700'} text-center leading-tight`}>Chef's Choice</span>
-                </Button>
-
-                <Button 
-                  variant="outline" 
-                  className={`h-16 flex flex-col items-center justify-center space-y-1 border-purple-200 hover:border-purple-300 ${
-                    activeCard === 'create-dish' 
-                      ? 'bg-purple-600 text-white border-purple-600 hover:bg-purple-700' 
-                      : 'hover:bg-purple-50'
-                  }`}
-                  onClick={() => setActiveCard('create-dish')}
-                >
-                  <Plus size={18} className={activeCard === 'create-dish' ? 'text-white' : 'text-purple-600'} />
-                  <span className={`text-sm font-medium ${activeCard === 'create-dish' ? 'text-white' : 'text-gray-700'} text-center leading-tight`}>Create Dish</span>
                 </Button>
               </div>
             </CardContent>
