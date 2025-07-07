@@ -95,11 +95,15 @@ export default function NuvaSignupScreen() {
           nickname: nickname || 'TestUser',
           ageGroup: ageGroup || '25-30',
           phoneNumber: phoneNumber || '1234567890',
+          streetAddress: streetAddress || '',
+          city: city || '',
+          state: state || '',
+          zipCode: zipCode || '',
           avatar: selectedAvatar?.id || 'user1',
           selectedChef: {
             name: chefNickname || selectedChefData?.name || 'Chef',
             personality: selectedChefData?.personality || 'Friendly & Encouraging',
-            avatar: selectedChefData?.avatar || chefAvatar1
+            emoji: selectedChefData?.displayName || 'Chef'
           },
           dietaryRestrictions: [],
           healthGoals: [],
