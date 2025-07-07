@@ -70,9 +70,10 @@ export default function ExploreRecipesScreen() {
   };
 
   const addCustomIngredient = () => {
-    if (newIngredient.trim() && !customIngredients.includes(newIngredient.trim())) {
-      setCustomIngredients(prev => [...prev, newIngredient.trim()]);
-      setSelectedIngredients(prev => [...prev, newIngredient.trim()]);
+    if (newIngredient.trim() && !customIngredients.includes(newIngredient.trim()) && !selectedIngredients.includes(newIngredient.trim())) {
+      const ingredient = newIngredient.trim();
+      setCustomIngredients(prev => [...prev, ingredient]);
+      setSelectedIngredients(prev => [...prev, ingredient]);
       setNewIngredient('');
     }
   };
@@ -450,22 +451,12 @@ export default function ExploreRecipesScreen() {
             <>
               <Card className="bg-white border border-gray-200 shadow-lg">
                 <CardHeader className="pb-2">
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-base text-purple-600">Select Pantry Ingredients</CardTitle>
-                    <Button 
-                      variant="ghost" 
-                      size="sm" 
-                      onClick={() => setActiveCard('')}
-                      className="text-gray-500 hover:text-gray-700"
-                    >
-                      ✕
-                    </Button>
-                  </div>
+                  <CardTitle className="text-base text-purple-600">Select Pantry Ingredients</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-3">
+                <CardContent className="space-y-3 pb-20">
                   {Object.entries(ingredientCategories).map(([category, ingredients]) => (
-                    <div key={category} className="flex items-center gap-3">
-                      <Label htmlFor={`${category}-select`} className="text-sm font-medium text-gray-700 flex items-center gap-2 min-w-[100px]">
+                    <div key={category} className="flex items-center gap-3 bg-gray-50 p-3 rounded-lg shadow-sm">
+                      <Label htmlFor={`${category}-select`} className="text-sm font-medium text-gray-800 flex items-center gap-2 min-w-[100px]">
                         <ChefHat size={16} className="text-purple-600" />
                         {category}
                       </Label>
