@@ -458,24 +458,35 @@ export default function ExploreRecipesScreen() {
                 <CardContent className="space-y-6">
                   {Object.entries(ingredientCategories).map(([category, ingredients]) => (
                     <div key={category} className="space-y-3">
-                      <h3 className="font-medium text-gray-800 border-b border-gray-200 pb-1">{category}</h3>
-                      <div className="grid grid-cols-2 gap-3">
-                        {ingredients.map((ingredient) => (
-                          <div key={ingredient} className="flex items-center space-x-2">
-                            <Checkbox
-                              id={ingredient}
-                              checked={selectedIngredients.includes(ingredient)}
-                              onCheckedChange={() => handleIngredientToggle(ingredient)}
-                              className="data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600"
-                            />
-                            <Label 
-                              htmlFor={ingredient}
-                              className="text-sm text-gray-700 capitalize cursor-pointer"
-                            >
-                              {ingredient.replace('-', ' ')}
-                            </Label>
-                          </div>
-                        ))}
+                      <div className="space-y-2">
+                        <Label htmlFor={`${category}-select`} className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                          <ChefHat size={16} className="text-purple-600" />
+                          {category}
+                        </Label>
+                        <Select>
+                          <SelectTrigger>
+                            <SelectValue placeholder={`Select ${category.toLowerCase()}`} />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {ingredients.map((ingredient) => (
+                              <div key={ingredient} className="flex items-center space-x-2 p-2 hover:bg-purple-50">
+                                <Checkbox
+                                  id={ingredient}
+                                  checked={selectedIngredients.includes(ingredient)}
+                                  onCheckedChange={() => handleIngredientToggle(ingredient)}
+                                  className="data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600"
+                                />
+                                <Label 
+                                  htmlFor={ingredient}
+                                  className="text-sm text-gray-700 capitalize cursor-pointer flex-1"
+                                  onClick={() => handleIngredientToggle(ingredient)}
+                                >
+                                  {ingredient.replace('-', ' ')}
+                                </Label>
+                              </div>
+                            ))}
+                          </SelectContent>
+                        </Select>
                       </div>
                     </div>
                   ))}
