@@ -194,7 +194,7 @@ export default function NuvaSignupScreen() {
         {/* Address Card */}
         <SmallCard
           title="Your Address"
-          cardName="Address Setup"
+          cardName=""
           description="Enter your delivery address"
           avatar={
             <div className="w-full h-full bg-blue-100 rounded-full flex items-center justify-center">
