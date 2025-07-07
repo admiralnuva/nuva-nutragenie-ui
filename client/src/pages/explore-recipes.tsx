@@ -174,69 +174,70 @@ export default function ExploreRecipesScreen() {
         <div className="space-y-4">
           {/* Card 1: Dietary Preferences Summary */}
           <Card className="bg-white border border-gray-200">
-            <CardHeader className="pb-0 pt-2">
-              <div className="flex items-start justify-between">
-                <div className="flex-1">
-                  <CardTitle className="text-base text-purple-600 mt-2 mb-1">Your dietary preferences:</CardTitle>
-                  {!userData ? (
-                    <div className="mt-2">
-                      <p className="text-gray-500 text-sm mb-3">Please create your account first to view dietary preferences</p>
-                      <button 
-                        onClick={() => setLocation("/nuva-signup")}
-                        className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-purple-700"
-                      >
-                        Create Account
-                      </button>
-                    </div>
-                  ) : dietaryRows.length > 0 ? (
-                    <div className="space-y-0">
-                      {dietaryRows.map((row, index) => (
-                        <div key={index} className="flex items-center text-sm py-0.5">
-                          {row.label ? (
-                            <>
-                              <span className="font-medium text-gray-700">{row.label}:</span>
-                              <span className="text-gray-600 ml-2">{row.value}</span>
-                            </>
-                          ) : (
-                            <span className="text-gray-600">{row.value}</span>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <p className="text-gray-500 text-sm py-2">No dietary preferences set</p>
-                  )}
-                </div>
-                <div className="flex flex-col items-end -mt-4 -mr-4">
-                  <div className="rounded-lg overflow-hidden" style={{width: '80px', height: '80px'}}>
-                    <img 
-                      src={userAvatarSrc} 
-                      alt="User Avatar"
-                      className="w-full h-full object-cover"
-                    />
+            <CardHeader className="pb-0 pt-2 relative">
+              <div className="pr-20">
+                <CardTitle className="text-base text-purple-600 mt-2 mb-1">Your dietary preferences:</CardTitle>
+                {!userData ? (
+                  <div className="mt-2">
+                    <p className="text-gray-500 text-sm mb-3">Please create your account first to view dietary preferences</p>
+                    <button 
+                      onClick={() => setLocation("/nuva-signup")}
+                      className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-purple-700"
+                    >
+                      Create Account
+                    </button>
                   </div>
-                  <p className="text-xs text-gray-600 mt-0.5 font-medium text-right">
-                    {userData?.nickname || "User"}
-                  </p>
+                ) : dietaryRows.length > 0 ? (
+                  <div className="space-y-0">
+                    {dietaryRows.map((row, index) => (
+                      <div key={index} className="flex items-center text-sm py-0.5">
+                        {row.label ? (
+                          <>
+                            <span className="font-medium text-gray-700">{row.label}:</span>
+                            <span className="text-gray-600 ml-2">{row.value}</span>
+                          </>
+                        ) : (
+                          <span className="text-gray-600">{row.value}</span>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-gray-500 text-sm py-2">No dietary preferences set</p>
+                )}
+              </div>
+              <div className="absolute top-0 right-0 flex flex-col items-center">
+                <div className="rounded-lg overflow-hidden" style={{width: '80px', height: '80px'}}>
+                  <img 
+                    src={userAvatarSrc} 
+                    alt="User Avatar"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
+                <p className="text-xs text-gray-600 mt-1 font-medium text-center">
+                  {userData?.nickname || "User"}
+                </p>
               </div>
             </CardHeader>
           </Card>
 
           {/* Card 2: Meal Preferences */}
           <Card className="bg-white border border-gray-200">
-            <CardHeader className="pb-3 pt-2">
-              <div className="flex items-start justify-between">
+            <CardHeader className="pb-3 pt-2 relative">
+              <div className="pr-20">
                 <CardTitle className="text-base text-purple-600 mt-2">Meal Preferences</CardTitle>
-                <div className="flex items-end -mt-4 -mr-4">
-                  <div className="rounded-lg overflow-hidden" style={{width: '80px', height: '80px'}}>
-                    <img 
-                      src={userAvatarSrc} 
-                      alt="User Avatar"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
+              </div>
+              <div className="absolute top-0 right-0 flex flex-col items-center">
+                <div className="rounded-lg overflow-hidden" style={{width: '80px', height: '80px'}}>
+                  <img 
+                    src={userAvatarSrc} 
+                    alt="User Avatar"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
+                <p className="text-xs text-gray-600 mt-1 font-medium text-center">
+                  {userData?.nickname || "User"}
+                </p>
               </div>
             </CardHeader>
             {isMealPreferencesExpanded && (
@@ -417,18 +418,21 @@ export default function ExploreRecipesScreen() {
 
           {/* Card 3 - Recipe Options */}
           <Card className="bg-white border border-gray-200">
-            <CardHeader className="pb-2 pt-2">
-              <div className="flex items-start justify-between">
+            <CardHeader className="pb-2 pt-2 relative">
+              <div className="pr-20">
                 <CardTitle className="text-base text-purple-600 mt-2">Recipe Options</CardTitle>
-                <div className="flex items-end -mt-4 -mr-4">
-                  <div className="rounded-lg overflow-hidden" style={{width: '80px', height: '80px'}}>
-                    <img 
-                      src={getDynamicAvatar()} 
-                      alt={activeCard === 'pantry-dishes' || activeCard === 'chefs-choice' ? "Chef Avatar" : "User Avatar"}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
+              </div>
+              <div className="absolute top-0 right-0 flex flex-col items-center">
+                <div className="rounded-lg overflow-hidden" style={{width: '80px', height: '80px'}}>
+                  <img 
+                    src={getDynamicAvatar()} 
+                    alt={activeCard === 'pantry-dishes' || activeCard === 'chefs-choice' ? "Chef Avatar" : "User Avatar"}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
+                <p className="text-xs text-gray-600 mt-1 font-medium text-center">
+                  {activeCard === 'pantry-dishes' || activeCard === 'chefs-choice' ? userData?.chefName || "Chef" : userData?.nickname || "User"}
+                </p>
               </div>
             </CardHeader>
             <CardContent className="space-y-3">
@@ -492,18 +496,21 @@ export default function ExploreRecipesScreen() {
           {activeCard === 'pantry-dishes' && (
             <>
               <Card className="bg-white border border-gray-200 shadow-lg">
-                <CardHeader className="pb-2 pt-2">
-                  <div className="flex items-start justify-between">
+                <CardHeader className="pb-2 pt-2 relative">
+                  <div className="pr-20">
                     <CardTitle className="text-base text-purple-600 mt-2">Dishes that can be cooked from pantry ingredients</CardTitle>
-                    <div className="flex items-end -mt-4 -mr-4">
-                      <div className="rounded-lg overflow-hidden" style={{width: '80px', height: '80px'}}>
-                        <img 
-                          src={chefAvatarSrc} 
-                          alt="Chef Avatar"
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
+                  </div>
+                  <div className="absolute top-0 right-0 flex flex-col items-center">
+                    <div className="rounded-lg overflow-hidden" style={{width: '80px', height: '80px'}}>
+                      <img 
+                        src={chefAvatarSrc} 
+                        alt="Chef Avatar"
+                        className="w-full h-full object-cover"
+                      />
                     </div>
+                    <p className="text-xs text-gray-600 mt-1 font-medium text-center">
+                      {userData?.chefName || "Chef"}
+                    </p>
                   </div>
                 </CardHeader>
                 <CardContent>
@@ -547,18 +554,21 @@ export default function ExploreRecipesScreen() {
           {activeCard === 'chefs-choice' && (
             <>
               <Card className="bg-white border border-gray-200 shadow-lg">
-                <CardHeader className="pb-2 pt-2">
-                  <div className="flex items-start justify-between">
+                <CardHeader className="pb-2 pt-2 relative">
+                  <div className="pr-20">
                     <CardTitle className="text-base text-purple-600 mt-2">Chef's Special Recommendations</CardTitle>
-                    <div className="flex items-end -mt-4 -mr-4">
-                      <div className="rounded-lg overflow-hidden" style={{width: '80px', height: '80px'}}>
-                        <img 
-                          src={chefAvatarSrc} 
-                          alt="Chef Avatar"
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
+                  </div>
+                  <div className="absolute top-0 right-0 flex flex-col items-center">
+                    <div className="rounded-lg overflow-hidden" style={{width: '80px', height: '80px'}}>
+                      <img 
+                        src={chefAvatarSrc} 
+                        alt="Chef Avatar"
+                        className="w-full h-full object-cover"
+                      />
                     </div>
+                    <p className="text-xs text-gray-600 mt-1 font-medium text-center">
+                      {userData?.chefName || "Chef"}
+                    </p>
                   </div>
                 </CardHeader>
                 <CardContent>
@@ -699,21 +709,24 @@ export default function ExploreRecipesScreen() {
           {activeCard === 'pantry-ingredients' && (
             <>
               <Card className="bg-white border border-gray-200 shadow-lg">
-                <CardHeader className="pb-2 pt-2">
-                  <div className="flex items-start justify-between">
+                <CardHeader className="pb-2 pt-2 relative">
+                  <div className="pr-20">
                     <div className="mt-2">
                       <CardTitle className="text-base text-purple-600">Select Pantry Ingredients</CardTitle>
                       <p className="text-xs text-gray-500 mt-1">Click the Expand button below to select your ingredients</p>
                     </div>
-                    <div className="flex items-end -mt-4 -mr-4">
-                      <div className="rounded-lg overflow-hidden" style={{width: '80px', height: '80px'}}>
-                        <img 
-                          src={userAvatarSrc} 
-                          alt="User Avatar"
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
+                  </div>
+                  <div className="absolute top-0 right-0 flex flex-col items-center">
+                    <div className="rounded-lg overflow-hidden" style={{width: '80px', height: '80px'}}>
+                      <img 
+                        src={userAvatarSrc} 
+                        alt="User Avatar"
+                        className="w-full h-full object-cover"
+                      />
                     </div>
+                    <p className="text-xs text-gray-600 mt-1 font-medium text-center">
+                      {userData?.nickname || "User"}
+                    </p>
                   </div>
                 </CardHeader>
                 
