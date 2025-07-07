@@ -453,7 +453,7 @@ export default function ExploreRecipesScreen() {
                 <CardHeader className="pb-2">
                   <CardTitle className="text-base text-purple-600">Select Pantry Ingredients</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-2 pb-20">
+                <CardContent className="space-y-2 max-h-96 overflow-y-auto pb-4">
                   {Object.entries(ingredientCategories).map(([category, ingredients]) => (
                     <div key={category} className="flex items-center gap-1.5 bg-gray-50 p-1 rounded-md shadow-lg shadow-purple-200/50 border border-purple-100">
                       <Label htmlFor={`${category}-select`} className="text-sm font-medium text-gray-800 flex items-center gap-2 min-w-[100px]">
@@ -488,7 +488,7 @@ export default function ExploreRecipesScreen() {
                   ))}
 
                   {/* Custom Ingredients Section */}
-                  <div className="space-y-2 border-t border-gray-200 pt-3">
+                  <div className="space-y-2 border-t border-gray-200 pt-3 mt-4">
                     <h3 className="font-medium text-gray-800 text-sm">Add Custom Ingredients</h3>
                     <div className="flex space-x-2">
                       <Input
@@ -527,8 +527,6 @@ export default function ExploreRecipesScreen() {
                       </div>
                     )}
                   </div>
-
-
                 </CardContent>
               </Card>
 
