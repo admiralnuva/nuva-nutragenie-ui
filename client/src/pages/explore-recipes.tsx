@@ -31,24 +31,32 @@ export default function ExploreRecipesScreen() {
   const formatDietaryData = () => {
     const rows = [];
     
-    // Add dietary restrictions without labels
+    // Row 1: Dietary Restrictions (comma-separated)
     if (userData?.dietaryRestrictions && userData.dietaryRestrictions.length > 0) {
-      userData.dietaryRestrictions.forEach(restriction => {
-        rows.push({ value: restriction });
-      });
+      rows.push({ value: userData.dietaryRestrictions.join(", ") });
     }
     
-    // Add health goals without labels
+    // Row 2: Health Conditions (comma-separated)
     if (userData?.healthGoals && userData.healthGoals.length > 0) {
-      userData.healthGoals.forEach(goal => {
-        rows.push({ value: goal });
-      });
+      const healthConditions = userData.healthGoals.filter((goal: string) => 
+        ['diabetes', 'cardiovascular', 'kidney', 'blood-pressure', 'cancer', 'bone-health'].includes(goal)
+      );
+      if (healthConditions.length > 0) {
+        rows.push({ value: healthConditions.join(", ") });
+      }
+      
+      // Row 3: Fitness Goals (comma-separated)
+      const fitnessGoals = userData.healthGoals.filter((goal: string) => 
+        ['build-muscle', 'lose-weight', 'endurance', 'wellness'].includes(goal)
+      );
+      if (fitnessGoals.length > 0) {
+        rows.push({ value: fitnessGoals.join(", ") });
+      }
     }
     
-    // Keep allergies with label
+    // Row 4: Allergies with label
     if (userData?.allergies && userData.allergies.trim()) {
-      const allergies = userData.allergies.length > 30 ? userData.allergies.substring(0, 30) + '...' : userData.allergies;
-      rows.push({ label: "Allergies", value: allergies });
+      rows.push({ label: "Allergies", value: userData.allergies });
     }
     
     return rows.slice(0, 6); // Ensure max 6 rows
