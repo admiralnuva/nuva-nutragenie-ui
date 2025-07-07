@@ -157,33 +157,33 @@ export default function NuvaSignupScreen() {
             ))}
           </div>
 
-          {/* Nickname Input */}
-          <div className="space-y-2 mb-4">
-            <Label htmlFor="nickname">Nickname</Label>
-            <Input
-              id="nickname"
-              value={nickname}
-              onChange={(e) => setNickname(e.target.value)}
-              placeholder="Enter your nickname"
-            />
-          </div>
-
-          {/* Age Group Selection */}
-          <div className="space-y-2">
-            <Label>Age Group</Label>
-            <Select value={ageGroup} onValueChange={setAgeGroup}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select age group" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="18-25">18-25</SelectItem>
-                <SelectItem value="26-35">26-35</SelectItem>
-                <SelectItem value="36-45">36-45</SelectItem>
-                <SelectItem value="46-55">46-55</SelectItem>
-                <SelectItem value="56-65">56-65</SelectItem>
-                <SelectItem value="65+">65+</SelectItem>
-              </SelectContent>
-            </Select>
+          {/* Nickname and Age Group in same row */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="nickname">Nickname</Label>
+              <Input
+                id="nickname"
+                value={nickname}
+                onChange={(e) => setNickname(e.target.value)}
+                placeholder="Enter your nickname"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label>Age Group</Label>
+              <Select value={ageGroup} onValueChange={setAgeGroup}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select age group" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="18-25">18-25</SelectItem>
+                  <SelectItem value="26-35">26-35</SelectItem>
+                  <SelectItem value="36-45">36-45</SelectItem>
+                  <SelectItem value="46-55">46-55</SelectItem>
+                  <SelectItem value="56-65">56-65</SelectItem>
+                  <SelectItem value="65+">65+</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
         </MediumCard>
 
