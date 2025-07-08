@@ -475,6 +475,7 @@ Changelog:
   * Fixed validation message color to purple-300 for dark theme visibility
   * Applied consistent card styling across all dietary preference sections
   * Ensured all avatars display properly with consistent 80x80 sizing
+  * Removed white background shadows from all avatar containers for cleaner appearance
 ```
 
 ## User Preferences

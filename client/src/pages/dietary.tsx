@@ -270,7 +270,7 @@ export default function DietaryScreen() {
                   <CardDescription className="text-gray-300">Select dietary choice to create personalized nutrition</CardDescription>
                 </div>
                 <div className="flex flex-col items-center ml-4">
-                  <div className="w-20 h-20 rounded-lg overflow-hidden bg-white">
+                  <div className="w-20 h-20 rounded-lg overflow-hidden">
                     <img 
                       src={userAvatarSrc} 
                       alt="User Avatar"
@@ -315,7 +315,7 @@ export default function DietaryScreen() {
                   <CardDescription className="text-gray-300">Select health factors</CardDescription>
                 </div>
                 <div className="flex flex-col items-center ml-4">
-                  <div className="w-20 h-20 rounded-lg overflow-hidden bg-white">
+                  <div className="w-20 h-20 rounded-lg overflow-hidden">
                     <img 
                       src={userAvatarSrc} 
                       alt="User Avatar"
@@ -360,7 +360,7 @@ export default function DietaryScreen() {
                   <CardDescription className="text-gray-300">Your fitness and wellness goals</CardDescription>
                 </div>
                 <div className="flex flex-col items-center ml-4">
-                  <div className="w-20 h-20 rounded-lg overflow-hidden bg-white">
+                  <div className="w-20 h-20 rounded-lg overflow-hidden">
                     <img 
                       src={userAvatarSrc} 
                       alt="User Avatar"
@@ -402,7 +402,7 @@ export default function DietaryScreen() {
                   <CardDescription className="text-gray-300">List any food allergies or severe restrictions</CardDescription>
                 </div>
                 <div className="flex flex-col items-center ml-4">
-                  <div className="w-20 h-20 rounded-lg overflow-hidden bg-white">
+                  <div className="w-20 h-20 rounded-lg overflow-hidden">
                     <img 
                       src={userAvatarSrc} 
                       alt="User Avatar"
@@ -434,7 +434,7 @@ export default function DietaryScreen() {
                   <CardDescription className="text-gray-300">Set your daily nutrition targets</CardDescription>
                 </div>
                 <div className="flex flex-col items-center ml-4">
-                  <div className="w-16 h-16 rounded-lg overflow-hidden bg-white">
+                  <div className="w-16 h-16 rounded-lg overflow-hidden">
                     <img 
                       src={userAvatarSrc} 
                       alt="User Avatar"
