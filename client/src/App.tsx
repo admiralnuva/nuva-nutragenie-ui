@@ -23,7 +23,7 @@ import ProfileScreen from "@/pages/profile";
 import HealthAnalyticsScreen from "@/pages/health";
 import HomeScreen from "@/pages/home";
 
-import GroceryListScreen from "@/pages/grocery-list";
+import GroceryListScreen from "@/pages/grocery-list-new";
 import InstacartScreen from "@/pages/instacart";
 import WeeklyMealPlanningScreen from "@/pages/weekly-meal-planning";
 

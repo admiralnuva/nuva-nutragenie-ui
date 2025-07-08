@@ -6,93 +6,105 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { BackButton } from "@/components/ui/back-button";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Plus, Minus, Trash2, Printer, ShoppingCart, Fish, Wheat, Apple, Salad, Carrot, Coffee, Milk, Cookie, Beef, Soup } from "lucide-react";
+import { FrameworkHeader } from "@/components/ui/framework-header";
+import { ArrowLeft, Plus, Minus, Trash2, Printer, ShoppingCart, Fish, Wheat, Apple, Salad, Carrot, Coffee, Milk, Cookie, Beef, Soup, Edit3, Save, FileText } from "lucide-react";
 
-// Mock grocery items (this would come from the review-recipes page in real implementation)
+// Category definitions with icons
+const categories = {
+  meat: { name: "Meat & Poultry", icon: Beef, color: "text-red-600" },
+  fish: { name: "Fish & Seafood", icon: Fish, color: "text-blue-600" },
+  vegetables: { name: "Vegetables", icon: Carrot, color: "text-green-600" },
+  fruits: { name: "Fruits", icon: Apple, color: "text-orange-600" },
+  grains: { name: "Grains & Pasta", icon: Wheat, color: "text-yellow-600" },
+  dairy: { name: "Dairy & Eggs", icon: Milk, color: "text-purple-600" },
+  pantry: { name: "Pantry Items", icon: Coffee, color: "text-amber-600" }
+};
+
+// Mock grocery items organized by category
 const mockGroceryItems = [
   {
     name: "Chicken Breast",
     quantity: "2 lbs",
-    nutrition: { calories: 540, protein: 101 },
-    dishes: ["Grilled Chicken Salad"],
+    category: "meat",
     inPantry: false
   },
   {
-    name: "Mixed Greens",
-    quantity: "1 bag",
-    nutrition: { calories: 20, protein: 2 },
-    dishes: ["Grilled Chicken Salad"],
-    inPantry: false
-  },
-  {
-    name: "Bell Peppers",
-    quantity: "3 pieces",
-    nutrition: { calories: 37, protein: 1 },
-    dishes: ["Vegetable Stir Fry"],
+    name: "Ground Turkey",
+    quantity: "1 lb",
+    category: "meat",
     inPantry: false
   },
   {
     name: "Salmon Fillet",
     quantity: "1.5 lbs",
-    nutrition: { calories: 412, protein: 58 },
-    dishes: ["Salmon with Quinoa"],
+    category: "fish",
     inPantry: false
   },
   {
-    name: "Quinoa",
+    name: "Bell Peppers",
+    quantity: "3 pieces",
+    category: "vegetables",
+    inPantry: false
+  },
+  {
+    name: "Mixed Greens",
     quantity: "1 bag",
-    nutrition: { calories: 626, protein: 24 },
-    dishes: ["Salmon with Quinoa"],
-    inPantry: false
-  },
-  {
-    name: "Red Lentils",
-    quantity: "1 bag",
-    nutrition: { calories: 679, protein: 49 },
-    dishes: ["Lentil Curry"],
-    inPantry: false
-  },
-  {
-    name: "Coconut Milk",
-    quantity: "2 cans",
-    nutrition: { calories: 445, protein: 5 },
-    dishes: ["Lentil Curry"],
+    category: "vegetables",
     inPantry: false
   },
   {
     name: "Tomatoes",
     quantity: "4 pieces",
-    nutrition: { calories: 22, protein: 1 },
-    dishes: ["Garden Salad"],
+    category: "vegetables",
+    inPantry: false
+  },
+  {
+    name: "Bananas",
+    quantity: "1 bunch",
+    category: "fruits",
+    inPantry: false
+  },
+  {
+    name: "Quinoa",
+    quantity: "1 bag",
+    category: "grains",
+    inPantry: false
+  },
+  {
+    name: "Red Lentils",
+    quantity: "1 bag",
+    category: "grains",
+    inPantry: false
+  },
+  {
+    name: "Greek Yogurt",
+    quantity: "2 containers",
+    category: "dairy",
+    inPantry: false
+  },
+  {
+    name: "Coconut Milk",
+    quantity: "2 cans",
+    category: "pantry",
+    inPantry: false
+  },
+  {
+    name: "Olive Oil",
+    quantity: "1 bottle",
+    category: "pantry",
     inPantry: false
   }
 ];
 
-// Function to get appropriate icon for ingredient
-const getIngredientIcon = (ingredientName: string) => {
-  const name = ingredientName.toLowerCase();
+// Group items by category
+const groupItemsByCategory = (items: any[]) => {
+  const grouped: any = {};
   
-  if (name.includes('chicken') || name.includes('beef') || name.includes('meat')) {
-    return <Beef className="w-4 h-4 text-orange-600" />;
-  } else if (name.includes('salmon') || name.includes('fish') || name.includes('tuna')) {
-    return <Fish className="w-4 h-4 text-blue-600" />;
-  } else if (name.includes('greens') || name.includes('lettuce') || name.includes('salad')) {
-    return <Salad className="w-4 h-4 text-green-600" />;
-  } else if (name.includes('pepper') || name.includes('carrot') || name.includes('cucumber') || name.includes('tomato')) {
-    return <Carrot className="w-4 h-4 text-orange-500" />;
-  } else if (name.includes('quinoa') || name.includes('rice') || name.includes('grain') || name.includes('bread')) {
-    return <Wheat className="w-4 h-4 text-amber-600" />;
-  } else if (name.includes('apple') || name.includes('fruit') || name.includes('berry')) {
-    return <Apple className="w-4 h-4 text-red-500" />;
-  } else if (name.includes('milk') || name.includes('cheese') || name.includes('yogurt')) {
-    return <Milk className="w-4 h-4 text-blue-400" />;
-  } else if (name.includes('sauce') || name.includes('oil') || name.includes('dressing')) {
-    return <Soup className="w-4 h-4 text-brown-600" />;
-  } else if (name.includes('nuts') || name.includes('seeds') || name.includes('snack')) {
-    return <Cookie className="w-4 h-4 text-yellow-600" />;
-  } else {
-    return <Coffee className="w-4 h-4 text-gray-600" />;
-  }
+  Object.keys(categories).forEach(categoryKey => {
+    grouped[categoryKey] = items.filter(item => item.category === categoryKey);
+  });
+  
+  return grouped;
 };
 
 export default function GroceryListScreen() {
@@ -106,6 +118,12 @@ export default function GroceryListScreen() {
   const [groceryItems, setGroceryItems] = useState(mockGroceryItems);
   const [newItemName, setNewItemName] = useState("");
   const [newItemQuantity, setNewItemQuantity] = useState("");
+  const [newItemCategory, setNewItemCategory] = useState("pantry");
+  const [editingItem, setEditingItem] = useState<string | null>(null);
+  const [editQuantity, setEditQuantity] = useState("");
+  
+  // Group items by category
+  const groupedItems = groupItemsByCategory(groceryItems);
 
   // Get current date
   const getCurrentDate = () => {
@@ -140,14 +158,34 @@ export default function GroceryListScreen() {
       const newItem = {
         name: newItemName,
         quantity: newItemQuantity,
-        nutrition: { calories: 0, protein: 0 },
-        dishes: ["Custom"],
+        category: newItemCategory,
         inPantry: false
       };
       setGroceryItems(prev => [...prev, newItem]);
       setNewItemName("");
       setNewItemQuantity("");
     }
+  };
+
+  // Start editing item
+  const startEdit = (itemName: string, currentQuantity: string) => {
+    setEditingItem(itemName);
+    setEditQuantity(currentQuantity);
+  };
+
+  // Save edit
+  const saveEdit = () => {
+    if (editingItem && editQuantity.trim()) {
+      updateQuantity(editingItem, editQuantity);
+      setEditingItem(null);
+      setEditQuantity("");
+    }
+  };
+
+  // Cancel edit
+  const cancelEdit = () => {
+    setEditingItem(null);
+    setEditQuantity("");
   };
 
   // Handle print
