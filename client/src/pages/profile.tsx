@@ -55,7 +55,7 @@ export default function ProfileScreen() {
     <CardContent className="p-6 space-y-6">
       {/* Header with Edit Button */}
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-gray-800">Account Information</h3>
+        <h3 className="text-lg font-semibold text-white">Account Information</h3>
         <Button 
           variant="ghost" 
           size="sm"
@@ -70,7 +70,7 @@ export default function ProfileScreen() {
         <>
           {/* User Avatar and Info */}
           <div className="space-y-4">
-            <h4 className="font-medium text-gray-700">Your Profile</h4>
+            <h4 className="font-medium text-gray-300">Your Profile</h4>
             <div className="space-y-3">
               <div className="space-y-2">
                 <Label className="text-sm font-medium">Avatar</Label>
@@ -101,7 +101,7 @@ export default function ProfileScreen() {
 
           {/* Chef Avatar and Info */}
           <div className="space-y-4">
-            <h4 className="font-medium text-gray-700">Your AI Chef</h4>
+            <h4 className="font-medium text-gray-300">Your AI Chef</h4>
             <div className="space-y-3">
               <div className="space-y-2">
                 <Label className="text-sm font-medium">Chef Avatar</Label>
@@ -314,7 +314,7 @@ export default function ProfileScreen() {
       return (
         <CardContent className="p-6 space-y-6">
           <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold text-gray-800">Grocery List History</h3>
+            <h3 className="text-lg font-semibold text-white">Grocery List History</h3>
           </div>
           <div className="text-center py-8">
             <FileText size={48} className="mx-auto text-gray-300 mb-4" />
@@ -328,15 +328,15 @@ export default function ProfileScreen() {
     return (
       <CardContent className="p-6 space-y-6">
         <div className="flex items-center justify-between">
-          <h3 className="text-lg font-semibold text-gray-800">Grocery List History</h3>
+          <h3 className="text-lg font-semibold text-white">Grocery List History</h3>
         </div>
 
         <div className="space-y-2">
           {savedLists.map((list: any) => (
             <div key={list.id} className="flex items-center justify-between py-2 border-b border-gray-100 last:border-b-0">
               <div className="flex items-center gap-4">
-                <span className="font-medium text-gray-800">{list.date}</span>
-                <span className="text-sm text-gray-600">{list.totalItems} items</span>
+                <span className="font-medium text-white">{list.date}</span>
+                <span className="text-sm text-gray-300">{list.totalItems} items</span>
               </div>
               <div className="flex gap-2">
                 <Button 
@@ -396,7 +396,7 @@ export default function ProfileScreen() {
     return (
       <CardContent className="p-6 space-y-6">
         <div className="flex items-center justify-between">
-          <h3 className="text-lg font-semibold text-gray-800">Instacart Orders</h3>
+          <h3 className="text-lg font-semibold text-white">Instacart Orders</h3>
         </div>
 
         <div className="space-y-3">
@@ -404,13 +404,13 @@ export default function ProfileScreen() {
             <div key={order.id} className="py-3 border-b border-gray-100 last:border-b-0">
               {/* Row 1: Order # and Date */}
               <div className="flex justify-between items-center mb-1">
-                <span className="font-medium text-gray-800">{order.id}</span>
-                <span className="text-sm text-gray-600">{order.date}</span>
+                <span className="font-medium text-white">{order.id}</span>
+                <span className="text-sm text-gray-300">{order.date}</span>
               </div>
               {/* Row 2: Items and Dollar Value */}
               <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">{order.items} items</span>
-                <span className="font-medium text-gray-800">${order.total}</span>
+                <span className="text-sm text-gray-300">{order.items} items</span>
+                <span className="font-medium text-white">${order.total}</span>
               </div>
             </div>
           ))}
@@ -432,7 +432,7 @@ export default function ProfileScreen() {
     return (
       <CardContent className="p-6 space-y-6">
         <div className="flex items-center justify-between">
-          <h3 className="text-lg font-semibold text-gray-800">Recipes Created</h3>
+          <h3 className="text-lg font-semibold text-white">Recipes Created</h3>
         </div>
 
         {/* Progress Bar */}
@@ -456,8 +456,8 @@ export default function ProfileScreen() {
           {recipes.map((recipe) => (
             <div key={recipe.id} className="flex items-center justify-between py-2 border-b border-gray-100 last:border-b-0">
               <div>
-                <div className="font-medium text-gray-800">{recipe.name}</div>
-                <div className="text-sm text-gray-600">{recipe.date} • {recipe.category}</div>
+                <div className="font-medium text-white">{recipe.name}</div>
+                <div className="text-sm text-gray-300">{recipe.date} • {recipe.category}</div>
               </div>
               <Button size="sm" variant="outline" className="h-8">
                 View Recipe
@@ -480,7 +480,7 @@ export default function ProfileScreen() {
     return (
       <CardContent className="p-6 space-y-6">
         <div className="flex items-center justify-between">
-          <h3 className="text-lg font-semibold text-gray-800">Cooking History</h3>
+          <h3 className="text-lg font-semibold text-white">Cooking History</h3>
         </div>
 
         {/* Progress Bar */}
@@ -504,8 +504,8 @@ export default function ProfileScreen() {
           {dishes.map((dish) => (
             <div key={dish.id} className="flex items-center justify-between py-2 border-b border-gray-100 last:border-b-0">
               <div className="flex-1">
-                <div className="font-medium text-gray-800">{dish.name}</div>
-                <div className="text-sm text-gray-600">{dish.date}</div>
+                <div className="font-medium text-white">{dish.name}</div>
+                <div className="text-sm text-gray-300">{dish.date}</div>
               </div>
               <Button size="sm" variant="outline" className="h-8">
                 View
@@ -520,7 +520,7 @@ export default function ProfileScreen() {
   const renderHealthSection = () => (
     <CardContent className="p-6 space-y-6">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-gray-800">Health & Tracking</h3>
+        <h3 className="text-lg font-semibold text-white">Health & Tracking</h3>
       </div>
 
       {/* Monthly & Yearly Trends - 4 subcards */}
