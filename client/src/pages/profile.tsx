@@ -657,7 +657,7 @@ export default function ProfileScreen() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900 pb-20">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black pb-20">
       <div className="p-6">
         <div className="max-w-md mx-auto flex items-center justify-between">
           <BackButton to="/explore-recipes" className="text-white" />

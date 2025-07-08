@@ -419,7 +419,7 @@ export default function HomeScreen() {
   return (
     <div className="min-h-screen bg-black pb-20">
       {/* Header */}
-      <div className="bg-white/20 backdrop-blur-sm border-b border-white/30 px-4 py-4 flex items-center justify-between">
+      <div className="bg-gray-900 border-b border-gray-700 px-4 py-4 flex items-center justify-between">
         <BackButton to="/explore-recipes" className="text-white" />
         <div className="flex-1 text-center">
           <h1 className="text-2xl font-bold text-white">NutraGenie</h1>
