@@ -306,18 +306,24 @@ export default function ProfileScreen() {
   );
 
   const renderGroceryHistory = () => {
-    const groceryLists = [
-      { id: 1, date: "Jan 4, 2025", items: 12 },
-      { id: 2, date: "Jan 3, 2025", items: 8 },
-      { id: 3, date: "Jan 2, 2025", items: 15 },
-      { id: 4, date: "Jan 1, 2025", items: 6 },
-      { id: 5, date: "Dec 30, 2024", items: 11 },
-      { id: 6, date: "Dec 28, 2024", items: 9 },
-      { id: 7, date: "Dec 26, 2024", items: 14 },
-      { id: 8, date: "Dec 24, 2024", items: 7 },
-      { id: 9, date: "Dec 22, 2024", items: 13 },
-      { id: 10, date: "Dec 20, 2024", items: 10 }
-    ];
+    // Get saved grocery lists from localStorage
+    const savedLists = JSON.parse(localStorage.getItem("nutragenie_grocery_history") || "[]");
+    
+    // If no saved lists, show empty state
+    if (savedLists.length === 0) {
+      return (
+        <CardContent className="p-6 space-y-6">
+          <div className="flex items-center justify-between">
+            <h3 className="text-lg font-semibold text-gray-800">Grocery List History</h3>
+          </div>
+          <div className="text-center py-8">
+            <FileText size={48} className="mx-auto text-gray-300 mb-4" />
+            <p className="text-gray-500">No grocery lists saved yet</p>
+            <p className="text-sm text-gray-400 mt-1">Save lists from the Grocery List screen to see them here</p>
+          </div>
+        </CardContent>
+      );
+    }
 
     return (
       <CardContent className="p-6 space-y-6">
@@ -326,15 +332,48 @@ export default function ProfileScreen() {
         </div>
 
         <div className="space-y-2">
-          {groceryLists.map((list) => (
+          {savedLists.map((list: any) => (
             <div key={list.id} className="flex items-center justify-between py-2 border-b border-gray-100 last:border-b-0">
               <div className="flex items-center gap-4">
                 <span className="font-medium text-gray-800">{list.date}</span>
-                <span className="text-sm text-gray-600">{list.items} items</span>
+                <span className="text-sm text-gray-600">{list.totalItems} items</span>
               </div>
-              <Button size="sm" variant="outline" className="h-8">
-                Print
-              </Button>
+              <div className="flex gap-2">
+                <Button 
+                  size="sm" 
+                  variant="outline" 
+                  className="h-8"
+                  onClick={() => {
+                    // Create a printable version of the list
+                    const printContent = `
+                      <h2>${list.date} - Grocery List</h2>
+                      <ul>
+                        ${list.items.map((item: any) => `<li>${item.name} - ${item.quantity}</li>`).join('')}
+                      </ul>
+                    `;
+                    const printWindow = window.open('', '_blank');
+                    if (printWindow) {
+                      printWindow.document.write(printContent);
+                      printWindow.document.close();
+                      printWindow.print();
+                    }
+                  }}
+                >
+                  Print
+                </Button>
+                <Button 
+                  size="sm" 
+                  variant="ghost" 
+                  className="h-8 text-red-500 hover:text-red-700"
+                  onClick={() => {
+                    const updatedLists = savedLists.filter((l: any) => l.id !== list.id);
+                    localStorage.setItem("nutragenie_grocery_history", JSON.stringify(updatedLists));
+                    window.location.reload(); // Simple refresh to update UI
+                  }}
+                >
+                  Delete
+                </Button>
+              </div>
             </div>
           ))}
         </div>

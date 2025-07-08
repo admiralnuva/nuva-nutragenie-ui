@@ -139,8 +139,17 @@ export default function GroceryListScreen() {
 
   // Handle save list
   const handleSaveList = () => {
-    // In real app, save to database or localStorage
-    alert("Grocery list saved!");
+    // Save grocery list to localStorage for Profile page access
+    const savedLists = JSON.parse(localStorage.getItem("nutragenie_grocery_history") || "[]");
+    const newList = {
+      id: Date.now(),
+      date: getCurrentDate(),
+      items: groceryItems,
+      totalItems: groceryItems.length
+    };
+    savedLists.unshift(newList); // Add to beginning of array
+    localStorage.setItem("nutragenie_grocery_history", JSON.stringify(savedLists));
+    alert("Grocery list saved to your profile!");
   };
 
   return (
@@ -301,7 +310,7 @@ export default function GroceryListScreen() {
           </Button>
           <Button 
             onClick={handleInstacart}
-            className="h-12 flex flex-col items-center justify-center gap-1 bg-purple-600 hover:bg-purple-700 text-white"
+            className="h-12 flex flex-col items-center justify-center gap-1 bg-blue-500 text-white border-blue-500 hover:bg-blue-600 active:bg-purple-600 active:border-purple-600"
           >
             <ShoppingCart size={18} />
             <span className="text-xs">Instacart</span>
