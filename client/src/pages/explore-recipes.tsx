@@ -58,6 +58,16 @@ const pantryDishImages = {
   "toast-and-jam": "/images/pantry-dishes/toast-and-jam.png"
 };
 
+// Chef's Choice dish images from user's uploaded photos
+const chefsChoiceImages = {
+  "mediterranean-bowl": "/images/chefs-choice/mediterranean-bowl.png",
+  "soup": "/images/chefs-choice/soup.png",
+  "quinoa-salad": "/images/chefs-choice/quinoa-salad.png",
+  "stuffed-peppers": "/images/chefs-choice/stuffed-peppers.png",
+  "herb-crusted-fish": "/images/chefs-choice/herb-crusted-fish.png",
+  "power-smoothie-bowl": "/images/chefs-choice/power-smoothie-bowl.png"
+};
+
 export default function ExploreRecipesScreen() {
   const [, setLocation] = useLocation();
   const [currentUser] = useLocalStorage<any>("nutragenie_user", null);
@@ -647,12 +657,12 @@ export default function ExploreRecipesScreen() {
                 <CardContent>
                   <div className="grid grid-cols-2 gap-3">
                     {[
-                      { id: 1, name: "Mediterranean Bowl", cookTime: "30 min", calories: 420, difficulty: "Medium" as const },
-                      { id: 2, name: "Thai Curry", cookTime: "35 min", calories: 380, difficulty: "Medium" as const },
-                      { id: 3, name: "Quinoa Salad", cookTime: "20 min", calories: 310, difficulty: "Easy" as const },
-                      { id: 4, name: "Stuffed Peppers", cookTime: "45 min", calories: 350, difficulty: "Medium" as const },
-                      { id: 5, name: "Herb Crusted Fish", cookTime: "25 min", calories: 290, difficulty: "Medium" as const },
-                      { id: 6, name: "Power Smoothie Bowl", cookTime: "10 min", calories: 240, difficulty: "Easy" as const }
+                      { id: 1, name: "Mediterranean Bowl", cookTime: "30 min", calories: 420, difficulty: "Medium" as const, image: chefsChoiceImages["mediterranean-bowl"] },
+                      { id: 2, name: "Soup", cookTime: "35 min", calories: 380, difficulty: "Medium" as const, image: chefsChoiceImages["soup"] },
+                      { id: 3, name: "Quinoa Salad", cookTime: "20 min", calories: 310, difficulty: "Easy" as const, image: chefsChoiceImages["quinoa-salad"] },
+                      { id: 4, name: "Stuffed Peppers", cookTime: "45 min", calories: 350, difficulty: "Medium" as const, image: chefsChoiceImages["stuffed-peppers"] },
+                      { id: 5, name: "Herb Crusted Fish", cookTime: "25 min", calories: 290, difficulty: "Medium" as const, image: chefsChoiceImages["herb-crusted-fish"] },
+                      { id: 6, name: "Power Smoothie Bowl", cookTime: "10 min", calories: 240, difficulty: "Easy" as const, image: chefsChoiceImages["power-smoothie-bowl"] }
                     ].map((dish) => (
                       <ExpandableDishCard
                         key={dish.id}
