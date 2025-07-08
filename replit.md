@@ -445,6 +445,12 @@ Changelog:
   * Ensured dropdown arrows are visible and consistent with Explore Recipe Options screen styling
   * Added proper Select component imports to Profile page
   * All dropdowns now have proper SelectTrigger and SelectValue components for arrow visibility
+- July 08, 2025. Create Account Page Dropdown and Button Color Consistency:
+  * Fixed dropdown arrow visibility in Age Group and State fields using [&>svg]:text-gray-300 class
+  * Enhanced State dropdown with complete list of all 50 US states instead of limited selection
+  * Updated Send Code and Verify Code buttons from gray to consistent blue-purple theme
+  * Applied bg-blue-500 hover:bg-blue-600 active:bg-purple-600 styling matching NavigationButton component
+  * Standardized all button colors across Create Account page to maintain brand consistency
 ```
 
 ## User Preferences

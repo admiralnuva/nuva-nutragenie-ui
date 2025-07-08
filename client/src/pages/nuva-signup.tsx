@@ -185,7 +185,7 @@ export default function NuvaSignupScreen() {
             <div className="space-y-2 col-span-1">
               <Label className="text-gray-300">Age Group</Label>
               <Select value={ageGroup} onValueChange={setAgeGroup}>
-                <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                <SelectTrigger className="bg-gray-700 border-gray-600 text-white [&>svg]:text-gray-300">
                   <SelectValue placeholder="Select age group" />
                 </SelectTrigger>
                 <SelectContent className="bg-gray-700 border-gray-600">
@@ -239,15 +239,60 @@ export default function NuvaSignupScreen() {
             <div className="space-y-2 col-span-3">
               <Label className="text-gray-300">State</Label>
               <Select value={state} onValueChange={setState}>
-                <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                <SelectTrigger className="bg-gray-700 border-gray-600 text-white [&>svg]:text-gray-300">
                   <SelectValue placeholder="State" />
                 </SelectTrigger>
                 <SelectContent className="bg-gray-700 border-gray-600">
                   <SelectItem value="AL" className="text-white hover:bg-gray-600">AL</SelectItem>
+                  <SelectItem value="AK" className="text-white hover:bg-gray-600">AK</SelectItem>
+                  <SelectItem value="AZ" className="text-white hover:bg-gray-600">AZ</SelectItem>
+                  <SelectItem value="AR" className="text-white hover:bg-gray-600">AR</SelectItem>
                   <SelectItem value="CA" className="text-white hover:bg-gray-600">CA</SelectItem>
+                  <SelectItem value="CO" className="text-white hover:bg-gray-600">CO</SelectItem>
+                  <SelectItem value="CT" className="text-white hover:bg-gray-600">CT</SelectItem>
+                  <SelectItem value="DE" className="text-white hover:bg-gray-600">DE</SelectItem>
                   <SelectItem value="FL" className="text-white hover:bg-gray-600">FL</SelectItem>
+                  <SelectItem value="GA" className="text-white hover:bg-gray-600">GA</SelectItem>
+                  <SelectItem value="HI" className="text-white hover:bg-gray-600">HI</SelectItem>
+                  <SelectItem value="ID" className="text-white hover:bg-gray-600">ID</SelectItem>
+                  <SelectItem value="IL" className="text-white hover:bg-gray-600">IL</SelectItem>
+                  <SelectItem value="IN" className="text-white hover:bg-gray-600">IN</SelectItem>
+                  <SelectItem value="IA" className="text-white hover:bg-gray-600">IA</SelectItem>
+                  <SelectItem value="KS" className="text-white hover:bg-gray-600">KS</SelectItem>
+                  <SelectItem value="KY" className="text-white hover:bg-gray-600">KY</SelectItem>
+                  <SelectItem value="LA" className="text-white hover:bg-gray-600">LA</SelectItem>
+                  <SelectItem value="ME" className="text-white hover:bg-gray-600">ME</SelectItem>
+                  <SelectItem value="MD" className="text-white hover:bg-gray-600">MD</SelectItem>
+                  <SelectItem value="MA" className="text-white hover:bg-gray-600">MA</SelectItem>
+                  <SelectItem value="MI" className="text-white hover:bg-gray-600">MI</SelectItem>
+                  <SelectItem value="MN" className="text-white hover:bg-gray-600">MN</SelectItem>
+                  <SelectItem value="MS" className="text-white hover:bg-gray-600">MS</SelectItem>
+                  <SelectItem value="MO" className="text-white hover:bg-gray-600">MO</SelectItem>
+                  <SelectItem value="MT" className="text-white hover:bg-gray-600">MT</SelectItem>
+                  <SelectItem value="NE" className="text-white hover:bg-gray-600">NE</SelectItem>
+                  <SelectItem value="NV" className="text-white hover:bg-gray-600">NV</SelectItem>
+                  <SelectItem value="NH" className="text-white hover:bg-gray-600">NH</SelectItem>
+                  <SelectItem value="NJ" className="text-white hover:bg-gray-600">NJ</SelectItem>
+                  <SelectItem value="NM" className="text-white hover:bg-gray-600">NM</SelectItem>
                   <SelectItem value="NY" className="text-white hover:bg-gray-600">NY</SelectItem>
+                  <SelectItem value="NC" className="text-white hover:bg-gray-600">NC</SelectItem>
+                  <SelectItem value="ND" className="text-white hover:bg-gray-600">ND</SelectItem>
+                  <SelectItem value="OH" className="text-white hover:bg-gray-600">OH</SelectItem>
+                  <SelectItem value="OK" className="text-white hover:bg-gray-600">OK</SelectItem>
+                  <SelectItem value="OR" className="text-white hover:bg-gray-600">OR</SelectItem>
+                  <SelectItem value="PA" className="text-white hover:bg-gray-600">PA</SelectItem>
+                  <SelectItem value="RI" className="text-white hover:bg-gray-600">RI</SelectItem>
+                  <SelectItem value="SC" className="text-white hover:bg-gray-600">SC</SelectItem>
+                  <SelectItem value="SD" className="text-white hover:bg-gray-600">SD</SelectItem>
+                  <SelectItem value="TN" className="text-white hover:bg-gray-600">TN</SelectItem>
                   <SelectItem value="TX" className="text-white hover:bg-gray-600">TX</SelectItem>
+                  <SelectItem value="UT" className="text-white hover:bg-gray-600">UT</SelectItem>
+                  <SelectItem value="VT" className="text-white hover:bg-gray-600">VT</SelectItem>
+                  <SelectItem value="VA" className="text-white hover:bg-gray-600">VA</SelectItem>
+                  <SelectItem value="WA" className="text-white hover:bg-gray-600">WA</SelectItem>
+                  <SelectItem value="WV" className="text-white hover:bg-gray-600">WV</SelectItem>
+                  <SelectItem value="WI" className="text-white hover:bg-gray-600">WI</SelectItem>
+                  <SelectItem value="WY" className="text-white hover:bg-gray-600">WY</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -343,7 +388,7 @@ export default function NuvaSignupScreen() {
               <Button 
                 onClick={sendVerificationCode}
                 disabled={!isPhoneComplete || isVerifying}
-                className="w-full bg-gray-600 hover:bg-gray-700 text-white disabled:bg-gray-800"
+                className="w-full bg-blue-500 hover:bg-blue-600 active:bg-purple-600 text-white disabled:bg-gray-400"
               >
                 {isVerifying ? "Sending..." : "Send Code"}
               </Button>
@@ -359,7 +404,7 @@ export default function NuvaSignupScreen() {
               />
               <Button 
                 onClick={verifyCode}
-                className="w-full bg-gray-600 hover:bg-gray-700 text-white"
+                className="w-full bg-blue-500 hover:bg-blue-600 active:bg-purple-600 text-white"
               >
                 Verify Code
               </Button>
