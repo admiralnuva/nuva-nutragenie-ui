@@ -426,6 +426,11 @@ Changelog:
   * Standardized subtitle color from purple-300 to gray-300 for theme consistency
   * Confirmed all card styling uses proper dark theme (gray-800/90 backdrop-blur with gray-700 borders)
   * Page now maintains complete visual consistency with rest of application's dark theme architecture
+- July 08, 2025. Avatar Selection UI Improvements:
+  * Removed oval border/ring around selected avatars for cleaner appearance
+  * Selected avatars now show only subtle scale effect (105% larger) without borders
+  * Increased avatar size to 80x80 pixels for better visibility and touch targets
+  * Fixed all address input fields with dark theme styling (bg-gray-700, white text, gray borders)
 ```
 
 ## User Preferences

@@ -163,6 +163,7 @@ export default function NuvaSignupScreen() {
                     ? 'scale-105' 
                     : 'hover:scale-102'
                 }`}
+                style={{ width: '80px', height: '80px' }}
               >
                 <img src={avatar.src} alt={avatar.alt} className="w-full h-full object-cover" />
               </button>
