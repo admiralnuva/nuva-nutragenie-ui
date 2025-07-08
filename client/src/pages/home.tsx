@@ -648,45 +648,69 @@ export default function HomeScreen() {
                 <div className="bg-transparent border-2 border-indigo-400 p-3 rounded-lg">
                   <div className="text-sm font-bold text-white mb-2">7-Day Trends</div>
                   <div className="grid grid-cols-2 gap-4">
-                    {/* BP Trend - Bar Charts with Color Coding */}
+                    {/* BP Trend - Line Chart with Dots */}
                     <div>
                       <div className="text-xs font-bold text-white mb-1">Blood Pressure</div>
-                      <div className="flex items-end gap-1 h-8">
-                        {/* Day 1: 118/75 - Normal (green) */}
-                        <div className="flex-1 bg-green-500 rounded-sm h-5"></div>
-                        {/* Day 2: 125/82 - Slightly high (red) */}
-                        <div className="flex-1 bg-red-400 rounded-sm h-6"></div>
-                        {/* Day 3: 119/78 - Normal (green) */}
-                        <div className="flex-1 bg-green-500 rounded-sm h-5"></div>
-                        {/* Day 4: 135/88 - High (red) */}
-                        <div className="flex-1 bg-red-600 rounded-sm h-8"></div>
-                        {/* Day 5: 121/79 - Normal (green) */}
-                        <div className="flex-1 bg-green-500 rounded-sm h-5"></div>
-                        {/* Day 6: 124/81 - Slightly high (red) */}
-                        <div className="flex-1 bg-red-400 rounded-sm h-6"></div>
-                        {/* Day 7: 122/78 - Normal (green) - Today */}
-                        <div className="flex-1 bg-green-600 rounded-sm h-6"></div>
+                      <div className="relative h-8">
+                        {/* Line connecting points */}
+                        <svg className="absolute inset-0 w-full h-full">
+                          <polyline 
+                            points="6,6 18,4 30,6 42,2 54,6 66,4 78,5" 
+                            fill="none" 
+                            stroke="rgba(34, 197, 94, 0.6)" 
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                          />
+                        </svg>
+                        {/* Data points */}
+                        <div className="flex justify-between items-center h-full px-1">
+                          <div className="w-2 h-2 bg-green-500 rounded-full shadow-sm"></div>
+                          <div className="w-2 h-2 bg-red-400 rounded-full shadow-sm"></div>
+                          <div className="w-2 h-2 bg-green-500 rounded-full shadow-sm"></div>
+                          <div className="w-2 h-2 bg-red-600 rounded-full shadow-sm"></div>
+                          <div className="w-2 h-2 bg-green-500 rounded-full shadow-sm"></div>
+                          <div className="w-2 h-2 bg-red-400 rounded-full shadow-sm"></div>
+                          <div className="w-2.5 h-2.5 bg-green-600 rounded-full shadow-md border border-white"></div>
+                        </div>
                       </div>
 
                     </div>
-                    {/* Sugar Trend - Bar Charts with Color Coding */}
+                    {/* Sugar Trend - Area Chart with Gradient */}
                     <div>
                       <div className="text-xs font-bold text-white mb-1">Blood Sugar</div>
-                      <div className="flex items-end gap-1 h-8">
-                        {/* Day 1: 88 mg/dL - Normal (green) */}
-                        <div className="flex-1 bg-green-500 rounded-sm h-5"></div>
-                        {/* Day 2: 125 mg/dL - High (red) */}
-                        <div className="flex-1 bg-red-400 rounded-sm h-7"></div>
-                        {/* Day 3: 92 mg/dL - Normal (green) */}
-                        <div className="flex-1 bg-green-500 rounded-sm h-5"></div>
-                        {/* Day 4: 145 mg/dL - High (red) */}
-                        <div className="flex-1 bg-red-600 rounded-sm h-8"></div>
-                        {/* Day 5: 89 mg/dL - Normal (green) */}
-                        <div className="flex-1 bg-green-500 rounded-sm h-5"></div>
-                        {/* Day 6: 110 mg/dL - Slightly high (red) */}
-                        <div className="flex-1 bg-red-400 rounded-sm h-6"></div>
-                        {/* Day 7: 94 mg/dL - Normal (green) - Today */}
-                        <div className="flex-1 bg-green-600 rounded-sm h-5"></div>
+                      <div className="relative h-8">
+                        {/* Gradient area fill */}
+                        <svg className="absolute inset-0 w-full h-full">
+                          <defs>
+                            <linearGradient id="sugarGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                              <stop offset="0%" stopColor="rgba(34, 197, 94, 0.3)" />
+                              <stop offset="100%" stopColor="rgba(34, 197, 94, 0.05)" />
+                            </linearGradient>
+                          </defs>
+                          {/* Area path */}
+                          <path 
+                            d="M 6,6 L 18,3 L 30,6 L 42,1 L 54,6 L 66,4 L 78,6 L 78,32 L 6,32 Z" 
+                            fill="url(#sugarGradient)"
+                          />
+                          {/* Top line */}
+                          <polyline 
+                            points="6,6 18,3 30,6 42,1 54,6 66,4 78,6" 
+                            fill="none" 
+                            stroke="rgba(34, 197, 94, 0.8)" 
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                          />
+                        </svg>
+                        {/* Value indicators */}
+                        <div className="flex justify-between items-start h-full px-1 pt-1">
+                          <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
+                          <div className="w-1.5 h-1.5 bg-red-400 rounded-full"></div>
+                          <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
+                          <div className="w-1.5 h-1.5 bg-red-600 rounded-full"></div>
+                          <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
+                          <div className="w-1.5 h-1.5 bg-red-400 rounded-full"></div>
+                          <div className="w-2 h-2 bg-green-600 rounded-full border border-white"></div>
+                        </div>
                       </div>
                     </div>
                   </div>
