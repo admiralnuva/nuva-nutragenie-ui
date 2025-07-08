@@ -417,7 +417,7 @@ export default function HomeScreen() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900 pb-20">
+    <div className="min-h-screen bg-black pb-20">
       {/* Header */}
       <div className="bg-white/20 backdrop-blur-sm border-b border-white/30 px-4 py-4 flex items-center gap-3">
         <BackButton to="/" />
@@ -432,38 +432,22 @@ export default function HomeScreen() {
 
       <div className="p-4 space-y-6">
         {/* Compact Welcome Card */}
-        <Card className="p-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white">
-          <div className="space-y-1">
-            {/* Row 1 - Avatars with Greeting Between */}
-            <div className="flex items-center justify-between">
-              {/* User Avatar - Left */}
-              <div className="w-20 h-20 rounded-full overflow-hidden">
-                <img 
-                  src={user1Avatar} 
-                  alt="User Avatar" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              
-              {/* Greeting & Username - Center */}
-              <div className="text-center">
-                <h2 className="text-lg font-bold">{getPersonalizedGreeting()[0]}</h2>
-                <p className="text-lg font-bold">{currentUser?.nickname || "Chef"}</p>
-              </div>
-              
-              {/* Chef Marcus Avatar - Right */}
-              <div className="w-20 h-20 rounded-full overflow-hidden">
-                <img 
-                  src={chef1Avatar} 
-                  alt="Chef Marcus" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
+        <Card className="p-4 bg-gray-900/80 backdrop-blur-sm border border-gray-700 text-white">
+          <div className="flex items-center justify-between">
+            {/* Greeting & Username - Left */}
+            <div className="flex-1">
+              <h2 className="text-xl font-bold text-white">{getPersonalizedGreeting()[0]}</h2>
+              <p className="text-lg font-semibold text-purple-300">{currentUser?.nickname || "Chef"}</p>
+              <p className="text-gray-300 text-sm mt-1">Let's cook something exciting today!</p>
             </div>
             
-            {/* Row 2 - Motivational Text */}
-            <div className="text-center">
-              <p className="text-purple-100 text-xs">Let's cook something exciting today!</p>
+            {/* User Avatar - Right */}
+            <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-purple-500">
+              <img 
+                src={user1Avatar} 
+                alt="User Avatar" 
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
         </Card>
@@ -497,7 +481,7 @@ export default function HomeScreen() {
               {quickActions.map((action, index) => (
                 <Card 
                   key={index} 
-                  className="p-4 cursor-pointer hover:shadow-md transition-all duration-200 hover:scale-105"
+                  className="p-4 cursor-pointer hover:shadow-md transition-all duration-200 hover:scale-105 bg-gray-900/80 backdrop-blur-sm border border-gray-700"
                   onClick={() => handleNavigation(action.path)}
                 >
                   <div className="flex items-center gap-4">
@@ -505,8 +489,8 @@ export default function HomeScreen() {
                       <action.icon size={24} />
                     </div>
                     <div className="flex-1">
-                      <div className="font-medium text-gray-800">{action.label}</div>
-                      <div className="text-sm text-gray-600">{action.description}</div>
+                      <div className="font-medium text-white">{action.label}</div>
+                      <div className="text-sm text-gray-300">{action.description}</div>
                     </div>
                     <div className="text-gray-400">→</div>
                   </div>
