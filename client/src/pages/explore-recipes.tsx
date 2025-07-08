@@ -263,7 +263,7 @@ export default function ExploreRecipesScreen() {
   const hasDietaryData = userData?.dietaryRestrictions || userData?.healthGoals || userData?.allergies;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900 p-6">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black p-6">
       {showProcessing && (
         <ProcessingAnimation 
           onComplete={() => setShowProcessing(false)}
