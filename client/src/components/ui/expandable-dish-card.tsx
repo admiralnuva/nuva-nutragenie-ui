@@ -101,7 +101,7 @@ export function ExpandableDishCard({
             <Button
               size="sm"
               variant="secondary"
-              className="h-8 w-8 p-0 bg-white/90 hover:bg-white text-gray-700 rounded-full flex items-center justify-center"
+              className="h-8 w-8 p-0 bg-blue-500 hover:bg-blue-600 text-white rounded-full flex items-center justify-center shadow-lg"
               onClick={(e) => handleButtonClick(e, () => onRecipe?.(dish))}
             >
               <BookOpen size={14} />
@@ -109,7 +109,7 @@ export function ExpandableDishCard({
             <Button
               size="sm"
               variant="secondary"
-              className="h-8 w-8 p-0 bg-white/90 hover:bg-white text-gray-700 rounded-full flex items-center justify-center"
+              className="h-8 w-8 p-0 bg-orange-500 hover:bg-orange-600 text-white rounded-full flex items-center justify-center shadow-lg"
               onClick={(e) => handleButtonClick(e, () => onCookNow?.(dish))}
             >
               <Play size={14} />
