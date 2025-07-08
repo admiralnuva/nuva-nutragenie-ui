@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { X, Heart, Printer, Clock, Users } from "lucide-react";
+import { X, Heart, Printer, Clock, Users, Play } from "lucide-react";
 
 interface RecipeDetailsModalProps {
   dish: {
@@ -143,8 +143,20 @@ export function RecipeDetailsModal({
           </Card>
         </div>
 
-        {/* Footer with Save and Print icons */}
+        {/* Footer with action buttons */}
         <div className="p-4 border-t border-gray-200 bg-gray-50">
+          {/* Start Cooking Button */}
+          <Button
+            onClick={() => {
+              window.location.href = `/voice-cooking?dish=${encodeURIComponent(dish.name)}&id=${dish.id}`;
+            }}
+            className="w-full py-3 mb-3 text-lg font-semibold bg-green-500 text-white hover:bg-green-600"
+          >
+            <Play className="w-5 h-5 mr-2" />
+            Start Cooking
+          </Button>
+          
+          {/* Save and Print icons */}
           <div className="flex justify-center gap-6">
             <Button
               variant="ghost"
