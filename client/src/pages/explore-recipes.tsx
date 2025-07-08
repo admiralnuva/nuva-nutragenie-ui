@@ -930,21 +930,14 @@ export default function ExploreRecipesScreen() {
                   />
                 ))}
               </div>
-              <div className="mt-4 flex gap-2">
+              <div className="mt-4">
                 <Button 
                   variant="outline" 
                   size="sm" 
-                  className="flex-1"
+                  className="w-full"
                   onClick={() => setShowDishVariations(false)}
                 >
                   Back to Create
-                </Button>
-                <Button 
-                  size="sm" 
-                  className="flex-1 bg-purple-600 hover:bg-purple-700"
-                  onClick={() => setLocation('/review-recipes')}
-                >
-                  Continue with Selected
                 </Button>
               </div>
             </CardContent>
