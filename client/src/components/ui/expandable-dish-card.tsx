@@ -72,7 +72,7 @@ export function ExpandableDishCard({
   return (
     <div 
       className={`bg-white rounded-lg overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-lg relative ${
-        isSelected ? 'shadow-lg ring-2 ring-green-300' : 'shadow-md'
+        isSelected ? 'shadow-lg ring-2 ring-purple-300' : 'shadow-md'
       }`}
       onClick={handleCardClick}
     >
@@ -90,31 +90,29 @@ export function ExpandableDishCard({
         
         {/* Selection Tick - Bigger dot on right side of image */}
         <div className={`absolute top-2 right-2 w-6 h-6 rounded-full flex items-center justify-center transition-all duration-200 ${
-          isSelected ? 'bg-green-500 scale-110' : 'bg-white/30 hover:bg-white/50'
+          isSelected ? 'bg-purple-600 scale-110' : 'bg-white/30 hover:bg-white/50'
         }`}>
           {isSelected && <Check size={16} className="text-white" />}
         </div>
 
-        {/* Action buttons on image when selected - Recipe and Save */}
+        {/* Action buttons on image when selected - Recipe and Cook Now */}
         {isSelected && (
           <div className="absolute bottom-2 left-2 right-2 flex gap-2 animate-in fade-in duration-200">
             <Button
               size="sm"
               variant="secondary"
-              className="h-6 text-xs bg-white/90 hover:bg-white text-gray-700 flex-1"
+              className="h-8 w-8 p-0 bg-white/90 hover:bg-white text-gray-700 rounded-full flex items-center justify-center"
               onClick={(e) => handleButtonClick(e, () => onRecipe?.(dish))}
             >
-              <BookOpen size={10} className="mr-1" />
-              Recipe
+              <BookOpen size={14} />
             </Button>
             <Button
               size="sm"
               variant="secondary"
-              className="h-6 text-xs bg-white/90 hover:bg-white text-gray-700 flex-1"
-              onClick={(e) => handleButtonClick(e, () => onSaveRecipe?.(dish))}
+              className="h-8 w-8 p-0 bg-white/90 hover:bg-white text-gray-700 rounded-full flex items-center justify-center"
+              onClick={(e) => handleButtonClick(e, () => onCookNow?.(dish))}
             >
-              <Heart size={10} className="mr-1" />
-              Save
+              <Play size={14} />
             </Button>
           </div>
         )}
@@ -141,19 +139,7 @@ export function ExpandableDishCard({
           </span>
         </div>
 
-        {/* Cook Now button on Square 1 when selected */}
-        {isSelected && (
-          <div className="mt-3 pt-2 border-t border-gray-100 animate-in slide-in-from-top-2 duration-200">
-            <Button
-              size="sm"
-              className="w-full h-8 text-xs bg-purple-600 hover:bg-purple-700 text-white"
-              onClick={(e) => handleButtonClick(e, () => onCookNow?.(dish))}
-            >
-              <Play size={12} className="mr-2" />
-              Cook Now
-            </Button>
-          </div>
-        )}
+
       </div>
     </div>
   );
