@@ -575,9 +575,9 @@ export default function ExploreRecipesScreen() {
           {/* Pantry Dishes Large Card */}
           {activeCard === 'pantry-dishes' && (
             <>
-              <Card className="bg-white border border-gray-200 shadow-lg">
+              <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700 shadow-lg">
                 <CardHeader className="pb-2 pt-2">
-                  <CardTitle className="text-base text-purple-600 mt-2">Dishes that can be cooked from pantry ingredients</CardTitle>
+                  <CardTitle className="text-base text-purple-300 mt-2">Dishes that can be cooked from pantry ingredients</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-2 gap-3">
@@ -606,9 +606,9 @@ export default function ExploreRecipesScreen() {
           {/* Chef's Choice Large Card */}
           {activeCard === 'chefs-choice' && (
             <>
-              <Card className="bg-white border border-gray-200 shadow-lg">
+              <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700 shadow-lg">
                 <CardHeader className="pb-2 pt-2">
-                  <CardTitle className="text-base text-purple-600 mt-2">Chef's Choice of Dishes Personalized for you</CardTitle>
+                  <CardTitle className="text-base text-purple-300 mt-2">Chef's Choice of Dishes Personalized for you</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-2 gap-3">
@@ -637,12 +637,12 @@ export default function ExploreRecipesScreen() {
           {/* Create Dish Large Card */}
           {activeCard === 'create-dish' && !showDishVariations && (
             <>
-              <Card className="bg-white border border-gray-200 shadow-lg">
+              <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700 shadow-lg">
                 <CardHeader className="pb-2">
                   <div className="flex items-center justify-between">
-                    <CardTitle className="text-base text-purple-600">Create Your Custom Dish</CardTitle>
+                    <CardTitle className="text-base text-purple-300">Create Your Custom Dish</CardTitle>
                     <div className="flex items-center">
-                      <div className="rounded-lg overflow-hidden bg-white shadow-sm" style={{width: '80px', height: '80px'}}>
+                      <div className="rounded-lg overflow-hidden bg-gray-700 shadow-sm" style={{width: '80px', height: '80px'}}>
                         <img 
                           src={userAvatarSrc} 
                           alt="User Avatar"
@@ -655,29 +655,29 @@ export default function ExploreRecipesScreen() {
                 <CardContent>
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Dish Name</label>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">Dish Name</label>
                       <Input 
                         value={customDishName}
                         onChange={(e) => setCustomDishName(e.target.value)}
                         placeholder="Enter your dish name..." 
-                        className="w-full" 
+                        className="w-full bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-purple-400 focus:ring-purple-400" 
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Main Ingredients</label>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">Main Ingredients</label>
                       <Input 
                         value={customDishIngredients}
                         onChange={(e) => setCustomDishIngredients(e.target.value)}
                         placeholder="e.g., chicken, rice, vegetables..." 
-                        className="w-full" 
+                        className="w-full bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-purple-400 focus:ring-purple-400" 
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Cooking Style</label>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">Cooking Style</label>
                       <select 
                         value={customCookingStyle}
                         onChange={(e) => setCustomCookingStyle(e.target.value)}
-                        className="w-full p-2 border border-gray-300 rounded-md"
+                        className="w-full p-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:border-purple-400 focus:ring-purple-400"
                       >
                         <option>Grilled</option>
                         <option>Baked</option>
@@ -688,11 +688,11 @@ export default function ExploreRecipesScreen() {
                     </div>
                     <div className="grid grid-cols-2 gap-3">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Prep Time</label>
+                        <label className="block text-sm font-medium text-gray-300 mb-2">Prep Time</label>
                         <select 
                           value={customPrepTime}
                           onChange={(e) => setCustomPrepTime(e.target.value)}
-                          className="w-full p-2 border border-gray-300 rounded-md"
+                          className="w-full p-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:border-purple-400 focus:ring-purple-400"
                         >
                           <option>Under 15 min</option>
                           <option>15-30 min</option>
@@ -701,11 +701,11 @@ export default function ExploreRecipesScreen() {
                         </select>
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Difficulty</label>
+                        <label className="block text-sm font-medium text-gray-300 mb-2">Difficulty</label>
                         <select 
                           value={customDifficulty}
                           onChange={(e) => setCustomDifficulty(e.target.value)}
-                          className="w-full p-2 border border-gray-300 rounded-md"
+                          className="w-full p-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:border-purple-400 focus:ring-purple-400"
                         >
                           <option>Easy</option>
                           <option>Medium</option>
@@ -897,13 +897,13 @@ export default function ExploreRecipesScreen() {
         
         {/* Show Dish Variations Grid */}
         {activeCard === 'create-dish' && showDishVariations && (
-          <Card className="bg-white border border-gray-200 shadow-lg mt-4">
+          <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700 shadow-lg mt-4">
             <CardHeader className="pb-2">
-              <CardTitle className="text-base text-purple-600 flex items-center gap-2">
+              <CardTitle className="text-base text-purple-300 flex items-center gap-2">
                 <ChefHat size={18} />
                 Recipe Variations for "{customDishName}"
               </CardTitle>
-              <p className="text-sm text-gray-500 mt-1">Choose from these 6 variations created by our AI chef</p>
+              <p className="text-sm text-gray-300 mt-1">Choose from these 6 variations created by our AI chef</p>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 gap-3">
@@ -921,7 +921,7 @@ export default function ExploreRecipesScreen() {
                 <Button 
                   variant="outline" 
                   size="sm" 
-                  className="w-full"
+                  className="w-full bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600"
                   onClick={() => setShowDishVariations(false)}
                 >
                   Back to Create
