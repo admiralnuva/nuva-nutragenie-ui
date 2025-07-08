@@ -429,8 +429,10 @@ Changelog:
 - July 08, 2025. Avatar Selection UI Improvements:
   * Removed oval border/ring around selected avatars for cleaner appearance
   * Selected avatars now show only subtle scale effect (105% larger) without borders
-  * Increased avatar size to 80x80 pixels for better visibility and touch targets
+  * Increased avatar size to 80x80 pixels for better visibility and touch targets across all pages
+  * Standardized all avatar displays: user avatars, chef avatars, profile pictures, achievement badges to 80x80px
   * Fixed all address input fields with dark theme styling (bg-gray-700, white text, gray borders)
+  * Applied 80x80 standard to: nuva-signup, voice-cooking, home, dietary, explore-recipes pages
 ```
 
 ## User Preferences

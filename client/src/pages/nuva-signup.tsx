@@ -138,7 +138,7 @@ export default function NuvaSignupScreen() {
               <h3 className="text-xl font-semibold text-white">Your Profile</h3>
               <p className="text-gray-300 text-sm">Choose your avatar, nickname, and age group</p>
             </div>
-            <div className="w-16 h-16 rounded-full overflow-hidden">
+            <div className="w-20 h-20 rounded-full overflow-hidden">
               {selectedAvatar ? (
                 <img 
                   src={selectedAvatar.src} 
@@ -208,7 +208,7 @@ export default function NuvaSignupScreen() {
               <h3 className="text-xl font-semibold text-white">Your Address</h3>
               <p className="text-gray-300 text-sm">Enter your delivery address</p>
             </div>
-            <div className="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center border-2 border-gray-600">
+            <div className="w-20 h-20 rounded-full bg-gray-700 flex items-center justify-center border-2 border-gray-600">
               <MapPin className="w-8 h-8 text-gray-400" />
             </div>
           </div>
@@ -272,7 +272,7 @@ export default function NuvaSignupScreen() {
               <h3 className="text-xl font-semibold text-white">Choose Your AI Chef</h3>
               <p className="text-gray-300 text-sm">Select your personal cooking assistant</p>
             </div>
-            <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-gray-600">
+            <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-gray-600">
               {selectedChef ? (
                 <img 
                   src={chefs.find(chef => chef.id === selectedChef)?.avatar} 
@@ -327,7 +327,7 @@ export default function NuvaSignupScreen() {
               <h3 className="text-xl font-semibold text-white">Phone Verification</h3>
               <p className="text-gray-300 text-sm">Verify your phone number for account security</p>
             </div>
-            <div className="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center border-2 border-gray-600">
+            <div className="w-20 h-20 rounded-full bg-gray-700 flex items-center justify-center border-2 border-gray-600">
               <Phone className="w-8 h-8 text-gray-400" />
             </div>
           </div>
