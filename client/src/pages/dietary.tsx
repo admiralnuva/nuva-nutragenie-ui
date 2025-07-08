@@ -543,86 +543,225 @@ export default function DietaryScreen() {
                 </div>
               </div>
             </CardHeader>
-            <CardContent className="space-y-2">
-              {/* First row: Calories and Protein */}
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <div className="flex justify-between items-center mb-1">
-                    <label className="text-xs font-medium text-gray-300">Calories</label>
-                    <span className="text-xs text-gray-400">{calorieRange[0]}-{calorieRange[1]}</span>
+            <CardContent className="space-y-4">
+              {/* OPTION 1: Simple Input Grid - Most Minimalistic */}
+              <div className="hidden" id="option1">
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="text-center">
+                    <label className="text-xs text-gray-400 block mb-1">Calories</label>
+                    <input 
+                      type="number"
+                      placeholder="2000"
+                      className="w-full px-2 py-2 text-sm bg-gray-700 border border-gray-600 rounded text-white text-center"
+                    />
                   </div>
-                  <Slider
-                    value={calorieRange}
-                    onValueChange={setCalorieRange}
-                    max={1000}
-                    min={100}
-                    step={50}
-                    className="w-full"
-                  />
-                </div>
-                <div>
-                  <div className="flex justify-between items-center mb-1">
-                    <label className="text-xs font-medium text-gray-300">Protein</label>
-                    <span className="text-xs text-gray-400">{proteinRange[0]}-{proteinRange[1]}g</span>
+                  <div className="text-center">
+                    <label className="text-xs text-gray-400 block mb-1">Protein (g)</label>
+                    <input 
+                      type="number"
+                      placeholder="150"
+                      className="w-full px-2 py-2 text-sm bg-gray-700 border border-gray-600 rounded text-white text-center"
+                    />
                   </div>
-                  <Slider
-                    value={proteinRange}
-                    onValueChange={setProteinRange}
-                    max={60}
-                    min={5}
-                    step={5}
-                    className="w-full"
-                  />
-                </div>
-              </div>
-
-              {/* Second row: Carbs and Fat */}
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <div className="flex justify-between items-center mb-1">
-                    <label className="text-xs font-medium text-gray-300">Carbs</label>
-                    <span className="text-xs text-gray-400">{carbRange[0]}-{carbRange[1]}g</span>
+                  <div className="text-center">
+                    <label className="text-xs text-gray-400 block mb-1">Carbs (g)</label>
+                    <input 
+                      type="number"
+                      placeholder="200"
+                      className="w-full px-2 py-2 text-sm bg-gray-700 border border-gray-600 rounded text-white text-center"
+                    />
                   </div>
-                  <Slider
-                    value={carbRange}
-                    onValueChange={setCarbRange}
-                    max={100}
-                    min={5}
-                    step={5}
-                    className="w-full"
-                  />
-                </div>
-                <div>
-                  <div className="flex justify-between items-center mb-1">
-                    <label className="text-xs font-medium text-gray-300">Fat</label>
-                    <span className="text-xs text-gray-400">{fatRange[0]}-{fatRange[1]}g</span>
+                  <div className="text-center">
+                    <label className="text-xs text-gray-400 block mb-1">Fat (g)</label>
+                    <input 
+                      type="number"
+                      placeholder="65"
+                      className="w-full px-2 py-2 text-sm bg-gray-700 border border-gray-600 rounded text-white text-center"
+                    />
                   </div>
-                  <Slider
-                    value={fatRange}
-                    onValueChange={setFatRange}
-                    max={50}
-                    min={5}
-                    step={2}
-                    className="w-full"
-                  />
                 </div>
               </div>
 
-              {/* Third row: Fiber (centered) */}
-              <div className="flex justify-center">
-                <div className="w-1/2">
-                  <div className="flex justify-between items-center mb-1">
-                    <label className="text-xs font-medium text-gray-300">Fiber</label>
-                    <span className="text-xs text-gray-400">{fiberRange[0]}-{fiberRange[1]}g</span>
+              {/* OPTION 2: Preset Buttons - Ultra Clean */}
+              <div className="hidden" id="option2">
+                <div className="text-center mb-3">
+                  <p className="text-xs text-gray-400">Choose your nutrition level</p>
+                </div>
+                <div className="grid grid-cols-1 gap-2">
+                  <button className="px-4 py-2 bg-gray-700 hover:bg-purple-600 rounded-lg text-sm text-white transition-colors">
+                    Light (1500 cal • 100g protein • 150g carbs • 50g fat)
+                  </button>
+                  <button className="px-4 py-2 bg-gray-700 hover:bg-purple-600 rounded-lg text-sm text-white transition-colors">
+                    Moderate (2000 cal • 150g protein • 200g carbs • 65g fat)
+                  </button>
+                  <button className="px-4 py-2 bg-gray-700 hover:bg-purple-600 rounded-lg text-sm text-white transition-colors">
+                    Active (2500 cal • 180g protein • 250g carbs • 80g fat)
+                  </button>
+                </div>
+              </div>
+
+              {/* OPTION 3: Icon + Values - Visual Clean */}
+              <div className="hidden" id="option3">
+                <div className="flex justify-between items-center">
+                  <div className="text-center flex-1">
+                    <div className="text-2xl mb-1">🔥</div>
+                    <div className="text-xs text-gray-400">Calories</div>
+                    <div className="text-sm text-white font-medium">2000</div>
                   </div>
-                  <Slider
-                    value={fiberRange}
-                    onValueChange={setFiberRange}
-                    max={25}
-                    min={5}
-                    step={1}
-                    className="w-full"
-                  />
+                  <div className="text-center flex-1">
+                    <div className="text-2xl mb-1">💪</div>
+                    <div className="text-xs text-gray-400">Protein</div>
+                    <div className="text-sm text-white font-medium">150g</div>
+                  </div>
+                  <div className="text-center flex-1">
+                    <div className="text-2xl mb-1">🌾</div>
+                    <div className="text-xs text-gray-400">Carbs</div>
+                    <div className="text-sm text-white font-medium">200g</div>
+                  </div>
+                  <div className="text-center flex-1">
+                    <div className="text-2xl mb-1">🥑</div>
+                    <div className="text-xs text-gray-400">Fat</div>
+                    <div className="text-sm text-white font-medium">65g</div>
+                  </div>
+                </div>
+                <div className="text-center mt-3">
+                  <button className="text-xs text-purple-400 hover:text-purple-300">Customize</button>
+                </div>
+              </div>
+
+              {/* OPTION 4: Current Design (for comparison) */}
+              <div id="option4">
+                {/* First row: Calories and Protein */}
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <div className="flex justify-between items-center mb-1">
+                      <label className="text-xs font-medium text-gray-300">Calories</label>
+                      <span className="text-xs text-gray-400">{calorieRange[0]}-{calorieRange[1]}</span>
+                    </div>
+                    <Slider
+                      value={calorieRange}
+                      onValueChange={setCalorieRange}
+                      max={1000}
+                      min={100}
+                      step={50}
+                      className="w-full"
+                    />
+                  </div>
+                  <div>
+                    <div className="flex justify-between items-center mb-1">
+                      <label className="text-xs font-medium text-gray-300">Protein</label>
+                      <span className="text-xs text-gray-400">{proteinRange[0]}-{proteinRange[1]}g</span>
+                    </div>
+                    <Slider
+                      value={proteinRange}
+                      onValueChange={setProteinRange}
+                      max={60}
+                      min={5}
+                      step={5}
+                      className="w-full"
+                    />
+                  </div>
+                </div>
+
+                {/* Second row: Carbs and Fat */}
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <div className="flex justify-between items-center mb-1">
+                      <label className="text-xs font-medium text-gray-300">Carbs</label>
+                      <span className="text-xs text-gray-400">{carbRange[0]}-{carbRange[1]}g</span>
+                    </div>
+                    <Slider
+                      value={carbRange}
+                      onValueChange={setCarbRange}
+                      max={100}
+                      min={5}
+                      step={5}
+                      className="w-full"
+                    />
+                  </div>
+                  <div>
+                    <div className="flex justify-between items-center mb-1">
+                      <label className="text-xs font-medium text-gray-300">Fat</label>
+                      <span className="text-xs text-gray-400">{fatRange[0]}-{fatRange[1]}g</span>
+                    </div>
+                    <Slider
+                      value={fatRange}
+                      onValueChange={setFatRange}
+                      max={50}
+                      min={5}
+                      step={2}
+                      className="w-full"
+                    />
+                  </div>
+                </div>
+
+                {/* Third row: Fiber (centered) */}
+                <div className="flex justify-center">
+                  <div className="w-1/2">
+                    <div className="flex justify-between items-center mb-1">
+                      <label className="text-xs font-medium text-gray-300">Fiber</label>
+                      <span className="text-xs text-gray-400">{fiberRange[0]}-{fiberRange[1]}g</span>
+                    </div>
+                    <Slider
+                      value={fiberRange}
+                      onValueChange={setFiberRange}
+                      max={25}
+                      min={5}
+                      step={1}
+                      className="w-full"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Demo Toggle Buttons */}
+              <div className="mt-4 pt-3 border-t border-gray-600">
+                <p className="text-xs text-gray-500 mb-2 text-center">Design Options (for demo):</p>
+                <div className="flex gap-2 justify-center">
+                  <button 
+                    onClick={() => {
+                      document.getElementById('option1')?.classList.remove('hidden');
+                      document.getElementById('option2')?.classList.add('hidden');
+                      document.getElementById('option3')?.classList.add('hidden');
+                      document.getElementById('option4')?.classList.add('hidden');
+                    }}
+                    className="px-2 py-1 text-xs bg-gray-600 hover:bg-purple-600 rounded text-white"
+                  >
+                    Input
+                  </button>
+                  <button 
+                    onClick={() => {
+                      document.getElementById('option1')?.classList.add('hidden');
+                      document.getElementById('option2')?.classList.remove('hidden');
+                      document.getElementById('option3')?.classList.add('hidden');
+                      document.getElementById('option4')?.classList.add('hidden');
+                    }}
+                    className="px-2 py-1 text-xs bg-gray-600 hover:bg-purple-600 rounded text-white"
+                  >
+                    Preset
+                  </button>
+                  <button 
+                    onClick={() => {
+                      document.getElementById('option1')?.classList.add('hidden');
+                      document.getElementById('option2')?.classList.add('hidden');
+                      document.getElementById('option3')?.classList.remove('hidden');
+                      document.getElementById('option4')?.classList.add('hidden');
+                    }}
+                    className="px-2 py-1 text-xs bg-gray-600 hover:bg-purple-600 rounded text-white"
+                  >
+                    Icons
+                  </button>
+                  <button 
+                    onClick={() => {
+                      document.getElementById('option1')?.classList.add('hidden');
+                      document.getElementById('option2')?.classList.add('hidden');
+                      document.getElementById('option3')?.classList.add('hidden');
+                      document.getElementById('option4')?.classList.remove('hidden');
+                    }}
+                    className="px-2 py-1 text-xs bg-gray-600 hover:bg-purple-600 rounded text-white"
+                  >
+                    Current
+                  </button>
                 </div>
               </div>
             </CardContent>
