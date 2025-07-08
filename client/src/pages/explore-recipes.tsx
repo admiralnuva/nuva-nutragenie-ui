@@ -536,22 +536,8 @@ export default function ExploreRecipesScreen() {
           {activeCard === 'pantry-dishes' && (
             <>
               <Card className="bg-white border border-gray-200 shadow-lg">
-                <CardHeader className="pb-2 pt-2 relative">
-                  <div className="pr-20">
-                    <CardTitle className="text-base text-purple-600 mt-2">Dishes that can be cooked from pantry ingredients</CardTitle>
-                  </div>
-                  <div className="absolute top-0 right-0 flex flex-col items-center">
-                    <div className="rounded-lg overflow-hidden" style={{width: '80px', height: '80px'}}>
-                      <img 
-                        src={chefAvatarSrc} 
-                        alt="Chef Avatar"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <p className="text-xs text-gray-600 mt-1 font-medium text-center">
-                      {userData?.chefName || "Chef"}
-                    </p>
-                  </div>
+                <CardHeader className="pb-2 pt-2">
+                  <CardTitle className="text-base text-purple-600 mt-2">Dishes that can be cooked from pantry ingredients</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-2 gap-3">
