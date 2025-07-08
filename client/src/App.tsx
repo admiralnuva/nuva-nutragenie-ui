@@ -47,6 +47,7 @@ function Router() {
     <Switch>
       <Route path="/" component={SplashScreen} />
       <Route path="/nuva" component={NuvaSplashScreen} />
+      <Route path="/nuva-signup" component={NuvaSignupScreen} />
       <Route path="/nuva-home" component={HomeScreen} />
       <Route path="/splash" component={SplashScreen} />
       <Route path="/signup" component={SignupScreen} />
