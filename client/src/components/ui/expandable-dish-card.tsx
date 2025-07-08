@@ -31,8 +31,7 @@ export function ExpandableDishCard({
       <div className="w-full h-20 bg-gradient-to-br from-gray-600 to-gray-800 rounded-t-lg flex items-center justify-center relative overflow-hidden">
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="relative z-10 text-center">
-          <ChefHat size={20} className="text-white/90 mx-auto mb-1" />
-          <div className="text-xs text-white/80 font-medium px-2">AI Generated</div>
+          <ChefHat size={20} className="text-white/90 mx-auto" />
         </div>
         <div className="absolute top-1 right-1 w-3 h-3 bg-white/20 rounded-full"></div>
         <div className="absolute bottom-1 left-1 w-4 h-4 bg-white/10 rounded-full"></div>
@@ -116,10 +115,10 @@ export function ExpandableDishCard({
         
         {/* Row 2: Calories (left aligned) and Time (right aligned) */}
         <div className="flex items-center justify-between text-xs mb-2">
-          <span className="font-medium text-gray-600 w-16">{dish.calories} cal</span>
-          <div className="flex items-center gap-1 text-gray-600">
+          <span className="font-medium text-gray-600">{dish.calories} cal</span>
+          <div className="flex items-center gap-1 text-gray-600 pr-1">
             <Clock size={12} />
-            <span>{dish.cookTime}</span>
+            <span>{dish.cookTime.replace(' min', '')}</span>
           </div>
         </div>
 
