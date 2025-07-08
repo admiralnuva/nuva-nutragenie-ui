@@ -230,42 +230,41 @@ export default function VoiceCookingScreen() {
       </div>
 
       {/* Message Input */}
-      <div className="p-4 bg-gray-900">
+      <div className="p-4 bg-black">
         <div className="flex items-center gap-3">
           {/* Microphone Button */}
           <button
             onClick={toggleListening}
-            className={`w-12 h-12 rounded-full flex items-center justify-center transition-colors ${
+            className={`w-14 h-14 rounded-full flex items-center justify-center transition-colors ${
               isListening 
                 ? 'bg-red-600 text-white animate-pulse' 
-                : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
             }`}
           >
-            {isListening ? <MicOff size={20} /> : <Mic size={20} />}
+            {isListening ? <MicOff size={24} /> : <Mic size={24} />}
           </button>
 
-          {/* Text Input */}
-          <div className="flex-1 flex items-center gap-2 bg-gray-800 rounded-full px-4 py-3">
+          {/* Text Input Area */}
+          <div className="flex-1 bg-gray-700 rounded-full px-6 py-4">
             <input
               type="text"
-              placeholder="Ask or type..."
+              placeholder="Type a message..."
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-              className="flex-1 bg-transparent text-white placeholder-gray-400 outline-none"
+              className="w-full bg-transparent text-white placeholder-gray-400 outline-none text-lg"
             />
-            <button
-              onClick={handleSendMessage}
-              disabled={!message.trim()}
-              className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              <Send size={16} />
-            </button>
           </div>
 
           {/* Pause Button */}
-          <button className="w-12 h-12 rounded-full bg-red-600 text-white flex items-center justify-center">
-            <Pause size={20} />
+          <button 
+            onClick={() => {
+              // Handle pause functionality
+              console.log('Pause clicked');
+            }}
+            className="w-14 h-14 rounded-full bg-red-600 text-white flex items-center justify-center hover:bg-red-700 transition-colors"
+          >
+            <Pause size={24} />
           </button>
         </div>
       </div>
