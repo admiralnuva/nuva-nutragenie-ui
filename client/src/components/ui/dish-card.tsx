@@ -139,17 +139,17 @@ export function DishCard({
         {isSelected && (
           <div className="flex justify-between items-center mt-3 animate-in fade-in duration-200">
             <Button
-              size="sm"
+              size="lg"
               variant="outline"
-              className="h-9 w-9 p-0 bg-blue-50 hover:bg-blue-100 text-blue-600 border-blue-200"
+              className="h-14 w-14 p-0 bg-blue-50 hover:bg-blue-100 text-blue-600 border-blue-200"
               onClick={handleViewRecipeClick}
             >
               <BookOpen size={40} />
             </Button>
             <Button
-              size="sm"
+              size="lg"
               variant="outline"
-              className="h-9 w-9 p-0 bg-orange-50 hover:bg-orange-100 text-orange-600 border-orange-200"
+              className="h-14 w-14 p-0 bg-orange-50 hover:bg-orange-100 text-orange-600 border-orange-200"
               onClick={handleSubstitutionsClick}
             >
               <Settings size={40} />
