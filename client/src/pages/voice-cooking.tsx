@@ -141,7 +141,7 @@ export default function VoiceCookingScreen() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col relative z-[9999]">
+    <div className="min-h-screen bg-black text-white flex flex-col">
       {/* Header */}
       <div className="flex items-center justify-between p-4 bg-gray-900">
         <BackButton to="/recipes" className="text-white" />
@@ -270,7 +270,7 @@ export default function VoiceCookingScreen() {
       </div>
 
       {/* Message Input */}
-      <div className="p-4 bg-black fixed bottom-16 left-0 right-0 z-[10000]">
+      <div className="p-4 bg-black fixed bottom-16 left-0 right-0 z-40">
         <div className="flex items-center gap-3">
           {/* Microphone Button */}
           <button
