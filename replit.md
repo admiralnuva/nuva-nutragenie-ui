@@ -457,6 +457,7 @@ Changelog:
   * Simplified chef selection to only require choosing from the 4 predefined chefs (Marcus, Luna, Blaze, Harmony)
   * Updated completion logic to only check for chef selection without requiring custom naming
   * Streamlined user data flow to use the actual chef object with predefined name and personality
+  * Removed oval border from selected chef avatar display in the top-right corner for cleaner appearance
 ```
 
 ## User Preferences

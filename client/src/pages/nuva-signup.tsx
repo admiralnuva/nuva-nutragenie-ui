@@ -317,7 +317,7 @@ export default function NuvaSignupScreen() {
               <h3 className="text-xl font-semibold text-white">Choose Your AI Chef</h3>
               <p className="text-gray-300 text-sm">Select your personal cooking assistant</p>
             </div>
-            <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-gray-600">
+            <div className="w-20 h-20 rounded-lg overflow-hidden">
               {selectedChef ? (
                 <img 
                   src={chefs.find(chef => chef.id === selectedChef)?.avatar} 
