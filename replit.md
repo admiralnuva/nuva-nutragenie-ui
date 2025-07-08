@@ -485,11 +485,11 @@ Changelog:
   * Updated counter text and close button colors to gray-400/gray-300 for proper contrast
   * Changed mascot avatar gradient to purple theme (purple-400 to purple-600)
 - July 08, 2025. Card Title Layout Optimization and Avatar Border Fixes:
-  * Reduced avatar sizes from w-20 h-20 to w-12 h-12 across all dietary preference cards
-  * Added explicit border-0 class to remove any border artifacts around avatars
+  * Restored avatar sizes to w-20 h-20 across all dietary preference cards for better visibility
+  * Removed all borders using inline style border: 'none' to eliminate any border artifacts
   * Implemented whitespace-nowrap on all card titles to prevent text wrapping to second row
   * Added min-w-0 to title containers and flex-shrink-0 to avatar containers for proper flex behavior
-  * Reduced margin from ml-4 to ml-2 for optimal spacing between title and avatar sections
+  * Moved avatars to extreme right position by removing margins - avatars now touch card borders
   * Ensured all card titles display on single row with improved layout hierarchy
 ```
 

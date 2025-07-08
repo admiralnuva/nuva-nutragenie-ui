@@ -269,11 +269,12 @@ export default function DietaryScreen() {
                   </CardTitle>
                   <CardDescription className="text-gray-300">Select dietary choice to create personalized nutrition</CardDescription>
                 </div>
-                <div className="flex flex-col items-center ml-2 flex-shrink-0">
+                <div className="flex flex-col items-center flex-shrink-0">
                   <img 
                     src={userAvatarSrc} 
                     alt="User Avatar"
-                    className="w-12 h-12 object-cover rounded-lg border-0"
+                    className="w-20 h-20 object-cover rounded-lg"
+                    style={{ border: 'none' }}
                   />
                   <p className="text-xs text-gray-300 mt-1 text-center font-medium">
                     {userData?.nickname || "User"}
@@ -312,11 +313,12 @@ export default function DietaryScreen() {
                   </CardTitle>
                   <CardDescription className="text-gray-300">Select health factors</CardDescription>
                 </div>
-                <div className="flex flex-col items-center ml-2 flex-shrink-0">
+                <div className="flex flex-col items-center flex-shrink-0">
                   <img 
                     src={userAvatarSrc} 
                     alt="User Avatar"
-                    className="w-12 h-12 object-cover rounded-lg border-0"
+                    className="w-20 h-20 object-cover rounded-lg"
+                    style={{ border: 'none' }}
                   />
                   <p className="text-xs text-gray-300 mt-1 text-center font-medium">
                     {userData?.nickname || "User"}
@@ -355,11 +357,12 @@ export default function DietaryScreen() {
                   </CardTitle>
                   <CardDescription className="text-gray-300">Your fitness and wellness goals</CardDescription>
                 </div>
-                <div className="flex flex-col items-center ml-2 flex-shrink-0">
+                <div className="flex flex-col items-center flex-shrink-0">
                   <img 
                     src={userAvatarSrc} 
                     alt="User Avatar"
-                    className="w-12 h-12 object-cover rounded-lg border-0"
+                    className="w-20 h-20 object-cover rounded-lg"
+                    style={{ border: 'none' }}
                   />
                   <p className="text-xs text-gray-300 mt-1 text-center font-medium">
                     {userData?.nickname || "User"}
@@ -395,11 +398,12 @@ export default function DietaryScreen() {
                   <CardTitle className="text-lg text-white whitespace-nowrap">Allergies & Restrictions</CardTitle>
                   <CardDescription className="text-gray-300">List any food allergies or severe restrictions</CardDescription>
                 </div>
-                <div className="flex flex-col items-center ml-2 flex-shrink-0">
+                <div className="flex flex-col items-center flex-shrink-0">
                   <img 
                     src={userAvatarSrc} 
                     alt="User Avatar"
-                    className="w-12 h-12 object-cover rounded-lg border-0"
+                    className="w-20 h-20 object-cover rounded-lg"
+                    style={{ border: 'none' }}
                   />
                   <p className="text-xs text-gray-300 mt-1 text-center font-medium">
                     {userData?.nickname || "User"}
@@ -425,11 +429,12 @@ export default function DietaryScreen() {
                   <CardTitle className="text-lg text-white whitespace-nowrap">Nutritional Goals</CardTitle>
                   <CardDescription className="text-gray-300">Set your daily nutrition targets</CardDescription>
                 </div>
-                <div className="flex flex-col items-center ml-2 flex-shrink-0">
+                <div className="flex flex-col items-center flex-shrink-0">
                   <img 
                     src={userAvatarSrc} 
                     alt="User Avatar"
-                    className="w-12 h-12 object-cover rounded-lg border-0"
+                    className="w-20 h-20 object-cover rounded-lg"
+                    style={{ border: 'none' }}
                   />
                   <p className="text-xs text-gray-300 mt-1 text-center font-medium">
                     {userData?.nickname || "User"}
