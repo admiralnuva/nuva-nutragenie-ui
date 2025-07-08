@@ -853,20 +853,9 @@ export default function ExploreRecipesScreen() {
               {/* Ingredients in Your Pantry Card */}
               <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
                 <CardHeader className="pb-2">
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-base text-purple-300">
-                      Ingredients in your pantry
-                    </CardTitle>
-                    <div className="flex items-center">
-                      <div className="rounded-lg overflow-hidden bg-white shadow-sm" style={{width: '80px', height: '80px'}}>
-                        <img 
-                          src={userAvatarSrc} 
-                          alt="User Avatar"
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                    </div>
-                  </div>
+                  <CardTitle className="text-base text-purple-300">
+                    Ingredients in your pantry
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-purple-300 leading-relaxed">
