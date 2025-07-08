@@ -8,7 +8,7 @@ import {
   MicOff, 
   Volume2,
   Send,
-  Phone
+  Square
 } from "lucide-react";
 import user1Avatar from "@/assets/avatars/user/user1.png";
 import chef1Avatar from "@/assets/avatars/chef/chef1.png";
@@ -170,21 +170,21 @@ export default function VoiceCookingScreen() {
           </div>
         </div>
         
-        {/* Voice level indicator */}
-        <div className="flex items-center gap-1">
-          <div className="flex gap-1">
-            {[1, 2, 3, 4].map((bar) => (
-              <div 
-                key={bar}
-                className={`w-1 bg-blue-500 rounded transition-all duration-300 ${
-                  isListening ? 'h-6 animate-pulse' : 'h-2'
-                }`}
-                style={{
-                  animationDelay: `${bar * 100}ms`
-                }}
-              />
-            ))}
-          </div>
+        {/* Voice Options - moved here from bottom */}
+        <div className="flex items-center gap-2">
+          {voiceOptions.map((voice) => (
+            <button
+              key={voice.id}
+              onClick={() => setSelectedVoice(voice.id as typeof selectedVoice)}
+              className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
+                selectedVoice === voice.id 
+                  ? 'bg-purple-600 text-white' 
+                  : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+              }`}
+            >
+              <voice.icon size={16} />
+            </button>
+          ))}
         </div>
       </div>
 
@@ -229,25 +229,6 @@ export default function VoiceCookingScreen() {
         </div>
       </div>
 
-      {/* Voice Options */}
-      <div className="px-4 py-2">
-        <div className="flex justify-center gap-4">
-          {voiceOptions.map((voice) => (
-            <button
-              key={voice.id}
-              onClick={() => setSelectedVoice(voice.id as typeof selectedVoice)}
-              className={`w-12 h-12 rounded-full flex items-center justify-center transition-colors ${
-                selectedVoice === voice.id 
-                  ? 'bg-purple-600 text-white' 
-                  : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-              }`}
-            >
-              <voice.icon size={20} />
-            </button>
-          ))}
-        </div>
-      </div>
-
       {/* Message Input */}
       <div className="p-4 bg-gray-900">
         <div className="flex items-center gap-3">
@@ -282,9 +263,9 @@ export default function VoiceCookingScreen() {
             </button>
           </div>
 
-          {/* Phone Button */}
+          {/* Stop Button */}
           <button className="w-12 h-12 rounded-full bg-red-600 text-white flex items-center justify-center">
-            <Phone size={20} />
+            <Square size={20} />
           </button>
         </div>
       </div>
