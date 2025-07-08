@@ -150,7 +150,7 @@ export function RecipeDetailsModal({
               variant="ghost"
               size="sm"
               onClick={handleSave}
-              className="h-12 w-12 p-0 bg-purple-100 hover:bg-purple-200 text-purple-600 rounded-full flex items-center justify-center"
+              className="h-12 w-12 p-0 bg-purple-500 hover:bg-purple-600 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-purple-300"
             >
               <Heart size={20} />
             </Button>
@@ -158,7 +158,7 @@ export function RecipeDetailsModal({
               variant="ghost"
               size="sm"
               onClick={handlePrint}
-              className="h-12 w-12 p-0 bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full flex items-center justify-center"
+              className="h-12 w-12 p-0 bg-blue-500 hover:bg-blue-600 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-blue-300"
             >
               <Printer size={20} />
             </Button>
