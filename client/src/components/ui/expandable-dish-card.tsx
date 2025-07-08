@@ -127,8 +127,8 @@ export function ExpandableDishCard({
         
         {/* Row 2: Calories (left aligned) and Time (right aligned) */}
         <div className="flex items-center justify-between text-xs mb-1">
-          <span className="font-medium text-gray-600">{dish.calories} cal</span>
-          <div className="flex items-center gap-1 text-gray-600 pr-1">
+          <span className="font-medium text-purple-600">{dish.calories} cal</span>
+          <div className="flex items-center gap-1 text-purple-600 pr-1">
             <Clock size={12} />
             <span>{dish.cookTime.replace(' min', '')}</span>
           </div>
