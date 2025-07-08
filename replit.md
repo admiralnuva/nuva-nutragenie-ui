@@ -477,6 +477,13 @@ Changelog:
   * Ensured all avatars display properly with consistent 80x80 sizing
   * Removed white background shadows from all avatar containers for cleaner appearance
   * Eliminated container div elements around avatars to remove faint square borders completely
+- July 08, 2025. Genie Guidance Component Dark Theme Update:
+  * Updated OnboardingMascot component to consistent dark theme styling
+  * Changed background from white to gray-800 with gray-700 border
+  * Updated Genie name text from indigo-700 to purple-300 for visibility
+  * Fixed message text color from gray-700 to gray-300 for dark theme readability
+  * Updated counter text and close button colors to gray-400/gray-300 for proper contrast
+  * Changed mascot avatar gradient to purple theme (purple-400 to purple-600)
 ```
 
 ## User Preferences

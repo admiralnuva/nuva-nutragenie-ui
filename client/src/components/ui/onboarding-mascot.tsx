@@ -72,24 +72,24 @@ export function OnboardingMascot({
     <div className={`fixed ${positionClasses[position]} z-50 max-w-sm`}>
       {/* Mascot Container */}
       <div 
-        className={`bg-white rounded-2xl shadow-xl border-2 border-indigo-200 p-4 transition-all duration-500 transform ${
+        className={`bg-gray-800 rounded-2xl shadow-xl border-2 border-gray-700 p-4 transition-all duration-500 transform ${
           isVisible ? 'scale-100 opacity-100 translate-y-0' : 'scale-95 opacity-0 translate-y-2'
         }`}
       >
         {/* Header with Mascot */}
         <div className="flex items-start gap-3 mb-3">
           <div className="flex-shrink-0">
-            <div className="w-12 h-12 bg-gradient-to-br from-indigo-400 to-purple-500 rounded-full flex items-center justify-center shadow-lg">
+            <div className="w-12 h-12 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
               <Sparkles className="w-6 h-6 text-white animate-pulse" />
             </div>
           </div>
           <div className="flex-1">
             <div className="flex items-center justify-between">
-              <h4 className="font-bold text-indigo-700 text-sm">{mascotName}</h4>
+              <h4 className="font-bold text-purple-300 text-sm">{mascotName}</h4>
               {!currentMessage.persistent && (
                 <button
                   onClick={handleDismiss}
-                  className="text-gray-400 hover:text-gray-600 transition-colors"
+                  className="text-gray-400 hover:text-gray-300 transition-colors"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -100,12 +100,12 @@ export function OnboardingMascot({
 
         {/* Message Content */}
         <div className="mb-4">
-          <p className="text-gray-700 text-sm leading-relaxed">{currentMessage.text}</p>
+          <p className="text-gray-300 text-sm leading-relaxed">{currentMessage.text}</p>
         </div>
 
         {/* Action Buttons */}
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1 text-xs text-gray-500">
+          <div className="flex items-center gap-1 text-xs text-gray-400">
             <MessageCircle className="w-3 h-3" />
             <span>{currentMessageIndex + 1} of {messages.length}</span>
           </div>
