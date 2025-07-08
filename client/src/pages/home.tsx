@@ -417,7 +417,7 @@ export default function HomeScreen() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-400 via-purple-400 to-indigo-500 pb-20">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900 pb-20">
       {/* Header */}
       <div className="bg-white/20 backdrop-blur-sm border-b border-white/30 px-4 py-4 flex items-center gap-3">
         <BackButton to="/" />
@@ -432,7 +432,7 @@ export default function HomeScreen() {
 
       <div className="p-4 space-y-6">
         {/* Compact Welcome Card */}
-        <Card className="p-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white">
+        <Card className="p-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white">
           <div className="space-y-1">
             {/* Row 1 - Avatars with Greeting Between */}
             <div className="flex items-center justify-between">
@@ -463,7 +463,7 @@ export default function HomeScreen() {
             
             {/* Row 2 - Motivational Text */}
             <div className="text-center">
-              <p className="text-blue-100 text-xs">Let's cook something exciting today!</p>
+              <p className="text-purple-100 text-xs">Let's cook something exciting today!</p>
             </div>
           </div>
         </Card>

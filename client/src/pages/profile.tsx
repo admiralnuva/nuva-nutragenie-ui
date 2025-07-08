@@ -657,22 +657,19 @@ export default function ProfileScreen() {
   }
 
   return (
-    <div className="min-h-screen bg-white pb-20">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900 pb-20">
       <div className="p-6">
-        <div className="max-w-md mx-auto">
-          <ScreenHeader 
-            title="NutraGenie"
-            subtitle="Profile"
-            backTo="/home"
-          />
+        <div className="max-w-md mx-auto text-center">
+          <h1 className="text-white text-3xl font-bold mb-2">NutraGenie</h1>
+          <p className="text-purple-200">Profile Settings</p>
         </div>
       </div>
       
       {/* Profile Content */}
-      <div className="bg-gray-50 min-h-screen">
+      <div className="min-h-screen">
         {/* Card 1: Navigation Buttons */}
         <div className="max-w-md mx-auto p-4 space-y-3">
-          <Card>
+          <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
             <CardContent className="p-4">
               <div className="grid grid-cols-2 gap-3">
                 {sections.map((section) => (
@@ -680,7 +677,11 @@ export default function ProfileScreen() {
                     key={section.id}
                     variant={activeSection === section.id ? "default" : "outline"}
                     onClick={() => setActiveSection(section.id)}
-                    className="flex items-center gap-2 h-12 text-sm"
+                    className={`flex items-center gap-2 h-12 text-sm ${
+                      activeSection === section.id 
+                        ? 'bg-purple-600 text-white border-purple-600 hover:bg-purple-700' 
+                        : 'bg-gray-700 text-gray-300 border-gray-600 hover:border-purple-400 hover:bg-purple-600/20'
+                    }`}
                   >
                     <section.icon className="w-4 h-4" />
                     {section.title}
@@ -691,7 +692,7 @@ export default function ProfileScreen() {
           </Card>
 
           {/* Card 2: Content */}
-          <Card>
+          <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
             {renderActiveSection()}
           </Card>
         </div>

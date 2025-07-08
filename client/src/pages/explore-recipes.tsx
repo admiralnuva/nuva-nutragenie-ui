@@ -519,54 +519,54 @@ export default function ExploreRecipesScreen() {
               <div className="grid grid-cols-2 gap-2">
                 <Button 
                   variant="outline" 
-                  className={`h-16 flex flex-col items-center justify-center space-y-1 border-purple-200 hover:border-purple-300 ${
+                  className={`h-16 flex flex-col items-center justify-center space-y-1 border-gray-600 hover:border-purple-400 ${
                     activeCard === 'pantry-ingredients' 
                       ? 'bg-purple-600 text-white border-purple-600 hover:bg-purple-700' 
-                      : 'hover:bg-purple-50'
+                      : 'bg-gray-700 hover:bg-purple-600/20'
                   }`}
                   onClick={() => setActiveCard('pantry-ingredients')}
                 >
                   <ShoppingCart size={18} className={activeCard === 'pantry-ingredients' ? 'text-white' : 'text-purple-600'} />
-                  <span className={`text-sm font-medium ${activeCard === 'pantry-ingredients' ? 'text-white' : 'text-gray-300'} text-center leading-tight`}>Pantry Ingredients</span>
+                  <span className={`text-sm font-medium ${activeCard === 'pantry-ingredients' ? 'text-white' : 'text-gray-200'} text-center leading-tight`}>Pantry Ingredients</span>
                 </Button>
 
                 <Button 
                   variant="outline" 
-                  className={`h-16 flex flex-col items-center justify-center space-y-1 border-purple-200 hover:border-purple-300 ${
+                  className={`h-16 flex flex-col items-center justify-center space-y-1 border-gray-600 hover:border-purple-400 ${
                     activeCard === 'create-dish' 
                       ? 'bg-purple-600 text-white border-purple-600 hover:bg-purple-700' 
-                      : 'hover:bg-purple-50'
+                      : 'bg-gray-700 hover:bg-purple-600/20'
                   }`}
                   onClick={() => setActiveCard('create-dish')}
                 >
                   <Plus size={18} className={activeCard === 'create-dish' ? 'text-white' : 'text-purple-600'} />
-                  <span className={`text-sm font-medium ${activeCard === 'create-dish' ? 'text-white' : 'text-gray-300'} text-center leading-tight`}>Create Dish</span>
+                  <span className={`text-sm font-medium ${activeCard === 'create-dish' ? 'text-white' : 'text-gray-200'} text-center leading-tight`}>Create Dish</span>
                 </Button>
 
                 <Button 
                   variant="outline" 
-                  className={`h-16 flex flex-col items-center justify-center space-y-1 border-purple-200 hover:border-purple-300 ${
+                  className={`h-16 flex flex-col items-center justify-center space-y-1 border-gray-600 hover:border-purple-400 ${
                     activeCard === 'pantry-dishes' 
                       ? 'bg-purple-600 text-white border-purple-600 hover:bg-purple-700' 
-                      : 'hover:bg-purple-50'
+                      : 'bg-gray-700 hover:bg-purple-600/20'
                   }`}
                   onClick={() => setActiveCard('pantry-dishes')}
                 >
                   <Utensils size={18} className={activeCard === 'pantry-dishes' ? 'text-white' : 'text-purple-600'} />
-                  <span className={`text-sm font-medium ${activeCard === 'pantry-dishes' ? 'text-white' : 'text-gray-300'} text-center leading-tight`}>Pantry Dishes</span>
+                  <span className={`text-sm font-medium ${activeCard === 'pantry-dishes' ? 'text-white' : 'text-gray-200'} text-center leading-tight`}>Pantry Dishes</span>
                 </Button>
 
                 <Button 
                   variant="outline" 
-                  className={`h-16 flex flex-col items-center justify-center space-y-1 border-purple-200 hover:border-purple-300 ${
+                  className={`h-16 flex flex-col items-center justify-center space-y-1 border-gray-600 hover:border-purple-400 ${
                     activeCard === 'chefs-choice' 
                       ? 'bg-purple-600 text-white border-purple-600 hover:bg-purple-700' 
-                      : 'hover:bg-purple-50'
+                      : 'bg-gray-700 hover:bg-purple-600/20'
                   }`}
                   onClick={() => setActiveCard('chefs-choice')}
                 >
                   <Sparkles size={18} className={activeCard === 'chefs-choice' ? 'text-white' : 'text-purple-600'} />
-                  <span className={`text-sm font-medium ${activeCard === 'chefs-choice' ? 'text-white' : 'text-gray-300'} text-center leading-tight`}>Chef's Choice</span>
+                  <span className={`text-sm font-medium ${activeCard === 'chefs-choice' ? 'text-white' : 'text-gray-200'} text-center leading-tight`}>Chef's Choice</span>
                 </Button>
               </div>
             </CardContent>
