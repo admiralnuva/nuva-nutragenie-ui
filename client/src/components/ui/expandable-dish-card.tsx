@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Clock, ChefHat, BookOpen, Heart, Play, Check } from "lucide-react";
+import { RecipeDetailsModal } from "./recipe-details-modal";
 
 interface ExpandableDishCardProps {
   dish: {
@@ -24,6 +25,7 @@ export function ExpandableDishCard({
   onCookNow 
 }: ExpandableDishCardProps) {
   const [isSelected, setIsSelected] = useState(false);
+  const [showRecipeModal, setShowRecipeModal] = useState(false);
 
   // Generate AI-style food image placeholder
   const getImagePlaceholder = (dishName: string) => {
@@ -55,6 +57,16 @@ export function ExpandableDishCard({
   const handleButtonClick = (e: React.MouseEvent, action: () => void) => {
     e.stopPropagation();
     action();
+  };
+
+  const handleRecipeClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setShowRecipeModal(true);
+  };
+
+  const handleModalSave = (dish: any) => {
+    onSaveRecipe?.(dish);
+    setShowRecipeModal(false);
   };
 
   return (
@@ -90,7 +102,7 @@ export function ExpandableDishCard({
               size="sm"
               variant="secondary"
               className="h-8 w-8 p-0 bg-blue-500 hover:bg-blue-600 text-white rounded-full flex items-center justify-center shadow-lg"
-              onClick={(e) => handleButtonClick(e, () => onRecipe?.(dish))}
+              onClick={handleRecipeClick}
             >
               <BookOpen size={14} />
             </Button>
@@ -131,6 +143,14 @@ export function ExpandableDishCard({
 
 
       </div>
+
+      {/* Recipe Details Modal */}
+      <RecipeDetailsModal
+        dish={dish}
+        isOpen={showRecipeModal}
+        onClose={() => setShowRecipeModal(false)}
+        onSave={handleModalSave}
+      />
     </div>
   );
 }
