@@ -192,6 +192,55 @@ export default function DietaryScreen() {
     }
   });
 
+  // Define dietary conflicts
+  const dietaryConflicts = {
+    'vegetarian': ['keto'],
+    'vegan': ['keto'],
+    'keto': ['vegetarian', 'vegan'],
+    'pescatarian': ['vegetarian', 'vegan'] // Pescatarian conflicts with vegetarian/vegan
+  };
+
+  // Check if a dietary option is disabled due to conflicts
+  const isDietaryOptionDisabled = (value: string) => {
+    if (selectedDietary.includes(value)) return false; // Already selected options are never disabled
+    
+    // Check if any currently selected option conflicts with this value
+    return selectedDietary.some(selected => {
+      const conflicts = dietaryConflicts[selected as keyof typeof dietaryConflicts] || [];
+      return conflicts.includes(value);
+    });
+  };
+
+  const toggleDietarySelection = (value: string) => {
+    // Don't allow selection if option is disabled
+    if (isDietaryOptionDisabled(value)) return;
+    
+    setSelectedDietary(prev => {
+      if (prev.includes(value)) {
+        // If removing, just remove it
+        return prev.filter(item => item !== value);
+      } else {
+        // If adding, check for conflicts
+        const conflicts = dietaryConflicts[value as keyof typeof dietaryConflicts] || [];
+        const newSelection = [...prev, value];
+        
+        // Remove any conflicting selections
+        const filteredSelection = newSelection.filter(item => 
+          item === value || !conflicts.includes(item)
+        );
+        
+        // Also remove items that conflict with the new selection
+        const finalSelection = filteredSelection.filter(item => {
+          if (item === value) return true;
+          const itemConflicts = dietaryConflicts[item as keyof typeof dietaryConflicts] || [];
+          return !itemConflicts.includes(value);
+        });
+        
+        return finalSelection;
+      }
+    });
+  };
+
   const toggleSelection = (setState: React.Dispatch<React.SetStateAction<string[]>>, value: string) => {
     setState(prev => 
       prev.includes(value) 
@@ -284,20 +333,29 @@ export default function DietaryScreen() {
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 gap-3">
-                {dietaryRestrictions.map(option => (
-                  <button
-                    key={option.value}
-                    type="button"
-                    onClick={() => toggleSelection(setSelectedDietary, option.value)}
-                    className={`px-3 py-2 rounded-lg border-2 font-medium transition-all text-sm text-left ${
-                      selectedDietary.includes(option.value)
-                        ? 'border-purple-500 bg-purple-500 text-white scale-105'
-                        : 'border-gray-600 text-gray-300 hover:border-purple-400 hover:bg-purple-500/20 hover:text-purple-300'
-                    }`}
-                  >
-                    {option.label}
-                  </button>
-                ))}
+                {dietaryRestrictions.map(option => {
+                  const isSelected = selectedDietary.includes(option.value);
+                  const isDisabled = isDietaryOptionDisabled(option.value);
+                  
+                  return (
+                    <button
+                      key={option.value}
+                      type="button"
+                      onClick={() => toggleDietarySelection(option.value)}
+                      disabled={isDisabled}
+                      className={`px-3 py-2 rounded-lg border-2 font-medium transition-all text-sm text-left ${
+                        isSelected
+                          ? 'border-purple-500 bg-purple-500 text-white scale-105'
+                          : isDisabled
+                          ? 'border-gray-700 bg-gray-800 text-gray-500 opacity-50 cursor-not-allowed'
+                          : 'border-gray-600 text-gray-300 hover:border-purple-400 hover:bg-purple-500/20 hover:text-purple-300'
+                      }`}
+                    >
+                      {option.label}
+                      {isDisabled && <span className="ml-1 text-xs">🚫</span>}
+                    </button>
+                  );
+                })}
               </div>
             </CardContent>
           </Card>

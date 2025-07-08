@@ -491,6 +491,13 @@ Changelog:
   * Added min-w-0 to title containers and flex-shrink-0 to avatar containers for proper flex behavior
   * Moved avatars to extreme right position by removing margins - avatars now touch card borders
   * Ensured all card titles display on single row with improved layout hierarchy
+- July 08, 2025. Dietary Restrictions Conflict Logic Implementation:
+  * Added intelligent conflict validation for dietary preferences selection
+  * Implemented restrictions: Vegetarian/Vegan conflicts with Keto, Pescatarian conflicts with Vegetarian/Vegan
+  * Added visual feedback for disabled options with opacity reduction and prohibition emoji
+  * Created toggleDietarySelection function with automatic conflict resolution
+  * Disabled conflicting options become unclickable with clear visual indication
+  * Enhanced UX by preventing incompatible dietary combinations automatically
 ```
 
 ## User Preferences
