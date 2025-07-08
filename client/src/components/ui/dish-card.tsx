@@ -144,7 +144,7 @@ export function DishCard({
               className="h-9 w-9 p-0 bg-blue-50 hover:bg-blue-100 text-blue-600 border-blue-200"
               onClick={handleViewRecipeClick}
             >
-              <BookOpen size={20} />
+              <BookOpen size={40} />
             </Button>
             <Button
               size="sm"
@@ -152,7 +152,7 @@ export function DishCard({
               className="h-9 w-9 p-0 bg-orange-50 hover:bg-orange-100 text-orange-600 border-orange-200"
               onClick={handleSubstitutionsClick}
             >
-              <Settings size={20} />
+              <Settings size={40} />
             </Button>
           </div>
         )}
