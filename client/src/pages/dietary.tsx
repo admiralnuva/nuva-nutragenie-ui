@@ -356,8 +356,8 @@ export default function DietaryScreen() {
                   <img 
                     src={userAvatarSrc} 
                     alt="User Avatar"
-                    className="w-20 h-20 object-cover rounded-lg"
-                    style={{ border: 'none' }}
+                    className="w-20 h-20 object-cover rounded-lg border-0"
+                    style={{ border: 'none !important', outline: 'none', boxShadow: 'none', backgroundColor: 'transparent' }}
                   />
                   <p className="text-xs text-gray-300 mt-1 text-center font-medium">
                     {userData?.nickname || "User"}
@@ -409,8 +409,8 @@ export default function DietaryScreen() {
                   <img 
                     src={userAvatarSrc} 
                     alt="User Avatar"
-                    className="w-20 h-20 object-cover rounded-lg"
-                    style={{ border: 'none' }}
+                    className="w-20 h-20 object-cover rounded-lg border-0"
+                    style={{ border: 'none !important', outline: 'none', boxShadow: 'none', backgroundColor: 'transparent' }}
                   />
                   <p className="text-xs text-gray-300 mt-1 text-center font-medium">
                     {userData?.nickname || "User"}
@@ -462,8 +462,8 @@ export default function DietaryScreen() {
                   <img 
                     src={userAvatarSrc} 
                     alt="User Avatar"
-                    className="w-20 h-20 object-cover rounded-lg"
-                    style={{ border: 'none' }}
+                    className="w-20 h-20 object-cover rounded-lg border-0"
+                    style={{ border: 'none !important', outline: 'none', boxShadow: 'none', backgroundColor: 'transparent' }}
                   />
                   <p className="text-xs text-gray-300 mt-1 text-center font-medium">
                     {userData?.nickname || "User"}
@@ -503,8 +503,8 @@ export default function DietaryScreen() {
                   <img 
                     src={userAvatarSrc} 
                     alt="User Avatar"
-                    className="w-20 h-20 object-cover rounded-lg"
-                    style={{ border: 'none' }}
+                    className="w-20 h-20 object-cover rounded-lg border-0"
+                    style={{ border: 'none !important', outline: 'none', boxShadow: 'none', backgroundColor: 'transparent' }}
                   />
                   <p className="text-xs text-gray-300 mt-1 text-center font-medium">
                     {userData?.nickname || "User"}
@@ -534,8 +534,8 @@ export default function DietaryScreen() {
                   <img 
                     src={userAvatarSrc} 
                     alt="User Avatar"
-                    className="w-20 h-20 object-cover rounded-lg"
-                    style={{ border: 'none' }}
+                    className="w-20 h-20 object-cover rounded-lg border-0"
+                    style={{ border: 'none !important', outline: 'none', boxShadow: 'none', backgroundColor: 'transparent' }}
                   />
                   <p className="text-xs text-gray-300 mt-1 text-center font-medium">
                     {userData?.nickname || "User"}
