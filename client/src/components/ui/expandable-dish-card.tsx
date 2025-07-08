@@ -88,34 +88,18 @@ export function ExpandableDishCard({
           getImagePlaceholder(dish.name)
         )}
         
-        {/* Selection Tick - Bigger dot on right side of image */}
-        <div className={`absolute top-2 right-2 w-6 h-6 rounded-full flex items-center justify-center transition-all duration-200 ${
-          isSelected ? 'bg-purple-600 scale-110' : 'bg-white/30 hover:bg-white/50'
+        {/* Selection Tick - Large with solid background for visibility */}
+        <div className={`absolute top-2 right-2 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 ${
+          isSelected ? 'bg-purple-600 scale-110 shadow-lg' : 'bg-white/90 hover:bg-white border-2 border-gray-300'
         }`}>
-          {isSelected && <Check size={16} className="text-white" />}
+          {isSelected ? (
+            <Check size={20} className="text-white" />
+          ) : (
+            <div className="w-3 h-3 rounded-full bg-gray-400"></div>
+          )}
         </div>
 
-        {/* Action buttons on image when selected - Recipe and Cook Now */}
-        {isSelected && (
-          <div className="absolute bottom-2 left-2 right-2 flex justify-between animate-in fade-in duration-200">
-            <Button
-              size="sm"
-              variant="secondary"
-              className="h-8 w-8 p-0 bg-blue-500 hover:bg-blue-600 text-white rounded-full flex items-center justify-center shadow-lg"
-              onClick={handleRecipeClick}
-            >
-              <BookOpen size={14} />
-            </Button>
-            <Button
-              size="sm"
-              variant="secondary"
-              className="h-8 w-8 p-0 bg-orange-500 hover:bg-orange-600 text-white rounded-full flex items-center justify-center shadow-lg"
-              onClick={(e) => handleButtonClick(e, () => onCookNow?.(dish))}
-            >
-              <Play size={14} />
-            </Button>
-          </div>
-        )}
+
       </div>
 
       {/* Square 1: Dish Information */}
@@ -134,12 +118,29 @@ export function ExpandableDishCard({
           </div>
         </div>
 
-        {/* Row 3: Difficulty level (right aligned) */}
-        <div className="flex justify-end">
-          <span className={`text-xs ${getDifficultyColor(dish.difficulty)}`}>
-            {dish.difficulty}
-          </span>
-        </div>
+        {/* Row 3: Recipe and Cook buttons when selected */}
+        {isSelected && (
+          <div className="flex justify-between items-center mt-2 animate-in fade-in duration-200">
+            <Button
+              size="sm"
+              variant="outline"
+              className="h-7 px-3 bg-blue-50 hover:bg-blue-100 text-blue-600 border-blue-200 text-xs"
+              onClick={handleRecipeClick}
+            >
+              <BookOpen size={12} className="mr-1" />
+              Recipe
+            </Button>
+            <Button
+              size="sm"
+              variant="outline"
+              className="h-7 px-3 bg-orange-50 hover:bg-orange-100 text-orange-600 border-orange-200 text-xs"
+              onClick={(e) => handleButtonClick(e, () => onCookNow?.(dish))}
+            >
+              <Play size={12} className="mr-1" />
+              Cook
+            </Button>
+          </div>
+        )}
 
 
       </div>

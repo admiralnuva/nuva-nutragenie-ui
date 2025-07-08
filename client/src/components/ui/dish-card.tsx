@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Check } from "lucide-react";
+import { Check, BookOpen, Settings } from "lucide-react";
 
 interface DishCardProps {
   dish: {
@@ -84,17 +84,21 @@ export function DishCard({
           <div className="text-8xl opacity-95">🍽️</div>
         )}
         
-        {/* Selection Tick - Green Circle */}
+        {/* Selection Tick - Large with solid background for visibility */}
         <div 
           className="absolute top-3 right-3 cursor-pointer"
           onClick={handleTickClick}
         >
-          <div className={`w-8 h-8 rounded-full border-2 flex items-center justify-center transition-all ${
+          <div className={`w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all shadow-lg ${
             isSelected 
-              ? 'bg-green-500 border-green-500' 
-              : 'bg-white border-gray-300 hover:border-green-400'
+              ? 'bg-purple-600 border-purple-600 scale-110' 
+              : 'bg-white/95 border-gray-400 hover:border-purple-400 hover:bg-white'
           }`}>
-            {isSelected && <Check className="w-5 h-5 text-white" />}
+            {isSelected ? (
+              <Check className="w-6 h-6 text-white" />
+            ) : (
+              <div className="w-4 h-4 rounded-full bg-gray-400"></div>
+            )}
           </div>
         </div>
       </div>
@@ -131,28 +135,29 @@ export function DishCard({
           </div>
         )}
 
-        {/* C) White Space */}
-        <div className="my-3"></div>
-
-        {/* D) Action Buttons */}
-        <div className="flex gap-2">
-          <Button 
-            variant="outline"
-            size="sm"
-            className="flex-1 h-9 text-sm"
-            onClick={handleSubstitutionsClick}
-          >
-            Substitutions
-          </Button>
-          <Button 
-            variant="outline"
-            size="sm"
-            className="flex-1 h-9 text-sm"
-            onClick={handleViewRecipeClick}
-          >
-            View Recipe
-          </Button>
-        </div>
+        {/* Row 3: Action buttons when selected */}
+        {isSelected && (
+          <div className="flex justify-between items-center mt-3 animate-in fade-in duration-200">
+            <Button
+              size="sm"
+              variant="outline"
+              className="h-7 px-3 bg-blue-50 hover:bg-blue-100 text-blue-600 border-blue-200 text-xs"
+              onClick={handleViewRecipeClick}
+            >
+              <BookOpen size={12} className="mr-1" />
+              Recipe
+            </Button>
+            <Button
+              size="sm"
+              variant="outline"
+              className="h-7 px-3 bg-orange-50 hover:bg-orange-100 text-orange-600 border-orange-200 text-xs"
+              onClick={handleSubstitutionsClick}
+            >
+              <Settings size={12} className="mr-1" />
+              Substitutions
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );
