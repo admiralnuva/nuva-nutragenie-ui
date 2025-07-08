@@ -2,6 +2,7 @@ import { useLocation } from "wouter";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { ScreenHeader } from "@/components/ui/screen-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ExpandableDishCard } from "@/components/ui/expandable-dish-card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -104,6 +105,45 @@ export default function ExploreRecipesScreen() {
       setSelectedIngredients(prev => [...prev, ingredient]);
       setNewIngredient('');
     }
+  };
+
+  // Handler functions for dish card actions
+  const handleRecipeView = (dish: any) => {
+    // Navigate to recipe details with ingredient and step cards
+    setLocation(`/recipe-details?dish=${encodeURIComponent(dish.name)}&id=${dish.id}`);
+  };
+
+  const handleSaveRecipe = (dish: any) => {
+    // Save recipe to localStorage for Profile page access
+    const savedRecipes = JSON.parse(localStorage.getItem("nutragenie_saved_recipes") || "[]");
+    const newRecipe = {
+      id: dish.id,
+      name: dish.name,
+      calories: dish.calories,
+      cookTime: dish.cookTime,
+      difficulty: dish.difficulty,
+      savedDate: new Date().toLocaleDateString('en-US', { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      })
+    };
+    
+    // Check if recipe already saved
+    const isAlreadySaved = savedRecipes.some((recipe: any) => recipe.id === dish.id);
+    if (!isAlreadySaved) {
+      savedRecipes.unshift(newRecipe); // Add to beginning of array
+      localStorage.setItem("nutragenie_saved_recipes", JSON.stringify(savedRecipes));
+      alert(`"${dish.name}" saved to your profile!`);
+    } else {
+      alert(`"${dish.name}" is already saved in your profile.`);
+    }
+  };
+
+  const handleCookNow = (dish: any) => {
+    // Navigate to voice cooking with dish information
+    setLocation(`/voice-cooking?dish=${encodeURIComponent(dish.name)}&id=${dish.id}`);
   };
 
   // Format dietary preferences data into text rows (max 6 rows)
@@ -516,33 +556,20 @@ export default function ExploreRecipesScreen() {
                 <CardContent>
                   <div className="grid grid-cols-2 gap-3">
                     {[
-                      { name: "Pasta Aglio e Olio", time: "15 min", calories: "340", difficulty: "Easy" },
-                      { name: "Fried Rice", time: "20 min", calories: "280", difficulty: "Easy" },
-                      { name: "Scrambled Eggs", time: "5 min", calories: "190", difficulty: "Beginner" },
-                      { name: "Garlic Bread", time: "10 min", calories: "160", difficulty: "Easy" },
-                      { name: "Simple Soup", time: "25 min", calories: "120", difficulty: "Easy" },
-                      { name: "Toast & Jam", time: "3 min", calories: "140", difficulty: "Beginner" }
-                    ].map((dish, index) => (
-                      <div key={index} className="bg-gray-50 rounded-lg border border-gray-200">
-                        <div className="p-3 h-full flex flex-col">
-                          {/* Row 1: Dish Name */}
-                          <h4 className="font-medium text-sm text-gray-900 mb-2 truncate">{dish.name}</h4>
-                          
-                          {/* Row 2: Calories and Timer (left aligned) */}
-                          <div className="flex items-center space-x-3 text-xs text-gray-600 mb-auto">
-                            <span>{dish.calories} cal</span>
-                            <div className="flex items-center space-x-1">
-                              <Clock size={12} />
-                              <span>{dish.time}</span>
-                            </div>
-                          </div>
-                          
-                          {/* Bottom Row: Difficulty Badge (right aligned) */}
-                          <div className="w-full flex justify-end mt-2">
-                            <span className="text-xs bg-purple-100 text-purple-600 px-2 py-0.5 rounded font-medium">{dish.difficulty}</span>
-                          </div>
-                        </div>
-                      </div>
+                      { id: 1, name: "Pasta Aglio e Olio", cookTime: "15 min", calories: 340, difficulty: "Easy" as const },
+                      { id: 2, name: "Fried Rice", cookTime: "20 min", calories: 280, difficulty: "Easy" as const },
+                      { id: 3, name: "Scrambled Eggs", cookTime: "5 min", calories: 190, difficulty: "Easy" as const },
+                      { id: 4, name: "Garlic Bread", cookTime: "10 min", calories: 160, difficulty: "Easy" as const },
+                      { id: 5, name: "Simple Soup", cookTime: "25 min", calories: 120, difficulty: "Easy" as const },
+                      { id: 6, name: "Toast & Jam", cookTime: "3 min", calories: 140, difficulty: "Easy" as const }
+                    ].map((dish) => (
+                      <ExpandableDishCard
+                        key={dish.id}
+                        dish={dish}
+                        onRecipe={(dish) => handleRecipeView(dish)}
+                        onSaveRecipe={(dish) => handleSaveRecipe(dish)}
+                        onCookNow={(dish) => handleCookNow(dish)}
+                      />
                     ))}
                   </div>
                 </CardContent>
