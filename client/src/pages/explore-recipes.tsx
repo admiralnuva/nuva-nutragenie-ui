@@ -567,83 +567,26 @@ export default function ExploreRecipesScreen() {
           {activeCard === 'chefs-choice' && (
             <>
               <Card className="bg-white border border-gray-200 shadow-lg">
-                <CardHeader className="pb-2 pt-2 relative">
-                  <div className="pr-20">
-                    <CardTitle className="text-base text-purple-600 mt-2">Chef's Special Recommendations</CardTitle>
-                  </div>
-                  <div className="absolute top-0 right-0 flex flex-col items-center">
-                    <div className="rounded-lg overflow-hidden" style={{width: '80px', height: '80px'}}>
-                      <img 
-                        src={chefAvatarSrc} 
-                        alt="Chef Avatar"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <p className="text-xs text-gray-600 mt-1 font-medium text-center">
-                      {userData?.chefName || "Chef"}
-                    </p>
-                  </div>
+                <CardHeader className="pb-2 pt-2">
+                  <CardTitle className="text-base text-purple-600 mt-2">Chef's Choice of Dishes Personalized for you</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-2 gap-3">
                     {[
-                      { 
-                        name: "Mediterranean Bowl", 
-                        time: "30 min", 
-                        calories: "420", 
-                        difficulty: "Medium"
-                      },
-                      { 
-                        name: "Thai Curry", 
-                        time: "35 min", 
-                        calories: "380", 
-                        difficulty: "Medium"
-                      },
-                      { 
-                        name: "Quinoa Salad", 
-                        time: "20 min", 
-                        calories: "310", 
-                        difficulty: "Easy"
-                      },
-                      { 
-                        name: "Stuffed Peppers", 
-                        time: "45 min", 
-                        calories: "350", 
-                        difficulty: "Medium"
-                      },
-                      { 
-                        name: "Herb Crusted Fish", 
-                        time: "25 min", 
-                        calories: "290", 
-                        difficulty: "Medium"
-                      },
-                      { 
-                        name: "Power Smoothie Bowl", 
-                        time: "10 min", 
-                        calories: "240", 
-                        difficulty: "Easy"
-                      }
-                    ].map((dish, index) => (
-                      <div key={index} className="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                        <div className="p-3 h-full flex flex-col">
-                          {/* Row 1: Dish Name */}
-                          <h4 className="font-medium text-sm text-gray-900 mb-2 truncate">{dish.name}</h4>
-                          
-                          {/* Row 2: Calories and Timer (left aligned) */}
-                          <div className="flex items-center space-x-3 text-xs text-gray-600 mb-auto">
-                            <span>{dish.calories} cal</span>
-                            <div className="flex items-center space-x-1">
-                              <Clock size={12} />
-                              <span>{dish.time}</span>
-                            </div>
-                          </div>
-                          
-                          {/* Bottom Row: Difficulty Badge (right aligned) */}
-                          <div className="w-full flex justify-end mt-2">
-                            <span className="text-xs bg-purple-100 text-purple-600 px-2 py-0.5 rounded font-medium">{dish.difficulty}</span>
-                          </div>
-                        </div>
-                      </div>
+                      { id: 1, name: "Mediterranean Bowl", cookTime: "30 min", calories: 420, difficulty: "Medium" as const },
+                      { id: 2, name: "Thai Curry", cookTime: "35 min", calories: 380, difficulty: "Medium" as const },
+                      { id: 3, name: "Quinoa Salad", cookTime: "20 min", calories: 310, difficulty: "Easy" as const },
+                      { id: 4, name: "Stuffed Peppers", cookTime: "45 min", calories: 350, difficulty: "Medium" as const },
+                      { id: 5, name: "Herb Crusted Fish", cookTime: "25 min", calories: 290, difficulty: "Medium" as const },
+                      { id: 6, name: "Power Smoothie Bowl", cookTime: "10 min", calories: 240, difficulty: "Easy" as const }
+                    ].map((dish) => (
+                      <ExpandableDishCard
+                        key={dish.id}
+                        dish={dish}
+                        onRecipe={(dish) => handleRecipeView(dish)}
+                        onSaveRecipe={(dish) => handleSaveRecipe(dish)}
+                        onCookNow={(dish) => handleCookNow(dish)}
+                      />
                     ))}
                   </div>
                 </CardContent>
