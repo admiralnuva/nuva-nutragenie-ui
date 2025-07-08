@@ -451,6 +451,7 @@ Changelog:
   * Updated Send Code and Verify Code buttons from gray to consistent blue-purple theme
   * Applied bg-blue-500 hover:bg-blue-600 active:bg-purple-600 styling matching NavigationButton component
   * Standardized all button colors across Create Account page to maintain brand consistency
+  * Fixed Profile page dropdown arrow visibility by adding [&>svg]:text-gray-600 class to Age Group and State SelectTrigger components
 ```
 
 ## User Preferences

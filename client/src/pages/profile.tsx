@@ -135,7 +135,7 @@ export default function ProfileScreen() {
           <div className="space-y-3">
             <Label className="text-sm font-medium">Age Group</Label>
             <Select value={editedUser.ageGroup || ""} onValueChange={(value) => setEditedUser({...editedUser, ageGroup: value})}>
-              <SelectTrigger>
+              <SelectTrigger className="[&>svg]:text-gray-600">
                 <SelectValue placeholder="Select age group" />
               </SelectTrigger>
               <SelectContent>
@@ -175,7 +175,7 @@ export default function ProfileScreen() {
                 <div className="col-span-2">
                   <Label className="text-sm font-medium">State</Label>
                   <Select value={editedUser.state || ""} onValueChange={(value) => setEditedUser({...editedUser, state: value})}>
-                    <SelectTrigger>
+                    <SelectTrigger className="[&>svg]:text-gray-600">
                       <SelectValue placeholder="CA" />
                     </SelectTrigger>
                     <SelectContent>
