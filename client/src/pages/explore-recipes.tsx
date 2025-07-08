@@ -101,6 +101,8 @@ export default function ExploreRecipesScreen() {
 
   // Processing animation state
   const [showProcessing, setShowProcessing] = useState(false);
+  const [showPantryProcessing, setShowPantryProcessing] = useState(false);
+  const [showChefsChoiceProcessing, setShowChefsChoiceProcessing] = useState(false);
 
   // Pantry management state
   const [activeCard, setActiveCard] = useState<string>('pantry-ingredients');
@@ -110,9 +112,9 @@ export default function ExploreRecipesScreen() {
   const [isPantryExpanded, setIsPantryExpanded] = useState<boolean>(true);
   const [isMealPreferencesExpanded, setIsMealPreferencesExpanded] = useState<boolean>(true);
   
-  // Custom dish creation state
-  const [customDishName, setCustomDishName] = useState('');
-  const [customDishIngredients, setCustomDishIngredients] = useState('');
+  // Custom dish creation state - Pre-fill burger for testing
+  const [customDishName, setCustomDishName] = useState('Burger');
+  const [customDishIngredients, setCustomDishIngredients] = useState('ground beef, buns, lettuce, tomato, onion, cheese');
   const [customCookingStyle, setCustomCookingStyle] = useState('Grilled');
   const [customPrepTime, setCustomPrepTime] = useState('Under 15 min');
   const [customDifficulty, setCustomDifficulty] = useState('Easy');
@@ -376,13 +378,15 @@ export default function ExploreRecipesScreen() {
                 <p className="text-xs text-gray-400 mt-1">Set your cooking preferences and dietary goals</p>
               </div>
             </CardHeader>
-            {isMealPreferencesExpanded && (
+            <div className={`transition-all duration-500 ease-in-out overflow-hidden ${
+              isMealPreferencesExpanded ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+            }`}>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                 {/* Serving Size */}
                 <div className="space-y-2">
-                  <Label htmlFor="servingSize" className="text-sm font-medium text-gray-700 flex items-center gap-2">
-                    <Users size={16} className="text-purple-600" />
+                  <Label htmlFor="servingSize" className="text-sm font-medium text-purple-300 flex items-center gap-2">
+                    <Users size={16} className="text-purple-400" />
                     Serving Size
                   </Label>
                   <Select value={mealPreferences.servingSize} onValueChange={(value) => setMealPreferences(prev => ({...prev, servingSize: value}))}>
@@ -402,8 +406,8 @@ export default function ExploreRecipesScreen() {
 
                 {/* Cuisine */}
                 <div className="space-y-2">
-                  <Label htmlFor="cuisine" className="text-sm font-medium text-gray-700 flex items-center gap-2">
-                    <ChefHat size={16} className="text-purple-600" />
+                  <Label htmlFor="cuisine" className="text-sm font-medium text-purple-300 flex items-center gap-2">
+                    <ChefHat size={16} className="text-purple-400" />
                     Cuisine
                   </Label>
                   <Select value={mealPreferences.cuisine} onValueChange={(value) => setMealPreferences(prev => ({...prev, cuisine: value}))}>
@@ -425,8 +429,8 @@ export default function ExploreRecipesScreen() {
 
                 {/* Meal Type */}
                 <div className="space-y-2">
-                  <Label htmlFor="mealType" className="text-sm font-medium text-gray-700 flex items-center gap-2">
-                    <Utensils size={16} className="text-purple-600" />
+                  <Label htmlFor="mealType" className="text-sm font-medium text-purple-300 flex items-center gap-2">
+                    <Utensils size={16} className="text-purple-400" />
                     Meal Type
                   </Label>
                   <Select value={mealPreferences.mealType} onValueChange={(value) => setMealPreferences(prev => ({...prev, mealType: value}))}>
@@ -446,8 +450,8 @@ export default function ExploreRecipesScreen() {
 
                 {/* Spice Level */}
                 <div className="space-y-2">
-                  <Label htmlFor="spiceLevel" className="text-sm font-medium text-gray-700 flex items-center gap-2">
-                    <Flame size={16} className="text-purple-600" />
+                  <Label htmlFor="spiceLevel" className="text-sm font-medium text-purple-300 flex items-center gap-2">
+                    <Flame size={16} className="text-purple-400" />
                     Spice Level
                   </Label>
                   <Select value={mealPreferences.spiceLevel} onValueChange={(value) => setMealPreferences(prev => ({...prev, spiceLevel: value}))}>
@@ -466,8 +470,8 @@ export default function ExploreRecipesScreen() {
 
                 {/* Skill Level */}
                 <div className="space-y-2">
-                  <Label htmlFor="skillLevel" className="text-sm font-medium text-gray-700 flex items-center gap-2">
-                    <Target size={16} className="text-purple-600" />
+                  <Label htmlFor="skillLevel" className="text-sm font-medium text-purple-300 flex items-center gap-2">
+                    <Target size={16} className="text-purple-400" />
                     Skill Level
                   </Label>
                   <Select value={mealPreferences.skillLevel} onValueChange={(value) => setMealPreferences(prev => ({...prev, skillLevel: value}))}>
@@ -485,8 +489,8 @@ export default function ExploreRecipesScreen() {
 
                 {/* Cooking Method */}
                 <div className="space-y-2">
-                  <Label htmlFor="cookingMethod" className="text-sm font-medium text-gray-700 flex items-center gap-2">
-                    <ChefHat size={16} className="text-purple-600" />
+                  <Label htmlFor="cookingMethod" className="text-sm font-medium text-purple-300 flex items-center gap-2">
+                    <ChefHat size={16} className="text-purple-400" />
                     Cook Method
                   </Label>
                   <Select value={mealPreferences.cookingMethod} onValueChange={(value) => setMealPreferences(prev => ({...prev, cookingMethod: value}))}>
@@ -508,11 +512,17 @@ export default function ExploreRecipesScreen() {
 
                 {/* Prep Time */}
                 <div className="space-y-2">
-                  <Label htmlFor="prepTime" className="text-sm font-medium text-gray-700 flex items-center gap-2">
-                    <Clock size={16} className="text-purple-600" />
+                  <Label htmlFor="prepTime" className="text-sm font-medium text-purple-300 flex items-center gap-2">
+                    <Clock size={16} className="text-purple-400" />
                     Prep Time
                   </Label>
-                  <Select value={mealPreferences.prepTime} onValueChange={(value) => setMealPreferences(prev => ({...prev, prepTime: value}))}>
+                  <Select value={mealPreferences.prepTime} onValueChange={(value) => {
+                    setMealPreferences(prev => ({...prev, prepTime: value}));
+                    // Auto-collapse when prep time is selected (last field)
+                    setTimeout(() => {
+                      setIsMealPreferencesExpanded(false);
+                    }, 800);
+                  }}>
                     <SelectTrigger>
                       <SelectValue placeholder="Select prep time" />
                     </SelectTrigger>
@@ -529,7 +539,7 @@ export default function ExploreRecipesScreen() {
 
                 </div>
               </CardContent>
-            )}
+            </div>
             
             {/* Expand/Collapse Button - Outside collapsible content */}
             <div className="px-6 pb-3">
@@ -594,7 +604,13 @@ export default function ExploreRecipesScreen() {
                       ? 'bg-purple-600 text-white border-purple-600 hover:bg-purple-700' 
                       : 'bg-gray-700 hover:bg-purple-600/20'
                   }`}
-                  onClick={() => setActiveCard('pantry-dishes')}
+                  onClick={() => {
+                    setShowPantryProcessing(true);
+                    setTimeout(() => {
+                      setShowPantryProcessing(false);
+                      setActiveCard('pantry-dishes');
+                    }, 3000);
+                  }}
                 >
                   <Utensils size={16} className={activeCard === 'pantry-dishes' ? 'text-white' : 'text-purple-600'} />
                   <span className={`text-xs font-medium ${activeCard === 'pantry-dishes' ? 'text-white' : 'text-gray-200'} text-center leading-tight`}>Pantry Dishes</span>
@@ -607,7 +623,13 @@ export default function ExploreRecipesScreen() {
                       ? 'bg-purple-600 text-white border-purple-600 hover:bg-purple-700' 
                       : 'bg-gray-700 hover:bg-purple-600/20'
                   }`}
-                  onClick={() => setActiveCard('chefs-choice')}
+                  onClick={() => {
+                    setShowChefsChoiceProcessing(true);
+                    setTimeout(() => {
+                      setShowChefsChoiceProcessing(false);
+                      setActiveCard('chefs-choice');
+                    }, 3000);
+                  }}
                 >
                   <Sparkles size={16} className={activeCard === 'chefs-choice' ? 'text-white' : 'text-purple-600'} />
                   <span className={`text-xs font-medium ${activeCard === 'chefs-choice' ? 'text-white' : 'text-gray-200'} text-center leading-tight`}>Chef's Choice</span>
@@ -616,8 +638,22 @@ export default function ExploreRecipesScreen() {
             </CardContent>
           </Card>
 
+          {/* Pantry Dishes Processing Animation */}
+          {showPantryProcessing && (
+            <ProcessingAnimation
+              title="Analyzing Your Pantry"
+              subtitle="Finding the perfect dishes from your ingredients"
+              steps={[
+                "Scanning pantry ingredients",
+                "Matching recipes to available items", 
+                "Calculating nutrition profiles",
+                "Curating personalized dishes"
+              ]}
+            />
+          )}
+
           {/* Pantry Dishes Large Card */}
-          {activeCard === 'pantry-dishes' && (
+          {activeCard === 'pantry-dishes' && !showPantryProcessing && (
             <>
               <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700 shadow-lg">
                 <CardHeader className="pb-2 pt-2">
@@ -647,8 +683,22 @@ export default function ExploreRecipesScreen() {
             </>
           )}
 
+          {/* Chef's Choice Processing Animation */}
+          {showChefsChoiceProcessing && (
+            <ProcessingAnimation
+              title="Chef's Choice Selection"
+              subtitle="Personalizing gourmet recommendations for you"
+              steps={[
+                "Analyzing your dietary preferences",
+                "Consulting chef's expertise",
+                "Selecting premium recipes",
+                "Customizing for your taste profile"
+              ]}
+            />
+          )}
+
           {/* Chef's Choice Large Card */}
-          {activeCard === 'chefs-choice' && (
+          {activeCard === 'chefs-choice' && !showChefsChoiceProcessing && (
             <>
               <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700 shadow-lg">
                 <CardHeader className="pb-2 pt-2">

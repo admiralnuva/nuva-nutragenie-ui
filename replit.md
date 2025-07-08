@@ -403,6 +403,15 @@ Changelog:
   * Achieved complete color consistency by systematically replacing all green UI elements with purple theme across entire application
   * Updated selection indicators, connection status dots, progress bars, achievement cards, chart data points, and background elements throughout app
   * Enhanced mobile usability with large touch targets, professional gradient styling, and cohesive purple/indigo brand experience
+- July 08, 2025. Dietary Preferences UX Enhancements and Processing Animations:
+  * Fixed invisible dietary preference labels by changing from gray to purple-300 for visibility on dark backgrounds
+  * Implemented auto-collapse animation for meal preferences card when prep time (last field) is selected
+  * Added smooth transition animations with 500ms duration and proper overflow handling for meal preferences expansion
+  * Pre-filled burger details in Create Dish section for faster testing (ground beef, buns, lettuce, tomato, onion, cheese)
+  * Added processing animations to Pantry Dishes and Chef's Choice buttons matching Create Dish animation style
+  * Implemented 3-second processing delays with custom steps: pantry ingredient scanning, chef expertise consultation, and recipe curation
+  * Enhanced user feedback with "preferences being saved" indication through seamless card collapse animation
+  * Standardized purple color consistency across all form labels (purple-300) and icons (purple-400) for cohesive theme experience
 ```
 
 ## User Preferences
