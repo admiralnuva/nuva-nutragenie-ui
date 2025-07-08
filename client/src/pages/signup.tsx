@@ -321,44 +321,40 @@ export default function SignupScreen() {
   const isFormComplete = isProfileComplete && isAddressComplete && isChefComplete && isPhoneComplete && isVerifiedComplete;
 
   return (
-    <div className="min-h-screen bg-warm-neutral-50 p-6">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black">
       <div className="max-w-md mx-auto">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-4">
-          <BackButton to="/" />
+        {/* Standard Header */}
+        <div className="flex items-center justify-between pt-8 pb-4 px-4">
+          <BackButton onClick={() => setLocation('/splash')} className="w-8 h-8" />
           <div className="flex-1 text-center">
-            <h1 className="text-2xl font-bold text-gray-800">NutraGenie</h1>
+            <h1 className="text-2xl font-bold text-white">NutraGenie</h1>
+            <p className="text-purple-300 text-lg font-semibold mt-1">Create Account</p>
           </div>
           <div className="w-8"></div>
         </div>
-        <div className="text-lg font-semibold text-indigo-600 text-center mb-6">
-          Create Account
-        </div>
-
-
-
-        <div className="space-y-3">
+        
+        <div className="p-6 space-y-3">
           {/* Profile Section */}
           <Card 
-            className={`transition-all border-2 cursor-pointer ${
-              activeCard === 1 ? 'border-indigo-500 shadow-lg' : 'border-white'
-            } ${isProfileComplete ? 'ring-2 ring-green-500' : ''}`}
+            className={`bg-gray-800/90 backdrop-blur-sm border border-gray-700 transition-all cursor-pointer ${
+              activeCard === 1 ? 'border-purple-500 shadow-lg' : 'border-gray-700'
+            } ${isProfileComplete ? 'ring-2 ring-purple-500' : ''}`}
             onClick={() => handleCardClick(1)}
           >
             <CardHeader className="pb-4">
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <User className="w-5 h-5" />
+              <CardTitle className="flex items-center gap-2 text-lg text-white">
+                <User className="w-5 h-5 text-purple-400" />
                 Your Profile
-                {isProfileComplete && <Check className="w-5 h-5 text-brand-indigo-600" />}
+                {isProfileComplete && <Check className="w-5 h-5 text-purple-500" />}
               </CardTitle>
-              <CardDescription>Choose avatar, nickname, & age</CardDescription>
+              <CardDescription className="text-gray-300">Choose avatar, nickname, & age</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               {/* Avatar Selection */}
               <div>
-                <Label className="block text-sm font-medium text-warm-neutral-700 mb-3">
+                <Label className="block text-sm font-medium text-purple-300 mb-3">
                   Avatar <span className="text-red-500">*</span> 
-                  {!selectedAvatar && <span className="text-xs text-indigo-600 ml-2">(Select first to continue)</span>}
+                  {!selectedAvatar && <span className="text-xs text-purple-400 ml-2">(Select first to continue)</span>}
                 </Label>
                 <div className="grid grid-cols-4 gap-2">
                   {userAvatars.map((avatar) => (
@@ -370,9 +366,9 @@ export default function SignupScreen() {
                           setTouched(prev => ({ ...prev, avatar: true }));
                         }}
                         className={`flex items-center justify-center w-20 h-20 rounded-lg ${
-                          selectedAvatar?.id === avatar.id ? 'ring-2 ring-indigo-500 bg-indigo-50 shadow-md scale-105' : 
+                          selectedAvatar?.id === avatar.id ? 'ring-2 ring-purple-500 shadow-md scale-105' : 
                           !selectedAvatar ? 'ring-2 ring-orange-400' : ''
-                        } bg-white hover:ring-2 hover:ring-indigo-400 hover:bg-indigo-50 transition-all overflow-hidden`}
+                        } bg-gray-700 hover:ring-2 hover:ring-purple-400 transition-all overflow-hidden`}
                       >
                         <img 
                           src={avatar.src} 
@@ -393,7 +389,7 @@ export default function SignupScreen() {
 
               <div className="grid grid-cols-3 gap-4">
                 <div className="col-span-2">
-                  <Label htmlFor="nickname" className="block text-sm font-medium text-warm-neutral-700 mb-2">
+                  <Label htmlFor="nickname" className="block text-sm font-medium text-purple-300 mb-2">
                     Nickname
                   </Label>
                   <Input
@@ -434,7 +430,7 @@ export default function SignupScreen() {
                 </div>
 
                 <div className="col-span-1">
-                  <Label htmlFor="ageGroup" className="block text-sm font-medium text-warm-neutral-700 mb-2">
+                  <Label htmlFor="ageGroup" className="block text-sm font-medium text-purple-300 mb-2">
                     Age
                   </Label>
                   <Select 
@@ -498,14 +494,14 @@ export default function SignupScreen() {
               <CardTitle className="flex items-center gap-2 text-lg">
                 <MapPin className="w-5 h-5" />
                 Your Address
-                {isAddressComplete && <Check className="w-5 h-5 text-brand-indigo-600" />}
+                {isAddressComplete && <Check className="w-5 h-5 text-purple-500" />}
               </CardTitle>
               <CardDescription>Delivery and location details</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               {/* Street Address */}
               <div>
-                <Label htmlFor="streetAddress" className="block text-sm font-medium text-warm-neutral-700 mb-2">
+                <Label htmlFor="streetAddress" className="block text-sm font-medium text-purple-300 mb-2">
                   Street Address
                 </Label>
                 <Input
@@ -557,7 +553,7 @@ export default function SignupScreen() {
               {/* City, State, Zip Row */}
               <div className="grid grid-cols-7 gap-3">
                 <div className="col-span-3">
-                  <Label htmlFor="city" className="block text-sm font-medium text-warm-neutral-700 mb-2">
+                  <Label htmlFor="city" className="block text-sm font-medium text-purple-300 mb-2">
                     City
                   </Label>
                   <Input
@@ -585,7 +581,7 @@ export default function SignupScreen() {
                   )}
                 </div>
                 <div className="col-span-2">
-                  <Label htmlFor="state" className="block text-sm font-medium text-warm-neutral-700 mb-2">
+                  <Label htmlFor="state" className="block text-sm font-medium text-purple-300 mb-2">
                     State
                   </Label>
                   <Select 
@@ -666,7 +662,7 @@ export default function SignupScreen() {
                   )}
                 </div>
                 <div className="col-span-2">
-                  <Label htmlFor="zipCode" className="block text-sm font-medium text-warm-neutral-700 mb-2">
+                  <Label htmlFor="zipCode" className="block text-sm font-medium text-purple-300 mb-2">
                     Zip
                   </Label>
                   <Input
@@ -713,14 +709,14 @@ export default function SignupScreen() {
               <CardTitle className="flex items-center gap-2 text-lg">
                 <ChefHat className="w-5 h-5" />
                 Your AI Chef
-                {isChefComplete && <Check className="w-5 h-5 text-brand-indigo-600" />}
+                {isChefComplete && <Check className="w-5 h-5 text-purple-500" />}
               </CardTitle>
               <CardDescription>Select your personal cooking assistant</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               {/* Chef Avatar Selection */}
               <div>
-                <Label className="block text-sm font-medium text-warm-neutral-700 mb-3">
+                <Label className="block text-sm font-medium text-purple-300 mb-3">
                   Chef Avatar <span className="text-red-500">*</span>
                   {!selectedChef && <span className="text-xs text-indigo-600 ml-2">(Select first to continue)</span>}
                 </Label>
@@ -760,7 +756,7 @@ export default function SignupScreen() {
               </div>
 
               <div>
-                <Label htmlFor="chefNickname" className="block text-sm font-medium text-warm-neutral-700 mb-2">
+                <Label htmlFor="chefNickname" className="block text-sm font-medium text-purple-300 mb-2">
                   Chef's Name
                 </Label>
                 <Input
