@@ -47,6 +47,7 @@ export default function NuvaSignupScreen() {
   const [nickname, setNickname] = useState("");
   const [ageGroup, setAgeGroup] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [phoneError, setPhoneError] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
@@ -113,10 +114,32 @@ export default function NuvaSignupScreen() {
     }
   };
 
+  // Phone number validation function
+  const handlePhoneNumberChange = (value: string) => {
+    // Remove all non-numeric characters
+    const numericOnly = value.replace(/\D/g, '');
+    
+    // Limit to 10 digits
+    const limitedValue = numericOnly.slice(0, 10);
+    
+    // Check for invalid characters in original input
+    if (value !== numericOnly && value !== limitedValue) {
+      setPhoneError("Phone number can only contain numbers");
+    } else if (limitedValue.length > 0 && limitedValue.length < 10) {
+      setPhoneError("Phone number must be exactly 10 digits");
+    } else if (limitedValue.length === 10) {
+      setPhoneError("");
+    } else {
+      setPhoneError("");
+    }
+    
+    setPhoneNumber(limitedValue);
+  };
+
   // Section completion checks
   const isProfileComplete = selectedAvatar && nickname.length >= 2 && ageGroup;
   const isChefComplete = selectedChef;
-  const isPhoneComplete = phoneNumber.length >= 10;
+  const isPhoneComplete = phoneNumber.length === 10 && !phoneError;
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black">
@@ -366,13 +389,24 @@ export default function NuvaSignupScreen() {
           </div>
           {!codeSent ? (
             <div className="space-y-3">
-              <Input
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
-                placeholder="Enter phone number"
-                type="tel"
-                className="bg-gray-700 border-gray-600 text-white placeholder-gray-400"
-              />
+              <div className="space-y-2">
+                <Input
+                  value={phoneNumber}
+                  onChange={(e) => handlePhoneNumberChange(e.target.value)}
+                  placeholder="Enter 10-digit phone number"
+                  type="tel"
+                  maxLength={10}
+                  className={`bg-gray-700 border-gray-600 text-white placeholder-gray-400 ${
+                    phoneError ? 'border-red-500 focus:border-red-500' : ''
+                  }`}
+                />
+                {phoneError && (
+                  <p className="text-red-400 text-sm">{phoneError}</p>
+                )}
+                {phoneNumber.length > 0 && !phoneError && phoneNumber.length < 10 && (
+                  <p className="text-yellow-400 text-sm">{phoneNumber.length}/10 digits entered</p>
+                )}
+              </div>
               <Button 
                 onClick={sendVerificationCode}
                 disabled={!isPhoneComplete || isVerifying}
