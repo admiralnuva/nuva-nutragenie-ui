@@ -119,14 +119,14 @@ export function ExpandableDishCard({
       </div>
 
       {/* Square 1: Dish Information */}
-      <div className="p-3">
+      <div className="p-2">
         {/* Row 1: Dish Name with ellipsis if too long */}
-        <h3 className="font-semibold text-gray-800 text-sm mb-2 truncate">
+        <h3 className="font-semibold text-gray-800 text-sm mb-1 truncate">
           {dish.name}
         </h3>
         
         {/* Row 2: Calories (left aligned) and Time (right aligned) */}
-        <div className="flex items-center justify-between text-xs mb-2">
+        <div className="flex items-center justify-between text-xs mb-1">
           <span className="font-medium text-gray-600">{dish.calories} cal</span>
           <div className="flex items-center gap-1 text-gray-600 pr-1">
             <Clock size={12} />
