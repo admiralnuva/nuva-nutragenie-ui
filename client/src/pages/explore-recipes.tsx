@@ -38,6 +38,16 @@ const chefAvatars = {
   'chef4': chefAvatar4
 };
 
+// Burger images from user's uploaded photos
+const burgerImages = [
+  "/images/burgers/burger1.png",
+  "/images/burgers/burger2.png", 
+  "/images/burgers/burger3.png",
+  "/images/burgers/burger1.png", // Reusing image 1 for variation 4
+  "/images/burgers/burger2.png", // Reusing image 2 for variation 5
+  "/images/burgers/burger3.png"  // Reusing image 3 for variation 6
+];
+
 export default function ExploreRecipesScreen() {
   const [, setLocation] = useLocation();
   const [currentUser] = useLocalStorage<any>("nutragenie_user", null);
@@ -126,13 +136,17 @@ export default function ExploreRecipesScreen() {
     const calories = [320, 385, 295, 410, 345, 280];
     const cookTimes = ['15 min', '20 min', '12 min', '25 min', '18 min', '10 min'];
     
+    // Check if this is a burger dish to use special images
+    const isBurgerDish = baseDishName.toLowerCase().includes('burger');
+    
     return variations.map((variation, index) => ({
       id: index + 1,
       name: `${variation} ${baseDishName}`,
       calories: calories[index],
       cookTime: cookTimes[index],
       difficulty: difficultyLevels[index] as "Easy" | "Medium" | "Hard",
-      description: `A delicious ${variation.toLowerCase()} twist on your ${baseDishName.toLowerCase()}`
+      description: `A delicious ${variation.toLowerCase()} twist on your ${baseDishName.toLowerCase()}`,
+      image: isBurgerDish ? burgerImages[index] : undefined
     }));
   };
 
