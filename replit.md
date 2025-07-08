@@ -519,6 +519,10 @@ Changelog:
   * Enhanced visual hierarchy with large icons, small labels, and compact dropdown controls
   * Reduced visual clutter while maintaining precise nutrition target selection
   * Used consistent dark theme styling for all dropdown components
+  * Compacted layout to 2 rows: Row 1 (Calories, Protein, Carbs), Row 2 (Fat, Fiber)
+  * Positioned emoji icons beside dropdown inputs for space efficiency
+  * Reduced dropdown height to h-7 for more compact appearance
+  * Applied horizontal flex layout with icons on left, dropdowns on right
 ```
 
 ## User Preferences
