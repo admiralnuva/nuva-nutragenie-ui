@@ -161,9 +161,39 @@ export default function VoiceCookingScreen() {
               className="w-full h-full object-cover"
             />
           </div>
-          <div>
-            <h2 className="font-semibold text-white">{getChefName()}</h2>
-            <div className="flex items-center gap-2">
+          <div className="flex-1">
+            <div className="flex items-center gap-3">
+              <h2 className="font-semibold text-white">{getChefName()}</h2>
+              {/* Mute Chef Button - moved here */}
+              <button
+                onClick={() => setIsChefMuted(!isChefMuted)}
+                className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
+                  isChefMuted 
+                    ? 'bg-orange-600 text-white' 
+                    : 'bg-blue-600 text-white hover:bg-blue-700'
+                }`}
+                title={isChefMuted ? 'Unmute Chef' : 'Mute Chef'}
+              >
+                {isChefMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
+              </button>
+              {/* Pulsating Audio Bars - beside mute button */}
+              {!isChefMuted && (
+                <div className="flex items-end gap-1">
+                  {[1, 2, 3, 4].map((bar) => (
+                    <div
+                      key={bar}
+                      className={`w-1 bg-blue-500 rounded-full animate-pulse`}
+                      style={{
+                        height: `${Math.random() * 12 + 8}px`,
+                        animationDelay: `${bar * 0.1}s`,
+                        animationDuration: '1.5s'
+                      }}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+            <div className="flex items-center gap-2 mt-1">
               <div className={`w-2 h-2 rounded-full ${isConnected ? 'bg-green-500' : 'bg-red-500'}`} />
               <span className="text-sm text-gray-300">
                 {isConnected ? 'Connected' : 'Disconnected'}
@@ -195,38 +225,7 @@ export default function VoiceCookingScreen() {
         </div>
       </div>
 
-      {/* Center Audio Controls */}
-      <div className="flex justify-center items-center p-6 bg-gray-800 border-b border-gray-700">
-        {/* Mute Chef Button - Centered */}
-        <button
-          onClick={() => setIsChefMuted(!isChefMuted)}
-          className={`w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 ${
-            isChefMuted 
-              ? 'bg-orange-600 text-white' 
-              : 'bg-blue-600 text-white hover:bg-blue-700'
-          }`}
-          title={isChefMuted ? 'Unmute Chef' : 'Mute Chef'}
-        >
-          {isChefMuted ? <VolumeX size={24} /> : <Volume2 size={24} />}
-        </button>
-        
-        {/* Pulsating Audio Bars - Only when unmuted */}
-        {!isChefMuted && (
-          <div className="flex items-end gap-1 ml-4">
-            {[1, 2, 3, 4, 5].map((bar) => (
-              <div
-                key={bar}
-                className={`w-1 bg-blue-500 rounded-full animate-pulse`}
-                style={{
-                  height: `${Math.random() * 20 + 10}px`,
-                  animationDelay: `${bar * 0.1}s`,
-                  animationDuration: '1.5s'
-                }}
-              />
-            ))}
-          </div>
-        )}
-      </div>
+
 
       {/* Chat Messages */}
       <div className="flex-1 p-4 overflow-y-auto">
