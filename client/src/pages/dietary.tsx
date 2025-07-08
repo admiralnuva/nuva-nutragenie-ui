@@ -37,7 +37,7 @@ const dietaryRestrictions = [
 ];
 
 const healthConditions = [
-  { label: '🩺 Diabetes', value: 'diabetes' },
+  { label: '💉 Diabetes', value: 'diabetes' },
   { label: '❤️ Heart Issues', value: 'cardiovascular' },
   { label: '🫘 Kidney', value: 'kidney' },
   { label: '🩸 Hypertension', value: 'blood-pressure' },
@@ -241,6 +241,40 @@ export default function DietaryScreen() {
     });
   };
 
+  // Check if a health option is disabled due to conflicts
+  const isHealthOptionDisabled = (value: string) => {
+    if (selectedHealth.includes(value)) return false; // Already selected options are never disabled
+    
+    // If 'none' is selected, disable all other health options
+    if (selectedHealth.includes('none') && value !== 'none') return true;
+    
+    // If any health condition is selected, disable 'none'
+    if (value === 'none' && selectedHealth.some(item => item !== 'none')) return true;
+    
+    return false;
+  };
+
+  const toggleHealthSelection = (value: string) => {
+    // Don't allow selection if option is disabled
+    if (isHealthOptionDisabled(value)) return;
+    
+    setSelectedHealth(prev => {
+      if (prev.includes(value)) {
+        // If removing, just remove it
+        return prev.filter(item => item !== value);
+      } else {
+        // If adding 'none', remove all other selections
+        if (value === 'none') {
+          return ['none'];
+        }
+        
+        // If adding any health condition, remove 'none' and add the new selection
+        const withoutNone = prev.filter(item => item !== 'none');
+        return [...withoutNone, value];
+      }
+    });
+  };
+
   const toggleSelection = (setState: React.Dispatch<React.SetStateAction<string[]>>, value: string) => {
     setState(prev => 
       prev.includes(value) 
@@ -386,20 +420,29 @@ export default function DietaryScreen() {
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 gap-3">
-                {healthConditions.map(condition => (
-                  <button
-                    key={condition.value}
-                    type="button"
-                    onClick={() => toggleSelection(setSelectedHealth, condition.value)}
-                    className={`px-3 py-2 rounded-lg border-2 font-medium transition-all text-sm text-left ${
-                      selectedHealth.includes(condition.value)
-                        ? 'border-purple-500 bg-purple-500 text-white scale-105'
-                        : 'border-gray-600 text-gray-300 hover:border-purple-400 hover:bg-purple-500/20 hover:text-purple-300'
-                    }`}
-                  >
-                    {condition.label}
-                  </button>
-                ))}
+                {healthConditions.map(condition => {
+                  const isSelected = selectedHealth.includes(condition.value);
+                  const isDisabled = isHealthOptionDisabled(condition.value);
+                  
+                  return (
+                    <button
+                      key={condition.value}
+                      type="button"
+                      onClick={() => toggleHealthSelection(condition.value)}
+                      disabled={isDisabled}
+                      className={`px-3 py-2 rounded-lg border-2 font-medium transition-all text-sm text-left ${
+                        isSelected
+                          ? 'border-purple-500 bg-purple-500 text-white scale-105'
+                          : isDisabled
+                          ? 'border-gray-700 bg-gray-800 text-gray-500 opacity-50 cursor-not-allowed'
+                          : 'border-gray-600 text-gray-300 hover:border-purple-400 hover:bg-purple-500/20 hover:text-purple-300'
+                      }`}
+                    >
+                      {condition.label}
+                      {isDisabled && <span className="ml-1 text-xs">🚫</span>}
+                    </button>
+                  );
+                })}
               </div>
             </CardContent>
           </Card>

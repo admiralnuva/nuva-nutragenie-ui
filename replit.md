@@ -498,6 +498,13 @@ Changelog:
   * Created toggleDietarySelection function with automatic conflict resolution
   * Disabled conflicting options become unclickable with clear visual indication
   * Enhanced UX by preventing incompatible dietary combinations automatically
+- July 08, 2025. Health Factors Conflict Logic and Diabetes Icon Fix:
+  * Implemented health factors conflict logic: selecting any health condition disables "None" option
+  * Added mutual exclusivity: selecting "None" clears all other health selections
+  * Enhanced diabetes icon visibility by changing from 🩺 to 💉 for better contrast
+  * Applied same visual feedback system: disabled options show opacity reduction and prohibition emoji
+  * Created toggleHealthSelection function with automatic conflict resolution for health factors
+  * Ensured users cannot select both specific health conditions and "None" simultaneously
 ```
 
 ## User Preferences
