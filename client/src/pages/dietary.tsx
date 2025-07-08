@@ -270,13 +270,11 @@ export default function DietaryScreen() {
                   <CardDescription className="text-gray-300">Select dietary choice to create personalized nutrition</CardDescription>
                 </div>
                 <div className="flex flex-col items-center ml-4">
-                  <div className="w-20 h-20 rounded-lg overflow-hidden">
-                    <img 
-                      src={userAvatarSrc} 
-                      alt="User Avatar"
-                      className="w-full h-full object-cover rounded-lg"
-                    />
-                  </div>
+                  <img 
+                    src={userAvatarSrc} 
+                    alt="User Avatar"
+                    className="w-20 h-20 object-cover rounded-lg"
+                  />
                   <p className="text-xs text-gray-300 mt-1 text-center font-medium">
                     {userData?.nickname || "User"}
                   </p>
@@ -315,13 +313,11 @@ export default function DietaryScreen() {
                   <CardDescription className="text-gray-300">Select health factors</CardDescription>
                 </div>
                 <div className="flex flex-col items-center ml-4">
-                  <div className="w-20 h-20 rounded-lg overflow-hidden">
-                    <img 
-                      src={userAvatarSrc} 
-                      alt="User Avatar"
-                      className="w-full h-full object-cover rounded-lg"
-                    />
-                  </div>
+                  <img 
+                    src={userAvatarSrc} 
+                    alt="User Avatar"
+                    className="w-20 h-20 object-cover rounded-lg"
+                  />
                   <p className="text-xs text-gray-300 mt-1 text-center font-medium">
                     {userData?.nickname || "User"}
                   </p>
@@ -360,13 +356,11 @@ export default function DietaryScreen() {
                   <CardDescription className="text-gray-300">Your fitness and wellness goals</CardDescription>
                 </div>
                 <div className="flex flex-col items-center ml-4">
-                  <div className="w-20 h-20 rounded-lg overflow-hidden">
-                    <img 
-                      src={userAvatarSrc} 
-                      alt="User Avatar"
-                      className="w-full h-full object-cover rounded-lg"
-                    />
-                  </div>
+                  <img 
+                    src={userAvatarSrc} 
+                    alt="User Avatar"
+                    className="w-20 h-20 object-cover rounded-lg"
+                  />
                   <p className="text-xs text-gray-300 mt-1 text-center font-medium">
                     {userData?.nickname || "User"}
                   </p>
@@ -402,13 +396,11 @@ export default function DietaryScreen() {
                   <CardDescription className="text-gray-300">List any food allergies or severe restrictions</CardDescription>
                 </div>
                 <div className="flex flex-col items-center ml-4">
-                  <div className="w-20 h-20 rounded-lg overflow-hidden">
-                    <img 
-                      src={userAvatarSrc} 
-                      alt="User Avatar"
-                      className="w-full h-full object-cover rounded-lg"
-                    />
-                  </div>
+                  <img 
+                    src={userAvatarSrc} 
+                    alt="User Avatar"
+                    className="w-20 h-20 object-cover rounded-lg"
+                  />
                   <p className="text-xs text-gray-300 mt-1 text-center font-medium">
                     {userData?.nickname || "User"}
                   </p>
@@ -434,13 +426,11 @@ export default function DietaryScreen() {
                   <CardDescription className="text-gray-300">Set your daily nutrition targets</CardDescription>
                 </div>
                 <div className="flex flex-col items-center ml-4">
-                  <div className="w-16 h-16 rounded-lg overflow-hidden">
-                    <img 
-                      src={userAvatarSrc} 
-                      alt="User Avatar"
-                      className="w-full h-full object-cover rounded-lg"
-                    />
-                  </div>
+                  <img 
+                    src={userAvatarSrc} 
+                    alt="User Avatar"
+                    className="w-16 h-16 object-cover rounded-lg"
+                  />
                   <p className="text-xs text-gray-300 mt-1 text-center font-medium">
                     {userData?.nickname || "User"}
                   </p>

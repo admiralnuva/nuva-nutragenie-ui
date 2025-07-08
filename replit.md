@@ -476,6 +476,7 @@ Changelog:
   * Applied consistent card styling across all dietary preference sections
   * Ensured all avatars display properly with consistent 80x80 sizing
   * Removed white background shadows from all avatar containers for cleaner appearance
+  * Eliminated container div elements around avatars to remove faint square borders completely
 ```
 
 ## User Preferences
