@@ -239,13 +239,13 @@ export default function DietaryScreen() {
   const isFormValid = selectedDietary.length > 0 || selectedHealth.length > 0 || selectedFitness.length > 0;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900 p-6">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black p-6">
       <div className="max-w-md mx-auto pt-2">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
           <button 
             onClick={() => setLocation("/nuva-signup")}
-            className="text-purple-200 hover:text-white transition-colors flex items-center gap-2"
+            className="text-white hover:text-purple-300 transition-colors flex items-center gap-2"
           >
             <ArrowLeft size={20} />
             Back
@@ -277,7 +277,7 @@ export default function DietaryScreen() {
                       className="w-full h-full object-cover rounded-lg"
                     />
                   </div>
-                  <p className="text-xs text-gray-600 mt-1 text-center font-medium">
+                  <p className="text-xs text-gray-300 mt-1 text-center font-medium">
                     {userData?.nickname || "User"}
                   </p>
                 </div>
@@ -293,7 +293,7 @@ export default function DietaryScreen() {
                     className={`px-3 py-2 rounded-lg border-2 font-medium transition-all text-sm text-left ${
                       selectedDietary.includes(option.value)
                         ? 'border-purple-500 bg-purple-500 text-white scale-105'
-                        : 'border-gray-300 text-gray-700 hover:border-purple-400 hover:bg-purple-50 hover:text-purple-700'
+                        : 'border-gray-600 text-gray-300 hover:border-purple-400 hover:bg-purple-500/20 hover:text-purple-300'
                     }`}
                   >
                     {option.label}
@@ -304,15 +304,15 @@ export default function DietaryScreen() {
           </Card>
 
           {/* Health Conditions */}
-          <Card>
+          <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
             <CardHeader className="pb-4">
               <div className="flex items-center justify-between">
                 <div className="flex-1">
-                  <CardTitle className="flex items-center gap-2 text-lg">
-                    <Heart className="w-5 h-5" />
+                  <CardTitle className="flex items-center gap-2 text-lg text-white">
+                    <Heart className="w-5 h-5 text-purple-400" />
                     Health Factors
                   </CardTitle>
-                  <CardDescription>Select health factors</CardDescription>
+                  <CardDescription className="text-gray-300">Select health factors</CardDescription>
                 </div>
                 <div className="flex flex-col items-center ml-4">
                   <div className="w-20 h-20 rounded-lg overflow-hidden bg-white">
@@ -322,7 +322,7 @@ export default function DietaryScreen() {
                       className="w-full h-full object-cover rounded-lg"
                     />
                   </div>
-                  <p className="text-xs text-gray-600 mt-1 text-center font-medium">
+                  <p className="text-xs text-gray-300 mt-1 text-center font-medium">
                     {userData?.nickname || "User"}
                   </p>
                 </div>
@@ -338,7 +338,7 @@ export default function DietaryScreen() {
                     className={`px-3 py-2 rounded-lg border-2 font-medium transition-all text-sm text-left ${
                       selectedHealth.includes(condition.value)
                         ? 'border-purple-500 bg-purple-500 text-white scale-105'
-                        : 'border-gray-300 text-gray-700 hover:border-purple-400 hover:bg-purple-50 hover:text-purple-700'
+                        : 'border-gray-600 text-gray-300 hover:border-purple-400 hover:bg-purple-500/20 hover:text-purple-300'
                     }`}
                   >
                     {condition.label}
@@ -349,15 +349,15 @@ export default function DietaryScreen() {
           </Card>
 
           {/* Fitness Goals */}
-          <Card>
+          <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
             <CardHeader className="pb-4">
               <div className="flex items-center justify-between">
                 <div className="flex-1">
-                  <CardTitle className="flex items-center gap-2 text-lg">
-                    <Target className="w-5 h-5" />
+                  <CardTitle className="flex items-center gap-2 text-lg text-white">
+                    <Target className="w-5 h-5 text-purple-400" />
                     Fitness Goals
                   </CardTitle>
-                  <CardDescription>Your fitness and wellness goals</CardDescription>
+                  <CardDescription className="text-gray-300">Your fitness and wellness goals</CardDescription>
                 </div>
                 <div className="flex flex-col items-center ml-4">
                   <div className="w-20 h-20 rounded-lg overflow-hidden bg-white">
@@ -367,7 +367,7 @@ export default function DietaryScreen() {
                       className="w-full h-full object-cover rounded-lg"
                     />
                   </div>
-                  <p className="text-xs text-gray-600 mt-1 text-center font-medium">
+                  <p className="text-xs text-gray-300 mt-1 text-center font-medium">
                     {userData?.nickname || "User"}
                   </p>
                 </div>
@@ -383,7 +383,7 @@ export default function DietaryScreen() {
                     className={`px-3 py-2 rounded-lg border-2 font-medium transition-all text-sm text-left ${
                       selectedFitness.includes(goal.value)
                         ? 'border-purple-500 bg-purple-500 text-white scale-105'
-                        : 'border-gray-300 text-gray-700 hover:border-purple-400 hover:bg-purple-50 hover:text-purple-700'
+                        : 'border-gray-600 text-gray-300 hover:border-purple-400 hover:bg-purple-500/20 hover:text-purple-300'
                     }`}
                   >
                     {goal.label}
@@ -394,12 +394,12 @@ export default function DietaryScreen() {
           </Card>
 
           {/* Allergies */}
-          <Card>
+          <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
             <CardHeader className="pb-4">
               <div className="flex items-center justify-between">
                 <div className="flex-1">
-                  <CardTitle className="text-lg">Allergies & Restrictions</CardTitle>
-                  <CardDescription>List any food allergies or severe restrictions</CardDescription>
+                  <CardTitle className="text-lg text-white">Allergies & Restrictions</CardTitle>
+                  <CardDescription className="text-gray-300">List any food allergies or severe restrictions</CardDescription>
                 </div>
                 <div className="flex flex-col items-center ml-4">
                   <div className="w-20 h-20 rounded-lg overflow-hidden bg-white">
@@ -409,7 +409,7 @@ export default function DietaryScreen() {
                       className="w-full h-full object-cover rounded-lg"
                     />
                   </div>
-                  <p className="text-xs text-gray-600 mt-1 text-center font-medium">
+                  <p className="text-xs text-gray-300 mt-1 text-center font-medium">
                     {userData?.nickname || "User"}
                   </p>
                 </div>
@@ -420,18 +420,18 @@ export default function DietaryScreen() {
                 placeholder="e.g., Severe peanut allergy, shellfish allergy..."
                 value={allergies}
                 onChange={(e) => setAllergies(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent h-20 resize-none"
+                className="w-full px-3 py-2 rounded-lg border border-gray-600 bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent h-20 resize-none"
               />
             </CardContent>
           </Card>
 
           {/* Nutritional Adjustments */}
-          <Card>
+          <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
             <CardHeader className="pb-2">
               <div className="flex items-center justify-between">
                 <div className="flex-1">
-                  <CardTitle className="text-lg">Nutritional Goals</CardTitle>
-                  <CardDescription>Set your daily nutrition targets</CardDescription>
+                  <CardTitle className="text-lg text-white">Nutritional Goals</CardTitle>
+                  <CardDescription className="text-gray-300">Set your daily nutrition targets</CardDescription>
                 </div>
                 <div className="flex flex-col items-center ml-4">
                   <div className="w-16 h-16 rounded-lg overflow-hidden bg-white">
@@ -441,7 +441,7 @@ export default function DietaryScreen() {
                       className="w-full h-full object-cover rounded-lg"
                     />
                   </div>
-                  <p className="text-xs text-gray-600 mt-1 text-center font-medium">
+                  <p className="text-xs text-gray-300 mt-1 text-center font-medium">
                     {userData?.nickname || "User"}
                   </p>
                 </div>
@@ -452,8 +452,8 @@ export default function DietaryScreen() {
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <div className="flex justify-between items-center mb-1">
-                    <label className="text-xs font-medium text-gray-700">Calories</label>
-                    <span className="text-xs text-gray-600">{calorieRange[0]}-{calorieRange[1]}</span>
+                    <label className="text-xs font-medium text-gray-300">Calories</label>
+                    <span className="text-xs text-gray-400">{calorieRange[0]}-{calorieRange[1]}</span>
                   </div>
                   <Slider
                     value={calorieRange}
@@ -466,8 +466,8 @@ export default function DietaryScreen() {
                 </div>
                 <div>
                   <div className="flex justify-between items-center mb-1">
-                    <label className="text-xs font-medium text-gray-700">Protein</label>
-                    <span className="text-xs text-gray-600">{proteinRange[0]}-{proteinRange[1]}g</span>
+                    <label className="text-xs font-medium text-gray-300">Protein</label>
+                    <span className="text-xs text-gray-400">{proteinRange[0]}-{proteinRange[1]}g</span>
                   </div>
                   <Slider
                     value={proteinRange}
@@ -484,8 +484,8 @@ export default function DietaryScreen() {
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <div className="flex justify-between items-center mb-1">
-                    <label className="text-xs font-medium text-gray-700">Carbs</label>
-                    <span className="text-xs text-gray-600">{carbRange[0]}-{carbRange[1]}g</span>
+                    <label className="text-xs font-medium text-gray-300">Carbs</label>
+                    <span className="text-xs text-gray-400">{carbRange[0]}-{carbRange[1]}g</span>
                   </div>
                   <Slider
                     value={carbRange}
@@ -498,8 +498,8 @@ export default function DietaryScreen() {
                 </div>
                 <div>
                   <div className="flex justify-between items-center mb-1">
-                    <label className="text-xs font-medium text-gray-700">Fat</label>
-                    <span className="text-xs text-gray-600">{fatRange[0]}-{fatRange[1]}g</span>
+                    <label className="text-xs font-medium text-gray-300">Fat</label>
+                    <span className="text-xs text-gray-400">{fatRange[0]}-{fatRange[1]}g</span>
                   </div>
                   <Slider
                     value={fatRange}
@@ -516,8 +516,8 @@ export default function DietaryScreen() {
               <div className="flex justify-center">
                 <div className="w-1/2">
                   <div className="flex justify-between items-center mb-1">
-                    <label className="text-xs font-medium text-gray-700">Fiber</label>
-                    <span className="text-xs text-gray-600">{fiberRange[0]}-{fiberRange[1]}g</span>
+                    <label className="text-xs font-medium text-gray-300">Fiber</label>
+                    <span className="text-xs text-gray-400">{fiberRange[0]}-{fiberRange[1]}g</span>
                   </div>
                   <Slider
                     value={fiberRange}
@@ -536,13 +536,13 @@ export default function DietaryScreen() {
           <Button
             type="submit"
             disabled={!isFormValid}
-            className="w-full py-4 px-6 font-semibold text-lg bg-blue-500 text-white border-blue-500 hover:bg-blue-600 active:bg-purple-600 active:border-purple-600 disabled:bg-gray-300 disabled:text-gray-500 disabled:border-gray-300"
+            className="w-full py-4 px-6 font-semibold text-lg bg-blue-500 text-white hover:bg-blue-600 active:bg-purple-600 disabled:bg-gray-600 disabled:text-gray-400"
           >
             Explore Recipes
           </Button>
 
           {!isFormValid && (
-            <p className="text-center text-sm text-purple-500">
+            <p className="text-center text-sm text-purple-300">
               Please select at least one dietary restriction, health condition, or fitness goal
             </p>
           )}
