@@ -79,15 +79,15 @@ export function RecipeDetailsModal({
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-lg max-w-md w-full max-h-[90vh] overflow-hidden shadow-xl">
+      <div className="bg-gray-900 rounded-lg max-w-md w-full max-h-[90vh] overflow-hidden shadow-xl border border-gray-700">
         {/* Header with close button */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-200">
-          <h2 className="text-lg font-semibold text-gray-800 truncate pr-4">{dish.name}</h2>
+        <div className="flex items-center justify-between p-4 border-b border-gray-700">
+          <h2 className="text-lg font-semibold text-white truncate pr-4">{dish.name}</h2>
           <Button
             variant="ghost"
             size="sm"
             onClick={onClose}
-            className="h-8 w-8 p-0 text-gray-500 hover:text-gray-700"
+            className="h-8 w-8 p-0 text-gray-400 hover:text-white"
           >
             <X size={18} />
           </Button>
@@ -96,8 +96,8 @@ export function RecipeDetailsModal({
         {/* Scrollable content */}
         <div className="overflow-y-auto max-h-[calc(90vh-140px)]">
           {/* Recipe Info */}
-          <div className="p-4 border-b border-gray-100">
-            <div className="flex items-center gap-4 text-sm text-gray-600">
+          <div className="p-4 border-b border-gray-700">
+            <div className="flex items-center gap-4 text-sm text-gray-300">
               <div className="flex items-center gap-1">
                 <Users size={14} />
                 <span>{recipeData.servings} servings</span>
@@ -106,37 +106,37 @@ export function RecipeDetailsModal({
                 <Clock size={14} />
                 <span>{dish.cookTime}</span>
               </div>
-              <span className="font-medium">{dish.calories} cal</span>
+              <span className="font-medium text-purple-300">{dish.calories} cal</span>
             </div>
           </div>
 
           {/* Ingredients Summary Card */}
-          <Card className="mx-4 mt-4 border border-gray-200">
+          <Card className="mx-4 mt-4 border border-gray-700 bg-gray-800">
             <CardHeader className="pb-2">
-              <CardTitle className="text-base text-purple-600">Ingredients</CardTitle>
+              <CardTitle className="text-base text-purple-300">Ingredients</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
               {recipeData.ingredients.map((ingredient, index) => (
                 <div key={index} className="flex justify-between items-center py-1">
-                  <span className="text-sm text-gray-800">{ingredient.name}</span>
-                  <span className="text-sm text-gray-600 font-medium">{ingredient.amount}</span>
+                  <span className="text-sm text-gray-200">{ingredient.name}</span>
+                  <span className="text-sm text-gray-400 font-medium">{ingredient.amount}</span>
                 </div>
               ))}
             </CardContent>
           </Card>
 
           {/* Step-by-Step Instructions Card */}
-          <Card className="mx-4 mt-4 mb-4 border border-gray-200">
+          <Card className="mx-4 mt-4 mb-4 border border-gray-700 bg-gray-800">
             <CardHeader className="pb-2">
-              <CardTitle className="text-base text-purple-600">Instructions</CardTitle>
+              <CardTitle className="text-base text-purple-300">Instructions</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
               {recipeData.instructions.map((step, index) => (
                 <div key={index} className="flex gap-3">
-                  <div className="flex-shrink-0 w-6 h-6 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center text-xs font-semibold">
+                  <div className="flex-shrink-0 w-6 h-6 bg-purple-600 text-white rounded-full flex items-center justify-center text-xs font-semibold">
                     {index + 1}
                   </div>
-                  <p className="text-sm text-gray-700 leading-relaxed">{step}</p>
+                  <p className="text-sm text-gray-300 leading-relaxed">{step}</p>
                 </div>
               ))}
             </CardContent>
@@ -144,13 +144,13 @@ export function RecipeDetailsModal({
         </div>
 
         {/* Footer with action buttons */}
-        <div className="p-4 border-t border-gray-200 bg-gray-50">
+        <div className="p-4 border-t border-gray-700 bg-gray-800">
           {/* Start Cooking Button */}
           <Button
             onClick={() => {
               window.location.href = `/voice-cooking?dish=${encodeURIComponent(dish.name)}&id=${dish.id}`;
             }}
-            className="w-full py-3 mb-3 text-lg font-semibold bg-green-500 text-white hover:bg-green-600"
+            className="w-full py-3 mb-3 text-lg font-semibold bg-purple-600 text-white hover:bg-purple-700"
           >
             <Play className="w-5 h-5 mr-2" />
             Start Cooking
