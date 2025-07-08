@@ -8,7 +8,7 @@ import {
   MicOff, 
   Volume2,
   Send,
-  Square
+  Pause
 } from "lucide-react";
 import user1Avatar from "@/assets/avatars/user/user1.png";
 import chef1Avatar from "@/assets/avatars/chef/chef1.png";
@@ -263,9 +263,9 @@ export default function VoiceCookingScreen() {
             </button>
           </div>
 
-          {/* Stop Button */}
+          {/* Pause Button */}
           <button className="w-12 h-12 rounded-full bg-red-600 text-white flex items-center justify-center">
-            <Square size={20} />
+            <Pause size={20} />
           </button>
         </div>
       </div>
