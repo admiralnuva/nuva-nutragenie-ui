@@ -433,6 +433,12 @@ Changelog:
   * Standardized all avatar displays: user avatars, chef avatars, profile pictures, achievement badges to 80x80px
   * Fixed all address input fields with dark theme styling (bg-gray-700, white text, gray borders)
   * Applied 80x80 standard to: nuva-signup, voice-cooking, home, dietary, explore-recipes pages
+- July 08, 2025. Removed Old Bojo Splash Screen and Updated Routing:
+  * Deleted old splash.tsx file completely from the project
+  * Updated root route "/" to point to NuvaSplashScreen instead of old SplashScreen
+  * Fixed routing configuration to only use Nuva components
+  * Removed all references to Bojo splash screen from navigation and error handling
+  * App now always loads NuvaGenie splash screen on startup
 ```
 
 ## User Preferences

@@ -6,7 +6,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { BottomNavigation } from "@/components/ui/bottom-navigation";
 import NotFound from "@/pages/not-found";
-import SplashScreen from "@/pages/splash";
+
 import SignupScreen from "@/pages/signup";
 import DietaryScreen from "@/pages/dietary";
 import RecipesScreen from "@/pages/recipes";
@@ -38,18 +38,17 @@ function Router() {
     }
   }, [location, setLocation]);
   
-  // If route is still malformed, force splash screen
+  // If route is still malformed, force nuva splash screen
   if (location.includes('"') || location.includes('\\')) {
-    return <SplashScreen />;
+    return <NuvaSplashScreen />;
   }
   
   return (
     <Switch>
-      <Route path="/" component={SplashScreen} />
+      <Route path="/" component={NuvaSplashScreen} />
       <Route path="/nuva" component={NuvaSplashScreen} />
       <Route path="/nuva-signup" component={NuvaSignupScreen} />
       <Route path="/nuva-home" component={HomeScreen} />
-      <Route path="/splash" component={SplashScreen} />
       <Route path="/signup" component={SignupScreen} />
       <Route path="/dietary" component={DietaryScreen} />
       <Route path="/explore-recipes" component={ExploreRecipesScreen} />
@@ -76,7 +75,7 @@ function AppContent() {
   const [location] = useLocation();
   
   // Pages that should NOT show bottom navigation
-  const hideBottomNav = ['/', '/splash', '/nuva', '/nuva-signup', '/signup', '/dietary'];
+  const hideBottomNav = ['/', '/nuva', '/nuva-signup', '/signup', '/dietary'];
   const showBottomNav = !hideBottomNav.includes(location);
 
   return (
