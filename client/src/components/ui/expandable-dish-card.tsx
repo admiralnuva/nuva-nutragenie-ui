@@ -27,20 +27,9 @@ export function ExpandableDishCard({
 
   // Generate AI-style food image placeholder
   const getImagePlaceholder = (dishName: string) => {
-    const colors = [
-      'from-orange-400 to-red-500', // warm foods
-      'from-green-400 to-emerald-500', // vegetables
-      'from-yellow-400 to-orange-500', // grains/pasta
-      'from-purple-400 to-pink-500', // colorful dishes
-      'from-blue-400 to-cyan-500', // seafood
-    ];
-    
-    const colorIndex = dish.id % colors.length;
-    const gradientClass = colors[colorIndex];
-    
     return (
-      <div className={`w-full h-20 bg-gradient-to-br ${gradientClass} rounded-t-lg flex items-center justify-center relative overflow-hidden`}>
-        <div className="absolute inset-0 bg-black/10"></div>
+      <div className="w-full h-20 bg-gradient-to-br from-gray-600 to-gray-800 rounded-t-lg flex items-center justify-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-black/20"></div>
         <div className="relative z-10 text-center">
           <ChefHat size={20} className="text-white/90 mx-auto mb-1" />
           <div className="text-xs text-white/80 font-medium px-2">AI Generated</div>
@@ -120,20 +109,22 @@ export function ExpandableDishCard({
 
       {/* Square 1: Dish Information */}
       <div className="p-3">
-        {/* Row 1: Dish Name */}
-        <h3 className="font-semibold text-gray-800 text-sm mb-2 line-clamp-1">
+        {/* Row 1: Dish Name with ellipsis if too long */}
+        <h3 className="font-semibold text-gray-800 text-sm mb-2 truncate">
           {dish.name}
         </h3>
         
-        {/* Row 2: Calories and Timer (left aligned) + Difficulty (extreme right) */}
+        {/* Row 2: Calories (left aligned) and Time (right aligned) */}
         <div className="flex items-center justify-between text-xs mb-2">
-          <div className="flex items-center gap-3 text-gray-600">
-            <span className="font-medium">{dish.calories} cal</span>
-            <div className="flex items-center gap-1">
-              <Clock size={12} />
-              <span>{dish.cookTime}</span>
-            </div>
+          <span className="font-medium text-gray-600 w-16">{dish.calories} cal</span>
+          <div className="flex items-center gap-1 text-gray-600">
+            <Clock size={12} />
+            <span>{dish.cookTime}</span>
           </div>
+        </div>
+
+        {/* Row 3: Difficulty level (right aligned) */}
+        <div className="flex justify-end">
           <span className={`text-xs ${getDifficultyColor(dish.difficulty)}`}>
             {dish.difficulty}
           </span>
