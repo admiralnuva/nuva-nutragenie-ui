@@ -420,11 +420,12 @@ Changelog:
   * Implemented 3-second processing display with 4-step preference saving workflow before auto-collapse
   * Extended auto-collapse delay to 3 seconds to accommodate processing animation display
   * Created comprehensive user guidance system for meal preference completion workflow
-- July 08, 2025. Nuva-Signup Page Styling Verification:
-  * Confirmed nuva-signup page has proper dark theme background (gray-900 via purple-900 to indigo-900 gradient)
-  * Verified standardized header with "NutraGenie" branding and "Create Account" subtitle in consistent purple theme
-  * Validated card styling uses proper dark theme (gray-800/90 backdrop-blur with gray-700 borders)
-  * Page maintains visual consistency with rest of application's dark theme architecture
+- July 08, 2025. Nuva-Signup Dark Theme Standardization:
+  * Fixed route registration: Added missing `/nuva-signup` route to App.tsx router
+  * Updated background from purple gradient to consistent dark theme: `bg-gradient-to-b from-gray-900 to-black`
+  * Standardized subtitle color from purple-300 to gray-300 for theme consistency
+  * Confirmed all card styling uses proper dark theme (gray-800/90 backdrop-blur with gray-700 borders)
+  * Page now maintains complete visual consistency with rest of application's dark theme architecture
 ```
 
 ## User Preferences

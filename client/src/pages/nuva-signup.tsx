@@ -119,12 +119,12 @@ export default function NuvaSignupScreen() {
   const isPhoneComplete = phoneNumber.length >= 10;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black">
       <div className="flex items-center justify-between pt-8 pb-4 px-4">
         <div className="w-8"></div>
         <div className="flex-1 text-center">
           <h1 className="text-2xl font-bold text-white">NutraGenie</h1>
-          <p className="text-purple-300 text-lg font-semibold mt-1">Create Account</p>
+          <p className="text-gray-300 text-lg font-semibold mt-1">Create Account</p>
         </div>
         <div className="w-8"></div>
       </div>
