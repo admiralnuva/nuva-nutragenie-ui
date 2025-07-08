@@ -12,6 +12,7 @@ import { ProfileCard } from "@/components/ui/profile-card";
 import { DietaryPreferencesCard } from "@/components/ui/dietary-preferences-card";
 import { ScreenHeader } from "@/components/ui/screen-header";
 import { useToast } from "@/hooks/use-toast";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { 
   User, 
   Edit, 
@@ -133,18 +134,18 @@ export default function ProfileScreen() {
           {/* Age Group */}
           <div className="space-y-3">
             <Label className="text-sm font-medium">Age Group</Label>
-            <div className="grid grid-cols-3 gap-2">
-              {["18-24", "25-30", "31-40", "41-50", "51+"].map((age) => (
-                <Button
-                  key={age}
-                  variant={editedUser.ageGroup === age ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setEditedUser({...editedUser, ageGroup: age})}
-                >
-                  {age}
-                </Button>
-              ))}
-            </div>
+            <Select value={editedUser.ageGroup || ""} onValueChange={(value) => setEditedUser({...editedUser, ageGroup: value})}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select age group" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="18-24">18-24</SelectItem>
+                <SelectItem value="25-30">25-30</SelectItem>
+                <SelectItem value="31-40">31-40</SelectItem>
+                <SelectItem value="41-50">41-50</SelectItem>
+                <SelectItem value="51+">51+</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
 
           {/* Address Section */}
@@ -173,12 +174,63 @@ export default function ProfileScreen() {
                 </div>
                 <div className="col-span-2">
                   <Label className="text-sm font-medium">State</Label>
-                  <Input
-                    value={editedUser.state || ""}
-                    onChange={(e) => setEditedUser({...editedUser, state: e.target.value})}
-                    placeholder="CA"
-                    maxLength={2}
-                  />
+                  <Select value={editedUser.state || ""} onValueChange={(value) => setEditedUser({...editedUser, state: value})}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="CA" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="AL">AL</SelectItem>
+                      <SelectItem value="AK">AK</SelectItem>
+                      <SelectItem value="AZ">AZ</SelectItem>
+                      <SelectItem value="AR">AR</SelectItem>
+                      <SelectItem value="CA">CA</SelectItem>
+                      <SelectItem value="CO">CO</SelectItem>
+                      <SelectItem value="CT">CT</SelectItem>
+                      <SelectItem value="DE">DE</SelectItem>
+                      <SelectItem value="FL">FL</SelectItem>
+                      <SelectItem value="GA">GA</SelectItem>
+                      <SelectItem value="HI">HI</SelectItem>
+                      <SelectItem value="ID">ID</SelectItem>
+                      <SelectItem value="IL">IL</SelectItem>
+                      <SelectItem value="IN">IN</SelectItem>
+                      <SelectItem value="IA">IA</SelectItem>
+                      <SelectItem value="KS">KS</SelectItem>
+                      <SelectItem value="KY">KY</SelectItem>
+                      <SelectItem value="LA">LA</SelectItem>
+                      <SelectItem value="ME">ME</SelectItem>
+                      <SelectItem value="MD">MD</SelectItem>
+                      <SelectItem value="MA">MA</SelectItem>
+                      <SelectItem value="MI">MI</SelectItem>
+                      <SelectItem value="MN">MN</SelectItem>
+                      <SelectItem value="MS">MS</SelectItem>
+                      <SelectItem value="MO">MO</SelectItem>
+                      <SelectItem value="MT">MT</SelectItem>
+                      <SelectItem value="NE">NE</SelectItem>
+                      <SelectItem value="NV">NV</SelectItem>
+                      <SelectItem value="NH">NH</SelectItem>
+                      <SelectItem value="NJ">NJ</SelectItem>
+                      <SelectItem value="NM">NM</SelectItem>
+                      <SelectItem value="NY">NY</SelectItem>
+                      <SelectItem value="NC">NC</SelectItem>
+                      <SelectItem value="ND">ND</SelectItem>
+                      <SelectItem value="OH">OH</SelectItem>
+                      <SelectItem value="OK">OK</SelectItem>
+                      <SelectItem value="OR">OR</SelectItem>
+                      <SelectItem value="PA">PA</SelectItem>
+                      <SelectItem value="RI">RI</SelectItem>
+                      <SelectItem value="SC">SC</SelectItem>
+                      <SelectItem value="SD">SD</SelectItem>
+                      <SelectItem value="TN">TN</SelectItem>
+                      <SelectItem value="TX">TX</SelectItem>
+                      <SelectItem value="UT">UT</SelectItem>
+                      <SelectItem value="VT">VT</SelectItem>
+                      <SelectItem value="VA">VA</SelectItem>
+                      <SelectItem value="WA">WA</SelectItem>
+                      <SelectItem value="WV">WV</SelectItem>
+                      <SelectItem value="WI">WI</SelectItem>
+                      <SelectItem value="WY">WY</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
                 <div className="col-span-2">
                   <Label className="text-sm font-medium">Zip</Label>

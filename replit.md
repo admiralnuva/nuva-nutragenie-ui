@@ -439,6 +439,12 @@ Changelog:
   * Fixed routing configuration to only use Nuva components
   * Removed all references to Bojo splash screen from navigation and error handling
   * App now always loads NuvaGenie splash screen on startup
+- July 08, 2025. Profile Page Dropdown Arrow Fixes and Consistency:
+  * Fixed Age Group field to use proper Select dropdown instead of button grid
+  * Updated State field to use Select dropdown with all 50 US states instead of text input
+  * Ensured dropdown arrows are visible and consistent with Explore Recipe Options screen styling
+  * Added proper Select component imports to Profile page
+  * All dropdowns now have proper SelectTrigger and SelectValue components for arrow visibility
 ```
 
 ## User Preferences
