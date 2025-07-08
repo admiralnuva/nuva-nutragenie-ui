@@ -637,7 +637,7 @@ export default function ExploreRecipesScreen() {
           )}
 
           {/* Create Dish Large Card */}
-          {activeCard === 'create-dish' && (
+          {activeCard === 'create-dish' && !showDishVariations && (
             <>
               <Card className="bg-white border border-gray-200 shadow-lg">
                 <CardHeader className="pb-2">
@@ -909,7 +909,7 @@ export default function ExploreRecipesScreen() {
         </div>
         
         {/* Show Dish Variations Grid */}
-        {showDishVariations && (
+        {activeCard === 'create-dish' && showDishVariations && (
           <Card className="bg-white border border-gray-200 shadow-lg mt-4">
             <CardHeader className="pb-2">
               <CardTitle className="text-base text-purple-600 flex items-center gap-2">
