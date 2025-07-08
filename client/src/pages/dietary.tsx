@@ -262,18 +262,18 @@ export default function DietaryScreen() {
           <Card ref={dietaryCardRef} tabIndex={-1} className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
             <CardHeader className="pb-4">
               <div className="flex items-center justify-between">
-                <div className="flex-1">
-                  <CardTitle className="flex items-center gap-2 text-lg text-white">
+                <div className="flex-1 min-w-0">
+                  <CardTitle className="flex items-center gap-2 text-lg text-white whitespace-nowrap">
                     <Shield className="w-5 h-5 text-purple-400" />
                     Dietary Restrictions
                   </CardTitle>
                   <CardDescription className="text-gray-300">Select dietary choice to create personalized nutrition</CardDescription>
                 </div>
-                <div className="flex flex-col items-center ml-4">
+                <div className="flex flex-col items-center ml-2 flex-shrink-0">
                   <img 
                     src={userAvatarSrc} 
                     alt="User Avatar"
-                    className="w-20 h-20 object-cover rounded-lg"
+                    className="w-12 h-12 object-cover rounded-lg border-0"
                   />
                   <p className="text-xs text-gray-300 mt-1 text-center font-medium">
                     {userData?.nickname || "User"}
@@ -305,18 +305,18 @@ export default function DietaryScreen() {
           <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
             <CardHeader className="pb-4">
               <div className="flex items-center justify-between">
-                <div className="flex-1">
-                  <CardTitle className="flex items-center gap-2 text-lg text-white">
+                <div className="flex-1 min-w-0">
+                  <CardTitle className="flex items-center gap-2 text-lg text-white whitespace-nowrap">
                     <Heart className="w-5 h-5 text-purple-400" />
                     Health Factors
                   </CardTitle>
                   <CardDescription className="text-gray-300">Select health factors</CardDescription>
                 </div>
-                <div className="flex flex-col items-center ml-4">
+                <div className="flex flex-col items-center ml-2 flex-shrink-0">
                   <img 
                     src={userAvatarSrc} 
                     alt="User Avatar"
-                    className="w-20 h-20 object-cover rounded-lg"
+                    className="w-12 h-12 object-cover rounded-lg border-0"
                   />
                   <p className="text-xs text-gray-300 mt-1 text-center font-medium">
                     {userData?.nickname || "User"}
@@ -348,18 +348,18 @@ export default function DietaryScreen() {
           <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
             <CardHeader className="pb-4">
               <div className="flex items-center justify-between">
-                <div className="flex-1">
-                  <CardTitle className="flex items-center gap-2 text-lg text-white">
+                <div className="flex-1 min-w-0">
+                  <CardTitle className="flex items-center gap-2 text-lg text-white whitespace-nowrap">
                     <Target className="w-5 h-5 text-purple-400" />
                     Fitness Goals
                   </CardTitle>
                   <CardDescription className="text-gray-300">Your fitness and wellness goals</CardDescription>
                 </div>
-                <div className="flex flex-col items-center ml-4">
+                <div className="flex flex-col items-center ml-2 flex-shrink-0">
                   <img 
                     src={userAvatarSrc} 
                     alt="User Avatar"
-                    className="w-20 h-20 object-cover rounded-lg"
+                    className="w-12 h-12 object-cover rounded-lg border-0"
                   />
                   <p className="text-xs text-gray-300 mt-1 text-center font-medium">
                     {userData?.nickname || "User"}
@@ -391,15 +391,15 @@ export default function DietaryScreen() {
           <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
             <CardHeader className="pb-4">
               <div className="flex items-center justify-between">
-                <div className="flex-1">
-                  <CardTitle className="text-lg text-white">Allergies & Restrictions</CardTitle>
+                <div className="flex-1 min-w-0">
+                  <CardTitle className="text-lg text-white whitespace-nowrap">Allergies & Restrictions</CardTitle>
                   <CardDescription className="text-gray-300">List any food allergies or severe restrictions</CardDescription>
                 </div>
-                <div className="flex flex-col items-center ml-4">
+                <div className="flex flex-col items-center ml-2 flex-shrink-0">
                   <img 
                     src={userAvatarSrc} 
                     alt="User Avatar"
-                    className="w-20 h-20 object-cover rounded-lg"
+                    className="w-12 h-12 object-cover rounded-lg border-0"
                   />
                   <p className="text-xs text-gray-300 mt-1 text-center font-medium">
                     {userData?.nickname || "User"}
@@ -421,15 +421,15 @@ export default function DietaryScreen() {
           <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
             <CardHeader className="pb-2">
               <div className="flex items-center justify-between">
-                <div className="flex-1">
-                  <CardTitle className="text-lg text-white">Nutritional Goals</CardTitle>
+                <div className="flex-1 min-w-0">
+                  <CardTitle className="text-lg text-white whitespace-nowrap">Nutritional Goals</CardTitle>
                   <CardDescription className="text-gray-300">Set your daily nutrition targets</CardDescription>
                 </div>
-                <div className="flex flex-col items-center ml-4">
+                <div className="flex flex-col items-center ml-2 flex-shrink-0">
                   <img 
                     src={userAvatarSrc} 
                     alt="User Avatar"
-                    className="w-16 h-16 object-cover rounded-lg"
+                    className="w-12 h-12 object-cover rounded-lg border-0"
                   />
                   <p className="text-xs text-gray-300 mt-1 text-center font-medium">
                     {userData?.nickname || "User"}
