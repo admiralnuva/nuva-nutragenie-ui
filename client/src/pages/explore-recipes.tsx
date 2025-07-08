@@ -48,6 +48,16 @@ const burgerImages = [
   "/images/burgers/burger3.png"  // Reusing image 3 for variation 6
 ];
 
+// Pantry dish images from user's uploaded photos
+const pantryDishImages = {
+  "fried-rice": "/images/pantry-dishes/fried-rice.png",
+  "garlic-bread": "/images/pantry-dishes/garlic-bread.png",
+  "pasta": "/images/pantry-dishes/pasta.png",
+  "scrambled-eggs": "/images/pantry-dishes/scrambled-eggs.png",
+  "soup": "/images/pantry-dishes/soup.png",
+  "toast-and-jam": "/images/pantry-dishes/toast-and-jam.png"
+};
+
 export default function ExploreRecipesScreen() {
   const [, setLocation] = useLocation();
   const [currentUser] = useLocalStorage<any>("nutragenie_user", null);
@@ -606,12 +616,12 @@ export default function ExploreRecipesScreen() {
                 <CardContent>
                   <div className="grid grid-cols-2 gap-3">
                     {[
-                      { id: 1, name: "Pasta Aglio e Olio", cookTime: "15 min", calories: 340, difficulty: "Easy" as const },
-                      { id: 2, name: "Fried Rice", cookTime: "20 min", calories: 280, difficulty: "Easy" as const },
-                      { id: 3, name: "Scrambled Eggs", cookTime: "5 min", calories: 190, difficulty: "Easy" as const },
-                      { id: 4, name: "Garlic Bread", cookTime: "10 min", calories: 160, difficulty: "Easy" as const },
-                      { id: 5, name: "Simple Soup", cookTime: "25 min", calories: 120, difficulty: "Easy" as const },
-                      { id: 6, name: "Toast & Jam", cookTime: "3 min", calories: 140, difficulty: "Easy" as const }
+                      { id: 1, name: "Pasta", cookTime: "15 min", calories: 340, difficulty: "Easy" as const, image: pantryDishImages["pasta"] },
+                      { id: 2, name: "Fried Rice", cookTime: "20 min", calories: 280, difficulty: "Easy" as const, image: pantryDishImages["fried-rice"] },
+                      { id: 3, name: "Scrambled Eggs", cookTime: "5 min", calories: 190, difficulty: "Easy" as const, image: pantryDishImages["scrambled-eggs"] },
+                      { id: 4, name: "Garlic Bread", cookTime: "10 min", calories: 160, difficulty: "Easy" as const, image: pantryDishImages["garlic-bread"] },
+                      { id: 5, name: "Soup", cookTime: "25 min", calories: 120, difficulty: "Easy" as const, image: pantryDishImages["soup"] },
+                      { id: 6, name: "Toast and Jam", cookTime: "3 min", calories: 140, difficulty: "Easy" as const, image: pantryDishImages["toast-and-jam"] }
                     ].map((dish) => (
                       <ExpandableDishCard
                         key={dish.id}
