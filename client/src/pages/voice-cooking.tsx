@@ -7,6 +7,7 @@ import {
   Mic, 
   MicOff, 
   Volume2,
+  VolumeX,
   Pause
 } from "lucide-react";
 import chef1Avatar from "@/assets/avatars/chef/chef1.png";
@@ -20,6 +21,7 @@ export default function VoiceCookingScreen() {
   const [isListening, setIsListening] = useState(false);
   const [isChefThinking, setIsChefThinking] = useState(false);
   const [isConnected, setIsConnected] = useState(true);
+  const [isChefMuted, setIsChefMuted] = useState(false);
   const [message, setMessage] = useState("");
   const [conversation, setConversation] = useState<Array<{
     sender: 'user' | 'chef';
@@ -84,15 +86,17 @@ export default function VoiceCookingScreen() {
     // Show chef thinking
     setIsChefThinking(true);
     
-    // Simulate chef response after delay
+    // Simulate chef response after delay (only if not muted)
     setTimeout(() => {
       setIsChefThinking(false);
-      const chefResponse = {
-        sender: 'chef' as const,
-        message: getChefResponse(message.trim()),
-        timestamp: new Date()
-      };
-      setConversation(prev => [...prev, chefResponse]);
+      if (!isChefMuted) {
+        const chefResponse = {
+          sender: 'chef' as const,
+          message: getChefResponse(message.trim()),
+          timestamp: new Date()
+        };
+        setConversation(prev => [...prev, chefResponse]);
+      }
     }, 2000);
   };
 
@@ -164,21 +168,40 @@ export default function VoiceCookingScreen() {
               <span className="text-sm text-gray-300">
                 {isConnected ? 'Connected' : 'Disconnected'}
               </span>
+              {isChefMuted && <span className="text-xs text-orange-400">(Muted)</span>}
             </div>
           </div>
         </div>
         
-        {/* Voice Options - moved here from bottom */}
+        {/* Voice Options and Mute - moved here from bottom */}
         <div className="flex items-center gap-2">
+          {/* Mute Chef Button */}
+          <button
+            onClick={() => setIsChefMuted(!isChefMuted)}
+            className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
+              isChefMuted 
+                ? 'bg-orange-600 text-white' 
+                : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+            }`}
+            title={isChefMuted ? 'Unmute Chef' : 'Mute Chef'}
+          >
+            {isChefMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
+          </button>
+          
+          {/* Voice Options */}
           {voiceOptions.map((voice) => (
             <button
               key={voice.id}
               onClick={() => setSelectedVoice(voice.id as typeof selectedVoice)}
+              disabled={isChefMuted}
               className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
-                selectedVoice === voice.id 
+                selectedVoice === voice.id && !isChefMuted
                   ? 'bg-purple-600 text-white' 
+                  : isChefMuted
+                  ? 'bg-gray-800 text-gray-500 cursor-not-allowed'
                   : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
               }`}
+              title={isChefMuted ? 'Chef is muted' : voice.label}
             >
               <voice.icon size={16} />
             </button>
