@@ -108,6 +108,7 @@ export default function ExploreRecipesScreen() {
   const [showProcessing, setShowProcessing] = useState(false);
   const [showPantryProcessing, setShowPantryProcessing] = useState(false);
   const [showChefsChoiceProcessing, setShowChefsChoiceProcessing] = useState(false);
+  const [showPreferencesProcessing, setShowPreferencesProcessing] = useState(false);
 
   // Pantry management state
   const [activeCard, setActiveCard] = useState<string>('pantry-ingredients');
@@ -375,8 +376,23 @@ export default function ExploreRecipesScreen() {
             </CardHeader>
           </Card>
 
+          {/* Preferences Processing Animation */}
+          {showPreferencesProcessing && (
+            <ProcessingAnimation
+              title="Saving Your Preferences"
+              subtitle="Adding your preferences to be used for all your dishes"
+              steps={[
+                "Storing your meal preferences",
+                "Configuring recipe recommendations", 
+                "Personalizing dish suggestions",
+                "Optimizing for your taste profile"
+              ]}
+            />
+          )}
+
           {/* Card 2: Meal Preferences */}
-          <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
+          {!showPreferencesProcessing && (
+            <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
             <CardHeader className="pb-2 pt-2">
               <div className="mt-2">
                 <CardTitle className="text-base text-purple-300">Meal Preferences</CardTitle>
@@ -545,10 +561,13 @@ export default function ExploreRecipesScreen() {
                     value={mealPreferences.prepTime} 
                     onValueChange={(value) => {
                       setMealPreferences(prev => ({...prev, prepTime: value}));
+                      // Show preferences processing animation
+                      setShowPreferencesProcessing(true);
                       // Auto-collapse when prep time is selected (last field)
                       setTimeout(() => {
                         setIsMealPreferencesExpanded(false);
-                      }, 800);
+                        setShowPreferencesProcessing(false);
+                      }, 3000);
                     }}
                     disabled={!mealPreferences.cookingMethod}
                   >
@@ -589,7 +608,8 @@ export default function ExploreRecipesScreen() {
                 )}
               </Button>
             </div>
-          </Card>
+            </Card>
+          )}
 
           {/* Card 3 - Recipe Options */}
           <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
