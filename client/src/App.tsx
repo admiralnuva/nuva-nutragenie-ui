@@ -14,6 +14,7 @@ import ReviewRecipesScreen from "@/pages/review-recipes";
 import RecipeDetailsScreen from "@/pages/recipe-details";
 import CookingScreen from "@/pages/cooking";
 import VoiceCookingScreen from "@/pages/voice-cooking";
+import VoiceCookingTestScreen from "@/pages/voice-cooking-test";
 import AIVideoCookingScreen from "@/pages/ai-video-cooking";
 import CardsScreen from "@/pages/cards";
 import NuvaSplashScreen from "@/pages/nuva-splash";
@@ -58,7 +59,7 @@ function Router() {
       <Route path="/grocery-list" component={GroceryListScreen} />
       <Route path="/instacart" component={InstacartScreen} />
       <Route path="/cooking/:recipeId?" component={CookingScreen} />
-      <Route path="/voice-cooking" component={VoiceCookingScreen} />
+      <Route path="/voice-cooking" component={VoiceCookingTestScreen} />
       <Route path="/ai-video-cooking" component={AIVideoCookingScreen} />
       <Route path="/weekly-meal-planning" component={WeeklyMealPlanningScreen} />
       <Route path="/cards" component={CardsScreen} />
