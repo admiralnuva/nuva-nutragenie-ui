@@ -89,7 +89,7 @@ export function ReusableDish({
         >
           <div className={`w-8 h-8 rounded-full border-2 flex items-center justify-center transition-all ${
             isSelected 
-              ? 'bg-green-500 border-green-500' 
+              ? 'bg-purple-500 border-purple-500' 
               : 'bg-white border-gray-300 hover:border-green-400'
           }`}>
             {isSelected && <Check className="w-5 h-5 text-white" />}

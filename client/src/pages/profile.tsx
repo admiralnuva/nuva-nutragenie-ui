@@ -224,7 +224,7 @@ export default function ProfileScreen() {
             </div>
 
             {/* Chef Info */}
-            <div className="flex items-center gap-4 p-4 bg-green-50 rounded-lg">
+            <div className="flex items-center gap-4 p-4 bg-purple-50 rounded-lg">
               <span className="text-4xl">{currentUser?.chefAvatar || "👨‍🍳"}</span>
               <div>
                 <div className="font-semibold text-lg">{currentUser?.chefNickname || "Chef Antoine"}</div>
@@ -437,14 +437,14 @@ export default function ProfileScreen() {
 
         {/* Progress Bar */}
         <div className="bg-gray-200 rounded-full h-4 relative">
-          <div className="bg-green-500 h-4 rounded-full" style={{ width: `${(recipes.length / 15) * 100}%` }} />
+          <div className="bg-purple-500 h-4 rounded-full" style={{ width: `${(recipes.length / 15) * 100}%` }} />
           <div className="absolute inset-0 flex items-center justify-center text-xs font-medium text-white">
             {recipes.length}/15 recipes
           </div>
         </div>
 
         {recipes.length >= 15 && (
-          <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+          <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
             <p className="text-green-700 font-medium mb-2">🎉 Congratulations! You can now publish your recipe book!</p>
             <Button className="w-full">
               Print Online Recipe Book
@@ -572,9 +572,9 @@ export default function ProfileScreen() {
         </div>
 
         {/* Daily Goals Performance */}
-        <div className="bg-green-50 p-4 rounded-lg">
+        <div className="bg-purple-50 p-4 rounded-lg">
           <h4 className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
-            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+            <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
             Daily Goals
           </h4>
           <div className="space-y-2">

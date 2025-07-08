@@ -668,13 +668,13 @@ export default function HomeScreen() {
                         </svg>
                         {/* Data points */}
                         <div className="flex justify-between items-center h-full px-1">
-                          <div className="w-2 h-2 bg-green-500 rounded-full shadow-sm"></div>
+                          <div className="w-2 h-2 bg-purple-500 rounded-full shadow-sm"></div>
                           <div className="w-2 h-2 bg-red-400 rounded-full shadow-sm"></div>
-                          <div className="w-2 h-2 bg-green-500 rounded-full shadow-sm"></div>
+                          <div className="w-2 h-2 bg-purple-500 rounded-full shadow-sm"></div>
                           <div className="w-2 h-2 bg-red-600 rounded-full shadow-sm"></div>
-                          <div className="w-2 h-2 bg-green-500 rounded-full shadow-sm"></div>
+                          <div className="w-2 h-2 bg-purple-500 rounded-full shadow-sm"></div>
                           <div className="w-2 h-2 bg-red-400 rounded-full shadow-sm"></div>
-                          <div className="w-2.5 h-2.5 bg-green-600 rounded-full shadow-md border border-white"></div>
+                          <div className="w-2.5 h-2.5 bg-purple-600 rounded-full shadow-md border border-white"></div>
                         </div>
                       </div>
 
@@ -707,13 +707,13 @@ export default function HomeScreen() {
                         </svg>
                         {/* Value indicators */}
                         <div className="flex justify-between items-start h-full px-1 pt-1">
-                          <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
+                          <div className="w-1.5 h-1.5 bg-purple-500 rounded-full"></div>
                           <div className="w-1.5 h-1.5 bg-red-400 rounded-full"></div>
-                          <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
+                          <div className="w-1.5 h-1.5 bg-purple-500 rounded-full"></div>
                           <div className="w-1.5 h-1.5 bg-red-600 rounded-full"></div>
-                          <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
+                          <div className="w-1.5 h-1.5 bg-purple-500 rounded-full"></div>
                           <div className="w-1.5 h-1.5 bg-red-400 rounded-full"></div>
-                          <div className="w-2 h-2 bg-green-600 rounded-full border border-white"></div>
+                          <div className="w-2 h-2 bg-purple-600 rounded-full border border-white"></div>
                         </div>
                       </div>
                     </div>

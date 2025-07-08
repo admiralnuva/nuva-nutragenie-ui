@@ -86,7 +86,7 @@ export default function InstacartScreen() {
             <div className="space-y-2">
               <p className="text-lg font-semibold">Order #{orderNumber}</p>
               <p className="text-gray-600">Your order from {currentStore.name} has been placed successfully.</p>
-              <div className="bg-green-50 border border-green-200 rounded-lg p-3 mt-4">
+              <div className="bg-purple-50 border border-purple-200 rounded-lg p-3 mt-4">
                 <div className="flex items-center gap-2 text-green-700">
                   <Clock className="w-4 h-4" />
                   <span className="font-medium">Estimated Delivery: 1-2 hours</span>
