@@ -144,10 +144,10 @@ export default function VoiceCookingScreen() {
     <div className="min-h-screen bg-black text-white flex flex-col">
       {/* Header */}
       <div className="flex items-center justify-between p-4 bg-gray-900">
-        <BackButton to="/recipes" className="text-white" />
+        <BackButton to="/explore-recipes" className="text-white" />
         <div className="flex-1 text-center">
-          <h1 className="text-lg font-bold text-white">NutraGenie</h1>
-          <p className="text-sm font-semibold text-purple-300 mt-1">Voice Cooking</p>
+          <h1 className="text-2xl font-bold text-white">NutraGenie</h1>
+          <p className="text-lg font-semibold text-purple-300 mt-1">Voice Cooking</p>
         </div>
         <div className="w-8" /> {/* Spacer for centering */}
       </div>

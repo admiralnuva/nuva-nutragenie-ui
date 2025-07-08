@@ -206,18 +206,15 @@ export default function GroceryListScreen() {
           <div className="flex items-center justify-between">
             <BackButton to="/review-recipes" />
             <div className="flex-1 text-center">
-              <h1 className="text-xl font-bold text-gray-900">NutraGenie</h1>
+              <h1 className="text-2xl font-bold text-gray-900">NutraGenie</h1>
+              <p className="text-lg font-semibold text-purple-600 mt-1">
+                {userData?.nickname ? `${userData.nickname}'s Grocery List` : 'Grocery List'}
+              </p>
             </div>
             <div className="w-8"></div>
           </div>
         </div>
       </div>
-
-      {/* Page Title */}
-      <div className="max-w-md mx-auto px-4 pb-2">
-        <div className="text-lg font-semibold text-purple-600 text-center">
-          {userData?.nickname ? `${userData.nickname}'s Grocery List` : 'Grocery List'}
-        </div>
       </div>
 
       {/* Content */}

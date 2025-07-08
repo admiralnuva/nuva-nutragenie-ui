@@ -138,7 +138,8 @@ export default function InstacartScreen() {
           <div className="flex items-center justify-between mb-3">
             <BackButton to="/grocery-list" />
             <div className="flex-1 text-center">
-              <h1 className="text-xl font-bold text-green-600">Instacart</h1>
+              <h1 className="text-2xl font-bold text-gray-900">NutraGenie</h1>
+              <p className="text-lg font-semibold text-purple-600 mt-1">Instacart Integration</p>
             </div>
             <div className="text-right">
               <div className="text-sm text-gray-600">Items: {cartItems.length}</div>

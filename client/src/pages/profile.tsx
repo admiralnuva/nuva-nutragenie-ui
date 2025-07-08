@@ -660,10 +660,10 @@ export default function ProfileScreen() {
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900 pb-20">
       <div className="p-6">
         <div className="max-w-md mx-auto flex items-center justify-between">
-          <div className="w-8"></div>
+          <BackButton to="/explore-recipes" className="text-white" />
           <div className="flex-1 text-center">
             <h1 className="text-white text-2xl font-bold">NutraGenie</h1>
-            <p className="text-purple-200 text-lg font-semibold mt-1">Profile Settings</p>
+            <p className="text-purple-300 text-lg font-semibold mt-1">Profile Settings</p>
           </div>
           <div className="w-8"></div>
         </div>

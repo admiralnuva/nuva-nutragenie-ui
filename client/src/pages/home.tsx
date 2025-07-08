@@ -420,10 +420,10 @@ export default function HomeScreen() {
     <div className="min-h-screen bg-black pb-20">
       {/* Header */}
       <div className="bg-white/20 backdrop-blur-sm border-b border-white/30 px-4 py-4 flex items-center justify-between">
-        <BackButton to="/" />
+        <BackButton to="/explore-recipes" className="text-white" />
         <div className="flex-1 text-center">
-          <h1 className="text-lg font-semibold text-white drop-shadow-md">NutraGenie</h1>
-          <p className="text-sm font-medium text-purple-300 mt-1">Health Analytics</p>
+          <h1 className="text-2xl font-bold text-white">NutraGenie</h1>
+          <p className="text-lg font-semibold text-purple-300 mt-1">Health Analytics</p>
         </div>
         <div className="w-8">
           {chartError && (

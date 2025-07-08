@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { BackButton } from "@/components/ui/back-button";
 import { Separator } from "@/components/ui/separator";
 import { 
   Clock, 
@@ -152,7 +153,7 @@ export default function TakeOutScreen() {
         
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
-          <div className="w-8"></div>
+          <BackButton to="/explore-recipes" className="text-white" />
           <div className="flex-1 text-center">
             <h1 className="text-2xl font-bold text-white">NutraGenie</h1>
             <p className="text-lg font-semibold text-purple-300 mt-1">Take-Out Orders</p>

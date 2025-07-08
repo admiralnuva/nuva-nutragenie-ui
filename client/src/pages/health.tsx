@@ -213,7 +213,7 @@ export default function HealthAnalyticsScreen() {
             <ArrowLeft className="h-6 w-6 text-warm-neutral-700" />
           </Button>
           <div className="flex-1 text-center">
-            <h1 className="text-xl font-bold text-warm-neutral-800">NutraGenie</h1>
+            <h1 className="text-2xl font-bold text-warm-neutral-800">NutraGenie</h1>
             <p className="text-lg font-semibold text-purple-600 mt-1">Health Analytics</p>
           </div>
           <div className="w-10"></div>
