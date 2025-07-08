@@ -10,6 +10,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { Clock, Users, ChefHat, Flame, Target, Utensils, ShoppingCart, Sparkles, Plus, List, Minus, ChevronDown, ChevronUp } from "lucide-react";
+import { ProcessingAnimation, QuickProcessingAnimation } from "@/components/ui/processing-animation";
 
 // Import user avatar images
 import userAvatar1 from "@/assets/avatars/user/user1.png";
@@ -67,6 +68,9 @@ export default function ExploreRecipesScreen() {
     prepTime: "",
     servingSize: ""
   });
+
+  // Processing animation state
+  const [showProcessing, setShowProcessing] = useState(false);
 
   // Pantry management state
   const [activeCard, setActiveCard] = useState<string>('pantry-ingredients');
@@ -137,7 +141,21 @@ export default function ExploreRecipesScreen() {
       alert('Please enter a dish name');
       return;
     }
-    setShowDishVariations(true);
+    setShowProcessing(true);
+    // Simulate processing time before showing variations
+    setTimeout(() => {
+      setShowProcessing(false);
+      setShowDishVariations(true);
+    }, 3000);
+  };
+
+  const handleGenerateRecipes = (cardType: string) => {
+    setShowProcessing(true);
+    // Simulate recipe generation processing
+    setTimeout(() => {
+      setShowProcessing(false);
+      setLocation('/weekly-meal-planning');
+    }, 4000);
   };
 
   const addCustomIngredient = () => {
@@ -246,6 +264,12 @@ export default function ExploreRecipesScreen() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900 p-6">
+      {showProcessing && (
+        <ProcessingAnimation 
+          onComplete={() => setShowProcessing(false)}
+          duration={3000}
+        />
+      )}
       <div className="max-w-md mx-auto pt-2">
         <div className="mb-6">
           <button 
