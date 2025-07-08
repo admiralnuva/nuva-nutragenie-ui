@@ -7,10 +7,8 @@ import {
   Mic, 
   MicOff, 
   Volume2,
-  Send,
   Pause
 } from "lucide-react";
-import user1Avatar from "@/assets/avatars/user/user1.png";
 import chef1Avatar from "@/assets/avatars/chef/chef1.png";
 import chef2Avatar from "@/assets/avatars/chef/chef2.png";
 import chef3Avatar from "@/assets/avatars/chef/chef3.png";

@@ -59,7 +59,7 @@ function Router() {
       <Route path="/grocery-list" component={GroceryListScreen} />
       <Route path="/instacart" component={InstacartScreen} />
       <Route path="/cooking/:recipeId?" component={CookingScreen} />
-      <Route path="/voice-cooking" component={VoiceCookingTestScreen} />
+      <Route path="/voice-cooking" component={VoiceCookingScreen} />
       <Route path="/ai-video-cooking" component={AIVideoCookingScreen} />
       <Route path="/weekly-meal-planning" component={WeeklyMealPlanningScreen} />
       <Route path="/cards" component={CardsScreen} />
