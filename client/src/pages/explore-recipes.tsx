@@ -88,16 +88,21 @@ export default function ExploreRecipesScreen() {
     return userAvatarSrc;
   };
 
-  // Meal preferences state
+  // Meal preferences state with sequential validation
   const [mealPreferences, setMealPreferences] = useState({
+    servingSize: "",
     cuisine: "",
     mealType: "",
     spiceLevel: "",
     skillLevel: "",
     cookingMethod: "",
-    prepTime: "",
-    servingSize: ""
+    prepTime: ""
   });
+
+  // Helper function to check if all fields are completed
+  const isAllFieldsCompleted = () => {
+    return Object.values(mealPreferences).every(value => value !== "");
+  };
 
   // Processing animation state
   const [showProcessing, setShowProcessing] = useState(false);
@@ -410,8 +415,12 @@ export default function ExploreRecipesScreen() {
                     <ChefHat size={16} className="text-purple-400" />
                     Cuisine
                   </Label>
-                  <Select value={mealPreferences.cuisine} onValueChange={(value) => setMealPreferences(prev => ({...prev, cuisine: value}))}>
-                    <SelectTrigger>
+                  <Select 
+                    value={mealPreferences.cuisine} 
+                    onValueChange={(value) => setMealPreferences(prev => ({...prev, cuisine: value}))}
+                    disabled={!mealPreferences.servingSize}
+                  >
+                    <SelectTrigger className={!mealPreferences.servingSize ? "opacity-50 cursor-not-allowed" : ""}>
                       <SelectValue placeholder="Select cuisine" />
                     </SelectTrigger>
                     <SelectContent>
@@ -433,8 +442,12 @@ export default function ExploreRecipesScreen() {
                     <Utensils size={16} className="text-purple-400" />
                     Meal Type
                   </Label>
-                  <Select value={mealPreferences.mealType} onValueChange={(value) => setMealPreferences(prev => ({...prev, mealType: value}))}>
-                    <SelectTrigger>
+                  <Select 
+                    value={mealPreferences.mealType} 
+                    onValueChange={(value) => setMealPreferences(prev => ({...prev, mealType: value}))}
+                    disabled={!mealPreferences.cuisine}
+                  >
+                    <SelectTrigger className={!mealPreferences.cuisine ? "opacity-50 cursor-not-allowed" : ""}>
                       <SelectValue placeholder="Select meal type" />
                     </SelectTrigger>
                     <SelectContent>
@@ -454,8 +467,12 @@ export default function ExploreRecipesScreen() {
                     <Flame size={16} className="text-purple-400" />
                     Spice Level
                   </Label>
-                  <Select value={mealPreferences.spiceLevel} onValueChange={(value) => setMealPreferences(prev => ({...prev, spiceLevel: value}))}>
-                    <SelectTrigger>
+                  <Select 
+                    value={mealPreferences.spiceLevel} 
+                    onValueChange={(value) => setMealPreferences(prev => ({...prev, spiceLevel: value}))}
+                    disabled={!mealPreferences.mealType}
+                  >
+                    <SelectTrigger className={!mealPreferences.mealType ? "opacity-50 cursor-not-allowed" : ""}>
                       <SelectValue placeholder="Select spice level" />
                     </SelectTrigger>
                     <SelectContent>
@@ -474,8 +491,12 @@ export default function ExploreRecipesScreen() {
                     <Target size={16} className="text-purple-400" />
                     Skill Level
                   </Label>
-                  <Select value={mealPreferences.skillLevel} onValueChange={(value) => setMealPreferences(prev => ({...prev, skillLevel: value}))}>
-                    <SelectTrigger>
+                  <Select 
+                    value={mealPreferences.skillLevel} 
+                    onValueChange={(value) => setMealPreferences(prev => ({...prev, skillLevel: value}))}
+                    disabled={!mealPreferences.spiceLevel}
+                  >
+                    <SelectTrigger className={!mealPreferences.spiceLevel ? "opacity-50 cursor-not-allowed" : ""}>
                       <SelectValue placeholder="Select skill level" />
                     </SelectTrigger>
                     <SelectContent>
@@ -493,8 +514,12 @@ export default function ExploreRecipesScreen() {
                     <ChefHat size={16} className="text-purple-400" />
                     Cook Method
                   </Label>
-                  <Select value={mealPreferences.cookingMethod} onValueChange={(value) => setMealPreferences(prev => ({...prev, cookingMethod: value}))}>
-                    <SelectTrigger>
+                  <Select 
+                    value={mealPreferences.cookingMethod} 
+                    onValueChange={(value) => setMealPreferences(prev => ({...prev, cookingMethod: value}))}
+                    disabled={!mealPreferences.skillLevel}
+                  >
+                    <SelectTrigger className={!mealPreferences.skillLevel ? "opacity-50 cursor-not-allowed" : ""}>
                       <SelectValue placeholder="Select cooking method" />
                     </SelectTrigger>
                     <SelectContent>
@@ -516,14 +541,18 @@ export default function ExploreRecipesScreen() {
                     <Clock size={16} className="text-purple-400" />
                     Prep Time
                   </Label>
-                  <Select value={mealPreferences.prepTime} onValueChange={(value) => {
-                    setMealPreferences(prev => ({...prev, prepTime: value}));
-                    // Auto-collapse when prep time is selected (last field)
-                    setTimeout(() => {
-                      setIsMealPreferencesExpanded(false);
-                    }, 800);
-                  }}>
-                    <SelectTrigger>
+                  <Select 
+                    value={mealPreferences.prepTime} 
+                    onValueChange={(value) => {
+                      setMealPreferences(prev => ({...prev, prepTime: value}));
+                      // Auto-collapse when prep time is selected (last field)
+                      setTimeout(() => {
+                        setIsMealPreferencesExpanded(false);
+                      }, 800);
+                    }}
+                    disabled={!mealPreferences.cookingMethod}
+                  >
+                    <SelectTrigger className={!mealPreferences.cookingMethod ? "opacity-50 cursor-not-allowed" : ""}>
                       <SelectValue placeholder="Select prep time" />
                     </SelectTrigger>
                     <SelectContent>
