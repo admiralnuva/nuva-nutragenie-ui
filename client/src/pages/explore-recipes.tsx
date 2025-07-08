@@ -75,6 +75,14 @@ export default function ExploreRecipesScreen() {
   const [newIngredient, setNewIngredient] = useState<string>('');
   const [isPantryExpanded, setIsPantryExpanded] = useState<boolean>(true);
   const [isMealPreferencesExpanded, setIsMealPreferencesExpanded] = useState<boolean>(true);
+  
+  // Custom dish creation state
+  const [customDishName, setCustomDishName] = useState('');
+  const [customDishIngredients, setCustomDishIngredients] = useState('');
+  const [customCookingStyle, setCustomCookingStyle] = useState('Grilled');
+  const [customPrepTime, setCustomPrepTime] = useState('Under 15 min');
+  const [customDifficulty, setCustomDifficulty] = useState('Easy');
+  const [showDishVariations, setShowDishVariations] = useState(false);
 
   // Ingredient categories
   const ingredientCategories = {
@@ -96,6 +104,40 @@ export default function ExploreRecipesScreen() {
         ? prev.filter(item => item !== ingredient)
         : [...prev, ingredient]
     );
+  };
+
+  // Generate 6 variations of the custom dish
+  const generateDishVariations = (baseDishName: string, ingredients: string, cookingStyle: string, prepTime: string, difficulty: string) => {
+    const variations = [
+      'Classic',
+      'Spicy',
+      'Garlic & Herb',
+      'Mediterranean',
+      'Asian-Style',
+      'Healthy'
+    ];
+    
+    const cookingMethods = ['Grilled', 'Baked', 'Stir-fried', 'Steamed', 'Pan-seared', 'Roasted'];
+    const difficultyLevels = ['Easy', 'Easy', 'Medium', 'Easy', 'Medium', 'Easy'];
+    const calories = [320, 385, 295, 410, 345, 280];
+    const cookTimes = ['15 min', '20 min', '12 min', '25 min', '18 min', '10 min'];
+    
+    return variations.map((variation, index) => ({
+      id: index + 1,
+      name: `${variation} ${baseDishName}`,
+      calories: calories[index],
+      cookTime: cookTimes[index],
+      difficulty: difficultyLevels[index] as "Easy" | "Medium" | "Hard",
+      description: `A delicious ${variation.toLowerCase()} twist on your ${baseDishName.toLowerCase()}`
+    }));
+  };
+
+  const handleCreateRecipe = () => {
+    if (!customDishName.trim()) {
+      alert('Please enter a dish name');
+      return;
+    }
+    setShowDishVariations(true);
   };
 
   const addCustomIngredient = () => {
@@ -616,15 +658,29 @@ export default function ExploreRecipesScreen() {
                   <div className="space-y-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">Dish Name</label>
-                      <Input placeholder="Enter your dish name..." className="w-full" />
+                      <Input 
+                        value={customDishName}
+                        onChange={(e) => setCustomDishName(e.target.value)}
+                        placeholder="Enter your dish name..." 
+                        className="w-full" 
+                      />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">Main Ingredients</label>
-                      <Input placeholder="e.g., chicken, rice, vegetables..." className="w-full" />
+                      <Input 
+                        value={customDishIngredients}
+                        onChange={(e) => setCustomDishIngredients(e.target.value)}
+                        placeholder="e.g., chicken, rice, vegetables..." 
+                        className="w-full" 
+                      />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">Cooking Style</label>
-                      <select className="w-full p-2 border border-gray-300 rounded-md">
+                      <select 
+                        value={customCookingStyle}
+                        onChange={(e) => setCustomCookingStyle(e.target.value)}
+                        className="w-full p-2 border border-gray-300 rounded-md"
+                      >
                         <option>Grilled</option>
                         <option>Baked</option>
                         <option>Stir-fried</option>
@@ -635,7 +691,11 @@ export default function ExploreRecipesScreen() {
                     <div className="grid grid-cols-2 gap-3">
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">Prep Time</label>
-                        <select className="w-full p-2 border border-gray-300 rounded-md">
+                        <select 
+                          value={customPrepTime}
+                          onChange={(e) => setCustomPrepTime(e.target.value)}
+                          className="w-full p-2 border border-gray-300 rounded-md"
+                        >
                           <option>Under 15 min</option>
                           <option>15-30 min</option>
                           <option>30-60 min</option>
@@ -644,15 +704,21 @@ export default function ExploreRecipesScreen() {
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">Difficulty</label>
-                        <select className="w-full p-2 border border-gray-300 rounded-md">
-                          <option>Beginner</option>
+                        <select 
+                          value={customDifficulty}
+                          onChange={(e) => setCustomDifficulty(e.target.value)}
+                          className="w-full p-2 border border-gray-300 rounded-md"
+                        >
                           <option>Easy</option>
                           <option>Medium</option>
                           <option>Advanced</option>
                         </select>
                       </div>
                     </div>
-                    <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white">
+                    <Button 
+                      onClick={handleCreateRecipe}
+                      className="w-full bg-purple-600 hover:bg-purple-700 text-white"
+                    >
                       Create Recipe
                     </Button>
                   </div>
@@ -841,6 +907,49 @@ export default function ExploreRecipesScreen() {
           )}
 
         </div>
+        
+        {/* Show Dish Variations Grid */}
+        {showDishVariations && (
+          <Card className="bg-white border border-gray-200 shadow-lg mt-4">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-base text-purple-600 flex items-center gap-2">
+                <ChefHat size={18} />
+                Recipe Variations for "{customDishName}"
+              </CardTitle>
+              <p className="text-sm text-gray-500 mt-1">Choose from these 6 variations created by our AI chef</p>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 gap-3">
+                {generateDishVariations(customDishName, customDishIngredients, customCookingStyle, customPrepTime, customDifficulty).map(dish => (
+                  <ExpandableDishCard
+                    key={dish.id}
+                    dish={dish}
+                    onRecipe={() => setLocation('/review-recipes')}
+                    onSaveRecipe={() => console.log('Save recipe:', dish.name)}
+                    onCookNow={() => setLocation('/voice-cooking')}
+                  />
+                ))}
+              </div>
+              <div className="mt-4 flex gap-2">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="flex-1"
+                  onClick={() => setShowDishVariations(false)}
+                >
+                  Back to Create
+                </Button>
+                <Button 
+                  size="sm" 
+                  className="flex-1 bg-purple-600 hover:bg-purple-700"
+                  onClick={() => setLocation('/review-recipes')}
+                >
+                  Continue with Selected
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
       </div>
       {/* Bottom spacing to account for bottom navigation */}
       <div className="h-20"></div>
