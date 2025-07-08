@@ -302,20 +302,10 @@ export default function ExploreRecipesScreen() {
 
           {/* Card 2: Meal Preferences */}
           <Card className="bg-white border border-gray-200">
-            <CardHeader className="pb-2 pt-2 relative">
-              <div className="pr-20">
-                <div className="mt-2">
-                  <CardTitle className="text-base text-purple-600">Meal Preferences</CardTitle>
-                </div>
-              </div>
-              <div className="absolute top-0 right-0">
-                <div className="rounded-lg overflow-hidden" style={{width: '80px', height: '80px'}}>
-                  <img 
-                    src={userAvatarSrc} 
-                    alt="User Avatar"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+            <CardHeader className="pb-2 pt-2">
+              <div className="mt-2">
+                <CardTitle className="text-base text-purple-600">Meal Preferences</CardTitle>
+                <p className="text-xs text-gray-500 mt-1">Set your cooking preferences and dietary goals</p>
               </div>
             </CardHeader>
             {isMealPreferencesExpanded && (
