@@ -212,16 +212,11 @@ export default function HealthAnalyticsScreen() {
           >
             <ArrowLeft className="h-6 w-6 text-warm-neutral-700" />
           </Button>
-          <h1 className="text-xl font-bold text-warm-neutral-800">
-            {currentUser?.nickname ? `${currentUser.nickname}'s Health Analytics` : 'Health Analytics'}
-          </h1>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="rounded-full opacity-0"
-          >
-            <ArrowLeft className="h-6 w-6" />
-          </Button>
+          <div className="flex-1 text-center">
+            <h1 className="text-xl font-bold text-warm-neutral-800">NutraGenie</h1>
+            <p className="text-lg font-semibold text-purple-600 mt-1">Health Analytics</p>
+          </div>
+          <div className="w-10"></div>
         </div>
 
         {/* Date Selector */}

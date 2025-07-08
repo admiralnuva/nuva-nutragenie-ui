@@ -151,9 +151,14 @@ export default function TakeOutScreen() {
       <div className="max-w-md mx-auto space-y-6 pt-8">
         
         {/* Header */}
-        <div className="text-center mb-6">
-          <h1 className="text-2xl font-bold text-purple-300 mb-2">Take-Out Orders</h1>
-          <p className="text-gray-300 text-sm">Local chefs deliver fresh meals to your door</p>
+        <div className="flex items-center justify-between mb-6">
+          <div className="w-8"></div>
+          <div className="flex-1 text-center">
+            <h1 className="text-2xl font-bold text-white">NutraGenie</h1>
+            <p className="text-lg font-semibold text-purple-300 mt-1">Take-Out Orders</p>
+            <p className="text-gray-300 text-sm mt-1">Local chefs deliver fresh meals to your door</p>
+          </div>
+          <div className="w-8"></div>
         </div>
 
         {/* Order Type Selection */}

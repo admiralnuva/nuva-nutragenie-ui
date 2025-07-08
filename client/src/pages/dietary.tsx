@@ -252,11 +252,9 @@ export default function DietaryScreen() {
           </button>
           <div className="flex-1 text-center">
             <h1 className="text-2xl font-bold text-white">NutraGenie</h1>
+            <p className="text-lg font-semibold text-purple-300 mt-1">Dietary Preferences</p>
           </div>
           <div className="w-8"></div>
-        </div>
-        <div className="text-lg font-semibold text-purple-600 text-center mb-6">
-          Dietary Preferences
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-3">

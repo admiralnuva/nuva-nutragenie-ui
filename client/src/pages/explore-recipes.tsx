@@ -271,7 +271,8 @@ export default function ExploreRecipesScreen() {
         />
       )}
       <div className="max-w-md mx-auto pt-2">
-        <div className="mb-6">
+
+        <div className="flex items-center justify-between mb-8">
           <button 
             onClick={() => setLocation("/dietary")}
             className="text-purple-200 hover:text-white transition-colors flex items-center gap-2"
@@ -279,10 +280,11 @@ export default function ExploreRecipesScreen() {
             <ChevronDown className="rotate-90" size={20} />
             Back
           </button>
-        </div>
-        <div className="text-center mb-8">
-          <h1 className="text-white text-3xl font-bold mb-2">NutraGenie</h1>
-          <p className="text-purple-200">Explore Recipe Options</p>
+          <div className="flex-1 text-center">
+            <h1 className="text-white text-2xl font-bold">NutraGenie</h1>
+            <p className="text-purple-200 text-lg font-semibold mt-1">Explore Recipe Options</p>
+          </div>
+          <div className="w-8"></div>
         </div>
 
         <div className="space-y-4">

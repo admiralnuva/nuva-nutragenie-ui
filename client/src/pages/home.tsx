@@ -419,15 +419,19 @@ export default function HomeScreen() {
   return (
     <div className="min-h-screen bg-black pb-20">
       {/* Header */}
-      <div className="bg-white/20 backdrop-blur-sm border-b border-white/30 px-4 py-4 flex items-center gap-3">
+      <div className="bg-white/20 backdrop-blur-sm border-b border-white/30 px-4 py-4 flex items-center justify-between">
         <BackButton to="/" />
-        <h1 className="text-lg font-semibold text-white drop-shadow-md">NutraGenie</h1>
-        {chartError && (
-          <div className="ml-auto flex items-center gap-2 text-amber-300 text-sm">
-            <AlertCircle className="w-4 h-4" />
-            Data Issue
-          </div>
-        )}
+        <div className="flex-1 text-center">
+          <h1 className="text-lg font-semibold text-white drop-shadow-md">NutraGenie</h1>
+          <p className="text-sm font-medium text-purple-300 mt-1">Health Analytics</p>
+        </div>
+        <div className="w-8">
+          {chartError && (
+            <div className="flex items-center gap-2 text-amber-300 text-sm">
+              <AlertCircle className="w-4 h-4" />
+            </div>
+          )}
+        </div>
       </div>
 
       <div className="p-4 space-y-6">
