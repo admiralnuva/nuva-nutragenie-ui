@@ -239,13 +239,19 @@ export default function DietaryScreen() {
   const isFormValid = selectedDietary.length > 0 || selectedHealth.length > 0 || selectedFitness.length > 0;
 
   return (
-    <div className="min-h-screen bg-white p-6">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900 p-6">
       <div className="max-w-md mx-auto pt-2">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
-          <BackButton to="/nuva-signup" />
+          <button 
+            onClick={() => setLocation("/nuva-signup")}
+            className="text-purple-200 hover:text-white transition-colors flex items-center gap-2"
+          >
+            <ArrowLeft size={20} />
+            Back
+          </button>
           <div className="flex-1 text-center">
-            <h1 className="text-2xl font-bold text-gray-800">NutraGenie</h1>
+            <h1 className="text-2xl font-bold text-white">NutraGenie</h1>
           </div>
           <div className="w-8"></div>
         </div>
@@ -255,15 +261,15 @@ export default function DietaryScreen() {
 
         <form onSubmit={handleSubmit} className="space-y-3">
           {/* Dietary Restrictions */}
-          <Card ref={dietaryCardRef} tabIndex={-1}>
+          <Card ref={dietaryCardRef} tabIndex={-1} className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
             <CardHeader className="pb-4">
               <div className="flex items-center justify-between">
                 <div className="flex-1">
-                  <CardTitle className="flex items-center gap-2 text-lg">
-                    <Shield className="w-5 h-5" />
+                  <CardTitle className="flex items-center gap-2 text-lg text-white">
+                    <Shield className="w-5 h-5 text-purple-400" />
                     Dietary Restrictions
                   </CardTitle>
-                  <CardDescription>Select dietary choice to create personalized nutrition</CardDescription>
+                  <CardDescription className="text-gray-300">Select dietary choice to create personalized nutrition</CardDescription>
                 </div>
                 <div className="flex flex-col items-center ml-4">
                   <div className="w-20 h-20 rounded-lg overflow-hidden bg-white">

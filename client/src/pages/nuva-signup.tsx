@@ -118,34 +118,35 @@ export default function NuvaSignupScreen() {
   const isPhoneComplete = phoneNumber.length >= 10;
 
   return (
-    <div className="min-h-screen bg-white">
-      <FrameworkHeader 
-        screenName="Create Account" 
-        showBack 
-        onBack={() => setLocation("/nuva")} 
-      />
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900">
+      <div className="text-center pt-8 pb-4">
+        <h1 className="text-3xl font-bold text-white mb-2">NutraGenie</h1>
+        <p className="text-purple-200 text-lg">Create Account</p>
+      </div>
 
-      <div className="p-4 space-y-4 max-w-md mx-auto" style={{ paddingTop: '100px', paddingBottom: '40px' }}>
+      <div className="p-4 space-y-4 max-w-md mx-auto" style={{ paddingBottom: '40px' }}>
         
         {/* Profile Card */}
-        <MediumCard
-          title="Your Profile"
-          cardName="Profile Setup"
-          description="Choose your avatar, nickname, and age group"
-          avatar={
-            selectedAvatar ? (
-              <img 
-                src={selectedAvatar.src} 
-                alt={selectedAvatar.alt}
-                className="w-full h-full object-cover rounded-full"
-              />
-            ) : (
-              <div className="w-full h-full bg-indigo-100 rounded-full flex items-center justify-center">
-                <User className="w-1/2 h-1/2 text-indigo-600" />
-              </div>
-            )
-          }
-        >
+        <div className="bg-gray-800/90 backdrop-blur-sm rounded-xl p-6 mb-6 border border-gray-700">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h3 className="text-xl font-semibold text-white">Your Profile</h3>
+              <p className="text-gray-300 text-sm">Choose your avatar, nickname, and age group</p>
+            </div>
+            <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-purple-500">
+              {selectedAvatar ? (
+                <img 
+                  src={selectedAvatar.src} 
+                  alt={selectedAvatar.alt}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div className="w-full h-full bg-gray-700 flex items-center justify-center">
+                  <User className="w-8 h-8 text-purple-400" />
+                </div>
+              )}
+            </div>
+          </div>
           {/* Avatar Selection */}
           <div className="grid grid-cols-4 gap-3 mb-4">
             {userAvatars.map((avatar) => (
@@ -154,8 +155,8 @@ export default function NuvaSignupScreen() {
                 onClick={() => setSelectedAvatar(avatar)}
                 className={`w-20 h-20 rounded-lg border-2 overflow-hidden transition-all ${
                   selectedAvatar?.id === avatar.id 
-                    ? 'ring-2 ring-indigo-500 border-indigo-500 scale-105' 
-                    : 'border-gray-300 hover:border-indigo-400'
+                    ? 'ring-2 ring-purple-500 border-purple-500 scale-105' 
+                    : 'border-gray-600 hover:border-purple-400'
                 }`}
               >
                 <img src={avatar.src} alt={avatar.alt} className="w-full h-full object-cover" />
@@ -166,44 +167,45 @@ export default function NuvaSignupScreen() {
           {/* Nickname and Age Group in same row */}
           <div className="grid grid-cols-3 gap-4">
             <div className="space-y-2 col-span-2">
-              <Label htmlFor="nickname">Nickname</Label>
+              <Label htmlFor="nickname" className="text-gray-300">Nickname</Label>
               <Input
                 id="nickname"
                 value={nickname}
                 onChange={(e) => setNickname(e.target.value)}
                 placeholder="Enter your nickname"
+                className="bg-gray-700 border-gray-600 text-white placeholder-gray-400"
               />
             </div>
             <div className="space-y-2 col-span-1">
-              <Label>Age Group</Label>
+              <Label className="text-gray-300">Age Group</Label>
               <Select value={ageGroup} onValueChange={setAgeGroup}>
-                <SelectTrigger>
+                <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
                   <SelectValue placeholder="Select age group" />
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="18-25">18-25</SelectItem>
-                  <SelectItem value="26-35">26-35</SelectItem>
-                  <SelectItem value="36-45">36-45</SelectItem>
-                  <SelectItem value="46-55">46-55</SelectItem>
-                  <SelectItem value="56-65">56-65</SelectItem>
-                  <SelectItem value="65+">65+</SelectItem>
+                <SelectContent className="bg-gray-700 border-gray-600">
+                  <SelectItem value="18-25" className="text-white hover:bg-purple-600">18-25</SelectItem>
+                  <SelectItem value="26-35" className="text-white hover:bg-purple-600">26-35</SelectItem>
+                  <SelectItem value="36-45" className="text-white hover:bg-purple-600">36-45</SelectItem>
+                  <SelectItem value="46-55" className="text-white hover:bg-purple-600">46-55</SelectItem>
+                  <SelectItem value="56-65" className="text-white hover:bg-purple-600">56-65</SelectItem>
+                  <SelectItem value="65+" className="text-white hover:bg-purple-600">65+</SelectItem>
                 </SelectContent>
               </Select>
             </div>
           </div>
-        </MediumCard>
+        </div>
 
         {/* Address Card */}
-        <SmallCard
-          title="Your Address"
-          cardName=""
-          description="Enter your delivery address"
-          avatar={
-            <div className="w-full h-full bg-blue-100 rounded-full flex items-center justify-center">
-              <MapPin className="w-1/2 h-1/2 text-blue-600" />
+        <div className="bg-gray-800/90 backdrop-blur-sm rounded-xl p-6 mb-6 border border-gray-700">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h3 className="text-xl font-semibold text-white">Your Address</h3>
+              <p className="text-gray-300 text-sm">Enter your delivery address</p>
             </div>
-          }
-        >
+            <div className="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center border-2 border-purple-500">
+              <MapPin className="w-8 h-8 text-purple-400" />
+            </div>
+          </div>
           {/* Address 1 */}
           <div className="space-y-2 mb-3">
             <Label htmlFor="address1">Address</Label>
@@ -252,27 +254,29 @@ export default function NuvaSignupScreen() {
               />
             </div>
           </div>
-        </SmallCard>
+        </div>
 
         {/* Chef Card */}
-        <MediumCard
-          title="Choose Your AI Chef"
-          cardName={selectedChef ? chefs.find(chef => chef.id === selectedChef)?.displayName : ""}
-          description="Select your personal cooking assistant"
-          avatar={
-            selectedChef ? (
-              <img 
-                src={chefs.find(chef => chef.id === selectedChef)?.avatar} 
-                alt={chefs.find(chef => chef.id === selectedChef)?.name}
-                className="w-full h-full object-cover rounded-full"
-              />
-            ) : (
-              <div className="w-full h-full bg-orange-100 rounded-full flex items-center justify-center">
-                <ChefHat className="w-1/2 h-1/2 text-orange-600" />
-              </div>
-            )
-          }
-        >
+        <div className="bg-gray-800/90 backdrop-blur-sm rounded-xl p-6 mb-6 border border-gray-700">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h3 className="text-xl font-semibold text-white">Choose Your AI Chef</h3>
+              <p className="text-gray-300 text-sm">Select your personal cooking assistant</p>
+            </div>
+            <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-purple-500">
+              {selectedChef ? (
+                <img 
+                  src={chefs.find(chef => chef.id === selectedChef)?.avatar} 
+                  alt={chefs.find(chef => chef.id === selectedChef)?.name}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div className="w-full h-full bg-gray-700 flex items-center justify-center">
+                  <ChefHat className="w-8 h-8 text-purple-400" />
+                </div>
+              )}
+            </div>
+          </div>
           {/* Chef Selection - 4 avatars in a row */}
           <div className="grid grid-cols-4 gap-3">
             {chefs.map((chef) => (
@@ -281,29 +285,29 @@ export default function NuvaSignupScreen() {
                   onClick={() => setSelectedChef(chef.id)}
                   className={`w-20 h-20 rounded-lg border-2 overflow-hidden transition-all ${
                     selectedChef === chef.id 
-                      ? 'ring-2 ring-indigo-500 border-indigo-500 scale-105' 
-                      : 'border-gray-300 hover:border-indigo-400'
+                      ? 'ring-2 ring-purple-500 border-purple-500 scale-105' 
+                      : 'border-gray-600 hover:border-purple-400'
                   }`}
                 >
                   <img src={chef.avatar} alt={chef.name} className="w-full h-full object-cover" />
                 </button>
-                <p className="text-xs text-center mt-1 font-medium">{chef.displayName}</p>
+                <p className="text-xs text-center mt-1 font-medium text-gray-300">{chef.displayName}</p>
               </div>
             ))}
           </div>
-        </MediumCard>
+        </div>
 
         {/* Phone Verification Card */}
-        <SmallCard
-          title="Phone Verification"
-          cardName="Verify Phone"
-          description="Verify your phone number for account security"
-          avatar={
-            <div className="w-full h-full bg-green-100 rounded-full flex items-center justify-center">
-              <Phone className="w-1/2 h-1/2 text-green-600" />
+        <div className="bg-gray-800/90 backdrop-blur-sm rounded-xl p-6 mb-6 border border-gray-700">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h3 className="text-xl font-semibold text-white">Phone Verification</h3>
+              <p className="text-gray-300 text-sm">Verify your phone number for account security</p>
             </div>
-          }
-        >
+            <div className="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center border-2 border-purple-500">
+              <Phone className="w-8 h-8 text-purple-400" />
+            </div>
+          </div>
           {!codeSent ? (
             <div className="space-y-3">
               <Input
@@ -311,13 +315,15 @@ export default function NuvaSignupScreen() {
                 onChange={(e) => setPhoneNumber(e.target.value)}
                 placeholder="Enter phone number"
                 type="tel"
+                className="bg-gray-700 border-gray-600 text-white placeholder-gray-400"
               />
-              <NavigationButton 
+              <Button 
                 onClick={sendVerificationCode}
                 disabled={!isPhoneComplete || isVerifying}
+                className="w-full bg-purple-600 hover:bg-purple-700 text-white disabled:bg-gray-600"
               >
                 {isVerifying ? "Sending..." : "Send Code"}
-              </NavigationButton>
+              </Button>
             </div>
           ) : !isVerified ? (
             <div className="space-y-3">
@@ -326,18 +332,22 @@ export default function NuvaSignupScreen() {
                 onChange={(e) => setVerificationCode(e.target.value)}
                 placeholder="Enter verification code"
                 maxLength={4}
+                className="bg-gray-700 border-gray-600 text-white placeholder-gray-400"
               />
-              <NavigationButton onClick={verifyCode}>
+              <Button 
+                onClick={verifyCode}
+                className="w-full bg-purple-600 hover:bg-purple-700 text-white"
+              >
                 Verify Code
-              </NavigationButton>
+              </Button>
             </div>
           ) : (
             <div className="text-center py-2">
-              <Check className="w-8 h-8 text-green-500 mx-auto mb-2" />
-              <p className="text-green-600 font-medium">Phone Verified!</p>
+              <Check className="w-8 h-8 text-green-400 mx-auto mb-2" />
+              <p className="text-green-400 font-medium">Phone Verified!</p>
             </div>
           )}
-        </SmallCard>
+        </div>
 
         {/* Complete Setup Button */}
         {isVerified && (

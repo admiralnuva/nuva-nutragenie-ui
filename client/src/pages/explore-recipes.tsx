@@ -245,26 +245,34 @@ export default function ExploreRecipesScreen() {
   const hasDietaryData = userData?.dietaryRestrictions || userData?.healthGoals || userData?.allergies;
 
   return (
-    <div className="min-h-screen bg-white p-6">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900 p-6">
       <div className="max-w-md mx-auto pt-2">
-        <ScreenHeader 
-          title="NutraGenie"
-          subtitle="Explore Recipe Options"
-          backTo="/dietary"
-        />
+        <div className="mb-6">
+          <button 
+            onClick={() => setLocation("/dietary")}
+            className="text-purple-200 hover:text-white transition-colors flex items-center gap-2"
+          >
+            <ChevronDown className="rotate-90" size={20} />
+            Back
+          </button>
+        </div>
+        <div className="text-center mb-8">
+          <h1 className="text-white text-3xl font-bold mb-2">NutraGenie</h1>
+          <p className="text-purple-200">Explore Recipe Options</p>
+        </div>
 
         <div className="space-y-4">
           {/* Card 1: Dietary Preferences Summary */}
-          <Card className="bg-white border border-gray-200">
+          <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
             <CardHeader className="pb-0 pt-2 relative">
               <div className="pr-20">
-                <CardTitle className="text-base text-purple-600 mt-2 mb-1">Your dietary preferences:</CardTitle>
+                <CardTitle className="text-base text-purple-300 mt-2 mb-1">Your dietary preferences:</CardTitle>
                 {!userData ? (
                   <div className="mt-2">
-                    <p className="text-gray-500 text-sm mb-3">Please create your account first to view dietary preferences</p>
+                    <p className="text-gray-400 text-sm mb-3">Please create your account first to view dietary preferences</p>
                     <button 
                       onClick={() => setLocation("/nuva-signup")}
-                      className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-purple-700"
+                      className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-purple-700 transition-colors"
                     >
                       Create Account
                     </button>
@@ -275,17 +283,17 @@ export default function ExploreRecipesScreen() {
                       <div key={index} className="flex items-center text-sm py-0.5">
                         {row.label ? (
                           <>
-                            <span className="font-medium text-gray-700">{row.label}:</span>
-                            <span className="text-gray-600 ml-2">{row.value}</span>
+                            <span className="font-medium text-gray-300">{row.label}:</span>
+                            <span className="text-gray-400 ml-2">{row.value}</span>
                           </>
                         ) : (
-                          <span className="text-gray-600">{row.value}</span>
+                          <span className="text-gray-400">{row.value}</span>
                         )}
                       </div>
                     ))}
                   </div>
                 ) : (
-                  <p className="text-gray-500 text-sm py-2">No dietary preferences set</p>
+                  <p className="text-gray-400 text-sm py-2">No dietary preferences set</p>
                 )}
               </div>
               <div className="absolute top-0 right-0">
@@ -301,11 +309,11 @@ export default function ExploreRecipesScreen() {
           </Card>
 
           {/* Card 2: Meal Preferences */}
-          <Card className="bg-white border border-gray-200">
+          <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
             <CardHeader className="pb-2 pt-2">
               <div className="mt-2">
-                <CardTitle className="text-base text-purple-600">Meal Preferences</CardTitle>
-                <p className="text-xs text-gray-500 mt-1">Set your cooking preferences and dietary goals</p>
+                <CardTitle className="text-base text-purple-300">Meal Preferences</CardTitle>
+                <p className="text-xs text-gray-400 mt-1">Set your cooking preferences and dietary goals</p>
               </div>
             </CardHeader>
             {isMealPreferencesExpanded && (
@@ -485,11 +493,11 @@ export default function ExploreRecipesScreen() {
           </Card>
 
           {/* Card 3 - Recipe Options */}
-          <Card className="bg-white border border-gray-200">
+          <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
             <CardHeader className="pb-2 pt-2 relative">
               <div className="pr-20">
                 <div className="mt-2">
-                  <CardTitle className="text-base text-purple-600">Recipe Options</CardTitle>
+                  <CardTitle className="text-base text-purple-300">Recipe Options</CardTitle>
                 </div>
               </div>
               <div className="absolute top-0 right-0 flex flex-col items-center">
@@ -519,7 +527,7 @@ export default function ExploreRecipesScreen() {
                   onClick={() => setActiveCard('pantry-ingredients')}
                 >
                   <ShoppingCart size={18} className={activeCard === 'pantry-ingredients' ? 'text-white' : 'text-purple-600'} />
-                  <span className={`text-sm font-medium ${activeCard === 'pantry-ingredients' ? 'text-white' : 'text-gray-700'} text-center leading-tight`}>Pantry Ingredients</span>
+                  <span className={`text-sm font-medium ${activeCard === 'pantry-ingredients' ? 'text-white' : 'text-gray-300'} text-center leading-tight`}>Pantry Ingredients</span>
                 </Button>
 
                 <Button 
@@ -532,7 +540,7 @@ export default function ExploreRecipesScreen() {
                   onClick={() => setActiveCard('create-dish')}
                 >
                   <Plus size={18} className={activeCard === 'create-dish' ? 'text-white' : 'text-purple-600'} />
-                  <span className={`text-sm font-medium ${activeCard === 'create-dish' ? 'text-white' : 'text-gray-700'} text-center leading-tight`}>Create Dish</span>
+                  <span className={`text-sm font-medium ${activeCard === 'create-dish' ? 'text-white' : 'text-gray-300'} text-center leading-tight`}>Create Dish</span>
                 </Button>
 
                 <Button 
@@ -545,7 +553,7 @@ export default function ExploreRecipesScreen() {
                   onClick={() => setActiveCard('pantry-dishes')}
                 >
                   <Utensils size={18} className={activeCard === 'pantry-dishes' ? 'text-white' : 'text-purple-600'} />
-                  <span className={`text-sm font-medium ${activeCard === 'pantry-dishes' ? 'text-white' : 'text-gray-700'} text-center leading-tight`}>Pantry Dishes</span>
+                  <span className={`text-sm font-medium ${activeCard === 'pantry-dishes' ? 'text-white' : 'text-gray-300'} text-center leading-tight`}>Pantry Dishes</span>
                 </Button>
 
                 <Button 
@@ -558,7 +566,7 @@ export default function ExploreRecipesScreen() {
                   onClick={() => setActiveCard('chefs-choice')}
                 >
                   <Sparkles size={18} className={activeCard === 'chefs-choice' ? 'text-white' : 'text-purple-600'} />
-                  <span className={`text-sm font-medium ${activeCard === 'chefs-choice' ? 'text-white' : 'text-gray-700'} text-center leading-tight`}>Chef's Choice</span>
+                  <span className={`text-sm font-medium ${activeCard === 'chefs-choice' ? 'text-white' : 'text-gray-300'} text-center leading-tight`}>Chef's Choice</span>
                 </Button>
               </div>
             </CardContent>
@@ -720,11 +728,11 @@ export default function ExploreRecipesScreen() {
           {/* Pantry Ingredients Large Card */}
           {activeCard === 'pantry-ingredients' && (
             <>
-              <Card className="bg-white border border-gray-200">
+              <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
                 <CardHeader className="pb-2 pt-2">
                   <div className="mt-2">
-                    <CardTitle className="text-base text-purple-600">Select Pantry Ingredients</CardTitle>
-                    <p className="text-xs text-gray-500 mt-1">Click the Expand button below to select your ingredients</p>
+                    <CardTitle className="text-base text-purple-300">Select Pantry Ingredients</CardTitle>
+                    <p className="text-xs text-gray-400 mt-1">Click the Expand button below to select your ingredients</p>
                   </div>
                 </CardHeader>
                 
@@ -751,13 +759,13 @@ export default function ExploreRecipesScreen() {
                 {isPantryExpanded && (
                   <CardContent className="space-y-2 max-h-96 overflow-y-auto pb-4">
                   {Object.entries(ingredientCategories).map(([category, ingredients]) => (
-                    <div key={category} className="flex items-center gap-1.5 bg-gray-50 p-1 rounded-md shadow-lg shadow-purple-200/50 border border-purple-100">
-                      <Label htmlFor={`${category}-select`} className="text-sm font-medium text-gray-800 flex items-center gap-2 min-w-[100px]">
-                        <ChefHat size={16} className="text-purple-600" />
+                    <div key={category} className="flex items-center gap-1.5 bg-gray-700/50 p-1 rounded-md shadow-lg shadow-purple-900/50 border border-purple-800">
+                      <Label htmlFor={`${category}-select`} className="text-sm font-medium text-gray-200 flex items-center gap-2 min-w-[100px]">
+                        <ChefHat size={16} className="text-purple-400" />
                         {category}
                       </Label>
                       <Select>
-                        <SelectTrigger className="flex-1 shadow-sm border-gray-300">
+                        <SelectTrigger className="flex-1 shadow-sm border-gray-600 bg-gray-700 text-gray-200">
                           <SelectValue placeholder={`Select ${category.toLowerCase()}`} />
                         </SelectTrigger>
                         <SelectContent>
@@ -835,10 +843,10 @@ export default function ExploreRecipesScreen() {
               </Card>
 
               {/* Ingredients in Your Pantry Card */}
-              <Card className="bg-white border border-gray-200">
+              <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
                 <CardHeader className="pb-2">
                   <div className="flex items-center justify-between">
-                    <CardTitle className="text-base text-purple-600">
+                    <CardTitle className="text-base text-purple-300">
                       Ingredients in your pantry
                     </CardTitle>
                     <div className="flex items-center">
@@ -853,7 +861,7 @@ export default function ExploreRecipesScreen() {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-purple-600 leading-relaxed">
+                  <div className="text-purple-300 leading-relaxed">
                     {selectedIngredients.length > 0 ? (
                       selectedIngredients.map((ingredient, index) => (
                         <span key={ingredient} className="capitalize">
@@ -862,7 +870,7 @@ export default function ExploreRecipesScreen() {
                         </span>
                       ))
                     ) : (
-                      <span className="text-gray-500">No ingredients selected</span>
+                      <span className="text-gray-400">No ingredients selected</span>
                     )}
                   </div>
                   
