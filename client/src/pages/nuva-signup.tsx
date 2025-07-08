@@ -54,7 +54,7 @@ export default function NuvaSignupScreen() {
   const [verificationCode, setVerificationCode] = useState("");
   const [selectedChef, setSelectedChef] = useState("");
   const [selectedAvatar, setSelectedAvatar] = useState<any>(null);
-  const [chefNickname, setChefNickname] = useState("");
+
   const [isVerifying, setIsVerifying] = useState(false);
   const [codeSent, setCodeSent] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
@@ -103,7 +103,7 @@ export default function NuvaSignupScreen() {
           zipCode: zipCode || '',
           avatar: selectedAvatar?.id || 'user1',
           selectedChef: selectedChef ? chefs.find(chef => chef.id === selectedChef) : null,
-          chefNickname: chefNickname || ''
+
         };
         localStorage.setItem('nutragenie_temp_user', JSON.stringify(tempUserData));
         setLocation("/dietary");
@@ -115,7 +115,7 @@ export default function NuvaSignupScreen() {
 
   // Section completion checks
   const isProfileComplete = selectedAvatar && nickname.length >= 2 && ageGroup;
-  const isChefComplete = selectedChef && chefNickname.length >= 2;
+  const isChefComplete = selectedChef;
   const isPhoneComplete = phoneNumber.length >= 10;
 
   return (
@@ -350,19 +350,7 @@ export default function NuvaSignupScreen() {
             ))}
           </div>
           
-          {/* Chef Nickname Input */}
-          {selectedChef && (
-            <div className="space-y-2">
-              <Label htmlFor="chefNickname" className="text-gray-300">Chef's Name</Label>
-              <Input
-                id="chefNickname"
-                value={chefNickname}
-                onChange={(e) => setChefNickname(e.target.value)}
-                placeholder="Give your chef a name"
-                className="bg-gray-700 border-gray-600 text-white placeholder-gray-400"
-              />
-            </div>
-          )}
+
         </div>
 
         {/* Phone Verification Card */}
@@ -426,11 +414,7 @@ export default function NuvaSignupScreen() {
                 ageGroup: ageGroup || '25-30',
                 phoneNumber: phoneNumber || '1234567890',
                 avatar: selectedAvatar?.id || 'user1',
-                selectedChef: {
-                  name: chefNickname || 'Chef',
-                  personality: selectedChef?.personality || 'Friendly & Encouraging',
-                  avatar: selectedChef?.avatar || chefAvatar1
-                },
+                selectedChef: selectedChef ? chefs.find(chef => chef.id === selectedChef) : null,
                 dietaryRestrictions: [],
                 healthGoals: [],
                 allergies: ''

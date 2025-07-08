@@ -452,6 +452,11 @@ Changelog:
   * Applied bg-blue-500 hover:bg-blue-600 active:bg-purple-600 styling matching NavigationButton component
   * Standardized all button colors across Create Account page to maintain brand consistency
   * Fixed Profile page dropdown arrow visibility by adding [&>svg]:text-gray-600 class to Age Group and State SelectTrigger components
+- July 08, 2025. Chef Selection UX Improvement:
+  * Removed redundant "Chef's Name" input field from Create Account page since each chef has a predefined name
+  * Simplified chef selection to only require choosing from the 4 predefined chefs (Marcus, Luna, Blaze, Harmony)
+  * Updated completion logic to only check for chef selection without requiring custom naming
+  * Streamlined user data flow to use the actual chef object with predefined name and personality
 ```
 
 ## User Preferences
