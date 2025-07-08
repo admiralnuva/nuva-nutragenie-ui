@@ -173,22 +173,8 @@ export default function VoiceCookingScreen() {
           </div>
         </div>
         
-        {/* Voice Options and Mute - moved here from bottom */}
+        {/* Voice Options - moved to right */}
         <div className="flex items-center gap-2">
-          {/* Mute Chef Button */}
-          <button
-            onClick={() => setIsChefMuted(!isChefMuted)}
-            className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
-              isChefMuted 
-                ? 'bg-orange-600 text-white' 
-                : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-            }`}
-            title={isChefMuted ? 'Unmute Chef' : 'Mute Chef'}
-          >
-            {isChefMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
-          </button>
-          
-          {/* Voice Options */}
           {voiceOptions.map((voice) => (
             <button
               key={voice.id}
@@ -207,6 +193,39 @@ export default function VoiceCookingScreen() {
             </button>
           ))}
         </div>
+      </div>
+
+      {/* Center Audio Controls */}
+      <div className="flex justify-center items-center p-6 bg-gray-800 border-b border-gray-700">
+        {/* Mute Chef Button - Centered */}
+        <button
+          onClick={() => setIsChefMuted(!isChefMuted)}
+          className={`w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 ${
+            isChefMuted 
+              ? 'bg-orange-600 text-white' 
+              : 'bg-blue-600 text-white hover:bg-blue-700'
+          }`}
+          title={isChefMuted ? 'Unmute Chef' : 'Mute Chef'}
+        >
+          {isChefMuted ? <VolumeX size={24} /> : <Volume2 size={24} />}
+        </button>
+        
+        {/* Pulsating Audio Bars - Only when unmuted */}
+        {!isChefMuted && (
+          <div className="flex items-end gap-1 ml-4">
+            {[1, 2, 3, 4, 5].map((bar) => (
+              <div
+                key={bar}
+                className={`w-1 bg-blue-500 rounded-full animate-pulse`}
+                style={{
+                  height: `${Math.random() * 20 + 10}px`,
+                  animationDelay: `${bar * 0.1}s`,
+                  animationDuration: '1.5s'
+                }}
+              />
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Chat Messages */}
