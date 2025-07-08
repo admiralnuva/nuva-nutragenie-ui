@@ -75,7 +75,7 @@ function AppContent() {
   const [location] = useLocation();
   
   // Pages that should NOT show bottom navigation
-  const hideBottomNav = ['/', '/splash', '/nuva', '/nuva-signup', '/signup', '/dietary', '/health'];
+  const hideBottomNav = ['/', '/splash', '/nuva', '/nuva-signup', '/signup', '/dietary'];
   const showBottomNav = !hideBottomNav.includes(location);
 
   return (

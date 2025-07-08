@@ -270,7 +270,7 @@ export default function VoiceCookingScreen() {
       </div>
 
       {/* Message Input */}
-      <div className="p-4 bg-black fixed bottom-0 left-0 right-0 z-[10000]">
+      <div className="p-4 bg-black fixed bottom-16 left-0 right-0 z-[10000]">
         <div className="flex items-center gap-3">
           {/* Microphone Button */}
           <button
