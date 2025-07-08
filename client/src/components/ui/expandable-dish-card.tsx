@@ -97,7 +97,7 @@ export function ExpandableDishCard({
 
         {/* Action buttons on image when selected - Recipe and Cook Now */}
         {isSelected && (
-          <div className="absolute bottom-2 left-2 right-2 flex gap-2 animate-in fade-in duration-200">
+          <div className="absolute bottom-2 left-2 right-2 flex justify-between animate-in fade-in duration-200">
             <Button
               size="sm"
               variant="secondary"
