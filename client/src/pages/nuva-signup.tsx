@@ -207,55 +207,58 @@ export default function NuvaSignupScreen() {
               <h3 className="text-xl font-semibold text-white">Your Address</h3>
               <p className="text-gray-300 text-sm">Enter your delivery address</p>
             </div>
-            <div className="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center border-2 border-purple-500">
-              <MapPin className="w-8 h-8 text-purple-400" />
+            <div className="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center border-2 border-gray-600">
+              <MapPin className="w-8 h-8 text-gray-400" />
             </div>
           </div>
           {/* Address 1 */}
           <div className="space-y-2 mb-3">
-            <Label htmlFor="address1">Address</Label>
+            <Label htmlFor="address1" className="text-gray-300">Address</Label>
             <Input
               id="address1"
               value={streetAddress}
               onChange={(e) => setStreetAddress(e.target.value)}
               placeholder="Enter street address"
+              className="bg-gray-700 border-gray-600 text-white placeholder-gray-400"
             />
           </div>
 
           {/* City, State, Zip in same row */}
           <div className="grid grid-cols-12 gap-2">
             <div className="space-y-2 col-span-6">
-              <Label htmlFor="city">City</Label>
+              <Label htmlFor="city" className="text-gray-300">City</Label>
               <Input
                 id="city"
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
                 placeholder="City"
+                className="bg-gray-700 border-gray-600 text-white placeholder-gray-400"
               />
             </div>
             <div className="space-y-2 col-span-3">
-              <Label>State</Label>
+              <Label className="text-gray-300">State</Label>
               <Select value={state} onValueChange={setState}>
-                <SelectTrigger>
+                <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
                   <SelectValue placeholder="State" />
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="AL">AL</SelectItem>
-                  <SelectItem value="CA">CA</SelectItem>
-                  <SelectItem value="FL">FL</SelectItem>
-                  <SelectItem value="NY">NY</SelectItem>
-                  <SelectItem value="TX">TX</SelectItem>
+                <SelectContent className="bg-gray-700 border-gray-600">
+                  <SelectItem value="AL" className="text-white hover:bg-gray-600">AL</SelectItem>
+                  <SelectItem value="CA" className="text-white hover:bg-gray-600">CA</SelectItem>
+                  <SelectItem value="FL" className="text-white hover:bg-gray-600">FL</SelectItem>
+                  <SelectItem value="NY" className="text-white hover:bg-gray-600">NY</SelectItem>
+                  <SelectItem value="TX" className="text-white hover:bg-gray-600">TX</SelectItem>
                 </SelectContent>
               </Select>
             </div>
             <div className="space-y-2 col-span-3">
-              <Label htmlFor="zip">Zip</Label>
+              <Label htmlFor="zip" className="text-gray-300">Zip</Label>
               <Input
                 id="zip"
                 value={zipCode}
                 onChange={(e) => setZipCode(e.target.value)}
                 placeholder="12345"
                 maxLength={6}
+                className="bg-gray-700 border-gray-600 text-white placeholder-gray-400"
               />
             </div>
           </div>
@@ -268,7 +271,7 @@ export default function NuvaSignupScreen() {
               <h3 className="text-xl font-semibold text-white">Choose Your AI Chef</h3>
               <p className="text-gray-300 text-sm">Select your personal cooking assistant</p>
             </div>
-            <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-purple-500">
+            <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-gray-600">
               {selectedChef ? (
                 <img 
                   src={chefs.find(chef => chef.id === selectedChef)?.avatar} 
@@ -277,21 +280,21 @@ export default function NuvaSignupScreen() {
                 />
               ) : (
                 <div className="w-full h-full bg-gray-700 flex items-center justify-center">
-                  <ChefHat className="w-8 h-8 text-purple-400" />
+                  <ChefHat className="w-8 h-8 text-gray-400" />
                 </div>
               )}
             </div>
           </div>
           {/* Chef Selection - 4 avatars in a row */}
-          <div className="grid grid-cols-4 gap-3">
+          <div className="grid grid-cols-4 gap-3 mb-4">
             {chefs.map((chef) => (
               <div key={chef.id} className="flex flex-col items-center">
                 <button
                   onClick={() => setSelectedChef(chef.id)}
                   className={`w-20 h-20 rounded-lg border-2 overflow-hidden transition-all ${
                     selectedChef === chef.id 
-                      ? 'ring-2 ring-purple-500 border-purple-500 scale-105' 
-                      : 'border-gray-600 hover:border-purple-400'
+                      ? 'ring-2 ring-gray-400 border-gray-400 scale-105' 
+                      : 'border-gray-600 hover:border-gray-500'
                   }`}
                 >
                   <img src={chef.avatar} alt={chef.name} className="w-full h-full object-cover" />
@@ -300,6 +303,20 @@ export default function NuvaSignupScreen() {
               </div>
             ))}
           </div>
+          
+          {/* Chef Nickname Input */}
+          {selectedChef && (
+            <div className="space-y-2">
+              <Label htmlFor="chefNickname" className="text-gray-300">Chef's Name</Label>
+              <Input
+                id="chefNickname"
+                value={chefNickname}
+                onChange={(e) => setChefNickname(e.target.value)}
+                placeholder="Give your chef a name"
+                className="bg-gray-700 border-gray-600 text-white placeholder-gray-400"
+              />
+            </div>
+          )}
         </div>
 
         {/* Phone Verification Card */}
@@ -309,8 +326,8 @@ export default function NuvaSignupScreen() {
               <h3 className="text-xl font-semibold text-white">Phone Verification</h3>
               <p className="text-gray-300 text-sm">Verify your phone number for account security</p>
             </div>
-            <div className="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center border-2 border-purple-500">
-              <Phone className="w-8 h-8 text-purple-400" />
+            <div className="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center border-2 border-gray-600">
+              <Phone className="w-8 h-8 text-gray-400" />
             </div>
           </div>
           {!codeSent ? (
@@ -325,7 +342,7 @@ export default function NuvaSignupScreen() {
               <Button 
                 onClick={sendVerificationCode}
                 disabled={!isPhoneComplete || isVerifying}
-                className="w-full bg-purple-600 hover:bg-purple-700 text-white disabled:bg-gray-600"
+                className="w-full bg-gray-600 hover:bg-gray-700 text-white disabled:bg-gray-800"
               >
                 {isVerifying ? "Sending..." : "Send Code"}
               </Button>
@@ -341,7 +358,7 @@ export default function NuvaSignupScreen() {
               />
               <Button 
                 onClick={verifyCode}
-                className="w-full bg-purple-600 hover:bg-purple-700 text-white"
+                className="w-full bg-gray-600 hover:bg-gray-700 text-white"
               >
                 Verify Code
               </Button>
