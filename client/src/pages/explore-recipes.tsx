@@ -110,9 +110,6 @@ export default function ExploreRecipesScreen() {
   
   // Pantry confirmation state
   const [isPantryConfirmed, setIsPantryConfirmed] = useState(false);
-  
-  // Card collapsed state when moved to bottom
-  const [isPreferencesCardCollapsed, setIsPreferencesCardCollapsed] = useState(true);
 
   // Helper function to check if required fields are completed
   const isRequiredFieldsCompleted = () => {
@@ -129,9 +126,7 @@ export default function ExploreRecipesScreen() {
   useEffect(() => {
     const fieldsCompleted = isRequiredFieldsCompleted();
     const confirmed = mealConfirmed;
-    const newMealComplete = fieldsCompleted && confirmed;
-    console.log('Meal completion check:', {fieldsCompleted, confirmed, newMealComplete});
-    setIsMealComplete(newMealComplete);
+    setIsMealComplete(fieldsCompleted && confirmed);
   }, [mealPreferences, mealConfirmed]);
 
 
@@ -139,9 +134,7 @@ export default function ExploreRecipesScreen() {
   // Auto-slide preferences card after both completions
   useEffect(() => {
     if (isMealComplete && isPantryComplete && !preferencesCardSlid) {
-      console.log('Auto-slide triggered - meal complete:', isMealComplete, 'pantry complete:', isPantryComplete);
       const slideTimer = setTimeout(() => {
-        console.log('Setting preferencesCardSlid to true');
         setPreferencesCardSlid(true);
       }, 5000); // 5 seconds delay
       
@@ -149,31 +142,11 @@ export default function ExploreRecipesScreen() {
     }
   }, [isMealComplete, isPantryComplete, preferencesCardSlid]);
 
-  // Reset layout on navigation - Force reset every time page loads
+  // Reset layout on navigation
   useEffect(() => {
-    // Force reset all states when navigating to page
     setPreferencesCardSlid(false);
-    setIsPreferencesCardCollapsed(true); // Start collapsed
-    setIsPantryConfirmed(false);
-    setMealConfirmed(false);
-    setIsMealComplete(false);
-    setIsPantryComplete(false);
     setActiveTab('meal'); // Reset to meal tab
-    
-    // Also reset other card states that might affect positioning
-    setIsCardCollapsed(false);
-    setCard1AtBottom(false);
-    setIsCard1Moving(false);
-    
-    // Reset selected ingredients to prevent auto-completion
-    setSelectedIngredients([]);
-    
-    // Clear any localStorage values that might persist card state
-    localStorage.removeItem('nutragenie_card_position');
-    localStorage.removeItem('nutragenie_card_collapsed');
-    
-    console.log('Page loaded - Card starts collapsed at top position');
-  }, []); // Run on every page load
+  }, []);
 
   // Processing animation state
   const [showProcessing, setShowProcessing] = useState(false);
@@ -263,7 +236,6 @@ export default function ExploreRecipesScreen() {
   // Check pantry completion status
   useEffect(() => {
     const pantryCompleted = selectedIngredients.length >= 3; // At least 3 ingredients
-    console.log('Pantry completion check:', {selectedIngredients: selectedIngredients.length, pantryCompleted});
     setIsPantryComplete(pantryCompleted);
   }, [selectedIngredients]);
 
@@ -480,191 +452,66 @@ export default function ExploreRecipesScreen() {
 
         <div className="space-y-4">
           {/* Card 1: Preferences and Pantry Ingredients */}
-          <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
-            <CardHeader className="pb-4">
-              <CardTitle className="text-lg text-white">Preferences and Pantry Ingredients</CardTitle>
-            </CardHeader>
-            <CardContent>
-              {/* Tab Navigation */}
-              <div className="flex gap-2 mb-4">
-                <Button
-                  variant={activeTab === 'diet' ? "default" : "outline"}
-                  onClick={() => setActiveTab('diet')}
-                  className={`flex-1 h-12 ${
-                    activeTab === 'diet' 
-                      ? 'bg-gray-600 text-white border-gray-500' 
-                      : 'bg-transparent border-gray-600 text-gray-300 hover:bg-gray-700/50'
-                  }`}
-                >
-                  Diet
-                </Button>
-                <Button
-                  variant={activeTab === 'meal' ? "default" : "outline"}
-                  onClick={() => setActiveTab('meal')}
-                  className={`flex-1 h-12 flex items-center justify-center gap-2 ${
-                    activeTab === 'meal' 
-                      ? 'bg-gray-600 text-white border-gray-500' 
-                      : 'bg-transparent border-gray-600 text-gray-300 hover:bg-gray-700/50'
-                  }`}
-                >
-                  Meal
-                  {isMealComplete && <span className="text-green-400 text-xs">✓</span>}
-                </Button>
-                <Button
-                  variant={activeTab === 'pantry' ? "default" : "outline"}
-                  onClick={() => setActiveTab('pantry')}
-                  className={`flex-1 h-12 flex items-center justify-center gap-2 ${
-                    activeTab === 'pantry' 
-                      ? 'bg-gray-600 text-white border-gray-500' 
-                      : 'bg-transparent border-gray-600 text-gray-300 hover:bg-gray-700/50'
-                  }`}
-                >
-                  Pantry
-                  {isPantryComplete && <span className="text-green-400 text-xs">✓</span>}
-                </Button>
-              </div>
-
-              {/* Tab Content */}
-              {activeTab === 'diet' && (
-                <div className="space-y-4">
-                  <h3 className="text-lg font-semibold text-white">Your Dietary Preferences</h3>
-                  {userData && (
-                    <div className="space-y-3">
-                      <div>
-                        <h4 className="text-sm font-medium text-purple-300 mb-1">Dietary Restrictions</h4>
-                        <div className="text-sm text-gray-300">
-                          {userData.dietaryRestrictions?.join(', ') || 'None specified'}
-                        </div>
-                      </div>
-                      <div>
-                        <h4 className="text-sm font-medium text-purple-300 mb-1">Health Goals</h4>
-                        <div className="text-sm text-gray-300">
-                          {userData.healthGoals?.join(', ') || 'None specified'}
-                        </div>
-                      </div>
-                      <div>
-                        <h4 className="text-sm font-medium text-purple-300 mb-1">Nutritional Goals</h4>
-                        <div className="text-sm text-gray-300">
-                          Cal ({userData.selectedCalorieRange}), Protein ({userData.selectedProteinRange}g), Carbs ({userData.selectedCarbRange}g), Fat ({userData.selectedFatRange}g)
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {activeTab === 'meal' && (
-            </Card>
-          )}
-
-          {/* Card 1: Preferences and Pantry Ingredients - Moves below Summary when slid */}
           <div className={`transition-all duration-1000 ease-in-out ${
-            preferencesCardSlid ? 'order-last' : 'order-first'
+            preferencesCardSlid ? 'order-3' : 'order-1'
           }`}>
             <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700 min-h-[400px]">
               <CardHeader className="pb-4 relative">
-                <CardTitle className="text-lg text-white pr-20">
-                  {(isPreferencesCardCollapsed || preferencesCardSlid) ? 'Quick Actions' : 'Preferences and Pantry Ingredients'}
-                </CardTitle>
-                {/* User Avatar - Top Right Corner - Only show when not collapsed */}
-                {!(isPreferencesCardCollapsed || preferencesCardSlid) && (
-                  <div className="absolute top-4 right-4">
-                    <img 
-                      src={userAvatarSrc} 
-                      alt="User Avatar" 
-                      className="w-16 h-16 rounded-full"
-                      style={{ border: 'none' }}
-                    />
-                  </div>
-                )}
+                <CardTitle className="text-lg text-white pr-20">Preferences and Pantry Ingredients</CardTitle>
+                {/* User Avatar - Top Right Corner */}
+                <div className="absolute top-4 right-4">
+                  <img 
+                    src={userAvatarSrc} 
+                    alt="User Avatar" 
+                    className="w-16 h-16 rounded-full"
+                    style={{ border: 'none' }}
+                  />
+                </div>
               </CardHeader>
               <CardContent>
-                {/* Show both tabs and content - collapse only affects content visibility */}
-                <>
-                  {/* Tab Navigation - Always visible */}
-                  <div className="flex gap-2 mb-4">
-                    <Button
-                      variant={activeTab === 'diet' ? "default" : "outline"}
-                      onClick={() => {
-                        setActiveTab('diet');
-                        setIsPreferencesCardCollapsed(false); // Expand card when tab clicked
-                      }}
-                      className={`flex-1 ${
-                        activeTab === 'diet' 
-                          ? 'bg-gray-600 text-white border-gray-500' 
-                          : 'bg-transparent border-gray-600 text-gray-300 hover:bg-gray-700/50'
-                      }`}
-                    >
-                      Diet
-                    </Button>
-                    <Button
-                      variant={activeTab === 'meal' ? "default" : "outline"}
-                      onClick={() => {
-                        setActiveTab('meal');
-                        setIsPreferencesCardCollapsed(false); // Expand card when tab clicked
-                      }}
-                      className={`flex-1 flex items-center justify-center gap-2 ${
-                        activeTab === 'meal' 
-                          ? 'bg-gray-600 text-white border-gray-500' 
-                          : 'bg-transparent border-gray-600 text-gray-300 hover:bg-gray-700/50'
-                      }`}
-                    >
-                      Meal
-                      {isMealComplete && <span className="text-green-400 text-xs">✓</span>}
-                    </Button>
-                    <Button
-                      variant={activeTab === 'pantry' ? "default" : "outline"}
-                      onClick={() => {
-                        setActiveTab('pantry');
-                        setIsPreferencesCardCollapsed(false); // Expand card when tab clicked
-                      }}
-                      className={`flex-1 flex items-center justify-center gap-2 ${
-                        activeTab === 'pantry' 
-                          ? 'bg-gray-600 text-white border-gray-500' 
-                          : 'bg-transparent border-gray-600 text-gray-300 hover:bg-gray-700/50'
-                      }`}
-                    >
-                      Pantry
-                      {isPantryComplete && <span className="text-green-400 text-xs">✓</span>}
-                    </Button>
-                  </div>
+                {/* Tab Navigation - Exact styling match with take-out screen */}
+                <div className="flex gap-2 mb-4">
+                  <Button
+                    variant={activeTab === 'diet' ? "default" : "outline"}
+                    onClick={() => setActiveTab('diet')}
+                    className={`flex-1 ${
+                      activeTab === 'diet' 
+                        ? 'bg-gray-600 text-white border-gray-500' 
+                        : 'bg-transparent border-gray-600 text-gray-300 hover:bg-gray-700/50'
+                    }`}
+                  >
+                    Diet
+                  </Button>
+                  <Button
+                    variant={activeTab === 'meal' ? "default" : "outline"}
+                    onClick={() => setActiveTab('meal')}
+                    className={`flex-1 flex items-center justify-center gap-2 ${
+                      activeTab === 'meal' 
+                        ? 'bg-gray-600 text-white border-gray-500' 
+                        : 'bg-transparent border-gray-600 text-gray-300 hover:bg-gray-700/50'
+                    }`}
+                  >
+                    Meal
+                    {isMealComplete && <span className="text-green-400 text-xs">✓</span>}
+                  </Button>
+                  <Button
+                    variant={activeTab === 'pantry' ? "default" : "outline"}
+                    onClick={() => setActiveTab('pantry')}
+                    className={`flex-1 flex items-center justify-center gap-2 ${
+                      activeTab === 'pantry' 
+                        ? 'bg-gray-600 text-white border-gray-500' 
+                        : 'bg-transparent border-gray-600 text-gray-300 hover:bg-gray-700/50'
+                    }`}
+                  >
+                    Pantry
+                    {isPantryComplete && <span className="text-green-400 text-xs">✓</span>}
+                  </Button>
+                </div>
 
-                  {/* Show action buttons when collapsed, content when expanded */}
-                  {(isPreferencesCardCollapsed || preferencesCardSlid) ? (
-                    <div className="flex gap-2">
-                      <Button 
-                        variant="outline" 
-                        size="sm" 
-                        className="bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600"
-                      >
-                        Grocery List
-                      </Button>
-                      <Button 
-                        variant="outline" 
-                        size="sm" 
-                        className="bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600"
-                        onClick={() => {
-                          // Move card back to top and open Meal tab without checkbox
-                          setPreferencesCardSlid(false);
-                          setIsPreferencesCardCollapsed(false);
-                          setActiveTab('meal');
-                          setMealConfirmed(false); // Remove confirmation to hide checkbox
-                        }}
-                      >
-                        Edit Preferences
-                      </Button>
-                      <Button 
-                        variant="outline" 
-                        size="sm" 
-                        className="bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600"
-                      >
-                        Generate Recipes
-                      </Button>
-                    </div>
-                  ) : (
-                    <div className="mt-4 min-h-[280px]">
-                      {activeTab === 'diet' && (
-                        <div className="space-y-3">
+                {/* Tab Content - Increased height for better utilization */}
+                <div className="mt-4 min-h-[280px]">
+                  {activeTab === 'diet' && (
+                    <div className="space-y-3">
                       <h4 className="text-lg font-semibold text-purple-300 mb-3">Dietary Preferences</h4>
                       
                       {/* Dietary Restrictions - Split into two rows */}
@@ -972,8 +819,8 @@ export default function ExploreRecipesScreen() {
                         </div>
                       </div>
 
-                      {/* Confirmation Checkbox - Only show when card is not collapsed and has enough ingredients */}
-                      {selectedIngredients.length >= 5 && !isPreferencesCardCollapsed && (
+                      {/* Confirmation Checkbox */}
+                      {selectedIngredients.length >= 5 && (
                         <div className="mt-4 pt-3 border-t border-gray-600">
                           <div className="flex items-center space-x-2">
                             <Checkbox
@@ -982,10 +829,10 @@ export default function ExploreRecipesScreen() {
                               onCheckedChange={(checked) => {
                                 setIsPantryConfirmed(checked);
                                 if (checked) {
-                                  // Close the pantry tab and move card below Summary immediately
-                                  setActiveTab('diet'); // Close to diet tab
-                                  setPreferencesCardSlid(true); // Move entire card below Summary
-                                  setIsPreferencesCardCollapsed(true); // Collapse the card content
+                                  // Auto-move card after 5 seconds by setting bottom position
+                                  setTimeout(() => {
+                                    setCard1AtBottom(true);
+                                  }, 5000);
                                 }
                               }}
                               className="w-7 h-7 rounded-full border-gray-500 data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600"
@@ -999,15 +846,86 @@ export default function ExploreRecipesScreen() {
                           </div>
                         </div>
                       )}
-                      </div>
-                      )}
+
+
                     </div>
                   )}
-                </>
+                </div>
               </CardContent>
             </Card>
           </div>
 
+          {/* Card 2: Recipe Options */}
+          <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
+            <CardHeader className="pb-4">
+              <CardTitle className="text-lg text-white">Recipe Options</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 gap-3">
+                <Button className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600">
+                  Pantry Dishes
+                </Button>
+                <Button className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600">
+                  Chef's Choice
+                </Button>
+                <Button className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600">
+                  Create a Dish
+                </Button>
+                <Button className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600">
+                  Take-Out
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Card 3: Summary */}
+          {(isMealComplete || isPantryComplete) && (
+            <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-lg text-white">
+                  Summary for {userData?.nickname || 'Peter'}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {isMealComplete && (
+                    <div>
+                      <h4 className="text-sm font-medium text-purple-300 mb-2">Meal Preferences</h4>
+                      <div className="text-sm text-gray-400 space-y-1">
+                        <div>Serving: {mealPreferences.servingSize}, Cuisine: {mealPreferences.cuisine}</div>
+                        <div>Meal Type: {mealPreferences.mealType}</div>
+                      </div>
+                    </div>
+                  )}
+                  
+                  {isPantryComplete && (
+                    <div>
+                      <div className="border-t border-gray-600 pt-3"></div>
+                      <h4 className="text-sm font-medium text-purple-300 mb-2">Pantry Ingredients</h4>
+                      <div className="text-sm text-gray-400">
+                        {selectedIngredients.slice(0, 8).join(', ')}
+                        {selectedIngredients.length > 8 && ` and ${selectedIngredients.length - 8} more`}
+                      </div>
+                    </div>
+                  )}
+                  
+                  <div className="flex gap-2 pt-4">
+                    <Button variant="outline" size="sm" className="bg-gray-700 border-gray-600 text-gray-300">
+                      Grocery List
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="bg-gray-700 border-gray-600 text-gray-300"
+                      onClick={() => setPreferencesCardSlid(false)}
+                    >
+                      Edit Preferences
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
         </div>
         
         {/* Bottom spacing to account for bottom navigation */}
