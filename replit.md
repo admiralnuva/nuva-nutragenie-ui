@@ -548,6 +548,13 @@ Changelog:
   * Users can now override auto-calculated values for personalized nutrition planning
   * Maintained smart defaults with option for expert users to fine-tune their macro targets
   * Preserved all dropdown options with contextual descriptions for informed decision-making
+- July 09, 2025. Button Layout Standardization and Visual Consistency:
+  * Restructured all dietary preference buttons to two-row layout: icons on row 1, text labels on row 2
+  * Standardized button height to h-16 (64px) across all three sections for perfect visual consistency
+  * Separated icons from text labels in data structure for cleaner component organization
+  * Applied centered flex layout (flex flex-col items-center justify-center) for optimal icon and text positioning
+  * Enhanced disabled state indicator with absolute positioning (top-right corner) for better visual hierarchy
+  * Achieved uniform button sizing regardless of text content length differences
 ```
 
 ## User Preferences
