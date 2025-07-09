@@ -1359,67 +1359,7 @@ export default function ExploreRecipesScreen() {
           )}
           </div>
 
-          {/* Meal Preferences at Bottom Position */}
-          {mealPreferencesAtBottom && (
-            <div className="mt-4">
-              <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
-                <CardHeader className="pb-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <CardTitle className="text-lg text-white">Meal planning preferences</CardTitle>
-                      <div className="flex items-center gap-2 bg-green-600/20 px-3 py-1 rounded-full border border-green-500/30">
-                        <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                        <span className="text-green-400 text-sm font-medium">Complete</span>
-                      </div>
-                    </div>
-                    <button 
-                      onClick={() => setIsMealPreferencesCardCollapsed(!isMealPreferencesCardCollapsed)}
-                      className="text-purple-400 hover:text-purple-300 transition-colors bg-purple-600/20 hover:bg-purple-600/40 rounded-full p-2"
-                    >
-                      {isMealPreferencesCardCollapsed ? (
-                        <ChevronDown size={42} />
-                      ) : (
-                        <ChevronUp size={42} />
-                      )}
-                    </button>
-                  </div>
-                </CardHeader>
-                
-                <div className={`transition-all duration-1000 ease-in-out overflow-hidden ${
-                  isMealPreferencesCardCollapsed ? 'max-h-0 opacity-0' : 'max-h-96 opacity-100'
-                }`}>
-                  <CardContent>
-                    <div className="text-gray-300 space-y-2">
-                      <div className="flex items-center text-sm">
-                        <span className="font-medium text-purple-300 min-w-24">Serving:</span>
-                        <span className="text-gray-400">{mealPreferences.servingSize}</span>
-                      </div>
-                      <div className="flex items-center text-sm">
-                        <span className="font-medium text-purple-300 min-w-24">Cuisine:</span>
-                        <span className="text-gray-400">{mealPreferences.cuisine}</span>
-                      </div>
-                      <div className="flex items-center text-sm">
-                        <span className="font-medium text-purple-300 min-w-24">Meal Type:</span>
-                        <span className="text-gray-400">{mealPreferences.mealType}</span>
-                      </div>
-                      {mealPreferences.spiceLevel && (
-                        <div className="flex items-center text-sm">
-                          <span className="font-medium text-gray-400 min-w-24">Spice:</span>
-                          <span className="text-gray-400">{mealPreferences.spiceLevel}</span>
-                        </div>
-                      )}
-                      {mealPreferences.skillLevel && (
-                        <div className="flex items-center text-sm">
-                          <span className="font-medium text-gray-400 min-w-24">Skill:</span>
-                          <span className="text-gray-400">{mealPreferences.skillLevel}</span>
-                        </div>
-                      )}
-                    </div>
-                  </CardContent>
-                </div>
-              </Card>
-            </div>
-          )}
+
 
           {/* Card 1 at Bottom Position */}
           {card1AtBottom && (
