@@ -113,12 +113,14 @@ export default function ExploreRecipesScreen() {
   // Card collapse state
   const [isCardCollapsed, setIsCardCollapsed] = useState(false);
   const [isMealPreferencesCardCollapsed, setIsMealPreferencesCardCollapsed] = useState(false);
+  const [isPantryIngredientsCollapsed, setIsPantryIngredientsCollapsed] = useState(false);
   
-  // Auto-collapse effect - collapse both cards after 2 seconds on page load
+  // Auto-collapse effect - collapse all cards after 2 seconds on page load
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsCardCollapsed(true);
       setIsMealPreferencesCardCollapsed(true);
+      setIsPantryIngredientsCollapsed(true);
     }, 2000);
     
     return () => clearTimeout(timer);
@@ -929,34 +931,29 @@ export default function ExploreRecipesScreen() {
             <>
               <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
                 <CardHeader className="pb-2 pt-2">
-                  <div className="mt-2">
-                    <CardTitle className="text-base text-purple-300">Select Pantry Ingredients</CardTitle>
-                    <p className="text-xs text-gray-400 mt-1">Click the Expand button below to select your ingredients</p>
+                  <div className="flex items-center justify-between">
+                    <div className="mt-2">
+                      <CardTitle className="text-base text-purple-300">Select Pantry Ingredients</CardTitle>
+                      <p className="text-xs text-gray-400 mt-1">Choose your available ingredients</p>
+                    </div>
+                    <button 
+                      onClick={() => setIsPantryIngredientsCollapsed(!isPantryIngredientsCollapsed)}
+                      className="text-purple-400 hover:text-purple-300 transition-colors bg-purple-600/20 hover:bg-purple-600/40 rounded-full p-2"
+                    >
+                      {isPantryIngredientsCollapsed ? (
+                        <ChevronDown size={42} />
+                      ) : (
+                        <ChevronUp size={42} />
+                      )}
+                    </button>
                   </div>
                 </CardHeader>
                 
-                {/* Expand/Collapse Button */}
-                <div className="px-6 pb-2">
-                  <Button 
-                    className="w-full h-12 flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-700 text-white"
-                    onClick={() => setIsPantryExpanded(!isPantryExpanded)}
-                  >
-                    {isPantryExpanded ? (
-                      <>
-                        <Minus size={20} className="text-white" />
-                        <span className="text-sm font-medium text-white">Collapse</span>
-                      </>
-                    ) : (
-                      <>
-                        <Plus size={20} className="text-white" />
-                        <span className="text-sm font-medium text-white">Expand</span>
-                      </>
-                    )}
-                  </Button>
-                </div>
-                
-                {isPantryExpanded && (
-                  <CardContent className="space-y-2 max-h-96 overflow-y-auto pb-4">
+                {/* Content with smooth collapse animation */}
+                <div className={`transition-all duration-500 ease-in-out overflow-hidden ${
+                  isPantryIngredientsCollapsed ? 'max-h-0 opacity-0' : 'max-h-96 opacity-100'
+                }`}>
+                  <CardContent className="space-y-2 pb-4">
                   {Object.entries(ingredientCategories).map(([category, ingredients]) => (
                     <div key={category} className="flex items-center gap-1.5 bg-gray-700/50 p-1 rounded-md shadow-lg shadow-purple-900/50 border border-purple-800">
                       <Label htmlFor={`${category}-select`} className="text-sm font-medium text-gray-200 flex items-center gap-2 min-w-[100px]">
@@ -1038,7 +1035,7 @@ export default function ExploreRecipesScreen() {
                     )}
                   </div>
                   </CardContent>
-                )}
+                </div>
               </Card>
 
               {/* Ingredients in Your Pantry Card */}
