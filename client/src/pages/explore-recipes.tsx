@@ -110,6 +110,9 @@ export default function ExploreRecipesScreen() {
   
   // Pantry confirmation state
   const [isPantryConfirmed, setIsPantryConfirmed] = useState(false);
+  
+  // Card collapse state
+  const [isPantryCardCollapsed, setIsPantryCardCollapsed] = useState(false);
 
   // Helper function to check if required fields are completed
   const isRequiredFieldsCompleted = () => {
@@ -146,6 +149,7 @@ export default function ExploreRecipesScreen() {
   useEffect(() => {
     setPreferencesCardSlid(false);
     setActiveTab('meal'); // Reset to meal tab
+    setIsPantryCardCollapsed(false); // Reset collapse state
   }, []);
 
   // Processing animation state
@@ -455,61 +459,77 @@ export default function ExploreRecipesScreen() {
           <div className={`transition-all duration-1000 ease-in-out ${
             preferencesCardSlid ? 'order-3' : 'order-1'
           }`}>
-            <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700 min-h-[400px]">
+            <Card className={`bg-gray-800/90 backdrop-blur-sm border border-gray-700 transition-all duration-300 ${
+              isPantryCardCollapsed ? 'min-h-[120px]' : 'min-h-[400px]'
+            }`}>
               <CardHeader className="pb-4 relative">
-                <CardTitle className="text-lg text-white pr-20">Preferences and Pantry Ingredients</CardTitle>
-                {/* User Avatar - Top Right Corner */}
-                <div className="absolute top-4 right-4">
-                  <img 
-                    src={userAvatarSrc} 
-                    alt="User Avatar" 
-                    className="w-16 h-16 rounded-full"
-                    style={{ border: 'none' }}
-                  />
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-lg text-white">Preferences and Pantry Ingredients</CardTitle>
+                  {/* User Avatar - Top Right Corner */}
+                  <div className="flex items-center gap-3">
+                    {isPantryCardCollapsed && (
+                      <button
+                        onClick={() => setIsPantryCardCollapsed(false)}
+                        className="text-gray-400 hover:text-white transition-colors"
+                      >
+                        <ChevronDown size={24} />
+                      </button>
+                    )}
+                    <img 
+                      src={userAvatarSrc} 
+                      alt="User Avatar" 
+                      className="w-16 h-16 rounded-full"
+                      style={{ border: 'none' }}
+                    />
+                  </div>
                 </div>
               </CardHeader>
               <CardContent>
-                {/* Tab Navigation - Exact styling match with take-out screen */}
+                {/* Tab Navigation - Always visible */}
                 <div className="flex gap-2 mb-4">
                   <Button
                     variant={activeTab === 'diet' ? "default" : "outline"}
-                    onClick={() => setActiveTab('diet')}
+                    onClick={() => !isPantryCardCollapsed && setActiveTab('diet')}
+                    disabled={isPantryCardCollapsed}
                     className={`flex-1 ${
                       activeTab === 'diet' 
                         ? 'bg-gray-600 text-white border-gray-500' 
                         : 'bg-transparent border-gray-600 text-gray-300 hover:bg-gray-700/50'
-                    }`}
+                    } ${isPantryCardCollapsed ? 'opacity-75 cursor-default' : ''}`}
                   >
                     Diet
                   </Button>
                   <Button
                     variant={activeTab === 'meal' ? "default" : "outline"}
-                    onClick={() => setActiveTab('meal')}
+                    onClick={() => !isPantryCardCollapsed && setActiveTab('meal')}
+                    disabled={isPantryCardCollapsed}
                     className={`flex-1 flex items-center justify-center gap-2 ${
                       activeTab === 'meal' 
                         ? 'bg-gray-600 text-white border-gray-500' 
                         : 'bg-transparent border-gray-600 text-gray-300 hover:bg-gray-700/50'
-                    }`}
+                    } ${isPantryCardCollapsed ? 'opacity-75 cursor-default' : ''}`}
                   >
                     Meal
                     {isMealComplete && <span className="text-green-400 text-xs">✓</span>}
                   </Button>
                   <Button
                     variant={activeTab === 'pantry' ? "default" : "outline"}
-                    onClick={() => setActiveTab('pantry')}
+                    onClick={() => !isPantryCardCollapsed && setActiveTab('pantry')}
+                    disabled={isPantryCardCollapsed}
                     className={`flex-1 flex items-center justify-center gap-2 ${
                       activeTab === 'pantry' 
                         ? 'bg-gray-600 text-white border-gray-500' 
                         : 'bg-transparent border-gray-600 text-gray-300 hover:bg-gray-700/50'
-                    }`}
+                    } ${isPantryCardCollapsed ? 'opacity-75 cursor-default' : ''}`}
                   >
                     Pantry
                     {isPantryComplete && <span className="text-green-400 text-xs">✓</span>}
                   </Button>
                 </div>
 
-                {/* Tab Content - Increased height for better utilization */}
-                <div className="mt-4 min-h-[280px]">
+                {/* Tab Content - Hidden when collapsed */}
+                {!isPantryCardCollapsed && (
+                  <div className="mt-4 min-h-[280px]">
                   {activeTab === 'diet' && (
                     <div className="space-y-3">
                       <h4 className="text-lg font-semibold text-purple-300 mb-3">Dietary Preferences</h4>
@@ -829,10 +849,9 @@ export default function ExploreRecipesScreen() {
                               onCheckedChange={(checked) => {
                                 setIsPantryConfirmed(checked);
                                 if (checked) {
-                                  // Auto-move card after 5 seconds by setting bottom position
-                                  setTimeout(() => {
-                                    setCard1AtBottom(true);
-                                  }, 5000);
+                                  // Immediately collapse the card
+                                  setIsPantryCardCollapsed(true);
+                                  setIsPantryComplete(true);
                                 }
                               }}
                               className="w-7 h-7 rounded-full border-gray-500 data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600"
@@ -851,6 +870,7 @@ export default function ExploreRecipesScreen() {
                     </div>
                   )}
                 </div>
+                )}
               </CardContent>
             </Card>
           </div>
