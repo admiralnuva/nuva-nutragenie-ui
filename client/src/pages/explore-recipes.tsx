@@ -148,10 +148,15 @@ export default function ExploreRecipesScreen() {
 
   // Reset layout on navigation
   useEffect(() => {
+    // Reset all states when returning to this screen
     setPreferencesCardSlid(false);
     setActiveTab('meal'); // Reset to meal tab
     setIsPantryCardCollapsed(false); // Reset collapse state
     setIsPantryCardAtBottom(false); // Reset bottom position
+    setIsPantryConfirmed(false); // Reset pantry confirmation
+    setMealConfirmed(false); // Reset meal confirmation
+    setIsMealComplete(false); // Reset meal completion
+    setIsPantryComplete(false); // Reset pantry completion
   }, []);
 
   // Processing animation state
@@ -854,10 +859,13 @@ export default function ExploreRecipesScreen() {
                                   // Immediately collapse the card
                                   setIsPantryCardCollapsed(true);
                                   setIsPantryComplete(true);
-                                  // Move to bottom after 5 seconds
+                                  // Move to bottom after 1 second with audio
                                   setTimeout(() => {
                                     setIsPantryCardAtBottom(true);
-                                  }, 5000);
+                                    // Play ding sound effect
+                                    const audio = new Audio('/assets/ding-small-bell-sfx-233008_1752105356799.mp3');
+                                    audio.play().catch(console.error);
+                                  }, 1000);
                                 }
                               }}
                               className="w-7 h-7 rounded-full border-gray-500 data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600"
