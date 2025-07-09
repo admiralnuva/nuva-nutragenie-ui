@@ -176,16 +176,7 @@ export default function ExploreRecipesScreen() {
     const slideTimer = setTimeout(() => {
       setIsCard1Moving(true);
       
-      // Play custom swish sound effect
-      try {
-        const audio = new Audio('/audio/wind-swoosh.mp3');
-        audio.volume = 0.4; // Set volume to 40%
-        audio.play().catch(error => {
-          console.log('Audio playback failed:', error);
-        });
-      } catch (error) {
-        console.log('Audio not available');
-      }
+      // Animation without sound effect
       
       // Complete the slide animation and set final position
       setTimeout(() => {

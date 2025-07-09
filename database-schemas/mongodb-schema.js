@@ -60,10 +60,7 @@ const recipeSchema = {
       techniques: ["rinsing", "boiling"],
       equipment: ["medium saucepan", "fine-mesh strainer"],
       visualCues: ["water runs clear when rinsing", "vigorous boiling"],
-      audioInstructions: {
-        male: "rinse-quinoa-male-v1.mp3",
-        female: "rinse-quinoa-female-v1.mp3"
-      },
+      // Audio instructions removed
       videoReference: "quinoa-prep-basic.mp4",
       imageReference: "quinoa-rinsing-clear-water.jpg",
       temperatureGuidance: {
@@ -387,7 +384,7 @@ const cookingSessionSchema = {
     {
       timestamp: new Date(),
       type: "user_question",
-      audioFile: "session123_interaction_001.wav",
+      // Audio file reference removed
       transcript: "How do I know when the onions are ready?",
       confidence: 0.94,
       intent: "timing_question",
