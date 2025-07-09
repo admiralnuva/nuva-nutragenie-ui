@@ -9,7 +9,9 @@ import {
   MapPin, 
   Star,
   CreditCard,
-  Calendar
+  Calendar,
+  ChevronDown,
+  ChevronUp
 } from "lucide-react";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
@@ -34,6 +36,7 @@ type OrderType = "individual" | "group" | "weekly";
 
 export default function TakeOutScreen() {
   const [orderType, setOrderType] = useState<OrderType>("individual");
+  const [isDishesCollapsed, setIsDishesCollapsed] = useState(false);
   const [dishes, setDishes] = useState<Dish[]>([
     { id: 1, name: "Spicy Thai Basil Chicken", price: 15.50, selected: false },
     { id: 2, name: "Creamy Tuscan Salmon", price: 18.00, selected: false },
@@ -204,26 +207,41 @@ export default function TakeOutScreen() {
           
           {/* Select Your Dishes */}
           <div>
-            <h2 className="text-lg font-semibold text-white mb-3">Select Your Dishes</h2>
-            <div className="space-y-2">
-              {dishes.map((dish) => (
-                <div 
-                  key={dish.id} 
-                  className="flex items-center justify-between p-4 bg-gray-800/90 backdrop-blur-sm border border-gray-700 rounded-lg"
-                  onClick={() => toggleDishSelection(dish.id)}
-                >
-                  <div className="flex items-center gap-3">
-                    <Checkbox 
-                      checked={dish.selected}
-                      onChange={() => toggleDishSelection(dish.id)}
-                      className="border-gray-500"
-                    />
-                    <span className="text-white font-medium">{dish.name}</span>
-                  </div>
-                  <span className="text-white font-semibold">${dish.price.toFixed(2)}</span>
-                </div>
-              ))}
+            <div 
+              className="flex items-center justify-between mb-3 cursor-pointer"
+              onClick={() => setIsDishesCollapsed(!isDishesCollapsed)}
+            >
+              <h2 className="text-lg font-semibold text-white">Select Your Dishes</h2>
+              <div className="w-8 h-8 rounded-full bg-gray-700 border border-gray-600 flex items-center justify-center">
+                {isDishesCollapsed ? (
+                  <ChevronDown className="w-4 h-4 text-gray-300" />
+                ) : (
+                  <ChevronUp className="w-4 h-4 text-gray-300" />
+                )}
+              </div>
             </div>
+            
+            {!isDishesCollapsed && (
+              <div className="space-y-2">
+                {dishes.map((dish) => (
+                  <div 
+                    key={dish.id} 
+                    className="flex items-center justify-between p-4 bg-gray-800/90 backdrop-blur-sm border border-gray-700 rounded-lg"
+                    onClick={() => toggleDishSelection(dish.id)}
+                  >
+                    <div className="flex items-center gap-3">
+                      <Checkbox 
+                        checked={dish.selected}
+                        onChange={() => toggleDishSelection(dish.id)}
+                        className="border-gray-500"
+                      />
+                      <span className="text-white font-medium">{dish.name}</span>
+                    </div>
+                    <span className="text-white font-semibold">${dish.price.toFixed(2)}</span>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Delivery Address */}
