@@ -115,15 +115,57 @@ export default function ExploreRecipesScreen() {
   const [isMealPreferencesCardCollapsed, setIsMealPreferencesCardCollapsed] = useState(false);
   const [isPantryIngredientsCollapsed, setIsPantryIngredientsCollapsed] = useState(false);
   
-  // Auto-collapse effect - collapse all cards after 2 seconds on page load
+  // Card sliding animation state
+  const [isCard1Moving, setIsCard1Moving] = useState(false);
+  const [card1AtBottom, setCard1AtBottom] = useState(false);
+  
+  // Complex animation sequence on page load
   useEffect(() => {
-    const timer = setTimeout(() => {
+    // Step 1: Auto-collapse Card 1 after 2 seconds (smooth and slow)
+    const collapseTimer = setTimeout(() => {
       setIsCardCollapsed(true);
       setIsMealPreferencesCardCollapsed(true);
       setIsPantryIngredientsCollapsed(true);
     }, 2000);
     
-    return () => clearTimeout(timer);
+    // Step 2: After collapse completes, start the sliding animation
+    const slideTimer = setTimeout(() => {
+      setIsCard1Moving(true);
+      
+      // Play swish sound effect
+      try {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        // Create a swoosh effect with frequency sweep
+        oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(200, audioContext.currentTime + 0.6);
+        
+        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.6);
+        
+        oscillator.start(audioContext.currentTime);
+        oscillator.stop(audioContext.currentTime + 0.6);
+      } catch (error) {
+        console.log('Audio context not available');
+      }
+      
+      // Complete the slide animation and set final position
+      setTimeout(() => {
+        setIsCard1Moving(false);
+        setCard1AtBottom(true);
+      }, 1500); // 1.5 second slide duration
+      
+    }, 3000); // Start sliding 1 second after collapse completes
+    
+    return () => {
+      clearTimeout(collapseTimer);
+      clearTimeout(slideTimer);
+    };
   }, []);
 
   // Pantry management state
@@ -367,65 +409,78 @@ export default function ExploreRecipesScreen() {
           <div className="w-8"></div>
         </div>
 
-        <div className="space-y-4">
-          {/* Card 1: Dietary Preferences Summary */}
-          <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
-            <CardHeader className="pb-4">
-              <div className="flex items-center justify-between">
-                <CardTitle className="text-lg text-white">Your dietary preferences:</CardTitle>
-                <button 
-                  onClick={() => setIsCardCollapsed(!isCardCollapsed)}
-                  className="text-purple-400 hover:text-purple-300 transition-colors bg-purple-600/20 hover:bg-purple-600/40 rounded-full p-2"
-                >
-                  {isCardCollapsed ? (
-                    <ChevronDown size={42} />
-                  ) : (
-                    <ChevronUp size={42} />
-                  )}
-                </button>
-              </div>
-            </CardHeader>
-            
-            {/* Content with smooth collapse animation */}
-            <div className={`transition-all duration-500 ease-in-out overflow-hidden ${
-              isCardCollapsed ? 'max-h-0 opacity-0' : 'max-h-96 opacity-100'
+        <div className="space-y-4 relative">
+          {/* Dynamic Card Container with Animation Support */}
+          {!card1AtBottom && (
+            <div className={`transition-all duration-1500 ease-in-out ${
+              isCard1Moving 
+                ? 'transform translate-y-96 opacity-70 scale-95' 
+                : 'transform translate-y-0 opacity-100 scale-100'
             }`}>
-              <CardContent>
-                <div className="text-gray-300">
-                  {!userData ? (
-                    <div>
-                      <p className="text-gray-400 text-sm mb-3">Please create your account first to view dietary preferences</p>
-                      <button 
-                        onClick={() => setLocation("/nuva-signup")}
-                        className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-purple-700 transition-colors"
-                      >
-                        Create Account
-                      </button>
-                    </div>
-                  ) : dietaryRows.length > 0 ? (
-                    <div className="space-y-0">
-                      {dietaryRows.map((row, index) => (
-                        <div key={index} className="flex items-center text-sm py-0.5">
-                          {row.label ? (
-                            <>
-                              <span className="font-medium text-gray-300">{row.label}:</span>
-                              <span className="text-gray-400 ml-2">{row.value}</span>
-                            </>
-                          ) : (
-                            <span className="text-gray-400">{row.value}</span>
-                          )}
+              {/* Card 1: Dietary Preferences Summary */}
+              <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
+                <CardHeader className="pb-4">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-lg text-white">Your dietary preferences:</CardTitle>
+                    <button 
+                      onClick={() => setIsCardCollapsed(!isCardCollapsed)}
+                      className="text-purple-400 hover:text-purple-300 transition-colors bg-purple-600/20 hover:bg-purple-600/40 rounded-full p-2"
+                    >
+                      {isCardCollapsed ? (
+                        <ChevronDown size={42} />
+                      ) : (
+                        <ChevronUp size={42} />
+                      )}
+                    </button>
+                  </div>
+                </CardHeader>
+                
+                {/* Content with smooth collapse animation */}
+                <div className={`transition-all duration-1000 ease-in-out overflow-hidden ${
+                  isCardCollapsed ? 'max-h-0 opacity-0' : 'max-h-96 opacity-100'
+                }`}>
+                  <CardContent>
+                    <div className="text-gray-300">
+                      {!userData ? (
+                        <div>
+                          <p className="text-gray-400 text-sm mb-3">Please create your account first to view dietary preferences</p>
+                          <button 
+                            onClick={() => setLocation("/nuva-signup")}
+                            className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-purple-700 transition-colors"
+                          >
+                            Create Account
+                          </button>
                         </div>
-                      ))}
+                      ) : dietaryRows.length > 0 ? (
+                        <div className="space-y-0">
+                          {dietaryRows.map((row, index) => (
+                            <div key={index} className="flex items-center text-sm py-0.5">
+                              {row.label ? (
+                                <>
+                                  <span className="font-medium text-gray-300">{row.label}:</span>
+                                  <span className="text-gray-400 ml-2">{row.value}</span>
+                                </>
+                              ) : (
+                                <span className="text-gray-400">{row.value}</span>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <p className="text-gray-400 text-sm py-2">No dietary preferences set</p>
+                      )}
                     </div>
-                  ) : (
-                    <p className="text-gray-400 text-sm py-2">No dietary preferences set</p>
-                  )}
+                  </CardContent>
                 </div>
-              </CardContent>
+              </Card>
             </div>
-          </Card>
+          )}
 
-          {/* Preferences Processing Animation */}
+          {/* Other cards with upward animation when Card 1 moves */}
+          <div className={`transition-all duration-1500 ease-in-out ${
+            isCard1Moving ? 'transform -translate-y-20' : 'transform translate-y-0'
+          }`}>
+            {/* Preferences Processing Animation */}
           {showPreferencesProcessing && (
             <ProcessingAnimation
               title="Saving Your Preferences"
@@ -1033,8 +1088,67 @@ export default function ExploreRecipesScreen() {
               </Card>
             </>
           )}
+          </div>
 
-
+          {/* Card 1 at Bottom Position */}
+          {card1AtBottom && (
+            <div className="mt-4">
+              <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
+                <CardHeader className="pb-4">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-lg text-white">Your dietary preferences:</CardTitle>
+                    <button 
+                      onClick={() => setIsCardCollapsed(!isCardCollapsed)}
+                      className="text-purple-400 hover:text-purple-300 transition-colors bg-purple-600/20 hover:bg-purple-600/40 rounded-full p-2"
+                    >
+                      {isCardCollapsed ? (
+                        <ChevronDown size={42} />
+                      ) : (
+                        <ChevronUp size={42} />
+                      )}
+                    </button>
+                  </div>
+                </CardHeader>
+                
+                <div className={`transition-all duration-1000 ease-in-out overflow-hidden ${
+                  isCardCollapsed ? 'max-h-0 opacity-0' : 'max-h-96 opacity-100'
+                }`}>
+                  <CardContent>
+                    <div className="text-gray-300">
+                      {!userData ? (
+                        <div>
+                          <p className="text-gray-400 text-sm mb-3">Please create your account first to view dietary preferences</p>
+                          <button 
+                            onClick={() => setLocation("/nuva-signup")}
+                            className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-purple-700 transition-colors"
+                          >
+                            Create Account
+                          </button>
+                        </div>
+                      ) : dietaryRows.length > 0 ? (
+                        <div className="space-y-0">
+                          {dietaryRows.map((row, index) => (
+                            <div key={index} className="flex items-center text-sm py-0.5">
+                              {row.label ? (
+                                <>
+                                  <span className="font-medium text-gray-300">{row.label}:</span>
+                                  <span className="text-gray-400 ml-2">{row.value}</span>
+                                </>
+                              ) : (
+                                <span className="text-gray-400">{row.value}</span>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <p className="text-gray-400 text-sm py-2">No dietary preferences set</p>
+                      )}
+                    </div>
+                  </CardContent>
+                </div>
+              </Card>
+            </div>
+          )}
 
         </div>
         
