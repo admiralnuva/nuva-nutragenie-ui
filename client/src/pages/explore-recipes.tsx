@@ -451,9 +451,81 @@ export default function ExploreRecipesScreen() {
         </div>
 
         <div className="space-y-4">
-          {/* Card 1: Preferences and Pantry Ingredients */}
+          {/* Card 2: Recipe Options */}
+          <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
+            <CardHeader className="pb-4">
+              <CardTitle className="text-lg text-white">Recipe Options</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 gap-3">
+                <Button className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600">
+                  Pantry Dishes
+                </Button>
+                <Button className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600">
+                  Chef's Choice
+                </Button>
+                <Button className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600">
+                  Create a Dish
+                </Button>
+                <Button className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600">
+                  Take-Out
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Card 3: Summary */}
+          {(isMealComplete || isPantryComplete) && (
+            <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-lg text-white">
+                  Summary for {userData?.nickname || 'Peter'}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {isMealComplete && (
+                    <div>
+                      <h4 className="text-sm font-medium text-purple-300 mb-2">Meal Preferences</h4>
+                      <div className="text-sm text-gray-400 space-y-1">
+                        <div>Serving: {mealPreferences.servingSize}, Cuisine: {mealPreferences.cuisine}</div>
+                        <div>Meal Type: {mealPreferences.mealType}</div>
+                      </div>
+                    </div>
+                  )}
+                  
+                  {isPantryComplete && (
+                    <div>
+                      <div className="border-t border-gray-600 pt-3"></div>
+                      <h4 className="text-sm font-medium text-purple-300 mb-2">Pantry Ingredients</h4>
+                      <div className="text-sm text-gray-400">
+                        {selectedIngredients.slice(0, 8).join(', ')}
+                        {selectedIngredients.length > 8 && ` and ${selectedIngredients.length - 8} more`}
+                      </div>
+                    </div>
+                  )}
+                  
+                  <div className="flex gap-2 pt-4">
+                    <Button variant="outline" size="sm" className="bg-gray-700 border-gray-600 text-gray-300">
+                      Grocery List
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="bg-gray-700 border-gray-600 text-gray-300"
+                      onClick={() => setPreferencesCardSlid(false)}
+                    >
+                      Edit Preferences
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Card 1: Preferences and Pantry Ingredients - Moves below Summary when slid */}
           <div className={`transition-all duration-1000 ease-in-out ${
-            preferencesCardSlid ? 'order-last' : 'order-1'
+            preferencesCardSlid ? 'order-last' : 'order-first'
           }`}>
             <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700 min-h-[400px]">
               <CardHeader className="pb-4 relative">
@@ -854,77 +926,6 @@ export default function ExploreRecipesScreen() {
             </Card>
           </div>
 
-          {/* Card 2: Recipe Options */}
-          <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
-            <CardHeader className="pb-4">
-              <CardTitle className="text-lg text-white">Recipe Options</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-2 gap-3">
-                <Button className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600">
-                  Pantry Dishes
-                </Button>
-                <Button className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600">
-                  Chef's Choice
-                </Button>
-                <Button className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600">
-                  Create a Dish
-                </Button>
-                <Button className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600">
-                  Take-Out
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Card 3: Summary */}
-          {(isMealComplete || isPantryComplete) && (
-            <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
-              <CardHeader className="pb-4">
-                <CardTitle className="text-lg text-white">
-                  Summary for {userData?.nickname || 'Peter'}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {isMealComplete && (
-                    <div>
-                      <h4 className="text-sm font-medium text-purple-300 mb-2">Meal Preferences</h4>
-                      <div className="text-sm text-gray-400 space-y-1">
-                        <div>Serving: {mealPreferences.servingSize}, Cuisine: {mealPreferences.cuisine}</div>
-                        <div>Meal Type: {mealPreferences.mealType}</div>
-                      </div>
-                    </div>
-                  )}
-                  
-                  {isPantryComplete && (
-                    <div>
-                      <div className="border-t border-gray-600 pt-3"></div>
-                      <h4 className="text-sm font-medium text-purple-300 mb-2">Pantry Ingredients</h4>
-                      <div className="text-sm text-gray-400">
-                        {selectedIngredients.slice(0, 8).join(', ')}
-                        {selectedIngredients.length > 8 && ` and ${selectedIngredients.length - 8} more`}
-                      </div>
-                    </div>
-                  )}
-                  
-                  <div className="flex gap-2 pt-4">
-                    <Button variant="outline" size="sm" className="bg-gray-700 border-gray-600 text-gray-300">
-                      Grocery List
-                    </Button>
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="bg-gray-700 border-gray-600 text-gray-300"
-                      onClick={() => setPreferencesCardSlid(false)}
-                    >
-                      Edit Preferences
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          )}
         </div>
         
         {/* Bottom spacing to account for bottom navigation */}
