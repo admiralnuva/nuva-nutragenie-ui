@@ -551,117 +551,146 @@ export default function DietaryScreen() {
                 </div>
               </div>
             </CardHeader>
-            <CardContent className="space-y-3">
-              {/* Compact 2-Row Layout with Icons Beside Dropdowns */}
-              
-              {/* Row 1: Calories and Protein */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="flex items-start space-x-2">
-                  <div className="text-sm mt-5">🔥</div>
-                  <div className="flex-1">
-                    <div className="text-xs text-gray-400 mb-1">Calories</div>
-                    <Select value={selectedCalorieRange} onValueChange={setSelectedCalorieRange}>
-                      <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-white text-xs h-8">
-                        <SelectValue placeholder="Select" />
-                      </SelectTrigger>
-                      <SelectContent className="bg-gray-700 border-gray-600">
-                        <SelectItem value="1200-1300" className="text-white hover:bg-gray-600">1200-1300</SelectItem>
-                        <SelectItem value="1301-1500" className="text-white hover:bg-gray-600">1301-1500</SelectItem>
-                        <SelectItem value="1501-1800" className="text-white hover:bg-gray-600">1501-1800</SelectItem>
-                        <SelectItem value="1801-2000" className="text-white hover:bg-gray-600">1801-2000</SelectItem>
-                        <SelectItem value="2001-2300" className="text-white hover:bg-gray-600">2001-2300</SelectItem>
-                        <SelectItem value="2301-2600" className="text-white hover:bg-gray-600">2301-2600</SelectItem>
-                        <SelectItem value="2601-3000" className="text-white hover:bg-gray-600">2601-3000</SelectItem>
-                        <SelectItem value="3001-3500" className="text-white hover:bg-gray-600">3001-3500</SelectItem>
-                      </SelectContent>
-                    </Select>
+            <CardContent className="space-y-4">
+              {/* Primary Nutrients Section */}
+              <div className="space-y-3">
+                <div className="text-xs text-gray-400 uppercase tracking-wide">Primary Nutrients</div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="flex items-start space-x-2">
+                    <div className="text-sm mt-5" title="Daily calorie target based on your fitness goals">🔥</div>
+                    <div className="flex-1">
+                      <div className="text-xs text-gray-400 mb-1">Calories</div>
+                      <Select value={selectedCalorieRange} onValueChange={setSelectedCalorieRange}>
+                        <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-white text-xs h-8">
+                          <SelectValue placeholder="Select range" />
+                        </SelectTrigger>
+                        <SelectContent className="bg-gray-700 border-gray-600">
+                          <SelectItem value="1200-1300" className="text-white hover:bg-gray-600">1200-1300 (Weight Loss)</SelectItem>
+                          <SelectItem value="1301-1500" className="text-white hover:bg-gray-600">1301-1500 (Light Activity)</SelectItem>
+                          <SelectItem value="1501-1800" className="text-white hover:bg-gray-600">1501-1800 (Moderate Activity)</SelectItem>
+                          <SelectItem value="1801-2000" className="text-white hover:bg-gray-600">1801-2000 (Active Lifestyle)</SelectItem>
+                          <SelectItem value="2001-2300" className="text-white hover:bg-gray-600">2001-2300 (Very Active)</SelectItem>
+                          <SelectItem value="2301-2600" className="text-white hover:bg-gray-600">2301-2600 (Athletic)</SelectItem>
+                          <SelectItem value="2601-3000" className="text-white hover:bg-gray-600">2601-3000 (High Performance)</SelectItem>
+                          <SelectItem value="3001-3500" className="text-white hover:bg-gray-600">3001-3500 (Elite Athlete)</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
                   </div>
-                </div>
 
-                <div className="flex items-start space-x-2">
-                  <div className="text-sm mt-5">💪</div>
-                  <div className="flex-1">
-                    <div className="text-xs text-gray-400 mb-1">Protein</div>
-                    <Select value={selectedProteinRange} onValueChange={setSelectedProteinRange}>
-                      <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-white text-xs h-8">
-                        <SelectValue placeholder="Select" />
-                      </SelectTrigger>
-                      <SelectContent className="bg-gray-700 border-gray-600">
-                        <SelectItem value="50-70" className="text-white hover:bg-gray-600">50-70g</SelectItem>
-                        <SelectItem value="71-100" className="text-white hover:bg-gray-600">71-100g</SelectItem>
-                        <SelectItem value="101-130" className="text-white hover:bg-gray-600">101-130g</SelectItem>
-                        <SelectItem value="131-160" className="text-white hover:bg-gray-600">131-160g</SelectItem>
-                        <SelectItem value="161-190" className="text-white hover:bg-gray-600">161-190g</SelectItem>
-                        <SelectItem value="191-220" className="text-white hover:bg-gray-600">191-220g</SelectItem>
-                        <SelectItem value="221-250" className="text-white hover:bg-gray-600">221-250g</SelectItem>
-                      </SelectContent>
-                    </Select>
+                  <div className="flex items-start space-x-2">
+                    <div className="text-sm mt-5" title="Essential for muscle building and repair">💪</div>
+                    <div className="flex-1">
+                      <div className="text-xs text-gray-400 mb-1">Protein</div>
+                      <Select value={selectedProteinRange} onValueChange={setSelectedProteinRange}>
+                        <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-white text-xs h-8">
+                          <SelectValue placeholder="Select range" />
+                        </SelectTrigger>
+                        <SelectContent className="bg-gray-700 border-gray-600">
+                          <SelectItem value="50-70" className="text-white hover:bg-gray-600">50-70g (Sedentary)</SelectItem>
+                          <SelectItem value="71-100" className="text-white hover:bg-gray-600">71-100g (Light Exercise)</SelectItem>
+                          <SelectItem value="101-130" className="text-white hover:bg-gray-600">101-130g (Regular Exercise)</SelectItem>
+                          <SelectItem value="131-160" className="text-white hover:bg-gray-600">131-160g (Active Training)</SelectItem>
+                          <SelectItem value="161-190" className="text-white hover:bg-gray-600">161-190g (Muscle Building)</SelectItem>
+                          <SelectItem value="191-220" className="text-white hover:bg-gray-600">191-220g (Intense Training)</SelectItem>
+                          <SelectItem value="221-250" className="text-white hover:bg-gray-600">221-250g (Bodybuilding)</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              {/* Row 2: Carbs, Fat, and Fiber */}
-              <div className="grid grid-cols-3 gap-3">
-                <div className="flex items-start space-x-2">
-                  <div className="text-sm mt-5">🌾</div>
-                  <div className="flex-1">
-                    <div className="text-xs text-gray-400 mb-1">Carbs</div>
-                    <Select value={selectedCarbRange} onValueChange={setSelectedCarbRange}>
-                      <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-white text-xs h-8">
-                        <SelectValue placeholder="Select" />
-                      </SelectTrigger>
-                      <SelectContent className="bg-gray-700 border-gray-600">
-                        <SelectItem value="50-100" className="text-white hover:bg-gray-600">50-100g</SelectItem>
-                        <SelectItem value="101-150" className="text-white hover:bg-gray-600">101-150g</SelectItem>
-                        <SelectItem value="151-200" className="text-white hover:bg-gray-600">151-200g</SelectItem>
-                        <SelectItem value="201-250" className="text-white hover:bg-gray-600">201-250g</SelectItem>
-                        <SelectItem value="251-300" className="text-white hover:bg-gray-600">251-300g</SelectItem>
-                        <SelectItem value="301-350" className="text-white hover:bg-gray-600">301-350g</SelectItem>
-                        <SelectItem value="351-400" className="text-white hover:bg-gray-600">351-400g</SelectItem>
-                      </SelectContent>
-                    </Select>
+              {/* Divider */}
+              <div className="border-t border-gray-600"></div>
+
+              {/* Secondary Nutrients Section */}
+              <div className="space-y-3">
+                <div className="text-xs text-gray-400 uppercase tracking-wide">Secondary Nutrients</div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div className="flex items-start space-x-2">
+                    <div className="text-sm mt-5" title="Energy source for workouts and brain function">🌾</div>
+                    <div className="flex-1">
+                      <div className="text-xs text-gray-400 mb-1">Carbs</div>
+                      <Select value={selectedCarbRange} onValueChange={setSelectedCarbRange}>
+                        <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-white text-xs h-8">
+                          <SelectValue placeholder="Select" />
+                        </SelectTrigger>
+                        <SelectContent className="bg-gray-700 border-gray-600">
+                          <SelectItem value="50-100" className="text-white hover:bg-gray-600">50-100g (Keto/Low Carb)</SelectItem>
+                          <SelectItem value="101-150" className="text-white hover:bg-gray-600">101-150g (Moderate Low)</SelectItem>
+                          <SelectItem value="151-200" className="text-white hover:bg-gray-600">151-200g (Balanced)</SelectItem>
+                          <SelectItem value="201-250" className="text-white hover:bg-gray-600">201-250g (Active)</SelectItem>
+                          <SelectItem value="251-300" className="text-white hover:bg-gray-600">251-300g (High Energy)</SelectItem>
+                          <SelectItem value="301-350" className="text-white hover:bg-gray-600">301-350g (Endurance)</SelectItem>
+                          <SelectItem value="351-400" className="text-white hover:bg-gray-600">351-400g (Ultra Endurance)</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-2">
+                    <div className="text-sm mt-5" title="Essential for hormone production and nutrient absorption">🥑</div>
+                    <div className="flex-1">
+                      <div className="text-xs text-gray-400 mb-1">Fat</div>
+                      <Select value={selectedFatRange} onValueChange={setSelectedFatRange}>
+                        <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-white text-xs h-8">
+                          <SelectValue placeholder="Select" />
+                        </SelectTrigger>
+                        <SelectContent className="bg-gray-700 border-gray-600">
+                          <SelectItem value="20-35" className="text-white hover:bg-gray-600">20-35g (Low Fat)</SelectItem>
+                          <SelectItem value="36-50" className="text-white hover:bg-gray-600">36-50g (Moderate)</SelectItem>
+                          <SelectItem value="51-70" className="text-white hover:bg-gray-600">51-70g (Balanced)</SelectItem>
+                          <SelectItem value="71-90" className="text-white hover:bg-gray-600">71-90g (Higher Fat)</SelectItem>
+                          <SelectItem value="91-110" className="text-white hover:bg-gray-600">91-110g (High Fat)</SelectItem>
+                          <SelectItem value="111-130" className="text-white hover:bg-gray-600">111-130g (Keto)</SelectItem>
+                          <SelectItem value="131-150" className="text-white hover:bg-gray-600">131-150g (High Keto)</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-2">
+                    <div className="text-sm mt-5" title="Important for digestive health and satiety">🌿</div>
+                    <div className="flex-1">
+                      <div className="text-xs text-gray-400 mb-1">Fiber</div>
+                      <Select value={selectedFiberRange} onValueChange={setSelectedFiberRange}>
+                        <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-white text-xs h-8">
+                          <SelectValue placeholder="Select" />
+                        </SelectTrigger>
+                        <SelectContent className="bg-gray-700 border-gray-600">
+                          <SelectItem value="10-15" className="text-white hover:bg-gray-600">10-15g (Low)</SelectItem>
+                          <SelectItem value="16-20" className="text-white hover:bg-gray-600">16-20g (Below Average)</SelectItem>
+                          <SelectItem value="21-25" className="text-white hover:bg-gray-600">21-25g (Recommended)</SelectItem>
+                          <SelectItem value="26-30" className="text-white hover:bg-gray-600">26-30g (Good)</SelectItem>
+                          <SelectItem value="31-35" className="text-white hover:bg-gray-600">31-35g (High)</SelectItem>
+                          <SelectItem value="36-40" className="text-white hover:bg-gray-600">36-40g (Very High)</SelectItem>
+                          <SelectItem value="41-50" className="text-white hover:bg-gray-600">41-50g (Maximum)</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
                   </div>
                 </div>
+              </div>
 
-                <div className="flex items-start space-x-2">
-                  <div className="text-sm mt-5">🥑</div>
-                  <div className="flex-1">
-                    <div className="text-xs text-gray-400 mb-1">Fat</div>
-                    <Select value={selectedFatRange} onValueChange={setSelectedFatRange}>
-                      <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-white text-xs h-8">
-                        <SelectValue placeholder="Select" />
-                      </SelectTrigger>
-                      <SelectContent className="bg-gray-700 border-gray-600">
-                        <SelectItem value="20-35" className="text-white hover:bg-gray-600">20-35g</SelectItem>
-                        <SelectItem value="36-50" className="text-white hover:bg-gray-600">36-50g</SelectItem>
-                        <SelectItem value="51-70" className="text-white hover:bg-gray-600">51-70g</SelectItem>
-                        <SelectItem value="71-90" className="text-white hover:bg-gray-600">71-90g</SelectItem>
-                        <SelectItem value="91-110" className="text-white hover:bg-gray-600">91-110g</SelectItem>
-                        <SelectItem value="111-130" className="text-white hover:bg-gray-600">111-130g</SelectItem>
-                        <SelectItem value="131-150" className="text-white hover:bg-gray-600">131-150g</SelectItem>
-                      </SelectContent>
-                    </Select>
+              {/* Current Selections Summary */}
+              <div className="bg-gray-700/50 rounded-lg p-3 mt-4">
+                <div className="text-xs text-gray-400 mb-2">Current Goals Summary</div>
+                <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 text-xs">
+                  <div className="bg-gray-600/50 rounded px-2 py-1">
+                    <span className="text-gray-400">🔥</span> {selectedCalorieRange}
                   </div>
-                </div>
-
-                <div className="flex items-start space-x-2">
-                  <div className="text-sm mt-5">🌿</div>
-                  <div className="flex-1">
-                    <div className="text-xs text-gray-400 mb-1">Fiber</div>
-                    <Select value={selectedFiberRange} onValueChange={setSelectedFiberRange}>
-                      <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-white text-xs h-8">
-                        <SelectValue placeholder="Select" />
-                      </SelectTrigger>
-                      <SelectContent className="bg-gray-700 border-gray-600">
-                        <SelectItem value="10-15" className="text-white hover:bg-gray-600">10-15g</SelectItem>
-                        <SelectItem value="16-20" className="text-white hover:bg-gray-600">16-20g</SelectItem>
-                        <SelectItem value="21-25" className="text-white hover:bg-gray-600">21-25g</SelectItem>
-                        <SelectItem value="26-30" className="text-white hover:bg-gray-600">26-30g</SelectItem>
-                        <SelectItem value="31-35" className="text-white hover:bg-gray-600">31-35g</SelectItem>
-                        <SelectItem value="36-40" className="text-white hover:bg-gray-600">36-40g</SelectItem>
-                        <SelectItem value="41-50" className="text-white hover:bg-gray-600">41-50g</SelectItem>
-                      </SelectContent>
-                    </Select>
+                  <div className="bg-gray-600/50 rounded px-2 py-1">
+                    <span className="text-gray-400">💪</span> {selectedProteinRange}g
+                  </div>
+                  <div className="bg-gray-600/50 rounded px-2 py-1">
+                    <span className="text-gray-400">🌾</span> {selectedCarbRange}g
+                  </div>
+                  <div className="bg-gray-600/50 rounded px-2 py-1">
+                    <span className="text-gray-400">🥑</span> {selectedFatRange}g
+                  </div>
+                  <div className="bg-gray-600/50 rounded px-2 py-1">
+                    <span className="text-gray-400">🌿</span> {selectedFiberRange}g
                   </div>
                 </div>
               </div>

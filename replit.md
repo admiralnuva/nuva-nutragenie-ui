@@ -526,6 +526,14 @@ Changelog:
   * Standardized all icons to text-sm size (14px) for consistent visual hierarchy across all sections
   * Eliminated size inconsistencies between nutritional goals and other section icons
   * Applied uniform icon sizing to dietary restrictions, health factors, fitness goals, and nutritional goals
+- July 08, 2025. Enhanced Nutritional Goals UX and Integration:
+  * Added visual hierarchy with "Primary Nutrients" and "Secondary Nutrients" sections
+  * Implemented tooltips for each nutrient explaining their importance and usage
+  * Enhanced dropdown options with contextual descriptions (e.g., "Weight Loss", "Muscle Building", "Keto")
+  * Added visual divider between primary and secondary nutrient sections
+  * Created current selections summary display showing all selected ranges at a glance
+  * Improved mobile responsiveness with responsive grid layouts (sm:grid-cols-2, sm:grid-cols-3)
+  * Added goal-based recommendations in dropdown options for better user guidance
 ```
 
 ## User Preferences
