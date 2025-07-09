@@ -96,13 +96,13 @@ export default function ExploreRecipesScreen() {
 
   // Meal preferences state with sequential validation and auto-save
   const [mealPreferences, setMealPreferences] = useLocalStorage("nutragenie_meal_preferences", {
-    servingSize: "",
-    cuisine: "",
-    mealType: "",
-    spiceLevel: "",
-    skillLevel: "",
-    cookMethod: "",
-    prepTime: ""
+    servingSize: "2 people",
+    cuisine: "American",
+    mealType: "Dinner",
+    spiceLevel: "Mild",
+    skillLevel: "Intermediate",
+    cookMethod: "Stove Top",
+    prepTime: "30 minutes"
   });
 
   // Meal confirmation state
@@ -720,7 +720,7 @@ export default function ExploreRecipesScreen() {
                               id="meal-confirm"
                               checked={mealConfirmed}
                               onCheckedChange={setMealConfirmed}
-                              className="border-gray-500 data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600"
+                              className="rounded-full border-gray-500 data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600"
                             />
                             <label
                               htmlFor="meal-confirm"
