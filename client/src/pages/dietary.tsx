@@ -89,6 +89,53 @@ export default function DietaryScreen() {
   const [selectedFatRange, setSelectedFatRange] = useState<string>("36-50");
   const [selectedFiberRange, setSelectedFiberRange] = useState<string>("16-20");
 
+  // Initialize form with saved data when component loads
+  useEffect(() => {
+    if (userData && Object.keys(userData).length > 0) {
+      console.log("Loading saved dietary data:", userData);
+      
+      // Load dietary restrictions
+      if (userData.dietaryRestrictions) {
+        setSelectedDietary(userData.dietaryRestrictions);
+      }
+      
+      // Load health goals - filter health conditions and fitness goals
+      if (userData.healthGoals) {
+        const healthConditions = userData.healthGoals.filter((goal: string) => 
+          ['diabetes', 'cardiovascular', 'kidney', 'blood-pressure', 'cancer', 'none'].includes(goal)
+        );
+        const fitnessGoals = userData.healthGoals.filter((goal: string) => 
+          ['build-muscle', 'lose-weight', 'endurance', 'wellness'].includes(goal)
+        );
+        
+        setSelectedHealth(healthConditions);
+        setSelectedFitness(fitnessGoals);
+      }
+      
+      // Load allergies and other text fields
+      if (userData.allergies) {
+        setAllergies(userData.allergies);
+      }
+      
+      // Load nutritional goals
+      if (userData.selectedCalorieRange) {
+        setSelectedCalorieRange(userData.selectedCalorieRange);
+      }
+      if (userData.selectedProteinRange) {
+        setSelectedProteinRange(userData.selectedProteinRange);
+      }
+      if (userData.selectedCarbRange) {
+        setSelectedCarbRange(userData.selectedCarbRange);
+      }
+      if (userData.selectedFatRange) {
+        setSelectedFatRange(userData.selectedFatRange);
+      }
+      if (userData.selectedFiberRange) {
+        setSelectedFiberRange(userData.selectedFiberRange);
+      }
+    }
+  }, [userData]);
+
   // Auto-calculate macros based on calorie selection
   const updateMacrosBasedOnCalories = (calorieRange: string) => {
     const calorieMapping = {
