@@ -456,7 +456,7 @@ export default function ExploreRecipesScreen() {
           <div className="w-8"></div>
         </div>
 
-        <div className="space-y-4">
+        <div className="flex flex-col space-y-4">
           {/* Card 1: Preferences and Pantry Ingredients */}
           <div className={`transition-all duration-500 ease-in-out ${
             isPantryCardAtBottom ? 'order-3' : 'order-1'
@@ -882,8 +882,9 @@ export default function ExploreRecipesScreen() {
           </div>
 
           {/* Card 2: Recipe Options */}
-          <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
-            <CardHeader className="pb-4">
+          <div className="order-2">
+            <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
+              <CardHeader className="pb-4">
               <CardTitle className="text-lg text-white">Recipe Options</CardTitle>
             </CardHeader>
             <CardContent>
@@ -902,11 +903,13 @@ export default function ExploreRecipesScreen() {
                 </Button>
               </div>
             </CardContent>
-          </Card>
+            </Card>
+          </div>
 
           {/* Card 3: Summary */}
           {(isMealComplete || isPantryComplete) && (
-            <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
+            <div className="order-2">
+              <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
               <CardHeader className="pb-4">
                 <CardTitle className="text-lg text-white">
                   Summary for {userData?.nickname || 'Peter'}
@@ -951,6 +954,7 @@ export default function ExploreRecipesScreen() {
                 </div>
               </CardContent>
             </Card>
+            </div>
           )}
         </div>
         
