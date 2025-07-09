@@ -124,49 +124,14 @@ export default function ExploreRecipesScreen() {
   // Card sliding animation state
   const [isCard1Moving, setIsCard1Moving] = useState(false);
   const [card1AtBottom, setCard1AtBottom] = useState(false);
-  const [isMealPreferencesCompleted, setIsMealPreferencesCompleted] = useState(false);
-  const [isMealPreferencesMoving, setIsMealPreferencesMoving] = useState(false);
-  const [mealPreferencesAtBottom, setMealPreferencesAtBottom] = useState(false);
   
-  // Reset meal preferences position on page load
+  // Reset card positions on page load
   useEffect(() => {
-    // Reset meal preferences to top position when navigating to page
-    setMealPreferencesAtBottom(false);
-    setIsMealPreferencesCompleted(false);
-    setIsMealPreferencesMoving(false);
+    // Reset card positions when navigating to page
     setIsMealPreferencesCardCollapsed(false);
   }, []);
 
-  // Watch for meal preferences completion
-  useEffect(() => {
-    if (isRequiredFieldsCompleted() && !isMealPreferencesCompleted) {
-      setIsMealPreferencesCompleted(true);
-      
-      // Start sliding animation after a short delay
-      setTimeout(() => {
-        setIsMealPreferencesMoving(true);
-        setIsMealPreferencesCardCollapsed(true);
-        
-        // Play custom swish sound effect
-        try {
-          const audio = new Audio('/audio/wind-swoosh.mp3');
-          audio.volume = 0.4;
-          audio.play().catch(error => {
-            console.log('Audio playback failed:', error);
-          });
-        } catch (error) {
-          console.log('Audio not available');
-        }
-        
-        // Complete the slide animation
-        setTimeout(() => {
-          setIsMealPreferencesMoving(false);
-          setMealPreferencesAtBottom(true);
-        }, 1500);
-        
-      }, 1000);
-    }
-  }, [mealPreferences, isMealPreferencesCompleted]);
+
 
   // Complex animation sequence on page load for Card 1 (dietary preferences)
   useEffect(() => {
@@ -513,11 +478,8 @@ export default function ExploreRecipesScreen() {
             </div>
           )}
 
-          {/* Meal Preferences Card - Top priority when incomplete */}
-          {!mealPreferencesAtBottom && (
-            <Card className={`bg-gray-800/90 backdrop-blur-sm border border-gray-700 shadow-lg mb-6 transition-all duration-1500 ease-in-out ${
-              isMealPreferencesMoving ? 'transform translate-y-full scale-95 opacity-70' : 'transform translate-y-0 scale-100 opacity-100'
-            }`}>
+          {/* Meal Preferences Card - Always visible */}
+          <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700 shadow-lg mb-6">
               <CardHeader className="pb-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
@@ -685,10 +647,9 @@ export default function ExploreRecipesScreen() {
                 </CardContent>
               </div>
             </Card>
-          )}
 
           {/* Recipe Options Card - Only show when meal preferences are complete */}
-          {isRequiredFieldsCompleted() && !mealPreferencesAtBottom && (
+          {isRequiredFieldsCompleted() && (
             <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700 shadow-lg mb-6">
               <CardHeader className="pb-4">
                 <CardTitle className="text-lg text-white">Choose Recipe Options</CardTitle>
