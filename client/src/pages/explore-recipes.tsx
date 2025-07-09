@@ -829,10 +829,9 @@ export default function ExploreRecipesScreen() {
                               onCheckedChange={(checked) => {
                                 setIsPantryConfirmed(checked);
                                 if (checked) {
-                                  // Auto-move card after 5 seconds by setting bottom position
-                                  setTimeout(() => {
-                                    setCard1AtBottom(true);
-                                  }, 5000);
+                                  // Close the pantry tab and move card below Summary immediately
+                                  setActiveTab('diet'); // Close to diet tab
+                                  setCard1AtBottom(true); // Move entire card below Summary
                                 }
                               }}
                               className="w-7 h-7 rounded-full border-gray-500 data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600"
