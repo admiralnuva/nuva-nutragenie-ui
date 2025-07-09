@@ -165,12 +165,16 @@ export default function ExploreRecipesScreen() {
     setCard1AtBottom(false);
     setIsCard1Moving(false);
     
+    // Reset selected ingredients to prevent auto-completion
+    setSelectedIngredients([]);
+    
     // Clear any localStorage values that might persist card state
     localStorage.removeItem('nutragenie_card_position');
     localStorage.removeItem('nutragenie_card_collapsed');
     
     console.log('Page loaded - Reset card to top position');
     console.log('preferencesCardSlid set to:', false);
+    console.log('selectedIngredients reset to empty array');
   }, []); // Run on every page load
 
   // Processing animation state
@@ -261,6 +265,7 @@ export default function ExploreRecipesScreen() {
   // Check pantry completion status
   useEffect(() => {
     const pantryCompleted = selectedIngredients.length >= 3; // At least 3 ingredients
+    console.log('Pantry completion check:', {selectedIngredients: selectedIngredients.length, pantryCompleted});
     setIsPantryComplete(pantryCompleted);
   }, [selectedIngredients]);
 
