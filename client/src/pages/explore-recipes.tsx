@@ -333,51 +333,52 @@ export default function ExploreRecipesScreen() {
         <div className="space-y-4">
           {/* Card 1: Dietary Preferences Summary */}
           <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
-            <CardHeader className="pb-4">
-              <div className="flex items-center justify-between">
-                <div className="flex-1 min-w-0">
-                  <CardTitle className="text-lg text-white whitespace-nowrap">Your dietary preferences:</CardTitle>
-                  <div className="text-gray-300 mt-1">
-                    {!userData ? (
-                      <div className="mt-2">
-                        <p className="text-gray-400 text-sm mb-3">Please create your account first to view dietary preferences</p>
-                        <button 
-                          onClick={() => setLocation("/nuva-signup")}
-                          className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-purple-700 transition-colors"
-                        >
-                          Create Account
-                        </button>
-                      </div>
-                    ) : dietaryRows.length > 0 ? (
-                      <div className="space-y-0">
-                        {dietaryRows.map((row, index) => (
-                          <div key={index} className="flex items-center text-sm py-0.5">
-                            {row.label ? (
-                              <>
-                                <span className="font-medium text-gray-300">{row.label}:</span>
-                                <span className="text-gray-400 ml-2">{row.value}</span>
-                              </>
-                            ) : (
-                              <span className="text-gray-400">{row.value}</span>
-                            )}
-                          </div>
-                        ))}
-                      </div>
-                    ) : (
-                      <p className="text-gray-400 text-sm py-2">No dietary preferences set</p>
-                    )}
-                  </div>
-                </div>
-                <div className="flex flex-col items-center flex-shrink-0">
-                  <img 
-                    src={userAvatarSrc} 
-                    alt="User Avatar"
-                    className="w-20 h-20 object-cover rounded-lg border-0"
-                    style={{ border: 'none !important', outline: 'none', boxShadow: 'none', backgroundColor: 'transparent' }}
-                  />
-                  <p className="text-xs text-gray-300 mt-1 text-center font-medium">
-                    {userData?.nickname || "User"}
-                  </p>
+            <CardHeader className="pb-4 relative">
+              {/* Avatar positioned in top right corner */}
+              <div className="absolute top-4 right-4 flex flex-col items-center">
+                <img 
+                  src={userAvatarSrc} 
+                  alt="User Avatar"
+                  className="w-16 h-16 object-cover rounded-lg border-0"
+                  style={{ border: 'none !important', outline: 'none', boxShadow: 'none', backgroundColor: 'transparent' }}
+                />
+                <p className="text-xs text-gray-300 mt-1 text-center font-medium">
+                  {userData?.nickname || "User"}
+                </p>
+              </div>
+              
+              {/* Content with right margin to avoid overlap with avatar */}
+              <div className="pr-20">
+                <CardTitle className="text-lg text-white">Your dietary preferences:</CardTitle>
+                <div className="text-gray-300 mt-2">
+                  {!userData ? (
+                    <div className="mt-2">
+                      <p className="text-gray-400 text-sm mb-3">Please create your account first to view dietary preferences</p>
+                      <button 
+                        onClick={() => setLocation("/nuva-signup")}
+                        className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-purple-700 transition-colors"
+                      >
+                        Create Account
+                      </button>
+                    </div>
+                  ) : dietaryRows.length > 0 ? (
+                    <div className="space-y-0">
+                      {dietaryRows.map((row, index) => (
+                        <div key={index} className="flex items-center text-sm py-0.5">
+                          {row.label ? (
+                            <>
+                              <span className="font-medium text-gray-300">{row.label}:</span>
+                              <span className="text-gray-400 ml-2">{row.value}</span>
+                            </>
+                          ) : (
+                            <span className="text-gray-400">{row.value}</span>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="text-gray-400 text-sm py-2">No dietary preferences set</p>
+                  )}
                 </div>
               </div>
             </CardHeader>
