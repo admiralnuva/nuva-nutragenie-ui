@@ -369,7 +369,19 @@ export default function ExploreRecipesScreen() {
           {/* Card 1: Dietary Preferences Summary */}
           <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
             <CardHeader className="pb-4">
-              <CardTitle className="text-lg text-white">Your dietary preferences:</CardTitle>
+              <div className="flex items-center justify-between">
+                <CardTitle className="text-lg text-white">Your dietary preferences:</CardTitle>
+                <button 
+                  onClick={() => setIsCardCollapsed(!isCardCollapsed)}
+                  className="text-purple-400 hover:text-purple-300 transition-colors bg-purple-600/20 hover:bg-purple-600/40 rounded-full p-2"
+                >
+                  {isCardCollapsed ? (
+                    <ChevronDown size={42} />
+                  ) : (
+                    <ChevronUp size={42} />
+                  )}
+                </button>
+              </div>
               
               {/* Content with smooth collapse animation */}
               <div className={`transition-all duration-500 ease-in-out overflow-hidden ${
@@ -427,8 +439,22 @@ export default function ExploreRecipesScreen() {
           {!showPreferencesProcessing && (
             <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
             <CardHeader className="pb-4">
-              <CardTitle className="text-lg text-white whitespace-nowrap">Meal Preferences</CardTitle>
-              <p className="text-gray-300 mt-1">Set your cooking preferences and dietary goals</p>
+              <div className="flex items-center justify-between">
+                <div className="flex-1 min-w-0">
+                  <CardTitle className="text-lg text-white whitespace-nowrap">Meal Preferences</CardTitle>
+                  <p className="text-gray-300 mt-1">Set your cooking preferences and dietary goals</p>
+                </div>
+                <button 
+                  onClick={() => setIsMealPreferencesCardCollapsed(!isMealPreferencesCardCollapsed)}
+                  className="text-purple-400 hover:text-purple-300 transition-colors bg-purple-600/20 hover:bg-purple-600/40 rounded-full p-2"
+                >
+                  {isMealPreferencesCardCollapsed ? (
+                    <ChevronDown size={42} />
+                  ) : (
+                    <ChevronUp size={42} />
+                  )}
+                </button>
+              </div>
             </CardHeader>
             <div className={`transition-all duration-500 ease-in-out overflow-hidden ${
               isMealPreferencesCardCollapsed ? 'max-h-0 opacity-0' : 'max-h-96 opacity-100'
