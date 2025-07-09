@@ -148,6 +148,7 @@ export default function ExploreRecipesScreen() {
   // Reset layout on navigation
   useEffect(() => {
     setPreferencesCardSlid(false);
+    setIsPreferencesCardCollapsed(false);
     setActiveTab('meal'); // Reset to meal tab
   }, []);
 
@@ -533,10 +534,10 @@ export default function ExploreRecipesScreen() {
             <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700 min-h-[400px]">
               <CardHeader className="pb-4 relative">
                 <CardTitle className="text-lg text-white pr-20">
-                  {isPreferencesCardCollapsed ? 'Quick Actions' : 'Preferences and Pantry Ingredients'}
+                  {(isPreferencesCardCollapsed || preferencesCardSlid) ? 'Quick Actions' : 'Preferences and Pantry Ingredients'}
                 </CardTitle>
                 {/* User Avatar - Top Right Corner - Only show when not collapsed */}
-                {!isPreferencesCardCollapsed && (
+                {!(isPreferencesCardCollapsed || preferencesCardSlid) && (
                   <div className="absolute top-4 right-4">
                     <img 
                       src={userAvatarSrc} 
@@ -549,7 +550,7 @@ export default function ExploreRecipesScreen() {
               </CardHeader>
               <CardContent>
                 {/* Show collapsed view with 3 buttons when card is at bottom */}
-                {isPreferencesCardCollapsed ? (
+                {(isPreferencesCardCollapsed || preferencesCardSlid) ? (
                   <div className="flex gap-2">
                     <Button 
                       variant="outline" 
