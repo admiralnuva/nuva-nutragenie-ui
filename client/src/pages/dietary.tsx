@@ -557,7 +557,7 @@ export default function DietaryScreen() {
               {/* Row 1: Calories, Protein, Carbs */}
               <div className="grid grid-cols-3 gap-3">
                 <div className="flex items-center space-x-2">
-                  <div className="text-2xl">🔥</div>
+                  <div className="text-sm">🔥</div>
                   <div className="flex-1">
                     <div className="text-xs text-gray-400 mb-1">Calories</div>
                     <Select value={selectedCalorieRange} onValueChange={setSelectedCalorieRange}>
@@ -579,7 +579,7 @@ export default function DietaryScreen() {
                 </div>
 
                 <div className="flex items-center space-x-2">
-                  <div className="text-2xl">💪</div>
+                  <div className="text-sm">💪</div>
                   <div className="flex-1">
                     <div className="text-xs text-gray-400 mb-1">Protein</div>
                     <Select value={selectedProteinRange} onValueChange={setSelectedProteinRange}>
@@ -600,7 +600,7 @@ export default function DietaryScreen() {
                 </div>
 
                 <div className="flex items-center space-x-2">
-                  <div className="text-2xl">🌾</div>
+                  <div className="text-sm">🌾</div>
                   <div className="flex-1">
                     <div className="text-xs text-gray-400 mb-1">Carbs</div>
                     <Select value={selectedCarbRange} onValueChange={setSelectedCarbRange}>
@@ -624,7 +624,7 @@ export default function DietaryScreen() {
               {/* Row 2: Fat and Fiber */}
               <div className="grid grid-cols-2 gap-3">
                 <div className="flex items-center space-x-2">
-                  <div className="text-2xl">🥑</div>
+                  <div className="text-sm">🥑</div>
                   <div className="flex-1">
                     <div className="text-xs text-gray-400 mb-1">Fat</div>
                     <Select value={selectedFatRange} onValueChange={setSelectedFatRange}>
@@ -645,7 +645,7 @@ export default function DietaryScreen() {
                 </div>
 
                 <div className="flex items-center space-x-2">
-                  <div className="text-2xl">🌿</div>
+                  <div className="text-sm">🌿</div>
                   <div className="flex-1">
                     <div className="text-xs text-gray-400 mb-1">Fiber</div>
                     <Select value={selectedFiberRange} onValueChange={setSelectedFiberRange}>
