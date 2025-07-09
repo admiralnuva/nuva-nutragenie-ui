@@ -94,16 +94,19 @@ export default function ExploreRecipesScreen() {
     return userAvatarSrc;
   };
 
-  // Meal preferences state with sequential validation
-  const [mealPreferences, setMealPreferences] = useState({
+  // Meal preferences state with sequential validation and auto-save
+  const [mealPreferences, setMealPreferences] = useLocalStorage("nutragenie_meal_preferences", {
     servingSize: "",
     cuisine: "",
     mealType: "",
     spiceLevel: "",
     skillLevel: "",
-    cookingMethod: "",
+    cookMethod: "",
     prepTime: ""
   });
+
+  // Meal confirmation state
+  const [mealConfirmed, setMealConfirmed] = useState(false);
 
   // Helper function to check if required fields are completed
   const isRequiredFieldsCompleted = () => {
@@ -118,9 +121,10 @@ export default function ExploreRecipesScreen() {
 
   // Check meal completion status and update state
   useEffect(() => {
-    const mealCompleted = isRequiredFieldsCompleted();
-    setIsMealComplete(mealCompleted);
-  }, [mealPreferences]);
+    const fieldsCompleted = isRequiredFieldsCompleted();
+    const confirmed = mealConfirmed;
+    setIsMealComplete(fieldsCompleted && confirmed);
+  }, [mealPreferences, mealConfirmed]);
 
 
 
@@ -707,6 +711,26 @@ export default function ExploreRecipesScreen() {
                           <option value="2+ hours">🕰️ 2+ hours</option>
                         </select>
                       </div>
+
+                      {/* Confirmation Checkbox - Only show when required fields are completed */}
+                      {isRequiredFieldsCompleted() && (
+                        <div className="mt-4 pt-3 border-t border-gray-600">
+                          <div className="flex items-center space-x-2">
+                            <Checkbox
+                              id="meal-confirm"
+                              checked={mealConfirmed}
+                              onCheckedChange={setMealConfirmed}
+                              className="border-gray-500 data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600"
+                            />
+                            <label
+                              htmlFor="meal-confirm"
+                              className="text-sm text-gray-300 cursor-pointer"
+                            >
+                              I confirm these meal preferences are correct
+                            </label>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   )}
 
