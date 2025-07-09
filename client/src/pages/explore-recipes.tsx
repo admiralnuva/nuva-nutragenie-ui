@@ -720,7 +720,7 @@ export default function ExploreRecipesScreen() {
                               id="meal-confirm"
                               checked={mealConfirmed}
                               onCheckedChange={setMealConfirmed}
-                              className="rounded-full border-gray-500 data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600"
+                              className="w-5 h-5 rounded-full border-gray-500 data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600"
                             />
                             <label
                               htmlFor="meal-confirm"
