@@ -561,6 +561,7 @@ Changelog:
   * Repositioned user avatar to top right corner of Card 1 using absolute positioning for better space utilization
   * Reduced avatar size from w-20 h-20 to w-16 h-16 to fit better in corner position
   * Applied pr-20 right margin to card content to prevent text overlap with repositioned avatar
+  * Added nutritional goals summary to Card 1 showing daily calorie and macro targets for comprehensive user profile
   * Maintained consistent dark theme styling across all cards with proper text colors and spacing
 ```
 

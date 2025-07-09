@@ -296,6 +296,18 @@ export default function ExploreRecipesScreen() {
       rows.push({ label: "Allergies", value: userData.allergies });
     }
     
+    // Row 5: Nutritional Goals Summary
+    if (userData?.selectedCalorieRange || userData?.selectedProteinRange || userData?.selectedCarbRange || userData?.selectedFatRange) {
+      const nutritionParts = [];
+      if (userData.selectedCalorieRange) nutritionParts.push(`${userData.selectedCalorieRange} cal`);
+      if (userData.selectedProteinRange) nutritionParts.push(`${userData.selectedProteinRange}g protein`);
+      if (userData.selectedCarbRange) nutritionParts.push(`${userData.selectedCarbRange}g carbs`);
+      if (userData.selectedFatRange) nutritionParts.push(`${userData.selectedFatRange}g fat`);
+      if (nutritionParts.length > 0) {
+        rows.push({ label: "Daily Goals", value: nutritionParts.join(", ") });
+      }
+    }
+    
     return rows.slice(0, 6); // Ensure max 6 rows
   };
 
