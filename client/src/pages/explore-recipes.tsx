@@ -753,21 +753,7 @@ export default function ExploreRecipesScreen() {
 
                   {activeTab === 'pantry' && (
                     <div className="space-y-3">
-                      <div className="flex items-center justify-between">
-                        <h4 className="text-lg font-semibold text-purple-300 mb-3">Available Ingredients</h4>
-                        {isPantryConfirmed && (
-                          <button
-                            onClick={() => setIsPantryCardCollapsed(!isPantryCardCollapsed)}
-                            className="p-1 rounded-full hover:bg-gray-700/50 transition-colors"
-                          >
-                            <ChevronDown 
-                              className={`w-10 h-10 text-purple-400 transition-transform duration-300 ${
-                                isPantryCardCollapsed ? 'rotate-180' : ''
-                              }`} 
-                            />
-                          </button>
-                        )}
-                      </div>
+                      <h4 className="text-lg font-semibold text-purple-300 mb-3">Available Ingredients</h4>
                       
                       {/* Collapsible Content */}
                       <div className={`transition-all duration-500 ease-in-out ${
@@ -870,19 +856,7 @@ export default function ExploreRecipesScreen() {
                         )}
                       </div>
 
-                      {/* Collapsed Summary */}
-                      {isPantryCardCollapsed && (
-                        <div className="mt-4 p-3 bg-gray-700/50 rounded-lg border border-gray-600">
-                          <div className="flex items-center justify-between">
-                            <span className="text-sm font-medium text-purple-300">✓ Pantry Complete</span>
-                            <span className="text-xs text-gray-400">{selectedIngredients.length} ingredients selected</span>
-                          </div>
-                          <div className="text-xs text-gray-400 mt-1">
-                            {selectedIngredients.slice(0, 4).join(', ')}
-                            {selectedIngredients.length > 4 && ` and ${selectedIngredients.length - 4} more`}
-                          </div>
-                        </div>
-                      )}
+
 
                     </div>
                   )}
