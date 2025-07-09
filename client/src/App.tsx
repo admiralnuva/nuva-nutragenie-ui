@@ -16,7 +16,7 @@ import CookingScreen from "@/pages/cooking";
 import VoiceCookingScreen from "@/pages/voice-cooking";
 import VoiceCookingTestScreen from "@/pages/voice-cooking-test";
 import AIVideoCookingScreen from "@/pages/ai-video-cooking";
-import TakeOutScreen from "@/pages/takeout";
+import TakeOutScreen from "@/pages/takeout-new";
 import NuvaSplashScreen from "@/pages/nuva-splash";
 import NuvaSignupScreen from "@/pages/nuva-signup";
 import ExploreRecipesScreen from "@/pages/explore-recipes";
