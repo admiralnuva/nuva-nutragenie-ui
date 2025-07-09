@@ -207,18 +207,18 @@ export default function TakeOutScreen() {
           
           {/* Select Your Dishes */}
           <div>
-            <div 
-              className="flex items-center justify-between mb-3 cursor-pointer"
-              onClick={() => setIsDishesCollapsed(!isDishesCollapsed)}
-            >
+            <div className="flex items-center justify-between mb-3">
               <h2 className="text-lg font-semibold text-white">Select Your Dishes</h2>
-              <div className="w-8 h-8 rounded-full bg-gray-700 border border-gray-600 flex items-center justify-center">
+              <button 
+                onClick={() => setIsDishesCollapsed(!isDishesCollapsed)}
+                className="text-purple-400 hover:text-purple-300 transition-colors bg-purple-600/20 hover:bg-purple-600/40 rounded-full p-2"
+              >
                 {isDishesCollapsed ? (
-                  <ChevronDown className="w-4 h-4 text-gray-300" />
+                  <ChevronDown size={42} />
                 ) : (
-                  <ChevronUp className="w-4 h-4 text-gray-300" />
+                  <ChevronUp size={42} />
                 )}
-              </div>
+              </button>
             </div>
             
             {!isDishesCollapsed && (
