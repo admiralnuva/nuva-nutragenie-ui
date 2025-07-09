@@ -453,7 +453,7 @@ export default function ExploreRecipesScreen() {
         <div className="space-y-4">
           {/* Card 1: Preferences and Pantry Ingredients */}
           <div className={`transition-all duration-1000 ease-in-out ${
-            preferencesCardSlid ? 'order-3' : 'order-1'
+            preferencesCardSlid ? 'order-last' : 'order-1'
           }`}>
             <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700 min-h-[400px]">
               <CardHeader className="pb-4 relative">
@@ -831,7 +831,7 @@ export default function ExploreRecipesScreen() {
                                 if (checked) {
                                   // Close the pantry tab and move card below Summary immediately
                                   setActiveTab('diet'); // Close to diet tab
-                                  setCard1AtBottom(true); // Move entire card below Summary
+                                  setPreferencesCardSlid(true); // Move entire card below Summary
                                 }
                               }}
                               className="w-7 h-7 rounded-full border-gray-500 data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600"
