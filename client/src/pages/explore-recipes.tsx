@@ -565,11 +565,11 @@ export default function ExploreRecipesScreen() {
                             <SelectTrigger className="bg-gray-700 border-gray-600 text-white [&>svg]:text-gray-300">
                               <SelectValue placeholder="Select size" />
                             </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="1 person">1 person</SelectItem>
-                              <SelectItem value="2 people">2 people</SelectItem>
-                              <SelectItem value="3-4 people">3-4 people</SelectItem>
-                              <SelectItem value="5+ people">5+ people</SelectItem>
+                            <SelectContent className="bg-gray-700 border-gray-600">
+                              <SelectItem value="1 person" className="text-white hover:bg-gray-600 focus:bg-gray-600">1 person</SelectItem>
+                              <SelectItem value="2 people" className="text-white hover:bg-gray-600 focus:bg-gray-600">2 people</SelectItem>
+                              <SelectItem value="3-4 people" className="text-white hover:bg-gray-600 focus:bg-gray-600">3-4 people</SelectItem>
+                              <SelectItem value="5+ people" className="text-white hover:bg-gray-600 focus:bg-gray-600">5+ people</SelectItem>
                             </SelectContent>
                           </Select>
                         </div>
@@ -583,13 +583,13 @@ export default function ExploreRecipesScreen() {
                             <SelectTrigger className="bg-gray-700 border-gray-600 text-white [&>svg]:text-gray-300">
                               <SelectValue placeholder="Select cuisine" />
                             </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="American">American</SelectItem>
-                              <SelectItem value="Italian">Italian</SelectItem>
-                              <SelectItem value="Mexican">Mexican</SelectItem>
-                              <SelectItem value="Asian">Asian</SelectItem>
-                              <SelectItem value="Mediterranean">Mediterranean</SelectItem>
-                              <SelectItem value="Indian">Indian</SelectItem>
+                            <SelectContent className="bg-gray-700 border-gray-600">
+                              <SelectItem value="American" className="text-white hover:bg-gray-600 focus:bg-gray-600">American</SelectItem>
+                              <SelectItem value="Italian" className="text-white hover:bg-gray-600 focus:bg-gray-600">Italian</SelectItem>
+                              <SelectItem value="Mexican" className="text-white hover:bg-gray-600 focus:bg-gray-600">Mexican</SelectItem>
+                              <SelectItem value="Asian" className="text-white hover:bg-gray-600 focus:bg-gray-600">Asian</SelectItem>
+                              <SelectItem value="Mediterranean" className="text-white hover:bg-gray-600 focus:bg-gray-600">Mediterranean</SelectItem>
+                              <SelectItem value="Indian" className="text-white hover:bg-gray-600 focus:bg-gray-600">Indian</SelectItem>
                             </SelectContent>
                           </Select>
                         </div>
@@ -605,12 +605,12 @@ export default function ExploreRecipesScreen() {
                           <SelectTrigger className="bg-gray-700 border-gray-600 text-white [&>svg]:text-gray-300">
                             <SelectValue placeholder="Select meal type" />
                           </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="Breakfast">Breakfast</SelectItem>
-                            <SelectItem value="Lunch">Lunch</SelectItem>
-                            <SelectItem value="Dinner">Dinner</SelectItem>
-                            <SelectItem value="Snack">Snack</SelectItem>
-                            <SelectItem value="Dessert">Dessert</SelectItem>
+                          <SelectContent className="bg-gray-700 border-gray-600">
+                            <SelectItem value="Breakfast" className="text-white hover:bg-gray-600 focus:bg-gray-600">Breakfast</SelectItem>
+                            <SelectItem value="Lunch" className="text-white hover:bg-gray-600 focus:bg-gray-600">Lunch</SelectItem>
+                            <SelectItem value="Dinner" className="text-white hover:bg-gray-600 focus:bg-gray-600">Dinner</SelectItem>
+                            <SelectItem value="Snack" className="text-white hover:bg-gray-600 focus:bg-gray-600">Snack</SelectItem>
+                            <SelectItem value="Dessert" className="text-white hover:bg-gray-600 focus:bg-gray-600">Dessert</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
@@ -626,11 +626,11 @@ export default function ExploreRecipesScreen() {
                             <SelectTrigger className="bg-gray-700 border-gray-600 text-white [&>svg]:text-gray-300">
                               <SelectValue placeholder="Any level" />
                             </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="Mild">Mild</SelectItem>
-                              <SelectItem value="Medium">Medium</SelectItem>
-                              <SelectItem value="Spicy">Spicy</SelectItem>
-                              <SelectItem value="Extra Hot">Extra Hot</SelectItem>
+                            <SelectContent className="bg-gray-700 border-gray-600">
+                              <SelectItem value="Mild" className="text-white hover:bg-gray-600 focus:bg-gray-600">Mild</SelectItem>
+                              <SelectItem value="Medium" className="text-white hover:bg-gray-600 focus:bg-gray-600">Medium</SelectItem>
+                              <SelectItem value="Spicy" className="text-white hover:bg-gray-600 focus:bg-gray-600">Spicy</SelectItem>
+                              <SelectItem value="Extra Hot" className="text-white hover:bg-gray-600 focus:bg-gray-600">Extra Hot</SelectItem>
                             </SelectContent>
                           </Select>
                         </div>
@@ -640,10 +640,10 @@ export default function ExploreRecipesScreen() {
                             <SelectTrigger className="bg-gray-700 border-gray-600 text-white [&>svg]:text-gray-300">
                               <SelectValue placeholder="Any skill" />
                             </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="Beginner">Beginner</SelectItem>
-                              <SelectItem value="Intermediate">Intermediate</SelectItem>
-                              <SelectItem value="Advanced">Advanced</SelectItem>
+                            <SelectContent className="bg-gray-700 border-gray-600">
+                              <SelectItem value="Beginner" className="text-white hover:bg-gray-600 focus:bg-gray-600">Beginner</SelectItem>
+                              <SelectItem value="Intermediate" className="text-white hover:bg-gray-600 focus:bg-gray-600">Intermediate</SelectItem>
+                              <SelectItem value="Advanced" className="text-white hover:bg-gray-600 focus:bg-gray-600">Advanced</SelectItem>
                             </SelectContent>
                           </Select>
                         </div>
@@ -656,12 +656,12 @@ export default function ExploreRecipesScreen() {
                             <SelectTrigger className="bg-gray-700 border-gray-600 text-white [&>svg]:text-gray-300">
                               <SelectValue placeholder="Any method" />
                             </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="Stovetop">Stovetop</SelectItem>
-                              <SelectItem value="Oven">Oven</SelectItem>
-                              <SelectItem value="Grill">Grill</SelectItem>
-                              <SelectItem value="Air Fryer">Air Fryer</SelectItem>
-                              <SelectItem value="Slow Cooker">Slow Cooker</SelectItem>
+                            <SelectContent className="bg-gray-700 border-gray-600">
+                              <SelectItem value="Stovetop" className="text-white hover:bg-gray-600 focus:bg-gray-600">Stovetop</SelectItem>
+                              <SelectItem value="Oven" className="text-white hover:bg-gray-600 focus:bg-gray-600">Oven</SelectItem>
+                              <SelectItem value="Grill" className="text-white hover:bg-gray-600 focus:bg-gray-600">Grill</SelectItem>
+                              <SelectItem value="Air Fryer" className="text-white hover:bg-gray-600 focus:bg-gray-600">Air Fryer</SelectItem>
+                              <SelectItem value="Slow Cooker" className="text-white hover:bg-gray-600 focus:bg-gray-600">Slow Cooker</SelectItem>
                             </SelectContent>
                           </Select>
                         </div>
@@ -671,11 +671,11 @@ export default function ExploreRecipesScreen() {
                             <SelectTrigger className="bg-gray-700 border-gray-600 text-white [&>svg]:text-gray-300">
                               <SelectValue placeholder="Any time" />
                             </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="Under 15 min">Under 15 min</SelectItem>
-                              <SelectItem value="15-30 min">15-30 min</SelectItem>
-                              <SelectItem value="30-60 min">30-60 min</SelectItem>
-                              <SelectItem value="Over 1 hour">Over 1 hour</SelectItem>
+                            <SelectContent className="bg-gray-700 border-gray-600">
+                              <SelectItem value="Under 15 min" className="text-white hover:bg-gray-600 focus:bg-gray-600">Under 15 min</SelectItem>
+                              <SelectItem value="15-30 min" className="text-white hover:bg-gray-600 focus:bg-gray-600">15-30 min</SelectItem>
+                              <SelectItem value="30-60 min" className="text-white hover:bg-gray-600 focus:bg-gray-600">30-60 min</SelectItem>
+                              <SelectItem value="Over 1 hour" className="text-white hover:bg-gray-600 focus:bg-gray-600">Over 1 hour</SelectItem>
                             </SelectContent>
                           </Select>
                         </div>
