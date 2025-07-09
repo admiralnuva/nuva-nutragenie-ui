@@ -37,7 +37,6 @@ type OrderType = "individual" | "group" | "weekly";
 export default function TakeOutScreen() {
   const [orderType, setOrderType] = useState<OrderType>("individual");
   const [isDishesCollapsed, setIsDishesCollapsed] = useState(false);
-  const [isDeliveryCollapsed, setIsDeliveryCollapsed] = useState(false);
   const [dishes, setDishes] = useState<Dish[]>([
     { id: 1, name: "Spicy Thai Basil Chicken", price: 15.50, selected: false },
     { id: 2, name: "Creamy Tuscan Salmon", price: 18.00, selected: false },
@@ -246,35 +245,17 @@ export default function TakeOutScreen() {
           </div>
 
           {/* Delivery Address */}
-          <div>
-            <div className="flex items-center justify-between mb-3">
-              <h2 className="text-lg font-semibold text-white">Delivery Address</h2>
-              <button 
-                onClick={() => setIsDeliveryCollapsed(!isDeliveryCollapsed)}
-                className="text-purple-400 hover:text-purple-300 transition-colors bg-purple-600/20 hover:bg-purple-600/40 rounded-full p-2"
-              >
-                {isDeliveryCollapsed ? (
-                  <ChevronDown size={42} />
-                ) : (
-                  <ChevronUp size={42} />
-                )}
-              </button>
-            </div>
-            
-            {!isDeliveryCollapsed && (
-              <div className="flex items-center justify-between p-4 bg-gray-800/90 backdrop-blur-sm border border-gray-700 rounded-lg">
-                <div className="flex items-center gap-3">
-                  <MapPin className="w-5 h-5 text-blue-400" />
-                  <div>
-                    <div className="text-white font-medium">Current Address</div>
-                    <div className="text-gray-400 text-sm">123 Main Street, Anytown, USA 12345</div>
-                  </div>
-                </div>
-                <Button variant="ghost" className="text-blue-400 hover:text-blue-300 hover:bg-gray-700/50 p-2">
-                  Change
-                </Button>
+          <div className="flex items-center justify-between p-4 bg-gray-800/90 backdrop-blur-sm border border-gray-700 rounded-lg">
+            <div className="flex items-center gap-3">
+              <MapPin className="w-5 h-5 text-blue-400" />
+              <div>
+                <div className="text-white font-medium">Delivery Address</div>
+                <div className="text-gray-400 text-sm">123 Main Street, Anytown, USA 12345</div>
               </div>
-            )}
+            </div>
+            <Button variant="ghost" className="text-blue-400 hover:text-blue-300 hover:bg-gray-700/50 p-2">
+              Change
+            </Button>
           </div>
 
           {/* Order Type Tabs */}
