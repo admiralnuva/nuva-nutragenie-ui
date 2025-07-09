@@ -371,7 +371,7 @@ export default function ExploreRecipesScreen() {
                 <CardTitle className="text-lg text-white">Your dietary preferences:</CardTitle>
                 <button 
                   onClick={() => setIsCardCollapsed(!isCardCollapsed)}
-                  className="text-gray-300 hover:text-white transition-colors bg-gray-700/50 hover:bg-gray-600/50 rounded-full p-2"
+                  className="text-purple-400 hover:text-purple-300 transition-colors bg-purple-600/20 hover:bg-purple-600/40 rounded-full p-2"
                 >
                   {isCardCollapsed ? (
                     <ChevronDown size={42} />

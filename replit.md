@@ -563,6 +563,13 @@ Changelog:
   * Applied pr-20 right margin to card content to prevent text overlap with repositioned avatar
   * Added nutritional goals summary to Card 1 showing daily calorie and macro targets for comprehensive user profile
   * Maintained consistent dark theme styling across all cards with proper text colors and spacing
+- July 09, 2025. Card 1 Collapse Animation and Nutritional Goals Text Layout:
+  * Implemented auto-collapse functionality for Card 1 - automatically collapses after 2 seconds on page load
+  * Added manual expand/collapse toggle button with large purple-themed chevron icons (42px size)
+  * Fixed nutritional goals text overflow by removing avatar from Card 1 and giving full width to content
+  * Applied smooth sliding animation (500ms duration) with opacity and height transitions
+  * Optimized nutritional goals format to "Goals: Cal (1301-1500), Protein (71-100g)" on Row 1 and "Carbs (101-150g), Fat (36-50g)" on Row 2
+  * Enhanced collapse button with purple color scheme (purple-400 text, purple-600/20 background) for brand consistency
 ```
 
 ## User Preferences
