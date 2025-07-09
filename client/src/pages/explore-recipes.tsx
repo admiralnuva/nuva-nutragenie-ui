@@ -296,15 +296,22 @@ export default function ExploreRecipesScreen() {
       rows.push({ label: "Allergies", value: userData.allergies });
     }
     
-    // Row 5: Nutritional Goals Summary
+    // Row 5 & 6: Nutritional Goals Summary (2x2 grid)
     if (userData?.selectedCalorieRange || userData?.selectedProteinRange || userData?.selectedCarbRange || userData?.selectedFatRange) {
-      const nutritionParts = [];
-      if (userData.selectedCalorieRange) nutritionParts.push(`${userData.selectedCalorieRange} cal`);
-      if (userData.selectedProteinRange) nutritionParts.push(`${userData.selectedProteinRange}g protein`);
-      if (userData.selectedCarbRange) nutritionParts.push(`${userData.selectedCarbRange}g carbs`);
-      if (userData.selectedFatRange) nutritionParts.push(`${userData.selectedFatRange}g fat`);
-      if (nutritionParts.length > 0) {
-        rows.push({ label: "Goals", value: nutritionParts.join(", ") });
+      // First row: Calories and Protein
+      const firstRowParts = [];
+      if (userData.selectedCalorieRange) firstRowParts.push(`${userData.selectedCalorieRange} cal`);
+      if (userData.selectedProteinRange) firstRowParts.push(`${userData.selectedProteinRange}g protein`);
+      if (firstRowParts.length > 0) {
+        rows.push({ label: "Goals", value: firstRowParts.join(", ") });
+      }
+      
+      // Second row: Carbs and Fat
+      const secondRowParts = [];
+      if (userData.selectedCarbRange) secondRowParts.push(`${userData.selectedCarbRange}g carbs`);
+      if (userData.selectedFatRange) secondRowParts.push(`${userData.selectedFatRange}g fat`);
+      if (secondRowParts.length > 0) {
+        rows.push({ value: secondRowParts.join(", ") });
       }
     }
     
