@@ -198,7 +198,7 @@ export default function ExploreRecipesScreen() {
 
   // Pantry management state
   const [activeCard, setActiveCard] = useState<string>('pantry-ingredients');
-  const [selectedIngredients, setSelectedIngredients] = useState<string[]>(['chicken-breast', 'salmon', 'onions', 'rice', 'milk', 'olive-oil', 'apples', 'basil', 'cumin', 'ketchup']);
+  const [selectedIngredients, setSelectedIngredients] = useState<string[]>(['Chicken Breast', 'Salmon', 'Onions', 'Rice', 'Milk', 'Olive Oil', 'Apples', 'Basil', 'Cumin', 'Ketchup']);
   const [customIngredients, setCustomIngredients] = useState<string[]>([]);
   const [newIngredient, setNewIngredient] = useState<string>('');
   const [isPantryExpanded, setIsPantryExpanded] = useState<boolean>(true);
@@ -211,18 +211,23 @@ export default function ExploreRecipesScreen() {
   const [customDifficulty, setCustomDifficulty] = useState('Easy');
   const [showDishVariations, setShowDishVariations] = useState(false);
 
-  // Ingredient categories
+  // Comprehensive ingredient categories
   const ingredientCategories = {
-    'Meat': ['chicken-breast', 'ground-beef', 'pork-chops', 'turkey', 'lamb', 'bacon', 'ham', 'sausage'],
-    'Fish': ['salmon', 'tuna', 'cod', 'shrimp', 'crab', 'tilapia', 'mahi-mahi', 'scallops'],
-    'Vegetables': ['onions', 'garlic', 'tomatoes', 'carrots', 'broccoli', 'spinach', 'bell-peppers', 'mushrooms', 'zucchini', 'potatoes'],
-    'Grains': ['rice', 'pasta', 'quinoa', 'bread', 'oats', 'barley', 'couscous', 'bulgur'],
-    'Dairy': ['milk', 'cheese', 'yogurt', 'butter', 'eggs', 'cream-cheese', 'sour-cream', 'heavy-cream'],
-    'Pantry': ['olive-oil', 'salt', 'pepper', 'flour', 'sugar', 'vinegar', 'soy-sauce', 'honey', 'garlic-powder'],
-    'Fruits': ['apples', 'bananas', 'lemons', 'limes', 'oranges', 'berries', 'avocados', 'grapes'],
-    'Herbs': ['basil', 'oregano', 'thyme', 'rosemary', 'parsley', 'cilantro', 'mint', 'dill'],
-    'Spices': ['cumin', 'paprika', 'chili-powder', 'cinnamon', 'ginger', 'turmeric', 'bay-leaves'],
-    'Condiments': ['ketchup', 'mustard', 'mayo', 'hot-sauce', 'worcestershire', 'balsamic-vinegar']
+    'Meat': ['Chicken Breast', 'Ground Beef', 'Turkey', 'Pork Chops', 'Bacon', 'Ground Turkey', 'Lamb', 'Duck', 'Sausage', 'Ham'],
+    'Fish & Seafood': ['Salmon', 'Cod', 'Shrimp', 'Tuna', 'Tilapia', 'Crab', 'Lobster', 'Mussels', 'Scallops', 'Anchovies'],
+    'Vegetables': ['Bell Peppers', 'Tomatoes', 'Cucumber', 'Broccoli', 'Cauliflower', 'Zucchini', 'Eggplant', 'Mushrooms', 'Asparagus', 'Green Beans'],
+    'Root Vegetables': ['Onions', 'Garlic', 'Carrots', 'Potatoes', 'Sweet Potatoes', 'Ginger', 'Beets', 'Turnips', 'Radishes', 'Shallots'],
+    'Leafy Greens': ['Spinach', 'Lettuce', 'Kale', 'Arugula', 'Basil', 'Cilantro', 'Parsley', 'Mint', 'Chard', 'Cabbage'],
+    'Dairy & Eggs': ['Milk', 'Eggs', 'Butter', 'Cheese', 'Greek Yogurt', 'Cream', 'Sour Cream', 'Cottage Cheese', 'Ricotta', 'Mozzarella'],
+    'Fruits': ['Apples', 'Bananas', 'Lemons', 'Limes', 'Berries', 'Avocado', 'Oranges', 'Grapes', 'Pears', 'Mangoes'],
+    'Grains': ['Rice', 'Quinoa', 'Pasta', 'Bread', 'Oats', 'Barley', 'Couscous', 'Bulgur', 'Noodles', 'Tortillas'],
+    'Legumes': ['Black Beans', 'Chickpeas', 'Lentils', 'Kidney Beans', 'Pinto Beans', 'Navy Beans', 'Split Peas', 'Edamame', 'Lima Beans'],
+    'Nuts & Seeds': ['Almonds', 'Walnuts', 'Pecans', 'Cashews', 'Peanuts', 'Pine Nuts', 'Hazelnuts', 'Pistachios', 'Sunflower Seeds', 'Chia Seeds'],
+    'Oils & Fats': ['Olive Oil', 'Vegetable Oil', 'Coconut Oil', 'Sesame Oil', 'Avocado Oil', 'Canola Oil', 'Sunflower Oil', 'Ghee'],
+    'Spices': ['Black Pepper', 'Paprika', 'Cumin', 'Oregano', 'Thyme', 'Garlic Powder', 'Cinnamon', 'Turmeric', 'Chili Powder', 'Bay Leaves'],
+    'Condiments': ['Soy Sauce', 'Hot Sauce', 'Mustard', 'Ketchup', 'Mayo', 'Vinegar', 'Worcestershire', 'BBQ Sauce', 'Sriracha', 'Tahini'],
+    'Baking Essentials': ['Flour', 'Sugar', 'Baking Powder', 'Vanilla Extract', 'Salt', 'Honey', 'Brown Sugar', 'Cocoa Powder', 'Baking Soda'],
+    'Pantry Staples': ['Chicken Stock', 'Vegetable Broth', 'Canned Tomatoes', 'Coconut Milk', 'Fish Sauce', 'Maple Syrup', 'Dried Herbs', 'Sea Salt', 'Peppercorns']
   };
 
   // Check pantry completion status
@@ -742,31 +747,51 @@ export default function ExploreRecipesScreen() {
 
                   {activeTab === 'pantry' && (
                     <div className="space-y-3">
-                      <div className="flex items-center justify-between">
-                        <h4 className="text-sm font-medium text-purple-300">Available Ingredients</h4>
-                        <span className="text-xs text-gray-400">{selectedIngredients.length} selected</span>
+                      <h4 className="text-lg font-semibold text-purple-300 mb-3">Available Ingredients</h4>
+                      
+                      {/* Ingredient Selection Summary */}
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="text-sm font-medium text-gray-300">Selected Ingredients:</span>
+                        <span className="text-sm text-gray-400">{selectedIngredients.length} items</span>
                       </div>
                       
-                      {/* Ingredient categories */}
-                      <div className="space-y-2 max-h-40 overflow-y-auto">
-                        {Object.entries(ingredientCategories).slice(0, 3).map(([category, ingredients]) => (
+                      <hr className="border-gray-600" />
+                      
+                      {/* Comprehensive ingredient categories - matching Diet tab structure */}
+                      <div className="space-y-3 max-h-[200px] overflow-y-auto">
+                        {Object.entries(ingredientCategories).map(([category, ingredients]) => (
                           <div key={category}>
-                            <h5 className="text-xs font-medium text-gray-300 mb-1">{category}</h5>
-                            <div className="grid grid-cols-3 gap-2">
-                              {ingredients.slice(0, 6).map(ingredient => (
-                                <label key={ingredient} className="flex items-center space-x-1 text-xs">
+                            <div className="flex items-center justify-between mb-2">
+                              <h5 className="text-sm font-medium text-gray-300">{category}</h5>
+                              <span className="text-xs text-gray-500">
+                                {ingredients.filter(ingredient => selectedIngredients.includes(ingredient)).length}/{ingredients.length}
+                              </span>
+                            </div>
+                            <div className="grid grid-cols-2 gap-1 mb-2">
+                              {ingredients.slice(0, 8).map(ingredient => (
+                                <label key={ingredient} className="flex items-center space-x-1 text-xs cursor-pointer hover:bg-gray-700/30 p-1 rounded">
                                   <input
                                     type="checkbox"
                                     checked={selectedIngredients.includes(ingredient)}
                                     onChange={() => handleIngredientToggle(ingredient)}
-                                    className="w-3 h-3"
+                                    className="w-3 h-3 rounded border-gray-500"
                                   />
-                                  <span className="text-gray-400 text-xs">{ingredient.replace('-', ' ')}</span>
+                                  <span className="text-gray-400 text-xs">{ingredient}</span>
                                 </label>
                               ))}
                             </div>
+                            <hr className="border-gray-700" />
                           </div>
                         ))}
+                      </div>
+
+                      {/* Quick selection summary */}
+                      <div className="mt-3 pt-3 border-t border-gray-600">
+                        <div className="text-xs text-gray-400">
+                          <span className="font-medium text-gray-300">Popular selections: </span>
+                          {selectedIngredients.slice(0, 5).join(', ')}
+                          {selectedIngredients.length > 5 && ` and ${selectedIngredients.length - 5} more`}
+                        </div>
                       </div>
                     </div>
                   )}
