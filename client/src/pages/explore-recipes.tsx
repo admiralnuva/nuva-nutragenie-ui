@@ -384,14 +384,16 @@ export default function ExploreRecipesScreen() {
                   )}
                 </button>
               </div>
-              
-              {/* Content with smooth collapse animation */}
-              <div className={`transition-all duration-500 ease-in-out overflow-hidden ${
-                isCardCollapsed ? 'max-h-0 opacity-0' : 'max-h-96 opacity-100'
-              }`}>
-                <div className="text-gray-300 mt-3">
+            </CardHeader>
+            
+            {/* Content with smooth collapse animation */}
+            <div className={`transition-all duration-500 ease-in-out overflow-hidden ${
+              isCardCollapsed ? 'max-h-0 opacity-0' : 'max-h-96 opacity-100'
+            }`}>
+              <CardContent>
+                <div className="text-gray-300">
                   {!userData ? (
-                    <div className="mt-2">
+                    <div>
                       <p className="text-gray-400 text-sm mb-3">Please create your account first to view dietary preferences</p>
                       <button 
                         onClick={() => setLocation("/nuva-signup")}
@@ -419,8 +421,8 @@ export default function ExploreRecipesScreen() {
                     <p className="text-gray-400 text-sm py-2">No dietary preferences set</p>
                   )}
                 </div>
-              </div>
-            </CardHeader>
+              </CardContent>
+            </div>
           </Card>
 
           {/* Preferences Processing Animation */}
