@@ -298,18 +298,18 @@ export default function ExploreRecipesScreen() {
     
     // Row 5 & 6: Nutritional Goals Summary (2x2 grid)
     if (userData?.selectedCalorieRange || userData?.selectedProteinRange || userData?.selectedCarbRange || userData?.selectedFatRange) {
-      // Row 1: Goals with Cal and Protein
+      // Row 1: Goals with Cal and Protein - using shorter labels
       const firstRowParts = [];
       if (userData.selectedCalorieRange) firstRowParts.push(`Cal (${userData.selectedCalorieRange})`);
-      if (userData.selectedProteinRange) firstRowParts.push(`Protein (${userData.selectedProteinRange}g)`);
+      if (userData.selectedProteinRange) firstRowParts.push(`Pro (${userData.selectedProteinRange}g)`);
       
       if (firstRowParts.length > 0) {
         rows.push({ label: "Goals", value: firstRowParts.join(", ") });
       }
       
-      // Row 2: Carbs and Fat
+      // Row 2: Carbs and Fat - using shorter labels
       const secondRowParts = [];
-      if (userData.selectedCarbRange) secondRowParts.push(`Carbs (${userData.selectedCarbRange}g)`);
+      if (userData.selectedCarbRange) secondRowParts.push(`Carb (${userData.selectedCarbRange}g)`);
       if (userData.selectedFatRange) secondRowParts.push(`Fat (${userData.selectedFatRange}g)`);
       
       if (secondRowParts.length > 0) {
@@ -369,7 +369,7 @@ export default function ExploreRecipesScreen() {
               </div>
               
               {/* Content with right margin to avoid overlap with avatar */}
-              <div className="pr-20">
+              <div className="pr-16">
                 <CardTitle className="text-lg text-white">Your dietary preferences:</CardTitle>
                 <div className="text-gray-300 mt-2">
                   {!userData ? (
