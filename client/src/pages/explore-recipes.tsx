@@ -129,7 +129,9 @@ export default function ExploreRecipesScreen() {
   useEffect(() => {
     const fieldsCompleted = isRequiredFieldsCompleted();
     const confirmed = mealConfirmed;
-    setIsMealComplete(fieldsCompleted && confirmed);
+    const newMealComplete = fieldsCompleted && confirmed;
+    console.log('Meal completion check:', {fieldsCompleted, confirmed, newMealComplete});
+    setIsMealComplete(newMealComplete);
   }, [mealPreferences, mealConfirmed]);
 
 
@@ -137,7 +139,9 @@ export default function ExploreRecipesScreen() {
   // Auto-slide preferences card after both completions
   useEffect(() => {
     if (isMealComplete && isPantryComplete && !preferencesCardSlid) {
+      console.log('Auto-slide triggered - meal complete:', isMealComplete, 'pantry complete:', isPantryComplete);
       const slideTimer = setTimeout(() => {
+        console.log('Setting preferencesCardSlid to true');
         setPreferencesCardSlid(true);
       }, 5000); // 5 seconds delay
       
@@ -161,7 +165,12 @@ export default function ExploreRecipesScreen() {
     setCard1AtBottom(false);
     setIsCard1Moving(false);
     
+    // Clear any localStorage values that might persist card state
+    localStorage.removeItem('nutragenie_card_position');
+    localStorage.removeItem('nutragenie_card_collapsed');
+    
     console.log('Page loaded - Reset card to top position');
+    console.log('preferencesCardSlid set to:', false);
   }, []); // Run on every page load
 
   // Processing animation state
