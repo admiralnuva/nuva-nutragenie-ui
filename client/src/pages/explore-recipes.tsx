@@ -457,40 +457,43 @@ export default function ExploreRecipesScreen() {
                 <CardTitle className="text-lg text-white">Preferences and Pantry Ingredients</CardTitle>
               </CardHeader>
               <CardContent>
-                {/* Tab Navigation - Matching take-out screen style */}
-                <div className="grid grid-cols-3 gap-2 mb-4">
-                  <button
+                {/* Tab Navigation - Exact styling match with take-out screen */}
+                <div className="flex gap-2 mb-4">
+                  <Button
+                    variant={activeTab === 'diet' ? "default" : "outline"}
                     onClick={() => setActiveTab('diet')}
-                    className={`h-12 px-4 text-sm font-medium rounded-md transition-all ${
-                      activeTab === 'diet'
-                        ? 'bg-gray-700 text-white border border-gray-600'
-                        : 'bg-gray-800 text-gray-300 border border-gray-700 hover:bg-gray-700'
+                    className={`flex-1 ${
+                      activeTab === 'diet' 
+                        ? 'bg-gray-600 text-white border-gray-500' 
+                        : 'bg-transparent border-gray-600 text-gray-300 hover:bg-gray-700/50'
                     }`}
                   >
                     Diet
-                  </button>
-                  <button
+                  </Button>
+                  <Button
+                    variant={activeTab === 'meal' ? "default" : "outline"}
                     onClick={() => setActiveTab('meal')}
-                    className={`h-12 px-4 text-sm font-medium rounded-md transition-all flex items-center justify-center gap-2 ${
-                      activeTab === 'meal'
-                        ? 'bg-gray-700 text-white border border-gray-600'
-                        : 'bg-gray-800 text-gray-300 border border-gray-700 hover:bg-gray-700'
+                    className={`flex-1 flex items-center justify-center gap-2 ${
+                      activeTab === 'meal' 
+                        ? 'bg-gray-600 text-white border-gray-500' 
+                        : 'bg-transparent border-gray-600 text-gray-300 hover:bg-gray-700/50'
                     }`}
                   >
                     Meal
                     {isMealComplete && <span className="text-green-400 text-xs">✓</span>}
-                  </button>
-                  <button
+                  </Button>
+                  <Button
+                    variant={activeTab === 'pantry' ? "default" : "outline"}
                     onClick={() => setActiveTab('pantry')}
-                    className={`h-12 px-4 text-sm font-medium rounded-md transition-all flex items-center justify-center gap-2 ${
-                      activeTab === 'pantry'
-                        ? 'bg-gray-700 text-white border border-gray-600'
-                        : 'bg-gray-800 text-gray-300 border border-gray-700 hover:bg-gray-700'
+                    className={`flex-1 flex items-center justify-center gap-2 ${
+                      activeTab === 'pantry' 
+                        ? 'bg-gray-600 text-white border-gray-500' 
+                        : 'bg-transparent border-gray-600 text-gray-300 hover:bg-gray-700/50'
                     }`}
                   >
                     Pantry
                     {isPantryComplete && <span className="text-green-400 text-xs">✓</span>}
-                  </button>
+                  </Button>
                 </div>
 
                 {/* Tab Content */}
