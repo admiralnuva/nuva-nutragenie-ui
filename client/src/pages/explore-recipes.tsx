@@ -110,6 +110,9 @@ export default function ExploreRecipesScreen() {
   
   // Pantry confirmation state
   const [isPantryConfirmed, setIsPantryConfirmed] = useState(false);
+  
+  // Pantry card collapse state
+  const [isPantryCardCollapsed, setIsPantryCardCollapsed] = useState(false);
 
   // Helper function to check if required fields are completed
   const isRequiredFieldsCompleted = () => {
@@ -750,18 +753,36 @@ export default function ExploreRecipesScreen() {
 
                   {activeTab === 'pantry' && (
                     <div className="space-y-3">
-                      <h4 className="text-lg font-semibold text-purple-300 mb-3">Available Ingredients</h4>
-                      
-                      {/* Ingredient Selection Summary */}
-                      <div className="flex items-center justify-between mb-3">
-                        <span className="text-sm font-medium text-gray-300">Selected Ingredients:</span>
-                        <span className="text-sm text-gray-400">{selectedIngredients.length} items</span>
+                      <div className="flex items-center justify-between">
+                        <h4 className="text-lg font-semibold text-purple-300 mb-3">Available Ingredients</h4>
+                        {isPantryConfirmed && (
+                          <button
+                            onClick={() => setIsPantryCardCollapsed(!isPantryCardCollapsed)}
+                            className="p-1 rounded-full hover:bg-gray-700/50 transition-colors"
+                          >
+                            <ChevronDown 
+                              className={`w-10 h-10 text-purple-400 transition-transform duration-300 ${
+                                isPantryCardCollapsed ? 'rotate-180' : ''
+                              }`} 
+                            />
+                          </button>
+                        )}
                       </div>
                       
-                      <hr className="border-gray-600" />
-                      
-                      {/* Comprehensive ingredient categories - increased height, no scroll */}
-                      <div className="space-y-3 min-h-[350px]">
+                      {/* Collapsible Content */}
+                      <div className={`transition-all duration-500 ease-in-out ${
+                        isPantryCardCollapsed ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100'
+                      }`}>
+                        {/* Ingredient Selection Summary */}
+                        <div className="flex items-center justify-between mb-3">
+                          <span className="text-sm font-medium text-gray-300">Selected Ingredients:</span>
+                          <span className="text-sm text-gray-400">{selectedIngredients.length} items</span>
+                        </div>
+                        
+                        <hr className="border-gray-600" />
+                        
+                        {/* Comprehensive ingredient categories - increased height, no scroll */}
+                        <div className="space-y-3 min-h-[350px]">
                         {Object.entries(ingredientCategories).map(([category, ingredients]) => (
                           <div key={category}>
                             <div className="flex items-center justify-between mb-2">
@@ -817,36 +838,51 @@ export default function ExploreRecipesScreen() {
                             Add
                           </button>
                         </div>
+                        </div>
+
+                        {/* Confirmation Checkbox */}
+                        {selectedIngredients.length >= 5 && (
+                          <div className="mt-4 pt-3 border-t border-gray-600">
+                            <div className="flex items-center space-x-2">
+                              <Checkbox
+                                id="pantry-confirm"
+                                checked={isPantryConfirmed}
+                                onCheckedChange={(checked) => {
+                                  setIsPantryConfirmed(checked);
+                                  if (checked) {
+                                    // Auto-collapse the pantry tab and move card to bottom after 5 seconds
+                                    setTimeout(() => {
+                                      setIsPantryCardCollapsed(true);
+                                      setPreferencesCardSlid(true);
+                                    }, 5000);
+                                  }
+                                }}
+                                className="w-7 h-7 rounded-full border-gray-500 data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600"
+                              />
+                              <label
+                                htmlFor="pantry-confirm"
+                                className="text-sm text-gray-300 cursor-pointer"
+                              >
+                                I confirm these pantry ingredients are complete
+                              </label>
+                            </div>
+                          </div>
+                        )}
                       </div>
 
-                      {/* Confirmation Checkbox */}
-                      {selectedIngredients.length >= 5 && (
-                        <div className="mt-4 pt-3 border-t border-gray-600">
-                          <div className="flex items-center space-x-2">
-                            <Checkbox
-                              id="pantry-confirm"
-                              checked={isPantryConfirmed}
-                              onCheckedChange={(checked) => {
-                                setIsPantryConfirmed(checked);
-                                if (checked) {
-                                  // Auto-move card after 5 seconds by setting bottom position
-                                  setTimeout(() => {
-                                    setCard1AtBottom(true);
-                                  }, 5000);
-                                }
-                              }}
-                              className="w-7 h-7 rounded-full border-gray-500 data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600"
-                            />
-                            <label
-                              htmlFor="pantry-confirm"
-                              className="text-sm text-gray-300 cursor-pointer"
-                            >
-                              I confirm these pantry ingredients are complete
-                            </label>
+                      {/* Collapsed Summary */}
+                      {isPantryCardCollapsed && (
+                        <div className="mt-4 p-3 bg-gray-700/50 rounded-lg border border-gray-600">
+                          <div className="flex items-center justify-between">
+                            <span className="text-sm font-medium text-purple-300">✓ Pantry Complete</span>
+                            <span className="text-xs text-gray-400">{selectedIngredients.length} ingredients selected</span>
+                          </div>
+                          <div className="text-xs text-gray-400 mt-1">
+                            {selectedIngredients.slice(0, 4).join(', ')}
+                            {selectedIngredients.length > 4 && ` and ${selectedIngredients.length - 4} more`}
                           </div>
                         </div>
                       )}
-
 
                     </div>
                   )}
