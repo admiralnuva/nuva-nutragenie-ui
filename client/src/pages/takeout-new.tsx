@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -38,29 +38,105 @@ export default function TakeOutScreen() {
     { id: 1, name: "Spicy Thai Basil Chicken", price: 15.50, selected: false },
     { id: 2, name: "Creamy Tuscan Salmon", price: 18.00, selected: false },
     { id: 3, name: "Vegetarian Lentil Soup", price: 12.00, selected: false },
-    { id: 4, name: "Beef and Broccoli Stir-fry", price: 16.00, selected: false }
+    { id: 4, name: "Beef and Broccoli Stir-fry", price: 16.00, selected: false },
+    { id: 5, name: "Mediterranean Quinoa Bowl", price: 14.00, selected: false },
+    { id: 6, name: "Herb-Crusted Salmon", price: 22.00, selected: false },
+    { id: 7, name: "Chicken Tikka Masala", price: 17.50, selected: false },
+    { id: 8, name: "Veggie Pad Thai", price: 13.50, selected: false },
+    { id: 9, name: "BBQ Pulled Pork Bowl", price: 19.00, selected: false },
+    { id: 10, name: "Greek Chicken Gyros", price: 16.50, selected: false }
   ]);
   
-  const [chefs, setChefs] = useState<Chef[]>([
-    { 
-      id: 1, 
-      name: "Chef Ramsay's Kitchen", 
-      rating: 4.9, 
-      reviewCount: 150, 
-      price: 25.50, 
-      avatar: "C",
-      selected: false 
-    },
-    { 
-      id: 2, 
-      name: "Fresh & Fast Meals", 
-      rating: 4.7, 
-      reviewCount: 89, 
-      price: 22.00, 
-      avatar: "F",
-      selected: false 
+  // Dynamic chef options based on order type
+  const getChefsByOrderType = (orderType: OrderType): Chef[] => {
+    switch (orderType) {
+      case "individual":
+        return [
+          { 
+            id: 1, 
+            name: "Chef Ramsay's Kitchen", 
+            rating: 4.9, 
+            reviewCount: 150, 
+            price: 25.50, 
+            avatar: "C",
+            selected: false 
+          },
+          { 
+            id: 2, 
+            name: "Fresh & Fast Meals", 
+            rating: 4.7, 
+            reviewCount: 89, 
+            price: 22.00, 
+            avatar: "F",
+            selected: false 
+          }
+        ];
+      case "group":
+        return [
+          { 
+            id: 3, 
+            name: "Catering Central", 
+            rating: 4.8, 
+            reviewCount: 200, 
+            price: 45.00, 
+            avatar: "C",
+            selected: false 
+          },
+          { 
+            id: 4, 
+            name: "Group Feast Kitchen", 
+            rating: 4.6, 
+            reviewCount: 125, 
+            price: 38.50, 
+            avatar: "G",
+            selected: false 
+          },
+          { 
+            id: 5, 
+            name: "Event Meal Solutions", 
+            rating: 4.5, 
+            reviewCount: 95, 
+            price: 42.00, 
+            avatar: "E",
+            selected: false 
+          }
+        ];
+      case "weekly":
+        return [
+          { 
+            id: 6, 
+            name: "Weekly Meal Prep Co.", 
+            rating: 4.9, 
+            reviewCount: 300, 
+            price: 85.00, 
+            avatar: "W",
+            selected: false 
+          },
+          { 
+            id: 7, 
+            name: "Subscription Chef", 
+            rating: 4.7, 
+            reviewCount: 180, 
+            price: 78.00, 
+            avatar: "S",
+            selected: false 
+          },
+          { 
+            id: 8, 
+            name: "Healthy Weekly Kitchen", 
+            rating: 4.8, 
+            reviewCount: 220, 
+            price: 92.00, 
+            avatar: "H",
+            selected: false 
+          }
+        ];
+      default:
+        return [];
     }
-  ]);
+  };
+
+  const [chefs, setChefs] = useState<Chef[]>(getChefsByOrderType("individual"));
 
   const [groupOrderDetails, setGroupOrderDetails] = useState({
     servings: "4",
@@ -73,6 +149,11 @@ export default function TakeOutScreen() {
   });
 
   const [userData] = useLocalStorage("userData", null);
+
+  // Update chefs when order type changes
+  useEffect(() => {
+    setChefs(getChefsByOrderType(orderType));
+  }, [orderType]);
 
   const toggleDishSelection = (dishId: number) => {
     setDishes(dishes.map(dish => 
