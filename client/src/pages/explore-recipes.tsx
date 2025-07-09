@@ -107,6 +107,9 @@ export default function ExploreRecipesScreen() {
 
   // Meal confirmation state
   const [mealConfirmed, setMealConfirmed] = useState(false);
+  
+  // Pantry confirmation state
+  const [isPantryConfirmed, setIsPantryConfirmed] = useState(false);
 
   // Helper function to check if required fields are completed
   const isRequiredFieldsCompleted = () => {
@@ -757,8 +760,8 @@ export default function ExploreRecipesScreen() {
                       
                       <hr className="border-gray-600" />
                       
-                      {/* Comprehensive ingredient categories - matching Diet tab structure */}
-                      <div className="space-y-3 max-h-[200px] overflow-y-auto">
+                      {/* Comprehensive ingredient categories - increased height, no scroll */}
+                      <div className="space-y-3 min-h-[350px]">
                         {Object.entries(ingredientCategories).map(([category, ingredients]) => (
                           <div key={category}>
                             <div className="flex items-center justify-between mb-2">
@@ -784,6 +787,65 @@ export default function ExploreRecipesScreen() {
                           </div>
                         ))}
                       </div>
+
+                      {/* Add Custom Ingredients */}
+                      <div className="mt-4 pt-3 border-t border-gray-600">
+                        <h5 className="text-sm font-medium text-gray-300 mb-2">Add Ingredients</h5>
+                        <div className="flex space-x-2">
+                          <input
+                            type="text"
+                            value={newIngredient}
+                            onChange={(e) => setNewIngredient(e.target.value)}
+                            placeholder="Enter ingredient name"
+                            className="flex-1 h-8 bg-gray-700 border border-gray-600 text-white text-sm rounded px-2"
+                            onKeyPress={(e) => {
+                              if (e.key === 'Enter' && newIngredient.trim()) {
+                                setSelectedIngredients([...selectedIngredients, newIngredient.trim()]);
+                                setNewIngredient('');
+                              }
+                            }}
+                          />
+                          <button
+                            onClick={() => {
+                              if (newIngredient.trim()) {
+                                setSelectedIngredients([...selectedIngredients, newIngredient.trim()]);
+                                setNewIngredient('');
+                              }
+                            }}
+                            className="px-3 h-8 bg-purple-600 text-white text-sm rounded hover:bg-purple-700"
+                          >
+                            Add
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Confirmation Checkbox */}
+                      {selectedIngredients.length >= 5 && (
+                        <div className="mt-4 pt-3 border-t border-gray-600">
+                          <div className="flex items-center space-x-2">
+                            <Checkbox
+                              id="pantry-confirm"
+                              checked={isPantryConfirmed}
+                              onCheckedChange={(checked) => {
+                                setIsPantryConfirmed(checked);
+                                if (checked) {
+                                  // Auto-move card after 5 seconds by setting bottom position
+                                  setTimeout(() => {
+                                    setCard1AtBottom(true);
+                                  }, 5000);
+                                }
+                              }}
+                              className="w-7 h-7 rounded-full border-gray-500 data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600"
+                            />
+                            <label
+                              htmlFor="pantry-confirm"
+                              className="text-sm text-gray-300 cursor-pointer"
+                            >
+                              I confirm these pantry ingredients are complete
+                            </label>
+                          </div>
+                        </div>
+                      )}
 
                       {/* Quick selection summary */}
                       <div className="mt-3 pt-3 border-t border-gray-600">
@@ -828,7 +890,7 @@ export default function ExploreRecipesScreen() {
             <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
               <CardHeader className="pb-4">
                 <CardTitle className="text-lg text-white">
-                  Summary for {userData?.nickname || 'User'}
+                  Summary for {userData?.nickname || 'Peter'}
                 </CardTitle>
               </CardHeader>
               <CardContent>
