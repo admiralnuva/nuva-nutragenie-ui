@@ -298,18 +298,18 @@ export default function ExploreRecipesScreen() {
     
     // Row 5 & 6: Nutritional Goals Summary (2x2 grid)
     if (userData?.selectedCalorieRange || userData?.selectedProteinRange || userData?.selectedCarbRange || userData?.selectedFatRange) {
-      // Row 1: Goals with Cal and Protein - using shorter labels
+      // Row 1: Goals with Cal and Protein
       const firstRowParts = [];
       if (userData.selectedCalorieRange) firstRowParts.push(`Cal (${userData.selectedCalorieRange})`);
-      if (userData.selectedProteinRange) firstRowParts.push(`Pro (${userData.selectedProteinRange}g)`);
+      if (userData.selectedProteinRange) firstRowParts.push(`Protein (${userData.selectedProteinRange}g)`);
       
       if (firstRowParts.length > 0) {
         rows.push({ label: "Goals", value: firstRowParts.join(", ") });
       }
       
-      // Row 2: Carbs and Fat - using shorter labels
+      // Row 2: Carbs and Fat
       const secondRowParts = [];
-      if (userData.selectedCarbRange) secondRowParts.push(`Carb (${userData.selectedCarbRange}g)`);
+      if (userData.selectedCarbRange) secondRowParts.push(`Carbs (${userData.selectedCarbRange}g)`);
       if (userData.selectedFatRange) secondRowParts.push(`Fat (${userData.selectedFatRange}g)`);
       
       if (secondRowParts.length > 0) {
@@ -360,7 +360,7 @@ export default function ExploreRecipesScreen() {
                 <img 
                   src={userAvatarSrc} 
                   alt="User Avatar"
-                  className="w-16 h-16 object-cover rounded-lg border-0"
+                  className="w-12 h-12 object-cover rounded-lg border-0"
                   style={{ border: 'none !important', outline: 'none', boxShadow: 'none', backgroundColor: 'transparent' }}
                 />
                 <p className="text-xs text-gray-300 mt-1 text-center font-medium">
@@ -368,8 +368,8 @@ export default function ExploreRecipesScreen() {
                 </p>
               </div>
               
-              {/* Content with right margin to avoid overlap with avatar */}
-              <div className="pr-16">
+              {/* Content with minimal right margin since avatar is smaller */}
+              <div className="pr-12">
                 <CardTitle className="text-lg text-white">Your dietary preferences:</CardTitle>
                 <div className="text-gray-300 mt-2">
                   {!userData ? (
