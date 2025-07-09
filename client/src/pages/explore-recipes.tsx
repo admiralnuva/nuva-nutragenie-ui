@@ -653,7 +653,114 @@ export default function ExploreRecipesScreen() {
             </Card>
           )}
 
-          {/* Card 3 - Recipe Options */}
+          {/* Card 3: Select Pantry Ingredients */}
+          <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
+            <CardHeader className="pb-4">
+              <div className="flex items-center justify-between">
+                <CardTitle className="text-lg text-white">Select Pantry Ingredients</CardTitle>
+                <button 
+                  onClick={() => setIsPantryIngredientsCollapsed(!isPantryIngredientsCollapsed)}
+                  className="text-purple-400 hover:text-purple-300 transition-colors bg-purple-600/20 hover:bg-purple-600/40 rounded-full p-2"
+                >
+                  {isPantryIngredientsCollapsed ? (
+                    <ChevronDown size={42} />
+                  ) : (
+                    <ChevronUp size={42} />
+                  )}
+                </button>
+              </div>
+            </CardHeader>
+            
+            {/* Content with smooth collapse animation */}
+            <div className={`transition-all duration-500 ease-in-out overflow-hidden ${
+              isPantryIngredientsCollapsed ? 'max-h-0 opacity-0' : 'max-h-96 opacity-100'
+            }`}>
+              <CardContent className="space-y-2 pb-4">
+              {Object.entries(ingredientCategories).map(([category, ingredients]) => (
+                <div key={category} className="flex items-center gap-1.5 bg-gray-700/50 p-1 rounded-md shadow-lg shadow-purple-900/50 border border-purple-800">
+                  <Label htmlFor={`${category}-select`} className="text-sm font-medium text-gray-200 flex items-center gap-2 min-w-[100px]">
+                    <ChefHat size={16} className="text-purple-400" />
+                    {category}
+                  </Label>
+                  <Select>
+                    <SelectTrigger className="flex-1 shadow-sm border-gray-600 bg-gray-700 text-gray-200">
+                      <SelectValue placeholder={`Select ${category.toLowerCase()}`} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {ingredients.map((ingredient) => (
+                        <div 
+                          key={ingredient} 
+                          className="flex items-center space-x-3 p-3 hover:bg-purple-50 cursor-pointer"
+                          onClick={() => handleIngredientToggle(ingredient)}
+                        >
+                          <Checkbox
+                            id={ingredient}
+                            checked={selectedIngredients.includes(ingredient)}
+                            onCheckedChange={() => handleIngredientToggle(ingredient)}
+                            className="data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600 w-5 h-5"
+                          />
+                          <Label 
+                            htmlFor={ingredient}
+                            className="text-sm text-gray-700 capitalize cursor-pointer flex-1"
+                          >
+                            {ingredient.replace('-', ' ')}
+                          </Label>
+                        </div>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              ))}
+
+              {/* Custom Ingredients Section */}
+              <div className="space-y-2 border-t border-gray-200 pt-3 mt-4">
+                <h3 className="font-medium text-gray-800 text-sm">Add Custom Ingredients</h3>
+                <div className="flex space-x-2">
+                  <Input
+                    value={newIngredient}
+                    onChange={(e) => setNewIngredient(e.target.value)}
+                    placeholder="Enter ingredient name"
+                    className="flex-1 shadow-sm"
+                    onKeyPress={(e) => e.key === 'Enter' && addCustomIngredient()}
+                  />
+                  <Button 
+                    onClick={addCustomIngredient}
+                    size="sm"
+                    className="bg-purple-600 hover:bg-purple-700 shadow-sm"
+                  >
+                    <Plus size={16} />
+                  </Button>
+                </div>
+                {customIngredients.length > 0 && (
+                  <div className="grid grid-cols-2 gap-2">
+                    {customIngredients.map((ingredient) => (
+                      <div 
+                        key={ingredient} 
+                        className="flex items-center space-x-3 p-2 hover:bg-purple-50 rounded cursor-pointer"
+                        onClick={() => handleIngredientToggle(ingredient)}
+                      >
+                        <Checkbox
+                          id={`custom-${ingredient}`}
+                          checked={selectedIngredients.includes(ingredient)}
+                          onCheckedChange={() => handleIngredientToggle(ingredient)}
+                          className="data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600 w-5 h-5"
+                        />
+                        <Label 
+                          htmlFor={`custom-${ingredient}`}
+                          className="text-sm text-gray-700 capitalize cursor-pointer"
+                        >
+                          {ingredient}
+                        </Label>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+              </CardContent>
+            </div>
+          </Card>
+
+          {/* Card 4 - Recipe Options */}
           <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
             <CardHeader className="pb-4">
               <div className="flex items-center justify-between">
@@ -927,157 +1034,7 @@ export default function ExploreRecipesScreen() {
             </>
           )}
 
-          {/* Pantry Ingredients Large Card */}
-          {activeCard === 'pantry-ingredients' && (
-            <>
-              <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
-                <CardHeader className="pb-2 pt-2">
-                  <div className="flex items-center justify-between">
-                    <div className="mt-2">
-                      <CardTitle className="text-base text-purple-300">Select Pantry Ingredients</CardTitle>
-                      <p className="text-xs text-gray-400 mt-1">Choose your available ingredients</p>
-                    </div>
-                    <button 
-                      onClick={() => setIsPantryIngredientsCollapsed(!isPantryIngredientsCollapsed)}
-                      className="text-purple-400 hover:text-purple-300 transition-colors bg-purple-600/20 hover:bg-purple-600/40 rounded-full p-2"
-                    >
-                      {isPantryIngredientsCollapsed ? (
-                        <ChevronDown size={42} />
-                      ) : (
-                        <ChevronUp size={42} />
-                      )}
-                    </button>
-                  </div>
-                </CardHeader>
-                
-                {/* Content with smooth collapse animation */}
-                <div className={`transition-all duration-500 ease-in-out overflow-hidden ${
-                  isPantryIngredientsCollapsed ? 'max-h-0 opacity-0' : 'max-h-96 opacity-100'
-                }`}>
-                  <CardContent className="space-y-2 pb-4">
-                  {Object.entries(ingredientCategories).map(([category, ingredients]) => (
-                    <div key={category} className="flex items-center gap-1.5 bg-gray-700/50 p-1 rounded-md shadow-lg shadow-purple-900/50 border border-purple-800">
-                      <Label htmlFor={`${category}-select`} className="text-sm font-medium text-gray-200 flex items-center gap-2 min-w-[100px]">
-                        <ChefHat size={16} className="text-purple-400" />
-                        {category}
-                      </Label>
-                      <Select>
-                        <SelectTrigger className="flex-1 shadow-sm border-gray-600 bg-gray-700 text-gray-200">
-                          <SelectValue placeholder={`Select ${category.toLowerCase()}`} />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {ingredients.map((ingredient) => (
-                            <div 
-                              key={ingredient} 
-                              className="flex items-center space-x-3 p-3 hover:bg-purple-50 cursor-pointer"
-                              onClick={() => handleIngredientToggle(ingredient)}
-                            >
-                              <Checkbox
-                                id={ingredient}
-                                checked={selectedIngredients.includes(ingredient)}
-                                onCheckedChange={() => handleIngredientToggle(ingredient)}
-                                className="data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600 w-5 h-5"
-                              />
-                              <Label 
-                                htmlFor={ingredient}
-                                className="text-sm text-gray-700 capitalize cursor-pointer flex-1"
-                              >
-                                {ingredient.replace('-', ' ')}
-                              </Label>
-                            </div>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  ))}
 
-                  {/* Custom Ingredients Section */}
-                  <div className="space-y-2 border-t border-gray-200 pt-3 mt-4">
-                    <h3 className="font-medium text-gray-800 text-sm">Add Custom Ingredients</h3>
-                    <div className="flex space-x-2">
-                      <Input
-                        value={newIngredient}
-                        onChange={(e) => setNewIngredient(e.target.value)}
-                        placeholder="Enter ingredient name"
-                        className="flex-1 shadow-sm"
-                        onKeyPress={(e) => e.key === 'Enter' && addCustomIngredient()}
-                      />
-                      <Button 
-                        onClick={addCustomIngredient}
-                        size="sm"
-                        className="bg-purple-600 hover:bg-purple-700 shadow-sm"
-                      >
-                        <Plus size={16} />
-                      </Button>
-                    </div>
-                    {customIngredients.length > 0 && (
-                      <div className="grid grid-cols-2 gap-2">
-                        {customIngredients.map((ingredient) => (
-                          <div 
-                            key={ingredient} 
-                            className="flex items-center space-x-3 p-2 hover:bg-purple-50 rounded cursor-pointer"
-                            onClick={() => handleIngredientToggle(ingredient)}
-                          >
-                            <Checkbox
-                              id={`custom-${ingredient}`}
-                              checked={selectedIngredients.includes(ingredient)}
-                              onCheckedChange={() => handleIngredientToggle(ingredient)}
-                              className="data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600 w-5 h-5"
-                            />
-                            <Label 
-                              htmlFor={`custom-${ingredient}`}
-                              className="text-sm text-gray-700 capitalize cursor-pointer"
-                            >
-                              {ingredient}
-                            </Label>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                  </CardContent>
-                </div>
-              </Card>
-
-              {/* Ingredients in Your Pantry Card */}
-              <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-base text-purple-300">
-                    Ingredients in your pantry
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-purple-300 leading-relaxed">
-                    {selectedIngredients.length > 0 ? (
-                      selectedIngredients.map((ingredient, index) => (
-                        <span key={ingredient} className="capitalize">
-                          {ingredient.replace('-', ' ')}
-                          {index < selectedIngredients.length - 1 ? ', ' : ''}
-                        </span>
-                      ))
-                    ) : (
-                      <span className="text-gray-400">No ingredients selected</span>
-                    )}
-                  </div>
-                  
-                  <div className="grid grid-cols-2 gap-2 mt-4">
-                    <Button 
-                      className="bg-blue-500 text-white border-blue-500 hover:bg-blue-600 active:bg-purple-600 active:border-purple-600"
-                      onClick={() => setLocation("/grocery-list")}
-                    >
-                      Grocery List
-                    </Button>
-                    <Button 
-                      className="bg-blue-500 text-white border-blue-500 hover:bg-blue-600 active:bg-purple-600 active:border-purple-600"
-                      onClick={() => setLocation("/weekly-meal-planning")}
-                    >
-                      Weekly Plan
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            </>
-          )}
 
         </div>
         
