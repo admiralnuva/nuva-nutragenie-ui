@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { ScreenHeader } from "@/components/ui/screen-header";
@@ -8,7 +9,6 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
 import { Clock, Users, ChefHat, Flame, Target, Utensils, ShoppingCart, Sparkles, Plus, List, Minus, ChevronDown, ChevronUp, ArrowLeft } from "lucide-react";
 import { ProcessingAnimation, QuickProcessingAnimation } from "@/components/ui/processing-animation";
 
@@ -109,6 +109,18 @@ export default function ExploreRecipesScreen() {
   const [showPantryProcessing, setShowPantryProcessing] = useState(false);
   const [showChefsChoiceProcessing, setShowChefsChoiceProcessing] = useState(false);
   const [showPreferencesProcessing, setShowPreferencesProcessing] = useState(false);
+  
+  // Card collapse state
+  const [isCardCollapsed, setIsCardCollapsed] = useState(false);
+  
+  // Auto-collapse effect - collapse after 2 seconds on page load
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsCardCollapsed(true);
+    }, 2000);
+    
+    return () => clearTimeout(timer);
+  }, []);
 
   // Pantry management state
   const [activeCard, setActiveCard] = useState<string>('pantry-ingredients');
@@ -355,11 +367,25 @@ export default function ExploreRecipesScreen() {
           {/* Card 1: Dietary Preferences Summary */}
           <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
             <CardHeader className="pb-4">
-              <CardTitle className="text-lg text-white mb-3">Your dietary preferences:</CardTitle>
+              <div className="flex items-center justify-between">
+                <CardTitle className="text-lg text-white">Your dietary preferences:</CardTitle>
+                <button 
+                  onClick={() => setIsCardCollapsed(!isCardCollapsed)}
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  {isCardCollapsed ? (
+                    <ChevronDown size={20} />
+                  ) : (
+                    <ChevronUp size={20} />
+                  )}
+                </button>
+              </div>
               
-              {/* Content with full width available */}
-              <div>
-                <div className="text-gray-300 mt-2">
+              {/* Content with smooth collapse animation */}
+              <div className={`transition-all duration-500 ease-in-out overflow-hidden ${
+                isCardCollapsed ? 'max-h-0 opacity-0' : 'max-h-96 opacity-100'
+              }`}>
+                <div className="text-gray-300 mt-3">
                   {!userData ? (
                     <div className="mt-2">
                       <p className="text-gray-400 text-sm mb-3">Please create your account first to view dietary preferences</p>
