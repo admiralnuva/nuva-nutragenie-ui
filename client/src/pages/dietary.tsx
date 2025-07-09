@@ -27,30 +27,30 @@ const userAvatars = {
 };
 
 const dietaryRestrictions = [
-  { label: '🥬 Vegetarian', value: 'vegetarian' },
-  { label: '🌱 Vegan', value: 'vegan' },
-  { label: '🚫 Gluten-Free', value: 'gluten-free' },
-  { label: '🥛 Dairy-Free', value: 'dairy-free' },
-  { label: '🥜 Nut-Free', value: 'nut-free' },
-  { label: '🐟 Pescatarian', value: 'pescatarian' },
-  { label: '🥩 Keto', value: 'keto' },
-  { label: '🌾 Low-Carb', value: 'low-carb' }
+  { icon: '🥬', label: 'Vegetarian', value: 'vegetarian' },
+  { icon: '🌱', label: 'Vegan', value: 'vegan' },
+  { icon: '🚫', label: 'Gluten-Free', value: 'gluten-free' },
+  { icon: '🥛', label: 'Dairy-Free', value: 'dairy-free' },
+  { icon: '🥜', label: 'Nut-Free', value: 'nut-free' },
+  { icon: '🐟', label: 'Pescatarian', value: 'pescatarian' },
+  { icon: '🥩', label: 'Keto', value: 'keto' },
+  { icon: '🌾', label: 'Low-Carb', value: 'low-carb' }
 ];
 
 const healthConditions = [
-  { label: '💉 Diabetes', value: 'diabetes' },
-  { label: '❤️ Heart Issues', value: 'cardiovascular' },
-  { label: '🫘 Kidney Issues', value: 'kidney' },
-  { label: '🩸 Hypertension', value: 'blood-pressure' },
-  { label: '🎗️ Cancer', value: 'cancer' },
-  { label: '✅ None', value: 'none' }
+  { icon: '💉', label: 'Diabetes', value: 'diabetes' },
+  { icon: '❤️', label: 'Heart Issues', value: 'cardiovascular' },
+  { icon: '🫘', label: 'Kidney Issues', value: 'kidney' },
+  { icon: '🩸', label: 'Hypertension', value: 'blood-pressure' },
+  { icon: '🎗️', label: 'Cancer', value: 'cancer' },
+  { icon: '✅', label: 'None', value: 'none' }
 ];
 
 const fitnessGoals = [
-  { label: '💪 Build Muscle', value: 'build-muscle' },
-  { label: '⚖️ Lose Weight', value: 'lose-weight' },
-  { label: '🏃 Build Endurance', value: 'endurance' },
-  { label: '🧘 Holistic Health', value: 'wellness' }
+  { icon: '💪', label: 'Build Muscle', value: 'build-muscle' },
+  { icon: '⚖️', label: 'Lose Weight', value: 'lose-weight' },
+  { icon: '🏃', label: 'Build Endurance', value: 'endurance' },
+  { icon: '🧘', label: 'Holistic Health', value: 'wellness' }
 ];
 
 export default function DietaryScreen() {
@@ -405,7 +405,7 @@ export default function DietaryScreen() {
                       type="button"
                       onClick={() => toggleDietarySelection(option.value)}
                       disabled={isDisabled}
-                      className={`px-3 py-2 rounded-lg border-2 font-medium transition-all text-sm text-left ${
+                      className={`px-3 py-2 rounded-lg border-2 font-medium transition-all text-sm text-center flex flex-col items-center justify-center h-16 ${
                         isSelected
                           ? 'border-purple-500 bg-purple-500 text-white scale-105'
                           : isDisabled
@@ -413,8 +413,9 @@ export default function DietaryScreen() {
                           : 'border-gray-600 text-gray-300 hover:border-purple-400 hover:bg-purple-500/20 hover:text-purple-300'
                       }`}
                     >
-                      {option.label}
-                      {isDisabled && <span className="ml-1 text-xs">🚫</span>}
+                      <div className="text-lg leading-none">{option.icon}</div>
+                      <div className="text-xs mt-1 leading-tight">{option.label}</div>
+                      {isDisabled && <span className="absolute top-1 right-1 text-xs">🚫</span>}
                     </button>
                   );
                 })}
@@ -458,7 +459,7 @@ export default function DietaryScreen() {
                       type="button"
                       onClick={() => toggleHealthSelection(condition.value)}
                       disabled={isDisabled}
-                      className={`px-3 py-2 rounded-lg border-2 font-medium transition-all text-sm text-left ${
+                      className={`px-3 py-2 rounded-lg border-2 font-medium transition-all text-sm text-center flex flex-col items-center justify-center h-16 relative ${
                         isSelected
                           ? 'border-purple-500 bg-purple-500 text-white scale-105'
                           : isDisabled
@@ -466,8 +467,9 @@ export default function DietaryScreen() {
                           : 'border-gray-600 text-gray-300 hover:border-purple-400 hover:bg-purple-500/20 hover:text-purple-300'
                       }`}
                     >
-                      {condition.label}
-                      {isDisabled && <span className="ml-1 text-xs">🚫</span>}
+                      <div className="text-lg leading-none">{condition.icon}</div>
+                      <div className="text-xs mt-1 leading-tight">{condition.label}</div>
+                      {isDisabled && <span className="absolute top-1 right-1 text-xs">🚫</span>}
                     </button>
                   );
                 })}
@@ -506,13 +508,14 @@ export default function DietaryScreen() {
                     key={goal.value}
                     type="button"
                     onClick={() => toggleSelection(setSelectedFitness, goal.value)}
-                    className={`px-3 py-2 rounded-lg border-2 font-medium transition-all text-sm text-left ${
+                    className={`px-3 py-2 rounded-lg border-2 font-medium transition-all text-sm text-center flex flex-col items-center justify-center h-16 ${
                       selectedFitness.includes(goal.value)
                         ? 'border-purple-500 bg-purple-500 text-white scale-105'
                         : 'border-gray-600 text-gray-300 hover:border-purple-400 hover:bg-purple-500/20 hover:text-purple-300'
                     }`}
                   >
-                    {goal.label}
+                    <div className="text-lg leading-none">{goal.icon}</div>
+                    <div className="text-xs mt-1 leading-tight">{goal.label}</div>
                   </button>
                 ))}
               </div>
