@@ -304,7 +304,7 @@ export default function ExploreRecipesScreen() {
       if (userData.selectedCarbRange) nutritionParts.push(`${userData.selectedCarbRange}g carbs`);
       if (userData.selectedFatRange) nutritionParts.push(`${userData.selectedFatRange}g fat`);
       if (nutritionParts.length > 0) {
-        rows.push({ label: "Daily Goals", value: nutritionParts.join(", ") });
+        rows.push({ label: "Goals", value: nutritionParts.join(", ") });
       }
     }
     
