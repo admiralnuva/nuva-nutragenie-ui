@@ -542,6 +542,12 @@ Changelog:
   * Updated data storage to save selected nutritional ranges in user localStorage for persistence
   * Enhanced user experience by removing manual macro selection complexity while maintaining precision
   * Applied consistent styling with read-only gray backgrounds and clear "(Auto-calculated)" labels
+- July 09, 2025. Manual Override Capability for Nutritional Goals:
+  * Restored dropdown functionality for protein, carbs, fat, and fiber while maintaining auto-calculation defaults
+  * Added "(Auto-calculated, click to adjust)" labels to indicate both automatic and manual adjustment capabilities
+  * Users can now override auto-calculated values for personalized nutrition planning
+  * Maintained smart defaults with option for expert users to fine-tune their macro targets
+  * Preserved all dropdown options with contextual descriptions for informed decision-making
 ```
 
 ## User Preferences
