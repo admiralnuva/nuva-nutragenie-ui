@@ -112,11 +112,13 @@ export default function ExploreRecipesScreen() {
   
   // Card collapse state
   const [isCardCollapsed, setIsCardCollapsed] = useState(false);
+  const [isMealPreferencesCardCollapsed, setIsMealPreferencesCardCollapsed] = useState(false);
   
-  // Auto-collapse effect - collapse after 2 seconds on page load
+  // Auto-collapse effect - collapse both cards after 2 seconds on page load
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsCardCollapsed(true);
+      setIsMealPreferencesCardCollapsed(true);
     }, 2000);
     
     return () => clearTimeout(timer);
@@ -442,21 +444,20 @@ export default function ExploreRecipesScreen() {
                   <CardTitle className="text-lg text-white whitespace-nowrap">Meal Preferences</CardTitle>
                   <p className="text-gray-300 mt-1">Set your cooking preferences and dietary goals</p>
                 </div>
-                <div className="flex flex-col items-center flex-shrink-0">
-                  <img 
-                    src={userAvatarSrc} 
-                    alt="User Avatar"
-                    className="w-20 h-20 object-cover rounded-lg border-0"
-                    style={{ border: 'none !important', outline: 'none', boxShadow: 'none', backgroundColor: 'transparent' }}
-                  />
-                  <p className="text-xs text-gray-300 mt-1 text-center font-medium">
-                    {userData?.nickname || "User"}
-                  </p>
-                </div>
+                <button 
+                  onClick={() => setIsMealPreferencesCardCollapsed(!isMealPreferencesCardCollapsed)}
+                  className="text-purple-400 hover:text-purple-300 transition-colors bg-purple-600/20 hover:bg-purple-600/40 rounded-full p-2"
+                >
+                  {isMealPreferencesCardCollapsed ? (
+                    <ChevronDown size={42} />
+                  ) : (
+                    <ChevronUp size={42} />
+                  )}
+                </button>
               </div>
             </CardHeader>
             <div className={`transition-all duration-500 ease-in-out overflow-hidden ${
-              isMealPreferencesExpanded ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+              isMealPreferencesCardCollapsed ? 'max-h-0 opacity-0' : 'max-h-96 opacity-100'
             }`}>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
