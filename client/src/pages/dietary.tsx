@@ -40,7 +40,7 @@ const dietaryRestrictions = [
 const healthConditions = [
   { label: '💉 Diabetes', value: 'diabetes' },
   { label: '❤️ Heart Issues', value: 'cardiovascular' },
-  { label: '🫘 Kidney', value: 'kidney' },
+  { label: '🫘 Kidney Issues', value: 'kidney' },
   { label: '🩸 Hypertension', value: 'blood-pressure' },
   { label: '🎗️ Cancer', value: 'cancer' },
   { label: '✅ None', value: 'none' }
@@ -49,8 +49,8 @@ const healthConditions = [
 const fitnessGoals = [
   { label: '💪 Build Muscle', value: 'build-muscle' },
   { label: '⚖️ Lose Weight', value: 'lose-weight' },
-  { label: '🏃 Endurance', value: 'endurance' },
-  { label: '🧘 Holistic', value: 'wellness' }
+  { label: '🏃 Build Endurance', value: 'endurance' },
+  { label: '🧘 Holistic Health', value: 'wellness' }
 ];
 
 export default function DietaryScreen() {
