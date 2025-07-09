@@ -581,7 +581,7 @@ Changelog:
   * Implemented sophisticated sliding animation sequence on every navigation to Explore Recipe Options page
   * Card 1 auto-collapses in 2 seconds with slow smooth animation (1000ms duration)
   * After collapse, Card 1 slides down to bottom position with swish sound effect and visual transforms
-  * Added Web Audio API generated swoosh sound effect with frequency sweep (800Hz to 200Hz over 0.6s)
+  * Integrated user-provided custom wind-swoosh audio file for authentic sliding sound effect
   * Other cards smoothly shift upward during Card 1's movement with synchronized animations
   * Final layout persists with Card 1 at bottom: Card 2, Card 3, Card 4, then Card 1
   * Complete animation sequence: 2s collapse + 1s delay + 1.5s sliding movement with scale and opacity effects

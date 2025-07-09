@@ -132,26 +132,15 @@ export default function ExploreRecipesScreen() {
     const slideTimer = setTimeout(() => {
       setIsCard1Moving(true);
       
-      // Play swish sound effect
+      // Play custom swish sound effect
       try {
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
-        
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-        
-        // Create a swoosh effect with frequency sweep
-        oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
-        oscillator.frequency.exponentialRampToValueAtTime(200, audioContext.currentTime + 0.6);
-        
-        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.6);
-        
-        oscillator.start(audioContext.currentTime);
-        oscillator.stop(audioContext.currentTime + 0.6);
+        const audio = new Audio('/attached_assets/wind-swoosh-short-289744_1752026446354.mp3');
+        audio.volume = 0.3; // Set volume to 30%
+        audio.play().catch(error => {
+          console.log('Audio playback failed:', error);
+        });
       } catch (error) {
-        console.log('Audio context not available');
+        console.log('Audio not available');
       }
       
       // Complete the slide animation and set final position
