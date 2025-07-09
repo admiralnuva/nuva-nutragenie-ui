@@ -554,14 +554,14 @@ export default function DietaryScreen() {
             <CardContent className="space-y-3">
               {/* Compact 2-Row Layout with Icons Beside Dropdowns */}
               
-              {/* Row 1: Calories, Protein, Carbs */}
-              <div className="grid grid-cols-3 gap-3">
+              {/* Row 1: Calories and Protein */}
+              <div className="grid grid-cols-2 gap-4">
                 <div className="flex items-center space-x-2">
                   <div className="text-sm">🔥</div>
                   <div className="flex-1">
                     <div className="text-xs text-gray-400 mb-1">Calories</div>
                     <Select value={selectedCalorieRange} onValueChange={setSelectedCalorieRange}>
-                      <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-white text-xs h-7">
+                      <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-white text-xs h-8">
                         <SelectValue placeholder="Select" />
                       </SelectTrigger>
                       <SelectContent className="bg-gray-700 border-gray-600">
@@ -583,7 +583,7 @@ export default function DietaryScreen() {
                   <div className="flex-1">
                     <div className="text-xs text-gray-400 mb-1">Protein</div>
                     <Select value={selectedProteinRange} onValueChange={setSelectedProteinRange}>
-                      <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-white text-xs h-7">
+                      <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-white text-xs h-8">
                         <SelectValue placeholder="Select" />
                       </SelectTrigger>
                       <SelectContent className="bg-gray-700 border-gray-600">
@@ -598,13 +598,16 @@ export default function DietaryScreen() {
                     </Select>
                   </div>
                 </div>
+              </div>
 
+              {/* Row 2: Carbs, Fat, and Fiber */}
+              <div className="grid grid-cols-3 gap-3">
                 <div className="flex items-center space-x-2">
                   <div className="text-sm">🌾</div>
                   <div className="flex-1">
                     <div className="text-xs text-gray-400 mb-1">Carbs</div>
                     <Select value={selectedCarbRange} onValueChange={setSelectedCarbRange}>
-                      <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-white text-xs h-7">
+                      <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-white text-xs h-8">
                         <SelectValue placeholder="Select" />
                       </SelectTrigger>
                       <SelectContent className="bg-gray-700 border-gray-600">
@@ -619,16 +622,13 @@ export default function DietaryScreen() {
                     </Select>
                   </div>
                 </div>
-              </div>
 
-              {/* Row 2: Fat and Fiber */}
-              <div className="grid grid-cols-2 gap-3">
                 <div className="flex items-center space-x-2">
                   <div className="text-sm">🥑</div>
                   <div className="flex-1">
                     <div className="text-xs text-gray-400 mb-1">Fat</div>
                     <Select value={selectedFatRange} onValueChange={setSelectedFatRange}>
-                      <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-white text-xs h-7">
+                      <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-white text-xs h-8">
                         <SelectValue placeholder="Select" />
                       </SelectTrigger>
                       <SelectContent className="bg-gray-700 border-gray-600">
@@ -649,7 +649,7 @@ export default function DietaryScreen() {
                   <div className="flex-1">
                     <div className="text-xs text-gray-400 mb-1">Fiber</div>
                     <Select value={selectedFiberRange} onValueChange={setSelectedFiberRange}>
-                      <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-white text-xs h-7">
+                      <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-white text-xs h-8">
                         <SelectValue placeholder="Select" />
                       </SelectTrigger>
                       <SelectContent className="bg-gray-700 border-gray-600">
