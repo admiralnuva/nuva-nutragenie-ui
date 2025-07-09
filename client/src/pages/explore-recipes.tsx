@@ -298,20 +298,18 @@ export default function ExploreRecipesScreen() {
     
     // Row 5 & 6: Nutritional Goals Summary (2x2 grid)
     if (userData?.selectedCalorieRange || userData?.selectedProteinRange || userData?.selectedCarbRange || userData?.selectedFatRange) {
-      // First row: Calories and Protein
-      const firstRowParts = [];
-      if (userData.selectedCalorieRange) firstRowParts.push(`${userData.selectedCalorieRange} cal`);
-      if (userData.selectedProteinRange) firstRowParts.push(`${userData.selectedProteinRange}g protein`);
-      if (firstRowParts.length > 0) {
-        rows.push({ label: "Goals", value: firstRowParts.join(", ") });
+      // First row: Calories
+      if (userData.selectedCalorieRange) {
+        rows.push({ label: "Goals", value: `${userData.selectedCalorieRange} cal` });
       }
       
-      // Second row: Carbs and Fat
-      const secondRowParts = [];
-      if (userData.selectedCarbRange) secondRowParts.push(`${userData.selectedCarbRange}g carbs`);
-      if (userData.selectedFatRange) secondRowParts.push(`${userData.selectedFatRange}g fat`);
-      if (secondRowParts.length > 0) {
-        rows.push({ value: secondRowParts.join(", ") });
+      // Second row: Protein, Carbs, Fat
+      const macrosParts = [];
+      if (userData.selectedProteinRange) macrosParts.push(`${userData.selectedProteinRange}g protein`);
+      if (userData.selectedCarbRange) macrosParts.push(`${userData.selectedCarbRange}g carbs`);
+      if (userData.selectedFatRange) macrosParts.push(`${userData.selectedFatRange}g fat`);
+      if (macrosParts.length > 0) {
+        rows.push({ value: macrosParts.join(", ") });
       }
     }
     
