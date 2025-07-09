@@ -99,6 +99,12 @@ export default function ExploreRecipesScreen() {
     prepTime: ""
   });
 
+  // Helper function to check if required fields are completed
+  const isRequiredFieldsCompleted = () => {
+    const { servingSize, cuisine, mealType } = mealPreferences;
+    return servingSize !== "" && cuisine !== "" && mealType !== "";
+  };
+
   // Helper function to check if all fields are completed
   const isAllFieldsCompleted = () => {
     return Object.values(mealPreferences).every(value => value !== "");
@@ -118,13 +124,55 @@ export default function ExploreRecipesScreen() {
   // Card sliding animation state
   const [isCard1Moving, setIsCard1Moving] = useState(false);
   const [card1AtBottom, setCard1AtBottom] = useState(false);
+  const [isMealPreferencesCompleted, setIsMealPreferencesCompleted] = useState(false);
+  const [isMealPreferencesMoving, setIsMealPreferencesMoving] = useState(false);
+  const [mealPreferencesAtBottom, setMealPreferencesAtBottom] = useState(false);
   
-  // Complex animation sequence on page load
+  // Reset meal preferences position on page load
+  useEffect(() => {
+    // Reset meal preferences to top position when navigating to page
+    setMealPreferencesAtBottom(false);
+    setIsMealPreferencesCompleted(false);
+    setIsMealPreferencesMoving(false);
+    setIsMealPreferencesCardCollapsed(false);
+  }, []);
+
+  // Watch for meal preferences completion
+  useEffect(() => {
+    if (isRequiredFieldsCompleted() && !isMealPreferencesCompleted) {
+      setIsMealPreferencesCompleted(true);
+      
+      // Start sliding animation after a short delay
+      setTimeout(() => {
+        setIsMealPreferencesMoving(true);
+        setIsMealPreferencesCardCollapsed(true);
+        
+        // Play custom swish sound effect
+        try {
+          const audio = new Audio('/audio/wind-swoosh.mp3');
+          audio.volume = 0.4;
+          audio.play().catch(error => {
+            console.log('Audio playback failed:', error);
+          });
+        } catch (error) {
+          console.log('Audio not available');
+        }
+        
+        // Complete the slide animation
+        setTimeout(() => {
+          setIsMealPreferencesMoving(false);
+          setMealPreferencesAtBottom(true);
+        }, 1500);
+        
+      }, 1000);
+    }
+  }, [mealPreferences, isMealPreferencesCompleted]);
+
+  // Complex animation sequence on page load for Card 1 (dietary preferences)
   useEffect(() => {
     // Step 1: Auto-collapse Card 1 after 2 seconds (smooth and slow)
     const collapseTimer = setTimeout(() => {
       setIsCardCollapsed(true);
-      setIsMealPreferencesCardCollapsed(true);
       setIsPantryIngredientsCollapsed(true);
     }, 2000);
     
@@ -463,6 +511,235 @@ export default function ExploreRecipesScreen() {
                 </div>
               </Card>
             </div>
+          )}
+
+          {/* Meal Preferences Card - Top priority when incomplete */}
+          {!mealPreferencesAtBottom && (
+            <Card className={`bg-gray-800/90 backdrop-blur-sm border border-gray-700 shadow-lg mb-6 transition-all duration-1500 ease-in-out ${
+              isMealPreferencesMoving ? 'transform translate-y-full scale-95 opacity-70' : 'transform translate-y-0 scale-100 opacity-100'
+            }`}>
+              <CardHeader className="pb-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <CardTitle className="text-lg text-white">Meal Planning Preferences</CardTitle>
+                    {isRequiredFieldsCompleted() && (
+                      <div className="flex items-center gap-2 bg-green-600/20 px-3 py-1 rounded-full border border-green-500/30">
+                        <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                        <span className="text-green-400 text-sm font-medium">Complete</span>
+                      </div>
+                    )}
+                  </div>
+                  <button 
+                    onClick={() => setIsMealPreferencesCardCollapsed(!isMealPreferencesCardCollapsed)}
+                    className="text-purple-400 hover:text-purple-300 transition-colors bg-purple-600/20 hover:bg-purple-600/40 rounded-full p-2"
+                  >
+                    {isMealPreferencesCardCollapsed ? (
+                      <ChevronDown size={42} />
+                    ) : (
+                      <ChevronUp size={42} />
+                    )}
+                  </button>
+                </div>
+                {!isRequiredFieldsCompleted() && (
+                  <p className="text-gray-400 text-sm mt-2">
+                    Complete these 3 required fields: <span className="text-purple-300 font-medium">Serving Size, Cuisine, Meal Type</span>
+                  </p>
+                )}
+              </CardHeader>
+              
+              <div className={`transition-all duration-1000 ease-in-out overflow-hidden ${
+                isMealPreferencesCardCollapsed ? 'max-h-0 opacity-0' : 'max-h-96 opacity-100'
+              }`}>
+                <CardContent>
+                  <div className="grid grid-cols-1 gap-4">
+                    {/* Row 1: Serving Size and Cuisine (Required) */}
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="flex items-center gap-2 text-sm font-medium text-purple-300 mb-2">
+                          <span>Serving Size</span>
+                          <span className="text-red-400">*</span>
+                          {mealPreferences.servingSize && <span className="text-green-400">✓</span>}
+                        </label>
+                        <Select onValueChange={(value) => setMealPreferences(prev => ({...prev, servingSize: value}))}>
+                          <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                            <SelectValue placeholder="Select size" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="1 person">1 person</SelectItem>
+                            <SelectItem value="2 people">2 people</SelectItem>
+                            <SelectItem value="3-4 people">3-4 people</SelectItem>
+                            <SelectItem value="5+ people">5+ people</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div>
+                        <label className="flex items-center gap-2 text-sm font-medium text-purple-300 mb-2">
+                          <span>Cuisine</span>
+                          <span className="text-red-400">*</span>
+                          {mealPreferences.cuisine && <span className="text-green-400">✓</span>}
+                        </label>
+                        <Select onValueChange={(value) => setMealPreferences(prev => ({...prev, cuisine: value}))}>
+                          <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                            <SelectValue placeholder="Select cuisine" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="American">American</SelectItem>
+                            <SelectItem value="Italian">Italian</SelectItem>
+                            <SelectItem value="Mexican">Mexican</SelectItem>
+                            <SelectItem value="Asian">Asian</SelectItem>
+                            <SelectItem value="Mediterranean">Mediterranean</SelectItem>
+                            <SelectItem value="Indian">Indian</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+
+                    {/* Row 2: Meal Type (Required) */}
+                    <div>
+                      <label className="flex items-center gap-2 text-sm font-medium text-purple-300 mb-2">
+                        <span>Meal Type</span>
+                        <span className="text-red-400">*</span>
+                        {mealPreferences.mealType && <span className="text-green-400">✓</span>}
+                      </label>
+                      <Select onValueChange={(value) => setMealPreferences(prev => ({...prev, mealType: value}))}>
+                        <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                          <SelectValue placeholder="Select meal type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="Breakfast">Breakfast</SelectItem>
+                          <SelectItem value="Lunch">Lunch</SelectItem>
+                          <SelectItem value="Dinner">Dinner</SelectItem>
+                          <SelectItem value="Snack">Snack</SelectItem>
+                          <SelectItem value="Dessert">Dessert</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    {/* Row 3: Optional fields */}
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-400 mb-2">Spice Level</label>
+                        <Select onValueChange={(value) => setMealPreferences(prev => ({...prev, spiceLevel: value}))}>
+                          <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                            <SelectValue placeholder="Optional" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="Mild">Mild</SelectItem>
+                            <SelectItem value="Medium">Medium</SelectItem>
+                            <SelectItem value="Spicy">Spicy</SelectItem>
+                            <SelectItem value="Extra Hot">Extra Hot</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-400 mb-2">Skill Level</label>
+                        <Select onValueChange={(value) => setMealPreferences(prev => ({...prev, skillLevel: value}))}>
+                          <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                            <SelectValue placeholder="Optional" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="Beginner">Beginner</SelectItem>
+                            <SelectItem value="Intermediate">Intermediate</SelectItem>
+                            <SelectItem value="Advanced">Advanced</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+
+                    {/* Row 4: Optional fields */}
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-400 mb-2">Cooking Method</label>
+                        <Select onValueChange={(value) => setMealPreferences(prev => ({...prev, cookingMethod: value}))}>
+                          <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                            <SelectValue placeholder="Optional" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="Stovetop">Stovetop</SelectItem>
+                            <SelectItem value="Oven">Oven</SelectItem>
+                            <SelectItem value="Grill">Grill</SelectItem>
+                            <SelectItem value="Air Fryer">Air Fryer</SelectItem>
+                            <SelectItem value="Slow Cooker">Slow Cooker</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-400 mb-2">Prep Time</label>
+                        <Select onValueChange={(value) => setMealPreferences(prev => ({...prev, prepTime: value}))}>
+                          <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                            <SelectValue placeholder="Optional" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="Under 15 min">Under 15 min</SelectItem>
+                            <SelectItem value="15-30 min">15-30 min</SelectItem>
+                            <SelectItem value="30-60 min">30-60 min</SelectItem>
+                            <SelectItem value="Over 1 hour">Over 1 hour</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </div>
+            </Card>
+          )}
+
+          {/* Recipe Options Card - Only show when meal preferences are complete */}
+          {isRequiredFieldsCompleted() && !mealPreferencesAtBottom && (
+            <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700 shadow-lg mb-6">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-lg text-white">Choose Recipe Options</CardTitle>
+                <p className="text-gray-400 text-sm">Select how you'd like to explore recipes</p>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-2 gap-3">
+                  <Button
+                    variant={activeCard === 'pantry-ingredients' ? 'default' : 'outline'}
+                    onClick={() => setActiveCard('pantry-ingredients')}
+                    className={`h-14 text-sm ${
+                      activeCard === 'pantry-ingredients' 
+                        ? 'bg-purple-600 hover:bg-purple-700 text-white' 
+                        : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600'
+                    }`}
+                  >
+                    Pantry Items
+                  </Button>
+                  <Button
+                    variant={activeCard === 'pantry-dishes' ? 'default' : 'outline'}
+                    onClick={() => handlePantryDishes()}
+                    className={`h-14 text-sm ${
+                      activeCard === 'pantry-dishes' 
+                        ? 'bg-purple-600 hover:bg-purple-700 text-white' 
+                        : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600'
+                    }`}
+                  >
+                    {showPantryProcessing ? 'Processing...' : 'Pantry Dishes'}
+                  </Button>
+                  <Button
+                    variant={activeCard === 'chefs-choice' ? 'default' : 'outline'}
+                    onClick={() => handleChefsChoice()}
+                    className={`h-14 text-sm ${
+                      activeCard === 'chefs-choice' 
+                        ? 'bg-purple-600 hover:bg-purple-700 text-white' 
+                        : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600'
+                    }`}
+                  >
+                    {showChefsChoiceProcessing ? 'Processing...' : "Chef's Choice"}
+                  </Button>
+                  <Button
+                    variant={activeCard === 'create-dish' ? 'default' : 'outline'}
+                    onClick={() => handleCreateDish()}
+                    className={`h-14 text-sm ${
+                      activeCard === 'create-dish' 
+                        ? 'bg-purple-600 hover:bg-purple-700 text-white' 
+                        : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600'
+                    }`}
+                  >
+                    {showProcessing ? 'Processing...' : 'Create Dish'}
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
           )}
 
           {/* Other cards with upward animation when Card 1 moves */}
@@ -1078,6 +1355,68 @@ export default function ExploreRecipesScreen() {
             </>
           )}
           </div>
+
+          {/* Meal Preferences at Bottom Position */}
+          {mealPreferencesAtBottom && (
+            <div className="mt-4">
+              <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
+                <CardHeader className="pb-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <CardTitle className="text-lg text-white">Meal Planning Preferences</CardTitle>
+                      <div className="flex items-center gap-2 bg-green-600/20 px-3 py-1 rounded-full border border-green-500/30">
+                        <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                        <span className="text-green-400 text-sm font-medium">Complete</span>
+                      </div>
+                    </div>
+                    <button 
+                      onClick={() => setIsMealPreferencesCardCollapsed(!isMealPreferencesCardCollapsed)}
+                      className="text-purple-400 hover:text-purple-300 transition-colors bg-purple-600/20 hover:bg-purple-600/40 rounded-full p-2"
+                    >
+                      {isMealPreferencesCardCollapsed ? (
+                        <ChevronDown size={42} />
+                      ) : (
+                        <ChevronUp size={42} />
+                      )}
+                    </button>
+                  </div>
+                </CardHeader>
+                
+                <div className={`transition-all duration-1000 ease-in-out overflow-hidden ${
+                  isMealPreferencesCardCollapsed ? 'max-h-0 opacity-0' : 'max-h-96 opacity-100'
+                }`}>
+                  <CardContent>
+                    <div className="text-gray-300 space-y-2">
+                      <div className="flex items-center text-sm">
+                        <span className="font-medium text-purple-300 min-w-24">Serving:</span>
+                        <span className="text-gray-400">{mealPreferences.servingSize}</span>
+                      </div>
+                      <div className="flex items-center text-sm">
+                        <span className="font-medium text-purple-300 min-w-24">Cuisine:</span>
+                        <span className="text-gray-400">{mealPreferences.cuisine}</span>
+                      </div>
+                      <div className="flex items-center text-sm">
+                        <span className="font-medium text-purple-300 min-w-24">Meal Type:</span>
+                        <span className="text-gray-400">{mealPreferences.mealType}</span>
+                      </div>
+                      {mealPreferences.spiceLevel && (
+                        <div className="flex items-center text-sm">
+                          <span className="font-medium text-gray-400 min-w-24">Spice:</span>
+                          <span className="text-gray-400">{mealPreferences.spiceLevel}</span>
+                        </div>
+                      )}
+                      {mealPreferences.skillLevel && (
+                        <div className="flex items-center text-sm">
+                          <span className="font-medium text-gray-400 min-w-24">Skill:</span>
+                          <span className="text-gray-400">{mealPreferences.skillLevel}</span>
+                        </div>
+                      )}
+                    </div>
+                  </CardContent>
+                </div>
+              </Card>
+            </div>
+          )}
 
           {/* Card 1 at Bottom Position */}
           {card1AtBottom && (
