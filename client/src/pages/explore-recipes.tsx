@@ -479,75 +479,81 @@ export default function ExploreRecipesScreen() {
         </div>
 
         <div className="space-y-4">
-          {/* Card 2: Recipe Options */}
+          {/* Card 1: Preferences and Pantry Ingredients */}
           <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
             <CardHeader className="pb-4">
-              <CardTitle className="text-lg text-white">Recipe Options</CardTitle>
+              <CardTitle className="text-lg text-white">Preferences and Pantry Ingredients</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-2 gap-3">
-                <Button className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600">
-                  Pantry Dishes
+              {/* Tab Navigation */}
+              <div className="flex gap-2 mb-4">
+                <Button
+                  variant={activeTab === 'diet' ? "default" : "outline"}
+                  onClick={() => setActiveTab('diet')}
+                  className={`flex-1 h-12 ${
+                    activeTab === 'diet' 
+                      ? 'bg-gray-600 text-white border-gray-500' 
+                      : 'bg-transparent border-gray-600 text-gray-300 hover:bg-gray-700/50'
+                  }`}
+                >
+                  Diet
                 </Button>
-                <Button className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600">
-                  Chef's Choice
+                <Button
+                  variant={activeTab === 'meal' ? "default" : "outline"}
+                  onClick={() => setActiveTab('meal')}
+                  className={`flex-1 h-12 flex items-center justify-center gap-2 ${
+                    activeTab === 'meal' 
+                      ? 'bg-gray-600 text-white border-gray-500' 
+                      : 'bg-transparent border-gray-600 text-gray-300 hover:bg-gray-700/50'
+                  }`}
+                >
+                  Meal
+                  {isMealComplete && <span className="text-green-400 text-xs">✓</span>}
                 </Button>
-                <Button className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600">
-                  Create a Dish
-                </Button>
-                <Button className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600">
-                  Take-Out
+                <Button
+                  variant={activeTab === 'pantry' ? "default" : "outline"}
+                  onClick={() => setActiveTab('pantry')}
+                  className={`flex-1 h-12 flex items-center justify-center gap-2 ${
+                    activeTab === 'pantry' 
+                      ? 'bg-gray-600 text-white border-gray-500' 
+                      : 'bg-transparent border-gray-600 text-gray-300 hover:bg-gray-700/50'
+                  }`}
+                >
+                  Pantry
+                  {isPantryComplete && <span className="text-green-400 text-xs">✓</span>}
                 </Button>
               </div>
-            </CardContent>
-          </Card>
 
-          {/* Card 3: Summary */}
-          {(isMealComplete || isPantryComplete) && (
-            <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
-              <CardHeader className="pb-4">
-                <CardTitle className="text-lg text-white">
-                  Summary for {userData?.nickname || 'Peter'}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
+              {/* Tab Content */}
+              {activeTab === 'diet' && (
                 <div className="space-y-4">
-                  {isMealComplete && (
-                    <div>
-                      <h4 className="text-sm font-medium text-purple-300 mb-2">Meal Preferences</h4>
-                      <div className="text-sm text-gray-400 space-y-1">
-                        <div>Serving: {mealPreferences.servingSize}, Cuisine: {mealPreferences.cuisine}</div>
-                        <div>Meal Type: {mealPreferences.mealType}</div>
+                  <h3 className="text-lg font-semibold text-white">Your Dietary Preferences</h3>
+                  {userData && (
+                    <div className="space-y-3">
+                      <div>
+                        <h4 className="text-sm font-medium text-purple-300 mb-1">Dietary Restrictions</h4>
+                        <div className="text-sm text-gray-300">
+                          {userData.dietaryRestrictions?.join(', ') || 'None specified'}
+                        </div>
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-medium text-purple-300 mb-1">Health Goals</h4>
+                        <div className="text-sm text-gray-300">
+                          {userData.healthGoals?.join(', ') || 'None specified'}
+                        </div>
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-medium text-purple-300 mb-1">Nutritional Goals</h4>
+                        <div className="text-sm text-gray-300">
+                          Cal ({userData.selectedCalorieRange}), Protein ({userData.selectedProteinRange}g), Carbs ({userData.selectedCarbRange}g), Fat ({userData.selectedFatRange}g)
+                        </div>
                       </div>
                     </div>
                   )}
-                  
-                  {isPantryComplete && (
-                    <div>
-                      <div className="border-t border-gray-600 pt-3"></div>
-                      <h4 className="text-sm font-medium text-purple-300 mb-2">Pantry Ingredients</h4>
-                      <div className="text-sm text-gray-400">
-                        {selectedIngredients.slice(0, 8).join(', ')}
-                        {selectedIngredients.length > 8 && ` and ${selectedIngredients.length - 8} more`}
-                      </div>
-                    </div>
-                  )}
-                  
-                  <div className="flex gap-2 pt-4">
-                    <Button variant="outline" size="sm" className="bg-gray-700 border-gray-600 text-gray-300">
-                      Grocery List
-                    </Button>
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="bg-gray-700 border-gray-600 text-gray-300"
-                      onClick={() => setPreferencesCardSlid(false)}
-                    >
-                      Edit Preferences
-                    </Button>
-                  </div>
                 </div>
-              </CardContent>
+              )}
+
+              {activeTab === 'meal' && (
             </Card>
           )}
 
