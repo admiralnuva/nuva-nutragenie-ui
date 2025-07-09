@@ -298,22 +298,20 @@ export default function ExploreRecipesScreen() {
     
     // Row 5 & 6: Nutritional Goals Summary (2x2 grid)
     if (userData?.selectedCalorieRange || userData?.selectedProteinRange || userData?.selectedCarbRange || userData?.selectedFatRange) {
-      // Always ensure we have both calories and protein on first row
+      // Row 1: Goals with Cal and Protein
       const firstRowParts = [];
-      if (userData.selectedCalorieRange) firstRowParts.push(`${userData.selectedCalorieRange} cal`);
-      if (userData.selectedProteinRange) firstRowParts.push(`${userData.selectedProteinRange}g protein`);
+      if (userData.selectedCalorieRange) firstRowParts.push(`Cal (${userData.selectedCalorieRange})`);
+      if (userData.selectedProteinRange) firstRowParts.push(`Protein (${userData.selectedProteinRange}g)`);
       
-      // Only add first row if we have at least calories OR protein
       if (firstRowParts.length > 0) {
         rows.push({ label: "Goals", value: firstRowParts.join(", ") });
       }
       
-      // Second row: Carbs and Fat (only if we have them)
+      // Row 2: Carbs and Fat
       const secondRowParts = [];
-      if (userData.selectedCarbRange) secondRowParts.push(`${userData.selectedCarbRange}g carbs`);
-      if (userData.selectedFatRange) secondRowParts.push(`${userData.selectedFatRange}g fat`);
+      if (userData.selectedCarbRange) secondRowParts.push(`Carbs (${userData.selectedCarbRange}g)`);
+      if (userData.selectedFatRange) secondRowParts.push(`Fat (${userData.selectedFatRange}g)`);
       
-      // Only add second row if we actually have carbs or fat data
       if (secondRowParts.length > 0) {
         rows.push({ value: secondRowParts.join(", ") });
       }
