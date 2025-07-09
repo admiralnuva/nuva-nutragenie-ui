@@ -354,23 +354,25 @@ export default function ExploreRecipesScreen() {
         <div className="space-y-4">
           {/* Card 1: Dietary Preferences Summary */}
           <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
-            <CardHeader className="pb-4 relative">
-              {/* Avatar positioned in top right corner */}
-              <div className="absolute top-4 right-4 flex flex-col items-center">
-                <img 
-                  src={userAvatarSrc} 
-                  alt="User Avatar"
-                  className="w-12 h-12 object-cover rounded-lg border-0"
-                  style={{ border: 'none !important', outline: 'none', boxShadow: 'none', backgroundColor: 'transparent' }}
-                />
-                <p className="text-xs text-gray-300 mt-1 text-center font-medium">
-                  {userData?.nickname || "User"}
-                </p>
+            <CardHeader className="pb-4">
+              {/* Header with avatar and title in same row */}
+              <div className="flex items-center justify-between mb-3">
+                <CardTitle className="text-lg text-white">Your dietary preferences:</CardTitle>
+                <div className="flex items-center gap-2">
+                  <img 
+                    src={userAvatarSrc} 
+                    alt="User Avatar"
+                    className="w-10 h-10 object-cover rounded-lg border-0"
+                    style={{ border: 'none !important', outline: 'none', boxShadow: 'none', backgroundColor: 'transparent' }}
+                  />
+                  <p className="text-xs text-gray-300 font-medium">
+                    {userData?.nickname || "User"}
+                  </p>
+                </div>
               </div>
               
-              {/* Content with minimal right margin since avatar is smaller */}
-              <div className="pr-12">
-                <CardTitle className="text-lg text-white">Your dietary preferences:</CardTitle>
+              {/* Content with full width available */}
+              <div>
                 <div className="text-gray-300 mt-2">
                   {!userData ? (
                     <div className="mt-2">
