@@ -134,8 +134,8 @@ export default function ExploreRecipesScreen() {
       
       // Play custom swish sound effect
       try {
-        const audio = new Audio('/attached_assets/wind-swoosh-short-289744_1752026446354.mp3');
-        audio.volume = 0.3; // Set volume to 30%
+        const audio = new Audio('/audio/wind-swoosh.mp3');
+        audio.volume = 0.4; // Set volume to 40%
         audio.play().catch(error => {
           console.log('Audio playback failed:', error);
         });
