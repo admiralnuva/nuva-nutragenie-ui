@@ -499,13 +499,62 @@ export default function ExploreRecipesScreen() {
                 {/* Tab Content - Increased height for better utilization */}
                 <div className="mt-4 min-h-[280px]">
                   {activeTab === 'diet' && (
-                    <div className="space-y-2">
-                      <h4 className="text-sm font-medium text-purple-300">Dietary Preferences</h4>
-                      <div className="text-sm text-gray-400">
-                        {userData?.dietaryRestrictions || 'No restrictions set'}
+                    <div className="space-y-4">
+                      <h4 className="text-lg font-semibold text-purple-300 mb-4">Dietary Preferences</h4>
+                      
+                      {/* Dietary Restrictions */}
+                      <div className="flex items-start">
+                        <span className="text-sm font-medium text-gray-300 w-40 flex-shrink-0">Dietary Restrictions:</span>
+                        <span className="text-sm text-gray-400 flex-1">
+                          {userData?.dietaryRestrictions?.length > 0 ? userData.dietaryRestrictions.join(', ') : 'None specified'}
+                        </span>
                       </div>
-                      <div className="text-sm text-gray-400">
-                        Health Goals: {userData?.healthGoals || 'None set'}
+                      
+                      <hr className="border-gray-600" />
+                      
+                      {/* Health Factors */}
+                      <div className="flex items-start">
+                        <span className="text-sm font-medium text-gray-300 w-40 flex-shrink-0">Health Factors:</span>
+                        <span className="text-sm text-gray-400 flex-1">
+                          {userData?.healthGoals?.filter(goal => ['diabetes', 'cardiovascular', 'kidney', 'blood-pressure', 'cancer'].includes(goal))?.length > 0 ? 
+                            userData.healthGoals.filter(goal => ['diabetes', 'cardiovascular', 'kidney', 'blood-pressure', 'cancer'].includes(goal)).join(', ') : 
+                            'No conditions'}
+                        </span>
+                      </div>
+                      
+                      <hr className="border-gray-600" />
+                      
+                      {/* Fitness Goals */}
+                      <div className="flex items-start">
+                        <span className="text-sm font-medium text-gray-300 w-40 flex-shrink-0">Fitness Goals:</span>
+                        <span className="text-sm text-gray-400 flex-1">
+                          {userData?.healthGoals?.filter(goal => ['build-muscle', 'lose-weight', 'endurance', 'wellness'].includes(goal))?.length > 0 ? 
+                            userData.healthGoals.filter(goal => ['build-muscle', 'lose-weight', 'endurance', 'wellness'].includes(goal)).map(goal => goal.replace('-', ' ')).join(', ') : 
+                            'None set'}
+                        </span>
+                      </div>
+                      
+                      <hr className="border-gray-600" />
+                      
+                      {/* Allergies/Restrictions */}
+                      <div className="flex items-start">
+                        <span className="text-sm font-medium text-gray-300 w-40 flex-shrink-0">Allergies/Restrictions:</span>
+                        <span className="text-sm text-gray-400 flex-1">
+                          {userData?.allergies || 'None specified'}
+                        </span>
+                      </div>
+                      
+                      <hr className="border-gray-600" />
+                      
+                      {/* Nutritional Goals */}
+                      <div className="flex items-start">
+                        <span className="text-sm font-medium text-gray-300 w-40 flex-shrink-0">Nutritional Goals:</span>
+                        <span className="text-sm text-gray-400 flex-1">
+                          {userData?.selectedCalorieRange && userData?.selectedProteinRange ? 
+                            `Cal: ${userData.selectedCalorieRange}, Protein: ${userData.selectedProteinRange}g, Carbs: ${userData.selectedCarbRange}g, Fat: ${userData.selectedFatRange}g` :
+                            'Goals not configured'
+                          }
+                        </span>
                       </div>
                     </div>
                   )}
