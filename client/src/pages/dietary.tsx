@@ -394,7 +394,7 @@ export default function DietaryScreen() {
               </div>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-2">
                 {dietaryRestrictions.map(option => {
                   const isSelected = selectedDietary.includes(option.value);
                   const isDisabled = isDietaryOptionDisabled(option.value);
@@ -405,7 +405,7 @@ export default function DietaryScreen() {
                       type="button"
                       onClick={() => toggleDietarySelection(option.value)}
                       disabled={isDisabled}
-                      className={`px-3 py-2 rounded-lg border-2 font-medium transition-all text-sm text-left ${
+                      className={`px-2 py-1.5 rounded-lg border-2 font-medium transition-all text-xs text-left ${
                         isSelected
                           ? 'border-purple-500 bg-purple-500 text-white scale-105'
                           : isDisabled
@@ -447,7 +447,7 @@ export default function DietaryScreen() {
               </div>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-2">
                 {healthConditions.map(condition => {
                   const isSelected = selectedHealth.includes(condition.value);
                   const isDisabled = isHealthOptionDisabled(condition.value);
@@ -458,7 +458,7 @@ export default function DietaryScreen() {
                       type="button"
                       onClick={() => toggleHealthSelection(condition.value)}
                       disabled={isDisabled}
-                      className={`px-3 py-2 rounded-lg border-2 font-medium transition-all text-sm text-left ${
+                      className={`px-2 py-1.5 rounded-lg border-2 font-medium transition-all text-xs text-left ${
                         isSelected
                           ? 'border-purple-500 bg-purple-500 text-white scale-105'
                           : isDisabled
@@ -500,13 +500,13 @@ export default function DietaryScreen() {
               </div>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-2">
                 {fitnessGoals.map(goal => (
                   <button
                     key={goal.value}
                     type="button"
                     onClick={() => toggleSelection(setSelectedFitness, goal.value)}
-                    className={`px-3 py-2 rounded-lg border-2 font-medium transition-all text-sm text-left ${
+                    className={`px-2 py-1.5 rounded-lg border-2 font-medium transition-all text-xs text-left ${
                       selectedFitness.includes(goal.value)
                         ? 'border-purple-500 bg-purple-500 text-white scale-105'
                         : 'border-gray-600 text-gray-300 hover:border-purple-400 hover:bg-purple-500/20 hover:text-purple-300'
