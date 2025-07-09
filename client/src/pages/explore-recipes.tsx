@@ -300,8 +300,8 @@ export default function ExploreRecipesScreen() {
     if (userData?.selectedCalorieRange || userData?.selectedProteinRange || userData?.selectedCarbRange || userData?.selectedFatRange) {
       // Always ensure we have both calories and protein on first row
       const firstRowParts = [];
-      if (userData.selectedCalorieRange) firstRowParts.push(`Cal ${userData.selectedCalorieRange}`);
-      if (userData.selectedProteinRange) firstRowParts.push(`Protein ${userData.selectedProteinRange}g`);
+      if (userData.selectedCalorieRange) firstRowParts.push(`${userData.selectedCalorieRange} cal`);
+      if (userData.selectedProteinRange) firstRowParts.push(`${userData.selectedProteinRange}g protein`);
       
       // Only add first row if we have at least calories OR protein
       if (firstRowParts.length > 0) {
@@ -310,8 +310,8 @@ export default function ExploreRecipesScreen() {
       
       // Second row: Carbs and Fat (only if we have them)
       const secondRowParts = [];
-      if (userData.selectedCarbRange) secondRowParts.push(`Carbs ${userData.selectedCarbRange}g`);
-      if (userData.selectedFatRange) secondRowParts.push(`Fat ${userData.selectedFatRange}g`);
+      if (userData.selectedCarbRange) secondRowParts.push(`${userData.selectedCarbRange}g carbs`);
+      if (userData.selectedFatRange) secondRowParts.push(`${userData.selectedFatRange}g fat`);
       
       // Only add second row if we actually have carbs or fat data
       if (secondRowParts.length > 0) {
