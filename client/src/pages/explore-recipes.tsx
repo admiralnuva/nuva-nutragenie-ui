@@ -847,14 +847,7 @@ export default function ExploreRecipesScreen() {
                         </div>
                       )}
 
-                      {/* Quick selection summary */}
-                      <div className="mt-3 pt-3 border-t border-gray-600">
-                        <div className="text-xs text-gray-400">
-                          <span className="font-medium text-gray-300">Popular selections: </span>
-                          {selectedIngredients.slice(0, 5).join(', ')}
-                          {selectedIngredients.length > 5 && ` and ${selectedIngredients.length - 5} more`}
-                        </div>
-                      </div>
+
                     </div>
                   )}
                 </div>
