@@ -673,27 +673,7 @@ export default function DietaryScreen() {
                 </div>
               </div>
 
-              {/* Current Selections Summary */}
-              <div className="bg-gray-700/50 rounded-lg p-3 mt-4">
-                <div className="text-xs text-gray-400 mb-2">Current Goals Summary</div>
-                <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 text-xs">
-                  <div className="bg-gray-600/50 rounded px-2 py-1">
-                    <span className="text-gray-400">🔥</span> {selectedCalorieRange}
-                  </div>
-                  <div className="bg-gray-600/50 rounded px-2 py-1">
-                    <span className="text-gray-400">💪</span> {selectedProteinRange}g
-                  </div>
-                  <div className="bg-gray-600/50 rounded px-2 py-1">
-                    <span className="text-gray-400">🌾</span> {selectedCarbRange}g
-                  </div>
-                  <div className="bg-gray-600/50 rounded px-2 py-1">
-                    <span className="text-gray-400">🥑</span> {selectedFatRange}g
-                  </div>
-                  <div className="bg-gray-600/50 rounded px-2 py-1">
-                    <span className="text-gray-400">🌿</span> {selectedFiberRange}g
-                  </div>
-                </div>
-              </div>
+
             </CardContent>
           </Card>
 
