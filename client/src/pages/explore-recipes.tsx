@@ -573,92 +573,92 @@ export default function ExploreRecipesScreen() {
                 )}
               </CardHeader>
               <CardContent>
-                {/* Show collapsed view with 3 buttons when card is at bottom */}
-                {(isPreferencesCardCollapsed || preferencesCardSlid) ? (
-                  <div className="flex gap-2">
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600"
-                    >
-                      Grocery List
-                    </Button>
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600"
+                {/* Show both tabs and content - collapse only affects content visibility */}
+                <>
+                  {/* Tab Navigation - Always visible */}
+                  <div className="flex gap-2 mb-4">
+                    <Button
+                      variant={activeTab === 'diet' ? "default" : "outline"}
                       onClick={() => {
-                        // Move card back to top and open Meal tab without checkbox
-                        setPreferencesCardSlid(false);
-                        setIsPreferencesCardCollapsed(false);
-                        setActiveTab('meal');
-                        setMealConfirmed(false); // Remove confirmation to hide checkbox
+                        setActiveTab('diet');
+                        setIsPreferencesCardCollapsed(false); // Expand card when tab clicked
                       }}
+                      className={`flex-1 ${
+                        activeTab === 'diet' 
+                          ? 'bg-gray-600 text-white border-gray-500' 
+                          : 'bg-transparent border-gray-600 text-gray-300 hover:bg-gray-700/50'
+                      }`}
                     >
-                      Edit Preferences
+                      Diet
                     </Button>
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600"
+                    <Button
+                      variant={activeTab === 'meal' ? "default" : "outline"}
+                      onClick={() => {
+                        setActiveTab('meal');
+                        setIsPreferencesCardCollapsed(false); // Expand card when tab clicked
+                      }}
+                      className={`flex-1 flex items-center justify-center gap-2 ${
+                        activeTab === 'meal' 
+                          ? 'bg-gray-600 text-white border-gray-500' 
+                          : 'bg-transparent border-gray-600 text-gray-300 hover:bg-gray-700/50'
+                      }`}
                     >
-                      Generate Recipes
+                      Meal
+                      {isMealComplete && <span className="text-green-400 text-xs">✓</span>}
+                    </Button>
+                    <Button
+                      variant={activeTab === 'pantry' ? "default" : "outline"}
+                      onClick={() => {
+                        setActiveTab('pantry');
+                        setIsPreferencesCardCollapsed(false); // Expand card when tab clicked
+                      }}
+                      className={`flex-1 flex items-center justify-center gap-2 ${
+                        activeTab === 'pantry' 
+                          ? 'bg-gray-600 text-white border-gray-500' 
+                          : 'bg-transparent border-gray-600 text-gray-300 hover:bg-gray-700/50'
+                      }`}
+                    >
+                      Pantry
+                      {isPantryComplete && <span className="text-green-400 text-xs">✓</span>}
                     </Button>
                   </div>
-                ) : (
-                  <>
-                    {/* Tab Navigation - Exact styling match with take-out screen */}
-                    <div className="flex gap-2 mb-4">
-                      <Button
-                        variant={activeTab === 'diet' ? "default" : "outline"}
-                        onClick={() => {
-                          setActiveTab('diet');
-                          setIsPreferencesCardCollapsed(false); // Expand card when tab clicked
-                        }}
-                        className={`flex-1 ${
-                          activeTab === 'diet' 
-                            ? 'bg-gray-600 text-white border-gray-500' 
-                            : 'bg-transparent border-gray-600 text-gray-300 hover:bg-gray-700/50'
-                        }`}
+
+                  {/* Show action buttons when collapsed, content when expanded */}
+                  {(isPreferencesCardCollapsed || preferencesCardSlid) ? (
+                    <div className="flex gap-2">
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600"
                       >
-                        Diet
+                        Grocery List
                       </Button>
-                      <Button
-                        variant={activeTab === 'meal' ? "default" : "outline"}
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600"
                         onClick={() => {
+                          // Move card back to top and open Meal tab without checkbox
+                          setPreferencesCardSlid(false);
+                          setIsPreferencesCardCollapsed(false);
                           setActiveTab('meal');
-                          setIsPreferencesCardCollapsed(false); // Expand card when tab clicked
+                          setMealConfirmed(false); // Remove confirmation to hide checkbox
                         }}
-                        className={`flex-1 flex items-center justify-center gap-2 ${
-                          activeTab === 'meal' 
-                            ? 'bg-gray-600 text-white border-gray-500' 
-                            : 'bg-transparent border-gray-600 text-gray-300 hover:bg-gray-700/50'
-                        }`}
                       >
-                        Meal
-                        {isMealComplete && <span className="text-green-400 text-xs">✓</span>}
+                        Edit Preferences
                       </Button>
-                      <Button
-                        variant={activeTab === 'pantry' ? "default" : "outline"}
-                        onClick={() => {
-                          setActiveTab('pantry');
-                          setIsPreferencesCardCollapsed(false); // Expand card when tab clicked
-                        }}
-                        className={`flex-1 flex items-center justify-center gap-2 ${
-                          activeTab === 'pantry' 
-                            ? 'bg-gray-600 text-white border-gray-500' 
-                            : 'bg-transparent border-gray-600 text-gray-300 hover:bg-gray-700/50'
-                        }`}
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600"
                       >
-                        Pantry
-                        {isPantryComplete && <span className="text-green-400 text-xs">✓</span>}
+                        Generate Recipes
                       </Button>
                     </div>
-
-                    {/* Tab Content - Increased height for better utilization */}
+                  ) : (
                     <div className="mt-4 min-h-[280px]">
                       {activeTab === 'diet' && (
-                    <div className="space-y-3">
+                        <div className="space-y-3">
                       <h4 className="text-lg font-semibold text-purple-300 mb-3">Dietary Preferences</h4>
                       
                       {/* Dietary Restrictions - Split into two rows */}
@@ -993,13 +993,11 @@ export default function ExploreRecipesScreen() {
                           </div>
                         </div>
                       )}
-
-
                       </div>
                       )}
                     </div>
-                  </>
-                )}
+                  )}
+                </>
               </CardContent>
             </Card>
           </div>
