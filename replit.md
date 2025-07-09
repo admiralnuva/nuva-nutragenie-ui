@@ -534,6 +534,14 @@ Changelog:
   * Created current selections summary display showing all selected ranges at a glance
   * Improved mobile responsiveness with responsive grid layouts (sm:grid-cols-2, sm:grid-cols-3)
   * Added goal-based recommendations in dropdown options for better user guidance
+- July 09, 2025. Automatic Nutritional Goals Calculation and Default Value Implementation:
+  * Set default calorie selection to "Light Activity" (1301-1500 calories) for new users
+  * Implemented automatic macro calculation system based on calorie selection with scientifically balanced ratios
+  * Created comprehensive calorie-to-macro mapping with 8 activity levels from sedentary to ultra-active
+  * Made protein, carbs, fat, and fiber fields read-only with auto-calculated values displayed
+  * Updated data storage to save selected nutritional ranges in user localStorage for persistence
+  * Enhanced user experience by removing manual macro selection complexity while maintaining precision
+  * Applied consistent styling with read-only gray backgrounds and clear "(Auto-calculated)" labels
 ```
 
 ## User Preferences

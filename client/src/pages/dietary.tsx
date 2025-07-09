@@ -83,11 +83,33 @@ export default function DietaryScreen() {
   const [fiberRange, setFiberRange] = useState([5, 25]);
   
   // New state for dropdown selections (minimalistic design)
-  const [selectedCalorieRange, setSelectedCalorieRange] = useState<string>("1801-2000");
-  const [selectedProteinRange, setSelectedProteinRange] = useState<string>("131-160");
-  const [selectedCarbRange, setSelectedCarbRange] = useState<string>("151-200");
-  const [selectedFatRange, setSelectedFatRange] = useState<string>("51-70");
-  const [selectedFiberRange, setSelectedFiberRange] = useState<string>("21-25");
+  const [selectedCalorieRange, setSelectedCalorieRange] = useState<string>("1301-1500");
+  const [selectedProteinRange, setSelectedProteinRange] = useState<string>("71-100");
+  const [selectedCarbRange, setSelectedCarbRange] = useState<string>("101-150");
+  const [selectedFatRange, setSelectedFatRange] = useState<string>("36-50");
+  const [selectedFiberRange, setSelectedFiberRange] = useState<string>("16-20");
+
+  // Auto-calculate macros based on calorie selection
+  const updateMacrosBasedOnCalories = (calorieRange: string) => {
+    const calorieMapping = {
+      "1200-1300": { protein: "50-70", carbs: "50-100", fat: "20-35", fiber: "10-15" },
+      "1301-1500": { protein: "71-100", carbs: "101-150", fat: "36-50", fiber: "16-20" },
+      "1501-1800": { protein: "101-130", carbs: "151-200", fat: "51-70", fiber: "21-25" },
+      "1801-2000": { protein: "131-160", carbs: "201-250", fat: "71-90", fiber: "26-30" },
+      "2001-2300": { protein: "161-190", carbs: "251-300", fat: "91-110", fiber: "31-35" },
+      "2301-2600": { protein: "191-220", carbs: "301-350", fat: "111-130", fiber: "36-40" },
+      "2601-3000": { protein: "221-250", carbs: "351-400", fat: "131-150", fiber: "41-50" },
+      "3001-3500": { protein: "221-250", carbs: "351-400", fat: "131-150", fiber: "41-50" }
+    };
+    
+    const mapping = calorieMapping[calorieRange as keyof typeof calorieMapping];
+    if (mapping) {
+      setSelectedProteinRange(mapping.protein);
+      setSelectedCarbRange(mapping.carbs);
+      setSelectedFatRange(mapping.fat);
+      setSelectedFiberRange(mapping.fiber);
+    }
+  };
   
   // Mascot guidance state
   const [showMascot, setShowMascot] = useState(true);
@@ -301,13 +323,11 @@ export default function DietaryScreen() {
       dietaryRestrictions: selectedDietary,
       healthGoals: [...selectedHealth, ...selectedFitness],
       allergies: allergies,
-      nutritionalTargets: {
-        calories: calorieRange,
-        protein: proteinRange,
-        carbs: carbRange,
-        fat: fatRange,
-        fiber: fiberRange
-      }
+      selectedCalorieRange,
+      selectedProteinRange,
+      selectedCarbRange,
+      selectedFatRange,
+      selectedFiberRange
     };
     
     // Save to both localStorage locations
@@ -560,7 +580,10 @@ export default function DietaryScreen() {
                     <div className="text-sm mt-5" title="Daily calorie target based on your fitness goals">🔥</div>
                     <div className="flex-1">
                       <div className="text-xs text-gray-400 mb-1">Calories</div>
-                      <Select value={selectedCalorieRange} onValueChange={setSelectedCalorieRange}>
+                      <Select value={selectedCalorieRange} onValueChange={(value) => {
+                      setSelectedCalorieRange(value);
+                      updateMacrosBasedOnCalories(value);
+                    }}>
                         <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-white text-xs h-8">
                           <SelectValue placeholder="Select range" />
                         </SelectTrigger>
@@ -581,21 +604,10 @@ export default function DietaryScreen() {
                   <div className="flex items-start space-x-2">
                     <div className="text-sm mt-5" title="Essential for muscle building and repair">💪</div>
                     <div className="flex-1">
-                      <div className="text-xs text-gray-400 mb-1">Protein</div>
-                      <Select value={selectedProteinRange} onValueChange={setSelectedProteinRange}>
-                        <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-white text-xs h-8">
-                          <SelectValue placeholder="Select range" />
-                        </SelectTrigger>
-                        <SelectContent className="bg-gray-700 border-gray-600">
-                          <SelectItem value="50-70" className="text-white hover:bg-gray-600">50-70g (Sedentary)</SelectItem>
-                          <SelectItem value="71-100" className="text-white hover:bg-gray-600">71-100g (Light Exercise)</SelectItem>
-                          <SelectItem value="101-130" className="text-white hover:bg-gray-600">101-130g (Regular Exercise)</SelectItem>
-                          <SelectItem value="131-160" className="text-white hover:bg-gray-600">131-160g (Active Training)</SelectItem>
-                          <SelectItem value="161-190" className="text-white hover:bg-gray-600">161-190g (Muscle Building)</SelectItem>
-                          <SelectItem value="191-220" className="text-white hover:bg-gray-600">191-220g (Intense Training)</SelectItem>
-                          <SelectItem value="221-250" className="text-white hover:bg-gray-600">221-250g (Bodybuilding)</SelectItem>
-                        </SelectContent>
-                      </Select>
+                      <div className="text-xs text-gray-400 mb-1">Protein (Auto-calculated)</div>
+                      <div className="w-full bg-gray-600 border border-gray-500 text-gray-300 text-xs h-8 px-3 py-2 rounded">
+                        {selectedProteinRange}g
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -611,63 +623,30 @@ export default function DietaryScreen() {
                   <div className="flex items-start space-x-2">
                     <div className="text-sm mt-5" title="Energy source for workouts and brain function">🌾</div>
                     <div className="flex-1">
-                      <div className="text-xs text-gray-400 mb-1">Carbs</div>
-                      <Select value={selectedCarbRange} onValueChange={setSelectedCarbRange}>
-                        <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-white text-xs h-8">
-                          <SelectValue placeholder="Select" />
-                        </SelectTrigger>
-                        <SelectContent className="bg-gray-700 border-gray-600">
-                          <SelectItem value="50-100" className="text-white hover:bg-gray-600">50-100g (Keto/Low Carb)</SelectItem>
-                          <SelectItem value="101-150" className="text-white hover:bg-gray-600">101-150g (Moderate Low)</SelectItem>
-                          <SelectItem value="151-200" className="text-white hover:bg-gray-600">151-200g (Balanced)</SelectItem>
-                          <SelectItem value="201-250" className="text-white hover:bg-gray-600">201-250g (Active)</SelectItem>
-                          <SelectItem value="251-300" className="text-white hover:bg-gray-600">251-300g (High Energy)</SelectItem>
-                          <SelectItem value="301-350" className="text-white hover:bg-gray-600">301-350g (Endurance)</SelectItem>
-                          <SelectItem value="351-400" className="text-white hover:bg-gray-600">351-400g (Ultra Endurance)</SelectItem>
-                        </SelectContent>
-                      </Select>
+                      <div className="text-xs text-gray-400 mb-1">Carbs (Auto-calculated)</div>
+                      <div className="w-full bg-gray-600 border border-gray-500 text-gray-300 text-xs h-8 px-3 py-2 rounded">
+                        {selectedCarbRange}g
+                      </div>
                     </div>
                   </div>
 
                   <div className="flex items-start space-x-2">
                     <div className="text-sm mt-5" title="Essential for hormone production and nutrient absorption">🥑</div>
                     <div className="flex-1">
-                      <div className="text-xs text-gray-400 mb-1">Fat</div>
-                      <Select value={selectedFatRange} onValueChange={setSelectedFatRange}>
-                        <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-white text-xs h-8">
-                          <SelectValue placeholder="Select" />
-                        </SelectTrigger>
-                        <SelectContent className="bg-gray-700 border-gray-600">
-                          <SelectItem value="20-35" className="text-white hover:bg-gray-600">20-35g (Low Fat)</SelectItem>
-                          <SelectItem value="36-50" className="text-white hover:bg-gray-600">36-50g (Moderate)</SelectItem>
-                          <SelectItem value="51-70" className="text-white hover:bg-gray-600">51-70g (Balanced)</SelectItem>
-                          <SelectItem value="71-90" className="text-white hover:bg-gray-600">71-90g (Higher Fat)</SelectItem>
-                          <SelectItem value="91-110" className="text-white hover:bg-gray-600">91-110g (High Fat)</SelectItem>
-                          <SelectItem value="111-130" className="text-white hover:bg-gray-600">111-130g (Keto)</SelectItem>
-                          <SelectItem value="131-150" className="text-white hover:bg-gray-600">131-150g (High Keto)</SelectItem>
-                        </SelectContent>
-                      </Select>
+                      <div className="text-xs text-gray-400 mb-1">Fat (Auto-calculated)</div>
+                      <div className="w-full bg-gray-600 border border-gray-500 text-gray-300 text-xs h-8 px-3 py-2 rounded">
+                        {selectedFatRange}g
+                      </div>
                     </div>
                   </div>
 
                   <div className="flex items-start space-x-2">
                     <div className="text-sm mt-5" title="Important for digestive health and satiety">🌿</div>
                     <div className="flex-1">
-                      <div className="text-xs text-gray-400 mb-1">Fiber</div>
-                      <Select value={selectedFiberRange} onValueChange={setSelectedFiberRange}>
-                        <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-white text-xs h-8">
-                          <SelectValue placeholder="Select" />
-                        </SelectTrigger>
-                        <SelectContent className="bg-gray-700 border-gray-600">
-                          <SelectItem value="10-15" className="text-white hover:bg-gray-600">10-15g (Low)</SelectItem>
-                          <SelectItem value="16-20" className="text-white hover:bg-gray-600">16-20g (Below Average)</SelectItem>
-                          <SelectItem value="21-25" className="text-white hover:bg-gray-600">21-25g (Recommended)</SelectItem>
-                          <SelectItem value="26-30" className="text-white hover:bg-gray-600">26-30g (Good)</SelectItem>
-                          <SelectItem value="31-35" className="text-white hover:bg-gray-600">31-35g (High)</SelectItem>
-                          <SelectItem value="36-40" className="text-white hover:bg-gray-600">36-40g (Very High)</SelectItem>
-                          <SelectItem value="41-50" className="text-white hover:bg-gray-600">41-50g (Maximum)</SelectItem>
-                        </SelectContent>
-                      </Select>
+                      <div className="text-xs text-gray-400 mb-1">Fiber (Auto-calculated)</div>
+                      <div className="w-full bg-gray-600 border border-gray-500 text-gray-300 text-xs h-8 px-3 py-2 rounded">
+                        {selectedFiberRange}g
+                      </div>
                     </div>
                   </div>
                 </div>

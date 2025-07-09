@@ -363,40 +363,6 @@ export default function ExploreRecipesScreen() {
                 ) : (
                   <p className="text-gray-400 text-sm py-2">No dietary preferences set</p>
                 )}
-
-                {/* Nutritional Goals Summary */}
-                {userData && (userData.selectedCalorieRange || userData.selectedProteinRange || userData.selectedCarbRange || userData.selectedFatRange || userData.selectedFiberRange) && (
-                  <div className="mt-4 pt-3 border-t border-gray-600">
-                    <div className="text-xs text-gray-400 mb-2">Nutritional Goals</div>
-                    <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 text-xs">
-                      {userData.selectedCalorieRange && (
-                        <div className="bg-gray-600/50 rounded px-2 py-1">
-                          <span className="text-gray-400">🔥</span> {userData.selectedCalorieRange}
-                        </div>
-                      )}
-                      {userData.selectedProteinRange && (
-                        <div className="bg-gray-600/50 rounded px-2 py-1">
-                          <span className="text-gray-400">💪</span> {userData.selectedProteinRange}g
-                        </div>
-                      )}
-                      {userData.selectedCarbRange && (
-                        <div className="bg-gray-600/50 rounded px-2 py-1">
-                          <span className="text-gray-400">🌾</span> {userData.selectedCarbRange}g
-                        </div>
-                      )}
-                      {userData.selectedFatRange && (
-                        <div className="bg-gray-600/50 rounded px-2 py-1">
-                          <span className="text-gray-400">🥑</span> {userData.selectedFatRange}g
-                        </div>
-                      )}
-                      {userData.selectedFiberRange && (
-                        <div className="bg-gray-600/50 rounded px-2 py-1">
-                          <span className="text-gray-400">🌿</span> {userData.selectedFiberRange}g
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                )}
               </div>
               <div className="absolute top-0 right-0">
                 <div className="rounded-lg overflow-hidden" style={{width: '80px', height: '80px'}}>
