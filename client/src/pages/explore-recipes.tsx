@@ -719,7 +719,13 @@ export default function ExploreRecipesScreen() {
                             <Checkbox
                               id="meal-confirm"
                               checked={mealConfirmed}
-                              onCheckedChange={setMealConfirmed}
+                              onCheckedChange={(checked) => {
+                                setMealConfirmed(checked);
+                                if (checked) {
+                                  // Automatically switch to Pantry tab when confirmed
+                                  setTimeout(() => setActiveTab('pantry'), 300);
+                                }
+                              }}
                               className="w-7 h-7 rounded-full border-gray-500 data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600"
                             />
                             <label
