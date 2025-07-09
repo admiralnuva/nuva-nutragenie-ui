@@ -112,7 +112,7 @@ export default function ExploreRecipesScreen() {
   const [isPantryConfirmed, setIsPantryConfirmed] = useState(false);
   
   // Card collapsed state when moved to bottom
-  const [isPreferencesCardCollapsed, setIsPreferencesCardCollapsed] = useState(false);
+  const [isPreferencesCardCollapsed, setIsPreferencesCardCollapsed] = useState(true);
 
   // Helper function to check if required fields are completed
   const isRequiredFieldsCompleted = () => {
@@ -153,7 +153,7 @@ export default function ExploreRecipesScreen() {
   useEffect(() => {
     // Force reset all states when navigating to page
     setPreferencesCardSlid(false);
-    setIsPreferencesCardCollapsed(false);
+    setIsPreferencesCardCollapsed(true); // Start collapsed
     setIsPantryConfirmed(false);
     setMealConfirmed(false);
     setIsMealComplete(false);
@@ -172,9 +172,7 @@ export default function ExploreRecipesScreen() {
     localStorage.removeItem('nutragenie_card_position');
     localStorage.removeItem('nutragenie_card_collapsed');
     
-    console.log('Page loaded - Reset card to top position');
-    console.log('preferencesCardSlid set to:', false);
-    console.log('selectedIngredients reset to empty array');
+    console.log('Page loaded - Card starts collapsed at top position');
   }, []); // Run on every page load
 
   // Processing animation state
@@ -613,7 +611,10 @@ export default function ExploreRecipesScreen() {
                     <div className="flex gap-2 mb-4">
                       <Button
                         variant={activeTab === 'diet' ? "default" : "outline"}
-                        onClick={() => setActiveTab('diet')}
+                        onClick={() => {
+                          setActiveTab('diet');
+                          setIsPreferencesCardCollapsed(false); // Expand card when tab clicked
+                        }}
                         className={`flex-1 ${
                           activeTab === 'diet' 
                             ? 'bg-gray-600 text-white border-gray-500' 
@@ -624,7 +625,10 @@ export default function ExploreRecipesScreen() {
                       </Button>
                       <Button
                         variant={activeTab === 'meal' ? "default" : "outline"}
-                        onClick={() => setActiveTab('meal')}
+                        onClick={() => {
+                          setActiveTab('meal');
+                          setIsPreferencesCardCollapsed(false); // Expand card when tab clicked
+                        }}
                         className={`flex-1 flex items-center justify-center gap-2 ${
                           activeTab === 'meal' 
                             ? 'bg-gray-600 text-white border-gray-500' 
@@ -636,7 +640,10 @@ export default function ExploreRecipesScreen() {
                       </Button>
                       <Button
                         variant={activeTab === 'pantry' ? "default" : "outline"}
-                        onClick={() => setActiveTab('pantry')}
+                        onClick={() => {
+                          setActiveTab('pantry');
+                          setIsPreferencesCardCollapsed(false); // Expand card when tab clicked
+                        }}
                         className={`flex-1 flex items-center justify-center gap-2 ${
                           activeTab === 'pantry' 
                             ? 'bg-gray-600 text-white border-gray-500' 
