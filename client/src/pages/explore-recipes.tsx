@@ -443,9 +443,18 @@ export default function ExploreRecipesScreen() {
           <div className={`transition-all duration-1000 ease-in-out ${
             preferencesCardSlid ? 'order-3' : 'order-1'
           }`}>
-            <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
-              <CardHeader className="pb-4">
-                <CardTitle className="text-lg text-white">Preferences and Pantry Ingredients</CardTitle>
+            <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700 min-h-[400px]">
+              <CardHeader className="pb-4 relative">
+                <CardTitle className="text-lg text-white pr-20">Preferences and Pantry Ingredients</CardTitle>
+                {/* User Avatar - Top Right Corner */}
+                <div className="absolute top-4 right-4">
+                  <img 
+                    src={userAvatarSrc} 
+                    alt="User Avatar" 
+                    className="w-16 h-16 rounded-full"
+                    style={{ border: 'none' }}
+                  />
+                </div>
               </CardHeader>
               <CardContent>
                 {/* Tab Navigation - Exact styling match with take-out screen */}
@@ -487,8 +496,8 @@ export default function ExploreRecipesScreen() {
                   </Button>
                 </div>
 
-                {/* Tab Content */}
-                <div className="mt-4">
+                {/* Tab Content - Increased height for better utilization */}
+                <div className="mt-4 min-h-[280px]">
                   {activeTab === 'diet' && (
                     <div className="space-y-2">
                       <h4 className="text-sm font-medium text-purple-300">Dietary Preferences</h4>
