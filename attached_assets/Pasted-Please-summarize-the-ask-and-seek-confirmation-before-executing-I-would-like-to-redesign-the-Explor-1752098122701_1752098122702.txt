@@ -1,0 +1,66 @@
+Please summarize the ask and seek confirmation before executing
+
+I would like to redesign the Explore Recipe Options Screen
+
+On Navigating to Explore Recipe Options 
+It should display 3 card 
+
+1) Preferences and Pantry Ingredients
+2) Recipe Options
+3) Summary Card 
+
+
+Preferences and Pantry Ingredients Card
+To have 3 tabs on top as shown below( check the take out screen, this what was created there for reference)
+Look at the take out screen and lets make the 3 tabs or buttons to have the same size on this page on its own card
+
+NEW CARD 
+Create a new Card
+Title of the card: Preferences and Pantry Ingredients 
+The three buttons in the card are 
+1) Diet.  2) Meal.  3) Pantry  
+Each of these buttons to be attached to another card 
+
+Diet will be connected to Card ( Your dietary Preferences- This is an existing card). Do not change design of the card- data from “ Your dietary preferences is being populated here)
+
+Meal will be connected to Card ( Meal Preferences This is an  existing card) Do not change design of the card
+
+Pantry will be connected to ( Select Pantry Ingredients card, this is an existing card )
+
+User can navigate between these three buttons and able see the resultant cards
+We need to some how force user to go to Meal tabs and , Update or confirm Meal Preferences ( Serving Size, Cuisine and Meal Type are mandatory fields) ( maybe check tick to indicate complete)
+and followed by Pantry and updating pantry ingredients User should somehow confirm that its complete( maybe check tick to indicate complete)
+
+NEW CARD
+Create new card
+ Title:  Summary for XXXXX ( Name of the User Avatar)
+While user completes completing the above two cards ( Meal Preferences and Pantry Ingredient)
+Data in the Summary card is appended 
+This is a new card - It should sit below the card “Pantry Options”
+
+Title Summary
+Subtitle : Meal Preferences - display list of meal preferences captured from earlier in to this card in clean 2 rows
+Subtitle : Pantry Ingredients : Display list of ingredients in the pantry in rows no shading
+Put a separator line where needed
+The card can have 2 buttons ( Grocery List) Edit Preferences) 
+
+Coming back two things happen
+Data gets appended to Summary card 
+Preferences card slides  down below the Summary card - after 5 seconds 
+When navigating back to the Explore Recipe Options from any screen - The Card Layout resets
+That would allow user to edit data 
+
+
+Grocery List will be connected to Grocery List Card
+Edit Preferences will move Preferences and Pantry Ingredients  to be the top most card
+
+
+
+changes to card Named : Recipe Options 
+Remove Pantry items button 
+And remove the connection to the card
+Instead lets have 4 buttons 
+1) Pantry Dishes - Connected to the card Dishes that can be cooked from your pantry Ingredients
+2) Chefs Choice -  Connected to Chefs Choice of dishes personalized for you
+3) Create a Dish - Connected to create your custom dish on creating a recipe connects to  Recipe Variations for Burger 
+4)Take-Out:   - This will be connected to a new card that displays 6 dishes ( Same layout we are using for dishes 

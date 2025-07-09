@@ -80,6 +80,12 @@ export default function ExploreRecipesScreen() {
   const userAvatarSrc = userData?.avatar ? userAvatars[userData.avatar as keyof typeof userAvatars] : userAvatar1;
   const chefAvatarSrc = userData?.chef ? chefAvatars[userData.chef as keyof typeof chefAvatars] : chefAvatar1;
   
+  // New navigation state for the redesigned interface
+  const [activeTab, setActiveTab] = useState<'diet' | 'meal' | 'pantry'>('meal');
+  const [isMealComplete, setIsMealComplete] = useState(false);
+  const [isPantryComplete, setIsPantryComplete] = useState(false);
+  const [preferencesCardSlid, setPreferencesCardSlid] = useState(false);
+
   // Get dynamic avatar for Card 3 based on active selection
   const getDynamicAvatar = () => {
     if (activeCard === 'pantry-dishes' || activeCard === 'chefs-choice') {
@@ -109,6 +115,31 @@ export default function ExploreRecipesScreen() {
   const isAllFieldsCompleted = () => {
     return Object.values(mealPreferences).every(value => value !== "");
   };
+
+  // Check meal completion status and update state
+  useEffect(() => {
+    const mealCompleted = isRequiredFieldsCompleted();
+    setIsMealComplete(mealCompleted);
+  }, [mealPreferences]);
+
+
+
+  // Auto-slide preferences card after both completions
+  useEffect(() => {
+    if (isMealComplete && isPantryComplete && !preferencesCardSlid) {
+      const slideTimer = setTimeout(() => {
+        setPreferencesCardSlid(true);
+      }, 5000); // 5 seconds delay
+      
+      return () => clearTimeout(slideTimer);
+    }
+  }, [isMealComplete, isPantryComplete, preferencesCardSlid]);
+
+  // Reset layout on navigation
+  useEffect(() => {
+    setPreferencesCardSlid(false);
+    setActiveTab('meal'); // Reset to meal tab
+  }, []);
 
   // Processing animation state
   const [showProcessing, setShowProcessing] = useState(false);
@@ -198,6 +229,12 @@ export default function ExploreRecipesScreen() {
     'Spices': ['cumin', 'paprika', 'chili-powder', 'cinnamon', 'ginger', 'turmeric', 'bay-leaves'],
     'Condiments': ['ketchup', 'mustard', 'mayo', 'hot-sauce', 'worcestershire', 'balsamic-vinegar']
   };
+
+  // Check pantry completion status
+  useEffect(() => {
+    const pantryCompleted = selectedIngredients.length >= 3; // At least 3 ingredients
+    setIsPantryComplete(pantryCompleted);
+  }, [selectedIngredients]);
 
   const handleIngredientToggle = (ingredient: string) => {
     setSelectedIngredients(prev => 
@@ -410,805 +447,229 @@ export default function ExploreRecipesScreen() {
           <div className="w-8"></div>
         </div>
 
-        <div className="space-y-4 relative">
-          {/* Dynamic Card Container with Animation Support */}
-          {!card1AtBottom && (
-            <div className={`transition-all duration-1500 ease-in-out ${
-              isCard1Moving 
-                ? 'transform translate-y-96 opacity-70 scale-95' 
-                : 'transform translate-y-0 opacity-100 scale-100'
-            }`}>
-              {/* Card 1: Dietary Preferences Summary */}
-              <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
-                <CardHeader className="pb-4">
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-lg text-white">Your dietary preferences:</CardTitle>
-                    <button 
-                      onClick={() => setIsCardCollapsed(!isCardCollapsed)}
-                      className="text-purple-400 hover:text-purple-300 transition-colors bg-purple-600/20 hover:bg-purple-600/40 rounded-full p-2"
-                    >
-                      {isCardCollapsed ? (
-                        <ChevronDown size={42} />
-                      ) : (
-                        <ChevronUp size={42} />
-                      )}
-                    </button>
-                  </div>
-                </CardHeader>
-                
-                {/* Content with smooth collapse animation */}
-                <div className={`transition-all duration-1000 ease-in-out overflow-hidden ${
-                  isCardCollapsed ? 'max-h-0 opacity-0' : 'max-h-96 opacity-100'
-                }`}>
-                  <CardContent>
-                    <div className="text-gray-300">
-                      {!userData ? (
-                        <div>
-                          <p className="text-gray-400 text-sm mb-3">Please create your account first to view dietary preferences</p>
-                          <button 
-                            onClick={() => setLocation("/nuva-signup")}
-                            className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-purple-700 transition-colors"
-                          >
-                            Create Account
-                          </button>
-                        </div>
-                      ) : dietaryRows.length > 0 ? (
-                        <div className="space-y-0">
-                          {dietaryRows.map((row, index) => (
-                            <div key={index} className="flex items-center text-sm py-0.5">
-                              {row.label ? (
-                                <>
-                                  <span className="font-medium text-gray-300">{row.label}:</span>
-                                  <span className="text-gray-400 ml-2">{row.value}</span>
-                                </>
-                              ) : (
-                                <span className="text-gray-400">{row.value}</span>
-                              )}
-                            </div>
-                          ))}
-                        </div>
-                      ) : (
-                        <p className="text-gray-400 text-sm py-2">No dietary preferences set</p>
-                      )}
-                    </div>
-                  </CardContent>
-                </div>
-              </Card>
-            </div>
-          )}
-
-          {/* Meal Preferences Card - Always visible */}
-          <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700 shadow-lg mb-6">
+        <div className="space-y-4">
+          {/* Card 1: Preferences and Pantry Ingredients */}
+          <div className={`transition-all duration-1000 ease-in-out ${
+            preferencesCardSlid ? 'order-3' : 'order-1'
+          }`}>
+            <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
               <CardHeader className="pb-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <CardTitle className="text-lg text-white">Meal Preferences</CardTitle>
-                    {isRequiredFieldsCompleted() && (
-                      <div className="flex items-center gap-2 bg-green-600/20 px-3 py-1 rounded-full border border-green-500/30">
-                        <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                        <span className="text-green-400 text-sm font-medium">Complete</span>
-                      </div>
-                    )}
-                  </div>
-                  <button 
-                    onClick={() => setIsMealPreferencesCardCollapsed(!isMealPreferencesCardCollapsed)}
-                    className="text-purple-400 hover:text-purple-300 transition-colors bg-purple-600/20 hover:bg-purple-600/40 rounded-full p-2"
-                  >
-                    {isMealPreferencesCardCollapsed ? (
-                      <ChevronDown size={42} />
-                    ) : (
-                      <ChevronUp size={42} />
-                    )}
-                  </button>
-                </div>
-                {!isRequiredFieldsCompleted() && (
-                  <p className="text-gray-400 text-sm mt-2">
-                    Complete these 3 required fields: <span className="text-purple-300 font-medium">Serving Size, Cuisine, Meal Type</span>
-                  </p>
-                )}
-              </CardHeader>
-              
-              <div className={`transition-all duration-1000 ease-in-out overflow-hidden ${
-                isMealPreferencesCardCollapsed ? 'max-h-0 opacity-0' : 'max-h-96 opacity-100'
-              }`}>
-                <CardContent>
-                  <div className="space-y-4">
-                    {/* Required Fields Section */}
-                    <div className="space-y-4">
-                      <div className="grid grid-cols-2 gap-4">
-                        <div>
-                          <label className="flex items-center gap-2 text-sm font-medium text-purple-300 mb-2">
-                            <span>Serving Size</span>
-                            <span className="text-red-400">*</span>
-                            {mealPreferences.servingSize && <span className="text-green-400">✓</span>}
-                          </label>
-                          <Select onValueChange={(value) => setMealPreferences(prev => ({...prev, servingSize: value}))}>
-                            <SelectTrigger className="bg-gray-700 border-gray-600 text-white [&>svg]:text-gray-300">
-                              <SelectValue placeholder="Select size" />
-                            </SelectTrigger>
-                            <SelectContent className="bg-gray-700 border-gray-600">
-                              <SelectItem value="1 person" className="text-white hover:bg-gray-600 focus:bg-gray-600">1 person</SelectItem>
-                              <SelectItem value="2 people" className="text-white hover:bg-gray-600 focus:bg-gray-600">2 people</SelectItem>
-                              <SelectItem value="3-4 people" className="text-white hover:bg-gray-600 focus:bg-gray-600">3-4 people</SelectItem>
-                              <SelectItem value="5+ people" className="text-white hover:bg-gray-600 focus:bg-gray-600">5+ people</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
-                        <div>
-                          <label className="flex items-center gap-2 text-sm font-medium text-purple-300 mb-2">
-                            <span>Cuisine</span>
-                            <span className="text-red-400">*</span>
-                            {mealPreferences.cuisine && <span className="text-green-400">✓</span>}
-                          </label>
-                          <Select onValueChange={(value) => setMealPreferences(prev => ({...prev, cuisine: value}))}>
-                            <SelectTrigger className="bg-gray-700 border-gray-600 text-white [&>svg]:text-gray-300">
-                              <SelectValue placeholder="Select cuisine" />
-                            </SelectTrigger>
-                            <SelectContent className="bg-gray-700 border-gray-600">
-                              <SelectItem value="American" className="text-white hover:bg-gray-600 focus:bg-gray-600">American</SelectItem>
-                              <SelectItem value="Italian" className="text-white hover:bg-gray-600 focus:bg-gray-600">Italian</SelectItem>
-                              <SelectItem value="Mexican" className="text-white hover:bg-gray-600 focus:bg-gray-600">Mexican</SelectItem>
-                              <SelectItem value="Asian" className="text-white hover:bg-gray-600 focus:bg-gray-600">Asian</SelectItem>
-                              <SelectItem value="Mediterranean" className="text-white hover:bg-gray-600 focus:bg-gray-600">Mediterranean</SelectItem>
-                              <SelectItem value="Indian" className="text-white hover:bg-gray-600 focus:bg-gray-600">Indian</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
-                      </div>
-
-                      <div>
-                        <label className="flex items-center gap-2 text-sm font-medium text-purple-300 mb-2">
-                          <span>Meal Type</span>
-                          <span className="text-red-400">*</span>
-                          {mealPreferences.mealType && <span className="text-green-400">✓</span>}
-                        </label>
-                        <Select onValueChange={(value) => setMealPreferences(prev => ({...prev, mealType: value}))}>
-                          <SelectTrigger className="bg-gray-700 border-gray-600 text-white [&>svg]:text-gray-300">
-                            <SelectValue placeholder="Select meal type" />
-                          </SelectTrigger>
-                          <SelectContent className="bg-gray-700 border-gray-600">
-                            <SelectItem value="Breakfast" className="text-white hover:bg-gray-600 focus:bg-gray-600">Breakfast</SelectItem>
-                            <SelectItem value="Lunch" className="text-white hover:bg-gray-600 focus:bg-gray-600">Lunch</SelectItem>
-                            <SelectItem value="Dinner" className="text-white hover:bg-gray-600 focus:bg-gray-600">Dinner</SelectItem>
-                            <SelectItem value="Snack" className="text-white hover:bg-gray-600 focus:bg-gray-600">Snack</SelectItem>
-                            <SelectItem value="Dessert" className="text-white hover:bg-gray-600 focus:bg-gray-600">Dessert</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
-
-                    {/* Optional Fields Section */}
-                    <div className="space-y-4 pt-4 border-t border-gray-600">
-                      <p className="text-xs text-gray-400 font-medium">OPTIONAL PREFERENCES</p>
-                      <div className="grid grid-cols-2 gap-4">
-                        <div>
-                          <label className="block text-sm font-medium text-gray-300 mb-2">Spice Level</label>
-                          <Select onValueChange={(value) => setMealPreferences(prev => ({...prev, spiceLevel: value}))}>
-                            <SelectTrigger className="bg-gray-700 border-gray-600 text-white [&>svg]:text-gray-300">
-                              <SelectValue placeholder="Any level" />
-                            </SelectTrigger>
-                            <SelectContent className="bg-gray-700 border-gray-600">
-                              <SelectItem value="Mild" className="text-white hover:bg-gray-600 focus:bg-gray-600">Mild</SelectItem>
-                              <SelectItem value="Medium" className="text-white hover:bg-gray-600 focus:bg-gray-600">Medium</SelectItem>
-                              <SelectItem value="Spicy" className="text-white hover:bg-gray-600 focus:bg-gray-600">Spicy</SelectItem>
-                              <SelectItem value="Extra Hot" className="text-white hover:bg-gray-600 focus:bg-gray-600">Extra Hot</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
-                        <div>
-                          <label className="block text-sm font-medium text-gray-300 mb-2">Skill Level</label>
-                          <Select onValueChange={(value) => setMealPreferences(prev => ({...prev, skillLevel: value}))}>
-                            <SelectTrigger className="bg-gray-700 border-gray-600 text-white [&>svg]:text-gray-300">
-                              <SelectValue placeholder="Any skill" />
-                            </SelectTrigger>
-                            <SelectContent className="bg-gray-700 border-gray-600">
-                              <SelectItem value="Beginner" className="text-white hover:bg-gray-600 focus:bg-gray-600">Beginner</SelectItem>
-                              <SelectItem value="Intermediate" className="text-white hover:bg-gray-600 focus:bg-gray-600">Intermediate</SelectItem>
-                              <SelectItem value="Advanced" className="text-white hover:bg-gray-600 focus:bg-gray-600">Advanced</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-4">
-                        <div>
-                          <label className="block text-sm font-medium text-gray-300 mb-2">Cooking Method</label>
-                          <Select onValueChange={(value) => setMealPreferences(prev => ({...prev, cookingMethod: value}))}>
-                            <SelectTrigger className="bg-gray-700 border-gray-600 text-white [&>svg]:text-gray-300">
-                              <SelectValue placeholder="Any method" />
-                            </SelectTrigger>
-                            <SelectContent className="bg-gray-700 border-gray-600">
-                              <SelectItem value="Stovetop" className="text-white hover:bg-gray-600 focus:bg-gray-600">Stovetop</SelectItem>
-                              <SelectItem value="Oven" className="text-white hover:bg-gray-600 focus:bg-gray-600">Oven</SelectItem>
-                              <SelectItem value="Grill" className="text-white hover:bg-gray-600 focus:bg-gray-600">Grill</SelectItem>
-                              <SelectItem value="Air Fryer" className="text-white hover:bg-gray-600 focus:bg-gray-600">Air Fryer</SelectItem>
-                              <SelectItem value="Slow Cooker" className="text-white hover:bg-gray-600 focus:bg-gray-600">Slow Cooker</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
-                        <div>
-                          <label className="block text-sm font-medium text-gray-300 mb-2">Prep Time</label>
-                          <Select onValueChange={(value) => setMealPreferences(prev => ({...prev, prepTime: value}))}>
-                            <SelectTrigger className="bg-gray-700 border-gray-600 text-white [&>svg]:text-gray-300">
-                              <SelectValue placeholder="Any time" />
-                            </SelectTrigger>
-                            <SelectContent className="bg-gray-700 border-gray-600">
-                              <SelectItem value="Under 15 min" className="text-white hover:bg-gray-600 focus:bg-gray-600">Under 15 min</SelectItem>
-                              <SelectItem value="15-30 min" className="text-white hover:bg-gray-600 focus:bg-gray-600">15-30 min</SelectItem>
-                              <SelectItem value="30-60 min" className="text-white hover:bg-gray-600 focus:bg-gray-600">30-60 min</SelectItem>
-                              <SelectItem value="Over 1 hour" className="text-white hover:bg-gray-600 focus:bg-gray-600">Over 1 hour</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </div>
-            </Card>
-
-          {/* Recipe Options Card - Only show when meal preferences are complete */}
-          {isRequiredFieldsCompleted() && (
-            <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700 shadow-lg mb-6">
-              <CardHeader className="pb-4">
-                <CardTitle className="text-lg text-white">Choose Recipe Options</CardTitle>
-                <p className="text-gray-400 text-sm">Select how you'd like to explore recipes</p>
+                <CardTitle className="text-lg text-white">Preferences and Pantry Ingredients</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-2 gap-3">
-                  <Button
-                    variant={activeCard === 'pantry-ingredients' ? 'default' : 'outline'}
-                    onClick={() => setActiveCard('pantry-ingredients')}
-                    className={`h-14 text-sm ${
-                      activeCard === 'pantry-ingredients' 
-                        ? 'bg-purple-600 hover:bg-purple-700 text-white' 
-                        : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600'
+                {/* Tab Navigation - Matching take-out screen style */}
+                <div className="grid grid-cols-3 gap-2 mb-4">
+                  <button
+                    onClick={() => setActiveTab('diet')}
+                    className={`h-12 px-4 text-sm font-medium rounded-md transition-all ${
+                      activeTab === 'diet'
+                        ? 'bg-gray-700 text-white border border-gray-600'
+                        : 'bg-gray-800 text-gray-300 border border-gray-700 hover:bg-gray-700'
                     }`}
                   >
-                    Pantry Items
-                  </Button>
-                  <Button
-                    variant={activeCard === 'pantry-dishes' ? 'default' : 'outline'}
-                    onClick={() => handlePantryDishes()}
-                    className={`h-14 text-sm ${
-                      activeCard === 'pantry-dishes' 
-                        ? 'bg-purple-600 hover:bg-purple-700 text-white' 
-                        : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600'
+                    Diet
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('meal')}
+                    className={`h-12 px-4 text-sm font-medium rounded-md transition-all flex items-center justify-center gap-2 ${
+                      activeTab === 'meal'
+                        ? 'bg-gray-700 text-white border border-gray-600'
+                        : 'bg-gray-800 text-gray-300 border border-gray-700 hover:bg-gray-700'
                     }`}
                   >
-                    {showPantryProcessing ? 'Processing...' : 'Pantry Dishes'}
-                  </Button>
-                  <Button
-                    variant={activeCard === 'chefs-choice' ? 'default' : 'outline'}
-                    onClick={() => handleChefsChoice()}
-                    className={`h-14 text-sm ${
-                      activeCard === 'chefs-choice' 
-                        ? 'bg-purple-600 hover:bg-purple-700 text-white' 
-                        : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600'
+                    Meal
+                    {isMealComplete && <span className="text-green-400 text-xs">✓</span>}
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('pantry')}
+                    className={`h-12 px-4 text-sm font-medium rounded-md transition-all flex items-center justify-center gap-2 ${
+                      activeTab === 'pantry'
+                        ? 'bg-gray-700 text-white border border-gray-600'
+                        : 'bg-gray-800 text-gray-300 border border-gray-700 hover:bg-gray-700'
                     }`}
                   >
-                    {showChefsChoiceProcessing ? 'Processing...' : "Chef's Choice"}
-                  </Button>
-                  <Button
-                    variant={activeCard === 'create-dish' ? 'default' : 'outline'}
-                    onClick={() => handleCreateDish()}
-                    className={`h-14 text-sm ${
-                      activeCard === 'create-dish' 
-                        ? 'bg-purple-600 hover:bg-purple-700 text-white' 
-                        : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600'
-                    }`}
-                  >
-                    {showProcessing ? 'Processing...' : 'Create Dish'}
-                  </Button>
+                    Pantry
+                    {isPantryComplete && <span className="text-green-400 text-xs">✓</span>}
+                  </button>
+                </div>
+
+                {/* Tab Content */}
+                <div className="mt-4">
+                  {activeTab === 'diet' && (
+                    <div className="space-y-2">
+                      <h4 className="text-sm font-medium text-purple-300">Dietary Preferences</h4>
+                      <div className="text-sm text-gray-400">
+                        {userData?.dietaryRestrictions || 'No restrictions set'}
+                      </div>
+                      <div className="text-sm text-gray-400">
+                        Health Goals: {userData?.healthGoals || 'None set'}
+                      </div>
+                    </div>
+                  )}
+
+                  {activeTab === 'meal' && (
+                    <div className="space-y-3">
+                      <div className="grid grid-cols-2 gap-3">
+                        <div>
+                          <label className="text-xs text-purple-300 mb-1 block">Serving Size *</label>
+                          <select
+                            value={mealPreferences.servingSize}
+                            onChange={(e) => setMealPreferences({...mealPreferences, servingSize: e.target.value})}
+                            className="w-full h-8 bg-gray-700 border border-gray-600 text-white text-sm rounded"
+                          >
+                            <option value="">Select</option>
+                            <option value="1 person">1 person</option>
+                            <option value="2 people">2 people</option>
+                            <option value="4 people">4 people</option>
+                            <option value="6+ people">6+ people</option>
+                          </select>
+                        </div>
+                        <div>
+                          <label className="text-xs text-purple-300 mb-1 block">Cuisine *</label>
+                          <select
+                            value={mealPreferences.cuisine}
+                            onChange={(e) => setMealPreferences({...mealPreferences, cuisine: e.target.value})}
+                            className="w-full h-8 bg-gray-700 border border-gray-600 text-white text-sm rounded"
+                          >
+                            <option value="">Select</option>
+                            <option value="American">American</option>
+                            <option value="Italian">Italian</option>
+                            <option value="Mexican">Mexican</option>
+                            <option value="Asian">Asian</option>
+                            <option value="Mediterranean">Mediterranean</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div>
+                        <label className="text-xs text-purple-300 mb-1 block">Meal Type *</label>
+                        <select
+                          value={mealPreferences.mealType}
+                          onChange={(e) => setMealPreferences({...mealPreferences, mealType: e.target.value})}
+                          className="w-full h-8 bg-gray-700 border border-gray-600 text-white text-sm rounded"
+                        >
+                          <option value="">Select</option>
+                          <option value="Breakfast">Breakfast</option>
+                          <option value="Lunch">Lunch</option>
+                          <option value="Dinner">Dinner</option>
+                          <option value="Snack">Snack</option>
+                        </select>
+                      </div>
+                    </div>
+                  )}
+
+                  {activeTab === 'pantry' && (
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <h4 className="text-sm font-medium text-purple-300">Available Ingredients</h4>
+                        <span className="text-xs text-gray-400">{selectedIngredients.length} selected</span>
+                      </div>
+                      
+                      {/* Ingredient categories */}
+                      <div className="space-y-2 max-h-40 overflow-y-auto">
+                        {Object.entries(ingredientCategories).slice(0, 3).map(([category, ingredients]) => (
+                          <div key={category}>
+                            <h5 className="text-xs font-medium text-gray-300 mb-1">{category}</h5>
+                            <div className="grid grid-cols-3 gap-2">
+                              {ingredients.slice(0, 6).map(ingredient => (
+                                <label key={ingredient} className="flex items-center space-x-1 text-xs">
+                                  <input
+                                    type="checkbox"
+                                    checked={selectedIngredients.includes(ingredient)}
+                                    onChange={() => handleIngredientToggle(ingredient)}
+                                    className="w-3 h-3"
+                                  />
+                                  <span className="text-gray-400 text-xs">{ingredient.replace('-', ' ')}</span>
+                                </label>
+                              ))}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               </CardContent>
             </Card>
-          )}
-
-          {/* Other cards with upward animation when Card 1 moves */}
-          <div className={`transition-all duration-1500 ease-in-out ${
-            isCard1Moving ? 'transform -translate-y-20' : 'transform translate-y-0'
-          }`}>
-            {/* Preferences Processing Animation */}
-          {showPreferencesProcessing && (
-            <ProcessingAnimation
-              title="Saving Your Preferences"
-              subtitle="Adding your preferences to be used for all your dishes"
-              steps={[
-                "Storing your meal preferences",
-                "Configuring recipe recommendations", 
-                "Personalizing dish suggestions",
-                "Optimizing for your taste profile"
-              ]}
-            />
-          )}
-
-
-
-          {/* Card 3: Select Pantry Ingredients */}
-          <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
-            <CardHeader className="pb-4">
-              <div className="flex items-center justify-between">
-                <CardTitle className="text-lg text-white">Select Pantry Ingredients</CardTitle>
-                <button 
-                  onClick={() => setIsPantryIngredientsCollapsed(!isPantryIngredientsCollapsed)}
-                  className="text-purple-400 hover:text-purple-300 transition-colors bg-purple-600/20 hover:bg-purple-600/40 rounded-full p-2"
-                >
-                  {isPantryIngredientsCollapsed ? (
-                    <ChevronDown size={42} />
-                  ) : (
-                    <ChevronUp size={42} />
-                  )}
-                </button>
-              </div>
-            </CardHeader>
-            
-            {/* Content with smooth collapse animation */}
-            <div className={`transition-all duration-500 ease-in-out overflow-hidden ${
-              isPantryIngredientsCollapsed ? 'max-h-0 opacity-0' : 'max-h-96 opacity-100'
-            }`}>
-              <CardContent className="space-y-2 pb-4">
-              {Object.entries(ingredientCategories).map(([category, ingredients]) => (
-                <div key={category} className="flex items-center gap-1.5 bg-gray-700/50 p-1 rounded-md shadow-lg shadow-purple-900/50 border border-purple-800">
-                  <Label htmlFor={`${category}-select`} className="text-sm font-medium text-gray-200 flex items-center gap-2 min-w-[100px]">
-                    <ChefHat size={16} className="text-purple-400" />
-                    {category}
-                  </Label>
-                  <Select>
-                    <SelectTrigger className="flex-1 shadow-sm border-gray-600 bg-gray-700 text-gray-200">
-                      <SelectValue placeholder={`Select ${category.toLowerCase()}`} />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {ingredients.map((ingredient) => (
-                        <div 
-                          key={ingredient} 
-                          className="flex items-center space-x-3 p-3 hover:bg-purple-50 cursor-pointer"
-                          onClick={() => handleIngredientToggle(ingredient)}
-                        >
-                          <Checkbox
-                            id={ingredient}
-                            checked={selectedIngredients.includes(ingredient)}
-                            onCheckedChange={() => handleIngredientToggle(ingredient)}
-                            className="data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600 w-5 h-5"
-                          />
-                          <Label 
-                            htmlFor={ingredient}
-                            className="text-sm text-gray-700 capitalize cursor-pointer flex-1"
-                          >
-                            {ingredient.replace('-', ' ')}
-                          </Label>
-                        </div>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              ))}
-
-              {/* Custom Ingredients Section */}
-              <div className="space-y-2 border-t border-gray-200 pt-3 mt-4">
-                <h3 className="font-medium text-gray-800 text-sm">Add Custom Ingredients</h3>
-                <div className="flex space-x-2">
-                  <Input
-                    value={newIngredient}
-                    onChange={(e) => setNewIngredient(e.target.value)}
-                    placeholder="Enter ingredient name"
-                    className="flex-1 shadow-sm"
-                    onKeyPress={(e) => e.key === 'Enter' && addCustomIngredient()}
-                  />
-                  <Button 
-                    onClick={addCustomIngredient}
-                    size="sm"
-                    className="bg-purple-600 hover:bg-purple-700 shadow-sm"
-                  >
-                    <Plus size={16} />
-                  </Button>
-                </div>
-                {customIngredients.length > 0 && (
-                  <div className="grid grid-cols-2 gap-2">
-                    {customIngredients.map((ingredient) => (
-                      <div 
-                        key={ingredient} 
-                        className="flex items-center space-x-3 p-2 hover:bg-purple-50 rounded cursor-pointer"
-                        onClick={() => handleIngredientToggle(ingredient)}
-                      >
-                        <Checkbox
-                          id={`custom-${ingredient}`}
-                          checked={selectedIngredients.includes(ingredient)}
-                          onCheckedChange={() => handleIngredientToggle(ingredient)}
-                          className="data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600 w-5 h-5"
-                        />
-                        <Label 
-                          htmlFor={`custom-${ingredient}`}
-                          className="text-sm text-gray-700 capitalize cursor-pointer"
-                        >
-                          {ingredient}
-                        </Label>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-              </CardContent>
-            </div>
-          </Card>
-
-          {/* Card 4 - Recipe Options */}
-          <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
-            <CardHeader className="pb-4">
-              <div className="flex items-center justify-between">
-                <div className="flex-1 min-w-0">
-                  <CardTitle className="text-lg text-white whitespace-nowrap">Recipe Options</CardTitle>
-                  <p className="text-gray-300 mt-1">Choose how you'd like to create your recipes</p>
-                </div>
-                <div className="flex flex-col items-center flex-shrink-0">
-                  <img 
-                    src={getDynamicAvatar()} 
-                    alt="Avatar"
-                    className="w-20 h-20 object-cover rounded-lg border-0"
-                    style={{ border: 'none !important', outline: 'none', boxShadow: 'none', backgroundColor: 'transparent' }}
-                  />
-                  <p className="text-xs text-gray-300 mt-1 text-center font-medium">
-                    {activeCard === 'pantry-dishes' || activeCard === 'chefs-choice' 
-                      ? userData?.selectedChef?.name || "Chef"
-                      : userData?.nickname || "User"
-                    }
-                  </p>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <div className="grid grid-cols-2 gap-2">
-                <Button 
-                  variant="outline" 
-                  className={`h-14 flex flex-col items-center justify-center space-y-1 border-gray-600 hover:border-purple-400 ${
-                    activeCard === 'pantry-ingredients' 
-                      ? 'bg-purple-600 text-white border-purple-600 hover:bg-purple-700' 
-                      : 'bg-gray-700 hover:bg-purple-600/20'
-                  }`}
-                  onClick={() => setActiveCard('pantry-ingredients')}
-                >
-                  <ShoppingCart size={16} className={activeCard === 'pantry-ingredients' ? 'text-white' : 'text-purple-600'} />
-                  <span className={`text-xs font-medium ${activeCard === 'pantry-ingredients' ? 'text-white' : 'text-gray-200'} text-center leading-tight`}>Pantry Items</span>
-                </Button>
-
-                <Button 
-                  variant="outline" 
-                  className={`h-14 flex flex-col items-center justify-center space-y-1 border-gray-600 hover:border-purple-400 ${
-                    activeCard === 'create-dish' 
-                      ? 'bg-purple-600 text-white border-purple-600 hover:bg-purple-700' 
-                      : 'bg-gray-700 hover:bg-purple-600/20'
-                  }`}
-                  onClick={() => setActiveCard('create-dish')}
-                >
-                  <Plus size={16} className={activeCard === 'create-dish' ? 'text-white' : 'text-purple-600'} />
-                  <span className={`text-xs font-medium ${activeCard === 'create-dish' ? 'text-white' : 'text-gray-200'} text-center leading-tight`}>Create Dish</span>
-                </Button>
-
-                <Button 
-                  variant="outline" 
-                  className={`h-14 flex flex-col items-center justify-center space-y-1 border-gray-600 hover:border-purple-400 ${
-                    activeCard === 'pantry-dishes' 
-                      ? 'bg-purple-600 text-white border-purple-600 hover:bg-purple-700' 
-                      : 'bg-gray-700 hover:bg-purple-600/20'
-                  }`}
-                  onClick={() => {
-                    setShowPantryProcessing(true);
-                    setTimeout(() => {
-                      setShowPantryProcessing(false);
-                      setActiveCard('pantry-dishes');
-                    }, 3000);
-                  }}
-                >
-                  <Utensils size={16} className={activeCard === 'pantry-dishes' ? 'text-white' : 'text-purple-600'} />
-                  <span className={`text-xs font-medium ${activeCard === 'pantry-dishes' ? 'text-white' : 'text-gray-200'} text-center leading-tight`}>Pantry Dishes</span>
-                </Button>
-
-                <Button 
-                  variant="outline" 
-                  className={`h-14 flex flex-col items-center justify-center space-y-1 border-gray-600 hover:border-purple-400 ${
-                    activeCard === 'chefs-choice' 
-                      ? 'bg-purple-600 text-white border-purple-600 hover:bg-purple-700' 
-                      : 'bg-gray-700 hover:bg-purple-600/20'
-                  }`}
-                  onClick={() => {
-                    setShowChefsChoiceProcessing(true);
-                    setTimeout(() => {
-                      setShowChefsChoiceProcessing(false);
-                      setActiveCard('chefs-choice');
-                    }, 3000);
-                  }}
-                >
-                  <Sparkles size={16} className={activeCard === 'chefs-choice' ? 'text-white' : 'text-purple-600'} />
-                  <span className={`text-xs font-medium ${activeCard === 'chefs-choice' ? 'text-white' : 'text-gray-200'} text-center leading-tight`}>Chef's Choice</span>
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Pantry Dishes Processing Animation */}
-          {showPantryProcessing && (
-            <ProcessingAnimation
-              title="Analyzing Your Pantry"
-              subtitle="Finding the perfect dishes from your ingredients"
-              steps={[
-                "Scanning pantry ingredients",
-                "Matching recipes to available items", 
-                "Calculating nutrition profiles",
-                "Curating personalized dishes"
-              ]}
-            />
-          )}
-
-          {/* Pantry Dishes Large Card */}
-          {activeCard === 'pantry-dishes' && !showPantryProcessing && (
-            <>
-              <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700 shadow-lg">
-                <CardHeader className="pb-2 pt-2">
-                  <CardTitle className="text-base text-purple-300 mt-2">Dishes that can be cooked from pantry ingredients</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-2 gap-3">
-                    {[
-                      { id: 1, name: "Pasta", cookTime: "15 min", calories: 340, difficulty: "Easy" as const, image: pantryDishImages["pasta"] },
-                      { id: 2, name: "Fried Rice", cookTime: "20 min", calories: 280, difficulty: "Easy" as const, image: pantryDishImages["fried-rice"] },
-                      { id: 3, name: "Scrambled Eggs", cookTime: "5 min", calories: 190, difficulty: "Easy" as const, image: pantryDishImages["scrambled-eggs"] },
-                      { id: 4, name: "Garlic Bread", cookTime: "10 min", calories: 160, difficulty: "Easy" as const, image: pantryDishImages["garlic-bread"] },
-                      { id: 5, name: "Soup", cookTime: "25 min", calories: 120, difficulty: "Easy" as const, image: pantryDishImages["soup"] },
-                      { id: 6, name: "Toast and Jam", cookTime: "3 min", calories: 140, difficulty: "Easy" as const, image: pantryDishImages["toast-and-jam"] }
-                    ].map((dish) => (
-                      <ExpandableDishCard
-                        key={dish.id}
-                        dish={dish}
-                        onRecipe={(dish) => handleRecipeView(dish)}
-                        onSaveRecipe={(dish) => handleSaveRecipe(dish)}
-                        onCookNow={(dish) => handleCookNow(dish)}
-                      />
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </>
-          )}
-
-          {/* Chef's Choice Processing Animation */}
-          {showChefsChoiceProcessing && (
-            <ProcessingAnimation
-              title="Chef's Choice Selection"
-              subtitle="Personalizing gourmet recommendations for you"
-              steps={[
-                "Analyzing your dietary preferences",
-                "Consulting chef's expertise",
-                "Selecting premium recipes",
-                "Customizing for your taste profile"
-              ]}
-            />
-          )}
-
-          {/* Chef's Choice Large Card */}
-          {activeCard === 'chefs-choice' && !showChefsChoiceProcessing && (
-            <>
-              <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700 shadow-lg">
-                <CardHeader className="pb-2 pt-2">
-                  <CardTitle className="text-base text-purple-300 mt-2">Chef's Choice of Dishes Personalized for you</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-2 gap-3">
-                    {[
-                      { id: 1, name: "Mediterranean Bowl", cookTime: "30 min", calories: 420, difficulty: "Medium" as const, image: chefsChoiceImages["mediterranean-bowl"] },
-                      { id: 2, name: "Soup", cookTime: "35 min", calories: 380, difficulty: "Medium" as const, image: chefsChoiceImages["soup"] },
-                      { id: 3, name: "Quinoa Salad", cookTime: "20 min", calories: 310, difficulty: "Easy" as const, image: chefsChoiceImages["quinoa-salad"] },
-                      { id: 4, name: "Stuffed Peppers", cookTime: "45 min", calories: 350, difficulty: "Medium" as const, image: chefsChoiceImages["stuffed-peppers"] },
-                      { id: 5, name: "Herb Crusted Fish", cookTime: "25 min", calories: 290, difficulty: "Medium" as const, image: chefsChoiceImages["herb-crusted-fish"] },
-                      { id: 6, name: "Power Smoothie Bowl", cookTime: "10 min", calories: 240, difficulty: "Easy" as const, image: chefsChoiceImages["power-smoothie-bowl"] }
-                    ].map((dish) => (
-                      <ExpandableDishCard
-                        key={dish.id}
-                        dish={dish}
-                        onRecipe={(dish) => handleRecipeView(dish)}
-                        onSaveRecipe={(dish) => handleSaveRecipe(dish)}
-                        onCookNow={(dish) => handleCookNow(dish)}
-                      />
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </>
-          )}
-
-          {/* Create Dish Large Card */}
-          {activeCard === 'create-dish' && !showDishVariations && (
-            <>
-              <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700 shadow-lg">
-                <CardHeader className="pb-2">
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-base text-purple-300">Create Your Custom Dish</CardTitle>
-                    <div className="flex items-center">
-                      <div className="rounded-lg overflow-hidden bg-gray-700 shadow-sm" style={{width: '80px', height: '80px'}}>
-                        <img 
-                          src={userAvatarSrc} 
-                          alt="User Avatar"
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">Dish Name</label>
-                      <Input 
-                        value={customDishName}
-                        onChange={(e) => setCustomDishName(e.target.value)}
-                        placeholder="Enter your dish name..." 
-                        className="w-full bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-purple-400 focus:ring-purple-400" 
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">Main Ingredients</label>
-                      <Input 
-                        value={customDishIngredients}
-                        onChange={(e) => setCustomDishIngredients(e.target.value)}
-                        placeholder="e.g., chicken, rice, vegetables..." 
-                        className="w-full bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-purple-400 focus:ring-purple-400" 
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">Cooking Style</label>
-                      <select 
-                        value={customCookingStyle}
-                        onChange={(e) => setCustomCookingStyle(e.target.value)}
-                        className="w-full p-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:border-purple-400 focus:ring-purple-400"
-                      >
-                        <option>Grilled</option>
-                        <option>Baked</option>
-                        <option>Stir-fried</option>
-                        <option>Steamed</option>
-                        <option>Raw/Salad</option>
-                      </select>
-                    </div>
-                    <div className="grid grid-cols-2 gap-3">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-2">Prep Time</label>
-                        <select 
-                          value={customPrepTime}
-                          onChange={(e) => setCustomPrepTime(e.target.value)}
-                          className="w-full p-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:border-purple-400 focus:ring-purple-400"
-                        >
-                          <option>Under 15 min</option>
-                          <option>15-30 min</option>
-                          <option>30-60 min</option>
-                          <option>Over 1 hour</option>
-                        </select>
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-2">Difficulty</label>
-                        <select 
-                          value={customDifficulty}
-                          onChange={(e) => setCustomDifficulty(e.target.value)}
-                          className="w-full p-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:border-purple-400 focus:ring-purple-400"
-                        >
-                          <option>Easy</option>
-                          <option>Medium</option>
-                          <option>Advanced</option>
-                        </select>
-                      </div>
-                    </div>
-                    <Button 
-                      onClick={handleCreateRecipe}
-                      className="w-full bg-purple-600 hover:bg-purple-700 text-white"
-                    >
-                      Create Recipe
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            </>
-          )}
           </div>
 
-
-
-          {/* Card 1 at Bottom Position */}
-          {card1AtBottom && (
-            <div className="mt-4">
-              <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
-                <CardHeader className="pb-4">
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-lg text-white">Your dietary preferences:</CardTitle>
-                    <button 
-                      onClick={() => setIsCardCollapsed(!isCardCollapsed)}
-                      className="text-purple-400 hover:text-purple-300 transition-colors bg-purple-600/20 hover:bg-purple-600/40 rounded-full p-2"
-                    >
-                      {isCardCollapsed ? (
-                        <ChevronDown size={42} />
-                      ) : (
-                        <ChevronUp size={42} />
-                      )}
-                    </button>
-                  </div>
-                </CardHeader>
-                
-                <div className={`transition-all duration-1000 ease-in-out overflow-hidden ${
-                  isCardCollapsed ? 'max-h-0 opacity-0' : 'max-h-96 opacity-100'
-                }`}>
-                  <CardContent>
-                    <div className="text-gray-300">
-                      {!userData ? (
-                        <div>
-                          <p className="text-gray-400 text-sm mb-3">Please create your account first to view dietary preferences</p>
-                          <button 
-                            onClick={() => setLocation("/nuva-signup")}
-                            className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-purple-700 transition-colors"
-                          >
-                            Create Account
-                          </button>
-                        </div>
-                      ) : dietaryRows.length > 0 ? (
-                        <div className="space-y-0">
-                          {dietaryRows.map((row, index) => (
-                            <div key={index} className="flex items-center text-sm py-0.5">
-                              {row.label ? (
-                                <>
-                                  <span className="font-medium text-gray-300">{row.label}:</span>
-                                  <span className="text-gray-400 ml-2">{row.value}</span>
-                                </>
-                              ) : (
-                                <span className="text-gray-400">{row.value}</span>
-                              )}
-                            </div>
-                          ))}
-                        </div>
-                      ) : (
-                        <p className="text-gray-400 text-sm py-2">No dietary preferences set</p>
-                      )}
-                    </div>
-                  </CardContent>
-                </div>
-              </Card>
-            </div>
-          )}
-
-        </div>
-        
-        {/* Show Dish Variations Grid */}
-        {activeCard === 'create-dish' && showDishVariations && (
-          <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700 shadow-lg mt-4">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-base text-purple-300 flex items-center gap-2">
-                <ChefHat size={18} />
-                Recipe Variations for "{customDishName}"
-              </CardTitle>
-              <p className="text-sm text-gray-300 mt-1">Choose from these 6 variations created by our AI chef</p>
+          {/* Card 2: Recipe Options */}
+          <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
+            <CardHeader className="pb-4">
+              <CardTitle className="text-lg text-white">Recipe Options</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 gap-3">
-                {generateDishVariations(customDishName, customDishIngredients, customCookingStyle, customPrepTime, customDifficulty).map(dish => (
-                  <ExpandableDishCard
-                    key={dish.id}
-                    dish={dish}
-                    onRecipe={() => setLocation('/review-recipes')}
-                    onSaveRecipe={() => console.log('Save recipe:', dish.name)}
-                    onCookNow={() => setLocation('/voice-cooking')}
-                  />
-                ))}
-              </div>
-              <div className="mt-4">
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  className="w-full bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600"
-                  onClick={() => setShowDishVariations(false)}
-                >
-                  Back to Create
+                <Button className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600">
+                  Pantry Dishes
+                </Button>
+                <Button className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600">
+                  Chef's Choice
+                </Button>
+                <Button className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600">
+                  Create a Dish
+                </Button>
+                <Button className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600">
+                  Take-Out
                 </Button>
               </div>
             </CardContent>
           </Card>
-        )}
+
+          {/* Card 3: Summary */}
+          {(isMealComplete || isPantryComplete) && (
+            <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-lg text-white">
+                  Summary for {userData?.nickname || 'User'}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {isMealComplete && (
+                    <div>
+                      <h4 className="text-sm font-medium text-purple-300 mb-2">Meal Preferences</h4>
+                      <div className="text-sm text-gray-400 space-y-1">
+                        <div>Serving: {mealPreferences.servingSize}, Cuisine: {mealPreferences.cuisine}</div>
+                        <div>Meal Type: {mealPreferences.mealType}</div>
+                      </div>
+                    </div>
+                  )}
+                  
+                  {isPantryComplete && (
+                    <div>
+                      <div className="border-t border-gray-600 pt-3"></div>
+                      <h4 className="text-sm font-medium text-purple-300 mb-2">Pantry Ingredients</h4>
+                      <div className="text-sm text-gray-400">
+                        {selectedIngredients.slice(0, 6).map(ingredient => 
+                          ingredient.replace('-', ' ')
+                        ).join(', ')}
+                        {selectedIngredients.length > 6 && ` and ${selectedIngredients.length - 6} more`}
+                      </div>
+                    </div>
+                  )}
+                  
+                  <div className="flex gap-2 pt-4">
+                    <Button variant="outline" size="sm" className="bg-gray-700 border-gray-600 text-gray-300">
+                      Grocery List
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="bg-gray-700 border-gray-600 text-gray-300"
+                      onClick={() => setPreferencesCardSlid(false)}
+                    >
+                      Edit Preferences
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+        </div>
+        
+        {/* Bottom spacing to account for bottom navigation */}
+        <div className="h-20"></div>
       </div>
-      {/* Bottom spacing to account for bottom navigation */}
-      <div className="h-20"></div>
     </div>
   );
 }
