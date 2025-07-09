@@ -499,23 +499,30 @@ export default function ExploreRecipesScreen() {
                 {/* Tab Content - Increased height for better utilization */}
                 <div className="mt-4 min-h-[280px]">
                   {activeTab === 'diet' && (
-                    <div className="space-y-4">
-                      <h4 className="text-lg font-semibold text-purple-300 mb-4">Dietary Preferences</h4>
+                    <div className="space-y-3">
+                      <h4 className="text-lg font-semibold text-purple-300 mb-3">Dietary Preferences</h4>
                       
-                      {/* Dietary Restrictions */}
-                      <div className="flex items-start">
-                        <span className="text-sm font-medium text-gray-300 w-40 flex-shrink-0">Dietary Restrictions:</span>
-                        <span className="text-sm text-gray-400 flex-1">
-                          {userData?.dietaryRestrictions?.length > 0 ? userData.dietaryRestrictions.join(', ') : 'None specified'}
-                        </span>
+                      {/* Dietary Restrictions - Split into two rows */}
+                      <div>
+                        <span className="text-sm font-medium text-gray-300">Dietary Restrictions:</span>
+                        {userData?.dietaryRestrictions?.length > 0 ? (
+                          <div className="text-sm text-gray-400 mt-1">
+                            <div>{userData.dietaryRestrictions.slice(0, 3).join(', ')}</div>
+                            {userData.dietaryRestrictions.length > 3 && (
+                              <div>{userData.dietaryRestrictions.slice(3).join(', ')}</div>
+                            )}
+                          </div>
+                        ) : (
+                          <div className="text-sm text-gray-400 mt-1">None specified</div>
+                        )}
                       </div>
                       
                       <hr className="border-gray-600" />
                       
-                      {/* Health Factors */}
-                      <div className="flex items-start">
-                        <span className="text-sm font-medium text-gray-300 w-40 flex-shrink-0">Health Factors:</span>
-                        <span className="text-sm text-gray-400 flex-1">
+                      {/* Health Factors - Compact row */}
+                      <div>
+                        <span className="text-sm font-medium text-gray-300">Health Factors: </span>
+                        <span className="text-sm text-gray-400">
                           {userData?.healthGoals?.filter(goal => ['diabetes', 'cardiovascular', 'kidney', 'blood-pressure', 'cancer'].includes(goal))?.length > 0 ? 
                             userData.healthGoals.filter(goal => ['diabetes', 'cardiovascular', 'kidney', 'blood-pressure', 'cancer'].includes(goal)).join(', ') : 
                             'No conditions'}
@@ -524,10 +531,10 @@ export default function ExploreRecipesScreen() {
                       
                       <hr className="border-gray-600" />
                       
-                      {/* Fitness Goals */}
-                      <div className="flex items-start">
-                        <span className="text-sm font-medium text-gray-300 w-40 flex-shrink-0">Fitness Goals:</span>
-                        <span className="text-sm text-gray-400 flex-1">
+                      {/* Fitness Goals - Compact row */}
+                      <div>
+                        <span className="text-sm font-medium text-gray-300">Fitness Goals: </span>
+                        <span className="text-sm text-gray-400">
                           {userData?.healthGoals?.filter(goal => ['build-muscle', 'lose-weight', 'endurance', 'wellness'].includes(goal))?.length > 0 ? 
                             userData.healthGoals.filter(goal => ['build-muscle', 'lose-weight', 'endurance', 'wellness'].includes(goal)).map(goal => goal.replace('-', ' ')).join(', ') : 
                             'None set'}
@@ -536,25 +543,25 @@ export default function ExploreRecipesScreen() {
                       
                       <hr className="border-gray-600" />
                       
-                      {/* Allergies/Restrictions */}
-                      <div className="flex items-start">
-                        <span className="text-sm font-medium text-gray-300 w-40 flex-shrink-0">Allergies/Restrictions:</span>
-                        <span className="text-sm text-gray-400 flex-1">
-                          {userData?.allergies || 'None specified'}
-                        </span>
+                      {/* Allergies - Compact row */}
+                      <div>
+                        <span className="text-sm font-medium text-gray-300">Allergies/Restrictions: </span>
+                        <span className="text-sm text-gray-400">{userData?.allergies || 'None specified'}</span>
                       </div>
                       
                       <hr className="border-gray-600" />
                       
-                      {/* Nutritional Goals */}
-                      <div className="flex items-start">
-                        <span className="text-sm font-medium text-gray-300 w-40 flex-shrink-0">Nutritional Goals:</span>
-                        <span className="text-sm text-gray-400 flex-1">
-                          {userData?.selectedCalorieRange && userData?.selectedProteinRange ? 
-                            `Cal: ${userData.selectedCalorieRange}, Protein: ${userData.selectedProteinRange}g, Carbs: ${userData.selectedCarbRange}g, Fat: ${userData.selectedFatRange}g` :
-                            'Goals not configured'
-                          }
-                        </span>
+                      {/* Nutritional Goals - Split into two rows */}
+                      <div>
+                        <span className="text-sm font-medium text-gray-300">Nutritional Goals:</span>
+                        {userData?.selectedCalorieRange && userData?.selectedProteinRange ? (
+                          <div className="text-sm text-gray-400 mt-1">
+                            <div>Cal: {userData.selectedCalorieRange}, Protein: {userData.selectedProteinRange}g</div>
+                            <div>Carbs: {userData.selectedCarbRange}g, Fat: {userData.selectedFatRange}g</div>
+                          </div>
+                        ) : (
+                          <div className="text-sm text-gray-400 mt-1">Goals not configured</div>
+                        )}
                       </div>
                     </div>
                   )}
