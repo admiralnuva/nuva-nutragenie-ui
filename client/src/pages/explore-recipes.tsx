@@ -521,7 +521,7 @@ export default function ExploreRecipesScreen() {
               <CardHeader className="pb-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <CardTitle className="text-lg text-white">Meal Planning Preferences</CardTitle>
+                    <CardTitle className="text-lg text-white">Meal planning preferences</CardTitle>
                     {isRequiredFieldsCompleted() && (
                       <div className="flex items-center gap-2 bg-green-600/20 px-3 py-1 rounded-full border border-green-500/30">
                         <div className="w-3 h-3 bg-green-500 rounded-full"></div>
@@ -551,131 +551,134 @@ export default function ExploreRecipesScreen() {
                 isMealPreferencesCardCollapsed ? 'max-h-0 opacity-0' : 'max-h-96 opacity-100'
               }`}>
                 <CardContent>
-                  <div className="grid grid-cols-1 gap-4">
-                    {/* Row 1: Serving Size and Cuisine (Required) */}
-                    <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-4">
+                    {/* Required Fields Section */}
+                    <div className="space-y-4">
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <label className="flex items-center gap-2 text-sm font-medium text-purple-300 mb-2">
+                            <span>Serving Size</span>
+                            <span className="text-red-400">*</span>
+                            {mealPreferences.servingSize && <span className="text-green-400">✓</span>}
+                          </label>
+                          <Select onValueChange={(value) => setMealPreferences(prev => ({...prev, servingSize: value}))}>
+                            <SelectTrigger className="bg-gray-700 border-gray-600 text-white [&>svg]:text-gray-300">
+                              <SelectValue placeholder="Select size" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="1 person">1 person</SelectItem>
+                              <SelectItem value="2 people">2 people</SelectItem>
+                              <SelectItem value="3-4 people">3-4 people</SelectItem>
+                              <SelectItem value="5+ people">5+ people</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <div>
+                          <label className="flex items-center gap-2 text-sm font-medium text-purple-300 mb-2">
+                            <span>Cuisine</span>
+                            <span className="text-red-400">*</span>
+                            {mealPreferences.cuisine && <span className="text-green-400">✓</span>}
+                          </label>
+                          <Select onValueChange={(value) => setMealPreferences(prev => ({...prev, cuisine: value}))}>
+                            <SelectTrigger className="bg-gray-700 border-gray-600 text-white [&>svg]:text-gray-300">
+                              <SelectValue placeholder="Select cuisine" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="American">American</SelectItem>
+                              <SelectItem value="Italian">Italian</SelectItem>
+                              <SelectItem value="Mexican">Mexican</SelectItem>
+                              <SelectItem value="Asian">Asian</SelectItem>
+                              <SelectItem value="Mediterranean">Mediterranean</SelectItem>
+                              <SelectItem value="Indian">Indian</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      </div>
+
                       <div>
                         <label className="flex items-center gap-2 text-sm font-medium text-purple-300 mb-2">
-                          <span>Serving Size</span>
+                          <span>Meal Type</span>
                           <span className="text-red-400">*</span>
-                          {mealPreferences.servingSize && <span className="text-green-400">✓</span>}
+                          {mealPreferences.mealType && <span className="text-green-400">✓</span>}
                         </label>
-                        <Select onValueChange={(value) => setMealPreferences(prev => ({...prev, servingSize: value}))}>
-                          <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
-                            <SelectValue placeholder="Select size" />
+                        <Select onValueChange={(value) => setMealPreferences(prev => ({...prev, mealType: value}))}>
+                          <SelectTrigger className="bg-gray-700 border-gray-600 text-white [&>svg]:text-gray-300">
+                            <SelectValue placeholder="Select meal type" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="1 person">1 person</SelectItem>
-                            <SelectItem value="2 people">2 people</SelectItem>
-                            <SelectItem value="3-4 people">3-4 people</SelectItem>
-                            <SelectItem value="5+ people">5+ people</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      <div>
-                        <label className="flex items-center gap-2 text-sm font-medium text-purple-300 mb-2">
-                          <span>Cuisine</span>
-                          <span className="text-red-400">*</span>
-                          {mealPreferences.cuisine && <span className="text-green-400">✓</span>}
-                        </label>
-                        <Select onValueChange={(value) => setMealPreferences(prev => ({...prev, cuisine: value}))}>
-                          <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
-                            <SelectValue placeholder="Select cuisine" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="American">American</SelectItem>
-                            <SelectItem value="Italian">Italian</SelectItem>
-                            <SelectItem value="Mexican">Mexican</SelectItem>
-                            <SelectItem value="Asian">Asian</SelectItem>
-                            <SelectItem value="Mediterranean">Mediterranean</SelectItem>
-                            <SelectItem value="Indian">Indian</SelectItem>
+                            <SelectItem value="Breakfast">Breakfast</SelectItem>
+                            <SelectItem value="Lunch">Lunch</SelectItem>
+                            <SelectItem value="Dinner">Dinner</SelectItem>
+                            <SelectItem value="Snack">Snack</SelectItem>
+                            <SelectItem value="Dessert">Dessert</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
                     </div>
 
-                    {/* Row 2: Meal Type (Required) */}
-                    <div>
-                      <label className="flex items-center gap-2 text-sm font-medium text-purple-300 mb-2">
-                        <span>Meal Type</span>
-                        <span className="text-red-400">*</span>
-                        {mealPreferences.mealType && <span className="text-green-400">✓</span>}
-                      </label>
-                      <Select onValueChange={(value) => setMealPreferences(prev => ({...prev, mealType: value}))}>
-                        <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
-                          <SelectValue placeholder="Select meal type" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="Breakfast">Breakfast</SelectItem>
-                          <SelectItem value="Lunch">Lunch</SelectItem>
-                          <SelectItem value="Dinner">Dinner</SelectItem>
-                          <SelectItem value="Snack">Snack</SelectItem>
-                          <SelectItem value="Dessert">Dessert</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
+                    {/* Optional Fields Section */}
+                    <div className="space-y-4 pt-4 border-t border-gray-600">
+                      <p className="text-xs text-gray-400 font-medium">OPTIONAL PREFERENCES</p>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-300 mb-2">Spice Level</label>
+                          <Select onValueChange={(value) => setMealPreferences(prev => ({...prev, spiceLevel: value}))}>
+                            <SelectTrigger className="bg-gray-700 border-gray-600 text-white [&>svg]:text-gray-300">
+                              <SelectValue placeholder="Any level" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="Mild">Mild</SelectItem>
+                              <SelectItem value="Medium">Medium</SelectItem>
+                              <SelectItem value="Spicy">Spicy</SelectItem>
+                              <SelectItem value="Extra Hot">Extra Hot</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-300 mb-2">Skill Level</label>
+                          <Select onValueChange={(value) => setMealPreferences(prev => ({...prev, skillLevel: value}))}>
+                            <SelectTrigger className="bg-gray-700 border-gray-600 text-white [&>svg]:text-gray-300">
+                              <SelectValue placeholder="Any skill" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="Beginner">Beginner</SelectItem>
+                              <SelectItem value="Intermediate">Intermediate</SelectItem>
+                              <SelectItem value="Advanced">Advanced</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      </div>
 
-                    {/* Row 3: Optional fields */}
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-400 mb-2">Spice Level</label>
-                        <Select onValueChange={(value) => setMealPreferences(prev => ({...prev, spiceLevel: value}))}>
-                          <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
-                            <SelectValue placeholder="Optional" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="Mild">Mild</SelectItem>
-                            <SelectItem value="Medium">Medium</SelectItem>
-                            <SelectItem value="Spicy">Spicy</SelectItem>
-                            <SelectItem value="Extra Hot">Extra Hot</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-400 mb-2">Skill Level</label>
-                        <Select onValueChange={(value) => setMealPreferences(prev => ({...prev, skillLevel: value}))}>
-                          <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
-                            <SelectValue placeholder="Optional" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="Beginner">Beginner</SelectItem>
-                            <SelectItem value="Intermediate">Intermediate</SelectItem>
-                            <SelectItem value="Advanced">Advanced</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
-
-                    {/* Row 4: Optional fields */}
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-400 mb-2">Cooking Method</label>
-                        <Select onValueChange={(value) => setMealPreferences(prev => ({...prev, cookingMethod: value}))}>
-                          <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
-                            <SelectValue placeholder="Optional" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="Stovetop">Stovetop</SelectItem>
-                            <SelectItem value="Oven">Oven</SelectItem>
-                            <SelectItem value="Grill">Grill</SelectItem>
-                            <SelectItem value="Air Fryer">Air Fryer</SelectItem>
-                            <SelectItem value="Slow Cooker">Slow Cooker</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-400 mb-2">Prep Time</label>
-                        <Select onValueChange={(value) => setMealPreferences(prev => ({...prev, prepTime: value}))}>
-                          <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
-                            <SelectValue placeholder="Optional" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="Under 15 min">Under 15 min</SelectItem>
-                            <SelectItem value="15-30 min">15-30 min</SelectItem>
-                            <SelectItem value="30-60 min">30-60 min</SelectItem>
-                            <SelectItem value="Over 1 hour">Over 1 hour</SelectItem>
-                          </SelectContent>
-                        </Select>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-300 mb-2">Cooking Method</label>
+                          <Select onValueChange={(value) => setMealPreferences(prev => ({...prev, cookingMethod: value}))}>
+                            <SelectTrigger className="bg-gray-700 border-gray-600 text-white [&>svg]:text-gray-300">
+                              <SelectValue placeholder="Any method" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="Stovetop">Stovetop</SelectItem>
+                              <SelectItem value="Oven">Oven</SelectItem>
+                              <SelectItem value="Grill">Grill</SelectItem>
+                              <SelectItem value="Air Fryer">Air Fryer</SelectItem>
+                              <SelectItem value="Slow Cooker">Slow Cooker</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-300 mb-2">Prep Time</label>
+                          <Select onValueChange={(value) => setMealPreferences(prev => ({...prev, prepTime: value}))}>
+                            <SelectTrigger className="bg-gray-700 border-gray-600 text-white [&>svg]:text-gray-300">
+                              <SelectValue placeholder="Any time" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="Under 15 min">Under 15 min</SelectItem>
+                              <SelectItem value="15-30 min">15-30 min</SelectItem>
+                              <SelectItem value="30-60 min">30-60 min</SelectItem>
+                              <SelectItem value="Over 1 hour">Over 1 hour</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -1363,7 +1366,7 @@ export default function ExploreRecipesScreen() {
                 <CardHeader className="pb-4">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <CardTitle className="text-lg text-white">Meal Planning Preferences</CardTitle>
+                      <CardTitle className="text-lg text-white">Meal planning preferences</CardTitle>
                       <div className="flex items-center gap-2 bg-green-600/20 px-3 py-1 rounded-full border border-green-500/30">
                         <div className="w-3 h-3 bg-green-500 rounded-full"></div>
                         <span className="text-green-400 text-sm font-medium">Complete</span>
