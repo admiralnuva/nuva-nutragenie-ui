@@ -301,7 +301,7 @@ export default function VoiceCookingScreen() {
           <button 
             onClick={() => {
               // Handle pause functionality
-              console.log('Pause clicked');
+
             }}
             className="w-14 h-14 rounded-full bg-red-600 text-white flex items-center justify-center hover:bg-red-700 transition-colors"
           >

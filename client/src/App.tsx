@@ -14,7 +14,7 @@ import ReviewRecipesScreen from "@/pages/review-recipes";
 import RecipeDetailsScreen from "@/pages/recipe-details";
 import CookingScreen from "@/pages/cooking";
 import VoiceCookingScreen from "@/pages/voice-cooking";
-import VoiceCookingTestScreen from "@/pages/voice-cooking-test";
+
 import AIVideoCookingScreen from "@/pages/ai-video-cooking";
 import TakeOutScreen from "@/pages/takeout-new";
 import NuvaSplashScreen from "@/pages/nuva-splash";

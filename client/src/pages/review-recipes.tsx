@@ -244,11 +244,11 @@ export default function ReviewRecipesScreen() {
                   };
 
                   const handleSubstitutions = (dishId) => {
-                    console.log('Substitutions for meal:', dishId);
+
                   };
 
                   const handleViewRecipe = (dishId) => {
-                    console.log('View recipe for meal:', dishId);
+
                   };
 
                   return (
