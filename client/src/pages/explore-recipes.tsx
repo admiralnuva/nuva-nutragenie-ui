@@ -646,25 +646,7 @@ export default function ExploreRecipesScreen() {
               </CardContent>
             </div>
             
-            {/* Expand/Collapse Button - Outside collapsible content */}
-            <div className="px-6 pb-3">
-              <Button 
-                className="w-full h-12 flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-700 text-white"
-                onClick={() => setIsMealPreferencesExpanded(!isMealPreferencesExpanded)}
-              >
-                {isMealPreferencesExpanded ? (
-                  <>
-                    <Minus size={20} className="text-white" />
-                    <span className="text-sm font-medium text-white">Collapse</span>
-                  </>
-                ) : (
-                  <>
-                    <Plus size={20} className="text-white" />
-                    <span className="text-sm font-medium text-white">Expand</span>
-                  </>
-                )}
-              </Button>
-            </div>
+
             </Card>
           )}
 
