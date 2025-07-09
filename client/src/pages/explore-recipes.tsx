@@ -113,6 +113,7 @@ export default function ExploreRecipesScreen() {
   
   // Card collapse state
   const [isPantryCardCollapsed, setIsPantryCardCollapsed] = useState(false);
+  const [isPantryCardAtBottom, setIsPantryCardAtBottom] = useState(false);
 
   // Helper function to check if required fields are completed
   const isRequiredFieldsCompleted = () => {
@@ -150,6 +151,7 @@ export default function ExploreRecipesScreen() {
     setPreferencesCardSlid(false);
     setActiveTab('meal'); // Reset to meal tab
     setIsPantryCardCollapsed(false); // Reset collapse state
+    setIsPantryCardAtBottom(false); // Reset bottom position
   }, []);
 
   // Processing animation state
@@ -456,8 +458,8 @@ export default function ExploreRecipesScreen() {
 
         <div className="space-y-4">
           {/* Card 1: Preferences and Pantry Ingredients */}
-          <div className={`transition-all duration-1000 ease-in-out ${
-            preferencesCardSlid ? 'order-3' : 'order-1'
+          <div className={`transition-all duration-500 ease-in-out ${
+            isPantryCardAtBottom ? 'order-3' : 'order-1'
           }`}>
             <Card className={`bg-gray-800/90 backdrop-blur-sm border border-gray-700 transition-all duration-300 ${
               isPantryCardCollapsed ? 'min-h-[120px]' : 'min-h-[400px]'
@@ -852,6 +854,10 @@ export default function ExploreRecipesScreen() {
                                   // Immediately collapse the card
                                   setIsPantryCardCollapsed(true);
                                   setIsPantryComplete(true);
+                                  // Move to bottom after 5 seconds
+                                  setTimeout(() => {
+                                    setIsPantryCardAtBottom(true);
+                                  }, 5000);
                                 }
                               }}
                               className="w-7 h-7 rounded-full border-gray-500 data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600"
