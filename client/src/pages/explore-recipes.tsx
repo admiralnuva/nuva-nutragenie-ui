@@ -568,11 +568,12 @@ export default function ExploreRecipesScreen() {
 
                   {activeTab === 'meal' && (
                     <div className="space-y-3">
+                      {/* Row 1: Serving Size & Cuisine */}
                       <div className="grid grid-cols-2 gap-3">
                         <div>
                           <label className="text-xs text-purple-300 mb-1 block">Serving Size *</label>
                           <select
-                            value={mealPreferences.servingSize}
+                            value={mealPreferences.servingSize || ''}
                             onChange={(e) => setMealPreferences({...mealPreferences, servingSize: e.target.value})}
                             className="w-full h-8 bg-gray-700 border border-gray-600 text-white text-sm rounded"
                           >
@@ -586,9 +587,12 @@ export default function ExploreRecipesScreen() {
                         <div>
                           <label className="text-xs text-purple-300 mb-1 block">Cuisine *</label>
                           <select
-                            value={mealPreferences.cuisine}
+                            value={mealPreferences.cuisine || ''}
                             onChange={(e) => setMealPreferences({...mealPreferences, cuisine: e.target.value})}
-                            className="w-full h-8 bg-gray-700 border border-gray-600 text-white text-sm rounded"
+                            disabled={!mealPreferences.servingSize}
+                            className={`w-full h-8 bg-gray-700 border border-gray-600 text-white text-sm rounded ${
+                              !mealPreferences.servingSize ? 'opacity-50 cursor-not-allowed' : ''
+                            }`}
                           >
                             <option value="">Select</option>
                             <option value="American">American</option>
@@ -596,21 +600,111 @@ export default function ExploreRecipesScreen() {
                             <option value="Mexican">Mexican</option>
                             <option value="Asian">Asian</option>
                             <option value="Mediterranean">Mediterranean</option>
+                            <option value="Indian">Indian</option>
+                            <option value="French">French</option>
+                            <option value="Thai">Thai</option>
                           </select>
                         </div>
                       </div>
+
+                      {/* Row 2: Meal Type & Spice Level */}
+                      <div className="grid grid-cols-2 gap-3">
+                        <div>
+                          <label className="text-xs text-purple-300 mb-1 block">Meal Type *</label>
+                          <select
+                            value={mealPreferences.mealType || ''}
+                            onChange={(e) => setMealPreferences({...mealPreferences, mealType: e.target.value})}
+                            disabled={!mealPreferences.cuisine}
+                            className={`w-full h-8 bg-gray-700 border border-gray-600 text-white text-sm rounded ${
+                              !mealPreferences.cuisine ? 'opacity-50 cursor-not-allowed' : ''
+                            }`}
+                          >
+                            <option value="">Select</option>
+                            <option value="Breakfast">Breakfast</option>
+                            <option value="Lunch">Lunch</option>
+                            <option value="Dinner">Dinner</option>
+                            <option value="Snack">Snack</option>
+                            <option value="Soup">Soup</option>
+                            <option value="Salad">Salad</option>
+                            <option value="Dessert">Dessert</option>
+                          </select>
+                        </div>
+                        <div>
+                          <label className="text-xs text-purple-300 mb-1 block">Spice Level</label>
+                          <select
+                            value={mealPreferences.spiceLevel || ''}
+                            onChange={(e) => setMealPreferences({...mealPreferences, spiceLevel: e.target.value})}
+                            disabled={!mealPreferences.mealType}
+                            className={`w-full h-8 bg-gray-700 border border-gray-600 text-white text-sm rounded ${
+                              !mealPreferences.mealType ? 'opacity-50 cursor-not-allowed' : ''
+                            }`}
+                          >
+                            <option value="">Select</option>
+                            <option value="Mild">😊 Mild</option>
+                            <option value="Medium">🌶️ Medium</option>
+                            <option value="Spicy">🔥 Spicy</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      {/* Row 3: Skill Level & Cook Method */}
+                      <div className="grid grid-cols-2 gap-3">
+                        <div>
+                          <label className="text-xs text-purple-300 mb-1 block">Skill Level</label>
+                          <select
+                            value={mealPreferences.skillLevel || ''}
+                            onChange={(e) => setMealPreferences({...mealPreferences, skillLevel: e.target.value})}
+                            disabled={!mealPreferences.spiceLevel}
+                            className={`w-full h-8 bg-gray-700 border border-gray-600 text-white text-sm rounded ${
+                              !mealPreferences.spiceLevel ? 'opacity-50 cursor-not-allowed' : ''
+                            }`}
+                          >
+                            <option value="">Select</option>
+                            <option value="Beginner">👶 Beginner</option>
+                            <option value="Intermediate">👨‍🍳 Intermediate</option>
+                            <option value="Advanced">🔥 Advanced</option>
+                            <option value="Expert">👑 Expert</option>
+                          </select>
+                        </div>
+                        <div>
+                          <label className="text-xs text-purple-300 mb-1 block">Cook Method</label>
+                          <select
+                            value={mealPreferences.cookMethod || ''}
+                            onChange={(e) => setMealPreferences({...mealPreferences, cookMethod: e.target.value})}
+                            disabled={!mealPreferences.skillLevel}
+                            className={`w-full h-8 bg-gray-700 border border-gray-600 text-white text-sm rounded ${
+                              !mealPreferences.skillLevel ? 'opacity-50 cursor-not-allowed' : ''
+                            }`}
+                          >
+                            <option value="">Select</option>
+                            <option value="Stove Top">🔥 Stove Top</option>
+                            <option value="Oven">🔥 Oven</option>
+                            <option value="Air Fryer">🍳 Air Fryer</option>
+                            <option value="Pressure Cooker">⏲️ Pressure Cooker</option>
+                            <option value="No Cook">🥗 No Cook</option>
+                            <option value="Grill">🔥 Grill</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      {/* Row 4: Prep Time */}
                       <div>
-                        <label className="text-xs text-purple-300 mb-1 block">Meal Type *</label>
+                        <label className="text-xs text-purple-300 mb-1 block">Prep Time</label>
                         <select
-                          value={mealPreferences.mealType}
-                          onChange={(e) => setMealPreferences({...mealPreferences, mealType: e.target.value})}
-                          className="w-full h-8 bg-gray-700 border border-gray-600 text-white text-sm rounded"
+                          value={mealPreferences.prepTime || ''}
+                          onChange={(e) => setMealPreferences({...mealPreferences, prepTime: e.target.value})}
+                          disabled={!mealPreferences.cookMethod}
+                          className={`w-full h-8 bg-gray-700 border border-gray-600 text-white text-sm rounded ${
+                            !mealPreferences.cookMethod ? 'opacity-50 cursor-not-allowed' : ''
+                          }`}
                         >
                           <option value="">Select</option>
-                          <option value="Breakfast">Breakfast</option>
-                          <option value="Lunch">Lunch</option>
-                          <option value="Dinner">Dinner</option>
-                          <option value="Snack">Snack</option>
+                          <option value="15 minutes">⚡ 15 minutes</option>
+                          <option value="30 minutes">⏰ 30 minutes</option>
+                          <option value="45 minutes">🕐 45 minutes</option>
+                          <option value="1 hour">⏳ 1 hour</option>
+                          <option value="1.5 hours">⏲️ 1.5 hours</option>
+                          <option value="2+ hours">🕰️ 2+ hours</option>
                         </select>
                       </div>
                     </div>
