@@ -145,12 +145,24 @@ export default function ExploreRecipesScreen() {
     }
   }, [isMealComplete, isPantryComplete, preferencesCardSlid]);
 
-  // Reset layout on navigation
+  // Reset layout on navigation - Force reset every time page loads
   useEffect(() => {
+    // Force reset all states when navigating to page
     setPreferencesCardSlid(false);
     setIsPreferencesCardCollapsed(false);
+    setIsPantryConfirmed(false);
+    setMealConfirmed(false);
+    setIsMealComplete(false);
+    setIsPantryComplete(false);
     setActiveTab('meal'); // Reset to meal tab
-  }, []);
+    
+    // Also reset other card states that might affect positioning
+    setIsCardCollapsed(false);
+    setCard1AtBottom(false);
+    setIsCard1Moving(false);
+    
+    console.log('Page loaded - Reset card to top position');
+  }, []); // Run on every page load
 
   // Processing animation state
   const [showProcessing, setShowProcessing] = useState(false);
