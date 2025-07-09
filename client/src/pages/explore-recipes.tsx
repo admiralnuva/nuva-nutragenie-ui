@@ -482,7 +482,7 @@ export default function ExploreRecipesScreen() {
               <CardHeader className="pb-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <CardTitle className="text-lg text-white">Meal planning preferences</CardTitle>
+                    <CardTitle className="text-lg text-white">Meal Preferences</CardTitle>
                     {isRequiredFieldsCompleted() && (
                       <div className="flex items-center gap-2 bg-green-600/20 px-3 py-1 rounded-full border border-green-500/30">
                         <div className="w-3 h-3 bg-green-500 rounded-full"></div>
