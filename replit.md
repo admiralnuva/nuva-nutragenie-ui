@@ -548,6 +548,13 @@ Changelog:
   * Users can now override auto-calculated values for personalized nutrition planning
   * Maintained smart defaults with option for expert users to fine-tune their macro targets
   * Preserved all dropdown options with contextual descriptions for informed decision-making
+- July 09, 2025. Take-Out Interface Collapse Functionality and Duplicate Card Cleanup:
+  * Added purple collapse button to "Select Your Dishes" section matching Explore Recipe options styling
+  * Implemented collapsible dishes list with 42px chevron icons and purple hover effects
+  * Removed duplicate "Meal Preferences" card from Explore Recipe Options screen
+  * Consolidated to single "Meal Preferences" card (renamed from "Meal Planning Preferences")
+  * Cleaned up unused state variables and streamlined card structure for better UX
+  * Maintained required field validation and completion indicators
 - July 09, 2025. Button Layout Standardization and Visual Consistency:
   * Restructured all dietary preference buttons to two-row layout: icons on row 1, text labels on row 2
   * Standardized button height to h-16 (64px) across all three sections for perfect visual consistency
