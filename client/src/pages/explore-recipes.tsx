@@ -444,7 +444,6 @@ export default function ExploreRecipesScreen() {
               <div className="flex items-center justify-between">
                 <div className="flex-1 min-w-0">
                   <CardTitle className="text-lg text-white whitespace-nowrap">Meal Preferences</CardTitle>
-                  <p className="text-gray-300 mt-1">Set your cooking preferences and dietary goals</p>
                 </div>
                 <button 
                   onClick={() => setIsMealPreferencesCardCollapsed(!isMealPreferencesCardCollapsed)}
