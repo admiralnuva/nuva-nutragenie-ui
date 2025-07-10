@@ -232,6 +232,24 @@ export default function CreateDishesScreen() {
     }, 1000);
   };
 
+  // Cook confirmation state
+  const [cookConfirmationOpen, setCookConfirmationOpen] = useState<number | null>(null);
+  const [cookConfirmed, setCookConfirmed] = useState<{[dishId: number]: boolean}>({});
+
+  // Handle cook button click
+  const handleCookClick = (dishId: number, dishName: string) => {
+    setCookConfirmationOpen(dishId);
+  };
+
+  // Handle cook confirmation
+  const handleCookConfirm = (dishId: number) => {
+    setCookConfirmed(prev => ({ ...prev, [dishId]: true }));
+    // Navigate to cook screen after confirmation
+    setTimeout(() => {
+      setLocation('/voice-cooking');
+    }, 500);
+  };
+
   const handleGenerateVariations = () => {
     if (dishName && servingSize && cuisine && mealType && cookMethod) {
       setShowResults(true);
@@ -563,7 +581,10 @@ export default function CreateDishesScreen() {
                             <button className="w-10 h-10 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
                               <Save size={20} className="text-gray-300" />
                             </button>
-                            <button className="w-10 h-10 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
+                            <button 
+                              onClick={() => handleCookClick(dish.id, dish.name)}
+                              className="w-10 h-10 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors"
+                            >
                               <CookingPot size={20} className="text-gray-300" />
                             </button>
                             <button className="w-10 h-10 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center justify-center transition-colors">
@@ -660,6 +681,65 @@ export default function CreateDishesScreen() {
           </Card>
         )}
       </div>
+
+      {/* Cook Confirmation Dialog */}
+      {cookConfirmationOpen && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-gray-800 rounded-lg border border-gray-700 p-6 max-w-md w-full">
+            <h3 className="text-lg font-semibold text-white mb-4 text-center">Ready to Start Cooking?</h3>
+            
+            <p className="text-gray-300 text-center mb-6">
+              Confirm you have made substitutions for{" "}
+              <span className="text-yellow-300 font-bold">
+                {dishVariations.find(d => d.id === cookConfirmationOpen)?.name}
+              </span>{" "}
+              and have ingredients in the pantry so you can start cooking
+            </p>
+
+            {/* Confirmation Checkbox */}
+            <div className="flex items-center space-x-2 mb-6">
+              <Checkbox
+                id="cook-confirm"
+                checked={cookConfirmed[cookConfirmationOpen] || false}
+                onCheckedChange={(checked) => {
+                  if (checked) {
+                    handleCookConfirm(cookConfirmationOpen);
+                  }
+                }}
+                className="w-7 h-7 rounded-full border-gray-500 data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600"
+              />
+              <label
+                htmlFor="cook-confirm"
+                className="text-sm font-bold text-yellow-300 cursor-pointer drop-shadow-lg"
+              >
+                I confirm I'm ready to start cooking
+              </label>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex gap-3">
+              <Button
+                variant="outline"
+                onClick={() => setCookConfirmationOpen(null)}
+                className="flex-1 bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600"
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={() => handleCookConfirm(cookConfirmationOpen)}
+                disabled={!cookConfirmed[cookConfirmationOpen]}
+                className={`flex-1 ${
+                  cookConfirmed[cookConfirmationOpen]
+                    ? 'bg-purple-600 hover:bg-purple-700 text-white'
+                    : 'bg-gray-600 text-gray-400 cursor-not-allowed'
+                }`}
+              >
+                Start Cooking
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
