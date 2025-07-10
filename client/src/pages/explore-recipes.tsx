@@ -1008,8 +1008,8 @@ export default function ExploreRecipesScreen() {
                           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                           
                           {/* Dish Name Overlay */}
-                          <div className="absolute bottom-4 left-4">
-                            <h3 className="text-white font-semibold text-xl">{dish.name}</h3>
+                          <div className="absolute bottom-4 left-4 z-10">
+                            <h3 className="text-white font-semibold text-xl drop-shadow-lg">{dish.name}</h3>
                           </div>
                         </div>
                         
