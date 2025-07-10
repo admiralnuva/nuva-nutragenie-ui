@@ -1110,7 +1110,6 @@ export default function ExploreRecipesScreen() {
                           
                           {/* Action Icons Row */}
                           <div className="flex items-center justify-between mt-4">
-                            <div className="flex items-center gap-4">
                               <button className="w-10 h-10 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
                                 <Repeat size={20} className="text-gray-300" />
                               </button>
@@ -1123,10 +1122,9 @@ export default function ExploreRecipesScreen() {
                               <button className="w-10 h-10 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
                                 <CookingPot size={20} className="text-gray-300" />
                               </button>
-                            </div>
-                            <button className="w-10 h-10 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center justify-center transition-colors">
-                              <Plus size={20} />
-                            </button>
+                              <button className="w-10 h-10 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center justify-center transition-colors">
+                                <Plus size={20} />
+                              </button>
                           </div>
                         </div>
                       </div>
@@ -1194,7 +1192,6 @@ export default function ExploreRecipesScreen() {
                           
                           {/* Action Icons Row */}
                           <div className="flex items-center justify-between mt-4">
-                            <div className="flex items-center gap-4">
                               <button className="w-10 h-10 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
                                 <Repeat size={20} className="text-gray-300" />
                               </button>
@@ -1207,10 +1204,9 @@ export default function ExploreRecipesScreen() {
                               <button className="w-10 h-10 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
                                 <CookingPot size={20} className="text-gray-300" />
                               </button>
-                            </div>
-                            <button className="w-10 h-10 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center justify-center transition-colors">
-                              <Plus size={20} />
-                            </button>
+                              <button className="w-10 h-10 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center justify-center transition-colors">
+                                <Plus size={20} />
+                              </button>
                           </div>
                         </div>
                       </div>
