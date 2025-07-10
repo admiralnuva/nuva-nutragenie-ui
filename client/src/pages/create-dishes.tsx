@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useLocation } from 'wouter';
-import { ArrowLeft, ChevronDown, Repeat, BookOpen, Save, CookingPot, Plus } from 'lucide-react';
+import { ArrowLeft, ChevronDown, ChevronUp, Repeat, BookOpen, Save, CookingPot, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -14,6 +14,7 @@ export default function CreateDishesScreen() {
   const [mealType, setMealType] = useState('');
   const [cookMethod, setCookMethod] = useState('');
   const [showResults, setShowResults] = useState(false);
+  const [showInputForm, setShowInputForm] = useState(true);
   const [activeTab, setActiveTab] = useState<'variations' | 'favorites'>('variations');
 
   // Sample dish variations data
@@ -135,6 +136,7 @@ export default function CreateDishesScreen() {
   const handleGenerateVariations = () => {
     if (dishName && servingSize && cuisine && mealType && cookMethod) {
       setShowResults(true);
+      setShowInputForm(false); // Hide the input form when results are shown
       setActiveTab('variations');
     }
   };
@@ -164,11 +166,58 @@ export default function CreateDishesScreen() {
       </div>
 
       <div className="p-4 space-y-6">
-        {/* Input Form Card */}
+        {/* Recipe Options Card - Always at Top */}
         <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
           <CardHeader>
-            <CardTitle className="text-yellow-300 font-bold text-xl drop-shadow-lg">Tell us what you're craving</CardTitle>
+            <CardTitle className="text-yellow-300 font-bold text-xl drop-shadow-lg">Recipe Options</CardTitle>
           </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 gap-3">
+              <Button 
+                variant="outline"
+                className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600 transition-all duration-200"
+                onClick={() => setLocation('/explore-recipes')}
+              >
+                Chef's Choice
+              </Button>
+              <Button 
+                variant="outline"
+                className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600 transition-all duration-200"
+                onClick={() => setLocation('/explore-recipes')}
+              >
+                Pantry Dishes
+              </Button>
+              <Button 
+                variant="outline"
+                className="h-14 bg-purple-600 border-purple-600 text-white transition-all duration-200"
+              >
+                Create Dishes
+              </Button>
+              <Button 
+                variant="outline"
+                className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600 transition-all duration-200"
+                onClick={() => setLocation('/takeout')}
+              >
+                Take-Out
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Input Form Card */}
+        {showInputForm && (
+          <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
+            <CardHeader className="pb-4">
+              <div className="flex items-center justify-between">
+                <CardTitle className="text-yellow-300 font-bold text-xl drop-shadow-lg">Tell us what you're craving</CardTitle>
+                <button
+                  onClick={() => setShowInputForm(false)}
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  <ChevronUp size={20} />
+                </button>
+              </div>
+            </CardHeader>
           <CardContent className="space-y-4">
             {/* Dish Name */}
             <div>
@@ -278,12 +327,44 @@ export default function CreateDishesScreen() {
               Generate Variations
             </Button>
           </CardContent>
-        </Card>
+          </Card>
+        )}
+
+        {/* Collapsed Input Form Indicator */}
+        {!showInputForm && !showResults && (
+          <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
+            <CardHeader className="py-3">
+              <div className="flex items-center justify-between">
+                <CardTitle className="text-yellow-300 font-bold text-lg drop-shadow-lg">Create Your Meal</CardTitle>
+                <button
+                  onClick={() => setShowInputForm(true)}
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  <ChevronDown size={20} />
+                </button>
+              </div>
+            </CardHeader>
+          </Card>
+        )}
 
         {/* Results Card */}
         {showResults && (
           <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
-            <CardHeader>
+            <CardHeader className="pb-4">
+              <div className="flex items-center justify-between mb-4">
+                <CardTitle className="text-lg text-white">
+                  {activeTab === 'variations' ? 'Chef-Created Variations' : 'My Favorite Dishes'}
+                </CardTitle>
+                <button
+                  onClick={() => {
+                    setShowResults(false);
+                    setShowInputForm(true);
+                  }}
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  <ChevronUp size={20} />
+                </button>
+              </div>
               <div className="flex space-x-2">
                 <Button
                   variant="outline"

@@ -640,6 +640,10 @@ Changelog:
   * Applied consistent yellow styling to all form labels with drop shadow for visual hierarchy
   * Made dish cards 100% identical to Chef's Choice format with action icon buttons
   * Connected Create Dishes button from Recipe Options to navigate to new /create-dishes page
+  * Added Recipe Options card at top matching Explore Recipes layout with Create Dishes highlighted
+  * Implemented chevron collapse functionality: input form collapses when Generate Variations is clicked
+  * Added chevron buttons to both input form and results card for expand/collapse control
+  * Results card displays with dynamic title based on active tab and full collapse functionality
 ```
 
 ## User Preferences
