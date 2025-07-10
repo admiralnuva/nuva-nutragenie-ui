@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
-import { Clock, Users, ChefHat, Flame, Target, Utensils, ShoppingCart, Sparkles, Plus, List, Minus, ChevronDown, ChevronUp, ArrowLeft, BookOpen, Repeat, Heart, Truck } from "lucide-react";
+import { Clock, Users, ChefHat, Flame, Target, Utensils, ShoppingCart, Sparkles, Plus, List, Minus, ChevronDown, ChevronUp, ArrowLeft, BookOpen, Repeat, Heart, Truck, Save, CookingPot } from "lucide-react";
 import { ProcessingAnimation, QuickProcessingAnimation } from "@/components/ui/processing-animation";
 
 // Import user avatar images
@@ -1112,21 +1112,20 @@ export default function ExploreRecipesScreen() {
                           <div className="flex items-center justify-between mt-4">
                             <div className="flex items-center gap-3">
                               <button className="w-8 h-8 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
-                                <BookOpen size={16} className="text-gray-300" />
-                              </button>
-                              <button className="w-8 h-8 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
                                 <Repeat size={16} className="text-gray-300" />
                               </button>
                               <button className="w-8 h-8 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
-                                <Heart size={16} className="text-gray-300" />
+                                <BookOpen size={16} className="text-gray-300" />
                               </button>
                               <button className="w-8 h-8 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
-                                <ChefHat size={16} className="text-gray-300" />
+                                <Save size={16} className="text-gray-300" />
+                              </button>
+                              <button className="w-8 h-8 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
+                                <CookingPot size={16} className="text-gray-300" />
                               </button>
                             </div>
-                            <Button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 flex items-center gap-2">
-                              <Truck size={16} />
-                              Takeout
+                            <Button className="bg-blue-600 text-white p-2 rounded hover:bg-blue-700 flex items-center justify-center">
+                              <Plus size={16} />
                             </Button>
                           </div>
                         </div>
@@ -1197,21 +1196,20 @@ export default function ExploreRecipesScreen() {
                           <div className="flex items-center justify-between mt-4">
                             <div className="flex items-center gap-3">
                               <button className="w-8 h-8 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
-                                <BookOpen size={16} className="text-gray-300" />
-                              </button>
-                              <button className="w-8 h-8 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
                                 <Repeat size={16} className="text-gray-300" />
                               </button>
                               <button className="w-8 h-8 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
-                                <Heart size={16} className="text-gray-300" />
+                                <BookOpen size={16} className="text-gray-300" />
                               </button>
                               <button className="w-8 h-8 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
-                                <ChefHat size={16} className="text-gray-300" />
+                                <Save size={16} className="text-gray-300" />
+                              </button>
+                              <button className="w-8 h-8 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
+                                <CookingPot size={16} className="text-gray-300" />
                               </button>
                             </div>
-                            <Button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 flex items-center gap-2">
-                              <Truck size={16} />
-                              Takeout
+                            <Button className="bg-blue-600 text-white p-2 rounded hover:bg-blue-700 flex items-center justify-center">
+                              <Plus size={16} />
                             </Button>
                           </div>
                         </div>
