@@ -900,13 +900,13 @@ export default function ExploreRecipesScreen() {
             <CardContent>
               <div className="grid grid-cols-2 gap-3">
                 <Button className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600">
-                  Pantry Dishes
-                </Button>
-                <Button className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600">
                   Chef's Choice
                 </Button>
                 <Button className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600">
-                  Create a Dish
+                  Pantry Dishes
+                </Button>
+                <Button className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600">
+                  Create Dishes
                 </Button>
                 <Button className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600">
                   Take-Out
