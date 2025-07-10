@@ -178,11 +178,36 @@ export default function CreateDishesScreen() {
     dishSubs.mainIngredients.forEach((ingredient, index) => {
       const selectedSub = selectedSubs[index];
       if (selectedSub && selectedSub !== ingredient.name) {
-        // Simple approximation: reduce calories by 10-20% for healthier substitutions
-        totalCalories = Math.round(totalCalories * 0.9);
-        totalProtein = Math.round(totalProtein * 0.95);
+        // Calculate actual nutrition differences based on ingredient data
+        const originalIngredient = ingredient;
+        const substitutionIndex = ingredient.substitutions.indexOf(selectedSub);
+        
+        if (substitutionIndex !== -1) {
+          // Apply specific nutrition changes based on substitution type
+          if (selectedSub.toLowerCase().includes('tofu') || selectedSub.toLowerCase().includes('tempeh')) {
+            // Plant proteins: lower calories, similar protein
+            totalCalories -= Math.round(originalIngredient.calories * 0.2);
+            totalProtein -= Math.round(originalIngredient.protein * 0.1);
+          } else if (selectedSub.toLowerCase().includes('greek yogurt') || selectedSub.toLowerCase().includes('cashew')) {
+            // Dairy alternatives: moderate calorie reduction
+            totalCalories -= Math.round(originalIngredient.calories * 0.3);
+            totalProtein += Math.round(originalIngredient.protein * 0.1);
+          } else if (selectedSub.toLowerCase().includes('turkey') || selectedSub.toLowerCase().includes('fish')) {
+            // Lean meats: slight calorie reduction, protein boost
+            totalCalories -= Math.round(originalIngredient.calories * 0.1);
+            totalProtein += Math.round(originalIngredient.protein * 0.15);
+          } else {
+            // Default: moderate reduction for healthier options
+            totalCalories -= Math.round(originalIngredient.calories * 0.15);
+            totalProtein -= Math.round(originalIngredient.protein * 0.05);
+          }
+        }
       }
     });
+
+    // Ensure minimum values
+    totalCalories = Math.max(totalCalories, Math.round(originalCalories * 0.7));
+    totalProtein = Math.max(totalProtein, Math.round(parseFloat(originalProtein.replace('g', '')) * 0.8));
 
     return { calories: totalCalories, protein: `${totalProtein}g` };
   };
