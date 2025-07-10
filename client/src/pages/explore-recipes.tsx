@@ -582,7 +582,7 @@ export default function ExploreRecipesScreen() {
         <div className="flex flex-col space-y-4">
           {/* Card 1: Preferences and Pantry Ingredients */}
           <div className={`transition-all duration-700 ease-in-out transform ${
-            isPantryCardAtBottom ? 'order-3 translate-y-2 scale-95 opacity-95' : 'order-1 translate-y-0 scale-100 opacity-100'
+            isPantryCardAtBottom ? 'order-5 translate-y-2 scale-95 opacity-95' : 'order-1 translate-y-0 scale-100 opacity-100'
           }`}>
             <Card className={`bg-gray-800/90 backdrop-blur-sm border border-gray-700 transition-all duration-700 ease-in-out ${
               isPantryCardCollapsed ? 'min-h-[120px] scale-98' : 'min-h-[400px] scale-100'

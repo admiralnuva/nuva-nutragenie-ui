@@ -616,6 +616,11 @@ Changelog:
   * Connected Grocery List button to existing grocery list functionality
   * Set up placeholder navigation for other history features ready for future implementation
   * Updated card ordering system to accommodate new History card as Card 3, Summary as Card 4
+- July 10, 2025. Card Ordering Fix:
+  * Fixed completed Personalize Diet & Pantry card positioning to appear below History card instead of below Recipe Options
+  * Updated card order from order-3 to order-5 when isPantryCardAtBottom is true
+  * New ordering: Recipe Options → History → Summary → Completed Personalize Card
+  * Maintains smooth animation transitions when card moves to bottom position
 ```
 
 ## User Preferences
