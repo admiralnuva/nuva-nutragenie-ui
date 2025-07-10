@@ -1018,21 +1018,31 @@ export default function ExploreRecipesScreen() {
             <CardContent>
               <div className="grid grid-cols-2 gap-3">
                 <Button 
-                  className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600"
+                  variant="outline"
+                  className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600 transition-all duration-200"
                   onClick={() => setShowChefsChoice(true)}
                 >
                   Chef's Choice
                 </Button>
                 <Button 
-                  className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600"
+                  variant="outline"
+                  className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600 transition-all duration-200"
                   onClick={() => setShowPantryDishes(true)}
                 >
                   Pantry Dishes
                 </Button>
-                <Button className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600">
+                <Button 
+                  variant="outline"
+                  className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600 transition-all duration-200"
+                  onClick={() => setLocation('/review-recipes')}
+                >
                   Create Dishes
                 </Button>
-                <Button className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600">
+                <Button 
+                  variant="outline"
+                  className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600 transition-all duration-200"
+                  onClick={() => setLocation('/takeout')}
+                >
                   Take-Out
                 </Button>
               </div>
