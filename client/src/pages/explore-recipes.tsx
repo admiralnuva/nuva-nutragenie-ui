@@ -471,17 +471,19 @@ export default function ExploreRecipesScreen() {
             }`}>
               <CardHeader className="pb-4 relative">
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-lg text-white">Personalize Diet & Pantry</CardTitle>
-                  {/* User Avatar - Top Right Corner */}
                   <div className="flex items-center gap-3">
+                    <CardTitle className="text-lg text-white">Personalize Diet & Pantry</CardTitle>
                     {isPantryCardCollapsed && (
                       <button
                         onClick={() => setIsPantryCardCollapsed(false)}
                         className="text-gray-400 hover:text-white transition-colors"
                       >
-                        <ChevronDown size={24} />
+                        <ChevronDown size={20} />
                       </button>
                     )}
+                  </div>
+                  {/* User Avatar - Top Right Corner */}
+                  <div className="flex items-center">
                     <img 
                       src={userAvatarSrc} 
                       alt="User Avatar" 
