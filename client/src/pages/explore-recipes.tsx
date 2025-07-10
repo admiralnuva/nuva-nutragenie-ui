@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
-import { Clock, Users, ChefHat, Flame, Target, Utensils, ShoppingCart, Sparkles, Plus, List, Minus, ChevronDown, ChevronUp, ArrowLeft, BookOpen, Repeat, Heart, Truck, Save, CookingPot, ArrowLeftRight } from "lucide-react";
+import { Clock, Users, ChefHat, Flame, Target, Utensils, ShoppingCart, Sparkles, Plus, List, Minus, ChevronDown, ChevronUp, ArrowLeft, BookOpen, Repeat, Heart, Truck, Save, CookingPot, ArrowLeftRight, X } from "lucide-react";
 import { ProcessingAnimation, QuickProcessingAnimation } from "@/components/ui/processing-animation";
 
 // Import user avatar images
@@ -1637,15 +1637,23 @@ export default function ExploreRecipesScreen() {
               <CardHeader className="pb-4">
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-lg text-white">Tell us what you're craving</CardTitle>
-                  <button
-                    onClick={() => setTakeOutCardCollapsed(!takeOutCardCollapsed)}
-                    className="text-gray-400 hover:text-white transition-colors"
-                  >
-                    <ChevronDown 
-                      size={20} 
-                      className={`transform transition-transform ${takeOutCardCollapsed ? 'rotate-180' : ''}`}
-                    />
-                  </button>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => setTakeOutCardCollapsed(!takeOutCardCollapsed)}
+                      className="text-gray-400 hover:text-white transition-colors"
+                    >
+                      <ChevronDown 
+                        size={20} 
+                        className={`transform transition-transform ${takeOutCardCollapsed ? 'rotate-180' : ''}`}
+                      />
+                    </button>
+                    <button
+                      onClick={() => setShowTakeOutCard(false)}
+                      className="text-gray-400 hover:text-white transition-colors"
+                    >
+                      <X size={16} />
+                    </button>
+                  </div>
                 </div>
               </CardHeader>
               
