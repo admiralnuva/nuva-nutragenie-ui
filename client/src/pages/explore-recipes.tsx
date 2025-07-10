@@ -1210,9 +1210,71 @@ export default function ExploreRecipesScreen() {
             </div>
           )}
 
-          {/* Card 3: Summary */}
+          {/* Card 3: History */}
           {(isMealComplete || isPantryComplete) && (
-            <div className="order-3">
+            <div className="order-3 mb-4">
+              <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-lg text-white">
+                    History
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-2 gap-3">
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white h-12 flex flex-col items-center justify-center"
+                      onClick={() => {
+                        // Navigate to dishes cooked history
+                        console.log('Navigate to dishes cooked');
+                      }}
+                    >
+                      <ChefHat className="w-4 h-4 mb-1" />
+                      <span className="text-xs">Dishes Cooked</span>
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white h-12 flex flex-col items-center justify-center"
+                      onClick={() => {
+                        // Navigate to takeout orders history
+                        console.log('Navigate to takeout orders');
+                      }}
+                    >
+                      <Truck className="w-4 h-4 mb-1" />
+                      <span className="text-xs">Takeout Orders</span>
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white h-12 flex flex-col items-center justify-center"
+                      onClick={() => setLocation('/grocery-list')}
+                    >
+                      <ShoppingCart className="w-4 h-4 mb-1" />
+                      <span className="text-xs">Grocery List</span>
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white h-12 flex flex-col items-center justify-center"
+                      onClick={() => {
+                        // Navigate to saved recipes
+                        console.log('Navigate to saved recipes');
+                      }}
+                    >
+                      <BookOpen className="w-4 h-4 mb-1" />
+                      <span className="text-xs">Recipes Saved</span>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          )}
+
+          {/* Card 4: Summary */}
+          {(isMealComplete || isPantryComplete) && (
+            <div className="order-4">
               <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
               <CardHeader className="pb-4">
                 <CardTitle className="text-lg text-white">
