@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { useLocation } from 'wouter';
-import { ArrowLeft, ChevronDown, ChevronUp, Repeat, BookOpen, Save, CookingPot, Plus } from 'lucide-react';
+import { ArrowLeft, ChevronDown, ChevronUp, Repeat, BookOpen, Save, CookingPot, Plus, ArrowLeftRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Checkbox } from '@/components/ui/checkbox';
 
 export default function CreateDishesScreen() {
   const [, setLocation] = useLocation();
@@ -132,6 +133,79 @@ export default function CreateDishesScreen() {
       difficulty: "Easy"
     }
   ];
+
+  // Substitution ingredient data for Create Dishes
+  const createDishSubstitutions = {
+    1: { // Classic Chicken Curry
+      mainIngredients: [
+        { name: "Chicken Breast", calories: 165, protein: 31, substitutions: ["Turkey Breast", "Tofu", "Tempeh"] },
+        { name: "Coconut Milk", calories: 93, protein: 1, substitutions: ["Greek Yogurt", "Cashew Cream", "Almond Milk"] },
+        { name: "Curry Powder", calories: 6, protein: 0.3, substitutions: ["Garam Masala", "Turmeric", "Paprika"] }
+      ]
+    },
+    2: { // Coconut Chicken Curry
+      mainIngredients: [
+        { name: "Chicken Thighs", calories: 179, protein: 25, substitutions: ["Chicken Breast", "Fish", "Jackfruit"] },
+        { name: "Coconut Cream", calories: 133, protein: 1.4, substitutions: ["Heavy Cream", "Cashew Cream", "Soy Cream"] },
+        { name: "Thai Chilies", calories: 3, protein: 0.1, substitutions: ["Jalapeños", "Bell Peppers", "Paprika"] }
+      ]
+    },
+    3: { // Spicy Chicken Curry
+      mainIngredients: [
+        { name: "Chicken Breast", calories: 165, protein: 31, substitutions: ["Beef", "Pork", "Seitan"] },
+        { name: "Hot Peppers", calories: 4, protein: 0.2, substitutions: ["Mild Peppers", "Hot Sauce", "Chili Powder"] },
+        { name: "Tomatoes", calories: 18, protein: 0.9, substitutions: ["Bell Peppers", "Zucchini", "Eggplant"] }
+      ]
+    }
+    // Add more as needed for all 6 dishes
+  };
+
+  // Substitution state management
+  const [substitutionOpenDish, setSubstitutionOpenDish] = useState<number | null>(null);
+  const [selectedSubstitutions, setSelectedSubstitutions] = useState<{[dishId: number]: {[ingredientIndex: number]: string}}>({});
+  const [substitutionConfirmed, setSubstitutionConfirmed] = useState<{[dishId: number]: boolean}>({});
+
+  // Helper function to calculate updated nutrition values
+  const calculateUpdatedNutrition = (dishId: number, originalCalories: number, originalProtein: string) => {
+    const dishSubs = createDishSubstitutions[dishId as keyof typeof createDishSubstitutions];
+    if (!dishSubs) return { calories: originalCalories, protein: originalProtein };
+
+    const selectedSubs = selectedSubstitutions[dishId] || {};
+    let totalCalories = originalCalories;
+    let totalProtein = parseFloat(originalProtein.replace('g', ''));
+
+    // Calculate nutrition difference for each substitution
+    dishSubs.mainIngredients.forEach((ingredient, index) => {
+      const selectedSub = selectedSubs[index];
+      if (selectedSub && selectedSub !== ingredient.name) {
+        // Simple approximation: reduce calories by 10-20% for healthier substitutions
+        totalCalories = Math.round(totalCalories * 0.9);
+        totalProtein = Math.round(totalProtein * 0.95);
+      }
+    });
+
+    return { calories: totalCalories, protein: `${totalProtein}g` };
+  };
+
+  // Handle substitution selection
+  const handleSubstitutionSelect = (dishId: number, ingredientIndex: number, substitution: string) => {
+    setSelectedSubstitutions(prev => ({
+      ...prev,
+      [dishId]: {
+        ...prev[dishId],
+        [ingredientIndex]: substitution
+      }
+    }));
+  };
+
+  // Handle substitution confirmation
+  const handleSubstitutionConfirm = (dishId: number) => {
+    setSubstitutionConfirmed(prev => ({ ...prev, [dishId]: true }));
+    // Auto-collapse substitution card after 1 second
+    setTimeout(() => {
+      setSubstitutionOpenDish(null);
+    }, 1000);
+  };
 
   const handleGenerateVariations = () => {
     if (dishName && servingSize && cuisine && mealType && cookMethod) {
@@ -392,65 +466,168 @@ export default function CreateDishesScreen() {
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 gap-4">
-                {currentDishes.map((dish) => (
-                  <div key={dish.id} className="bg-gray-800 rounded-lg overflow-hidden">
-                    {/* Dish Image */}
-                    <div className="relative h-40">
-                      <img 
-                        src={dish.image} 
-                        alt={dish.name}
-                        className="w-full h-full object-cover"
-                      />
-                      {/* Dark overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                    </div>
-                    
-                    {/* Info Section */}
-                    <div className="p-4 space-y-3">
-                      {/* Dish Name */}
-                      <h3 className="text-white font-semibold text-xl mb-3">{dish.name}</h3>
-                      {/* Row 1: Calories and Protein */}
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
-                          <span className="text-sm text-gray-300">{dish.calories} calories</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-                          <span className="text-sm text-gray-300">{dish.protein} protein</span>
-                        </div>
+                {currentDishes.map((dish) => {
+                  const updatedNutrition = calculateUpdatedNutrition(dish.id, dish.calories, dish.protein);
+                  const isSubstitutionOpen = substitutionOpenDish === dish.id;
+                  const dishSubs = createDishSubstitutions[dish.id as keyof typeof createDishSubstitutions];
+                  
+                  return (
+                    <div key={dish.id} className="bg-gray-800 rounded-lg overflow-hidden">
+                      {/* Dish Image */}
+                      <div className="relative h-40">
+                        <img 
+                          src={dish.image} 
+                          alt={dish.name}
+                          className="w-full h-full object-cover"
+                        />
+                        {/* Dark overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                       </div>
                       
-                      {/* Row 2: Cook Time and Difficulty */}
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-                          <span className="text-sm text-gray-300">{dish.cookTime} cook time</span>
+                      {/* Info Section */}
+                      <div className="p-4 space-y-3">
+                        {/* Dish Name */}
+                        <h3 className="text-white font-semibold text-xl mb-3">{dish.name}</h3>
+                        
+                        {/* Real-time Nutrition Updates */}
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+                            <span className="text-sm text-gray-300">
+                              {updatedNutrition.calories} calories
+                              {substitutionConfirmed[dish.id] && updatedNutrition.calories !== dish.calories && (
+                                <span className="text-green-400 ml-1">✓</span>
+                              )}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                            <span className="text-sm text-gray-300">
+                              {updatedNutrition.protein} protein
+                              {substitutionConfirmed[dish.id] && updatedNutrition.protein !== dish.protein && (
+                                <span className="text-green-400 ml-1">✓</span>
+                              )}
+                            </span>
+                          </div>
                         </div>
-                        <span className="text-sm text-gray-300">{dish.difficulty} difficulty</span>
+                        
+                        {/* Row 2: Cook Time and Difficulty */}
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                            <span className="text-sm text-gray-300">{dish.cookTime} cook time</span>
+                          </div>
+                          <span className="text-sm text-gray-300">{dish.difficulty} difficulty</span>
+                        </div>
+                        
+                        {/* Action Icons Row */}
+                        <div className="flex items-center justify-between mt-4">
+                            <button 
+                              onClick={() => setSubstitutionOpenDish(isSubstitutionOpen ? null : dish.id)}
+                              className={`w-10 h-10 rounded flex items-center justify-center transition-colors ${
+                                isSubstitutionOpen 
+                                  ? 'bg-purple-600 hover:bg-purple-700' 
+                                  : 'bg-gray-700 hover:bg-gray-600'
+                              }`}
+                            >
+                              <ArrowLeftRight size={20} className="text-white" />
+                            </button>
+                            <button className="w-10 h-10 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
+                              <BookOpen size={20} className="text-gray-300" />
+                            </button>
+                            <button className="w-10 h-10 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
+                              <Save size={20} className="text-gray-300" />
+                            </button>
+                            <button className="w-10 h-10 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
+                              <CookingPot size={20} className="text-gray-300" />
+                            </button>
+                            <button className="w-10 h-10 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center justify-center transition-colors">
+                              <Plus size={20} />
+                            </button>
+                        </div>
                       </div>
-                      
-                      {/* Action Icons Row */}
-                      <div className="flex items-center justify-between mt-4">
-                          <button className="w-10 h-10 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
-                            <Repeat size={20} className="text-gray-300" />
-                          </button>
-                          <button className="w-10 h-10 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
-                            <BookOpen size={20} className="text-gray-300" />
-                          </button>
-                          <button className="w-10 h-10 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
-                            <Save size={20} className="text-gray-300" />
-                          </button>
-                          <button className="w-10 h-10 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
-                            <CookingPot size={20} className="text-gray-300" />
-                          </button>
-                          <button className="w-10 h-10 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center justify-center transition-colors">
-                            <Plus size={20} />
-                          </button>
-                      </div>
+
+                      {/* Substitution Expandable Card */}
+                      {isSubstitutionOpen && dishSubs && (
+                        <div className="border-t border-gray-700 bg-gray-800/90 backdrop-blur-sm p-4 space-y-4">
+                          {/* Header with Nutrition Summary */}
+                          <div className="flex items-center justify-between">
+                            <h4 className="text-lg font-semibold text-white">Ingredient Substitutions</h4>
+                            <div className="flex items-center gap-4 text-sm">
+                              <div className="flex items-center gap-1">
+                                <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+                                <span className="text-gray-300">{updatedNutrition.calories} cal</span>
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                                <span className="text-gray-300">{updatedNutrition.protein}</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Ingredient List with Substitutions */}
+                          <div className="space-y-3">
+                            {dishSubs.mainIngredients.map((ingredient, index) => {
+                              const selectedSub = selectedSubstitutions[dish.id]?.[index];
+                              
+                              return (
+                                <div key={index} className="bg-gray-700/50 rounded-lg p-3">
+                                  {/* Main Ingredient */}
+                                  <div className="flex items-center justify-between mb-2">
+                                    <span className="font-medium text-white">{ingredient.name}</span>
+                                    <div className="flex items-center gap-2 text-xs text-gray-400">
+                                      <span>🔥 {ingredient.calories}</span>
+                                      <span>💪 {ingredient.protein}g</span>
+                                    </div>
+                                  </div>
+                                  
+                                  {/* Substitution Options */}
+                                  <div className="grid grid-cols-3 gap-2">
+                                    {[ingredient.name, ...ingredient.substitutions].map((option) => (
+                                      <button
+                                        key={option}
+                                        onClick={() => handleSubstitutionSelect(dish.id, index, option)}
+                                        className={`px-2 py-1 rounded text-xs font-medium transition-all ${
+                                          (selectedSub || ingredient.name) === option
+                                            ? 'bg-purple-600 text-white'
+                                            : 'bg-gray-600 text-gray-300 hover:bg-purple-500/50'
+                                        }`}
+                                      >
+                                        {option}
+                                      </button>
+                                    ))}
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+
+                          {/* Confirmation Section */}
+                          <div className="pt-3 border-t border-gray-600">
+                            <div className="flex items-center space-x-2">
+                              <Checkbox
+                                id={`substitution-confirm-${dish.id}`}
+                                checked={substitutionConfirmed[dish.id] || false}
+                                onCheckedChange={(checked) => {
+                                  if (checked) {
+                                    handleSubstitutionConfirm(dish.id);
+                                  }
+                                }}
+                                className="w-7 h-7 rounded-full border-gray-500 data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600"
+                              />
+                              <label
+                                htmlFor={`substitution-confirm-${dish.id}`}
+                                className="text-sm font-bold text-yellow-300 cursor-pointer drop-shadow-lg"
+                              >
+                                I confirm these substitutions are complete
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      )}
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </CardContent>
           </Card>

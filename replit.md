@@ -644,6 +644,18 @@ Changelog:
   * Implemented chevron collapse functionality: input form collapses when Generate Variations is clicked
   * Added chevron buttons to both input form and results card for expand/collapse control
   * Results card displays with dynamic title based on active tab and full collapse functionality
+- July 10, 2025. Comprehensive Ingredient Substitution System Implementation:
+  * Replaced first action icon (Repeat) with ArrowLeftRight substitution icon across all dish cards
+  * Created expandable substitution cards with Option B design: in-card expansion with smooth animations
+  * Added comprehensive ingredient databases for both Chef's Choice (6 dishes) and Create Dishes (3 dishes)
+  * Implemented real-time nutrition calculation with dynamic calorie/protein updates based on selected substitutions
+  * Created 3x3 grid substitution selection with purple highlighting matching dietary preferences styling
+  * Added ingredient nutrition display with emoji indicators (🔥 calories, 💪 protein) for each main ingredient
+  * Implemented confirmation checkbox system matching meal type/pantry patterns (w-7 h-7 purple-themed)
+  * Added auto-collapse functionality: substitution cards collapse 1 second after confirmation
+  * Applied consistent yellow label styling for confirmation text with drop shadow
+  * Integrated green checkmark indicators showing confirmed substitution changes in main nutrition display
+  * Maintained consistent card structure and 100% identical styling across Chef's Choice and Create Dishes sections
 ```
 
 ## User Preferences
