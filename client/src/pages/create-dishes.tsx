@@ -601,7 +601,7 @@ export default function CreateDishesScreen() {
                                 <div key={index} className="bg-gray-700/50 rounded-lg p-3">
                                   {/* Main Ingredient */}
                                   <div className="flex items-center justify-between mb-2">
-                                    <span className="font-medium text-white">{ingredient.name}</span>
+                                    <span className="font-medium text-yellow-300 drop-shadow-lg">{ingredient.name}</span>
                                     <div className="flex items-center gap-2 text-xs text-gray-400">
                                       <span>🔥 {ingredient.calories}</span>
                                       <span>💪 {ingredient.protein}g</span>
