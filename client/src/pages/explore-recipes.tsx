@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
-import { Clock, Users, ChefHat, Flame, Target, Utensils, ShoppingCart, Sparkles, Plus, List, Minus, ChevronDown, ChevronUp, ArrowLeft } from "lucide-react";
+import { Clock, Users, ChefHat, Flame, Target, Utensils, ShoppingCart, Sparkles, Plus, List, Minus, ChevronDown, ChevronUp, ArrowLeft, BookOpen, Repeat, Heart, Truck } from "lucide-react";
 import { ProcessingAnimation, QuickProcessingAnimation } from "@/components/ui/processing-animation";
 
 // Import user avatar images
@@ -68,6 +68,64 @@ const chefsChoiceImages = {
   "power-smoothie-bowl": "/images/chefs-choice/power-smoothie-bowl.png"
 };
 
+// Chef's Choice dishes data
+const chefsChoiceDishes = [
+  {
+    id: 1,
+    name: "Tuscan Salmon",
+    image: chefsChoiceImages["herb-crusted-fish"],
+    calories: 550,
+    protein: "45g",
+    cookTime: "30 min",
+    difficulty: "Easy"
+  },
+  {
+    id: 2,
+    name: "Mediterranean Bowl",
+    image: chefsChoiceImages["mediterranean-bowl"],
+    calories: 420,
+    protein: "32g",
+    cookTime: "25 min",
+    difficulty: "Easy"
+  },
+  {
+    id: 3,
+    name: "Quinoa Power Salad",
+    image: chefsChoiceImages["quinoa-salad"],
+    calories: 380,
+    protein: "28g",
+    cookTime: "20 min",
+    difficulty: "Easy"
+  },
+  {
+    id: 4,
+    name: "Stuffed Bell Peppers",
+    image: chefsChoiceImages["stuffed-peppers"],
+    calories: 310,
+    protein: "25g",
+    cookTime: "45 min",
+    difficulty: "Medium"
+  },
+  {
+    id: 5,
+    name: "Power Smoothie Bowl",
+    image: chefsChoiceImages["power-smoothie-bowl"],
+    calories: 290,
+    protein: "22g",
+    cookTime: "15 min",
+    difficulty: "Easy"
+  },
+  {
+    id: 6,
+    name: "Hearty Vegetable Soup",
+    image: chefsChoiceImages["soup"],
+    calories: 240,
+    protein: "18g",
+    cookTime: "35 min",
+    difficulty: "Easy"
+  }
+];
+
 export default function ExploreRecipesScreen() {
   const [, setLocation] = useLocation();
   const [currentUser] = useLocalStorage<any>("nutragenie_user", null);
@@ -85,6 +143,7 @@ export default function ExploreRecipesScreen() {
   const [isMealComplete, setIsMealComplete] = useState(false);
   const [isPantryComplete, setIsPantryComplete] = useState(false);
   const [preferencesCardSlid, setPreferencesCardSlid] = useState(false);
+  const [showChefsChoice, setShowChefsChoice] = useState(false);
 
   // Get dynamic avatar for Card 3 based on active selection
   const getDynamicAvatar = () => {
@@ -899,7 +958,10 @@ export default function ExploreRecipesScreen() {
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 gap-3">
-                <Button className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600">
+                <Button 
+                  className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600"
+                  onClick={() => setShowChefsChoice(true)}
+                >
                   Chef's Choice
                 </Button>
                 <Button className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600">
@@ -915,6 +977,96 @@ export default function ExploreRecipesScreen() {
             </CardContent>
             </Card>
           </div>
+
+          {/* Chef's Choice Dishes Card */}
+          {showChefsChoice && (
+            <div className="order-3">
+              <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
+                <CardHeader className="pb-4">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-lg text-white">Chef Recommends this healthy diet</CardTitle>
+                    <button
+                      onClick={() => setShowChefsChoice(false)}
+                      className="text-gray-400 hover:text-white transition-colors"
+                    >
+                      <ChevronUp size={20} />
+                    </button>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 gap-4">
+                    {chefsChoiceDishes.map((dish) => (
+                      <div key={dish.id} className="relative">
+                        {/* Dish Image */}
+                        <div className="relative h-32 rounded-lg overflow-hidden">
+                          <img 
+                            src={dish.image} 
+                            alt={dish.name}
+                            className="w-full h-full object-cover"
+                          />
+                          {/* Dark overlay for text readability */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                          
+                          {/* Dish Name */}
+                          <div className="absolute bottom-3 left-3">
+                            <h3 className="text-white font-semibold text-lg">{dish.name}</h3>
+                          </div>
+                        </div>
+                        
+                        {/* Dish Info */}
+                        <div className="mt-3 space-y-2">
+                          {/* Row 1: Calories and Protein */}
+                          <div className="flex items-center gap-4">
+                            <div className="flex items-center gap-1 text-orange-400">
+                              <Flame size={16} />
+                              <span className="text-sm">{dish.calories} calories</span>
+                            </div>
+                            <div className="flex items-center gap-1 text-yellow-400">
+                              <Target size={16} />
+                              <span className="text-sm">{dish.protein} protein</span>
+                            </div>
+                          </div>
+                          
+                          {/* Row 2: Cook Time and Difficulty */}
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-4">
+                              <div className="flex items-center gap-1 text-blue-400">
+                                <Clock size={16} />
+                                <span className="text-sm">{dish.cookTime} cook time</span>
+                              </div>
+                              <span className="text-sm text-gray-300">{dish.difficulty} difficulty</span>
+                            </div>
+                          </div>
+                          
+                          {/* Action Icons Row */}
+                          <div className="flex items-center justify-between mt-4">
+                            <div className="flex items-center gap-3">
+                              <button className="p-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors">
+                                <BookOpen size={18} className="text-gray-300" />
+                              </button>
+                              <button className="p-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors">
+                                <Repeat size={18} className="text-gray-300" />
+                              </button>
+                              <button className="p-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors">
+                                <Heart size={18} className="text-gray-300" />
+                              </button>
+                              <button className="p-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors">
+                                <ChefHat size={18} className="text-gray-300" />
+                              </button>
+                            </div>
+                            <Button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center gap-2">
+                              <Truck size={18} />
+                              Takeout
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          )}
 
           {/* Card 3: Summary */}
           {(isMealComplete || isPantryComplete) && (
