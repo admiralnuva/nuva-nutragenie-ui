@@ -614,8 +614,8 @@ export default function ExploreRecipesScreen() {
                     disabled={isPantryCardCollapsed}
                     className={`flex-1 ${
                       activeTab === 'diet' 
-                        ? 'bg-gray-600 text-white border-gray-500' 
-                        : 'bg-transparent border-gray-600 text-gray-300 hover:bg-gray-700/50'
+                        ? 'bg-purple-600 text-white border-purple-600' 
+                        : 'bg-transparent border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
                     } ${isPantryCardCollapsed ? 'opacity-75 cursor-default' : ''}`}
                   >
                     Diet
@@ -626,8 +626,8 @@ export default function ExploreRecipesScreen() {
                     disabled={isPantryCardCollapsed}
                     className={`flex-1 flex items-center justify-center gap-2 ${
                       activeTab === 'meal' 
-                        ? 'bg-gray-600 text-white border-gray-500' 
-                        : 'bg-transparent border-gray-600 text-gray-300 hover:bg-gray-700/50'
+                        ? 'bg-purple-600 text-white border-purple-600' 
+                        : 'bg-transparent border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
                     } ${isPantryCardCollapsed ? 'opacity-75 cursor-default' : ''}`}
                   >
                     Meal
@@ -639,8 +639,8 @@ export default function ExploreRecipesScreen() {
                     disabled={isPantryCardCollapsed}
                     className={`flex-1 flex items-center justify-center gap-2 ${
                       activeTab === 'pantry' 
-                        ? 'bg-gray-600 text-white border-gray-500' 
-                        : 'bg-transparent border-gray-600 text-gray-300 hover:bg-gray-700/50'
+                        ? 'bg-purple-600 text-white border-purple-600' 
+                        : 'bg-transparent border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
                     } ${isPantryCardCollapsed ? 'opacity-75 cursor-default' : ''}`}
                   >
                     Pantry
@@ -724,7 +724,7 @@ export default function ExploreRecipesScreen() {
                       {/* Row 1: Serving Size & Cuisine */}
                       <div className="grid grid-cols-2 gap-3">
                         <div>
-                          <label className="text-xs text-purple-300 mb-1 block">Serving Size *</label>
+                          <label className="text-sm font-bold text-white mb-1 block bg-purple-600/20 px-2 py-1 rounded">Serving Size *</label>
                           <select
                             value={mealPreferences.servingSize || ''}
                             onChange={(e) => setMealPreferences({...mealPreferences, servingSize: e.target.value})}
@@ -738,7 +738,7 @@ export default function ExploreRecipesScreen() {
                           </select>
                         </div>
                         <div>
-                          <label className="text-xs text-purple-300 mb-1 block">Cuisine *</label>
+                          <label className="text-lg font-bold text-purple-200 mb-1 block shadow-lg">Cuisine *</label>
                           <select
                             value={mealPreferences.cuisine || ''}
                             onChange={(e) => setMealPreferences({...mealPreferences, cuisine: e.target.value})}
@@ -763,7 +763,7 @@ export default function ExploreRecipesScreen() {
                       {/* Row 2: Meal Type & Spice Level */}
                       <div className="grid grid-cols-2 gap-3">
                         <div>
-                          <label className="text-xs text-purple-300 mb-1 block">Meal Type *</label>
+                          <label className="text-sm font-extrabold text-transparent bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text mb-1 block">Meal Type *</label>
                           <select
                             value={mealPreferences.mealType || ''}
                             onChange={(e) => setMealPreferences({...mealPreferences, mealType: e.target.value})}
@@ -783,7 +783,7 @@ export default function ExploreRecipesScreen() {
                           </select>
                         </div>
                         <div>
-                          <label className="text-xs text-purple-300 mb-1 block">Spice Level</label>
+                          <label className="text-sm font-bold text-yellow-300 mb-1 block drop-shadow-lg">Spice Level</label>
                           <select
                             value={mealPreferences.spiceLevel || ''}
                             onChange={(e) => setMealPreferences({...mealPreferences, spiceLevel: e.target.value})}
