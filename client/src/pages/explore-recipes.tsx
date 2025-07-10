@@ -421,7 +421,7 @@ export default function ExploreRecipesScreen() {
   const [cookConfirmed, setCookConfirmed] = useState<{[dishId: number]: boolean}>({});
 
   // Take-out ordering state
-  const [showTakeOutCard, setShowTakeOutCard] = useState(false);
+  const [showTakeOutCard, setShowTakeOutCard] = useState(true); // Test: Make card visible
   const [takeOutCardCollapsed, setTakeOutCardCollapsed] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState<'soups' | 'salads' | 'main' | 'desserts'>('soups');
   
@@ -1632,7 +1632,7 @@ export default function ExploreRecipesScreen() {
         
         {/* Take-Out Card */}
         {showTakeOutCard && (
-          <div className="order-5 mb-4">
+          <div className="mb-4">
             <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
               <CardHeader className="pb-4">
                 <div className="flex items-center justify-between">
