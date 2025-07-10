@@ -550,18 +550,20 @@ export default function CreateDishesScreen() {
                       {/* Substitution Expandable Card */}
                       {isSubstitutionOpen && dishSubs && (
                         <div className="border-t border-gray-700 bg-gray-800/90 backdrop-blur-sm p-4 space-y-4">
-                          {/* Header with Nutrition Summary */}
-                          <div className="flex items-center justify-between">
+                          {/* Header - Title Only */}
+                          <div className="text-center">
                             <h4 className="text-lg font-semibold text-white">Ingredient Substitutions</h4>
-                            <div className="flex items-center gap-4 text-sm">
-                              <div className="flex items-center gap-1">
-                                <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
-                                <span className="text-gray-300">{updatedNutrition.calories} cal</span>
-                              </div>
-                              <div className="flex items-center gap-1">
-                                <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-                                <span className="text-gray-300">{updatedNutrition.protein}</span>
-                              </div>
+                          </div>
+                          
+                          {/* Nutrition Summary - Second Row */}
+                          <div className="flex items-center justify-center gap-6 text-sm">
+                            <div className="flex items-center gap-1">
+                              <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+                              <span className="text-gray-300">{updatedNutrition.calories} cal</span>
+                            </div>
+                            <div className="flex items-center gap-1">
+                              <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                              <span className="text-gray-300">{updatedNutrition.protein}</span>
                             </div>
                           </div>
 
