@@ -602,6 +602,12 @@ Changelog:
   * Recipe options card only appears when all 3 required meal preference fields are completed
   * Reset behavior ensures meal preferences return to top position on each page navigation
   * Enhanced user guidance with clear field labeling and completion progress indicators
+- July 10, 2025. Pantry Dishes Card Implementation:
+  * Added comprehensive Pantry Dishes functionality with 6 pantry-friendly recipes
+  * Connected "Pantry Dishes" button to display dedicated card with dishes (Fried Rice, Garlic Bread, Pasta, Scrambled Eggs, Soup, Toast & Jam)
+  * Implemented identical layout structure to Chef's Choice: dish images, names below images, nutrition info, action icons, takeout button
+  * Added collapse functionality with chevron up button for space optimization
+  * Fixed dish name positioning to appear below images instead of overlaid for consistent design pattern
 ```
 
 ## User Preferences

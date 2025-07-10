@@ -126,6 +126,64 @@ const chefsChoiceDishes = [
   }
 ];
 
+// Pantry Dishes data
+const pantryDishes = [
+  {
+    id: 1,
+    name: "Classic Fried Rice",
+    image: pantryDishImages["fried-rice"],
+    calories: 320,
+    protein: "12g",
+    cookTime: "15 min",
+    difficulty: "Easy"
+  },
+  {
+    id: 2,
+    name: "Garlic Herb Bread",
+    image: pantryDishImages["garlic-bread"],
+    calories: 180,
+    protein: "6g",
+    cookTime: "12 min",
+    difficulty: "Easy"
+  },
+  {
+    id: 3,
+    name: "Creamy Pasta",
+    image: pantryDishImages["pasta"],
+    calories: 450,
+    protein: "18g",
+    cookTime: "20 min",
+    difficulty: "Easy"
+  },
+  {
+    id: 4,
+    name: "Fluffy Scrambled Eggs",
+    image: pantryDishImages["scrambled-eggs"],
+    calories: 280,
+    protein: "24g",
+    cookTime: "8 min",
+    difficulty: "Easy"
+  },
+  {
+    id: 5,
+    name: "Comfort Soup",
+    image: pantryDishImages["soup"],
+    calories: 220,
+    protein: "14g",
+    cookTime: "25 min",
+    difficulty: "Easy"
+  },
+  {
+    id: 6,
+    name: "Toast & Jam",
+    image: pantryDishImages["toast-and-jam"],
+    calories: 150,
+    protein: "4g",
+    cookTime: "5 min",
+    difficulty: "Easy"
+  }
+];
+
 export default function ExploreRecipesScreen() {
   const [, setLocation] = useLocation();
   const [currentUser] = useLocalStorage<any>("nutragenie_user", null);
@@ -144,6 +202,7 @@ export default function ExploreRecipesScreen() {
   const [isPantryComplete, setIsPantryComplete] = useState(false);
   const [preferencesCardSlid, setPreferencesCardSlid] = useState(false);
   const [showChefsChoice, setShowChefsChoice] = useState(false);
+  const [showPantryDishes, setShowPantryDishes] = useState(false);
 
   // Get dynamic avatar for Card 3 based on active selection
   const getDynamicAvatar = () => {
@@ -964,7 +1023,10 @@ export default function ExploreRecipesScreen() {
                 >
                   Chef's Choice
                 </Button>
-                <Button className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600">
+                <Button 
+                  className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600"
+                  onClick={() => setShowPantryDishes(true)}
+                >
                   Pantry Dishes
                 </Button>
                 <Button className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600">
@@ -996,6 +1058,91 @@ export default function ExploreRecipesScreen() {
                 <CardContent>
                   <div className="grid grid-cols-1 gap-4">
                     {chefsChoiceDishes.map((dish) => (
+                      <div key={dish.id} className="bg-gray-800 rounded-lg overflow-hidden">
+                        {/* Dish Image */}
+                        <div className="relative h-40">
+                          <img 
+                            src={dish.image} 
+                            alt={dish.name}
+                            className="w-full h-full object-cover"
+                          />
+                          {/* Dark overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                        </div>
+                        
+                        {/* Info Section */}
+                        <div className="p-4 space-y-3">
+                          {/* Dish Name */}
+                          <h3 className="text-white font-semibold text-xl mb-3">{dish.name}</h3>
+                          {/* Row 1: Calories and Protein */}
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+                              <span className="text-sm text-gray-300">{dish.calories} calories</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                              <span className="text-sm text-gray-300">{dish.protein} protein</span>
+                            </div>
+                          </div>
+                          
+                          {/* Row 2: Cook Time and Difficulty */}
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                              <span className="text-sm text-gray-300">{dish.cookTime} cook time</span>
+                            </div>
+                            <span className="text-sm text-gray-300">{dish.difficulty} difficulty</span>
+                          </div>
+                          
+                          {/* Action Icons Row */}
+                          <div className="flex items-center justify-between mt-4">
+                            <div className="flex items-center gap-3">
+                              <button className="w-8 h-8 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
+                                <BookOpen size={16} className="text-gray-300" />
+                              </button>
+                              <button className="w-8 h-8 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
+                                <Repeat size={16} className="text-gray-300" />
+                              </button>
+                              <button className="w-8 h-8 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
+                                <Heart size={16} className="text-gray-300" />
+                              </button>
+                              <button className="w-8 h-8 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
+                                <ChefHat size={16} className="text-gray-300" />
+                              </button>
+                            </div>
+                            <Button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 flex items-center gap-2">
+                              <Truck size={16} />
+                              Takeout
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          )}
+
+          {/* Pantry Dishes Card */}
+          {showPantryDishes && (
+            <div className="order-2">
+              <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
+                <CardHeader className="pb-4">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-lg text-white">Pantry Dishes</CardTitle>
+                    <button
+                      onClick={() => setShowPantryDishes(false)}
+                      className="text-gray-400 hover:text-white transition-colors"
+                    >
+                      <ChevronUp size={20} />
+                    </button>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 gap-4">
+                    {pantryDishes.map((dish) => (
                       <div key={dish.id} className="bg-gray-800 rounded-lg overflow-hidden">
                         {/* Dish Image */}
                         <div className="relative h-40">
