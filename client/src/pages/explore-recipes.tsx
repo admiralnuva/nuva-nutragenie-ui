@@ -879,7 +879,7 @@ export default function ExploreRecipesScreen() {
                             />
                             <label
                               htmlFor="meal-confirm"
-                              className="text-sm text-gray-300 cursor-pointer"
+                              className="text-sm font-bold text-yellow-300 cursor-pointer drop-shadow-lg"
                             >
                               I confirm these meal preferences are correct
                             </label>
@@ -986,7 +986,7 @@ export default function ExploreRecipesScreen() {
                             />
                             <label
                               htmlFor="pantry-confirm"
-                              className="text-sm text-gray-300 cursor-pointer"
+                              className="text-sm font-bold text-yellow-300 cursor-pointer drop-shadow-lg"
                             >
                               I confirm these pantry ingredients are complete
                             </label>
