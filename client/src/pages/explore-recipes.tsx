@@ -980,7 +980,7 @@ export default function ExploreRecipesScreen() {
 
           {/* Chef's Choice Dishes Card */}
           {showChefsChoice && (
-            <div className="order-3">
+            <div className="order-2">
               <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
                 <CardHeader className="pb-4">
                   <div className="flex items-center justify-between">
@@ -1070,7 +1070,7 @@ export default function ExploreRecipesScreen() {
 
           {/* Card 3: Summary */}
           {(isMealComplete || isPantryComplete) && (
-            <div className="order-2">
+            <div className="order-3">
               <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
               <CardHeader className="pb-4">
                 <CardTitle className="text-lg text-white">
