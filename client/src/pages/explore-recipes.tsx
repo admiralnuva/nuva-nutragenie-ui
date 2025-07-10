@@ -724,7 +724,7 @@ export default function ExploreRecipesScreen() {
                       {/* Row 1: Serving Size & Cuisine */}
                       <div className="grid grid-cols-2 gap-3">
                         <div>
-                          <label className="text-sm font-bold text-white mb-1 block bg-purple-600/20 px-2 py-1 rounded">Serving Size *</label>
+                          <label className="text-sm font-bold text-yellow-300 mb-1 block drop-shadow-lg">Serving Size *</label>
                           <select
                             value={mealPreferences.servingSize || ''}
                             onChange={(e) => setMealPreferences({...mealPreferences, servingSize: e.target.value})}
@@ -738,7 +738,7 @@ export default function ExploreRecipesScreen() {
                           </select>
                         </div>
                         <div>
-                          <label className="text-lg font-bold text-purple-200 mb-1 block shadow-lg">Cuisine *</label>
+                          <label className="text-sm font-bold text-yellow-300 mb-1 block drop-shadow-lg">Cuisine *</label>
                           <select
                             value={mealPreferences.cuisine || ''}
                             onChange={(e) => setMealPreferences({...mealPreferences, cuisine: e.target.value})}
@@ -763,7 +763,7 @@ export default function ExploreRecipesScreen() {
                       {/* Row 2: Meal Type & Spice Level */}
                       <div className="grid grid-cols-2 gap-3">
                         <div>
-                          <label className="text-sm font-extrabold text-transparent bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text mb-1 block">Meal Type *</label>
+                          <label className="text-sm font-bold text-yellow-300 mb-1 block drop-shadow-lg">Meal Type *</label>
                           <select
                             value={mealPreferences.mealType || ''}
                             onChange={(e) => setMealPreferences({...mealPreferences, mealType: e.target.value})}
@@ -803,7 +803,7 @@ export default function ExploreRecipesScreen() {
                       {/* Row 3: Skill Level & Cook Method */}
                       <div className="grid grid-cols-2 gap-3">
                         <div>
-                          <label className="text-xs text-purple-300 mb-1 block">Skill Level</label>
+                          <label className="text-sm font-bold text-yellow-300 mb-1 block drop-shadow-lg">Skill Level</label>
                           <select
                             value={mealPreferences.skillLevel || ''}
                             onChange={(e) => setMealPreferences({...mealPreferences, skillLevel: e.target.value})}
@@ -820,7 +820,7 @@ export default function ExploreRecipesScreen() {
                           </select>
                         </div>
                         <div>
-                          <label className="text-xs text-purple-300 mb-1 block">Cook Method</label>
+                          <label className="text-sm font-bold text-yellow-300 mb-1 block drop-shadow-lg">Cook Method</label>
                           <select
                             value={mealPreferences.cookMethod || ''}
                             onChange={(e) => setMealPreferences({...mealPreferences, cookMethod: e.target.value})}
@@ -842,7 +842,7 @@ export default function ExploreRecipesScreen() {
 
                       {/* Row 4: Prep Time */}
                       <div>
-                        <label className="text-xs text-purple-300 mb-1 block">Prep Time</label>
+                        <label className="text-sm font-bold text-yellow-300 mb-1 block drop-shadow-lg">Prep Time</label>
                         <select
                           value={mealPreferences.prepTime || ''}
                           onChange={(e) => setMealPreferences({...mealPreferences, prepTime: e.target.value})}

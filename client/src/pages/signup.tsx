@@ -352,7 +352,7 @@ export default function SignupScreen() {
             <CardContent className="space-y-4">
               {/* Avatar Selection */}
               <div>
-                <Label className="block text-sm font-medium text-purple-300 mb-3">
+                <Label className="block text-sm font-bold text-yellow-300 mb-3 drop-shadow-lg">
                   Avatar <span className="text-red-500">*</span> 
                   {!selectedAvatar && <span className="text-xs text-purple-400 ml-2">(Select first to continue)</span>}
                 </Label>
@@ -389,7 +389,7 @@ export default function SignupScreen() {
 
               <div className="grid grid-cols-3 gap-4">
                 <div className="col-span-2">
-                  <Label htmlFor="nickname" className="block text-sm font-medium text-purple-300 mb-2">
+                  <Label htmlFor="nickname" className="block text-sm font-bold text-yellow-300 mb-2 drop-shadow-lg">
                     Nickname
                   </Label>
                   <Input
@@ -430,7 +430,7 @@ export default function SignupScreen() {
                 </div>
 
                 <div className="col-span-1">
-                  <Label htmlFor="ageGroup" className="block text-sm font-medium text-purple-300 mb-2">
+                  <Label htmlFor="ageGroup" className="block text-sm font-bold text-yellow-300 mb-2 drop-shadow-lg">
                     Age
                   </Label>
                   <Select 
