@@ -984,7 +984,7 @@ export default function ExploreRecipesScreen() {
               <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
                 <CardHeader className="pb-4">
                   <div className="flex items-center justify-between">
-                    <CardTitle className="text-lg text-white">Chef Recommends this healthy diet</CardTitle>
+                    <CardTitle className="text-lg text-white">Chef Recommends</CardTitle>
                     <button
                       onClick={() => setShowChefsChoice(false)}
                       className="text-gray-400 hover:text-white transition-colors"
