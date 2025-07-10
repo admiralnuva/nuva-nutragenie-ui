@@ -588,7 +588,10 @@ export default function CreateDishesScreen() {
                               <CookingPot size={20} className="text-gray-300" />
                             </button>
                             <button 
-                              onClick={() => setLocation('/explore-recipes')}
+                              onClick={() => {
+                                // Navigate back to explore recipes and trigger take-out card
+                                setLocation('/explore-recipes?takeout=true');
+                              }}
                               className="w-10 h-10 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center justify-center transition-colors"
                             >
                               <Plus size={20} />

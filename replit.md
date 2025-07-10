@@ -659,6 +659,15 @@ Changelog:
   * Fixed substitution card header layout: title centered in first row, nutrition values in second row
   * Enhanced real-time nutrition calculations with smart ingredient-type logic (plant proteins, dairy alternatives, lean meats)
   * Added bright yellow color to main ingredient names with drop shadow for better visual hierarchy
+- July 10, 2025. Simplified Take-Out System Implementation:
+  * Reverted complex take-out system to single expandable card matching user's exact design specifications
+  * Created "Tell us what you're craving" card with fields: Dish Name, Serving Size, Cuisine, Meal Type, Cook Method, Delivery Date
+  * Connected Take-Out button in Recipe Options to show single expandable card instead of navigation
+  * Added course toggle buttons (Soups, Salads, Main Entree, Desserts) with orange theme matching design
+  * Implemented collapse/expand functionality with chevron controls for space optimization
+  * Used blue "Generate Variations" button matching reference design specifications
+  * Connected all dish take-out plus buttons to trigger same expandable card for consistent UX
+  * Removed complex chef recommendations and multi-card system for cleaner, focused experience
 ```
 
 ## User Preferences
