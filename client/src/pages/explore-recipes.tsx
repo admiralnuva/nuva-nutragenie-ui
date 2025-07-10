@@ -421,11 +421,9 @@ export default function ExploreRecipesScreen() {
   const [cookConfirmed, setCookConfirmed] = useState<{[dishId: number]: boolean}>({});
 
   // Take-out ordering state
-  const [showTakeOutCard, setShowTakeOutCard] = useState(true); // Test: Make card visible
+  const [showTakeOutCard, setShowTakeOutCard] = useState(false);
   const [takeOutCardCollapsed, setTakeOutCardCollapsed] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState<'soups' | 'salads' | 'main' | 'desserts'>('soups');
-  
-  // Take-out form state
   const [takeOutDishName, setTakeOutDishName] = useState('Chicken Curry');
   const [takeOutServingSize, setTakeOutServingSize] = useState('2 people');
   const [takeOutCuisine, setTakeOutCuisine] = useState('Indian');
@@ -1210,8 +1208,16 @@ export default function ExploreRecipesScreen() {
                 </Button>
                 <Button 
                   variant="outline"
-                  className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600 transition-all duration-200"
-                  onClick={() => setShowTakeOutCard(true)}
+                  className={`h-14 border transition-all duration-200 ${
+                    showTakeOutCard 
+                      ? 'bg-purple-600 border-purple-600 text-white' 
+                      : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
+                  }`}
+                  onClick={() => {
+                    setShowTakeOutCard(true);
+                    setShowChefsChoice(false);
+                    setShowPantryDishes(false);
+                  }}
                 >
                   Take-Out
                 </Button>
