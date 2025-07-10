@@ -1094,7 +1094,7 @@ export default function ExploreRecipesScreen() {
                         {/* Info Section */}
                         <div className="p-4 space-y-3">
                           {/* Dish Name */}
-                          <h3 className="text-white font-semibold text-xl mb-3">{dish.name}</h3>
+                          <h3 className="text-yellow-300 font-bold text-xl mb-3 drop-shadow-lg">{dish.name}</h3>
                           {/* Row 1: Calories and Protein */}
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
