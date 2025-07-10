@@ -471,7 +471,7 @@ export default function ExploreRecipesScreen() {
             }`}>
               <CardHeader className="pb-4 relative">
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-lg text-white">Diet & Pantry</CardTitle>
+                  <CardTitle className="text-lg text-white">Personalize Diet & Pantry</CardTitle>
                   {/* User Avatar - Top Right Corner */}
                   <div className="flex items-center gap-3">
                     {isPantryCardCollapsed && (
