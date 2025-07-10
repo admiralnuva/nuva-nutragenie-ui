@@ -1300,7 +1300,7 @@ export default function ExploreRecipesScreen() {
                 <div className="space-y-4">
                   {isMealComplete && (
                     <div>
-                      <h4 className="text-sm font-medium text-purple-300 mb-2">Meal Preferences</h4>
+                      <h4 className="text-sm font-bold text-yellow-300 mb-2 drop-shadow-lg">Meal Preferences</h4>
                       <div className="text-sm text-gray-400 space-y-1">
                         <div>Serving: {mealPreferences.servingSize}, Cuisine: {mealPreferences.cuisine}</div>
                         <div>Meal Type: {mealPreferences.mealType}</div>
@@ -1311,7 +1311,7 @@ export default function ExploreRecipesScreen() {
                   {isPantryComplete && (
                     <div>
                       <div className="border-t border-gray-600 pt-3"></div>
-                      <h4 className="text-sm font-medium text-purple-300 mb-2">Pantry Ingredients</h4>
+                      <h4 className="text-sm font-bold text-yellow-300 mb-2 drop-shadow-lg">Pantry Ingredients</h4>
                       <div className="text-sm text-gray-400">
                         {selectedIngredients.slice(0, 8).join(', ')}
                         {selectedIngredients.length > 8 && ` and ${selectedIngredients.length - 8} more`}
