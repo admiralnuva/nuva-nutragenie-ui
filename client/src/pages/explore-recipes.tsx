@@ -653,11 +653,11 @@ export default function ExploreRecipesScreen() {
                   <div className="mt-4 min-h-[280px] transition-all duration-500 ease-in-out opacity-100">
                   {activeTab === 'diet' && (
                     <div className="space-y-3">
-                      <h4 className="text-lg font-semibold text-purple-300 mb-3">Dietary Preferences</h4>
+                      <h4 className="text-lg font-bold text-yellow-300 mb-3 drop-shadow-lg">Dietary Preferences</h4>
                       
                       {/* Dietary Restrictions - Split into two rows */}
                       <div>
-                        <span className="text-sm font-medium text-gray-300">Dietary Restrictions:</span>
+                        <span className="text-sm font-bold text-yellow-300 drop-shadow-lg">Dietary Restrictions:</span>
                         {userData?.dietaryRestrictions?.length > 0 ? (
                           <div className="text-sm text-gray-400 mt-1">
                             <div>{userData.dietaryRestrictions.slice(0, 3).join(', ')}</div>
@@ -674,7 +674,7 @@ export default function ExploreRecipesScreen() {
                       
                       {/* Health Factors - Compact row */}
                       <div>
-                        <span className="text-sm font-medium text-gray-300">Health Factors: </span>
+                        <span className="text-sm font-bold text-yellow-300 drop-shadow-lg">Health Factors: </span>
                         <span className="text-sm text-gray-400">
                           {userData?.healthGoals?.filter(goal => ['diabetes', 'cardiovascular', 'kidney', 'blood-pressure', 'cancer'].includes(goal))?.length > 0 ? 
                             userData.healthGoals.filter(goal => ['diabetes', 'cardiovascular', 'kidney', 'blood-pressure', 'cancer'].includes(goal)).join(', ') : 
@@ -686,7 +686,7 @@ export default function ExploreRecipesScreen() {
                       
                       {/* Fitness Goals - Compact row */}
                       <div>
-                        <span className="text-sm font-medium text-gray-300">Fitness Goals: </span>
+                        <span className="text-sm font-bold text-yellow-300 drop-shadow-lg">Fitness Goals: </span>
                         <span className="text-sm text-gray-400">
                           {userData?.healthGoals?.filter(goal => ['build-muscle', 'lose-weight', 'endurance', 'wellness'].includes(goal))?.length > 0 ? 
                             userData.healthGoals.filter(goal => ['build-muscle', 'lose-weight', 'endurance', 'wellness'].includes(goal)).map(goal => goal.replace('-', ' ')).join(', ') : 
@@ -698,7 +698,7 @@ export default function ExploreRecipesScreen() {
                       
                       {/* Allergies - Compact row */}
                       <div>
-                        <span className="text-sm font-medium text-gray-300">Allergies/Restrictions: </span>
+                        <span className="text-sm font-bold text-yellow-300 drop-shadow-lg">Allergies/Restrictions: </span>
                         <span className="text-sm text-gray-400">{userData?.allergies || 'None specified'}</span>
                       </div>
                       
@@ -706,7 +706,7 @@ export default function ExploreRecipesScreen() {
                       
                       {/* Nutritional Goals - Split into two rows */}
                       <div>
-                        <span className="text-sm font-medium text-gray-300">Nutritional Goals:</span>
+                        <span className="text-sm font-bold text-yellow-300 drop-shadow-lg">Nutritional Goals:</span>
                         {userData?.selectedCalorieRange && userData?.selectedProteinRange ? (
                           <div className="text-sm text-gray-400 mt-1">
                             <div>Cal: {userData.selectedCalorieRange}, Protein: {userData.selectedProteinRange}g</div>
@@ -891,11 +891,11 @@ export default function ExploreRecipesScreen() {
 
                   {activeTab === 'pantry' && (
                     <div className="space-y-3 transition-all duration-500 ease-in-out">
-                      <h4 className="text-lg font-semibold text-purple-300 mb-3">Available Ingredients</h4>
+                      <h4 className="text-lg font-bold text-yellow-300 mb-3 drop-shadow-lg">Available Ingredients</h4>
                       
                       {/* Ingredient Selection Summary */}
                       <div className="flex items-center justify-between mb-3">
-                        <span className="text-sm font-medium text-gray-300">Selected Ingredients:</span>
+                        <span className="text-sm font-bold text-yellow-300 drop-shadow-lg">Selected Ingredients:</span>
                         <span className="text-sm text-gray-400">{selectedIngredients.length} items</span>
                       </div>
                       
@@ -931,7 +931,7 @@ export default function ExploreRecipesScreen() {
 
                       {/* Add Custom Ingredients */}
                       <div className="mt-4 pt-3 border-t border-gray-600">
-                        <h5 className="text-sm font-medium text-gray-300 mb-2">Add Ingredients</h5>
+                        <h5 className="text-sm font-bold text-yellow-300 mb-2 drop-shadow-lg">Add Ingredients</h5>
                         <div className="flex space-x-2">
                           <input
                             type="text"
