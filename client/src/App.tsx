@@ -10,7 +10,7 @@ import NotFound from "@/pages/not-found";
 import SignupScreen from "@/pages/signup";
 import DietaryScreen from "@/pages/dietary";
 import RecipesScreen from "@/pages/recipes";
-import ReviewRecipesScreen from "@/pages/review-recipes";
+
 import RecipeDetailsScreen from "@/pages/recipe-details";
 import CookingScreen from "@/pages/cooking";
 import VoiceCookingScreen from "@/pages/voice-cooking";
@@ -56,7 +56,7 @@ function Router() {
       <Route path="/home" component={HomeScreen} />
       <Route path="/recipes" component={RecipesScreen} />
       <Route path="/recipe-details" component={RecipeDetailsScreen} />
-      <Route path="/review-recipes" component={ReviewRecipesScreen} />
+
       <Route path="/grocery-list" component={GroceryListEnhanced} />
       <Route path="/instacart" component={InstacartScreen} />
       <Route path="/cooking/:recipeId?" component={CookingScreen} />

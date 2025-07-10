@@ -335,13 +335,7 @@ export default function ExploreRecipesScreen() {
   const [newIngredient, setNewIngredient] = useState<string>('');
   const [isPantryExpanded, setIsPantryExpanded] = useState<boolean>(true);
   
-  // Custom dish creation state - Pre-fill burger for testing
-  const [customDishName, setCustomDishName] = useState('Burger');
-  const [customDishIngredients, setCustomDishIngredients] = useState('ground beef, buns, lettuce, tomato, onion, cheese');
-  const [customCookingStyle, setCustomCookingStyle] = useState('Grilled');
-  const [customPrepTime, setCustomPrepTime] = useState('Under 15 min');
-  const [customDifficulty, setCustomDifficulty] = useState('Easy');
-  const [showDishVariations, setShowDishVariations] = useState(false);
+
 
   // Comprehensive ingredient categories
   const ingredientCategories = {
@@ -1034,7 +1028,10 @@ export default function ExploreRecipesScreen() {
                 <Button 
                   variant="outline"
                   className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600 transition-all duration-200"
-                  onClick={() => setLocation('/review-recipes')}
+                  onClick={() => {
+                    console.log('Create Dishes - Coming Soon');
+                    // Placeholder for future redesigned Create Dishes functionality
+                  }}
                 >
                   Create Dishes
                 </Button>

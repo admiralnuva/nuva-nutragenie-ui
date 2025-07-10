@@ -621,6 +621,12 @@ Changelog:
   * Updated card order from order-3 to order-5 when isPantryCardAtBottom is true
   * New ordering: Recipe Options → History → Summary → Completed Personalize Card
   * Maintains smooth animation transitions when card moves to bottom position
+- July 10, 2025. Create Dishes Functionality Removal:
+  * Removed entire review-recipes.tsx file and all associated Create Dishes cards/screens
+  * Deleted ReviewRecipesScreen import and route from App.tsx
+  * Updated Create Dishes button to placeholder functionality for future redesign
+  * Cleaned up custom dish creation state variables and burger variation components
+  * Prepared codebase for redesigned Create Dishes implementation
 ```
 
 ## User Preferences
