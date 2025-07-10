@@ -954,7 +954,17 @@ export default function ExploreRecipesScreen() {
                       variant="outline" 
                       size="sm" 
                       className="bg-gray-700 border-gray-600 text-gray-300"
-                      onClick={() => setPreferencesCardSlid(false)}
+                      onClick={() => {
+                        // Reset all states like navigation reset
+                        setPreferencesCardSlid(false);
+                        setActiveTab('meal');
+                        setIsPantryCardCollapsed(false);
+                        setIsPantryCardAtBottom(false);
+                        setIsPantryConfirmed(false);
+                        setMealConfirmed(false);
+                        setIsMealComplete(false);
+                        setIsPantryComplete(false);
+                      }}
                     >
                       Edit Preferences
                     </Button>
