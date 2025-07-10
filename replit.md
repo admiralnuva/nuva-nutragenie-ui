@@ -656,6 +656,9 @@ Changelog:
   * Applied consistent yellow label styling for confirmation text with drop shadow
   * Integrated green checkmark indicators showing confirmed substitution changes in main nutrition display
   * Maintained consistent card structure and 100% identical styling across Chef's Choice and Create Dishes sections
+  * Fixed substitution card header layout: title centered in first row, nutrition values in second row
+  * Enhanced real-time nutrition calculations with smart ingredient-type logic (plant proteins, dairy alternatives, lean meats)
+  * Added bright yellow color to main ingredient names with drop shadow for better visual hierarchy
 ```
 
 ## User Preferences
