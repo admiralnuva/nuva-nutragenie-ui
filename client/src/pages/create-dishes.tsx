@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useLocation } from 'wouter';
-import { ArrowLeft, ChevronDown } from 'lucide-react';
+import { ArrowLeft, ChevronDown, Repeat, BookOpen, Save, CookingPot, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -328,7 +328,6 @@ export default function CreateDishesScreen() {
                     <div className="p-4 space-y-3">
                       {/* Dish Name */}
                       <h3 className="text-white font-semibold text-xl mb-3">{dish.name}</h3>
-                      
                       {/* Row 1: Calories and Protein */}
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
@@ -350,20 +349,23 @@ export default function CreateDishesScreen() {
                         <span className="text-sm text-gray-300">{dish.difficulty} difficulty</span>
                       </div>
                       
-                      {/* Action Buttons */}
-                      <div className="flex justify-between mt-4">
-                        <Button 
-                          variant="outline"
-                          className="flex-1 mr-2 bg-gray-700 border-gray-600 text-gray-300 hover:bg-blue-600 hover:text-white hover:border-blue-600"
-                        >
-                          View Recipe
-                        </Button>
-                        <Button 
-                          className="flex-1 ml-2 bg-blue-600 hover:bg-blue-700 text-white"
-                          onClick={() => setLocation('/voice-cooking')}
-                        >
-                          Start Cooking
-                        </Button>
+                      {/* Action Icons Row */}
+                      <div className="flex items-center justify-between mt-4">
+                          <button className="w-10 h-10 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
+                            <Repeat size={20} className="text-gray-300" />
+                          </button>
+                          <button className="w-10 h-10 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
+                            <BookOpen size={20} className="text-gray-300" />
+                          </button>
+                          <button className="w-10 h-10 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
+                            <Save size={20} className="text-gray-300" />
+                          </button>
+                          <button className="w-10 h-10 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
+                            <CookingPot size={20} className="text-gray-300" />
+                          </button>
+                          <button className="w-10 h-10 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center justify-center transition-colors">
+                            <Plus size={20} />
+                          </button>
                       </div>
                     </div>
                   </div>
