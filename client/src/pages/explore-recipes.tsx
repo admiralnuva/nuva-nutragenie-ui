@@ -947,7 +947,12 @@ export default function ExploreRecipesScreen() {
                   )}
                   
                   <div className="flex gap-2 pt-4">
-                    <Button variant="outline" size="sm" className="bg-gray-700 border-gray-600 text-gray-300">
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="bg-gray-700 border-gray-600 text-gray-300"
+                      onClick={() => setLocation('/grocery-list')}
+                    >
                       Grocery List
                     </Button>
                     <Button 

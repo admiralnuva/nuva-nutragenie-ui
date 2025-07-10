@@ -25,6 +25,7 @@ import HealthAnalyticsScreen from "@/pages/health";
 import HomeScreen from "@/pages/home";
 
 import GroceryListScreen from "@/pages/grocery-list-new";
+import GroceryListEnhanced from "@/pages/grocery-list-enhanced";
 import InstacartScreen from "@/pages/instacart";
 import WeeklyMealPlanningScreen from "@/pages/weekly-meal-planning";
 
@@ -56,7 +57,7 @@ function Router() {
       <Route path="/recipes" component={RecipesScreen} />
       <Route path="/recipe-details" component={RecipeDetailsScreen} />
       <Route path="/review-recipes" component={ReviewRecipesScreen} />
-      <Route path="/grocery-list" component={GroceryListScreen} />
+      <Route path="/grocery-list" component={GroceryListEnhanced} />
       <Route path="/instacart" component={InstacartScreen} />
       <Route path="/cooking/:recipeId?" component={CookingScreen} />
       <Route path="/voice-cooking" component={VoiceCookingScreen} />
