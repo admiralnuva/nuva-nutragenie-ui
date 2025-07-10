@@ -640,4 +640,5 @@ Changelog:
 Preferred communication style: Simple, everyday language.
 Framework Header Standard: Screen names always use purple color (text-purple-600).
 Development Standard: Always create reusable components first before implementing features. Use component-based architecture for all UI elements.
+Selection Color Standard: All selected states across the app use purple-600 background with white text for consistency.
 ```
