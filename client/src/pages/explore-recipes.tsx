@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
-import { Clock, Users, ChefHat, Flame, Target, Utensils, ShoppingCart, Sparkles, Plus, List, Minus, ChevronDown, ChevronUp, ArrowLeft, BookOpen, RotateCw, Bookmark, X, Save, Printer } from "lucide-react";
+import { Clock, Users, ChefHat, Flame, Target, Utensils, ShoppingCart, Sparkles, Plus, List, Minus, ChevronDown, ChevronUp, ArrowLeft } from "lucide-react";
 import { ProcessingAnimation, QuickProcessingAnimation } from "@/components/ui/processing-animation";
 
 // Import user avatar images
@@ -68,178 +68,6 @@ const chefsChoiceImages = {
   "power-smoothie-bowl": "/images/chefs-choice/power-smoothie-bowl.png"
 };
 
-// Sample dish data
-const sampleDishes = {
-  chefsChoice: [
-    {
-      id: 1,
-      name: "Tuscan Salmon",
-      image: chefsChoiceImages["herb-crusted-fish"],
-      calories: 550,
-      protein: "45g",
-      cookTime: "30 min",
-      difficulty: "Easy"
-    },
-    {
-      id: 2,
-      name: "Mediterranean Bowl",
-      image: chefsChoiceImages["mediterranean-bowl"],
-      calories: 420,
-      protein: "18g",
-      cookTime: "25 min",
-      difficulty: "Easy"
-    },
-    {
-      id: 3,
-      name: "Quinoa Power Salad",
-      image: chefsChoiceImages["quinoa-salad"],
-      calories: 380,
-      protein: "22g",
-      cookTime: "15 min",
-      difficulty: "Easy"
-    },
-    {
-      id: 4,
-      name: "Stuffed Bell Peppers",
-      image: chefsChoiceImages["stuffed-peppers"],
-      calories: 310,
-      protein: "26g",
-      cookTime: "45 min",
-      difficulty: "Medium"
-    },
-    {
-      id: 5,
-      name: "Green Power Smoothie",
-      image: chefsChoiceImages["power-smoothie-bowl"],
-      calories: 290,
-      protein: "15g",
-      cookTime: "5 min",
-      difficulty: "Easy"
-    },
-    {
-      id: 6,
-      name: "Hearty Vegetable Soup",
-      image: chefsChoiceImages["soup"],
-      calories: 220,
-      protein: "12g",
-      cookTime: "40 min",
-      difficulty: "Easy"
-    }
-  ],
-  pantryDishes: [
-    {
-      id: 7,
-      name: "Fried Rice Delight",
-      image: pantryDishImages["fried-rice"],
-      calories: 420,
-      protein: "18g",
-      cookTime: "20 min",
-      difficulty: "Easy"
-    },
-    {
-      id: 8,
-      name: "Garlic Herb Bread",
-      image: pantryDishImages["garlic-bread"],
-      calories: 280,
-      protein: "8g",
-      cookTime: "15 min",
-      difficulty: "Easy"
-    },
-    {
-      id: 9,
-      name: "Creamy Pasta",
-      image: pantryDishImages["pasta"],
-      calories: 520,
-      protein: "24g",
-      cookTime: "25 min",
-      difficulty: "Easy"
-    },
-    {
-      id: 10,
-      name: "Fluffy Scrambled Eggs",
-      image: pantryDishImages["scrambled-eggs"],
-      calories: 280,
-      protein: "20g",
-      cookTime: "10 min",
-      difficulty: "Easy"
-    },
-    {
-      id: 11,
-      name: "Comfort Soup",
-      image: pantryDishImages["soup"],
-      calories: 190,
-      protein: "10g",
-      cookTime: "30 min",
-      difficulty: "Easy"
-    },
-    {
-      id: 12,
-      name: "Avocado Toast",
-      image: pantryDishImages["toast-and-jam"],
-      calories: 320,
-      protein: "12g",
-      cookTime: "5 min",
-      difficulty: "Easy"
-    }
-  ],
-  previousDishes: [
-    {
-      id: 13,
-      name: "Classic Burger",
-      image: burgerImages[0],
-      calories: 650,
-      protein: "35g",
-      cookTime: "20 min",
-      difficulty: "Medium"
-    },
-    {
-      id: 14,
-      name: "BBQ Burger",
-      image: burgerImages[1],
-      calories: 720,
-      protein: "40g",
-      cookTime: "25 min",
-      difficulty: "Medium"
-    },
-    {
-      id: 15,
-      name: "Mushroom Swiss Burger",
-      image: burgerImages[2],
-      calories: 580,
-      protein: "32g",
-      cookTime: "22 min",
-      difficulty: "Medium"
-    },
-    {
-      id: 16,
-      name: "Spicy Jalapeño Burger",
-      image: burgerImages[3],
-      calories: 670,
-      protein: "38g",
-      cookTime: "20 min",
-      difficulty: "Medium"
-    },
-    {
-      id: 17,
-      name: "Bacon Cheeseburger",
-      image: burgerImages[4],
-      calories: 780,
-      protein: "45g",
-      cookTime: "25 min",
-      difficulty: "Medium"
-    },
-    {
-      id: 18,
-      name: "Veggie Burger",
-      image: burgerImages[5],
-      calories: 420,
-      protein: "18g",
-      cookTime: "18 min",
-      difficulty: "Easy"
-    }
-  ]
-};
-
 export default function ExploreRecipesScreen() {
   const [, setLocation] = useLocation();
   const [currentUser] = useLocalStorage<any>("nutragenie_user", null);
@@ -258,9 +86,13 @@ export default function ExploreRecipesScreen() {
   const [isPantryComplete, setIsPantryComplete] = useState(false);
   const [preferencesCardSlid, setPreferencesCardSlid] = useState(false);
 
-  // Pantry ingredients state
-  const [selectedIngredients, setSelectedIngredients] = useLocalStorage<string[]>("nutragenie_selected_ingredients", []);
-  const [newIngredient, setNewIngredient] = useState('');
+  // Get dynamic avatar for Card 3 based on active selection
+  const getDynamicAvatar = () => {
+    if (activeCard === 'pantry-dishes' || activeCard === 'chefs-choice') {
+      return chefAvatarSrc;
+    }
+    return userAvatarSrc;
+  };
 
   // Meal preferences state with sequential validation and auto-save
   const [mealPreferences, setMealPreferences] = useLocalStorage("nutragenie_meal_preferences", {
@@ -282,24 +114,6 @@ export default function ExploreRecipesScreen() {
   // Card collapse state
   const [isPantryCardCollapsed, setIsPantryCardCollapsed] = useState(false);
   const [isPantryCardAtBottom, setIsPantryCardAtBottom] = useState(false);
-  
-  // Recipe options state
-  const [activeRecipeOption, setActiveRecipeOption] = useState<'chefs-choice' | 'pantry-dishes' | 'create-dishes' | 'take-out' | null>(null);
-  const [createDishTab, setCreateDishTab] = useState<'create' | 'previous'>('create');
-  const [newDishName, setNewDishName] = useState('');
-  const [newDishPreferences, setNewDishPreferences] = useState({
-    cuisine: '',
-    mealType: '',
-    time: ''
-  });
-  const [createdDishVariations, setCreatedDishVariations] = useState<any[]>([]);
-  
-  // Modal states
-  const [showRecipeModal, setShowRecipeModal] = useState(false);
-  const [showSubstitutionModal, setShowSubstitutionModal] = useState(false);
-  const [selectedDish, setSelectedDish] = useState<any>(null);
-  const [savedDishes, setSavedDishes] = useState<number[]>([]);
-  const [takeOutDishes, setTakeOutDishes] = useState<number[]>([]);
 
   // Helper function to check if required fields are completed
   const isRequiredFieldsCompleted = () => {
@@ -360,245 +174,6 @@ export default function ExploreRecipesScreen() {
   const [isCard1Moving, setIsCard1Moving] = useState(false);
   const [card1AtBottom, setCard1AtBottom] = useState(false);
   
-  // Handle recipe option selection
-  const handleRecipeOptionClick = (option: 'chefs-choice' | 'pantry-dishes' | 'create-dishes' | 'take-out') => {
-    setActiveRecipeOption(activeRecipeOption === option ? null : option);
-  };
-
-  // Handle create dish
-  const handleCreateDish = () => {
-    if (newDishName.trim() && newDishPreferences.cuisine && newDishPreferences.mealType && newDishPreferences.time) {
-      // Create 6 variations of the dish
-      const variations = Array.from({ length: 6 }, (_, index) => ({
-        id: Date.now() + index,
-        name: `${newDishName} ${index === 0 ? 'Classic' : index === 1 ? 'Spicy' : index === 2 ? 'Healthy' : index === 3 ? 'Gourmet' : index === 4 ? 'Quick' : 'Comfort'}`,
-        image: burgerImages[index],
-        calories: 450 + index * 50,
-        protein: `${25 + index * 5}g`,
-        cookTime: newDishPreferences.time,
-        difficulty: index < 2 ? 'Easy' : index < 4 ? 'Medium' : 'Hard'
-      }));
-      
-      setCreatedDishVariations(variations);
-      setNewDishName('');
-      setNewDishPreferences({ cuisine: '', mealType: '', time: '' });
-    }
-  };
-
-  // Handle dish actions
-  const handleSave = (dishId: number) => {
-    setSavedDishes(prev => prev.includes(dishId) ? prev.filter(id => id !== dishId) : [...prev, dishId]);
-  };
-
-  const handleTakeOut = (dishId: number) => {
-    setTakeOutDishes(prev => prev.includes(dishId) ? prev.filter(id => id !== dishId) : [...prev, dishId]);
-  };
-
-  const handleRecipe = (dish: any) => {
-    setSelectedDish(dish);
-    setShowRecipeModal(true);
-  };
-
-  const handleSubstitution = (dish: any) => {
-    setSelectedDish(dish);
-    setShowSubstitutionModal(true);
-  };
-
-  // DishCard component
-  const DishCard = ({ dish }: { dish: any }) => (
-    <div className="relative bg-gray-800 rounded-lg overflow-hidden shadow-lg">
-      <div className="relative h-32 bg-cover bg-center" style={{ backgroundImage: `url(${dish.image})` }}>
-        <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-        <div className="absolute bottom-0 left-0 right-0 p-3">
-          <h3 className="text-white font-semibold text-sm">{dish.name}</h3>
-        </div>
-      </div>
-      
-      <div className="p-3">
-        <div className="flex justify-between items-center mb-3 text-xs text-gray-400">
-          <span>🔥 {dish.calories} calories</span>
-          <span>💪 {dish.protein} protein</span>
-        </div>
-        <div className="flex justify-between items-center mb-3 text-xs text-gray-400">
-          <span>⏱️ {dish.cookTime} cook time</span>
-          <span className="px-2 py-1 bg-gray-700 rounded text-white">{dish.difficulty}</span>
-        </div>
-        
-        <div className="flex justify-between items-center">
-          <div className="flex gap-2">
-            <button
-              onClick={() => handleRecipe(dish)}
-              className="p-1.5 bg-blue-600 hover:bg-blue-700 rounded text-white"
-              title="Recipe"
-            >
-              <BookOpen size={16} />
-            </button>
-            <button
-              onClick={() => handleSubstitution(dish)}
-              className="p-1.5 bg-purple-600 hover:bg-purple-700 rounded text-white"
-              title="Substitutions"
-            >
-              <RotateCw size={16} />
-            </button>
-            <button
-              onClick={() => handleSave(dish.id)}
-              className={`p-1.5 rounded ${savedDishes.includes(dish.id) ? 'bg-yellow-600' : 'bg-gray-600 hover:bg-gray-700'} text-white`}
-              title="Save"
-            >
-              <Bookmark size={16} />
-            </button>
-          </div>
-          <div className="flex gap-2">
-            <button
-              onClick={() => setLocation('/voice-cooking')}
-              className="p-1.5 bg-orange-600 hover:bg-orange-700 rounded text-white"
-              title="Cook"
-            >
-              <ChefHat size={16} />
-            </button>
-            <button
-              onClick={() => handleTakeOut(dish.id)}
-              className={`p-1.5 rounded ${takeOutDishes.includes(dish.id) ? 'bg-green-600' : 'bg-blue-600 hover:bg-blue-700'} text-white`}
-              title="Take-out"
-            >
-              <Plus size={16} />
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
-  // Recipe Modal component
-  const RecipeModal = () => (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" onClick={() => setShowRecipeModal(false)}>
-      <div className="bg-gray-800 rounded-lg p-6 max-w-md w-full mx-4 max-h-[80vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold text-white">{selectedDish?.name}</h2>
-          <div className="flex gap-2">
-            <button className="p-2 bg-gray-700 hover:bg-gray-600 rounded text-white" title="Save">
-              <Save size={20} />
-            </button>
-            <button className="p-2 bg-gray-700 hover:bg-gray-600 rounded text-white" title="Print">
-              <Printer size={20} />
-            </button>
-            <button onClick={() => setShowRecipeModal(false)} className="p-2 bg-gray-700 hover:bg-gray-600 rounded text-white">
-              <X size={20} />
-            </button>
-          </div>
-        </div>
-        
-        <div className="h-40 bg-cover bg-center rounded-lg mb-4" style={{ backgroundImage: `url(${selectedDish?.image})` }}></div>
-        
-        <div className="space-y-4">
-          <div>
-            <h3 className="text-lg font-semibold text-white mb-2">Ingredients</h3>
-            <div className="space-y-2 text-sm text-gray-300">
-              <div className="flex justify-between">
-                <span>4 fillets</span>
-                <span>Salmon</span>
-              </div>
-              <div className="flex justify-between">
-                <span>1 tbsp</span>
-                <span>Olive Oil</span>
-              </div>
-              <div className="flex justify-between">
-                <span>1/2 cup</span>
-                <span>Heavy Cream</span>
-              </div>
-              <div className="flex justify-between">
-                <span>3 cloves</span>
-                <span>Garlic, minced</span>
-              </div>
-              <div className="flex justify-between">
-                <span>5 oz</span>
-                <span>Fresh Spinach</span>
-              </div>
-            </div>
-          </div>
-          
-          <div>
-            <h3 className="text-lg font-semibold text-white mb-2">Instructions</h3>
-            <div className="space-y-3 text-sm text-gray-300">
-              <div className="flex gap-3">
-                <span className="w-6 h-6 bg-purple-600 rounded-full flex items-center justify-center text-white text-xs">1</span>
-                <span>Season salmon with salt and pepper. Heat olive oil in a large skillet over medium-high heat. Sear salmon for 4-5 minutes per side until golden brown.</span>
-              </div>
-              <div className="flex gap-3">
-                <span className="w-6 h-6 bg-purple-600 rounded-full flex items-center justify-center text-white text-xs">2</span>
-                <span>In the same skillet, add minced garlic and cook until fragrant, about 1 minute. Stir in chicken broth and heavy cream.</span>
-              </div>
-              <div className="flex gap-3">
-                <span className="w-6 h-6 bg-purple-600 rounded-full flex items-center justify-center text-white text-xs">3</span>
-                <span>Add the fresh spinach and cook until wilted. Season the sauce with salt and pepper to taste.</span>
-              </div>
-              <div className="flex gap-3">
-                <span className="w-6 h-6 bg-purple-600 rounded-full flex items-center justify-center text-white text-xs">4</span>
-                <span>Return the salmon fillets to the skillet, spooning some of the sauce over them. Let it simmer for another 2-3 minutes.</span>
-              </div>
-              <div className="flex gap-3">
-                <span className="w-6 h-6 bg-purple-600 rounded-full flex items-center justify-center text-white text-xs">5</span>
-                <span>Serve immediately, garnished with fresh parsley if desired.</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
-  // Substitution Modal component
-  const SubstitutionModal = () => (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" onClick={() => setShowSubstitutionModal(false)}>
-      <div className="bg-gray-800 rounded-lg p-6 max-w-md w-full mx-4 max-h-[80vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold text-white">Ingredient Substitutions</h2>
-          <button onClick={() => setShowSubstitutionModal(false)} className="p-2 bg-gray-700 hover:bg-gray-600 rounded text-white">
-            <X size={20} />
-          </button>
-        </div>
-        
-        <div className="space-y-4">
-          <div className="bg-gray-700 rounded-lg p-4">
-            <div className="flex justify-between items-center mb-2">
-              <span className="text-white font-medium">Original</span>
-              <span className="text-gray-400">Substitute</span>
-            </div>
-            <div className="flex justify-between items-center">
-              <div className="text-center">
-                <div className="text-white font-semibold">Salmon</div>
-                <div className="text-xs text-gray-400">208cal 22g pro 12g fat</div>
-              </div>
-              <div className="text-purple-400">⇄</div>
-              <div className="text-center">
-                <div className="text-white font-semibold">Cod</div>
-                <div className="text-xs text-gray-400">82cal 18g pro 0.7g fat</div>
-              </div>
-            </div>
-          </div>
-          
-          <div className="bg-gray-700 rounded-lg p-4">
-            <div className="flex justify-between items-center mb-2">
-              <span className="text-white font-medium">Original</span>
-              <span className="text-gray-400">Substitute</span>
-            </div>
-            <div className="flex justify-between items-center">
-              <div className="text-center">
-                <div className="text-white font-semibold">Heavy Cream</div>
-                <div className="text-xs text-gray-400">51cal 0.4g pro 5g fat</div>
-              </div>
-              <div className="text-purple-400">⇄</div>
-              <div className="text-center">
-                <div className="text-white font-semibold">Coconut Cream</div>
-                <div className="text-xs text-gray-400">75cal 0.8g pro 8g fat</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
   // Reset card positions on page load
   useEffect(() => {
     // Reset card positions when navigating to page
@@ -637,7 +212,9 @@ export default function ExploreRecipesScreen() {
 
   // Pantry management state
   const [activeCard, setActiveCard] = useState<string>('pantry-ingredients');
+  const [selectedIngredients, setSelectedIngredients] = useState<string[]>(['Chicken Breast', 'Salmon', 'Onions', 'Rice', 'Milk', 'Olive Oil', 'Apples', 'Basil', 'Cumin', 'Ketchup']);
   const [customIngredients, setCustomIngredients] = useState<string[]>([]);
+  const [newIngredient, setNewIngredient] = useState<string>('');
   const [isPantryExpanded, setIsPantryExpanded] = useState<boolean>(true);
   
   // Custom dish creation state - Pre-fill burger for testing
@@ -1315,188 +892,29 @@ export default function ExploreRecipesScreen() {
           </div>
 
           {/* Card 2: Recipe Options */}
-          {isPantryCardAtBottom && (
-            <div className="order-2">
-              <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
-                <CardHeader className="pb-4">
-                  <CardTitle className="text-lg text-white">Recipe Options</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-2 gap-3 mb-4">
-                    <Button 
-                      onClick={() => handleRecipeOptionClick('chefs-choice')}
-                      className={`h-14 ${activeRecipeOption === 'chefs-choice' ? 'bg-purple-600 text-white' : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600'}`}
-                    >
-                      Chef's Choice
-                    </Button>
-                    <Button 
-                      onClick={() => handleRecipeOptionClick('pantry-dishes')}
-                      className={`h-14 ${activeRecipeOption === 'pantry-dishes' ? 'bg-purple-600 text-white' : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600'}`}
-                    >
-                      Pantry Dishes
-                    </Button>
-                    <Button 
-                      onClick={() => handleRecipeOptionClick('create-dishes')}
-                      className={`h-14 ${activeRecipeOption === 'create-dishes' ? 'bg-purple-600 text-white' : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600'}`}
-                    >
-                      Create Dishes
-                    </Button>
-                    <Button 
-                      onClick={() => handleRecipeOptionClick('take-out')}
-                      className={`h-14 ${activeRecipeOption === 'take-out' ? 'bg-purple-600 text-white' : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600'}`}
-                    >
-                      Take-Out
-                    </Button>
-                  </div>
-
-                  {/* Recipe Option Content */}
-                  {activeRecipeOption === 'chefs-choice' && (
-                    <div className="space-y-4">
-                      <h3 className="text-lg font-semibold text-purple-300">Chef Recommends this health diet</h3>
-                      <div className="grid grid-cols-2 gap-3">
-                        {sampleDishes.chefsChoice.map((dish) => (
-                          <DishCard key={dish.id} dish={dish} />
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {activeRecipeOption === 'pantry-dishes' && (
-                    <div className="space-y-4">
-                      <h3 className="text-lg font-semibold text-purple-300">Dishes from your pantry ingredients</h3>
-                      <div className="grid grid-cols-2 gap-3">
-                        {sampleDishes.pantryDishes.map((dish) => (
-                          <DishCard key={dish.id} dish={dish} />
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {activeRecipeOption === 'create-dishes' && (
-                    <div className="space-y-4">
-                      <div className="flex gap-2 mb-4">
-                        <Button
-                          variant={createDishTab === 'create' ? "default" : "outline"}
-                          onClick={() => setCreateDishTab('create')}
-                          className={`flex-1 ${createDishTab === 'create' ? 'bg-purple-600 text-white' : 'bg-gray-700 border-gray-600 text-gray-300'}`}
-                        >
-                          Create Dish
-                        </Button>
-                        <Button
-                          variant={createDishTab === 'previous' ? "default" : "outline"}
-                          onClick={() => setCreateDishTab('previous')}
-                          className={`flex-1 ${createDishTab === 'previous' ? 'bg-purple-600 text-white' : 'bg-gray-700 border-gray-600 text-gray-300'}`}
-                        >
-                          Previous Dishes
-                        </Button>
-                      </div>
-
-                      {createDishTab === 'create' && (
-                        <div className="space-y-4">
-                          <div>
-                            <label className="text-sm text-purple-300 mb-2 block">Dish Name</label>
-                            <input
-                              type="text"
-                              value={newDishName}
-                              onChange={(e) => setNewDishName(e.target.value)}
-                              placeholder="e.g., Spicy Chicken Tacos"
-                              className="w-full h-10 bg-gray-700 border border-gray-600 text-white text-sm rounded px-3"
-                            />
-                          </div>
-                          <div className="grid grid-cols-3 gap-2">
-                            <div>
-                              <label className="text-xs text-purple-300 mb-1 block">Cuisine</label>
-                              <select
-                                value={newDishPreferences.cuisine}
-                                onChange={(e) => setNewDishPreferences({...newDishPreferences, cuisine: e.target.value})}
-                                className="w-full h-8 bg-gray-700 border border-gray-600 text-white text-xs rounded"
-                              >
-                                <option value="">Select</option>
-                                <option value="American">American</option>
-                                <option value="Italian">Italian</option>
-                                <option value="Mexican">Mexican</option>
-                                <option value="Asian">Asian</option>
-                              </select>
-                            </div>
-                            <div>
-                              <label className="text-xs text-purple-300 mb-1 block">Meal Type</label>
-                              <select
-                                value={newDishPreferences.mealType}
-                                onChange={(e) => setNewDishPreferences({...newDishPreferences, mealType: e.target.value})}
-                                className="w-full h-8 bg-gray-700 border border-gray-600 text-white text-xs rounded"
-                              >
-                                <option value="">Select</option>
-                                <option value="Breakfast">Breakfast</option>
-                                <option value="Lunch">Lunch</option>
-                                <option value="Dinner">Dinner</option>
-                              </select>
-                            </div>
-                            <div>
-                              <label className="text-xs text-purple-300 mb-1 block">Time</label>
-                              <select
-                                value={newDishPreferences.time}
-                                onChange={(e) => setNewDishPreferences({...newDishPreferences, time: e.target.value})}
-                                className="w-full h-8 bg-gray-700 border border-gray-600 text-white text-xs rounded"
-                              >
-                                <option value="">Select</option>
-                                <option value="15 min">15 min</option>
-                                <option value="30 min">30 min</option>
-                                <option value="45 min">45 min</option>
-                              </select>
-                            </div>
-                          </div>
-                          <Button
-                            onClick={handleCreateDish}
-                            disabled={!newDishName.trim() || !newDishPreferences.cuisine || !newDishPreferences.mealType || !newDishPreferences.time}
-                            className="w-full bg-purple-600 hover:bg-purple-700 text-white disabled:opacity-50"
-                          >
-                            Create Dish Variations
-                          </Button>
-                          
-                          {createdDishVariations.length > 0 && (
-                            <div className="space-y-3">
-                              <h4 className="text-sm font-medium text-purple-300">Created Variations</h4>
-                              <div className="grid grid-cols-2 gap-3">
-                                {createdDishVariations.map((dish) => (
-                                  <DishCard key={dish.id} dish={dish} />
-                                ))}
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      )}
-
-                      {createDishTab === 'previous' && (
-                        <div className="space-y-4">
-                          <h3 className="text-lg font-semibold text-purple-300">Previous Dishes</h3>
-                          <div className="grid grid-cols-2 gap-3">
-                            {sampleDishes.previousDishes.map((dish) => (
-                              <DishCard key={dish.id} dish={dish} />
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  )}
-
-                  {activeRecipeOption === 'take-out' && (
-                    <div className="space-y-4">
-                      <h3 className="text-lg font-semibold text-purple-300">Take-Out Options</h3>
-                      <div className="text-center py-8">
-                        <p className="text-gray-400 mb-4">Take-out functionality coming soon!</p>
-                        <Button
-                          onClick={() => setLocation('/take-out')}
-                          className="bg-purple-600 hover:bg-purple-700 text-white"
-                        >
-                          Go to Take-Out Page
-                        </Button>
-                      </div>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            </div>
-          )}
+          <div className="order-2">
+            <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
+              <CardHeader className="pb-4">
+              <CardTitle className="text-lg text-white">Recipe Options</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 gap-3">
+                <Button className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600">
+                  Chef's Choice
+                </Button>
+                <Button className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600">
+                  Pantry Dishes
+                </Button>
+                <Button className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600">
+                  Create Dishes
+                </Button>
+                <Button className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600">
+                  Take-Out
+                </Button>
+              </div>
+            </CardContent>
+            </Card>
+          </div>
 
           {/* Card 3: Summary */}
           {(isMealComplete || isPantryComplete) && (
@@ -1568,10 +986,6 @@ export default function ExploreRecipesScreen() {
         {/* Bottom spacing to account for bottom navigation */}
         <div className="h-20"></div>
       </div>
-
-      {/* Modals */}
-      {showRecipeModal && <RecipeModal />}
-      {showSubstitutionModal && <SubstitutionModal />}
     </div>
   );
 }
