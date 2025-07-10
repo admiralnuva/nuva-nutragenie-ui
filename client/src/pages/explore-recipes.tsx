@@ -463,11 +463,11 @@ export default function ExploreRecipesScreen() {
 
         <div className="flex flex-col space-y-4">
           {/* Card 1: Preferences and Pantry Ingredients */}
-          <div className={`transition-all duration-500 ease-in-out ${
-            isPantryCardAtBottom ? 'order-3' : 'order-1'
+          <div className={`transition-all duration-700 ease-in-out transform ${
+            isPantryCardAtBottom ? 'order-3 translate-y-2 scale-95 opacity-95' : 'order-1 translate-y-0 scale-100 opacity-100'
           }`}>
-            <Card className={`bg-gray-800/90 backdrop-blur-sm border border-gray-700 transition-all duration-300 ${
-              isPantryCardCollapsed ? 'min-h-[120px]' : 'min-h-[400px]'
+            <Card className={`bg-gray-800/90 backdrop-blur-sm border border-gray-700 transition-all duration-700 ease-in-out ${
+              isPantryCardCollapsed ? 'min-h-[120px] scale-98' : 'min-h-[400px] scale-100'
             }`}>
               <CardHeader className="pb-4 relative">
                 <div className="flex items-center justify-between">
@@ -536,7 +536,7 @@ export default function ExploreRecipesScreen() {
 
                 {/* Tab Content - Hidden when collapsed */}
                 {!isPantryCardCollapsed && (
-                  <div className="mt-4 min-h-[280px]">
+                  <div className="mt-4 min-h-[280px] transition-all duration-500 ease-in-out opacity-100">
                   {activeTab === 'diet' && (
                     <div className="space-y-3">
                       <h4 className="text-lg font-semibold text-purple-300 mb-3">Dietary Preferences</h4>
@@ -606,7 +606,7 @@ export default function ExploreRecipesScreen() {
                   )}
 
                   {activeTab === 'meal' && (
-                    <div className="space-y-3">
+                    <div className="space-y-3 transition-all duration-500 ease-in-out">
                       {/* Row 1: Serving Size & Cuisine */}
                       <div className="grid grid-cols-2 gap-3">
                         <div>
@@ -757,8 +757,8 @@ export default function ExploreRecipesScreen() {
                               onCheckedChange={(checked) => {
                                 setMealConfirmed(checked);
                                 if (checked) {
-                                  // Automatically switch to Pantry tab when confirmed
-                                  setTimeout(() => setActiveTab('pantry'), 300);
+                                  // Smoothly switch to Pantry tab when confirmed
+                                  setTimeout(() => setActiveTab('pantry'), 500);
                                 }
                               }}
                               className="w-7 h-7 rounded-full border-gray-500 data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600"
@@ -776,7 +776,7 @@ export default function ExploreRecipesScreen() {
                   )}
 
                   {activeTab === 'pantry' && (
-                    <div className="space-y-3">
+                    <div className="space-y-3 transition-all duration-500 ease-in-out">
                       <h4 className="text-lg font-semibold text-purple-300 mb-3">Available Ingredients</h4>
                       
                       {/* Ingredient Selection Summary */}
@@ -859,7 +859,7 @@ export default function ExploreRecipesScreen() {
                                   // Immediately collapse the card
                                   setIsPantryCardCollapsed(true);
                                   setIsPantryComplete(true);
-                                  // Move to bottom after 1 second with audio
+                                  // Move to bottom after 1 second with smooth animation and audio
                                   setTimeout(() => {
                                     setIsPantryCardAtBottom(true);
                                     // Play ding sound effect
@@ -955,7 +955,7 @@ export default function ExploreRecipesScreen() {
                       size="sm" 
                       className="bg-gray-700 border-gray-600 text-gray-300"
                       onClick={() => {
-                        // Reset all states like navigation reset
+                        // Reset all states with smooth animation like navigation reset
                         setPreferencesCardSlid(false);
                         setActiveTab('meal');
                         setIsPantryCardCollapsed(false);
