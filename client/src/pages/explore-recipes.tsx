@@ -997,7 +997,7 @@ export default function ExploreRecipesScreen() {
                   <div className="grid grid-cols-1 gap-4">
                     {chefsChoiceDishes.map((dish) => (
                       <div key={dish.id} className="bg-gray-800 rounded-lg overflow-hidden">
-                        {/* Dish Image with Overlay */}
+                        {/* Dish Image */}
                         <div className="relative h-40">
                           <img 
                             src={dish.image} 
@@ -1006,15 +1006,12 @@ export default function ExploreRecipesScreen() {
                           />
                           {/* Dark overlay */}
                           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                          
-                          {/* Dish Name Overlay */}
-                          <div className="absolute bottom-4 left-4 z-10">
-                            <h3 className="text-white font-semibold text-xl drop-shadow-lg">{dish.name}</h3>
-                          </div>
                         </div>
                         
                         {/* Info Section */}
                         <div className="p-4 space-y-3">
+                          {/* Dish Name */}
+                          <h3 className="text-white font-semibold text-xl mb-3">{dish.name}</h3>
                           {/* Row 1: Calories and Protein */}
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
