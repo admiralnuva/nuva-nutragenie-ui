@@ -627,6 +627,11 @@ Changelog:
   * Updated Create Dishes button to placeholder functionality for future redesign
   * Cleaned up custom dish creation state variables and burger variation components
   * Prepared codebase for redesigned Create Dishes implementation
+- July 10, 2025. Recipe Options Button State Management Fix:
+  * Fixed Chef's Choice and Pantry Dishes button behavior to ensure mutual exclusivity
+  * Updated onClick handlers to properly hide one view when showing the other
+  * Chevron collapse buttons now correctly return to Recipe Options view
+  * Eliminated incorrect toggle behavior between Chef's Choice and Pantry Dishes
 ```
 
 ## User Preferences

@@ -1014,14 +1014,20 @@ export default function ExploreRecipesScreen() {
                 <Button 
                   variant="outline"
                   className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600 transition-all duration-200"
-                  onClick={() => setShowChefsChoice(true)}
+                  onClick={() => {
+                    setShowChefsChoice(true);
+                    setShowPantryDishes(false);
+                  }}
                 >
                   Chef's Choice
                 </Button>
                 <Button 
                   variant="outline"
                   className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600 transition-all duration-200"
-                  onClick={() => setShowPantryDishes(true)}
+                  onClick={() => {
+                    setShowPantryDishes(true);
+                    setShowChefsChoice(false);
+                  }}
                 >
                   Pantry Dishes
                 </Button>
