@@ -420,6 +420,57 @@ export default function ExploreRecipesScreen() {
   const [cookConfirmationOpen, setCookConfirmationOpen] = useState<number | null>(null);
   const [cookConfirmed, setCookConfirmed] = useState<{[dishId: number]: boolean}>({});
 
+  // Take-out ordering state
+  const [showTakeOutCards, setShowTakeOutCards] = useState(false);
+  const [takeOutFormCollapsed, setTakeOutFormCollapsed] = useState(false);
+  const [showChefRecommendations, setShowChefRecommendations] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState<'soup' | 'salads' | 'main' | 'dessert'>('soup');
+  
+  // Take-out form state
+  const [takeOutCuisine, setTakeOutCuisine] = useState('');
+  const [takeOutSpiceLevel, setTakeOutSpiceLevel] = useState('');
+  const [takeOutServingSize, setTakeOutServingSize] = useState('');
+  const [takeOutMealType, setTakeOutMealType] = useState('');
+  const [takeOutDate, setTakeOutDate] = useState('');
+
+  // Take-out form handlers
+  const handleGenerateMealCourse = () => {
+    if (!takeOutCuisine || !takeOutSpiceLevel || !takeOutServingSize || !takeOutMealType || !takeOutDate) {
+      alert('Please fill in all fields');
+      return;
+    }
+    setTakeOutFormCollapsed(true);
+    setShowChefRecommendations(true);
+  };
+
+  // Chef recommendations data for take-out
+  const chefRecommendations = {
+    soup: [
+      { id: 1, name: 'Tom Yum Soup', calories: 180, protein: '12g', cookTime: '25 min', difficulty: 'Medium', image: '/api/placeholder/300/200' },
+      { id: 2, name: 'Chicken Noodle Soup', calories: 220, protein: '18g', cookTime: '30 min', difficulty: 'Easy', image: '/api/placeholder/300/200' },
+      { id: 3, name: 'Mushroom Bisque', calories: 160, protein: '8g', cookTime: '20 min', difficulty: 'Easy', image: '/api/placeholder/300/200' },
+      { id: 4, name: 'Minestrone Soup', calories: 195, protein: '9g', cookTime: '35 min', difficulty: 'Medium', image: '/api/placeholder/300/200' }
+    ],
+    salads: [
+      { id: 5, name: 'Caesar Salad', calories: 280, protein: '15g', cookTime: '10 min', difficulty: 'Easy', image: '/api/placeholder/300/200' },
+      { id: 6, name: 'Greek Salad', calories: 240, protein: '12g', cookTime: '8 min', difficulty: 'Easy', image: '/api/placeholder/300/200' },
+      { id: 7, name: 'Quinoa Power Bowl', calories: 320, protein: '18g', cookTime: '15 min', difficulty: 'Medium', image: '/api/placeholder/300/200' },
+      { id: 8, name: 'Asian Chicken Salad', calories: 295, protein: '25g', cookTime: '12 min', difficulty: 'Easy', image: '/api/placeholder/300/200' }
+    ],
+    main: [
+      { id: 9, name: 'Grilled Salmon', calories: 420, protein: '35g', cookTime: '20 min', difficulty: 'Medium', image: '/api/placeholder/300/200' },
+      { id: 10, name: 'Beef Stir Fry', calories: 480, protein: '28g', cookTime: '25 min', difficulty: 'Easy', image: '/api/placeholder/300/200' },
+      { id: 11, name: 'Chicken Parmesan', calories: 510, protein: '42g', cookTime: '30 min', difficulty: 'Medium', image: '/api/placeholder/300/200' },
+      { id: 12, name: 'Vegetable Curry', calories: 380, protein: '16g', cookTime: '35 min', difficulty: 'Medium', image: '/api/placeholder/300/200' }
+    ],
+    dessert: [
+      { id: 13, name: 'Chocolate Mousse', calories: 260, protein: '6g', cookTime: '15 min', difficulty: 'Hard', image: '/api/placeholder/300/200' },
+      { id: 14, name: 'Tiramisu', calories: 320, protein: '8g', cookTime: '20 min', difficulty: 'Hard', image: '/api/placeholder/300/200' },
+      { id: 15, name: 'Fruit Tart', calories: 280, protein: '4g', cookTime: '25 min', difficulty: 'Medium', image: '/api/placeholder/300/200' },
+      { id: 16, name: 'Panna Cotta', calories: 240, protein: '7g', cookTime: '12 min', difficulty: 'Medium', image: '/api/placeholder/300/200' }
+    ]
+  };
+
   // Handle cook button click
   const handleCookClick = (dishId: number, dishName: string) => {
     setCookConfirmationOpen(dishId);
@@ -1185,7 +1236,7 @@ export default function ExploreRecipesScreen() {
                 <Button 
                   variant="outline"
                   className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600 transition-all duration-200"
-                  onClick={() => setLocation('/takeout')}
+                  onClick={() => setShowTakeOutCards(true)}
                 >
                   Take-Out
                 </Button>
@@ -1289,7 +1340,10 @@ export default function ExploreRecipesScreen() {
                                 >
                                   <CookingPot size={20} className="text-gray-300" />
                                 </button>
-                                <button className="w-10 h-10 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center justify-center transition-colors">
+                                <button 
+                                  onClick={() => setShowTakeOutCards(true)}
+                                  className="w-10 h-10 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center justify-center transition-colors"
+                                >
                                   <Plus size={20} />
                                 </button>
                             </div>
@@ -1456,7 +1510,10 @@ export default function ExploreRecipesScreen() {
                               >
                                 <CookingPot size={20} className="text-gray-300" />
                               </button>
-                              <button className="w-10 h-10 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center justify-center transition-colors">
+                              <button 
+                                onClick={() => setShowTakeOutCards(true)}
+                                className="w-10 h-10 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center justify-center transition-colors"
+                              >
                                 <Plus size={20} />
                               </button>
                           </div>
@@ -1598,6 +1655,245 @@ export default function ExploreRecipesScreen() {
           )}
         </div>
         
+        {/* Take-Out Cards */}
+        {showTakeOutCards && (
+          <div className="space-y-4 mb-4">
+            {/* Tell us what you're craving Card */}
+            <div className="order-5">
+              <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
+                <CardHeader className="pb-4">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-lg text-white">Tell us what you're craving</CardTitle>
+                    <button
+                      onClick={() => setTakeOutFormCollapsed(!takeOutFormCollapsed)}
+                      className="text-gray-400 hover:text-white transition-colors"
+                    >
+                      <ChevronDown 
+                        size={20} 
+                        className={`transform transition-transform ${takeOutFormCollapsed ? 'rotate-180' : ''}`}
+                      />
+                    </button>
+                  </div>
+                </CardHeader>
+                
+                {!takeOutFormCollapsed && (
+                  <CardContent className="space-y-4">
+                    <div className="grid grid-cols-1 gap-4">
+                      <div>
+                        <label className="text-sm font-bold text-yellow-300 drop-shadow-lg">Cuisine</label>
+                        <Select value={takeOutCuisine} onValueChange={setTakeOutCuisine}>
+                          <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                            <SelectValue placeholder="Select cuisine" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="italian">Italian</SelectItem>
+                            <SelectItem value="mexican">Mexican</SelectItem>
+                            <SelectItem value="asian">Asian</SelectItem>
+                            <SelectItem value="american">American</SelectItem>
+                            <SelectItem value="indian">Indian</SelectItem>
+                            <SelectItem value="mediterranean">Mediterranean</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      
+                      <div>
+                        <label className="text-sm font-bold text-yellow-300 drop-shadow-lg">Spice Level</label>
+                        <Select value={takeOutSpiceLevel} onValueChange={setTakeOutSpiceLevel}>
+                          <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                            <SelectValue placeholder="Select spice level" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="mild">Mild</SelectItem>
+                            <SelectItem value="medium">Medium</SelectItem>
+                            <SelectItem value="hot">Hot</SelectItem>
+                            <SelectItem value="extra-hot">Extra Hot</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      
+                      <div>
+                        <label className="text-sm font-bold text-yellow-300 drop-shadow-lg">Serving Size</label>
+                        <Select value={takeOutServingSize} onValueChange={setTakeOutServingSize}>
+                          <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                            <SelectValue placeholder="Select serving size" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="individual">Individual (3 hours advance)</SelectItem>
+                            <SelectItem value="family">Family 2-4 people (7 days advance)</SelectItem>
+                            <SelectItem value="group">Group 5+ people (7 days advance)</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      
+                      <div>
+                        <label className="text-sm font-bold text-yellow-300 drop-shadow-lg">Meal Type</label>
+                        <Select value={takeOutMealType} onValueChange={setTakeOutMealType}>
+                          <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                            <SelectValue placeholder="Select meal type" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="breakfast">Breakfast</SelectItem>
+                            <SelectItem value="lunch">Lunch</SelectItem>
+                            <SelectItem value="dinner">Dinner</SelectItem>
+                            <SelectItem value="snack">Snack</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      
+                      <div>
+                        <label className="text-sm font-bold text-yellow-300 drop-shadow-lg">Delivery Date</label>
+                        <Input
+                          type="date"
+                          value={takeOutDate}
+                          onChange={(e) => setTakeOutDate(e.target.value)}
+                          className="bg-gray-700 border-gray-600 text-white"
+                          min={new Date().toISOString().split('T')[0]}
+                        />
+                      </div>
+                    </div>
+                    
+                    <Button 
+                      onClick={handleGenerateMealCourse}
+                      className="w-full bg-purple-600 hover:bg-purple-700 text-white"
+                    >
+                      Generate a meal course
+                    </Button>
+                  </CardContent>
+                )}
+              </Card>
+            </div>
+
+            {/* Chef Recommendations Card */}
+            {showChefRecommendations && (
+              <div className="order-6">
+                <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
+                  <CardHeader className="pb-4">
+                    <div className="flex items-center justify-between">
+                      <CardTitle className="text-lg text-white">Chef Recommendations</CardTitle>
+                      <button
+                        onClick={() => setShowChefRecommendations(false)}
+                        className="text-gray-400 hover:text-white transition-colors"
+                      >
+                        <ChevronUp size={20} />
+                      </button>
+                    </div>
+                  </CardHeader>
+                  
+                  <CardContent>
+                    {/* Course Toggle Buttons */}
+                    <div className="grid grid-cols-4 gap-2 mb-6">
+                      <button
+                        onClick={() => setSelectedCourse('soup')}
+                        className={`px-3 py-2 rounded text-sm font-medium transition-all ${
+                          selectedCourse === 'soup'
+                            ? 'bg-purple-600 text-white'
+                            : 'bg-gray-700 text-gray-300 hover:bg-purple-500/50'
+                        }`}
+                      >
+                        Soup
+                      </button>
+                      <button
+                        onClick={() => setSelectedCourse('salads')}
+                        className={`px-3 py-2 rounded text-sm font-medium transition-all ${
+                          selectedCourse === 'salads'
+                            ? 'bg-purple-600 text-white'
+                            : 'bg-gray-700 text-gray-300 hover:bg-purple-500/50'
+                        }`}
+                      >
+                        Salads
+                      </button>
+                      <button
+                        onClick={() => setSelectedCourse('main')}
+                        className={`px-3 py-2 rounded text-sm font-medium transition-all ${
+                          selectedCourse === 'main'
+                            ? 'bg-purple-600 text-white'
+                            : 'bg-gray-700 text-gray-300 hover:bg-purple-500/50'
+                        }`}
+                      >
+                        Main Entree
+                      </button>
+                      <button
+                        onClick={() => setSelectedCourse('dessert')}
+                        className={`px-3 py-2 rounded text-sm font-medium transition-all ${
+                          selectedCourse === 'dessert'
+                            ? 'bg-purple-600 text-white'
+                            : 'bg-gray-700 text-gray-300 hover:bg-purple-500/50'
+                        }`}
+                      >
+                        Dessert
+                      </button>
+                    </div>
+
+                    {/* Course Dishes */}
+                    <div className="grid grid-cols-1 gap-4">
+                      {chefRecommendations[selectedCourse].map((dish) => (
+                        <div key={dish.id} className="bg-gray-800 rounded-lg overflow-hidden">
+                          {/* Dish Image */}
+                          <div className="relative h-40">
+                            <img 
+                              src={dish.image} 
+                              alt={dish.name}
+                              className="w-full h-full object-cover"
+                            />
+                            {/* Dark overlay */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                          </div>
+                          
+                          {/* Info Section */}
+                          <div className="p-4 space-y-3">
+                            {/* Dish Name */}
+                            <h3 className="text-white font-semibold text-xl mb-3">{dish.name}</h3>
+                            
+                            {/* Row 1: Calories and Protein */}
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-2">
+                                <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+                                <span className="text-sm text-gray-300">{dish.calories} calories</span>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                                <span className="text-sm text-gray-300">{dish.protein} protein</span>
+                              </div>
+                            </div>
+                            
+                            {/* Row 2: Cook Time and Difficulty */}
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-2">
+                                <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                                <span className="text-sm text-gray-300">{dish.cookTime} cook time</span>
+                              </div>
+                              <span className="text-sm text-gray-300">{dish.difficulty} difficulty</span>
+                            </div>
+                            
+                            {/* Action Icons Row */}
+                            <div className="flex items-center justify-between mt-4">
+                              <button className="w-10 h-10 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
+                                <ArrowLeftRight size={20} className="text-white" />
+                              </button>
+                              <button className="w-10 h-10 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
+                                <BookOpen size={20} className="text-gray-300" />
+                              </button>
+                              <button className="w-10 h-10 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
+                                <Save size={20} className="text-gray-300" />
+                              </button>
+                              <button className="w-10 h-10 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
+                                <CookingPot size={20} className="text-gray-300" />
+                              </button>
+                              <button className="w-10 h-10 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center justify-center transition-colors">
+                                <Plus size={20} />
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            )}
+          </div>
+        )}
+
         {/* Bottom spacing to account for bottom navigation */}
         <div className="h-20"></div>
       </div>
