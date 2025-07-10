@@ -906,7 +906,7 @@ export default function ExploreRecipesScreen() {
                         {Object.entries(ingredientCategories).map(([category, ingredients]) => (
                           <div key={category}>
                             <div className="flex items-center justify-between mb-2">
-                              <h5 className="text-sm font-medium text-gray-300">{category}</h5>
+                              <h5 className="text-sm font-bold text-yellow-300 drop-shadow-lg">{category}</h5>
                               <span className="text-xs text-gray-500">
                                 {ingredients.filter(ingredient => selectedIngredients.includes(ingredient)).length}/{ingredients.length}
                               </span>
