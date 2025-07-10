@@ -996,66 +996,64 @@ export default function ExploreRecipesScreen() {
                 <CardContent>
                   <div className="grid grid-cols-1 gap-4">
                     {chefsChoiceDishes.map((dish) => (
-                      <div key={dish.id} className="relative">
-                        {/* Dish Image */}
-                        <div className="relative h-32 rounded-lg overflow-hidden">
+                      <div key={dish.id} className="bg-gray-800 rounded-lg overflow-hidden">
+                        {/* Dish Image with Overlay */}
+                        <div className="relative h-40">
                           <img 
                             src={dish.image} 
                             alt={dish.name}
                             className="w-full h-full object-cover"
                           />
-                          {/* Dark overlay for text readability */}
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                          {/* Dark overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                           
-                          {/* Dish Name */}
-                          <div className="absolute bottom-3 left-3">
-                            <h3 className="text-white font-semibold text-lg">{dish.name}</h3>
+                          {/* Dish Name Overlay */}
+                          <div className="absolute bottom-4 left-4">
+                            <h3 className="text-white font-semibold text-xl">{dish.name}</h3>
                           </div>
                         </div>
                         
-                        {/* Dish Info */}
-                        <div className="mt-3 space-y-2">
+                        {/* Info Section */}
+                        <div className="p-4 space-y-3">
                           {/* Row 1: Calories and Protein */}
-                          <div className="flex items-center gap-4">
-                            <div className="flex items-center gap-1 text-orange-400">
-                              <Flame size={16} />
-                              <span className="text-sm">{dish.calories} calories</span>
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+                              <span className="text-sm text-gray-300">{dish.calories} calories</span>
                             </div>
-                            <div className="flex items-center gap-1 text-yellow-400">
-                              <Target size={16} />
-                              <span className="text-sm">{dish.protein} protein</span>
+                            <div className="flex items-center gap-2">
+                              <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                              <span className="text-sm text-gray-300">{dish.protein} protein</span>
                             </div>
                           </div>
                           
                           {/* Row 2: Cook Time and Difficulty */}
                           <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-4">
-                              <div className="flex items-center gap-1 text-blue-400">
-                                <Clock size={16} />
-                                <span className="text-sm">{dish.cookTime} cook time</span>
-                              </div>
-                              <span className="text-sm text-gray-300">{dish.difficulty} difficulty</span>
+                            <div className="flex items-center gap-2">
+                              <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                              <span className="text-sm text-gray-300">{dish.cookTime} cook time</span>
                             </div>
+                            <span className="text-sm text-gray-300">{dish.difficulty} difficulty</span>
                           </div>
                           
                           {/* Action Icons Row */}
                           <div className="flex items-center justify-between mt-4">
                             <div className="flex items-center gap-3">
-                              <button className="p-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors">
-                                <BookOpen size={18} className="text-gray-300" />
+                              <button className="w-8 h-8 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
+                                <BookOpen size={16} className="text-gray-300" />
                               </button>
-                              <button className="p-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors">
-                                <Repeat size={18} className="text-gray-300" />
+                              <button className="w-8 h-8 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
+                                <Repeat size={16} className="text-gray-300" />
                               </button>
-                              <button className="p-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors">
-                                <Heart size={18} className="text-gray-300" />
+                              <button className="w-8 h-8 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
+                                <Heart size={16} className="text-gray-300" />
                               </button>
-                              <button className="p-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors">
-                                <ChefHat size={18} className="text-gray-300" />
+                              <button className="w-8 h-8 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
+                                <ChefHat size={16} className="text-gray-300" />
                               </button>
                             </div>
-                            <Button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center gap-2">
-                              <Truck size={18} />
+                            <Button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 flex items-center gap-2">
+                              <Truck size={16} />
                               Takeout
                             </Button>
                           </div>
