@@ -14,7 +14,7 @@ import CookScreen from "@/pages/cook";
 import NuvaSplashScreen from "@/pages/nuva-splash";
 import NuvaSignupScreen from "@/pages/nuva-signup";
 import CreateDishesScreen from "@/pages/create-dishes";
-import RecipesScreen from "@/pages/recipes";
+
 import ProfileScreen from "@/pages/profile";
 import HealthAnalyticsScreen from "@/pages/health";
 import HomeScreen from "@/pages/home";
@@ -46,7 +46,7 @@ function Router() {
 
       <Route path="/dietary" component={DietaryScreen} />
 
-      <Route path="/recipes" component={RecipesScreen} />
+
       <Route path="/create-dishes" component={CreateDishesScreen} />
       <Route path="/home" component={HomeScreen} />
 
