@@ -127,6 +127,13 @@ export default function ExploreRecipeOptionsScreen() {
       setSelectedOption(null);
     } else {
       setSelectedOption(option);
+      // Reset collapse state when selecting a new option
+      if (option === "chefs-choice") {
+        setIsChefRecommendsCollapsed(false);
+      }
+      if (option === "pantry-dishes") {
+        setIsPantryDishesCollapsed(false);
+      }
     }
   };
 
@@ -193,20 +200,19 @@ export default function ExploreRecipeOptionsScreen() {
           </div>
         </Card>
 
-        {/* Chef Recommends Card - shown when Chef's Choice is selected */}
-        {selectedOption === "chefs-choice" && (
+        {/* Chef Recommends Card - shown when Chef's Choice is selected and not collapsed */}
+        {selectedOption === "chefs-choice" && !isChefRecommendsCollapsed && (
           <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-bold text-white">Chef Recommends</h2>
               <button 
-                onClick={() => setIsChefRecommendsCollapsed(!isChefRecommendsCollapsed)}
+                onClick={() => setIsChefRecommendsCollapsed(true)}
                 className="text-gray-400 hover:text-white transition-colors"
               >
-                <ChevronUp size={24} className={`transform transition-transform ${isChefRecommendsCollapsed ? 'rotate-180' : ''}`} />
+                <ChevronUp size={24} />
               </button>
             </div>
-            {!isChefRecommendsCollapsed && (
-              <div className="space-y-4">
+            <div className="space-y-4">
                 {chefRecommendedDishes.map((dish) => (
                   <div key={dish.id} className="bg-gray-700/50 rounded-lg overflow-hidden">
                     {/* Image Section - Full Width */}
@@ -255,25 +261,23 @@ export default function ExploreRecipeOptionsScreen() {
                     </div>
                   </div>
                 ))}
-              </div>
-            )}
+            </div>
           </Card>
         )}
 
-        {/* Pantry Dishes Card - shown when Pantry Dishes is selected */}
-        {selectedOption === "pantry-dishes" && (
+        {/* Pantry Dishes Card - shown when Pantry Dishes is selected and not collapsed */}
+        {selectedOption === "pantry-dishes" && !isPantryDishesCollapsed && (
           <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-bold text-white">Dishes from Pantry Ingredients</h2>
               <button 
-                onClick={() => setIsPantryDishesCollapsed(!isPantryDishesCollapsed)}
+                onClick={() => setIsPantryDishesCollapsed(true)}
                 className="text-gray-400 hover:text-white transition-colors"
               >
-                <ChevronUp size={24} className={`transform transition-transform ${isPantryDishesCollapsed ? 'rotate-180' : ''}`} />
+                <ChevronUp size={24} />
               </button>
             </div>
-            {!isPantryDishesCollapsed && (
-              <div className="space-y-4">
+            <div className="space-y-4">
                 {pantryDishes.map((dish) => (
                   <div key={dish.id} className="bg-gray-700/50 rounded-lg overflow-hidden">
                     {/* Image Section - Full Width */}
@@ -322,8 +326,7 @@ export default function ExploreRecipeOptionsScreen() {
                     </div>
                   </div>
                 ))}
-              </div>
-            )}
+            </div>
           </Card>
         )}
 
