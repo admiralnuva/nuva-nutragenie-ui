@@ -28,7 +28,7 @@ export default function ExploreRecipeOptionsScreen() {
     {
       id: 3,
       name: "Mediterranean Pasta",
-      image: "https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?w=400&h=300&fit=crop",
+      image: "https://images.unsplash.com/photo-1563379091339-03246963d935?w=400&h=300&fit=crop",
       calories: 380,
       protein: "22g",
       cookTime: "20 min", 
