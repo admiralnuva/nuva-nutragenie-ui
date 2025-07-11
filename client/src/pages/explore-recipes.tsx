@@ -1735,24 +1735,71 @@ export default function ExploreRecipesScreen() {
                   </div>
 
                   {/* Dish Grid */}
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 gap-4">
                     {takeOutDishes[selectedCategory].map((dish) => (
-                      <ExpandableDishCard
-                        key={dish.id}
-                        dish={dish}
-                        isSelected={false}
-                        onSubstitutionClick={() => {}}
-                        onCookClick={handleCookClick}
-                        onSelectionChange={() => {}}
-                        substitutionOpenDish={substitutionOpenDish}
-                        substitutionSelections={{}}
-                        substitutionConfirmed={{}}
-                        onSubstitutionConfirm={() => {}}
-                        cookConfirmed={cookConfirmed}
-                        cookConfirmationOpen={cookConfirmationOpen}
-                        onCookConfirm={handleCookConfirm}
-                        setCookConfirmationOpen={setCookConfirmationOpen}
-                      />
+                      <div key={dish.id} className="bg-gray-800 rounded-lg overflow-hidden">
+                        {/* Dish Image */}
+                        <div className="relative h-40">
+                          <img 
+                            src={dish.image} 
+                            alt={dish.name}
+                            className="w-full h-full object-cover"
+                          />
+                          {/* Dark overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                        </div>
+                        
+                        {/* Info Section */}
+                        <div className="p-4 space-y-3">
+                          {/* Dish Name */}
+                          <h3 className="text-white font-semibold text-xl mb-3">{dish.name}</h3>
+                          
+                          {/* Nutrition Info - 2x2 Grid */}
+                          <div className="grid grid-cols-2 gap-y-2 gap-x-4">
+                            <div className="flex items-center gap-2">
+                              <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+                              <span className="text-sm text-gray-300">{dish.calories} calories</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                              <span className="text-sm text-gray-300">25g protein</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                              <span className="text-sm text-gray-300">{dish.cookTime}</span>
+                            </div>
+                            <div className="text-sm text-gray-300">{dish.difficulty} difficulty</div>
+                          </div>
+                          
+                          {/* Action Icons */}
+                          <div className="flex items-center justify-between pt-2">
+                            <div className="flex items-center space-x-3">
+                              <button className="w-10 h-10 bg-gray-700 rounded-lg flex items-center justify-center hover:bg-gray-600 transition-colors">
+                                <ArrowLeftRight size={18} className="text-white" />
+                              </button>
+                              <button 
+                                onClick={() => {}}
+                                className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center hover:from-blue-600 hover:to-purple-700 transition-all"
+                              >
+                                <BookOpen size={18} className="text-white" />
+                              </button>
+                              <button className="w-10 h-10 bg-gray-700 rounded-lg flex items-center justify-center hover:bg-gray-600 transition-colors">
+                                <Repeat size={18} className="text-white" />
+                              </button>
+                              <button 
+                                onClick={handleCookClick}
+                                className="w-10 h-10 bg-gradient-to-r from-orange-500 to-red-600 rounded-lg flex items-center justify-center hover:from-orange-600 hover:to-red-700 transition-all"
+                              >
+                                <CookingPot size={18} className="text-white" />
+                              </button>
+                            </div>
+                            <button className="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2">
+                              <Plus size={16} />
+                              Take-Out
+                            </button>
+                          </div>
+                        </div>
+                      </div>
                     ))}
                   </div>
                 </CardContent>
