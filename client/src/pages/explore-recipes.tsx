@@ -309,35 +309,8 @@ export default function ExploreRecipesScreen() {
 
 
 
-  // Auto-slide preferences card ONLY when user explicitly completes preferences
-  useEffect(() => {
-    if (isMealComplete && isPantryComplete && !preferencesCardSlid && userHasCompletedPreferences) {
-      console.log('Starting preferences card slide animation (user completed)');
-      
-      // Auto-collapse after 2 seconds
-      const collapseTimer = setTimeout(() => {
-        setIsPantryCardCollapsed(true);
-      }, 2000);
-
-      // Auto-slide to bottom after collapse animation
-      const slideTimer = setTimeout(() => {
-        setIsPantryCardAtBottom(true);
-        setPreferencesCardSlid(true);
-        
-        // Play swish sound effect
-        if (typeof Audio !== 'undefined') {
-          const audio = new Audio('/api/placeholder/audio/swish');
-          audio.volume = 0.3;
-          audio.play().catch(e => console.log('Audio play failed:', e));
-        }
-      }, 3500);
-
-      return () => {
-        clearTimeout(collapseTimer);
-        clearTimeout(slideTimer);
-      };
-    }
-  }, [isMealComplete, isPantryComplete, preferencesCardSlid, userHasCompletedPreferences]);
+  // DISABLED ALL PREFERENCE ANIMATIONS - Recipe Options buttons work independently
+  // Animation will be re-enabled only after Recipe Options issue is completely resolved
 
   // Simple navigation cleanup - no interference
   useEffect(() => {
@@ -363,11 +336,7 @@ export default function ExploreRecipesScreen() {
   const [isCard1Moving, setIsCard1Moving] = useState(false);
   const [card1AtBottom, setCard1AtBottom] = useState(false);
   
-  // Reset card positions on page load
-  useEffect(() => {
-    // Reset card positions when navigating to page
-    setIsMealPreferencesCardCollapsed(false);
-  }, []);
+  // NO AUTOMATIC RESETS - Preserve button states completely
 
   // Substitution state management
   const [substitutionOpenDish, setSubstitutionOpenDish] = useState<number | null>(null);
@@ -524,33 +493,8 @@ export default function ExploreRecipesScreen() {
 
 
 
-  // Complex animation sequence on page load for Card 1 (dietary preferences)
-  useEffect(() => {
-    // Step 1: Auto-collapse Card 1 after 2 seconds (smooth and slow)
-    const collapseTimer = setTimeout(() => {
-      setIsCardCollapsed(true);
-      setIsPantryIngredientsCollapsed(true);
-    }, 2000);
-    
-    // Step 2: After collapse completes, start the sliding animation
-    const slideTimer = setTimeout(() => {
-      setIsCard1Moving(true);
-      
-      // Animation without sound effect
-      
-      // Complete the slide animation and set final position
-      setTimeout(() => {
-        setIsCard1Moving(false);
-        setCard1AtBottom(true);
-      }, 1500); // 1.5 second slide duration
-      
-    }, 3000); // Start sliding 1 second after collapse completes
-    
-    return () => {
-      clearTimeout(collapseTimer);
-      clearTimeout(slideTimer);
-    };
-  }, []);
+  // NO AUTOMATIC ANIMATIONS - Let Recipe Options buttons work independently
+  // All animations removed to prevent interference with button functionality
 
   // Pantry management state
   const [activeCard, setActiveCard] = useState<string>('pantry-ingredients');
@@ -801,14 +745,8 @@ export default function ExploreRecipesScreen() {
 
         <div className="flex flex-col space-y-4">
           {/* Card 1: Preferences and Pantry Ingredients */}
-          <div className={`transition-all duration-700 ease-in-out transform ${
-            isPantryCardAtBottom ? 'order-5 translate-y-2 scale-95 opacity-95' : 
-            isNavigatingFromTabs ? 'order-3 translate-y-0 scale-100 opacity-100' :
-            'order-1 translate-y-0 scale-100 opacity-100'
-          }`}>
-            <Card className={`bg-gray-800/90 backdrop-blur-sm border border-gray-700 transition-all duration-700 ease-in-out ${
-              isPantryCardCollapsed ? 'min-h-[120px] scale-98' : 'min-h-[400px] scale-100'
-            }`}>
+          <div className="order-1 translate-y-0 scale-100 opacity-100">
+            <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
               <CardHeader className="pb-4 relative">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
@@ -838,46 +776,43 @@ export default function ExploreRecipesScreen() {
                 <div className="flex gap-2 mb-4">
                   <Button
                     variant={activeTab === 'diet' ? "default" : "outline"}
-                    onClick={() => !isPantryCardCollapsed && setActiveTab('diet')}
-                    disabled={isPantryCardCollapsed}
+                    onClick={() => setActiveTab('diet')}
                     className={`flex-1 ${
                       activeTab === 'diet' 
                         ? 'bg-purple-600 text-white border-purple-600' 
                         : 'bg-transparent border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
-                    } ${isPantryCardCollapsed ? 'opacity-75 cursor-default' : ''}`}
+                    }`}
                   >
                     Diet
                   </Button>
                   <Button
                     variant={activeTab === 'meal' ? "default" : "outline"}
-                    onClick={() => !isPantryCardCollapsed && setActiveTab('meal')}
-                    disabled={isPantryCardCollapsed}
+                    onClick={() => setActiveTab('meal')}
                     className={`flex-1 flex items-center justify-center gap-2 ${
                       activeTab === 'meal' 
                         ? 'bg-purple-600 text-white border-purple-600' 
                         : 'bg-transparent border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
-                    } ${isPantryCardCollapsed ? 'opacity-75 cursor-default' : ''}`}
+                    }`}
                   >
                     Meal
                     {isMealComplete && <span className="text-green-400 text-xs">✓</span>}
                   </Button>
                   <Button
                     variant={activeTab === 'pantry' ? "default" : "outline"}
-                    onClick={() => !isPantryCardCollapsed && setActiveTab('pantry')}
-                    disabled={isPantryCardCollapsed}
+                    onClick={() => setActiveTab('pantry')}
                     className={`flex-1 flex items-center justify-center gap-2 ${
                       activeTab === 'pantry' 
                         ? 'bg-purple-600 text-white border-purple-600' 
                         : 'bg-transparent border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
-                    } ${isPantryCardCollapsed ? 'opacity-75 cursor-default' : ''}`}
+                    }`}
                   >
                     Pantry
                     {isPantryComplete && <span className="text-green-400 text-xs">✓</span>}
                   </Button>
                 </div>
 
-                {/* Tab Content - Hidden when collapsed */}
-                {!isPantryCardCollapsed && (
+                {/* Tab Content - Always visible */}
+                {(
                   <div className="mt-4 min-h-[280px] transition-all duration-500 ease-in-out opacity-100">
                   {activeTab === 'diet' && (
                     <div className="space-y-3">
