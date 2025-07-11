@@ -1783,7 +1783,7 @@ export default function ExploreRecipesScreen() {
           )}
 
           {/* Card 3: History */}
-          {(isMealComplete || isPantryComplete) && (
+          {(mealConfirmed || pantryConfirmed) && (
             <div className={`${isNavigatingFromTabs ? 'order-4' : 'order-3'} mb-4`}>
               <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
                 <CardHeader className="pb-4">
