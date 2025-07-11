@@ -886,7 +886,10 @@ export default function ExploreRecipesScreen() {
                       ? 'bg-purple-600 border-purple-600 text-white' 
                       : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
                   }`}
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('🎯 DIRECT CLICK: Chef\'s Choice button clicked');
                     setShowChefsChoice(true);
                     setShowPantryDishes(false);
                     setShowTakeOut(false);
@@ -903,7 +906,10 @@ export default function ExploreRecipesScreen() {
                       ? 'bg-purple-600 border-purple-600 text-white' 
                       : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
                   }`}
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('🎯 DIRECT CLICK: Pantry Dishes button clicked');
                     setShowPantryDishes(true);
                     setShowChefsChoice(false);
                     setShowTakeOut(false);
@@ -938,7 +944,10 @@ export default function ExploreRecipesScreen() {
                       ? 'bg-purple-600 border-purple-600 text-white' 
                       : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
                   }`}
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('🎯 DIRECT CLICK: Take-Out button clicked');
                     setShowTakeOut(true);
                     setShowChefsChoice(false);
                     setShowPantryDishes(false);
@@ -1262,6 +1271,7 @@ export default function ExploreRecipesScreen() {
                       size="sm" 
                       className="bg-gray-700 border-gray-600 text-gray-300"
                       onClick={() => {
+                        console.log('🔧 EDIT PREFERENCES: Button clicked - expanding card');
                         setActiveTab('meal');
                         setCardCollapsed(false);
                         setCardPosition('top');
