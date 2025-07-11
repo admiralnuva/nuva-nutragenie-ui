@@ -145,14 +145,18 @@ export default function ExploreRecipesScreen() {
     }
   }, [bothConfirmed, cardPosition]);
   
-  // Data definitions
+  // Data definitions - Comprehensive ingredient categories
   const ingredientCategories = {
-    'Meat & Poultry': ['Chicken Breast', 'Ground Beef', 'Salmon', 'Pork Chops', 'Turkey', 'Bacon'],
-    'Fish & Seafood': ['Salmon', 'Tuna', 'Shrimp', 'Cod', 'Tilapia', 'Crab'],
-    'Vegetables': ['Spinach', 'Broccoli', 'Carrots', 'Bell Peppers', 'Onions', 'Tomatoes', 'Mushrooms', 'Zucchini'],
-    'Grains & Starches': ['Brown Rice', 'Quinoa', 'Pasta', 'Sweet Potatoes', 'Bread', 'Oats'],
-    'Dairy & Eggs': ['Greek Yogurt', 'Cheese', 'Milk', 'Eggs', 'Butter', 'Cream'],
-    'Pantry Essentials': ['Olive Oil', 'Garlic', 'Herbs', 'Spices', 'Vinegar', 'Nuts', 'Beans']
+    'Meat & Poultry': ['Chicken Breast', 'Ground Beef', 'Ground Turkey', 'Pork Chops', 'Turkey Breast', 'Bacon', 'Sausage', 'Lamb'],
+    'Fish & Seafood': ['Salmon', 'Tuna', 'Shrimp', 'Cod', 'Tilapia', 'Crab', 'Lobster', 'Scallops'],
+    'Vegetables': ['Spinach', 'Broccoli', 'Carrots', 'Bell Peppers', 'Onions', 'Tomatoes', 'Mushrooms', 'Zucchini', 'Cucumber', 'Lettuce', 'Kale', 'Cabbage'],
+    'Fruits': ['Apples', 'Bananas', 'Berries', 'Oranges', 'Grapes', 'Avocado', 'Lemons', 'Limes'],
+    'Grains & Starches': ['Brown Rice', 'White Rice', 'Quinoa', 'Pasta', 'Sweet Potatoes', 'Regular Potatoes', 'Bread', 'Oats', 'Barley'],
+    'Dairy & Eggs': ['Greek Yogurt', 'Regular Yogurt', 'Cheese', 'Milk', 'Eggs', 'Butter', 'Cream', 'Cottage Cheese'],
+    'Legumes & Beans': ['Black Beans', 'Kidney Beans', 'Chickpeas', 'Lentils', 'Pinto Beans', 'Navy Beans'],
+    'Nuts & Seeds': ['Almonds', 'Walnuts', 'Cashews', 'Peanuts', 'Chia Seeds', 'Flax Seeds', 'Sunflower Seeds'],
+    'Pantry Essentials': ['Olive Oil', 'Coconut Oil', 'Garlic', 'Fresh Herbs', 'Dried Spices', 'Vinegar', 'Soy Sauce', 'Hot Sauce'],
+    'Condiments & Seasonings': ['Salt', 'Black Pepper', 'Paprika', 'Cumin', 'Oregano', 'Basil', 'Mustard', 'Ketchup']
   };
   
   const chefsChoiceDishes: Dish[] = [
@@ -765,10 +769,10 @@ export default function ExploreRecipesScreen() {
                       <hr className="border-gray-600" />
                       
                       <div className="space-y-3 min-h-[350px]">
-                        {Object.entries(ingredientCategories).map(([category, ingredients]) => (
+                        {Object.entries(ingredientCategories).map(([category, ingredients], index) => (
                           <div key={category}>
                             <h5 className="text-sm font-bold text-yellow-300 mb-2 drop-shadow-lg">{category}</h5>
-                            <div className="grid grid-cols-2 gap-2">
+                            <div className="grid grid-cols-2 gap-2 mb-3">
                               {ingredients.map((ingredient) => (
                                 <label key={ingredient} className="flex items-center space-x-2 cursor-pointer">
                                   <Checkbox
@@ -780,6 +784,12 @@ export default function ExploreRecipesScreen() {
                                 </label>
                               ))}
                             </div>
+                            {/* Separator between categories (except last one) */}
+                            {index < Object.entries(ingredientCategories).length - 1 && (
+                              <div className="my-3">
+                                <div className="bg-gray-600 h-px w-full"></div>
+                              </div>
+                            )}
                           </div>
                         ))}
                       </div>
@@ -807,16 +817,16 @@ export default function ExploreRecipesScreen() {
 
                       {/* Pantry Confirmation */}
                       {pantryFieldsComplete && (
-                        <div className="mt-4 pt-3 border-t border-gray-600">
-                          <div className="flex items-center space-x-2">
+                        <div className="mt-4 pt-3">
+                          <div className="flex items-center space-x-3 bg-purple-600/20 border border-purple-600 rounded-lg p-3">
                             <Checkbox
                               id="pantry-confirm"
                               checked={pantryConfirmed}
                               onCheckedChange={(checked) => setPantryConfirmed(checked)}
-                              className="w-7 h-7 rounded-full border-gray-500 data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600"
+                              className="w-6 h-6 rounded-full border-purple-400 data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600"
                             />
                             <label htmlFor="pantry-confirm" className="text-sm font-bold text-yellow-300 drop-shadow-lg">
-                              Confirm pantry ingredients for recipe suggestions
+                              I confirm the above pantry ingredients
                             </label>
                           </div>
                         </div>
