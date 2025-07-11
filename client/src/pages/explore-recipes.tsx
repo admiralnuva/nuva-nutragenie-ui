@@ -304,26 +304,37 @@ export default function ExploreRecipesScreen() {
   // Auto-slide preferences card after both completions
   useEffect(() => {
     if (isMealComplete && isPantryComplete && !preferencesCardSlid) {
+      // Auto-collapse after 2 seconds
+      const collapseTimer = setTimeout(() => {
+        setIsPantryCardCollapsed(true);
+      }, 2000);
+
+      // Auto-slide to bottom after collapse animation and auto-select Chef's Choice
       const slideTimer = setTimeout(() => {
+        setIsPantryCardAtBottom(true);
         setPreferencesCardSlid(true);
-      }, 5000); // 5 seconds delay
-      
-      return () => clearTimeout(slideTimer);
+        
+        // Auto-select Chef's Choice and show dishes
+        setShowChefsChoice(true);
+        setShowPantryDishes(false);
+        setShowTakeOut(false);
+        
+        // Play swish sound effect
+        if (typeof Audio !== 'undefined') {
+          const audio = new Audio('/api/placeholder/audio/swish');
+          audio.volume = 0.3;
+          audio.play().catch(e => console.log('Audio play failed:', e));
+        }
+      }, 3500);
+
+      return () => {
+        clearTimeout(collapseTimer);
+        clearTimeout(slideTimer);
+      };
     }
   }, [isMealComplete, isPantryComplete, preferencesCardSlid]);
 
-  // Reset layout on navigation
-  useEffect(() => {
-    // Reset all states when returning to this screen
-    setPreferencesCardSlid(false);
-    setActiveTab('meal'); // Reset to meal tab
-    setIsPantryCardCollapsed(false); // Reset collapse state
-    setIsPantryCardAtBottom(false); // Reset bottom position
-    setIsPantryConfirmed(false); // Reset pantry confirmation
-    setMealConfirmed(false); // Reset meal confirmation
-    setIsMealComplete(false); // Reset meal completion
-    setIsPantryComplete(false); // Reset pantry completion
-  }, []);
+  // No automatic reset on navigation - preserve collapsed state after completion
 
   // Processing animation state
   const [showProcessing, setShowProcessing] = useState(false);
