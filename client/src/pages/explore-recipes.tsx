@@ -98,36 +98,31 @@ export default function ExploreRecipesScreen() {
   const [showPantryDishes, setShowPantryDishes] = useState(false);
   const [showTakeOut, setShowTakeOut] = useState(false);
   
-  // TEST FUNCTION - Log state changes for debugging
+  // Clean logging function
   const logRecipeOptionState = (action: string) => {
-    const currentState = {
-      selectedRecipeOption,
-      showChefsChoice,
-      showPantryDishes,
-      showTakeOut,
-      cardPosition,
-      mealConfirmed,
-      pantryConfirmed
-    };
-    
-    console.log(`🔍 RECIPE OPTION TEST - ${action}:`, currentState);
-    
-    // Validation checks
-    const activeShows = [showChefsChoice, showPantryDishes, showTakeOut].filter(Boolean).length;
-    if (activeShows > 1) {
-      console.error('❌ CRITICAL ERROR - MULTIPLE SHOW STATES ACTIVE:', { showChefsChoice, showPantryDishes, showTakeOut });
-    }
-    
-    if (selectedRecipeOption && activeShows === 0 && selectedRecipeOption !== 'create-dishes') {
-      console.warn('⚠️ WARNING - SELECTED BUT NO SHOW STATE:', selectedRecipeOption);
-    }
-    
-    if (activeShows === 1) {
-      console.log('✅ STATE VALID - Only one show state active');
-    }
-    
-    // Check for unexpected coupling
-    console.log('📍 Card state (should remain independent):', { cardPosition, mealConfirmed, pantryConfirmed });
+    // Use refs to capture current state immediately after setState calls
+    setTimeout(() => {
+      const currentState = {
+        selectedRecipeOption,
+        showChefsChoice,
+        showPantryDishes,
+        showTakeOut,
+        cardPosition,
+        mealConfirmed,
+        pantryConfirmed
+      };
+      
+      console.log(`✅ ${action} - State:`, currentState);
+      
+      // Validation
+      const activeShows = [showChefsChoice, showPantryDishes, showTakeOut].filter(Boolean).length;
+      if (activeShows > 1) {
+        console.error('❌ MULTIPLE SHOW STATES:', { showChefsChoice, showPantryDishes, showTakeOut });
+      }
+      if (activeShows === 1) {
+        console.log('✅ Valid single state active');
+      }
+    }, 50); // Small delay to capture updated state
   };
   
   // Take-out form
@@ -889,12 +884,11 @@ export default function ExploreRecipesScreen() {
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    console.log('🎯 DIRECT CLICK: Chef\'s Choice button clicked');
                     setShowChefsChoice(true);
                     setShowPantryDishes(false);
                     setShowTakeOut(false);
                     setSelectedRecipeOption('chefs-choice');
-                    setTimeout(() => logRecipeOptionState('Chef\'s Choice clicked'), 0);
+                    logRecipeOptionState('Chef\'s Choice');
                   }}
                 >
                   Chef's Choice
@@ -909,12 +903,11 @@ export default function ExploreRecipesScreen() {
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    console.log('🎯 DIRECT CLICK: Pantry Dishes button clicked');
                     setShowPantryDishes(true);
                     setShowChefsChoice(false);
                     setShowTakeOut(false);
                     setSelectedRecipeOption('pantry-dishes');
-                    setTimeout(() => logRecipeOptionState('Pantry Dishes clicked'), 0);
+                    logRecipeOptionState('Pantry Dishes');
                   }}
                 >
                   Pantry Dishes
@@ -926,12 +919,14 @@ export default function ExploreRecipesScreen() {
                       ? 'bg-purple-600 border-purple-600 text-white' 
                       : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
                   }`}
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
                     setShowChefsChoice(false);
                     setShowPantryDishes(false);
                     setShowTakeOut(false);
                     setSelectedRecipeOption('create-dishes');
-                    logRecipeOptionState('Create Dishes clicked');
+                    logRecipeOptionState('Create Dishes');
                     setLocation('/create-dishes');
                   }}
                 >
@@ -947,12 +942,11 @@ export default function ExploreRecipesScreen() {
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    console.log('🎯 DIRECT CLICK: Take-Out button clicked');
                     setShowTakeOut(true);
                     setShowChefsChoice(false);
                     setShowPantryDishes(false);
                     setSelectedRecipeOption('take-out');
-                    setTimeout(() => logRecipeOptionState('Take-Out clicked'), 0);
+                    logRecipeOptionState('Take-Out');
                   }}
                 >
                   Take-Out
@@ -973,7 +967,6 @@ export default function ExploreRecipesScreen() {
                     onClick={() => {
                       setShowChefsChoice(false);
                       setSelectedRecipeOption('');
-                      logRecipeOptionState('Chef\'s Choice chevron collapse');
                     }}
                     className="text-gray-400 hover:text-white transition-colors"
                   >
@@ -1001,7 +994,6 @@ export default function ExploreRecipesScreen() {
                     onClick={() => {
                       setShowPantryDishes(false);
                       setSelectedRecipeOption('');
-                      logRecipeOptionState('Pantry Dishes chevron collapse');
                     }}
                     className="text-gray-400 hover:text-white transition-colors"
                   >
@@ -1031,7 +1023,6 @@ export default function ExploreRecipesScreen() {
                     onClick={() => {
                       setShowTakeOut(false);
                       setSelectedRecipeOption('');
-                      logRecipeOptionState('Take-Out chevron collapse');
                     }}
                     className="text-gray-400 hover:text-white transition-colors"
                   >
@@ -1257,29 +1248,14 @@ export default function ExploreRecipesScreen() {
                     </div>
                   )}
                   
-                  <div className="flex gap-2 pt-4">
+                  <div className="pt-4">
                     <Button 
                       variant="outline" 
                       size="sm" 
                       className="bg-gray-700 border-gray-600 text-gray-300"
                       onClick={() => setLocation('/grocery-list')}
                     >
-                      Grocery List
-                    </Button>
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="bg-gray-700 border-gray-600 text-gray-300"
-                      onClick={() => {
-                        console.log('🔧 EDIT PREFERENCES: Button clicked - expanding card');
-                        setActiveTab('meal');
-                        setCardCollapsed(false);
-                        setCardPosition('top');
-                        setPantryConfirmed(false);
-                        setMealConfirmed(false);
-                      }}
-                    >
-                      Edit Preferences
+                      View Grocery List
                     </Button>
                   </div>
                 </div>
