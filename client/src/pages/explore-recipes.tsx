@@ -81,7 +81,7 @@ export default function ExploreRecipesScreen() {
   // Tabs and preferences
   const [activeTab, setActiveTab] = useState<'diet' | 'meal' | 'pantry'>('meal');
   const [mealPreferences, setMealPreferences] = useState<MealPreferences>({
-    servingSize: '', cuisine: '', mealType: '', spiceLevel: '', skillLevel: '', cookMethod: '', prepTime: ''
+    servingSize: '2 people', cuisine: 'American', mealType: 'Dinner', spiceLevel: 'Mild', skillLevel: 'Beginner', cookMethod: 'Oven', prepTime: '30 minutes'
   });
   
   // Pantry ingredients
@@ -115,8 +115,10 @@ export default function ExploreRecipesScreen() {
   const userAvatarSrc = userData?.avatar ? userAvatars[userData.avatar as keyof typeof userAvatars] : userAvatar1;
   const chefAvatarSrc = userData?.chef ? chefAvatars[userData.chef as keyof typeof chefAvatars] : chefAvatar1;
   
-  // Computed values
-  const mealFieldsComplete = mealPreferences.servingSize && mealPreferences.cuisine && mealPreferences.mealType;
+  // Computed values - requires all 6 fields as shown in screenshot
+  const mealFieldsComplete = mealPreferences.servingSize && mealPreferences.cuisine && mealPreferences.mealType && 
+                            mealPreferences.spiceLevel && mealPreferences.skillLevel && mealPreferences.cookMethod && 
+                            mealPreferences.prepTime;
   const pantryFieldsComplete = selectedIngredients.length >= 3;
   const bothConfirmed = mealConfirmed && pantryConfirmed;
   
@@ -566,42 +568,46 @@ export default function ExploreRecipesScreen() {
                   {/* Meal Tab */}
                   {activeTab === 'meal' && (
                     <div className="space-y-4">
-                      <h4 className="text-lg font-bold text-yellow-300 mb-3 drop-shadow-lg">Meal Planning Preferences</h4>
-                      
                       {/* Row 1: Serving Size & Cuisine */}
                       <div className="grid grid-cols-2 gap-3">
                         <div>
                           <label className="text-sm font-bold text-yellow-300 mb-1 block drop-shadow-lg">Serving Size *</label>
-                          <select
-                            value={mealPreferences.servingSize || ''}
-                            onChange={(e) => setMealPreferences({...mealPreferences, servingSize: e.target.value})}
-                            className="w-full h-8 bg-gray-700 border border-gray-600 text-white text-sm rounded"
+                          <Select 
+                            value={mealPreferences.servingSize || ''} 
+                            onValueChange={(value) => setMealPreferences({...mealPreferences, servingSize: value})}
                           >
-                            <option value="">Select</option>
-                            <option value="1 person">👤 1 person</option>
-                            <option value="2 people">👥 2 people</option>
-                            <option value="3-4 people">👨‍👩‍👧‍👦 3-4 people</option>
-                            <option value="5+ people">👨‍👩‍👧‍👦+ 5+ people</option>
-                          </select>
+                            <SelectTrigger className="bg-gray-700 border-gray-600 text-white h-10">
+                              <SelectValue placeholder="2 people" />
+                            </SelectTrigger>
+                            <SelectContent className="bg-gray-700 border-gray-600">
+                              <SelectItem value="1 person" className="text-white hover:bg-gray-600">1 person</SelectItem>
+                              <SelectItem value="2 people" className="text-white hover:bg-gray-600">2 people</SelectItem>
+                              <SelectItem value="3-4 people" className="text-white hover:bg-gray-600">3-4 people</SelectItem>
+                              <SelectItem value="5+ people" className="text-white hover:bg-gray-600">5+ people</SelectItem>
+                            </SelectContent>
+                          </Select>
                         </div>
                         <div>
                           <label className="text-sm font-bold text-yellow-300 mb-1 block drop-shadow-lg">Cuisine *</label>
-                          <select
-                            value={mealPreferences.cuisine || ''}
-                            onChange={(e) => setMealPreferences({...mealPreferences, cuisine: e.target.value})}
+                          <Select 
+                            value={mealPreferences.cuisine || ''} 
+                            onValueChange={(value) => setMealPreferences({...mealPreferences, cuisine: value})}
                             disabled={!mealPreferences.servingSize}
-                            className={`w-full h-8 bg-gray-700 border border-gray-600 text-white text-sm rounded ${
-                              !mealPreferences.servingSize ? 'opacity-50 cursor-not-allowed' : ''
-                            }`}
                           >
-                            <option value="">Select</option>
-                            <option value="American">🇺🇸 American</option>
-                            <option value="Italian">🇮🇹 Italian</option>
-                            <option value="Mexican">🇲🇽 Mexican</option>
-                            <option value="Chinese">🇨🇳 Chinese</option>
-                            <option value="Indian">🇮🇳 Indian</option>
-                            <option value="Mediterranean">🌿 Mediterranean</option>
-                          </select>
+                            <SelectTrigger className={`bg-gray-700 border-gray-600 text-white h-10 ${
+                              !mealPreferences.servingSize ? 'opacity-50 cursor-not-allowed' : ''
+                            }`}>
+                              <SelectValue placeholder="American" />
+                            </SelectTrigger>
+                            <SelectContent className="bg-gray-700 border-gray-600">
+                              <SelectItem value="American" className="text-white hover:bg-gray-600">American</SelectItem>
+                              <SelectItem value="Italian" className="text-white hover:bg-gray-600">Italian</SelectItem>
+                              <SelectItem value="Mexican" className="text-white hover:bg-gray-600">Mexican</SelectItem>
+                              <SelectItem value="Chinese" className="text-white hover:bg-gray-600">Chinese</SelectItem>
+                              <SelectItem value="Indian" className="text-white hover:bg-gray-600">Indian</SelectItem>
+                              <SelectItem value="Mediterranean" className="text-white hover:bg-gray-600">Mediterranean</SelectItem>
+                            </SelectContent>
+                          </Select>
                         </div>
                       </div>
 
@@ -609,43 +615,118 @@ export default function ExploreRecipesScreen() {
                       <div className="grid grid-cols-2 gap-3">
                         <div>
                           <label className="text-sm font-bold text-yellow-300 mb-1 block drop-shadow-lg">Meal Type *</label>
-                          <select
-                            value={mealPreferences.mealType || ''}
-                            onChange={(e) => setMealPreferences({...mealPreferences, mealType: e.target.value})}
+                          <Select 
+                            value={mealPreferences.mealType || ''} 
+                            onValueChange={(value) => setMealPreferences({...mealPreferences, mealType: value})}
                             disabled={!mealPreferences.cuisine}
-                            className={`w-full h-8 bg-gray-700 border border-gray-600 text-white text-sm rounded ${
-                              !mealPreferences.cuisine ? 'opacity-50 cursor-not-allowed' : ''
-                            }`}
                           >
-                            <option value="">Select</option>
-                            <option value="Breakfast">🌅 Breakfast</option>
-                            <option value="Lunch">🌞 Lunch</option>
-                            <option value="Dinner">🌙 Dinner</option>
-                            <option value="Snack">🍎 Snack</option>
-                          </select>
+                            <SelectTrigger className={`bg-gray-700 border-gray-600 text-white h-10 ${
+                              !mealPreferences.cuisine ? 'opacity-50 cursor-not-allowed' : ''
+                            }`}>
+                              <SelectValue placeholder="Dinner" />
+                            </SelectTrigger>
+                            <SelectContent className="bg-gray-700 border-gray-600">
+                              <SelectItem value="Breakfast" className="text-white hover:bg-gray-600">Breakfast</SelectItem>
+                              <SelectItem value="Lunch" className="text-white hover:bg-gray-600">Lunch</SelectItem>
+                              <SelectItem value="Dinner" className="text-white hover:bg-gray-600">Dinner</SelectItem>
+                              <SelectItem value="Snack" className="text-white hover:bg-gray-600">Snack</SelectItem>
+                            </SelectContent>
+                          </Select>
                         </div>
                         <div>
                           <label className="text-sm font-bold text-yellow-300 mb-1 block drop-shadow-lg">Spice Level</label>
-                          <select
-                            value={mealPreferences.spiceLevel || ''}
-                            onChange={(e) => setMealPreferences({...mealPreferences, spiceLevel: e.target.value})}
+                          <Select 
+                            value={mealPreferences.spiceLevel || ''} 
+                            onValueChange={(value) => setMealPreferences({...mealPreferences, spiceLevel: value})}
                             disabled={!mealPreferences.mealType}
-                            className={`w-full h-8 bg-gray-700 border border-gray-600 text-white text-sm rounded ${
-                              !mealPreferences.mealType ? 'opacity-50 cursor-not-allowed' : ''
-                            }`}
                           >
-                            <option value="">Select</option>
-                            <option value="Mild">😊 Mild</option>
-                            <option value="Medium">🌶️ Medium</option>
-                            <option value="Spicy">🔥 Spicy</option>
-                          </select>
+                            <SelectTrigger className={`bg-gray-700 border-gray-600 text-white h-10 ${
+                              !mealPreferences.mealType ? 'opacity-50 cursor-not-allowed' : ''
+                            }`}>
+                              <SelectValue placeholder="😊 Mild" />
+                            </SelectTrigger>
+                            <SelectContent className="bg-gray-700 border-gray-600">
+                              <SelectItem value="Mild" className="text-white hover:bg-gray-600">😊 Mild</SelectItem>
+                              <SelectItem value="Medium" className="text-white hover:bg-gray-600">🌶️ Medium</SelectItem>
+                              <SelectItem value="Spicy" className="text-white hover:bg-gray-600">🔥 Spicy</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      </div>
+
+                      {/* Row 3: Skill Level & Cook Method */}
+                      <div className="grid grid-cols-2 gap-3">
+                        <div>
+                          <label className="text-sm font-bold text-yellow-300 mb-1 block drop-shadow-lg">Skill Level</label>
+                          <Select 
+                            value={mealPreferences.skillLevel || ''} 
+                            onValueChange={(value) => setMealPreferences({...mealPreferences, skillLevel: value})}
+                            disabled={!mealPreferences.spiceLevel}
+                          >
+                            <SelectTrigger className={`bg-gray-700 border-gray-600 text-white h-10 ${
+                              !mealPreferences.spiceLevel ? 'opacity-50 cursor-not-allowed' : ''
+                            }`}>
+                              <SelectValue placeholder="🔰 Beginner" />
+                            </SelectTrigger>
+                            <SelectContent className="bg-gray-700 border-gray-600">
+                              <SelectItem value="Beginner" className="text-white hover:bg-gray-600">🔰 Beginner</SelectItem>
+                              <SelectItem value="Intermediate" className="text-white hover:bg-gray-600">⚡ Intermediate</SelectItem>
+                              <SelectItem value="Advanced" className="text-white hover:bg-gray-600">🎯 Advanced</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <div>
+                          <label className="text-sm font-bold text-yellow-300 mb-1 block drop-shadow-lg">Cook Method</label>
+                          <Select 
+                            value={mealPreferences.cookMethod || ''} 
+                            onValueChange={(value) => setMealPreferences({...mealPreferences, cookMethod: value})}
+                            disabled={!mealPreferences.skillLevel}
+                          >
+                            <SelectTrigger className={`bg-gray-700 border-gray-600 text-white h-10 ${
+                              !mealPreferences.skillLevel ? 'opacity-50 cursor-not-allowed' : ''
+                            }`}>
+                              <SelectValue placeholder="🔥 Oven" />
+                            </SelectTrigger>
+                            <SelectContent className="bg-gray-700 border-gray-600">
+                              <SelectItem value="Oven" className="text-white hover:bg-gray-600">🔥 Oven</SelectItem>
+                              <SelectItem value="Stovetop" className="text-white hover:bg-gray-600">🍳 Stovetop</SelectItem>
+                              <SelectItem value="Microwave" className="text-white hover:bg-gray-600">⚡ Microwave</SelectItem>
+                              <SelectItem value="Grill" className="text-white hover:bg-gray-600">🔥 Grill</SelectItem>
+                              <SelectItem value="Air Fryer" className="text-white hover:bg-gray-600">💨 Air Fryer</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      </div>
+
+                      {/* Row 4: Prep Time */}
+                      <div className="grid grid-cols-1 gap-3">
+                        <div>
+                          <label className="text-sm font-bold text-yellow-300 mb-1 block drop-shadow-lg">Prep Time</label>
+                          <Select 
+                            value={mealPreferences.prepTime || ''} 
+                            onValueChange={(value) => setMealPreferences({...mealPreferences, prepTime: value})}
+                            disabled={!mealPreferences.cookMethod}
+                          >
+                            <SelectTrigger className={`bg-gray-700 border-gray-600 text-white h-10 ${
+                              !mealPreferences.cookMethod ? 'opacity-50 cursor-not-allowed' : ''
+                            }`}>
+                              <SelectValue placeholder="⏰ 30 minutes" />
+                            </SelectTrigger>
+                            <SelectContent className="bg-gray-700 border-gray-600">
+                              <SelectItem value="15 minutes" className="text-white hover:bg-gray-600">⏰ 15 minutes</SelectItem>
+                              <SelectItem value="30 minutes" className="text-white hover:bg-gray-600">⏰ 30 minutes</SelectItem>
+                              <SelectItem value="45 minutes" className="text-white hover:bg-gray-600">⏰ 45 minutes</SelectItem>
+                              <SelectItem value="60 minutes" className="text-white hover:bg-gray-600">⏰ 60 minutes</SelectItem>
+                              <SelectItem value="90+ minutes" className="text-white hover:bg-gray-600">⏰ 90+ minutes</SelectItem>
+                            </SelectContent>
+                          </Select>
                         </div>
                       </div>
 
                       {/* Confirmation Checkbox */}
                       {mealFieldsComplete && (
-                        <div className="mt-4 pt-3 border-t border-gray-600">
-                          <div className="flex items-center space-x-2">
+                        <div className="mt-4 pt-3">
+                          <div className="flex items-center space-x-3 bg-purple-600/20 border border-purple-600 rounded-lg p-3">
                             <Checkbox
                               id="meal-confirm"
                               checked={mealConfirmed}
@@ -655,10 +736,10 @@ export default function ExploreRecipesScreen() {
                                   setTimeout(() => setActiveTab('pantry'), 500);
                                 }
                               }}
-                              className="w-7 h-7 rounded-full border-gray-500 data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600"
+                              className="w-6 h-6 rounded-full border-purple-400 data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600"
                             />
-                            <label htmlFor="meal-confirm" className="text-sm font-bold text-yellow-300 drop-shadow-lg">
-                              Confirm meal preferences for recipe generation
+                            <label htmlFor="meal-confirm" className="text-sm font-bold text-white drop-shadow-lg">
+                              I confirm these meal preferences are correct
                             </label>
                           </div>
                         </div>
