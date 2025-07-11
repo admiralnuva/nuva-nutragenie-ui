@@ -84,8 +84,11 @@ export default function ExploreRecipesScreen() {
     servingSize: '2 people', cuisine: 'American', mealType: 'Dinner', spiceLevel: 'Mild', skillLevel: 'Beginner', cookMethod: 'Oven', prepTime: '30 minutes'
   });
   
-  // Pantry ingredients
-  const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
+  // Pantry ingredients - Pre-select one from each category
+  const [selectedIngredients, setSelectedIngredients] = useState<string[]>([
+    'Chicken Breast', 'Salmon', 'Spinach', 'Apples', 'Brown Rice', 
+    'Greek Yogurt', 'Black Beans', 'Almonds', 'Olive Oil', 'Salt'
+  ]);
   const [customIngredients, setCustomIngredients] = useState<string[]>([]);
   const [newIngredient, setNewIngredient] = useState('');
   
@@ -119,7 +122,7 @@ export default function ExploreRecipesScreen() {
   const mealFieldsComplete = mealPreferences.servingSize && mealPreferences.cuisine && mealPreferences.mealType && 
                             mealPreferences.spiceLevel && mealPreferences.skillLevel && mealPreferences.cookMethod && 
                             mealPreferences.prepTime;
-  const pantryFieldsComplete = selectedIngredients.length >= 3;
+  const pantryFieldsComplete = true; // Always show confirmation checkbox
   const bothConfirmed = mealConfirmed && pantryConfirmed;
   
   // Card positioning logic
@@ -763,7 +766,7 @@ export default function ExploreRecipesScreen() {
                       
                       <div className="flex items-center justify-between mb-3">
                         <span className="text-sm font-bold text-yellow-300 drop-shadow-lg">Selected Ingredients:</span>
-                        <span className="text-sm text-gray-400">{selectedIngredients.length} items {selectedIngredients.length >= 3 ? '(Ready for confirmation)' : '(Select 3+ for confirmation)'}</span>
+                        <span className="text-sm text-gray-400">{selectedIngredients.length} items selected</span>
                       </div>
                       
                       <hr className="border-gray-600" />
