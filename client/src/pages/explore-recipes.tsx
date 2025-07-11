@@ -1774,17 +1774,17 @@ export default function ExploreRecipesScreen() {
                           {/* Action Icons */}
                           <div className="flex items-center justify-between pt-2">
                             <div className="flex items-center space-x-3">
-                              <button className="w-10 h-10 bg-gray-700 rounded-lg flex items-center justify-center hover:bg-gray-600 transition-colors">
+                              <button className="w-10 h-10 bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-lg flex items-center justify-center hover:from-yellow-600 hover:to-yellow-700 transition-all">
                                 <ArrowLeftRight size={18} className="text-white" />
                               </button>
                               <button 
                                 onClick={() => {}}
-                                className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center hover:from-blue-600 hover:to-purple-700 transition-all"
+                                className="w-10 h-10 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center hover:from-purple-600 hover:to-purple-700 transition-all"
                               >
                                 <BookOpen size={18} className="text-white" />
                               </button>
-                              <button className="w-10 h-10 bg-gray-700 rounded-lg flex items-center justify-center hover:bg-gray-600 transition-colors">
-                                <Repeat size={18} className="text-white" />
+                              <button className="w-10 h-10 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center hover:from-green-600 hover:to-green-700 transition-all">
+                                <Heart size={18} className="text-white" />
                               </button>
                               <button 
                                 onClick={handleCookClick}
@@ -1793,9 +1793,8 @@ export default function ExploreRecipesScreen() {
                                 <CookingPot size={18} className="text-white" />
                               </button>
                             </div>
-                            <button className="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2">
-                              <Plus size={16} />
-                              Take-Out
+                            <button className="w-10 h-10 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center hover:from-blue-600 hover:to-blue-700 transition-all">
+                              <Plus size={18} className="text-white" />
                             </button>
                           </div>
                         </div>
