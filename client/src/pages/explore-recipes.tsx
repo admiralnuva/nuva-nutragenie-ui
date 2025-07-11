@@ -1697,7 +1697,7 @@ export default function ExploreRecipesScreen() {
                       }`}
                       onClick={() => setSelectedCategory('soup')}
                     >
-                      Soups
+                      Soup
                     </Button>
                     <Button
                       variant="outline"
@@ -1708,7 +1708,7 @@ export default function ExploreRecipesScreen() {
                       }`}
                       onClick={() => setSelectedCategory('salad')}
                     >
-                      Salads
+                      Salad
                     </Button>
                     <Button
                       variant="outline"
@@ -1719,7 +1719,7 @@ export default function ExploreRecipesScreen() {
                       }`}
                       onClick={() => setSelectedCategory('entree')}
                     >
-                      Main Entree
+                      Entree
                     </Button>
                     <Button
                       variant="outline"
@@ -1730,7 +1730,7 @@ export default function ExploreRecipesScreen() {
                       }`}
                       onClick={() => setSelectedCategory('dessert')}
                     >
-                      Desserts
+                      Dessert
                     </Button>
                   </div>
 

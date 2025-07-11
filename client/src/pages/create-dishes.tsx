@@ -542,7 +542,7 @@ export default function CreateDishesScreen() {
                   }`}
                   onClick={() => setSelectedCategory('soup')}
                 >
-                  Soups
+                  Soup
                 </Button>
                 <Button
                   variant="outline"
@@ -553,7 +553,7 @@ export default function CreateDishesScreen() {
                   }`}
                   onClick={() => setSelectedCategory('salad')}
                 >
-                  Salads
+                  Salad
                 </Button>
                 <Button
                   variant="outline"
@@ -564,7 +564,7 @@ export default function CreateDishesScreen() {
                   }`}
                   onClick={() => setSelectedCategory('entree')}
                 >
-                  Main Entree
+                  Entree
                 </Button>
                 <Button
                   variant="outline"
@@ -575,7 +575,7 @@ export default function CreateDishesScreen() {
                   }`}
                   onClick={() => setSelectedCategory('dessert')}
                 >
-                  Desserts
+                  Dessert
                 </Button>
               </div>
 
