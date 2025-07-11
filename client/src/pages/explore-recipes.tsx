@@ -891,7 +891,7 @@ export default function ExploreRecipesScreen() {
                     setShowPantryDishes(false);
                     setShowTakeOut(false);
                     setSelectedRecipeOption('chefs-choice');
-                    logRecipeOptionState('Chef\'s Choice clicked');
+                    setTimeout(() => logRecipeOptionState('Chef\'s Choice clicked'), 0);
                   }}
                 >
                   Chef's Choice
@@ -908,7 +908,7 @@ export default function ExploreRecipesScreen() {
                     setShowChefsChoice(false);
                     setShowTakeOut(false);
                     setSelectedRecipeOption('pantry-dishes');
-                    logRecipeOptionState('Pantry Dishes clicked');
+                    setTimeout(() => logRecipeOptionState('Pantry Dishes clicked'), 0);
                   }}
                 >
                   Pantry Dishes
@@ -943,7 +943,7 @@ export default function ExploreRecipesScreen() {
                     setShowChefsChoice(false);
                     setShowPantryDishes(false);
                     setSelectedRecipeOption('take-out');
-                    logRecipeOptionState('Take-Out clicked');
+                    setTimeout(() => logRecipeOptionState('Take-Out clicked'), 0);
                   }}
                 >
                   Take-Out
