@@ -806,6 +806,11 @@ Changelog:
   * Added toggle functionality to Recipe Options buttons with purple selection states
   * Implemented single selection mode - selecting same button deselects it, selecting different button switches selection
   * Applied purple-600 background for selected state matching app theming color
+  * Created Chef Recommends card that displays when Chef's Choice is selected
+  * Implemented 6 sample dishes with authentic food images from Unsplash
+  * Added dish information: calories, protein, cook time, difficulty level matching mockup layout
+  * Created 5 action buttons per dish with color-coded icons: Substitution (Yellow), Recipe (Purple), Save (Green), Cook (Orange), Add (Blue)
+  * Applied collapsible card design with chevron up button in header
 ```
 
 ## User Preferences
