@@ -503,7 +503,7 @@ export default function ExploreRecipesScreen() {
                           <div className="text-sm text-gray-300">
                             {userData?.dietaryRestrictions && userData.dietaryRestrictions.length > 0 
                               ? userData.dietaryRestrictions.join(', ')
-                              : 'vegetarian, vegan, gluten-free, dairy-free, low-carb'
+                              : 'Vegetarian, Vegan, Gluten-Free, Dairy-Free, Low-Carb'
                             }
                           </div>
                         </div>
@@ -514,7 +514,7 @@ export default function ExploreRecipesScreen() {
                           <div className="text-sm text-gray-300">
                             {userData?.healthConditions && userData.healthConditions.length > 0 
                               ? userData.healthConditions.join(', ')
-                              : 'diabetes, cardiovascular, kidney, blood-pressure, cancer'
+                              : 'Diabetes, Cardiovascular, Kidney, Blood-Pressure, Cancer'
                             }
                           </div>
                         </div>
@@ -525,7 +525,7 @@ export default function ExploreRecipesScreen() {
                           <div className="text-sm text-gray-300">
                             {userData?.fitnessGoals && userData.fitnessGoals.length > 0 
                               ? userData.fitnessGoals.join(', ')
-                              : 'build muscle, lose weight, endurance, wellness'
+                              : 'Build Muscle, Lose Weight, Endurance, Wellness'
                             }
                           </div>
                         </div>
