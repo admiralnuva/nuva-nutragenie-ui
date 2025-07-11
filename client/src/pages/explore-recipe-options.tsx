@@ -701,13 +701,84 @@ export default function ExploreRecipeOptionsScreen() {
         {/* Card 3 - History */}
         <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
           <h2 className="text-xl font-bold text-white mb-4">History</h2>
-          <p className="text-gray-300">View your cooking and ordering history.</p>
+          <div className="grid grid-cols-2 gap-4">
+            <Button
+              variant="outline"
+              className="h-16 bg-gray-700 border-gray-600 hover:bg-gray-600 text-gray-300 flex flex-col items-center justify-center gap-2"
+              onClick={() => {/* Navigate to dishes cooked history */}}
+            >
+              <span className="text-lg">🍳</span>
+              <span className="text-sm">Dishes Cooked</span>
+            </Button>
+            <Button
+              variant="outline"
+              className="h-16 bg-gray-700 border-gray-600 hover:bg-gray-600 text-gray-300 flex flex-col items-center justify-center gap-2"
+              onClick={() => {/* Navigate to takeout orders */}}
+            >
+              <span className="text-lg">🚚</span>
+              <span className="text-sm">Takeout Orders</span>
+            </Button>
+            <Button
+              variant="outline"
+              className="h-16 bg-gray-700 border-gray-600 hover:bg-gray-600 text-gray-300 flex flex-col items-center justify-center gap-2"
+              onClick={() => {/* Navigate to grocery list */}}
+            >
+              <span className="text-lg">🛒</span>
+              <span className="text-sm">Grocery List</span>
+            </Button>
+            <Button
+              variant="outline"
+              className="h-16 bg-purple-600 border-purple-500 hover:bg-purple-700 text-white flex flex-col items-center justify-center gap-2"
+              onClick={() => {/* Navigate to recipes saved */}}
+            >
+              <span className="text-lg">📖</span>
+              <span className="text-sm">Recipes Saved</span>
+            </Button>
+          </div>
         </Card>
 
         {/* Card 4 - Summary */}
         <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
           <h2 className="text-xl font-bold text-white mb-4">Summary</h2>
-          <p className="text-gray-300">Overview of your nutrition and cooking progress.</p>
+          
+          {/* Section 1: Meal Preferences */}
+          <div className="mb-6">
+            <h3 className="text-lg font-bold text-yellow-300 mb-3">Meal Preferences</h3>
+            <p className="text-gray-300 text-sm">
+              Serving: 2 people, Cuisine: American<br />
+              Meal Type: Dinner
+            </p>
+          </div>
+
+          {/* Divider */}
+          <hr className="border-gray-600 mb-6" />
+          
+          {/* Section 2: Pantry Ingredients */}
+          <div className="mb-6">
+            <h3 className="text-lg font-bold text-yellow-300 mb-3">Pantry Ingredients</h3>
+            <p className="text-gray-300 text-sm">
+              Chicken Breast, Salmon, Onions, Rice,<br />
+              Milk, Olive Oil, Apples, Basil and 2 more
+            </p>
+          </div>
+
+          {/* Single Grocery List Button */}
+          <div className="grid grid-cols-2 gap-4">
+            <Button
+              variant="outline"
+              className="h-12 bg-gray-700 border-gray-600 hover:bg-gray-600 text-gray-300 flex items-center justify-center"
+              onClick={() => {/* Navigate to grocery list */}}
+            >
+              Grocery List
+            </Button>
+            <Button
+              variant="outline"
+              className="h-12 bg-gray-700 border-gray-600 hover:bg-gray-600 text-gray-300 flex items-center justify-center"
+              onClick={() => {/* Edit preferences */}}
+            >
+              Edit Preferences
+            </Button>
+          </div>
         </Card>
       </div>
     </div>
