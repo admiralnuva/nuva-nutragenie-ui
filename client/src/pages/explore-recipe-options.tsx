@@ -272,6 +272,186 @@ export default function ExploreRecipeOptionsScreen() {
           </div>
         </Card>
 
+        {/* Chef's Choice Card */}
+        {selectedOption === "chef-choice" && (
+          <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-bold text-white">Chef Recommends</h2>
+              <button
+                onClick={() => setSelectedOption(null)}
+                className="p-2 text-purple-400 hover:text-purple-300 hover:bg-purple-600/20 rounded-lg transition-colors"
+              >
+                <ChevronUp size={20} />
+              </button>
+            </div>
+            <div className="grid grid-cols-1 gap-4">
+              {[
+                {
+                  name: "Grilled Chicken Caesar",
+                  image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400&h=300&fit=crop",
+                  calories: 420,
+                  protein: "32g",
+                  cookTime: "25 min",
+                  difficulty: "Easy"
+                },
+                {
+                  name: "Mediterranean Pasta",
+                  image: "https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?w=400&h=300&fit=crop",
+                  calories: 380,
+                  protein: "18g", 
+                  cookTime: "20 min",
+                  difficulty: "Medium"
+                },
+                {
+                  name: "Salmon Teriyaki",
+                  image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400&h=300&fit=crop",
+                  calories: 450,
+                  protein: "35g",
+                  cookTime: "30 min", 
+                  difficulty: "Medium"
+                }
+              ].map((dish, index) => (
+                <div key={index} className="bg-gray-700/50 rounded-lg overflow-hidden">
+                  <img src={dish.image} alt={dish.name} className="w-full h-48 object-cover" />
+                  <div className="p-4">
+                    <h3 className="text-white font-medium mb-2">{dish.name}</h3>
+                    <div className="flex justify-between items-center text-sm text-gray-300 mb-4">
+                      <span>{dish.calories} cal • {dish.protein} protein</span>
+                      <span>{dish.cookTime} • {dish.difficulty}</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <div className="flex space-x-2">
+                        <button className="w-10 h-10 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-lg flex items-center justify-center">
+                          <ArrowLeft className="w-4 h-4 text-white rotate-180" />
+                        </button>
+                        <button className="w-10 h-10 bg-gradient-to-r from-purple-500 to-purple-700 rounded-lg flex items-center justify-center">
+                          <BookOpen className="w-4 h-4 text-white" />
+                        </button>
+                        <button className="w-10 h-10 bg-gradient-to-r from-green-500 to-green-700 rounded-lg flex items-center justify-center">
+                          <ChefHat className="w-4 h-4 text-white" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Card>
+        )}
+
+        {/* Pantry Dishes Card */}
+        {selectedOption === "pantry-dishes" && (
+          <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-bold text-white">Dishes from Pantry Ingredients</h2>
+              <button
+                onClick={() => setSelectedOption(null)}
+                className="p-2 text-purple-400 hover:text-purple-300 hover:bg-purple-600/20 rounded-lg transition-colors"
+              >
+                <ChevronUp size={20} />
+              </button>
+            </div>
+            <div className="grid grid-cols-1 gap-4">
+              {[
+                {
+                  name: "Garlic Fried Rice",
+                  image: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=400&h=300&fit=crop",
+                  calories: 320,
+                  protein: "12g",
+                  cookTime: "15 min",
+                  difficulty: "Easy"
+                },
+                {
+                  name: "Scrambled Eggs & Toast",
+                  image: "https://images.unsplash.com/photo-1525351484163-7529414344d8?w=400&h=300&fit=crop",
+                  calories: 280,
+                  protein: "18g",
+                  cookTime: "10 min",
+                  difficulty: "Easy"
+                },
+                {
+                  name: "Vegetable Pasta",
+                  image: "https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?w=400&h=300&fit=crop",
+                  calories: 350,
+                  protein: "14g",
+                  cookTime: "20 min",
+                  difficulty: "Easy"
+                }
+              ].map((dish, index) => (
+                <div key={index} className="bg-gray-700/50 rounded-lg overflow-hidden">
+                  <img src={dish.image} alt={dish.name} className="w-full h-48 object-cover" />
+                  <div className="p-4">
+                    <h3 className="text-white font-medium mb-2">{dish.name}</h3>
+                    <div className="flex justify-between items-center text-sm text-gray-300 mb-4">
+                      <span>{dish.calories} cal • {dish.protein} protein</span>
+                      <span>{dish.cookTime} • {dish.difficulty}</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <div className="flex space-x-2">
+                        <button className="w-10 h-10 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-lg flex items-center justify-center">
+                          <ArrowLeft className="w-4 h-4 text-white rotate-180" />
+                        </button>
+                        <button className="w-10 h-10 bg-gradient-to-r from-purple-500 to-purple-700 rounded-lg flex items-center justify-center">
+                          <BookOpen className="w-4 h-4 text-white" />
+                        </button>
+                        <button className="w-10 h-10 bg-gradient-to-r from-green-500 to-green-700 rounded-lg flex items-center justify-center">
+                          <ChefHat className="w-4 h-4 text-white" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Card>
+        )}
+
+        {/* Create Dishes Navigation */}
+        {selectedOption === "create-dishes" && (
+          <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-bold text-white">Create Custom Dishes</h2>
+              <button
+                onClick={() => setSelectedOption(null)}
+                className="p-2 text-purple-400 hover:text-purple-300 hover:bg-purple-600/20 rounded-lg transition-colors"
+              >
+                <ChevronUp size={20} />
+              </button>
+            </div>
+            <div className="text-center py-8">
+              <p className="text-gray-300 mb-4">Design your own custom meals with our AI chef assistant</p>
+              <Link href="/create-dishes">
+                <Button className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3">
+                  Start Creating Dishes
+                </Button>
+              </Link>
+            </div>
+          </Card>
+        )}
+
+        {/* Take-Out Navigation */}
+        {selectedOption === "take-out" && (
+          <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-bold text-white">Take-Out Ordering</h2>
+              <button
+                onClick={() => setSelectedOption(null)}
+                className="p-2 text-purple-400 hover:text-purple-300 hover:bg-purple-600/20 rounded-lg transition-colors"
+              >
+                <ChevronUp size={20} />
+              </button>
+            </div>
+            <div className="text-center py-8">
+              <p className="text-gray-300 mb-4">Order healthy meals from local chefs and restaurants</p>
+              <Link href="/takeout">
+                <Button className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3">
+                  Browse Take-Out Options
+                </Button>
+              </Link>
+            </div>
+          </Card>
+        )}
+
         {/* Card 3 - Summary */}
         <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
           <h2 className="text-xl font-bold text-white mb-4">Summary</h2>
