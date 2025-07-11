@@ -258,6 +258,7 @@ export default function ExploreRecipesScreen() {
   const [isMealComplete, setIsMealComplete] = useState(false);
   const [isPantryComplete, setIsPantryComplete] = useState(false);
   const [preferencesCardSlid, setPreferencesCardSlid] = useState(false);
+  const [userHasCompletedPreferences, setUserHasCompletedPreferences] = useState(false);
 
   // Get dynamic avatar for Card 3 based on active selection
   const getDynamicAvatar = () => {
@@ -308,17 +309,17 @@ export default function ExploreRecipesScreen() {
 
 
 
-  // Auto-slide preferences card after both completions - ISOLATED FROM RECIPE SELECTION
+  // Auto-slide preferences card ONLY when user explicitly completes preferences
   useEffect(() => {
-    if (isMealComplete && isPantryComplete && !preferencesCardSlid) {
-      console.log('Starting preferences card slide animation');
+    if (isMealComplete && isPantryComplete && !preferencesCardSlid && userHasCompletedPreferences) {
+      console.log('Starting preferences card slide animation (user completed)');
       
       // Auto-collapse after 2 seconds
       const collapseTimer = setTimeout(() => {
         setIsPantryCardCollapsed(true);
       }, 2000);
 
-      // Auto-slide to bottom after collapse animation - NO AUTO-SELECTION
+      // Auto-slide to bottom after collapse animation
       const slideTimer = setTimeout(() => {
         setIsPantryCardAtBottom(true);
         setPreferencesCardSlid(true);
@@ -336,7 +337,7 @@ export default function ExploreRecipesScreen() {
         clearTimeout(slideTimer);
       };
     }
-  }, [isMealComplete, isPantryComplete, preferencesCardSlid]);
+  }, [isMealComplete, isPantryComplete, preferencesCardSlid, userHasCompletedPreferences]);
 
   // Simple navigation cleanup - no interference
   useEffect(() => {
@@ -584,6 +585,7 @@ export default function ExploreRecipesScreen() {
     const hasEnoughIngredients = selectedIngredients.length >= 3;
     const isConfirmed = isPantryConfirmed;
     setIsPantryComplete(hasEnoughIngredients && isConfirmed);
+    console.log('Pantry completion check:', { hasEnoughIngredients, isConfirmed, result: hasEnoughIngredients && isConfirmed });
   }, [selectedIngredients, isPantryConfirmed]);
 
   const handleIngredientToggle = (ingredient: string) => {
@@ -1097,8 +1099,14 @@ export default function ExploreRecipesScreen() {
                               onCheckedChange={(checked) => {
                                 setMealConfirmed(checked);
                                 if (checked) {
+                                  console.log('Meal confirmed, switching to pantry tab');
                                   // Smoothly switch to Pantry tab when confirmed
                                   setTimeout(() => setActiveTab('pantry'), 500);
+                                  // Check if both are now complete for preferences animation
+                                  if (isPantryConfirmed) {
+                                    setUserHasCompletedPreferences(true);
+                                    console.log('Both meal and pantry confirmed - preferences complete');
+                                  }
                                 }
                               }}
                               className="w-7 h-7 rounded-full border-gray-500 data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600"
@@ -1195,6 +1203,14 @@ export default function ExploreRecipesScreen() {
                               checked={isPantryConfirmed}
                               onCheckedChange={(checked) => {
                                 setIsPantryConfirmed(checked);
+                                if (checked) {
+                                  console.log('Pantry confirmed');
+                                  // Check if both are now complete for preferences animation
+                                  if (mealConfirmed) {
+                                    setUserHasCompletedPreferences(true);
+                                    console.log('Both meal and pantry confirmed - preferences complete');
+                                  }
+                                }
                               }}
                               className="w-7 h-7 rounded-full border-gray-500 data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600"
                             />
