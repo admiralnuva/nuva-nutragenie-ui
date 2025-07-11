@@ -444,14 +444,7 @@ export default function ExploreRecipesScreen() {
                     </button>
                   )}
                 </div>
-                <div className="flex items-center">
-                  <img 
-                    src={userAvatarSrc} 
-                    alt="User Avatar" 
-                    className="w-16 h-16 rounded-full"
-                    style={{ border: 'none' }}
-                  />
-                </div>
+
               </div>
             </CardHeader>
             <CardContent>
@@ -1180,7 +1173,7 @@ export default function ExploreRecipesScreen() {
             <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
               <CardHeader className="pb-4">
                 <CardTitle className="text-lg text-white">
-                  Summary for {userData?.nickname || 'Peter'}
+                  Summary
                 </CardTitle>
               </CardHeader>
               <CardContent>
