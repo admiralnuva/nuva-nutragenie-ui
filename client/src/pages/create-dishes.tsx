@@ -582,7 +582,7 @@ export default function CreateDishesScreen() {
               {/* Dish Grid */}
               <div className="grid grid-cols-2 gap-4">
                 {takeOutDishes[selectedCategory].map((dish) => (
-                  <DishCard
+                  <ExpandableDishCard
                     key={dish.id}
                     dish={dish}
                     isSelected={false}
