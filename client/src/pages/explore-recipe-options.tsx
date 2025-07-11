@@ -782,7 +782,7 @@ export default function ExploreRecipeOptionsScreen() {
           </div>
 
           {/* Single Grocery List Button */}
-          <div className="flex justify-start">
+          <div className="flex justify-center">
             <Button
               variant="outline"
               className="h-12 bg-gray-700 border-gray-600 hover:bg-gray-600 text-gray-300 flex items-center justify-center px-8"
