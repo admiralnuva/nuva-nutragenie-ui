@@ -8,8 +8,26 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ChevronUp, Calendar, ChefHat, Truck, ShoppingBag, BookOpen } from "lucide-react";
 
+// Mock user avatar - in future this will come from API
+const userAvatar = "/attached_assets/User/user1.png";
+
+// Mock dietary preferences data - in future this will come from API
+const mockDietaryData = {
+  dietaryRestrictions: ["vegetarian", "vegan", "gluten-free", "dairy-free", "low-carb"],
+  healthFactors: ["diabetes", "cardiovascular", "kidney", "blood-pressure", "cancer"],
+  fitnessGoals: ["build muscle", "lose weight", "endurance", "wellness"],
+  allergiesRestrictions: "None specified",
+  nutritionalGoals: {
+    calories: "1301-1500",
+    protein: "71-100g",
+    carbs: "101-150g",
+    fat: "36-50g"
+  }
+};
+
 export default function ExploreRecipeOptionsScreen() {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [activePreferencesTab, setActivePreferencesTab] = useState<string>("diet");
   const [isChefRecommendsCollapsed, setIsChefRecommendsCollapsed] = useState(false);
   const [isPantryDishesCollapsed, setIsPantryDishesCollapsed] = useState(false);
   const [isCreateDishesCollapsed, setIsCreateDishesCollapsed] = useState(false);
@@ -343,7 +361,7 @@ export default function ExploreRecipeOptionsScreen() {
       {/* Header */}
       <div className="bg-gray-900 border-b border-gray-700 p-4">
         <div className="flex items-center justify-between">
-          <BackButton to="/home" />
+          <BackButton to="/dietary" />
           <div className="flex flex-col items-center">
             <h1 className="text-2xl font-bold text-white">NutraGenie</h1>
             <p className="text-lg font-semibold text-purple-600 mt-1">Explore Recipe Options</p>
@@ -354,9 +372,105 @@ export default function ExploreRecipeOptionsScreen() {
 
       <div className="container mx-auto px-4 py-6 space-y-6">
         {/* Card 1 - Preferences */}
-        <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
-          <h2 className="text-xl font-bold text-white mb-4">Preferences</h2>
-          <p className="text-gray-300">Configure your dietary preferences and nutrition goals.</p>
+        <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6 relative">
+          {/* Header with avatar */}
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-xl font-bold text-white">Personalize Diet & Pantry</h2>
+            <img 
+              src={userAvatar} 
+              alt="User Avatar" 
+              className="w-16 h-16 rounded-full"
+              style={{ border: 'none !important', outline: 'none', boxShadow: 'none', backgroundColor: 'transparent' }}
+            />
+          </div>
+          
+          {/* Tab buttons */}
+          <div className="flex space-x-4 mb-6">
+            <button
+              onClick={() => setActivePreferencesTab("diet")}
+              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                activePreferencesTab === "diet"
+                  ? "bg-purple-600 text-white"
+                  : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+              }`}
+            >
+              Diet
+            </button>
+            <button
+              onClick={() => setActivePreferencesTab("meal")}
+              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                activePreferencesTab === "meal"
+                  ? "bg-purple-600 text-white"
+                  : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+              }`}
+            >
+              Meal
+            </button>
+            <button
+              onClick={() => setActivePreferencesTab("pantry")}
+              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                activePreferencesTab === "pantry"
+                  ? "bg-purple-600 text-white"
+                  : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+              }`}
+            >
+              Pantry
+            </button>
+          </div>
+
+          {/* Tab content */}
+          {activePreferencesTab === "diet" && (
+            <div className="space-y-6">
+              <h3 className="text-lg font-bold text-yellow-300 drop-shadow-lg">Dietary Preferences</h3>
+              
+              {/* Dietary Restrictions */}
+              <div className="bg-gray-700/50 rounded-lg p-4 border border-gray-600">
+                <h4 className="text-yellow-300 font-bold mb-2 drop-shadow">Dietary Restrictions:</h4>
+                <p className="text-gray-300">{mockDietaryData.dietaryRestrictions.join(", ")}</p>
+              </div>
+
+              {/* Health Factors */}
+              <div className="bg-gray-700/50 rounded-lg p-4 border border-gray-600">
+                <h4 className="text-yellow-300 font-bold mb-2 drop-shadow">Health Factors:</h4>
+                <p className="text-gray-300">{mockDietaryData.healthFactors.join(", ")}</p>
+              </div>
+
+              {/* Fitness Goals */}
+              <div className="bg-gray-700/50 rounded-lg p-4 border border-gray-600">
+                <h4 className="text-yellow-300 font-bold mb-2 drop-shadow">Fitness Goals:</h4>
+                <p className="text-gray-300">{mockDietaryData.fitnessGoals.join(", ")}</p>
+              </div>
+
+              {/* Allergies/Restrictions */}
+              <div className="bg-gray-700/50 rounded-lg p-4 border border-gray-600">
+                <h4 className="text-yellow-300 font-bold mb-2 drop-shadow">Allergies/Restrictions:</h4>
+                <p className="text-gray-300">{mockDietaryData.allergiesRestrictions}</p>
+              </div>
+
+              {/* Nutritional Goals */}
+              <div className="bg-gray-700/50 rounded-lg p-4 border border-gray-600">
+                <h4 className="text-yellow-300 font-bold mb-2 drop-shadow">Nutritional Goals:</h4>
+                <div className="text-gray-300">
+                  <p>Cal: {mockDietaryData.nutritionalGoals.calories}, Protein: {mockDietaryData.nutritionalGoals.protein}</p>
+                  <p>Carbs: {mockDietaryData.nutritionalGoals.carbs}, Fat: {mockDietaryData.nutritionalGoals.fat}</p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activePreferencesTab === "meal" && (
+            <div className="space-y-4">
+              <h3 className="text-lg font-bold text-yellow-300 drop-shadow-lg">Meal Preferences</h3>
+              <p className="text-gray-300">Meal preferences content coming soon...</p>
+            </div>
+          )}
+
+          {activePreferencesTab === "pantry" && (
+            <div className="space-y-4">
+              <h3 className="text-lg font-bold text-yellow-300 drop-shadow-lg">Pantry Ingredients</h3>
+              <p className="text-gray-300">Pantry ingredients content coming soon...</p>
+            </div>
+          )}
         </Card>
 
         {/* Card 2 - Recipe Options */}
