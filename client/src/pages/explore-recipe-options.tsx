@@ -27,6 +27,7 @@ export default function ExploreRecipeOptionsScreen() {
   const [takeOutServingSize, setTakeOutServingSize] = useState("");
   const [takeOutCuisine, setTakeOutCuisine] = useState("");
   const [takeOutMealType, setTakeOutMealType] = useState("");
+  const [takeOutSpiceLevel, setTakeOutSpiceLevel] = useState("");
   const [deliveryDate, setDeliveryDate] = useState("");
   const [takeOutDishes, setTakeOutDishes] = useState<any[]>([]);
 
@@ -618,7 +619,7 @@ export default function ExploreRecipeOptionsScreen() {
                 </div>
               </div>
 
-              {/* Row 2: Meal Type & Delivery Date */}
+              {/* Row 2: Meal Type & Spice Level */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="takeOutMealType" className="text-yellow-300 font-bold text-sm mb-2 block">Meal Type</Label>
@@ -636,17 +637,33 @@ export default function ExploreRecipeOptionsScreen() {
                   </Select>
                 </div>
                 <div>
-                  <Label htmlFor="deliveryDate" className="text-yellow-300 font-bold text-sm mb-2 block">Delivery Date</Label>
-                  <div className="relative">
-                    <Input
-                      id="deliveryDate"
-                      type="date"
-                      value={deliveryDate}
-                      onChange={(e) => setDeliveryDate(e.target.value)}
-                      className="bg-gray-700 border-gray-600 text-white placeholder-gray-400 pr-10"
-                    />
-                    <Calendar size={20} className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white pointer-events-none" />
-                  </div>
+                  <Label htmlFor="takeOutSpiceLevel" className="text-yellow-300 font-bold text-sm mb-2 block">Spice Level</Label>
+                  <Select value={takeOutSpiceLevel} onValueChange={setTakeOutSpiceLevel}>
+                    <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                      <SelectValue placeholder="Medium" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-gray-700 border-gray-600">
+                      <SelectItem value="mild">Mild</SelectItem>
+                      <SelectItem value="medium">Medium</SelectItem>
+                      <SelectItem value="hot">Hot</SelectItem>
+                      <SelectItem value="extra-hot">Extra Hot</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              {/* Row 3: Delivery Date */}
+              <div>
+                <Label htmlFor="deliveryDate" className="text-yellow-300 font-bold text-sm mb-2 block">Delivery Date</Label>
+                <div className="relative">
+                  <Input
+                    id="deliveryDate"
+                    type="date"
+                    value={deliveryDate}
+                    onChange={(e) => setDeliveryDate(e.target.value)}
+                    className="bg-gray-700 border-gray-600 text-white placeholder-gray-400 pr-10"
+                  />
+                  <Calendar size={20} className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white pointer-events-none" />
                 </div>
               </div>
 
