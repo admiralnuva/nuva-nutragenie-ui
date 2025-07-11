@@ -37,7 +37,7 @@ export default function ExploreRecipeOptionsScreen() {
     const variations = [
       {
         id: 1,
-        name: `${baseDish} - Classic Indian Style`,
+        name: "Classic Indian Style",
         image: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400&h=300&fit=crop",
         calories: 420,
         protein: "28g",
@@ -46,7 +46,7 @@ export default function ExploreRecipeOptionsScreen() {
       },
       {
         id: 2,
-        name: `${baseDish} - Spicy Vindaloo Style`,
+        name: "Spicy Vindaloo Style",
         image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&h=300&fit=crop",
         calories: 450,
         protein: "30g",
@@ -55,8 +55,8 @@ export default function ExploreRecipeOptionsScreen() {
       },
       {
         id: 3,
-        name: `${baseDish} - Coconut Curry`,
-        image: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=400&h=300&fit=crop",
+        name: "Coconut Curry",
+        image: "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&h=300&fit=crop",
         calories: 380,
         protein: "26g",
         cookTime: "35 min",
@@ -64,7 +64,7 @@ export default function ExploreRecipeOptionsScreen() {
       },
       {
         id: 4,
-        name: `${baseDish} - Butter Chicken Style`,
+        name: "Butter Chicken Style",
         image: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&h=300&fit=crop",
         calories: 520,
         protein: "32g",
@@ -73,7 +73,7 @@ export default function ExploreRecipeOptionsScreen() {
       },
       {
         id: 5,
-        name: `${baseDish} - Thai Green Curry`,
+        name: "Thai Green Curry",
         image: "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=400&h=300&fit=crop",
         calories: 350,
         protein: "24g",
@@ -82,7 +82,7 @@ export default function ExploreRecipeOptionsScreen() {
       },
       {
         id: 6,
-        name: `${baseDish} - Japanese Curry`,
+        name: "Japanese Curry",
         image: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=400&h=300&fit=crop",
         calories: 400,
         protein: "25g",
