@@ -502,7 +502,9 @@ export default function ExploreRecipesScreen() {
                           <h5 className="text-sm font-bold text-yellow-300 mb-2 drop-shadow-lg">Dietary Restrictions:</h5>
                           <div className="text-sm text-gray-300">
                             {userData?.dietaryRestrictions && userData.dietaryRestrictions.length > 0 
-                              ? userData.dietaryRestrictions.join(', ')
+                              ? userData.dietaryRestrictions.map(item => 
+                                  item.charAt(0).toUpperCase() + item.slice(1).toLowerCase()
+                                ).join(', ')
                               : 'Vegetarian, Vegan, Gluten-Free, Dairy-Free, Low-Carb'
                             }
                           </div>
@@ -513,7 +515,9 @@ export default function ExploreRecipesScreen() {
                           <h5 className="text-sm font-bold text-yellow-300 mb-2 drop-shadow-lg">Health Factors:</h5>
                           <div className="text-sm text-gray-300">
                             {userData?.healthConditions && userData.healthConditions.length > 0 
-                              ? userData.healthConditions.join(', ')
+                              ? userData.healthConditions.map(item => 
+                                  item.charAt(0).toUpperCase() + item.slice(1).toLowerCase()
+                                ).join(', ')
                               : 'Diabetes, Cardiovascular, Kidney, Blood-Pressure, Cancer'
                             }
                           </div>
@@ -524,7 +528,11 @@ export default function ExploreRecipesScreen() {
                           <h5 className="text-sm font-bold text-yellow-300 mb-2 drop-shadow-lg">Fitness Goals:</h5>
                           <div className="text-sm text-gray-300">
                             {userData?.fitnessGoals && userData.fitnessGoals.length > 0 
-                              ? userData.fitnessGoals.join(', ')
+                              ? userData.fitnessGoals.map(item => 
+                                  item.split('-').map(word => 
+                                    word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+                                  ).join(' ')
+                                ).join(', ')
                               : 'Build Muscle, Lose Weight, Endurance, Wellness'
                             }
                           </div>
