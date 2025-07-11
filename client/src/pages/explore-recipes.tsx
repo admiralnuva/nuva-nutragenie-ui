@@ -319,11 +319,11 @@ export default function ExploreRecipesScreen() {
         setIsPantryCardAtBottom(true);
         setPreferencesCardSlid(true);
         
-        // Auto-select Chef's Choice and show dishes
-        setShowChefsChoice(true);
-        setShowPantryDishes(false);
-        setShowTakeOut(false);
-        setSelectedRecipeOption('chefs-choice');
+        // Auto-select Chef's Choice only if no other option is currently selected
+        if (!showPantryDishes && !showTakeOut && selectedRecipeOption !== 'pantry-dishes' && selectedRecipeOption !== 'take-out') {
+          setShowChefsChoice(true);
+          setSelectedRecipeOption('chefs-choice');
+        }
         
         // Play swish sound effect
         if (typeof Audio !== 'undefined') {
