@@ -23,6 +23,7 @@ import NuvaSignupScreen from "@/pages/nuva-signup";
 import ExploreRecipesScreen from "@/pages/explore-recipes";
 import ExploreRecipesClean from "@/pages/explore-recipes-clean";
 import ExploreRecipesNew from "@/pages/explore-recipes-new";
+import ExploreRecipesFinal from "@/pages/explore-recipes-final";
 import CreateDishesScreen from "@/pages/create-dishes";
 import ProfileScreen from "@/pages/profile";
 import HealthAnalyticsScreen from "@/pages/health";
@@ -56,9 +57,10 @@ function Router() {
       <Route path="/nuva-home" component={HomeScreen} />
       <Route path="/signup" component={SignupScreen} />
       <Route path="/dietary" component={DietaryScreen} />
-      <Route path="/explore-recipes" component={ExploreRecipesScreen} />
+      <Route path="/explore-recipes" component={ExploreRecipesFinal} />
       <Route path="/explore-recipes-clean" component={ExploreRecipesClean} />
       <Route path="/explore-recipes-new" component={ExploreRecipesNew} />
+      <Route path="/explore-recipes-final" component={ExploreRecipesFinal} />
       <Route path="/create-dishes" component={CreateDishesScreen} />
       <Route path="/home" component={HomeScreen} />
       <Route path="/recipes" component={RecipesScreen} />
