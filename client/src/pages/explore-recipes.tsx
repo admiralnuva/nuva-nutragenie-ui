@@ -153,11 +153,14 @@ export default function ExploreRecipesScreen() {
   const pantryFieldsComplete = true; // Always show confirmation checkbox
   const bothConfirmed = mealConfirmed && pantryConfirmed;
   
-  // Card positioning logic - COMPLETELY INDEPENDENT FROM RECIPE OPTIONS
-  useEffect(() => {
-    if (bothConfirmed && cardPosition === 'top' && !cardPositionExecuted.current) {
-      console.log('🔄 CARD POSITIONING: Both confirmed, moving card to bottom (ONCE ONLY)');
-      cardPositionExecuted.current = true; // Permanently lock to prevent re-triggering
+  // COMPLETELY REMOVE CARD POSITIONING LOGIC - IT'S CAUSING THE COUPLING
+  // The card positioning should happen manually, not automatically
+  
+  // Manual card positioning function
+  const moveCardToBottom = () => {
+    if (!cardPositionExecuted.current) {
+      console.log('🔄 MANUAL CARD POSITIONING: Moving card to bottom');
+      cardPositionExecuted.current = true;
       setTimeout(() => setCardCollapsed(true), 1000);
       setTimeout(() => setCardPosition('bottom'), 2000);
       
@@ -169,10 +172,8 @@ export default function ExploreRecipesScreen() {
           audio.play().catch(e => console.log('Audio play failed:', e));
         }
       }, 2000);
-      
-      // DO NOT AUTO-SELECT ANYTHING - Recipe Options are completely independent
     }
-  }, [bothConfirmed, cardPosition]);
+  };
   
   // Data definitions - Comprehensive ingredient categories
   const ingredientCategories = {
