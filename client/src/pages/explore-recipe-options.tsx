@@ -56,7 +56,7 @@ export default function ExploreRecipeOptionsScreen() {
     {
       id: 5,
       name: "Lemon Herb Pasta",
-      image: "https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?w=400&h=300&fit=crop",
+      image: "https://images.unsplash.com/photo-1473093226795-af9932fe5856?w=400&h=300&fit=crop",
       calories: 480,
       protein: "18g",
       cookTime: "18 min",
@@ -65,7 +65,7 @@ export default function ExploreRecipeOptionsScreen() {
     {
       id: 6,
       name: "Mediterranean Pasta",
-      image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop",
+      image: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=400&h=300&fit=crop",
       calories: 520,
       protein: "22g",
       cookTime: "22 min",
