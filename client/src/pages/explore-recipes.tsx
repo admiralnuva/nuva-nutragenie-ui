@@ -461,7 +461,12 @@ export default function ExploreRecipesScreen() {
                   <CardTitle className="text-lg text-white">Personalize Diet & Pantry</CardTitle>
                   {cardCollapsed && (
                     <button
-                      onClick={() => setCardCollapsed(false)}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        console.log('🔧 EXPAND: Chevron down clicked - expanding card');
+                        setCardCollapsed(false);
+                      }}
                       className="text-gray-400 hover:text-white transition-colors"
                     >
                       <ChevronDown size={20} />
@@ -470,7 +475,12 @@ export default function ExploreRecipesScreen() {
                 </div>
                 {!cardCollapsed && (
                   <button
-                    onClick={() => setCardCollapsed(true)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      console.log('🔧 COLLAPSE: Chevron up clicked - collapsing card');
+                      setCardCollapsed(true);
+                    }}
                     className="text-gray-400 hover:text-white transition-colors"
                   >
                     <ChevronUp size={20} />
@@ -483,7 +493,14 @@ export default function ExploreRecipesScreen() {
               <div className="flex gap-2 mb-4">
                 <Button
                   variant={activeTab === 'diet' ? "default" : "outline"}
-                  onClick={() => !cardCollapsed && setActiveTab('diet')}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (!cardCollapsed) {
+                      console.log('🔧 TAB: Diet tab clicked');
+                      setActiveTab('diet');
+                    }
+                  }}
                   disabled={cardCollapsed}
                   className={`flex-1 ${
                     activeTab === 'diet' 
@@ -495,7 +512,14 @@ export default function ExploreRecipesScreen() {
                 </Button>
                 <Button
                   variant={activeTab === 'meal' ? "default" : "outline"}
-                  onClick={() => !cardCollapsed && setActiveTab('meal')}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (!cardCollapsed) {
+                      console.log('🔧 TAB: Meal tab clicked');
+                      setActiveTab('meal');
+                    }
+                  }}
                   disabled={cardCollapsed}
                   className={`flex-1 flex items-center justify-center gap-2 ${
                     activeTab === 'meal' 
@@ -508,7 +532,14 @@ export default function ExploreRecipesScreen() {
                 </Button>
                 <Button
                   variant={activeTab === 'pantry' ? "default" : "outline"}
-                  onClick={() => !cardCollapsed && setActiveTab('pantry')}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (!cardCollapsed) {
+                      console.log('🔧 TAB: Pantry tab clicked');
+                      setActiveTab('pantry');
+                    }
+                  }}
                   disabled={cardCollapsed}
                   className={`flex-1 flex items-center justify-center gap-2 ${
                     activeTab === 'pantry' 
