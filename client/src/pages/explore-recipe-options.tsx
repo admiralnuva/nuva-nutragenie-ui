@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { ArrowLeft } from "lucide-react";
 import { Card } from "@/components/ui/card";
@@ -28,8 +28,21 @@ export default function ExploreRecipeOptionsScreen() {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [activePreferencesTab, setActivePreferencesTab] = useState<string>("diet");
   
-  // Card state management - single source of truth
+  // Card state management - reset to expanded when navigating from dietary preferences
   const [cardState, setCardState] = useState<"expanded" | "collapsed" | "bottom">("expanded");
+
+  // Reset card to expanded position on component mount (when navigating from dietary preferences)
+  useEffect(() => {
+    // Check if we're coming from dietary preferences by checking if preferences exist
+    const hasExistingPreferences = localStorage.getItem('nutragenie_preferences_confirmed');
+    if (!hasExistingPreferences) {
+      // First time visiting - keep card at top (expanded)
+      setCardState("expanded");
+    } else {
+      // Returning visit - show card at bottom (collapsed)
+      setCardState("bottom");
+    }
+  }, []);
   
   // Meal preferences state
   const [mealServingSize, setMealServingSize] = useState<string>("2");
@@ -64,13 +77,11 @@ export default function ExploreRecipeOptionsScreen() {
     setPantryConfirmed(true);
     setHasChangedPantryPreferences(false);
     
-    // Step 1: Collapse the card immediately
-    setCardState("collapsed");
+    // Save preferences confirmed state to localStorage
+    localStorage.setItem('nutragenie_preferences_confirmed', 'true');
     
-    // Step 2: After collapse animation, slide to bottom
-    setTimeout(() => {
-      setCardState("bottom");
-    }, 500); // 500ms for collapse animation
+    // Immediate slide to bottom without collapse animation for better UX
+    setCardState("bottom");
   };
 
   const handleExpandCollapsedCard = () => {
@@ -83,6 +94,8 @@ export default function ExploreRecipeOptionsScreen() {
     setPantryConfirmed(false);
     setHasChangedPantryPreferences(false);
     setActivePreferencesTab("diet");
+    // Clear preferences confirmed state
+    localStorage.removeItem('nutragenie_preferences_confirmed');
   };
 
   const getSelectedIngredientCount = () => {
@@ -722,16 +735,11 @@ export default function ExploreRecipeOptionsScreen() {
           </Card>
         )}
 
-        {/* Collapsed card - smooth sliding animation */}
-        {cardState === "collapsed" && (
-          <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 transition-all duration-500 h-0 p-0 overflow-hidden opacity-0">
-            {/* Empty collapsed state */}
-          </Card>
-        )}
+
 
         {/* Bottom positioned collapsed card */}
         {cardState === "bottom" && (
-          <Card className={`bg-gray-800/90 backdrop-blur-sm border-gray-700 p-4 transition-all duration-1000 transform translate-y-0 opacity-100`}>
+          <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-4 mt-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
                 <img src={userAvatar} alt="User" className="w-12 h-12 rounded-full" />
@@ -761,6 +769,9 @@ export default function ExploreRecipeOptionsScreen() {
             </div>
           </Card>
         )}
+
+        {/* Bottom padding for proper scrolling */}
+        <div className="pb-24"></div>
       </div>
     </div>
   );
