@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'wouter';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -77,7 +77,7 @@ export default function ExploreRecipesScreen() {
   const [cardCollapsed, setCardCollapsed] = useState(false);
   const [mealConfirmed, setMealConfirmed] = useState(false);
   const [pantryConfirmed, setPantryConfirmed] = useState(false);
-  const [cardPositionLocked, setCardPositionLocked] = useState(false);
+  const cardPositionExecuted = useRef(false);
   
   // Tabs and preferences
   const [activeTab, setActiveTab] = useState<'diet' | 'meal' | 'pantry'>('meal');
@@ -155,9 +155,9 @@ export default function ExploreRecipesScreen() {
   
   // Card positioning logic - COMPLETELY INDEPENDENT FROM RECIPE OPTIONS
   useEffect(() => {
-    if (bothConfirmed && cardPosition === 'top' && !cardPositionLocked) {
-      console.log('🔄 CARD POSITIONING: Both confirmed, moving card to bottom');
-      setCardPositionLocked(true); // Lock to prevent re-triggering
+    if (bothConfirmed && cardPosition === 'top' && !cardPositionExecuted.current) {
+      console.log('🔄 CARD POSITIONING: Both confirmed, moving card to bottom (ONCE ONLY)');
+      cardPositionExecuted.current = true; // Permanently lock to prevent re-triggering
       setTimeout(() => setCardCollapsed(true), 1000);
       setTimeout(() => setCardPosition('bottom'), 2000);
       
@@ -172,7 +172,7 @@ export default function ExploreRecipesScreen() {
       
       // DO NOT AUTO-SELECT ANYTHING - Recipe Options are completely independent
     }
-  }, [bothConfirmed, cardPosition, cardPositionLocked]);
+  }, [bothConfirmed, cardPosition]);
   
   // Data definitions - Comprehensive ingredient categories
   const ingredientCategories = {
