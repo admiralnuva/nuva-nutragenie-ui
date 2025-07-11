@@ -13,14 +13,14 @@ export default function CookScreen() {
   // Set navigation source when going to recipes
   const handleExploreRecipes = () => {
     setNavigationSource("cook");
-    setLocation("/recipes");
+    setLocation("/explore-recipe-options");
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black pb-20">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black pb-24">
       {/* Header */}
       <div className="bg-gray-900 border-b border-gray-700 px-4 py-4 flex items-center justify-between">
-        <BackButton to="/recipes" className="text-white" />
+        <BackButton to="/explore-recipe-options" className="text-white" />
         <div className="flex-1 text-center">
           <h1 className="text-2xl font-bold text-white">NutraGenie</h1>
           <p className="text-lg font-semibold text-purple-300 mt-1">Cook</p>
@@ -79,17 +79,17 @@ export default function CookScreen() {
               <div className="flex items-center gap-3 mb-3">
                 <div className="bg-white/20 rounded-full p-2">
                   <Camera className="w-6 h-6" />
+                  </div>
+                <div className="flex-1">
+                  <h3 className="text-lg font-bold">AI Video Cooking</h3>
+                  <p className="text-purple-100 text-sm">Get visual feedback on your technique</p>
                 </div>
-              <div className="flex-1">
-                <h3 className="text-lg font-bold">AI Video Cooking</h3>
-                <p className="text-purple-100 text-sm">Get visual feedback on your technique</p>
+                <Badge className="bg-yellow-400 text-yellow-900 text-xs">
+                  Premium
+                </Badge>
               </div>
-              <Badge className="bg-yellow-400 text-yellow-900 text-xs">
-                Premium
-              </Badge>
-            </div>
               <Button 
-                onClick={() => setLocation("/ai-video-cooking")}
+                onClick={() => setLocation("/voice-cooking")}
                 className="w-full bg-white text-purple-600 hover:bg-gray-100"
               >
                 <Camera className="w-4 h-4 mr-2" />
