@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isolated Button Test</title>
+    <style>
+        body {
+            background: #1a1a1a;
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .recipe-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .option-btn {
+            height: 56px;
+            border: 1px solid #4a4a4a;
+            border-radius: 6px;
+            background: #3a3a3a;
+            color: #ccc;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+        
+        .option-btn:hover {
+            background: #7c3aed;
+            color: white;
+            border-color: #7c3aed;
+        }
+        
+        .option-btn.active {
+            background: #7c3aed;
+            color: white;
+            border-color: #7c3aed;
+        }
+        
+        .chevron-btn {
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            padding: 4px;
+            font-size: 18px;
+        }
+        
+        .chevron-btn:hover {
+            color: white;
+        }
+        
+        .log {
+            background: #111;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card-header">
+            <h2>Personalize Diet & Pantry</h2>
+            <button class="chevron-btn" onclick="toggleCard()" id="chevron">▲</button>
+        </div>
+        <div id="card-content">
+            <p>Card content here...</p>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h2>Recipe Options</h2>
+        <div class="recipe-options">
+            <button class="option-btn" onclick="selectOption('chefs-choice')">Chef's Choice</button>
+            <button class="option-btn" onclick="selectOption('pantry-dishes')">Pantry Dishes</button>
+            <button class="option-btn" onclick="selectOption('create-dishes')">Create Dishes</button>
+            <button class="option-btn" onclick="selectOption('take-out')">Take-Out</button>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h3>Console Log:</h3>
+        <div class="log" id="log"></div>
+        <button onclick="clearLog()" style="margin-top: 10px; padding: 5px 10px; background: #444; color: white; border: none; border-radius: 4px; cursor: pointer;">Clear Log</button>
+    </div>
+
+    <script>
+        let selectedOption = '';
+        let cardCollapsed = false;
+        
+        function log(message) {
+            const logDiv = document.getElementById('log');
+            const timestamp = new Date().toLocaleTimeString();
+            logDiv.innerHTML += `<div>[${timestamp}] ${message}</div>`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+        
+        function selectOption(option) {
+            log(`🎯 DIRECT: ${option} clicked`);
+            selectedOption = option;
+            
+            // Update button states
+            document.querySelectorAll('.option-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+        
+        function toggleCard() {
+            log(`🔧 CHEVRON: ${cardCollapsed ? 'EXPAND' : 'COLLAPSE'} clicked`);
+            cardCollapsed = !cardCollapsed;
+            
+            const content = document.getElementById('card-content');
+            const chevron = document.getElementById('chevron');
+            
+            if (cardCollapsed) {
+                content.style.display = 'none';
+                chevron.textContent = '▼';
+            } else {
+                content.style.display = 'block';
+                chevron.textContent = '▲';
+            }
+        }
+        
+        function clearLog() {
+            document.getElementById('log').innerHTML = '';
+        }
+        
+        // Initial log
+        log('🚀 Test page loaded - click buttons to test isolation');
+    </script>
+</body>
+</html>
