@@ -247,15 +247,17 @@ export default function ExploreRecipesScreen() {
   const userAvatarSrc = userData?.avatar ? userAvatars[userData.avatar as keyof typeof userAvatars] : userAvatar1;
   const chefAvatarSrc = userData?.chef ? chefAvatars[userData.chef as keyof typeof chefAvatars] : chefAvatar1;
   
-  // New navigation state for the redesigned interface
-  const [activeTab, setActiveTab] = useState<'diet' | 'meal' | 'pantry'>('meal');
-  const [isMealComplete, setIsMealComplete] = useState(false);
-  const [isPantryComplete, setIsPantryComplete] = useState(false);
-  const [preferencesCardSlid, setPreferencesCardSlid] = useState(false);
+  // Recipe options state - simplified and isolated
   const [showChefsChoice, setShowChefsChoice] = useState(false);
   const [showPantryDishes, setShowPantryDishes] = useState(false);
   const [showTakeOut, setShowTakeOut] = useState(false);
   const [selectedRecipeOption, setSelectedRecipeOption] = useState<string>('');
+  
+  // Preferences completion state
+  const [activeTab, setActiveTab] = useState<'diet' | 'meal' | 'pantry'>('meal');
+  const [isMealComplete, setIsMealComplete] = useState(false);
+  const [isPantryComplete, setIsPantryComplete] = useState(false);
+  const [preferencesCardSlid, setPreferencesCardSlid] = useState(false);
 
   // Get dynamic avatar for Card 3 based on active selection
   const getDynamicAvatar = () => {
@@ -306,7 +308,7 @@ export default function ExploreRecipesScreen() {
 
 
 
-  // Auto-slide preferences card after both completions - RUN ONLY ONCE
+  // Auto-slide preferences card after both completions - ISOLATED FROM RECIPE SELECTION
   useEffect(() => {
     if (isMealComplete && isPantryComplete && !preferencesCardSlid) {
       console.log('Starting preferences card slide animation');
@@ -316,19 +318,10 @@ export default function ExploreRecipesScreen() {
         setIsPantryCardCollapsed(true);
       }, 2000);
 
-      // Auto-slide to bottom after collapse animation and auto-select Chef's Choice
+      // Auto-slide to bottom after collapse animation - NO AUTO-SELECTION
       const slideTimer = setTimeout(() => {
         setIsPantryCardAtBottom(true);
         setPreferencesCardSlid(true);
-        
-        // ONLY auto-select if nothing is selected at this moment
-        if (selectedRecipeOption === '') {
-          console.log('Auto-selecting Chef\'s Choice (first time only)');
-          setShowChefsChoice(true);
-          setSelectedRecipeOption('chefs-choice');
-        } else {
-          console.log('Auto-selection skipped - user has selection:', selectedRecipeOption);
-        }
         
         // Play swish sound effect
         if (typeof Audio !== 'undefined') {
@@ -345,19 +338,13 @@ export default function ExploreRecipesScreen() {
     }
   }, [isMealComplete, isPantryComplete, preferencesCardSlid]);
 
-  // Navigation-based initialization - only on initial load, don't override user selections
+  // One-time initialization only - NO ONGOING INTERFERENCE
   useEffect(() => {
-    if (isNavigatingFromTabs && selectedRecipeOption === '') {
-      // Coming from Home/Cook/Take-Out tabs - set initial state only if nothing selected
-      setShowChefsChoice(true);
-      setSelectedRecipeOption('chefs-choice');
-      setShowPantryDishes(false);
-      setShowTakeOut(false);
-      
-      // Clear navigation source after handling
+    if (isNavigatingFromTabs) {
+      console.log('Initial navigation setup');
       setNavigationSource("");
     }
-  }, [isNavigatingFromTabs, setNavigationSource, selectedRecipeOption]);
+  }, []);
   
   // No automatic reset on navigation - preserve collapsed state after completion
 
