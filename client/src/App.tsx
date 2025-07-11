@@ -7,9 +7,9 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { BottomNavigation } from "@/components/ui/bottom-navigation";
 import NotFound from "@/pages/not-found";
 
-import SignupScreen from "@/pages/signup";
+
 import DietaryScreen from "@/pages/dietary";
-import RecipesScreen from "@/pages/recipes";
+
 
 import RecipeDetailsScreen from "@/pages/recipe-details";
 import CookingScreen from "@/pages/cooking";
@@ -22,11 +22,11 @@ import NuvaSplashScreen from "@/pages/nuva-splash";
 import NuvaSignupScreen from "@/pages/nuva-signup";
 
 import CreateDishesScreen from "@/pages/create-dishes";
+import RecipesScreen from "@/pages/recipes";
 import ProfileScreen from "@/pages/profile";
 import HealthAnalyticsScreen from "@/pages/health";
 import HomeScreen from "@/pages/home";
 
-import GroceryListScreen from "@/pages/grocery-list-new";
 import GroceryListEnhanced from "@/pages/grocery-list-enhanced";
 import InstacartScreen from "@/pages/instacart";
 import WeeklyMealPlanningScreen from "@/pages/weekly-meal-planning";
@@ -52,12 +52,13 @@ function Router() {
       <Route path="/nuva" component={NuvaSplashScreen} />
       <Route path="/nuva-signup" component={NuvaSignupScreen} />
       <Route path="/nuva-home" component={HomeScreen} />
-      <Route path="/signup" component={SignupScreen} />
+
       <Route path="/dietary" component={DietaryScreen} />
 
+      <Route path="/recipes" component={RecipesScreen} />
       <Route path="/create-dishes" component={CreateDishesScreen} />
       <Route path="/home" component={HomeScreen} />
-      <Route path="/recipes" component={RecipesScreen} />
+
       <Route path="/recipe-details" component={RecipeDetailsScreen} />
 
       <Route path="/grocery-list" component={GroceryListEnhanced} />
@@ -80,7 +81,7 @@ function AppContent() {
   const [location] = useLocation();
   
   // Pages that should NOT show bottom navigation
-  const hideBottomNav = ['/', '/nuva', '/nuva-signup', '/signup', '/dietary'];
+  const hideBottomNav = ['/', '/nuva', '/nuva-signup', '/dietary'];
   const showBottomNav = !hideBottomNav.includes(location);
 
   return (
