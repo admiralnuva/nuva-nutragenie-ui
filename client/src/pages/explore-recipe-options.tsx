@@ -5,6 +5,8 @@ import { ChevronUp, ArrowLeftRight, Book, Heart, ChefHat, Plus } from "lucide-re
 
 export default function ExploreRecipeOptionsScreen() {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [isChefRecommendsCollapsed, setIsChefRecommendsCollapsed] = useState(false);
+  const [isPantryDishesCollapsed, setIsPantryDishesCollapsed] = useState(false);
 
   const chefRecommendedDishes = [
     {
@@ -54,9 +56,9 @@ export default function ExploreRecipeOptionsScreen() {
     },
     {
       id: 6,
-      name: "Quinoa Power Bowl",
-      image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
-      calories: 350,
+      name: "Lemon Garlic Shrimp",
+      image: "https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=400&h=300&fit=crop",
+      calories: 320,
       protein: "28g",
       cookTime: "25 min",
       difficulty: "Easy"
@@ -120,67 +122,73 @@ export default function ExploreRecipeOptionsScreen() {
     }
   ];
 
+  const handleOptionClick = (option: string) => {
+    if (selectedOption === option) {
+      setSelectedOption(null);
+    } else {
+      setSelectedOption(option);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black pb-20">
       {/* Header */}
-      <div className="bg-gray-900 border-b border-gray-700 px-4 py-4 flex items-center justify-between">
-        <BackButton to="/home" className="text-white" />
-        <div className="flex-1 text-center">
-          <h1 className="text-2xl font-bold text-white">NutraGenie</h1>
-          <p className="text-lg font-semibold text-purple-600 mt-1">Explore Recipe Options</p>
-        </div>
-        <div className="w-8"></div>
+      <div className="flex items-center justify-between p-6">
+        <BackButton to="/home" />
+        <h1 className="text-2xl font-bold text-white">NutraGenie</h1>
+        <div className="w-6" />
       </div>
 
-      <div className="p-4 space-y-6">
+      <div className="p-6 space-y-6">
         {/* Card 1 - Preferences */}
         <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
-          <h2 className="text-xl font-bold text-white">Preferences</h2>
+          <h2 className="text-xl font-bold text-white mb-4">Preferences</h2>
+          <p className="text-gray-300">Configure your dietary preferences and settings.</p>
         </Card>
 
         {/* Card 2 - Recipe Options */}
         <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
           <h2 className="text-xl font-bold text-white mb-4">Recipe Options</h2>
           <div className="grid grid-cols-2 gap-4">
-            <button 
-              onClick={() => setSelectedOption(selectedOption === "chefs-choice" ? null : "chefs-choice")}
-              className={`py-4 px-6 rounded-lg transition-colors ${
-                selectedOption === "chefs-choice" 
-                  ? "bg-purple-600 text-white" 
-                  : "bg-gray-700 hover:bg-gray-600 text-white"
+            <button
+              onClick={() => handleOptionClick("chefs-choice")}
+              className={`p-4 rounded-lg border text-center transition-colors ${
+                selectedOption === "chefs-choice"
+                  ? "bg-purple-600 text-white border-purple-500"
+                  : "bg-gray-700 text-gray-300 border-gray-600 hover:bg-gray-600"
               }`}
             >
-              <span className="text-base font-medium">Chef's Choice</span>
+              Chef's Choice
             </button>
-            <button 
-              onClick={() => setSelectedOption(selectedOption === "pantry-dishes" ? null : "pantry-dishes")}
-              className={`py-4 px-6 rounded-lg transition-colors ${
-                selectedOption === "pantry-dishes" 
-                  ? "bg-purple-600 text-white" 
-                  : "bg-gray-700 hover:bg-gray-600 text-white"
+            <button
+              onClick={() => handleOptionClick("pantry-dishes")}
+              className={`p-4 rounded-lg border text-center transition-colors ${
+                selectedOption === "pantry-dishes"
+                  ? "bg-purple-600 text-white border-purple-500"
+                  : "bg-gray-700 text-gray-300 border-gray-600 hover:bg-gray-600"
               }`}
             >
-              <span className="text-base font-medium">Pantry Dishes</span>
+              Pantry Dishes
             </button>
-            <button 
-              onClick={() => setSelectedOption(selectedOption === "create-dishes" ? null : "create-dishes")}
-              className={`py-4 px-6 rounded-lg transition-colors ${
-                selectedOption === "create-dishes" 
-                  ? "bg-purple-600 text-white" 
-                  : "bg-gray-700 hover:bg-gray-600 text-white"
+            <button
+              onClick={() => handleOptionClick("create-dishes")}
+              className={`p-4 rounded-lg border text-center transition-colors ${
+                selectedOption === "create-dishes"
+                  ? "bg-purple-600 text-white border-purple-500"
+                  : "bg-gray-700 text-gray-300 border-gray-600 hover:bg-gray-600"
               }`}
             >
-              <span className="text-base font-medium">Create Dishes</span>
+              Create Dishes
             </button>
-            <button 
-              onClick={() => setSelectedOption(selectedOption === "take-out" ? null : "take-out")}
-              className={`py-4 px-6 rounded-lg transition-colors ${
-                selectedOption === "take-out" 
-                  ? "bg-purple-600 text-white" 
-                  : "bg-gray-700 hover:bg-gray-600 text-white"
+            <button
+              onClick={() => handleOptionClick("take-out")}
+              className={`p-4 rounded-lg border text-center transition-colors ${
+                selectedOption === "take-out"
+                  ? "bg-purple-600 text-white border-purple-500"
+                  : "bg-gray-700 text-gray-300 border-gray-600 hover:bg-gray-600"
               }`}
             >
-              <span className="text-base font-medium">Take-Out</span>
+              Take-Out
             </button>
           </div>
         </Card>
@@ -190,60 +198,65 @@ export default function ExploreRecipeOptionsScreen() {
           <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-bold text-white">Chef Recommends</h2>
-              <button className="text-gray-400 hover:text-white transition-colors">
-                <ChevronUp size={24} />
+              <button 
+                onClick={() => setIsChefRecommendsCollapsed(!isChefRecommendsCollapsed)}
+                className="text-gray-400 hover:text-white transition-colors"
+              >
+                <ChevronUp size={24} className={`transform transition-transform ${isChefRecommendsCollapsed ? 'rotate-180' : ''}`} />
               </button>
             </div>
-            <div className="space-y-4">
-              {chefRecommendedDishes.map((dish) => (
-                <div key={dish.id} className="bg-gray-700/50 rounded-lg overflow-hidden">
-                  {/* Image Section - Full Width */}
-                  <div className="w-full">
-                    <img 
-                      src={dish.image} 
-                      alt={dish.name}
-                      className="w-full h-40 object-cover"
-                    />
-                  </div>
-                  
-                  {/* Data Section */}
-                  <div className="p-4">
-                    <h3 className="text-white font-semibold text-lg mb-3">{dish.name}</h3>
-                    
-                    {/* Nutrition Info - Two Rows */}
-                    <div className="mb-3">
-                      <div className="flex items-center gap-6 text-sm mb-2">
-                        <span className="text-orange-400">• {dish.calories} calories</span>
-                        <span className="text-yellow-400">• {dish.protein} protein</span>
-                      </div>
-                      <div className="flex items-center gap-6 text-sm text-gray-300">
-                        <span className="text-blue-400">• {dish.cookTime} cook time</span>
-                        <span>{dish.difficulty} difficulty</span>
-                      </div>
+            {!isChefRecommendsCollapsed && (
+              <div className="space-y-4">
+                {chefRecommendedDishes.map((dish) => (
+                  <div key={dish.id} className="bg-gray-700/50 rounded-lg overflow-hidden">
+                    {/* Image Section - Full Width */}
+                    <div className="w-full">
+                      <img 
+                        src={dish.image} 
+                        alt={dish.name}
+                        className="w-full h-40 object-cover"
+                      />
                     </div>
                     
-                    {/* Action Buttons */}
-                    <div className="flex items-center gap-2">
-                      <button className="w-10 h-10 bg-yellow-600 hover:bg-yellow-700 rounded-lg flex items-center justify-center transition-colors">
-                        <ArrowLeftRight size={18} className="text-white" />
-                      </button>
-                      <button className="w-10 h-10 bg-purple-600 hover:bg-purple-700 rounded-lg flex items-center justify-center transition-colors">
-                        <Book size={18} className="text-white" />
-                      </button>
-                      <button className="w-10 h-10 bg-green-600 hover:bg-green-700 rounded-lg flex items-center justify-center transition-colors">
-                        <Heart size={18} className="text-white" />
-                      </button>
-                      <button className="w-10 h-10 bg-orange-600 hover:bg-orange-700 rounded-lg flex items-center justify-center transition-colors">
-                        <ChefHat size={18} className="text-white" />
-                      </button>
-                      <button className="w-10 h-10 bg-blue-600 hover:bg-blue-700 rounded-lg flex items-center justify-center transition-colors">
-                        <Plus size={18} className="text-white" />
-                      </button>
+                    {/* Data Section */}
+                    <div className="p-4">
+                      <h3 className="text-white font-semibold text-lg mb-3">{dish.name}</h3>
+                      
+                      {/* Nutrition Info - Two Rows */}
+                      <div className="mb-3">
+                        <div className="flex items-center gap-6 text-sm mb-2">
+                          <span className="text-orange-400">• {dish.calories} calories</span>
+                          <span className="text-yellow-400">• {dish.protein} protein</span>
+                        </div>
+                        <div className="flex items-center gap-6 text-sm text-gray-300">
+                          <span className="text-blue-400">• {dish.cookTime} cook time</span>
+                          <span>{dish.difficulty} difficulty</span>
+                        </div>
+                      </div>
+                      
+                      {/* Action Buttons */}
+                      <div className="flex items-center gap-2">
+                        <button className="w-10 h-10 bg-yellow-600 hover:bg-yellow-700 rounded-lg flex items-center justify-center transition-colors">
+                          <ArrowLeftRight size={18} className="text-white" />
+                        </button>
+                        <button className="w-10 h-10 bg-purple-600 hover:bg-purple-700 rounded-lg flex items-center justify-center transition-colors">
+                          <Book size={18} className="text-white" />
+                        </button>
+                        <button className="w-10 h-10 bg-green-600 hover:bg-green-700 rounded-lg flex items-center justify-center transition-colors">
+                          <Heart size={18} className="text-white" />
+                        </button>
+                        <button className="w-10 h-10 bg-orange-600 hover:bg-orange-700 rounded-lg flex items-center justify-center transition-colors">
+                          <ChefHat size={18} className="text-white" />
+                        </button>
+                        <button className="w-10 h-10 bg-blue-600 hover:bg-blue-700 rounded-lg flex items-center justify-center transition-colors">
+                          <Plus size={18} className="text-white" />
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </Card>
         )}
 
@@ -252,71 +265,78 @@ export default function ExploreRecipeOptionsScreen() {
           <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-bold text-white">Dishes from Pantry Ingredients</h2>
-              <button className="text-gray-400 hover:text-white transition-colors">
-                <ChevronUp size={24} />
+              <button 
+                onClick={() => setIsPantryDishesCollapsed(!isPantryDishesCollapsed)}
+                className="text-gray-400 hover:text-white transition-colors"
+              >
+                <ChevronUp size={24} className={`transform transition-transform ${isPantryDishesCollapsed ? 'rotate-180' : ''}`} />
               </button>
             </div>
-            <div className="space-y-4">
-              {pantryDishes.map((dish) => (
-                <div key={dish.id} className="bg-gray-700/50 rounded-lg overflow-hidden">
-                  {/* Image Section - Full Width */}
-                  <div className="w-full">
-                    <img 
-                      src={dish.image} 
-                      alt={dish.name}
-                      className="w-full h-40 object-cover"
-                    />
-                  </div>
-                  
-                  {/* Data Section */}
-                  <div className="p-4">
-                    <h3 className="text-white font-semibold text-lg mb-3">{dish.name}</h3>
-                    
-                    {/* Nutrition Info - Two Rows */}
-                    <div className="mb-3">
-                      <div className="flex items-center gap-6 text-sm mb-2">
-                        <span className="text-orange-400">• {dish.calories} calories</span>
-                        <span className="text-yellow-400">• {dish.protein} protein</span>
-                      </div>
-                      <div className="flex items-center gap-6 text-sm text-gray-300">
-                        <span className="text-blue-400">• {dish.cookTime} cook time</span>
-                        <span>{dish.difficulty} difficulty</span>
-                      </div>
+            {!isPantryDishesCollapsed && (
+              <div className="space-y-4">
+                {pantryDishes.map((dish) => (
+                  <div key={dish.id} className="bg-gray-700/50 rounded-lg overflow-hidden">
+                    {/* Image Section - Full Width */}
+                    <div className="w-full">
+                      <img 
+                        src={dish.image} 
+                        alt={dish.name}
+                        className="w-full h-40 object-cover"
+                      />
                     </div>
                     
-                    {/* Action Buttons */}
-                    <div className="flex items-center gap-2">
-                      <button className="w-10 h-10 bg-yellow-600 hover:bg-yellow-700 rounded-lg flex items-center justify-center transition-colors">
-                        <ArrowLeftRight size={18} className="text-white" />
-                      </button>
-                      <button className="w-10 h-10 bg-purple-600 hover:bg-purple-700 rounded-lg flex items-center justify-center transition-colors">
-                        <Book size={18} className="text-white" />
-                      </button>
-                      <button className="w-10 h-10 bg-green-600 hover:bg-green-700 rounded-lg flex items-center justify-center transition-colors">
-                        <Heart size={18} className="text-white" />
-                      </button>
-                      <button className="w-10 h-10 bg-orange-600 hover:bg-orange-700 rounded-lg flex items-center justify-center transition-colors">
-                        <ChefHat size={18} className="text-white" />
-                      </button>
-                      <button className="w-10 h-10 bg-blue-600 hover:bg-blue-700 rounded-lg flex items-center justify-center transition-colors">
-                        <Plus size={18} className="text-white" />
-                      </button>
+                    {/* Data Section */}
+                    <div className="p-4">
+                      <h3 className="text-white font-semibold text-lg mb-3">{dish.name}</h3>
+                      
+                      {/* Nutrition Info - Two Rows */}
+                      <div className="mb-3">
+                        <div className="flex items-center gap-6 text-sm mb-2">
+                          <span className="text-orange-400">• {dish.calories} calories</span>
+                          <span className="text-yellow-400">• {dish.protein} protein</span>
+                        </div>
+                        <div className="flex items-center gap-6 text-sm text-gray-300">
+                          <span className="text-blue-400">• {dish.cookTime} cook time</span>
+                          <span>{dish.difficulty} difficulty</span>
+                        </div>
+                      </div>
+                      
+                      {/* Action Buttons */}
+                      <div className="flex items-center gap-2">
+                        <button className="w-10 h-10 bg-yellow-600 hover:bg-yellow-700 rounded-lg flex items-center justify-center transition-colors">
+                          <ArrowLeftRight size={18} className="text-white" />
+                        </button>
+                        <button className="w-10 h-10 bg-purple-600 hover:bg-purple-700 rounded-lg flex items-center justify-center transition-colors">
+                          <Book size={18} className="text-white" />
+                        </button>
+                        <button className="w-10 h-10 bg-green-600 hover:bg-green-700 rounded-lg flex items-center justify-center transition-colors">
+                          <Heart size={18} className="text-white" />
+                        </button>
+                        <button className="w-10 h-10 bg-orange-600 hover:bg-orange-700 rounded-lg flex items-center justify-center transition-colors">
+                          <ChefHat size={18} className="text-white" />
+                        </button>
+                        <button className="w-10 h-10 bg-blue-600 hover:bg-blue-700 rounded-lg flex items-center justify-center transition-colors">
+                          <Plus size={18} className="text-white" />
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </Card>
         )}
 
         {/* Card 3 - History */}
         <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
-          <h2 className="text-xl font-bold text-white">History</h2>
+          <h2 className="text-xl font-bold text-white mb-4">History</h2>
+          <p className="text-gray-300">View your cooking and ordering history.</p>
         </Card>
 
         {/* Card 4 - Summary */}
         <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
-          <h2 className="text-xl font-bold text-white">Summary</h2>
+          <h2 className="text-xl font-bold text-white mb-4">Summary</h2>
+          <p className="text-gray-300">Overview of your nutrition and cooking progress.</p>
         </Card>
       </div>
     </div>

@@ -819,6 +819,9 @@ Changelog:
   * Implemented 6 pantry-friendly dishes: Garlic Fried Rice, Scrambled Eggs & Toast, Vegetable Soup, Butter Garlic Pasta, Grilled Cheese Sandwich, Mixed Vegetable Stir-Fry
   * Applied identical layout to Chef Recommends: full-width images, nutrition info, 5 color-coded action buttons
   * Used title "Dishes from Pantry Ingredients" with collapsible chevron up button
+  * Added collapse functionality to both Chef Recommends and Pantry Dishes cards
+  * Implemented chevron rotation animation and smooth collapse/expand behavior
+  * Fixed JSX syntax errors by rewriting the entire file with proper structure
 ```
 
 ## User Preferences
