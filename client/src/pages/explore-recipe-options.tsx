@@ -22,7 +22,21 @@ export default function ExploreRecipeOptionsScreen() {
 
         {/* Card 2 - Recipe Options */}
         <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
-          <h2 className="text-xl font-bold text-white">Recipe Options</h2>
+          <h2 className="text-xl font-bold text-white mb-4">Recipe Options</h2>
+          <div className="grid grid-cols-2 gap-4">
+            <button className="bg-gray-700 hover:bg-gray-600 text-white py-4 px-6 rounded-lg transition-colors">
+              <span className="text-base font-medium">Chef's Choice</span>
+            </button>
+            <button className="bg-gray-700 hover:bg-gray-600 text-white py-4 px-6 rounded-lg transition-colors">
+              <span className="text-base font-medium">Pantry Dishes</span>
+            </button>
+            <button className="bg-gray-700 hover:bg-gray-600 text-white py-4 px-6 rounded-lg transition-colors">
+              <span className="text-base font-medium">Create Dishes</span>
+            </button>
+            <button className="bg-gray-700 hover:bg-gray-600 text-white py-4 px-6 rounded-lg transition-colors">
+              <span className="text-base font-medium">Take-Out</span>
+            </button>
+          </div>
         </Card>
 
         {/* Card 3 - History */}
