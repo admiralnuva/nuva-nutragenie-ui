@@ -9,13 +9,13 @@ import { Checkbox } from '@/components/ui/checkbox';
 
 export default function CreateDishesScreen() {
   const [, setLocation] = useLocation();
-  const [dishName, setDishName] = useState('Chicken Curry');
-  const [servingSize, setServingSize] = useState('2');
-  const [cuisine, setCuisine] = useState('Indian');
-  const [mealType, setMealType] = useState('Dinner');
-  const [cookMethod, setCookMethod] = useState('Stove Top');
-  const [showResults, setShowResults] = useState(true);
-  const [showInputForm, setShowInputForm] = useState(false);
+  const [dishName, setDishName] = useState('');
+  const [servingSize, setServingSize] = useState('');
+  const [cuisine, setCuisine] = useState('');
+  const [mealType, setMealType] = useState('');
+  const [cookMethod, setCookMethod] = useState('');
+  const [showResults, setShowResults] = useState(false);
+  const [showInputForm, setShowInputForm] = useState(true);
   const [activeTab, setActiveTab] = useState<'variations' | 'favorites'>('variations');
 
   // Sample dish variations data
