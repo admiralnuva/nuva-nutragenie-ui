@@ -94,7 +94,7 @@ export default function ExploreRecipeOptionsScreen() {
     {
       id: 4,
       name: "Butter Garlic Pasta",
-      image: "https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?w=400&h=300&fit=crop",
+      image: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=400&h=300&fit=crop",
       calories: 390,
       protein: "14g",
       cookTime: "18 min",
