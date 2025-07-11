@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
-import { Clock, Users, ChefHat, Flame, Target, Utensils, ShoppingCart, Sparkles, Plus, List, Minus, ChevronDown, ChevronUp, ArrowLeft, BookOpen, Repeat, Heart, Truck, Save, CookingPot, ArrowLeftRight, X } from "lucide-react";
+import { Clock, Users, ChefHat, Flame, Target, Utensils, ShoppingCart, Sparkles, Plus, List, Minus, ChevronDown, ChevronUp, ArrowLeft, BookOpen, Repeat, Heart, Truck, Save, CookingPot, ArrowLeftRight } from "lucide-react";
 import { ProcessingAnimation, QuickProcessingAnimation } from "@/components/ui/processing-animation";
 
 // Import user avatar images
@@ -419,10 +419,6 @@ export default function ExploreRecipesScreen() {
   // Cook confirmation state
   const [cookConfirmationOpen, setCookConfirmationOpen] = useState<number | null>(null);
   const [cookConfirmed, setCookConfirmed] = useState<{[dishId: number]: boolean}>({});
-
-
-
-
 
   // Handle cook button click
   const handleCookClick = (dishId: number, dishName: string) => {
@@ -1189,7 +1185,7 @@ export default function ExploreRecipesScreen() {
                 <Button 
                   variant="outline"
                   className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600 transition-all duration-200"
-                  onClick={() => setLocation('/take-out')}
+                  onClick={() => setLocation('/takeout')}
                 >
                   Take-Out
                 </Button>
@@ -1293,10 +1289,7 @@ export default function ExploreRecipesScreen() {
                                 >
                                   <CookingPot size={20} className="text-gray-300" />
                                 </button>
-                                <button 
-                                  onClick={() => setShowTakeOutCards(true)}
-                                  className="w-10 h-10 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center justify-center transition-colors"
-                                >
+                                <button className="w-10 h-10 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center justify-center transition-colors">
                                   <Plus size={20} />
                                 </button>
                             </div>
@@ -1463,10 +1456,7 @@ export default function ExploreRecipesScreen() {
                               >
                                 <CookingPot size={20} className="text-gray-300" />
                               </button>
-                              <button 
-                                onClick={() => setShowTakeOutCard(true)}
-                                className="w-10 h-10 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center justify-center transition-colors"
-                              >
+                              <button className="w-10 h-10 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center justify-center transition-colors">
                                 <Plus size={20} />
                               </button>
                           </div>
@@ -1608,7 +1598,6 @@ export default function ExploreRecipesScreen() {
           )}
         </div>
         
-
         {/* Bottom spacing to account for bottom navigation */}
         <div className="h-20"></div>
       </div>
