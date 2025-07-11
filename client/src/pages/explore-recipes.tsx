@@ -444,7 +444,14 @@ export default function ExploreRecipesScreen() {
                     </button>
                   )}
                 </div>
-
+                {!cardCollapsed && (
+                  <button
+                    onClick={() => setCardCollapsed(true)}
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    <ChevronUp size={20} />
+                  </button>
+                )}
               </div>
             </CardHeader>
             <CardContent>
