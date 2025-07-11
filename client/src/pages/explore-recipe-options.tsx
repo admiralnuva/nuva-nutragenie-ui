@@ -138,40 +138,49 @@ export default function ExploreRecipeOptionsScreen() {
             </div>
             <div className="space-y-4">
               {chefRecommendedDishes.map((dish) => (
-                <div key={dish.id} className="bg-gray-700/50 rounded-lg p-4">
-                  <div className="flex gap-4">
+                <div key={dish.id} className="bg-gray-700/50 rounded-lg overflow-hidden">
+                  {/* Image Section - Full Width */}
+                  <div className="w-full">
                     <img 
                       src={dish.image} 
                       alt={dish.name}
-                      className="w-20 h-16 object-cover rounded-lg"
+                      className="w-full h-40 object-cover"
                     />
-                    <div className="flex-1">
-                      <h3 className="text-white font-semibold text-lg mb-2">{dish.name}</h3>
-                      <div className="flex items-center gap-4 text-sm mb-3">
+                  </div>
+                  
+                  {/* Data Section */}
+                  <div className="p-4">
+                    <h3 className="text-white font-semibold text-lg mb-3">{dish.name}</h3>
+                    
+                    {/* Nutrition Info - Two Rows */}
+                    <div className="mb-3">
+                      <div className="flex items-center gap-6 text-sm mb-2">
                         <span className="text-orange-400">• {dish.calories} calories</span>
                         <span className="text-yellow-400">• {dish.protein} protein</span>
                       </div>
-                      <div className="flex items-center gap-4 text-sm text-gray-300 mb-3">
+                      <div className="flex items-center gap-6 text-sm text-gray-300">
                         <span className="text-blue-400">• {dish.cookTime} cook time</span>
                         <span>{dish.difficulty} difficulty</span>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <button className="w-8 h-8 bg-yellow-600 hover:bg-yellow-700 rounded-lg flex items-center justify-center transition-colors">
-                          <ArrowLeftRight size={16} className="text-white" />
-                        </button>
-                        <button className="w-8 h-8 bg-purple-600 hover:bg-purple-700 rounded-lg flex items-center justify-center transition-colors">
-                          <Book size={16} className="text-white" />
-                        </button>
-                        <button className="w-8 h-8 bg-green-600 hover:bg-green-700 rounded-lg flex items-center justify-center transition-colors">
-                          <Heart size={16} className="text-white" />
-                        </button>
-                        <button className="w-8 h-8 bg-orange-600 hover:bg-orange-700 rounded-lg flex items-center justify-center transition-colors">
-                          <ChefHat size={16} className="text-white" />
-                        </button>
-                        <button className="w-8 h-8 bg-blue-600 hover:bg-blue-700 rounded-lg flex items-center justify-center transition-colors">
-                          <Plus size={16} className="text-white" />
-                        </button>
-                      </div>
+                    </div>
+                    
+                    {/* Action Buttons */}
+                    <div className="flex items-center gap-2">
+                      <button className="w-10 h-10 bg-yellow-600 hover:bg-yellow-700 rounded-lg flex items-center justify-center transition-colors">
+                        <ArrowLeftRight size={18} className="text-white" />
+                      </button>
+                      <button className="w-10 h-10 bg-purple-600 hover:bg-purple-700 rounded-lg flex items-center justify-center transition-colors">
+                        <Book size={18} className="text-white" />
+                      </button>
+                      <button className="w-10 h-10 bg-green-600 hover:bg-green-700 rounded-lg flex items-center justify-center transition-colors">
+                        <Heart size={18} className="text-white" />
+                      </button>
+                      <button className="w-10 h-10 bg-orange-600 hover:bg-orange-700 rounded-lg flex items-center justify-center transition-colors">
+                        <ChefHat size={18} className="text-white" />
+                      </button>
+                      <button className="w-10 h-10 bg-blue-600 hover:bg-blue-700 rounded-lg flex items-center justify-center transition-colors">
+                        <Plus size={18} className="text-white" />
+                      </button>
                     </div>
                   </div>
                 </div>

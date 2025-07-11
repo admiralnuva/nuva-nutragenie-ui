@@ -811,6 +811,9 @@ Changelog:
   * Added dish information: calories, protein, cook time, difficulty level matching mockup layout
   * Created 5 action buttons per dish with color-coded icons: Substitution (Yellow), Recipe (Purple), Save (Green), Cook (Orange), Add (Blue)
   * Applied collapsible card design with chevron up button in header
+  * Fixed dish card layout to match exact mockup: full-width image section at top, data section below
+  * Separated image and content into distinct sections with proper overflow handling
+  * Increased button sizes to w-10 h-10 and icons to 18px for better touch targets
 ```
 
 ## User Preferences
