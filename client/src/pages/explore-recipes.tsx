@@ -100,7 +100,7 @@ export default function ExploreRecipesScreen() {
   
   // TEST FUNCTION - Log state changes for debugging
   const logRecipeOptionState = (action: string) => {
-    console.log(`RECIPE OPTION TEST - ${action}:`, {
+    const currentState = {
       selectedRecipeOption,
       showChefsChoice,
       showPantryDishes,
@@ -108,7 +108,23 @@ export default function ExploreRecipesScreen() {
       cardPosition,
       mealConfirmed,
       pantryConfirmed
-    });
+    };
+    
+    console.log(`RECIPE OPTION TEST - ${action}:`, currentState);
+    
+    // Validation checks
+    const activeShows = [showChefsChoice, showPantryDishes, showTakeOut].filter(Boolean).length;
+    if (activeShows > 1) {
+      console.error('❌ MULTIPLE SHOW STATES ACTIVE:', { showChefsChoice, showPantryDishes, showTakeOut });
+    }
+    
+    if (selectedRecipeOption && activeShows === 0 && selectedRecipeOption !== 'create-dishes') {
+      console.warn('⚠️ SELECTED BUT NO SHOW STATE:', selectedRecipeOption);
+    }
+    
+    // Check for unexpected coupling
+    const shouldNotBeAffected = ['cardPosition', 'mealConfirmed', 'pantryConfirmed'];
+    console.log('✅ Card state (should not change):', { cardPosition, mealConfirmed, pantryConfirmed });
   };
   
   // Take-out form
@@ -141,6 +157,7 @@ export default function ExploreRecipesScreen() {
   // Card positioning logic - COMPLETELY INDEPENDENT FROM RECIPE OPTIONS
   useEffect(() => {
     if (bothConfirmed && cardPosition === 'top') {
+      console.log('🔄 CARD POSITIONING: Both confirmed, moving card to bottom');
       setTimeout(() => setCardCollapsed(true), 1000);
       setTimeout(() => setCardPosition('bottom'), 2000);
       
@@ -944,6 +961,7 @@ export default function ExploreRecipesScreen() {
                     onClick={() => {
                       setShowChefsChoice(false);
                       setSelectedRecipeOption('');
+                      logRecipeOptionState('Chef\'s Choice chevron collapse');
                     }}
                     className="text-gray-400 hover:text-white transition-colors"
                   >
@@ -971,6 +989,7 @@ export default function ExploreRecipesScreen() {
                     onClick={() => {
                       setShowPantryDishes(false);
                       setSelectedRecipeOption('');
+                      logRecipeOptionState('Pantry Dishes chevron collapse');
                     }}
                     className="text-gray-400 hover:text-white transition-colors"
                   >
@@ -1000,6 +1019,7 @@ export default function ExploreRecipesScreen() {
                     onClick={() => {
                       setShowTakeOut(false);
                       setSelectedRecipeOption('');
+                      logRecipeOptionState('Take-Out chevron collapse');
                     }}
                     className="text-gray-400 hover:text-white transition-colors"
                   >
