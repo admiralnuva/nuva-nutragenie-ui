@@ -232,12 +232,16 @@ const dishSubstitutions = {
 };
 
 export default function ExploreRecipesScreen() {
-  const [, setLocation] = useLocation();
+  const [location, setLocation] = useLocation();
   const [currentUser] = useLocalStorage<any>("nutragenie_user", null);
   const [tempUser] = useLocalStorage<any>("nutragenie_temp_user", null);
   
   // Get user data - check both current and temp user
   const userData = currentUser || tempUser;
+  
+  // Navigation detection - check if coming from bottom tabs
+  const [navigationSource, setNavigationSource] = useLocalStorage<string>("nutragenie_navigation_source", "");
+  const isNavigatingFromTabs = navigationSource === "home" || navigationSource === "cook" || navigationSource === "take-out";
 
   // Get user and chef avatars
   const userAvatarSrc = userData?.avatar ? userAvatars[userData.avatar as keyof typeof userAvatars] : userAvatar1;
@@ -336,6 +340,20 @@ export default function ExploreRecipesScreen() {
     }
   }, [isMealComplete, isPantryComplete, preferencesCardSlid]);
 
+  // Navigation-based initialization
+  useEffect(() => {
+    if (isNavigatingFromTabs) {
+      // Coming from Home/Cook/Take-Out tabs - prioritize Recipe Options
+      setShowChefsChoice(true);
+      setSelectedRecipeOption('chefs-choice');
+      setShowPantryDishes(false);
+      setShowTakeOut(false);
+      
+      // Clear navigation source after handling
+      setNavigationSource("");
+    }
+  }, [isNavigatingFromTabs, setNavigationSource]);
+  
   // No automatic reset on navigation - preserve collapsed state after completion
 
   // Processing animation state
@@ -791,7 +809,9 @@ export default function ExploreRecipesScreen() {
         <div className="flex flex-col space-y-4">
           {/* Card 1: Preferences and Pantry Ingredients */}
           <div className={`transition-all duration-700 ease-in-out transform ${
-            isPantryCardAtBottom ? 'order-5 translate-y-2 scale-95 opacity-95' : 'order-1 translate-y-0 scale-100 opacity-100'
+            isPantryCardAtBottom ? 'order-5 translate-y-2 scale-95 opacity-95' : 
+            isNavigatingFromTabs ? 'order-3 translate-y-0 scale-100 opacity-100' :
+            'order-1 translate-y-0 scale-100 opacity-100'
           }`}>
             <Card className={`bg-gray-800/90 backdrop-blur-sm border border-gray-700 transition-all duration-700 ease-in-out ${
               isPantryCardCollapsed ? 'min-h-[120px] scale-98' : 'min-h-[400px] scale-100'
@@ -1207,7 +1227,7 @@ export default function ExploreRecipesScreen() {
           </div>
 
           {/* Card 2: Recipe Options */}
-          <div className="order-2">
+          <div className={`${isNavigatingFromTabs ? 'order-1' : 'order-2'}`}>
             <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
               <CardHeader className="pb-4">
               <CardTitle className="text-lg text-white">Recipe Options</CardTitle>
@@ -1283,7 +1303,7 @@ export default function ExploreRecipesScreen() {
 
           {/* Chef's Choice Dishes Card */}
           {showChefsChoice && (
-            <div className="order-2">
+            <div className={`${isNavigatingFromTabs ? 'order-2' : 'order-2'}`}>
               <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
                 <CardHeader className="pb-4">
                   <div className="flex items-center justify-between">
@@ -1469,7 +1489,7 @@ export default function ExploreRecipesScreen() {
 
           {/* Pantry Dishes Card */}
           {showPantryDishes && (
-            <div className="order-2">
+            <div className={`${isNavigatingFromTabs ? 'order-2' : 'order-2'}`}>
               <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
                 <CardHeader className="pb-4">
                   <div className="flex items-center justify-between">
@@ -1554,7 +1574,7 @@ export default function ExploreRecipesScreen() {
 
           {/* Take-Out Form Card */}
           {showTakeOut && (
-            <div className="order-2">
+            <div className={`${isNavigatingFromTabs ? 'order-2' : 'order-2'}`}>
               <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
                 <CardHeader className="pb-4">
                   <div className="flex items-center justify-between">
@@ -1812,7 +1832,7 @@ export default function ExploreRecipesScreen() {
 
           {/* Card 3: History */}
           {(isMealComplete || isPantryComplete) && (
-            <div className="order-3 mb-4">
+            <div className={`${isNavigatingFromTabs ? 'order-4' : 'order-3'} mb-4`}>
               <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
                 <CardHeader className="pb-4">
                   <CardTitle className="text-lg text-white">
@@ -1874,7 +1894,7 @@ export default function ExploreRecipesScreen() {
 
           {/* Card 4: Summary */}
           {(isMealComplete || isPantryComplete) && (
-            <div className="order-4">
+            <div className={`${isNavigatingFromTabs ? 'order-5' : 'order-4'}`}>
               <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
               <CardHeader className="pb-4">
                 <CardTitle className="text-lg text-white">
