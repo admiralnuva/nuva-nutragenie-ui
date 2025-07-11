@@ -77,6 +77,7 @@ export default function ExploreRecipesScreen() {
   const [cardCollapsed, setCardCollapsed] = useState(false);
   const [mealConfirmed, setMealConfirmed] = useState(false);
   const [pantryConfirmed, setPantryConfirmed] = useState(false);
+  const [cardPositionLocked, setCardPositionLocked] = useState(false);
   
   // Tabs and preferences
   const [activeTab, setActiveTab] = useState<'diet' | 'meal' | 'pantry'>('meal');
@@ -154,8 +155,9 @@ export default function ExploreRecipesScreen() {
   
   // Card positioning logic - COMPLETELY INDEPENDENT FROM RECIPE OPTIONS
   useEffect(() => {
-    if (bothConfirmed && cardPosition === 'top') {
+    if (bothConfirmed && cardPosition === 'top' && !cardPositionLocked) {
       console.log('🔄 CARD POSITIONING: Both confirmed, moving card to bottom');
+      setCardPositionLocked(true); // Lock to prevent re-triggering
       setTimeout(() => setCardCollapsed(true), 1000);
       setTimeout(() => setCardPosition('bottom'), 2000);
       
@@ -170,7 +172,7 @@ export default function ExploreRecipesScreen() {
       
       // DO NOT AUTO-SELECT ANYTHING - Recipe Options are completely independent
     }
-  }, [bothConfirmed, cardPosition]);
+  }, [bothConfirmed, cardPosition, cardPositionLocked]);
   
   // Data definitions - Comprehensive ingredient categories
   const ingredientCategories = {
