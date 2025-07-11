@@ -659,6 +659,18 @@ Changelog:
   * Fixed substitution card header layout: title centered in first row, nutrition values in second row
   * Enhanced real-time nutrition calculations with smart ingredient-type logic (plant proteins, dairy alternatives, lean meats)
   * Added bright yellow color to main ingredient names with drop shadow for better visual hierarchy
+- July 11, 2025. Take-Out Ordering System Complete Implementation:
+  * Added comprehensive Take-Out functionality to both Explore Recipes and Create Dishes pages
+  * Implemented collapsible card form with title "Order take out for group or weekly meals"
+  * Created mandatory form fields: Serving Size, Cuisine, Meal Type, and Delivery Date (calendar picker)
+  * Added form validation requiring all fields before enabling "Design Take out Menu" button
+  * Implemented chevron expand/collapse functionality matching Create Dishes design pattern
+  * Applied consistent yellow label styling with drop shadow for all form labels
+  * Added serving size options from 2 people to monthly meal plans (14-30 meals)
+  * Integrated 8 cuisine options and 5 meal types including party catering
+  * Added date picker with minimum date validation (cannot select past dates)
+  * Button styling matches blue theme when complete, gray when disabled
+  * Form data logs to console when submitted for future backend integration
 ```
 
 ## User Preferences

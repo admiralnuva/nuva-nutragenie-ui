@@ -249,6 +249,7 @@ export default function ExploreRecipesScreen() {
   const [preferencesCardSlid, setPreferencesCardSlid] = useState(false);
   const [showChefsChoice, setShowChefsChoice] = useState(false);
   const [showPantryDishes, setShowPantryDishes] = useState(false);
+  const [showTakeOut, setShowTakeOut] = useState(false);
 
   // Get dynamic avatar for Card 3 based on active selection
   const getDynamicAvatar = () => {
@@ -420,6 +421,13 @@ export default function ExploreRecipesScreen() {
   const [cookConfirmationOpen, setCookConfirmationOpen] = useState<number | null>(null);
   const [cookConfirmed, setCookConfirmed] = useState<{[dishId: number]: boolean}>({});
 
+  // Take-Out form state
+  const [takeOutServingSize, setTakeOutServingSize] = useState('');
+  const [takeOutCuisine, setTakeOutCuisine] = useState('');
+  const [takeOutMealType, setTakeOutMealType] = useState('');
+  const [takeOutDeliveryDate, setTakeOutDeliveryDate] = useState('');
+  const [isTakeOutFormCollapsed, setIsTakeOutFormCollapsed] = useState(false);
+
   // Handle cook button click
   const handleCookClick = (dishId: number, dishName: string) => {
     setCookConfirmationOpen(dishId);
@@ -433,6 +441,23 @@ export default function ExploreRecipesScreen() {
       setLocation('/voice-cooking');
     }, 500);
   };
+
+  // Handle take-out form submission
+  const handleDesignTakeOutMenu = () => {
+    if (takeOutServingSize && takeOutCuisine && takeOutMealType && takeOutDeliveryDate) {
+      // Collapse the form
+      setIsTakeOutFormCollapsed(true);
+      console.log('Take-Out menu designed:', {
+        servingSize: takeOutServingSize,
+        cuisine: takeOutCuisine,
+        mealType: takeOutMealType,
+        deliveryDate: takeOutDeliveryDate
+      });
+    }
+  };
+
+  // Check if take-out form is complete
+  const isTakeOutFormComplete = takeOutServingSize && takeOutCuisine && takeOutMealType && takeOutDeliveryDate;
 
 
 
@@ -1184,8 +1209,16 @@ export default function ExploreRecipesScreen() {
                 </Button>
                 <Button 
                   variant="outline"
-                  className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600 transition-all duration-200"
-                  onClick={() => console.log('Take-Out functionality coming soon')}
+                  className={`h-14 border transition-all duration-200 ${
+                    showTakeOut 
+                      ? 'bg-purple-600 border-purple-600 text-white' 
+                      : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
+                  }`}
+                  onClick={() => {
+                    setShowTakeOut(true);
+                    setShowChefsChoice(false);
+                    setShowPantryDishes(false);
+                  }}
                 >
                   Take-Out
                 </Button>
@@ -1465,6 +1498,130 @@ export default function ExploreRecipesScreen() {
                     ))}
                   </div>
                 </CardContent>
+              </Card>
+            </div>
+          )}
+
+          {/* Take-Out Form Card */}
+          {showTakeOut && (
+            <div className="order-2">
+              <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
+                <CardHeader className="pb-4">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-yellow-300 font-bold text-xl drop-shadow-lg">
+                      Order take out for group or weekly meals
+                    </CardTitle>
+                    {isTakeOutFormCollapsed && (
+                      <button
+                        onClick={() => setIsTakeOutFormCollapsed(false)}
+                        className="text-gray-400 hover:text-white transition-colors"
+                      >
+                        <ChevronDown size={20} />
+                      </button>
+                    )}
+                    {!isTakeOutFormCollapsed && (
+                      <button
+                        onClick={() => setShowTakeOut(false)}
+                        className="text-gray-400 hover:text-white transition-colors"
+                      >
+                        <ChevronUp size={20} />
+                      </button>
+                    )}
+                  </div>
+                </CardHeader>
+                
+                {!isTakeOutFormCollapsed && (
+                  <CardContent className="space-y-4">
+                    {/* Serving Size and Cuisine Row */}
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-yellow-300 font-bold text-sm mb-2 drop-shadow-lg">
+                          Serving Size
+                        </label>
+                        <Select onValueChange={setTakeOutServingSize} value={takeOutServingSize}>
+                          <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                            <SelectValue placeholder="Select size" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="2 people">2 people</SelectItem>
+                            <SelectItem value="4 people">4 people</SelectItem>
+                            <SelectItem value="6 people">6 people</SelectItem>
+                            <SelectItem value="8 people">8 people</SelectItem>
+                            <SelectItem value="10+ people">10+ people</SelectItem>
+                            <SelectItem value="Weekly (14 meals)">Weekly (14 meals)</SelectItem>
+                            <SelectItem value="Monthly (30 meals)">Monthly (30 meals)</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div>
+                        <label className="block text-yellow-300 font-bold text-sm mb-2 drop-shadow-lg">
+                          Cuisine
+                        </label>
+                        <Select onValueChange={setTakeOutCuisine} value={takeOutCuisine}>
+                          <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                            <SelectValue placeholder="Select cuisine" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="American">American</SelectItem>
+                            <SelectItem value="Italian">Italian</SelectItem>
+                            <SelectItem value="Mexican">Mexican</SelectItem>
+                            <SelectItem value="Chinese">Chinese</SelectItem>
+                            <SelectItem value="Indian">Indian</SelectItem>
+                            <SelectItem value="Japanese">Japanese</SelectItem>
+                            <SelectItem value="Thai">Thai</SelectItem>
+                            <SelectItem value="Mediterranean">Mediterranean</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+
+                    {/* Meal Type and Delivery Date Row */}
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-yellow-300 font-bold text-sm mb-2 drop-shadow-lg">
+                          Meal Type
+                        </label>
+                        <Select onValueChange={setTakeOutMealType} value={takeOutMealType}>
+                          <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                            <SelectValue placeholder="Select meal" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="Breakfast">Breakfast</SelectItem>
+                            <SelectItem value="Lunch">Lunch</SelectItem>
+                            <SelectItem value="Dinner">Dinner</SelectItem>
+                            <SelectItem value="Mixed Meals">Mixed Meals</SelectItem>
+                            <SelectItem value="Party Catering">Party Catering</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div>
+                        <label className="block text-yellow-300 font-bold text-sm mb-2 drop-shadow-lg">
+                          Delivery Date
+                        </label>
+                        <Input
+                          type="date"
+                          value={takeOutDeliveryDate}
+                          onChange={(e) => setTakeOutDeliveryDate(e.target.value)}
+                          className="bg-gray-700 border-gray-600 text-white"
+                          min={new Date().toISOString().split('T')[0]}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Design Take out Menu Button */}
+                    <Button
+                      onClick={handleDesignTakeOutMenu}
+                      disabled={!isTakeOutFormComplete}
+                      className={`w-full h-12 mt-6 ${
+                        isTakeOutFormComplete
+                          ? 'bg-blue-600 hover:bg-blue-700 text-white'
+                          : 'bg-gray-600 text-gray-400 cursor-not-allowed'
+                      }`}
+                    >
+                      Design Take out Menu
+                    </Button>
+                  </CardContent>
+                )}
               </Card>
             </div>
           )}
