@@ -340,10 +340,10 @@ export default function ExploreRecipesScreen() {
     }
   }, [isMealComplete, isPantryComplete, preferencesCardSlid]);
 
-  // Navigation-based initialization
+  // Navigation-based initialization - only on initial load, don't override user selections
   useEffect(() => {
-    if (isNavigatingFromTabs) {
-      // Coming from Home/Cook/Take-Out tabs - prioritize Recipe Options
+    if (isNavigatingFromTabs && selectedRecipeOption === '') {
+      // Coming from Home/Cook/Take-Out tabs - set initial state only if nothing selected
       setShowChefsChoice(true);
       setSelectedRecipeOption('chefs-choice');
       setShowPantryDishes(false);
@@ -1258,10 +1258,12 @@ export default function ExploreRecipesScreen() {
                       : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
                   }`}
                   onClick={() => {
+                    console.log('Pantry Dishes button clicked');
                     setShowPantryDishes(true);
                     setShowChefsChoice(false);
                     setShowTakeOut(false);
                     setSelectedRecipeOption('pantry-dishes');
+                    console.log('Pantry Dishes states set: showPantryDishes=true, selectedRecipeOption=pantry-dishes');
                   }}
                 >
                   Pantry Dishes
@@ -1488,7 +1490,7 @@ export default function ExploreRecipesScreen() {
           )}
 
           {/* Pantry Dishes Card */}
-          {showPantryDishes && (
+          {showPantryDishes && (console.log('Rendering Pantry Dishes Card'), true) && (
             <div className={`${isNavigatingFromTabs ? 'order-2' : 'order-2'}`}>
               <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
                 <CardHeader className="pb-4">
