@@ -2,18 +2,95 @@ import { useState } from "react";
 import { BackButton } from "@/components/ui/back-button";
 import { Card } from "@/components/ui/card";
 import { DishCard } from "@/components/ui/dish-card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ChevronUp } from "lucide-react";
 
 export default function ExploreRecipeOptionsScreen() {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [isChefRecommendsCollapsed, setIsChefRecommendsCollapsed] = useState(false);
   const [isPantryDishesCollapsed, setIsPantryDishesCollapsed] = useState(false);
+  const [isCreateDishesCollapsed, setIsCreateDishesCollapsed] = useState(false);
+  
+  // Create Dishes form state
+  const [dishName, setDishName] = useState("");
+  const [servingSize, setServingSize] = useState("");
+  const [cuisine, setCuisine] = useState("");
+  const [mealType, setMealType] = useState("");
+  const [spiceLevel, setSpiceLevel] = useState("");
+  const [cookMethod, setCookMethod] = useState("");
+  const [generatedDishes, setGeneratedDishes] = useState<any[]>([]);
 
   const handleOptionClick = (option: string) => {
     setSelectedOption(option);
     // Reset collapse states when switching options
     setIsChefRecommendsCollapsed(false);
     setIsPantryDishesCollapsed(false);
+    setIsCreateDishesCollapsed(false);
+  };
+
+  const handleCreateDishes = () => {
+    // Generate 6 variations based on user input
+    const baseDish = dishName || "Custom Dish";
+    const variations = [
+      {
+        id: 1,
+        name: `${baseDish} - Classic Style`,
+        image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop",
+        calories: 420,
+        protein: "25g",
+        cookTime: "25 min",
+        difficulty: "Medium"
+      },
+      {
+        id: 2,
+        name: `${baseDish} - Spicy Variant`,
+        image: "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&h=300&fit=crop",
+        calories: 450,
+        protein: "28g",
+        cookTime: "30 min",
+        difficulty: "Medium"
+      },
+      {
+        id: 3,
+        name: `${baseDish} - Healthy Option`,
+        image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+        calories: 350,
+        protein: "30g",
+        cookTime: "20 min",
+        difficulty: "Easy"
+      },
+      {
+        id: 4,
+        name: `${baseDish} - Comfort Style`,
+        image: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=400&h=300&fit=crop",
+        calories: 480,
+        protein: "22g",
+        cookTime: "35 min",
+        difficulty: "Medium"
+      },
+      {
+        id: 5,
+        name: `${baseDish} - Quick & Easy`,
+        image: "https://images.unsplash.com/photo-1473093226795-af9932fe5856?w=400&h=300&fit=crop",
+        calories: 380,
+        protein: "20g",
+        cookTime: "15 min",
+        difficulty: "Easy"
+      },
+      {
+        id: 6,
+        name: `${baseDish} - Gourmet Version`,
+        image: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=400&h=300&fit=crop",
+        calories: 520,
+        protein: "32g",
+        cookTime: "45 min",
+        difficulty: "Hard"
+      }
+    ];
+    setGeneratedDishes(variations);
   };
 
   const chefRecommendedDishes = [
@@ -229,6 +306,131 @@ export default function ExploreRecipeOptionsScreen() {
             </div>
             <div className="space-y-4">
               {pantryDishes.map((dish) => (
+                <DishCard key={dish.id} dish={dish} />
+              ))}
+            </div>
+          </Card>
+        )}
+
+        {/* Create Dishes Input Card - shown when Create Dishes is selected and not collapsed */}
+        {selectedOption === "create-dishes" && !isCreateDishesCollapsed && (
+          <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-bold text-yellow-300">Tell us what you're craving</h2>
+              <button 
+                onClick={() => setIsCreateDishesCollapsed(true)}
+                className="text-gray-400 hover:text-white transition-colors"
+              >
+                <ChevronUp size={24} />
+              </button>
+            </div>
+            
+            <div className="space-y-4">
+              {/* Dish Name */}
+              <div>
+                <Label htmlFor="dishName" className="text-yellow-300 font-bold text-sm mb-2 block">Dish Name</Label>
+                <Input
+                  id="dishName"
+                  value={dishName}
+                  onChange={(e) => setDishName(e.target.value)}
+                  placeholder="Chicken Curry"
+                  className="bg-gray-700 border-gray-600 text-white placeholder-gray-400"
+                />
+              </div>
+
+              {/* Row 1: Serving Size & Cuisine */}
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="servingSize" className="text-yellow-300 font-bold text-sm mb-2 block">Serving Size</Label>
+                  <Select value={servingSize} onValueChange={setServingSize}>
+                    <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                      <SelectValue placeholder="2 people" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-gray-700 border-gray-600">
+                      <SelectItem value="1">1 person</SelectItem>
+                      <SelectItem value="2">2 people</SelectItem>
+                      <SelectItem value="4">4 people</SelectItem>
+                      <SelectItem value="6">6 people</SelectItem>
+                      <SelectItem value="8">8 people</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label htmlFor="cuisine" className="text-yellow-300 font-bold text-sm mb-2 block">Cuisine</Label>
+                  <Select value={cuisine} onValueChange={setCuisine}>
+                    <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                      <SelectValue placeholder="Indian" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-gray-700 border-gray-600">
+                      <SelectItem value="indian">Indian</SelectItem>
+                      <SelectItem value="italian">Italian</SelectItem>
+                      <SelectItem value="mexican">Mexican</SelectItem>
+                      <SelectItem value="chinese">Chinese</SelectItem>
+                      <SelectItem value="american">American</SelectItem>
+                      <SelectItem value="mediterranean">Mediterranean</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              {/* Row 2: Meal Type & Cook Method */}
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="mealType" className="text-yellow-300 font-bold text-sm mb-2 block">Meal Type</Label>
+                  <Select value={mealType} onValueChange={setMealType}>
+                    <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                      <SelectValue placeholder="Dinner" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-gray-700 border-gray-600">
+                      <SelectItem value="breakfast">Breakfast</SelectItem>
+                      <SelectItem value="lunch">Lunch</SelectItem>
+                      <SelectItem value="dinner">Dinner</SelectItem>
+                      <SelectItem value="snack">Snack</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label htmlFor="cookMethod" className="text-yellow-300 font-bold text-sm mb-2 block">Cook Method</Label>
+                  <Select value={cookMethod} onValueChange={setCookMethod}>
+                    <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                      <SelectValue placeholder="Select method" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-gray-700 border-gray-600">
+                      <SelectItem value="stovetop">Stovetop</SelectItem>
+                      <SelectItem value="oven">Oven</SelectItem>
+                      <SelectItem value="grill">Grill</SelectItem>
+                      <SelectItem value="slow-cooker">Slow Cooker</SelectItem>
+                      <SelectItem value="instant-pot">Instant Pot</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              {/* Generate Button */}
+              <Button 
+                onClick={handleCreateDishes}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 mt-6"
+              >
+                Generate Variations
+              </Button>
+            </div>
+          </Card>
+        )}
+
+        {/* Create Dishes Results Card - shown when dishes are generated */}
+        {selectedOption === "create-dishes" && generatedDishes.length > 0 && (
+          <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-bold text-white">Generated Dish Variations</h2>
+              <button 
+                onClick={() => setGeneratedDishes([])}
+                className="text-gray-400 hover:text-white transition-colors"
+              >
+                <ChevronUp size={24} />
+              </button>
+            </div>
+            <div className="space-y-4">
+              {generatedDishes.map((dish) => (
                 <DishCard key={dish.id} dish={dish} />
               ))}
             </div>
