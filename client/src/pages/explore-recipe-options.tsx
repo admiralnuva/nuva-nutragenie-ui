@@ -173,7 +173,7 @@ export default function ExploreRecipeOptionsScreen() {
       {
         id: 8,
         name: "Margherita Pizza",
-        image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop",
+        image: "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=400&h=300&fit=crop",
         calories: 380,
         protein: "18g",
         cookTime: "12 min",
