@@ -253,91 +253,57 @@ export default function ExploreRecipesScreen() {
   const [showTakeOut, setShowTakeOut] = useState(false);
   const [selectedRecipeOption, setSelectedRecipeOption] = useState<string>('');
   
-  // Preferences completion state
+  // REDESIGNED SIMPLE STATE MANAGEMENT
+  // Single source of truth for card positioning
+  const [cardPosition, setCardPosition] = useState<'top' | 'bottom'>('top');
+  const [cardCollapsed, setCardCollapsed] = useState(false);
+  
+  // Simple completion tracking
+  const [mealConfirmed, setMealConfirmed] = useState(false);
+  const [pantryConfirmed, setPantryConfirmed] = useState(false);
+  
+  // UI state
   const [activeTab, setActiveTab] = useState<'diet' | 'meal' | 'pantry'>('meal');
-  const [isMealComplete, setIsMealComplete] = useState(false);
-  const [isPantryComplete, setIsPantryComplete] = useState(false);
-  const [preferencesCardSlid, setPreferencesCardSlid] = useState(false);
-  const [userHasCompletedPreferences, setUserHasCompletedPreferences] = useState(false);
-
-  // Get dynamic avatar for Card 3 based on active selection
-  const getDynamicAvatar = () => {
-    if (activeCard === 'pantry-dishes' || activeCard === 'chefs-choice') {
-      return chefAvatarSrc;
-    }
-    return userAvatarSrc;
-  };
-
-  // Meal preferences state with sequential validation and auto-save
+  
+  // Meal preferences state
   const [mealPreferences, setMealPreferences] = useLocalStorage("nutragenie_meal_preferences", {
     servingSize: "2 people",
-    cuisine: "American",
+    cuisine: "American", 
     mealType: "Dinner",
     spiceLevel: "Mild",
     skillLevel: "Intermediate",
     cookMethod: "Stove Top",
     prepTime: "30 minutes"
   });
-
-  // Meal confirmation state
-  const [mealConfirmed, setMealConfirmed] = useState(false);
   
-  // Pantry confirmation state
-  const [isPantryConfirmed, setIsPantryConfirmed] = useState(false);
+  // Pantry ingredients state (moved up to fix dependency)
+  const [selectedIngredients, setSelectedIngredients] = useState<string[]>(['Chicken Breast', 'Salmon', 'Onions', 'Rice', 'Milk', 'Olive Oil', 'Apples', 'Basil', 'Cumin', 'Ketchup']);
   
-  // Card collapse state
-  const [isPantryCardCollapsed, setIsPantryCardCollapsed] = useState(false);
-  const [isPantryCardAtBottom, setIsPantryCardAtBottom] = useState(false);
+  // Computed values (no separate state needed)
+  const mealFieldsComplete = mealPreferences.servingSize && mealPreferences.cuisine && mealPreferences.mealType;
+  const pantryHasIngredients = selectedIngredients.length >= 3;
+  const bothConfirmed = mealConfirmed && pantryConfirmed;
 
-  // Helper function to check if required fields are completed
-  const isRequiredFieldsCompleted = () => {
-    const { servingSize, cuisine, mealType } = mealPreferences;
-    return servingSize !== "" && cuisine !== "" && mealType !== "";
-  };
-
-  // Helper function to check if all fields are completed
-  const isAllFieldsCompleted = () => {
-    return Object.values(mealPreferences).every(value => value !== "");
-  };
-
-  // Check meal completion status and update state
+  // REDESIGNED SIMPLE COMPLETION LOGIC
+  // Single effect to handle card repositioning when both confirmed
   useEffect(() => {
-    const fieldsCompleted = isRequiredFieldsCompleted();
-    const confirmed = mealConfirmed;
-    setIsMealComplete(fieldsCompleted && confirmed);
-  }, [mealPreferences, mealConfirmed]);
-
-
-
-  // Auto-slide preferences card ONLY when user explicitly completes preferences
-  useEffect(() => {
-    if (isMealComplete && isPantryComplete && !preferencesCardSlid && userHasCompletedPreferences) {
-      console.log('Starting preferences card slide animation (user completed)');
+    if (bothConfirmed && cardPosition === 'top') {
+      console.log('Both meal and pantry confirmed - moving card to bottom');
       
-      // Auto-collapse after 2 seconds
-      const collapseTimer = setTimeout(() => {
-        setIsPantryCardCollapsed(true);
-      }, 2000);
-
-      // Auto-slide to bottom after collapse animation
-      const slideTimer = setTimeout(() => {
-        setIsPantryCardAtBottom(true);
-        setPreferencesCardSlid(true);
-        
-        // Play swish sound effect
-        if (typeof Audio !== 'undefined') {
+      // Collapse and move to bottom
+      setTimeout(() => setCardCollapsed(true), 1000);
+      setTimeout(() => setCardPosition('bottom'), 2000);
+      
+      // Play sound effect
+      if (typeof Audio !== 'undefined') {
+        setTimeout(() => {
           const audio = new Audio('/api/placeholder/audio/swish');
           audio.volume = 0.3;
           audio.play().catch(e => console.log('Audio play failed:', e));
-        }
-      }, 3500);
-
-      return () => {
-        clearTimeout(collapseTimer);
-        clearTimeout(slideTimer);
-      };
+        }, 2000);
+      }
     }
-  }, [isMealComplete, isPantryComplete, preferencesCardSlid, userHasCompletedPreferences]);
+  }, [bothConfirmed, cardPosition]);
 
   // Simple navigation cleanup - no interference
   useEffect(() => {
@@ -525,7 +491,6 @@ export default function ExploreRecipesScreen() {
 
   // Pantry management state
   const [activeCard, setActiveCard] = useState<string>('pantry-ingredients');
-  const [selectedIngredients, setSelectedIngredients] = useState<string[]>(['Chicken Breast', 'Salmon', 'Onions', 'Rice', 'Milk', 'Olive Oil', 'Apples', 'Basil', 'Cumin', 'Ketchup']);
   const [customIngredients, setCustomIngredients] = useState<string[]>([]);
   const [newIngredient, setNewIngredient] = useState<string>('');
   const [isPantryExpanded, setIsPantryExpanded] = useState<boolean>(true);
@@ -551,13 +516,13 @@ export default function ExploreRecipesScreen() {
     'Pantry Staples': ['Chicken Stock', 'Vegetable Broth', 'Canned Tomatoes', 'Coconut Milk', 'Fish Sauce', 'Maple Syrup', 'Dried Herbs', 'Sea Salt', 'Peppercorns']
   };
 
-  // Check pantry completion status - requires both ingredients AND confirmation
-  useEffect(() => {
-    const hasEnoughIngredients = selectedIngredients.length >= 3;
-    const isConfirmed = isPantryConfirmed;
-    setIsPantryComplete(hasEnoughIngredients && isConfirmed);
-    console.log('Pantry completion check:', { hasEnoughIngredients, isConfirmed, result: hasEnoughIngredients && isConfirmed });
-  }, [selectedIngredients, isPantryConfirmed]);
+  // Get dynamic avatar for Card 3 based on active selection
+  const getDynamicAvatar = () => {
+    if (activeCard === 'pantry-dishes' || activeCard === 'chefs-choice') {
+      return chefAvatarSrc;
+    }
+    return userAvatarSrc;
+  };
 
   const handleIngredientToggle = (ingredient: string) => {
     setSelectedIngredients(prev => 
@@ -773,19 +738,19 @@ export default function ExploreRecipesScreen() {
         <div className="flex flex-col space-y-4">
           {/* Card 1: Preferences and Pantry Ingredients */}
           <div className={`transition-all duration-700 ease-in-out transform ${
-            isPantryCardAtBottom ? 'order-5 translate-y-2 scale-95 opacity-95' : 
+            cardPosition === 'bottom' ? 'order-5 translate-y-2 scale-95 opacity-95' : 
             'order-1 translate-y-0 scale-100 opacity-100'
           }`}>
             <Card className={`bg-gray-800/90 backdrop-blur-sm border border-gray-700 transition-all duration-700 ease-in-out ${
-              isPantryCardCollapsed ? 'min-h-[120px] scale-98' : 'min-h-[400px] scale-100'
+              cardCollapsed ? 'min-h-[120px] scale-98' : 'min-h-[400px] scale-100'
             }`}>
               <CardHeader className="pb-4 relative">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <CardTitle className="text-lg text-white">Personalize Diet & Pantry</CardTitle>
-                    {isPantryCardCollapsed && (
+                    {cardCollapsed && (
                       <button
-                        onClick={() => setIsPantryCardCollapsed(false)}
+                        onClick={() => setCardCollapsed(false)}
                         className="text-gray-400 hover:text-white transition-colors"
                       >
                         <ChevronDown size={20} />
@@ -808,46 +773,46 @@ export default function ExploreRecipesScreen() {
                 <div className="flex gap-2 mb-4">
                   <Button
                     variant={activeTab === 'diet' ? "default" : "outline"}
-                    onClick={() => !isPantryCardCollapsed && setActiveTab('diet')}
-                    disabled={isPantryCardCollapsed}
+                    onClick={() => !cardCollapsed && setActiveTab('diet')}
+                    disabled={cardCollapsed}
                     className={`flex-1 ${
                       activeTab === 'diet' 
                         ? 'bg-purple-600 text-white border-purple-600' 
                         : 'bg-transparent border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
-                    } ${isPantryCardCollapsed ? 'opacity-75 cursor-default' : ''}`}
+                    } ${cardCollapsed ? 'opacity-75 cursor-default' : ''}`}
                   >
                     Diet
                   </Button>
                   <Button
                     variant={activeTab === 'meal' ? "default" : "outline"}
-                    onClick={() => !isPantryCardCollapsed && setActiveTab('meal')}
-                    disabled={isPantryCardCollapsed}
+                    onClick={() => !cardCollapsed && setActiveTab('meal')}
+                    disabled={cardCollapsed}
                     className={`flex-1 flex items-center justify-center gap-2 ${
                       activeTab === 'meal' 
                         ? 'bg-purple-600 text-white border-purple-600' 
                         : 'bg-transparent border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
-                    } ${isPantryCardCollapsed ? 'opacity-75 cursor-default' : ''}`}
+                    } ${cardCollapsed ? 'opacity-75 cursor-default' : ''}`}
                   >
                     Meal
-                    {isMealComplete && <span className="text-green-400 text-xs">✓</span>}
+                    {mealConfirmed && <span className="text-green-400 text-xs">✓</span>}
                   </Button>
                   <Button
                     variant={activeTab === 'pantry' ? "default" : "outline"}
-                    onClick={() => !isPantryCardCollapsed && setActiveTab('pantry')}
-                    disabled={isPantryCardCollapsed}
+                    onClick={() => !cardCollapsed && setActiveTab('pantry')}
+                    disabled={cardCollapsed}
                     className={`flex-1 flex items-center justify-center gap-2 ${
                       activeTab === 'pantry' 
                         ? 'bg-purple-600 text-white border-purple-600' 
                         : 'bg-transparent border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
-                    } ${isPantryCardCollapsed ? 'opacity-75 cursor-default' : ''}`}
+                    } ${cardCollapsed ? 'opacity-75 cursor-default' : ''}`}
                   >
                     Pantry
-                    {isPantryComplete && <span className="text-green-400 text-xs">✓</span>}
+                    {pantryConfirmed && <span className="text-green-400 text-xs">✓</span>}
                   </Button>
                 </div>
 
                 {/* Tab Content - Hidden when collapsed */}
-                {!isPantryCardCollapsed && (
+                {!cardCollapsed && (
                   <div className="mt-4 min-h-[280px] transition-all duration-500 ease-in-out opacity-100">
                   {activeTab === 'diet' && (
                     <div className="space-y-3">
@@ -1060,7 +1025,7 @@ export default function ExploreRecipesScreen() {
                       </div>
 
                       {/* Confirmation Checkbox - Only show when required fields are completed */}
-                      {isRequiredFieldsCompleted() && (
+                      {mealFieldsComplete && (
                         <div className="mt-4 pt-3 border-t border-gray-600">
                           <div className="flex items-center space-x-2">
                             <Checkbox
@@ -1072,11 +1037,7 @@ export default function ExploreRecipesScreen() {
                                   console.log('Meal confirmed, switching to pantry tab');
                                   // Smoothly switch to Pantry tab when confirmed
                                   setTimeout(() => setActiveTab('pantry'), 500);
-                                  // Check if both are now complete for preferences animation
-                                  if (isPantryConfirmed) {
-                                    setUserHasCompletedPreferences(true);
-                                    console.log('Both meal and pantry confirmed - preferences complete');
-                                  }
+                                  // Animation will be handled by the useEffect hook
                                 }
                               }}
                               className="w-7 h-7 rounded-full border-gray-500 data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600"
@@ -1170,16 +1131,12 @@ export default function ExploreRecipesScreen() {
                           <div className="flex items-center space-x-2">
                             <Checkbox
                               id="pantry-confirm"
-                              checked={isPantryConfirmed}
+                              checked={pantryConfirmed}
                               onCheckedChange={(checked) => {
-                                setIsPantryConfirmed(checked);
+                                setPantryConfirmed(checked);
                                 if (checked) {
                                   console.log('Pantry confirmed');
-                                  // Check if both are now complete for preferences animation
-                                  if (mealConfirmed) {
-                                    setUserHasCompletedPreferences(true);
-                                    console.log('Both meal and pantry confirmed - preferences complete');
-                                  }
+                                  // Animation will be handled by the useEffect hook
                                 }
                               }}
                               className="w-7 h-7 rounded-full border-gray-500 data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600"
