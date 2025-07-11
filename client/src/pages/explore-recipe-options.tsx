@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ChevronUp, Calendar, ChefHat, Truck, ShoppingBag, BookOpen } from "lucide-react";
+import { ChevronUp, ChevronDown, X, Calendar, ChefHat, Truck, ShoppingBag, BookOpen } from "lucide-react";
 
 // Mock user avatar - in future this will come from API
 const userAvatar = "/attached_assets/User/user1.png";
@@ -56,7 +56,9 @@ export default function ExploreRecipeOptionsScreen() {
   });
   const [pantryConfirmed, setPantryConfirmed] = useState<boolean>(false);
   const [hasChangedPantryPreferences, setHasChangedPantryPreferences] = useState<boolean>(false);
-  const [isPantryCardSliding, setIsPantryCardSliding] = useState<boolean>(false);
+  const [isCardCollapsed, setIsCardCollapsed] = useState<boolean>(false);
+  const [isCardAtBottom, setIsCardAtBottom] = useState<boolean>(false);
+  const [showCollapsedCard, setShowCollapsedCard] = useState<boolean>(false);
   
   // Initialize default pantry selections
   React.useEffect(() => {
@@ -101,79 +103,100 @@ export default function ExploreRecipeOptionsScreen() {
   const handleConfirmPantryPreferences = () => {
     setPantryConfirmed(true);
     setHasChangedPantryPreferences(false);
-    setIsPantryCardSliding(true);
     
-    // Slide animation with delay
+    // Step 1: Collapse the card immediately
+    setIsCardCollapsed(true);
+    
+    // Step 2: After collapse animation, start sliding to bottom
     setTimeout(() => {
-      setIsPantryCardSliding(false);
-    }, 1500);
+      setIsCardAtBottom(true);
+      setShowCollapsedCard(true);
+    }, 500); // 500ms for collapse animation
   };
 
+  const handleExpandCollapsedCard = () => {
+    setIsCardCollapsed(false);
+    setShowCollapsedCard(false);
+    setIsCardAtBottom(false);
+  };
+
+  const handleCloseCollapsedCard = () => {
+    setShowCollapsedCard(false);
+    // Reset all states to initial
+    setPantryConfirmed(false);
+    setIsCardCollapsed(false);
+    setIsCardAtBottom(false);
+    setHasChangedPantryPreferences(false);
+    setActivePreferencesTab("diet");
+  };
+
+  // Helper functions for ingredient counting and display
   const getSelectedIngredientCount = () => {
     return Object.values(selectedIngredients).filter(Boolean).length;
   };
 
   const getSelectedIngredientNames = () => {
-    const ingredientNames: {[key: string]: string} = {
+    const ingredientMap = {
       'chicken-breast': 'Chicken Breast',
-      'salmon': 'Salmon',
-      'bell-peppers': 'Bell Peppers',
-      'milk': 'Milk',
-      'rice': 'Rice',
-      'apples': 'Apples',
-      'black-beans': 'Black Beans',
-      'almonds': 'Almonds',
-      'olive-oil': 'Olive Oil',
-      'salt': 'Salt',
       'ground-beef': 'Ground Beef',
       'turkey': 'Turkey',
       'pork-chops': 'Pork Chops',
       'bacon': 'Bacon',
       'lamb': 'Lamb',
+      'salmon': 'Salmon',
       'cod': 'Cod',
       'shrimp': 'Shrimp',
       'tuna': 'Tuna',
       'tilapia': 'Tilapia',
       'crab': 'Crab',
+      'bell-peppers': 'Bell Peppers',
       'tomatoes': 'Tomatoes',
       'broccoli': 'Broccoli',
       'cucumber': 'Cucumber',
       'zucchini': 'Zucchini',
       'eggplant': 'Eggplant',
       'mushrooms': 'Mushrooms',
+      'spinach': 'Spinach',
+      'milk': 'Milk',
       'cheese': 'Cheese',
       'yogurt': 'Yogurt',
       'butter': 'Butter',
       'eggs': 'Eggs',
+      'rice': 'Rice',
       'pasta': 'Pasta',
       'bread': 'Bread',
       'quinoa': 'Quinoa',
       'oats': 'Oats',
+      'apples': 'Apples',
       'bananas': 'Bananas',
       'oranges': 'Oranges',
       'berries': 'Berries',
-      'spinach': 'Spinach',
+      'black-beans': 'Black Beans',
       'lentils': 'Lentils',
       'chickpeas': 'Chickpeas',
       'kidney-beans': 'Kidney Beans',
+      'almonds': 'Almonds',
       'walnuts': 'Walnuts',
       'cashews': 'Cashews',
       'peanuts': 'Peanuts',
+      'olive-oil': 'Olive Oil',
       'garlic': 'Garlic',
       'onions': 'Onions',
       'herbs': 'Herbs',
       'spices': 'Spices',
       'vinegar': 'Vinegar',
+      'salt': 'Salt',
       'flour': 'Flour',
       'sugar': 'Sugar',
       'baking-powder': 'Baking Powder'
     };
-    
+
     return Object.entries(selectedIngredients)
       .filter(([_, selected]) => selected)
-      .map(([id, _]) => ingredientNames[id])
-      .filter(Boolean);
+      .map(([key, _]) => ingredientMap[key] || key);
   };
+
+
 
   const [isChefRecommendsCollapsed, setIsChefRecommendsCollapsed] = useState(false);
   const [isPantryDishesCollapsed, setIsPantryDishesCollapsed] = useState(false);
@@ -1670,14 +1693,15 @@ export default function ExploreRecipeOptionsScreen() {
           </div>
         </Card>
 
-        {/* Preferences Card - slides to bottom after pantry confirmation */}
-        <Card className={`bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6 transition-all duration-1500 transform ${
-          pantryConfirmed ? 'order-5 translate-y-2 opacity-95 scale-[0.98]' : 'order-1'
-        }`}>
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-bold text-white">Personalize Diet & Pantry</h2>
-            <img src={userAvatar} alt="User" className="w-16 h-16 rounded-full" />
-          </div>
+        {/* Main Preferences Card - only show when not at bottom */}
+        {!isCardAtBottom && (
+          <Card className={`bg-gray-800/90 backdrop-blur-sm border-gray-700 transition-all duration-500 ${
+            isCardCollapsed ? 'p-0 h-0 overflow-hidden opacity-0' : 'p-6'
+          }`}>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-bold text-white">Personalize Diet & Pantry</h2>
+              <img src={userAvatar} alt="User" className="w-16 h-16 rounded-full" />
+            </div>
 
           {/* Tab Navigation */}
           <div className="flex space-x-1 bg-gray-700/50 rounded-lg p-1 mb-6">
@@ -2323,7 +2347,43 @@ export default function ExploreRecipeOptionsScreen() {
               </div>
             )}
           </div>
-        </Card>
+          </Card>
+        )}
+
+        {/* Collapsed Card at Bottom - only show when confirmed and slid to bottom */}
+        {showCollapsedCard && (
+          <Card className={`bg-gray-800/90 backdrop-blur-sm border-gray-700 p-4 transition-all duration-1000 transform ${
+            isCardAtBottom ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
+          }`}>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                <img src={userAvatar} alt="User" className="w-12 h-12 rounded-full" />
+                <div>
+                  <h3 className="text-white font-medium">Diet & Pantry Preferences</h3>
+                  <p className="text-gray-400 text-sm">
+                    {getSelectedIngredientCount()} ingredients selected
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center space-x-2">
+                <button
+                  onClick={handleExpandCollapsedCard}
+                  className="p-2 text-purple-400 hover:text-purple-300 hover:bg-purple-600/20 rounded-lg transition-colors"
+                  title="Expand preferences"
+                >
+                  <ChevronUp size={20} />
+                </button>
+                <button
+                  onClick={handleCloseCollapsedCard}
+                  className="p-2 text-gray-400 hover:text-red-400 hover:bg-red-600/20 rounded-lg transition-colors"
+                  title="Close preferences"
+                >
+                  <X size={16} />
+                </button>
+              </div>
+            </div>
+          </Card>
+        )}
       </div>
     </div>
   );
