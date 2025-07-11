@@ -383,6 +383,9 @@ export default function DietaryScreen() {
     
 
     
+    // Set flag to indicate we're navigating from dietary preferences
+    localStorage.setItem('nutragenie_from_dietary', 'true');
+    
     // Show success message and navigate
     toast({
       title: "Dietary preferences saved successfully!",

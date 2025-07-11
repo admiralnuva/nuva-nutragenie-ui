@@ -33,14 +33,27 @@ export default function ExploreRecipeOptionsScreen() {
 
   // Reset card to expanded position on component mount (when navigating from dietary preferences)
   useEffect(() => {
-    // Check if we're coming from dietary preferences by checking if preferences exist
+    // Check if we're coming from dietary preferences
+    const fromDietary = localStorage.getItem('nutragenie_from_dietary');
     const hasExistingPreferences = localStorage.getItem('nutragenie_preferences_confirmed');
-    if (!hasExistingPreferences) {
-      // First time visiting - keep card at top (expanded)
+    
+    if (fromDietary === 'true') {
+      // Coming from dietary preferences - show card at position 1 (expanded)
       setCardState("expanded");
-    } else {
+      // Clear the flag
+      localStorage.removeItem('nutragenie_from_dietary');
+      // Reset all confirmation states
+      setPantryConfirmed(false);
+      setMealPreferencesConfirmed(false);
+      setHasChangedPantryPreferences(false);
+      setHasChangedMealPreferences(false);
+      setActivePreferencesTab("diet");
+    } else if (hasExistingPreferences === 'true') {
       // Returning visit - show card at bottom (collapsed)
       setCardState("bottom");
+    } else {
+      // Default case - show expanded
+      setCardState("expanded");
     }
   }, []);
   
