@@ -271,30 +271,30 @@ export default function VoiceCookingScreen() {
       </div>
 
       {/* Message Input */}
-      <div className="fixed bottom-16 left-0 right-0 z-40 bg-black border-t border-gray-700">
-        <div className="max-w-md mx-auto p-4">
-          <div className="flex items-center gap-3">
+      <div className="fixed bottom-16 left-4 right-4 z-40">
+        <div className="bg-black border border-gray-700 rounded-2xl p-3">
+          <div className="flex items-center gap-2">
             {/* Microphone Button */}
             <button
               onClick={toggleListening}
-              className={`w-12 h-12 rounded-full flex items-center justify-center transition-colors flex-shrink-0 ${
+              className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors flex-shrink-0 ${
                 isListening 
                   ? 'bg-red-600 text-white animate-pulse' 
                   : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
               }`}
             >
-              {isListening ? <MicOff size={20} /> : <Mic size={20} />}
+              {isListening ? <MicOff size={18} /> : <Mic size={18} />}
             </button>
 
             {/* Text Input Area */}
-            <div className="flex-1 bg-gray-700 rounded-full px-4 py-3">
+            <div className="flex-1 bg-gray-700 rounded-full px-4 py-2">
               <input
                 type="text"
                 placeholder="Type a message..."
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                className="w-full bg-transparent text-white placeholder-gray-400 outline-none text-base"
+                className="w-full bg-transparent text-white placeholder-gray-400 outline-none text-sm"
               />
             </div>
 
@@ -303,9 +303,9 @@ export default function VoiceCookingScreen() {
               onClick={() => {
                 // Handle pause functionality
               }}
-              className="w-12 h-12 rounded-full bg-red-600 text-white flex items-center justify-center hover:bg-red-700 transition-colors flex-shrink-0"
+              className="w-10 h-10 rounded-full bg-red-600 text-white flex items-center justify-center hover:bg-red-700 transition-colors flex-shrink-0"
             >
-              <Pause size={20} />
+              <Pause size={18} />
             </button>
           </div>
         </div>
