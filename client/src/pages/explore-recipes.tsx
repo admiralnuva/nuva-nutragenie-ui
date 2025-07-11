@@ -110,21 +110,24 @@ export default function ExploreRecipesScreen() {
       pantryConfirmed
     };
     
-    console.log(`RECIPE OPTION TEST - ${action}:`, currentState);
+    console.log(`🔍 RECIPE OPTION TEST - ${action}:`, currentState);
     
     // Validation checks
     const activeShows = [showChefsChoice, showPantryDishes, showTakeOut].filter(Boolean).length;
     if (activeShows > 1) {
-      console.error('❌ MULTIPLE SHOW STATES ACTIVE:', { showChefsChoice, showPantryDishes, showTakeOut });
+      console.error('❌ CRITICAL ERROR - MULTIPLE SHOW STATES ACTIVE:', { showChefsChoice, showPantryDishes, showTakeOut });
     }
     
     if (selectedRecipeOption && activeShows === 0 && selectedRecipeOption !== 'create-dishes') {
-      console.warn('⚠️ SELECTED BUT NO SHOW STATE:', selectedRecipeOption);
+      console.warn('⚠️ WARNING - SELECTED BUT NO SHOW STATE:', selectedRecipeOption);
+    }
+    
+    if (activeShows === 1) {
+      console.log('✅ STATE VALID - Only one show state active');
     }
     
     // Check for unexpected coupling
-    const shouldNotBeAffected = ['cardPosition', 'mealConfirmed', 'pantryConfirmed'];
-    console.log('✅ Card state (should not change):', { cardPosition, mealConfirmed, pantryConfirmed });
+    console.log('📍 Card state (should remain independent):', { cardPosition, mealConfirmed, pantryConfirmed });
   };
   
   // Take-out form
