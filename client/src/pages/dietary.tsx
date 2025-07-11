@@ -677,13 +677,13 @@ export default function DietaryScreen() {
               {/* Secondary Nutrients Section */}
               <div className="space-y-3">
                 <div className="text-xs text-gray-400 uppercase tracking-wide">Secondary Nutrients</div>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  <div className="flex items-start space-x-2">
-                    <div className="text-sm mt-5" title="Energy source for workouts and brain function">🌾</div>
-                    <div className="flex-1">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                  <div className="flex items-start space-x-1">
+                    <div className="text-sm mt-5 flex-shrink-0" title="Energy source for workouts and brain function">🌾</div>
+                    <div className="flex-1 min-w-0">
                       <div className="text-sm font-bold text-yellow-300 mb-1 drop-shadow-lg">Carbs</div>
                       <Select value={selectedCarbRange} onValueChange={setSelectedCarbRange}>
-                        <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-white text-xs h-8">
+                        <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-white text-xs h-8 min-w-0">
                           <SelectValue placeholder="Select" />
                         </SelectTrigger>
                         <SelectContent className="bg-gray-700 border-gray-600">
@@ -699,12 +699,12 @@ export default function DietaryScreen() {
                     </div>
                   </div>
 
-                  <div className="flex items-start space-x-2">
-                    <div className="text-sm mt-5" title="Essential for hormone production and nutrient absorption">🥑</div>
-                    <div className="flex-1">
+                  <div className="flex items-start space-x-1">
+                    <div className="text-sm mt-5 flex-shrink-0" title="Essential for hormone production and nutrient absorption">🥑</div>
+                    <div className="flex-1 min-w-0">
                       <div className="text-sm font-bold text-yellow-300 mb-1 drop-shadow-lg">Fat</div>
                       <Select value={selectedFatRange} onValueChange={setSelectedFatRange}>
-                        <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-white text-xs h-8">
+                        <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-white text-xs h-8 min-w-0">
                           <SelectValue placeholder="Select" />
                         </SelectTrigger>
                         <SelectContent className="bg-gray-700 border-gray-600">
@@ -720,12 +720,12 @@ export default function DietaryScreen() {
                     </div>
                   </div>
 
-                  <div className="flex items-start space-x-2">
-                    <div className="text-sm mt-5" title="Important for digestive health and satiety">🌿</div>
-                    <div className="flex-1">
+                  <div className="flex items-start space-x-1">
+                    <div className="text-sm mt-5 flex-shrink-0" title="Important for digestive health and satiety">🌿</div>
+                    <div className="flex-1 min-w-0">
                       <div className="text-sm font-bold text-yellow-300 mb-1 drop-shadow-lg">Fiber</div>
                       <Select value={selectedFiberRange} onValueChange={setSelectedFiberRange}>
-                        <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-white text-xs h-8">
+                        <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-white text-xs h-8 min-w-0">
                           <SelectValue placeholder="Select" />
                         </SelectTrigger>
                         <SelectContent className="bg-gray-700 border-gray-600">
