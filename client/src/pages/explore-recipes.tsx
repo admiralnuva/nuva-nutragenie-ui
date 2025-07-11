@@ -568,11 +568,12 @@ export default function ExploreRecipesScreen() {
     'Pantry Staples': ['Chicken Stock', 'Vegetable Broth', 'Canned Tomatoes', 'Coconut Milk', 'Fish Sauce', 'Maple Syrup', 'Dried Herbs', 'Sea Salt', 'Peppercorns']
   };
 
-  // Check pantry completion status
+  // Check pantry completion status - requires both ingredients AND confirmation
   useEffect(() => {
-    const pantryCompleted = selectedIngredients.length >= 3; // At least 3 ingredients
-    setIsPantryComplete(pantryCompleted);
-  }, [selectedIngredients]);
+    const hasEnoughIngredients = selectedIngredients.length >= 3;
+    const isConfirmed = isPantryConfirmed;
+    setIsPantryComplete(hasEnoughIngredients && isConfirmed);
+  }, [selectedIngredients, isPantryConfirmed]);
 
   const handleIngredientToggle = (ingredient: string) => {
     setSelectedIngredients(prev => 
@@ -1181,18 +1182,6 @@ export default function ExploreRecipesScreen() {
                               checked={isPantryConfirmed}
                               onCheckedChange={(checked) => {
                                 setIsPantryConfirmed(checked);
-                                if (checked) {
-                                  // Immediately collapse the card
-                                  setIsPantryCardCollapsed(true);
-                                  setIsPantryComplete(true);
-                                  // Move to bottom after 1 second with smooth animation and audio
-                                  setTimeout(() => {
-                                    setIsPantryCardAtBottom(true);
-                                    // Play ding sound effect
-                                    const audio = new Audio('/assets/ding-small-bell-sfx-233008_1752105356799.mp3');
-                                    audio.play().catch(console.error);
-                                  }, 1000);
-                                }
                               }}
                               className="w-7 h-7 rounded-full border-gray-500 data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600"
                             />

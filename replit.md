@@ -686,6 +686,8 @@ Changelog:
   * Implemented Chef's Choice dishes display automatically when both meal and pantry preferences are confirmed
   * Enhanced completion workflow: card collapses → slides to bottom → Chef's Choice auto-selected and displayed
   * Fixed selection/deselection behavior to prevent Chef's Choice from auto-hiding on subsequent visits
+  * Fixed completion logic: card now requires BOTH meal confirmation AND pantry confirmation before collapsing
+  * Pantry completion now properly requires ingredient selection (≥3 items) AND confirmation checkbox
 ```
 
 ## User Preferences
