@@ -30,9 +30,9 @@ export default function ExploreRecipeOptionsScreen() {
   const [activePreferencesTab, setActivePreferencesTab] = useState<string>("diet");
   
   // Meal preferences state (renamed to avoid conflicts)
-  const [mealServingSize, setMealServingSize] = useState<string>("");
-  const [mealCuisine, setMealCuisine] = useState<string>("");
-  const [mealMealType, setMealMealType] = useState<string>("");
+  const [mealServingSize, setMealServingSize] = useState<string>("2");
+  const [mealCuisine, setMealCuisine] = useState<string>("american");
+  const [mealMealType, setMealMealType] = useState<string>("dinner");
   const [mealSpiceLevel, setMealSpiceLevel] = useState<string>("mild");
   const [mealSkillLevel, setMealSkillLevel] = useState<string>("beginner");
   const [mealCookMethod, setMealCookMethod] = useState<string>("oven");
