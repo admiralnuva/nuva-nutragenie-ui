@@ -497,8 +497,8 @@ export default function ExploreRecipesScreen() {
                       <h4 className="text-lg font-bold text-yellow-300 mb-3 drop-shadow-lg">Dietary Preferences</h4>
                       
                       {/* Dietary Restrictions */}
-                      <div className="space-y-3">
-                        <div>
+                      <div className="space-y-4">
+                        <div className="bg-gray-700/30 border border-gray-600 rounded-lg p-3">
                           <h5 className="text-sm font-bold text-yellow-300 mb-2 drop-shadow-lg">Dietary Restrictions:</h5>
                           <div className="text-sm text-gray-300">
                             {userData?.dietaryRestrictions && userData.dietaryRestrictions.length > 0 
@@ -509,7 +509,7 @@ export default function ExploreRecipesScreen() {
                         </div>
                         
                         {/* Health Factors */}
-                        <div>
+                        <div className="bg-gray-700/30 border border-gray-600 rounded-lg p-3">
                           <h5 className="text-sm font-bold text-yellow-300 mb-2 drop-shadow-lg">Health Factors:</h5>
                           <div className="text-sm text-gray-300">
                             {userData?.healthConditions && userData.healthConditions.length > 0 
@@ -520,7 +520,7 @@ export default function ExploreRecipesScreen() {
                         </div>
                         
                         {/* Fitness Goals */}
-                        <div>
+                        <div className="bg-gray-700/30 border border-gray-600 rounded-lg p-3">
                           <h5 className="text-sm font-bold text-yellow-300 mb-2 drop-shadow-lg">Fitness Goals:</h5>
                           <div className="text-sm text-gray-300">
                             {userData?.fitnessGoals && userData.fitnessGoals.length > 0 
@@ -531,7 +531,7 @@ export default function ExploreRecipesScreen() {
                         </div>
                         
                         {/* Allergies/Restrictions */}
-                        <div>
+                        <div className="bg-gray-700/30 border border-gray-600 rounded-lg p-3">
                           <h5 className="text-sm font-bold text-yellow-300 mb-2 drop-shadow-lg">Allergies/Restrictions:</h5>
                           <div className="text-sm text-gray-300">
                             {userData?.allergies && userData.allergies.trim() 
@@ -542,7 +542,7 @@ export default function ExploreRecipesScreen() {
                         </div>
                         
                         {/* Nutritional Goals */}
-                        <div>
+                        <div className="bg-gray-700/30 border border-gray-600 rounded-lg p-3">
                           <h5 className="text-sm font-bold text-yellow-300 mb-2 drop-shadow-lg">Nutritional Goals:</h5>
                           <div className="text-sm text-gray-300">
                             {userData?.nutritionalGoals 
