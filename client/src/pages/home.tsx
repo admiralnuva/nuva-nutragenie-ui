@@ -372,7 +372,7 @@ export default function HomeScreen() {
       label: "Explore Recipes", 
       icon: Utensils, 
       color: "bg-blue-500", 
-      path: "/recipes",
+      path: "/explore-recipes",
       description: "Find new dishes"
     },
     { 

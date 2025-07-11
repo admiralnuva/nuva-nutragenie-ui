@@ -22,18 +22,13 @@ export function BottomNavigation() {
   const [, setNavigationSource] = useLocalStorage<string>("nutragenie_navigation_source", "");
   
   const handleNavigation = (item: NavItem) => {
-    // Set navigation source if navigating to recipes from other tabs
-    if (item.path === "/explore-recipes" && item.sourceId) {
+    // Set navigation source if this tab can navigate to recipes
+    if (item.sourceId) {
       setNavigationSource(item.sourceId);
     }
     
-    // For tabs that should navigate to recipes instead of their own page
-    if (item.sourceId === "home" || item.sourceId === "cook" || item.sourceId === "take-out") {
-      setNavigationSource(item.sourceId);
-      setLocation("/explore-recipes");
-    } else {
-      setLocation(item.path);
-    }
+    // Navigate to the item's designated path
+    setLocation(item.path);
   };
 
   return (
