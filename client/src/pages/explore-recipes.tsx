@@ -1202,7 +1202,11 @@ export default function ExploreRecipesScreen() {
                 </Button>
                 <Button 
                   variant="outline"
-                  className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600 transition-all duration-200"
+                  className={`h-14 border transition-all duration-200 ${
+                    !showTakeOut 
+                      ? 'bg-purple-600 border-purple-600 text-white' 
+                      : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
+                  }`}
                   onClick={() => setLocation('/create-dishes')}
                 >
                   Create Dishes
