@@ -258,13 +258,13 @@ export default function DietaryScreen() {
     },
     onSuccess: (newUser) => {
       toast({ title: "Dietary preferences saved successfully!" });
-      setLocation("/explore-recipes");
+      setLocation("/recipes");
     },
     onError: (error: any) => {
       console.error('Save error:', error);
       // Even if there's an error, localStorage data is saved, so navigate anyway
       toast({ title: "Preferences saved locally. Continuing to recipes..." });
-      setLocation("/explore-recipes");
+      setLocation("/recipes");
     }
   });
 
@@ -385,7 +385,7 @@ export default function DietaryScreen() {
     
     // Show success message and navigate
     toast({ title: "Dietary preferences saved successfully!" });
-    setLocation("/explore-recipes");
+    setLocation("/recipes");
   };
 
   const isFormValid = selectedDietary.length > 0 || selectedHealth.length > 0 || selectedFitness.length > 0;

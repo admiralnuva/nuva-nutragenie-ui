@@ -198,7 +198,7 @@ export default function TakeOutScreen() {
         
         {/* Header */}
         <div className="flex items-center justify-between p-4 bg-gray-900 border-b border-gray-700">
-          <BackButton to="/explore-recipes" className="text-white" />
+          <BackButton to="/recipes" className="text-white" />
           <h1 className="text-xl font-bold text-white">Place Your Order</h1>
           <div className="w-8"></div>
         </div>

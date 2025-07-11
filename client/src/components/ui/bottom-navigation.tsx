@@ -11,7 +11,7 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { icon: Home, label: "Home", path: "/home", sourceId: "home" },
-  { icon: ChefHat, label: "Recipes", path: "/explore-recipes" },
+  { icon: ChefHat, label: "Recipes", path: "/recipes" },
   { icon: Mic, label: "Cook", path: "/voice-cooking", sourceId: "cook" },
   { icon: Truck, label: "Take-Out", path: "/takeout", sourceId: "take-out" },
   { icon: User, label: "Profile", path: "/profile" }

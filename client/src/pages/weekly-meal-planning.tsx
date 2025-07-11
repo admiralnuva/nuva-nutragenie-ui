@@ -82,7 +82,7 @@ export default function WeeklyMealPlanningScreen() {
       <div className="bg-white border-b sticky top-0 z-10">
         <div className="max-w-md mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
-            <BackButton to="/explore-recipes" />
+            <BackButton to="/recipes" />
             <div className="flex-1 text-center">
               <h1 className="text-xl font-bold text-gray-900">NutraGenie</h1>
             </div>

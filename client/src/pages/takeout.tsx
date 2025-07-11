@@ -22,7 +22,7 @@ export default function TakeOutScreen() {
   // Set navigation source when going to recipes
   const handleExploreRecipes = () => {
     setNavigationSource("take-out");
-    setLocation("/explore-recipes");
+    setLocation("/recipes");
   };
 
   const [selectedDishes, setSelectedDishes] = useState<string[]>([]);
@@ -78,7 +78,7 @@ export default function TakeOutScreen() {
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black pb-20">
       {/* Header */}
       <div className="bg-gray-900 border-b border-gray-700 px-4 py-4 flex items-center justify-between">
-        <BackButton to="/explore-recipes" className="text-white" />
+        <BackButton to="/recipes" className="text-white" />
         <div className="flex-1 text-center">
           <h1 className="text-2xl font-bold text-white">NutraGenie</h1>
           <p className="text-lg font-semibold text-purple-300 mt-1">Take-Out Order</p>

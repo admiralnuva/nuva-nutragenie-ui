@@ -131,7 +131,7 @@ export default function GroceryListEnhanced() {
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <button 
-            onClick={() => setLocation("/explore-recipes")}
+            onClick={() => setLocation("/recipes")}
             className="text-white hover:text-purple-300 transition-colors flex items-center gap-2"
           >
             <ArrowLeft size={20} />

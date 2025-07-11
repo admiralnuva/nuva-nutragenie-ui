@@ -302,12 +302,7 @@ export default function CreateDishesScreen() {
       // Collapse the form and show menu
       setIsTakeOutFormCollapsed(true);
       setShowTakeOutMenu(true);
-      console.log('Take-Out menu designed:', {
-        servingSize: takeOutServingSize,
-        cuisine: takeOutCuisine,
-        mealType: takeOutMealType,
-        deliveryDate: takeOutDeliveryDate
-      });
+      // Take-out menu designed successfully
     }
   };
 
@@ -333,7 +328,7 @@ export default function CreateDishesScreen() {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <button 
-              onClick={() => setLocation('/explore-recipes')}
+              onClick={() => setLocation('/recipes')}
               className="text-gray-400 hover:text-white transition-colors"
             >
               <ArrowLeft size={24} />
@@ -357,14 +352,14 @@ export default function CreateDishesScreen() {
               <Button 
                 variant="outline"
                 className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600 transition-all duration-200"
-                onClick={() => setLocation('/explore-recipes')}
+                onClick={() => setLocation('/recipes')}
               >
                 Chef's Choice
               </Button>
               <Button 
                 variant="outline"
                 className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600 transition-all duration-200"
-                onClick={() => setLocation('/explore-recipes')}
+                onClick={() => setLocation('/recipes')}
               >
                 Pantry Dishes
               </Button>
