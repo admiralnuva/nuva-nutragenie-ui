@@ -125,7 +125,7 @@ export default function ExploreRecipesScreen() {
   const pantryFieldsComplete = true; // Always show confirmation checkbox
   const bothConfirmed = mealConfirmed && pantryConfirmed;
   
-  // Card positioning logic
+  // Card positioning logic - COMPLETELY INDEPENDENT FROM RECIPE OPTIONS
   useEffect(() => {
     if (bothConfirmed && cardPosition === 'top') {
       setTimeout(() => setCardCollapsed(true), 1000);
@@ -140,11 +140,7 @@ export default function ExploreRecipesScreen() {
         }
       }, 2000);
       
-      // Auto-select Chef's Choice
-      setTimeout(() => {
-        setShowChefsChoice(true);
-        setSelectedRecipeOption('chefs-choice');
-      }, 3000);
+      // DO NOT AUTO-SELECT ANYTHING - Recipe Options are completely independent
     }
   }, [bothConfirmed, cardPosition]);
   
