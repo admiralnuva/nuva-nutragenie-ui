@@ -815,6 +815,10 @@ Changelog:
   * Separated image and content into distinct sections with proper overflow handling
   * Increased button sizes to w-10 h-10 and icons to 18px for better touch targets
   * Fixed missing Mediterranean Pasta image with alternative Unsplash URL (photo-1565299624946-b28f40a0ca4b)
+  * Created Pantry Dishes card that displays when "Pantry Dishes" is selected
+  * Implemented 6 pantry-friendly dishes: Garlic Fried Rice, Scrambled Eggs & Toast, Vegetable Soup, Butter Garlic Pasta, Grilled Cheese Sandwich, Mixed Vegetable Stir-Fry
+  * Applied identical layout to Chef Recommends: full-width images, nutrition info, 5 color-coded action buttons
+  * Used title "Dishes from Pantry Ingredients" with collapsible chevron up button
 ```
 
 ## User Preferences
