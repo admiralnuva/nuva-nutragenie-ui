@@ -320,9 +320,13 @@ export default function ExploreRecipesScreen() {
         setPreferencesCardSlid(true);
         
         // Auto-select Chef's Choice only if no other option is currently selected
+        console.log('Auto-selection check:', { showPantryDishes, showTakeOut, selectedRecipeOption });
         if (!showPantryDishes && !showTakeOut && selectedRecipeOption !== 'pantry-dishes' && selectedRecipeOption !== 'take-out' && selectedRecipeOption !== 'create-dishes') {
+          console.log('Auto-selecting Chef\'s Choice');
           setShowChefsChoice(true);
           setSelectedRecipeOption('chefs-choice');
+        } else {
+          console.log('Auto-selection skipped due to existing selection');
         }
         
         // Play swish sound effect
@@ -1242,10 +1246,12 @@ export default function ExploreRecipesScreen() {
                       : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
                   }`}
                   onClick={() => {
+                    console.log('Chef\'s Choice button clicked');
                     setShowChefsChoice(true);
                     setShowPantryDishes(false);
                     setShowTakeOut(false);
                     setSelectedRecipeOption('chefs-choice');
+                    console.log('Chef\'s Choice states set: showChefsChoice=true, selectedRecipeOption=chefs-choice');
                   }}
                 >
                   Chef's Choice
@@ -1276,7 +1282,12 @@ export default function ExploreRecipesScreen() {
                       : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
                   }`}
                   onClick={() => {
+                    console.log('Create Dishes button clicked');
+                    setShowChefsChoice(false);
+                    setShowPantryDishes(false);
+                    setShowTakeOut(false);
                     setSelectedRecipeOption('create-dishes');
+                    console.log('Create Dishes states set: all shows=false, selectedRecipeOption=create-dishes');
                     setLocation('/create-dishes');
                   }}
                 >
@@ -1290,10 +1301,12 @@ export default function ExploreRecipesScreen() {
                       : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
                   }`}
                   onClick={() => {
+                    console.log('Take-Out button clicked');
                     setShowTakeOut(true);
                     setShowChefsChoice(false);
                     setShowPantryDishes(false);
                     setSelectedRecipeOption('take-out');
+                    console.log('Take-Out states set: showTakeOut=true, selectedRecipeOption=take-out');
                   }}
                 >
                   Take-Out
