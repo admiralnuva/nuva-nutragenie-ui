@@ -814,7 +814,7 @@ Changelog:
   * Fixed dish card layout to match exact mockup: full-width image section at top, data section below
   * Separated image and content into distinct sections with proper overflow handling
   * Increased button sizes to w-10 h-10 and icons to 18px for better touch targets
-  * Fixed missing Mediterranean Pasta image with working Unsplash URL
+  * Fixed missing Mediterranean Pasta image with alternative Unsplash URL (photo-1565299624946-b28f40a0ca4b)
 ```
 
 ## User Preferences
