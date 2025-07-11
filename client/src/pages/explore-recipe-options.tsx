@@ -1,67 +1,75 @@
 import { useState } from "react";
 import { BackButton } from "@/components/ui/back-button";
 import { Card } from "@/components/ui/card";
-import { ChevronUp, ArrowLeftRight, Book, Heart, ChefHat, Plus } from "lucide-react";
+import { DishCard } from "@/components/ui/dish-card";
+import { ChevronUp } from "lucide-react";
 
 export default function ExploreRecipeOptionsScreen() {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [isChefRecommendsCollapsed, setIsChefRecommendsCollapsed] = useState(false);
   const [isPantryDishesCollapsed, setIsPantryDishesCollapsed] = useState(false);
 
+  const handleOptionClick = (option: string) => {
+    setSelectedOption(option);
+    // Reset collapse states when switching options
+    setIsChefRecommendsCollapsed(false);
+    setIsPantryDishesCollapsed(false);
+  };
+
   const chefRecommendedDishes = [
     {
       id: 1,
-      name: "Tuscan Salmon",
+      name: "Grilled Salmon with Quinoa",
       image: "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=400&h=300&fit=crop",
-      calories: 550,
-      protein: "45g",
-      cookTime: "30 min",
-      difficulty: "Easy"
-    },
-    {
-      id: 2,
-      name: "Herb Crusted Chicken",
-      image: "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?w=400&h=300&fit=crop",
-      calories: 420,
-      protein: "38g", 
+      calories: 450,
+      protein: "35g",
       cookTime: "25 min",
       difficulty: "Medium"
     },
     {
-      id: 3,
-      name: "Mediterranean Pasta",
-      image: "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=400&h=300&fit=crop",
+      id: 2,
+      name: "Mediterranean Chicken Bowl",
+      image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
       calories: 380,
-      protein: "22g",
-      cookTime: "20 min", 
+      protein: "28g",
+      cookTime: "20 min",
+      difficulty: "Easy"
+    },
+    {
+      id: 3,
+      name: "Vegetable Stir-Fry",
+      image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?w=400&h=300&fit=crop",
+      calories: 320,
+      protein: "12g",
+      cookTime: "15 min",
       difficulty: "Easy"
     },
     {
       id: 4,
-      name: "Grilled Vegetable Bowl",
-      image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
-      calories: 290,
-      protein: "15g",
-      cookTime: "35 min",
-      difficulty: "Easy"
-    },
-    {
-      id: 5,
-      name: "Beef Stir Fry",
+      name: "Beef and Broccoli",
       image: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=400&h=300&fit=crop",
-      calories: 485,
-      protein: "42g",
-      cookTime: "18 min",
+      calories: 420,
+      protein: "32g",
+      cookTime: "30 min",
       difficulty: "Medium"
     },
     {
-      id: 6,
-      name: "Lemon Garlic Shrimp",
-      image: "https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=400&h=300&fit=crop",
-      calories: 320,
-      protein: "28g",
-      cookTime: "25 min",
+      id: 5,
+      name: "Lemon Herb Pasta",
+      image: "https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?w=400&h=300&fit=crop",
+      calories: 480,
+      protein: "18g",
+      cookTime: "18 min",
       difficulty: "Easy"
+    },
+    {
+      id: 6,
+      name: "Mediterranean Pasta",
+      image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop",
+      calories: 520,
+      protein: "22g",
+      cookTime: "22 min",
+      difficulty: "Medium"
     }
   ];
 
@@ -70,87 +78,74 @@ export default function ExploreRecipeOptionsScreen() {
       id: 1,
       name: "Garlic Fried Rice",
       image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?w=400&h=300&fit=crop",
-      calories: 320,
-      protein: "12g",
+      calories: 340,
+      protein: "8g",
       cookTime: "15 min",
       difficulty: "Easy"
     },
     {
       id: 2,
       name: "Scrambled Eggs & Toast",
-      image: "https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=400&h=300&fit=crop",
+      image: "https://images.unsplash.com/photo-1506084868230-bb9d95c24759?w=400&h=300&fit=crop",
       calories: 280,
-      protein: "18g",
+      protein: "15g",
       cookTime: "10 min",
       difficulty: "Easy"
     },
     {
       id: 3,
       name: "Vegetable Soup",
-      image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400&h=300&fit=crop",
+      image: "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&h=300&fit=crop",
       calories: 180,
-      protein: "8g",
+      protein: "6g",
       cookTime: "25 min",
       difficulty: "Easy"
     },
     {
       id: 4,
       name: "Butter Garlic Pasta",
-      image: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=400&h=300&fit=crop",
-      calories: 390,
-      protein: "14g",
-      cookTime: "18 min",
+      image: "https://images.unsplash.com/photo-1473093226795-af9932fe5856?w=400&h=300&fit=crop",
+      calories: 420,
+      protein: "12g",
+      cookTime: "12 min",
       difficulty: "Easy"
     },
     {
       id: 5,
       name: "Grilled Cheese Sandwich",
-      image: "https://images.unsplash.com/photo-1528736235302-52922df5c122?w=400&h=300&fit=crop",
-      calories: 350,
-      protein: "16g",
-      cookTime: "12 min",
+      image: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=400&h=300&fit=crop",
+      calories: 380,
+      protein: "18g",
+      cookTime: "8 min",
       difficulty: "Easy"
     },
     {
       id: 6,
       name: "Mixed Vegetable Stir-Fry",
-      image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
-      calories: 240,
-      protein: "10g",
-      cookTime: "20 min",
+      image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?w=400&h=300&fit=crop",
+      calories: 220,
+      protein: "8g",
+      cookTime: "12 min",
       difficulty: "Easy"
     }
   ];
 
-  const handleOptionClick = (option: string) => {
-    if (selectedOption === option) {
-      setSelectedOption(null);
-    } else {
-      setSelectedOption(option);
-      // Reset collapse state when selecting a new option
-      if (option === "chefs-choice") {
-        setIsChefRecommendsCollapsed(false);
-      }
-      if (option === "pantry-dishes") {
-        setIsPantryDishesCollapsed(false);
-      }
-    }
-  };
-
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black pb-20">
+    <div className="bg-gradient-to-b from-gray-900 to-black min-h-screen">
       {/* Header */}
-      <div className="flex items-center justify-between p-6">
-        <BackButton to="/home" />
-        <h1 className="text-2xl font-bold text-white">NutraGenie</h1>
-        <div className="w-6" />
+      <div className="flex items-center justify-between p-4 bg-gray-900 border-b border-gray-700">
+        <div className="flex items-center space-x-4">
+          <BackButton to="/explore-recipe-options" />
+          <h1 className="text-2xl font-bold text-white">NutraGenie</h1>
+        </div>
+        <h2 className="text-lg font-semibold text-purple-600">Explore Recipe Options</h2>
       </div>
 
-      <div className="p-6 space-y-6">
+      <div className="container mx-auto px-4 py-6 space-y-6">
         {/* Card 1 - Preferences */}
         <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
           <h2 className="text-xl font-bold text-white mb-4">Preferences</h2>
-          <p className="text-gray-300">Configure your dietary preferences and settings.</p>
+          <p className="text-gray-300">Configure your dietary preferences and nutrition goals.</p>
         </Card>
 
         {/* Card 2 - Recipe Options */}
@@ -213,54 +208,9 @@ export default function ExploreRecipeOptionsScreen() {
               </button>
             </div>
             <div className="space-y-4">
-                {chefRecommendedDishes.map((dish) => (
-                  <div key={dish.id} className="bg-gray-700/50 rounded-lg overflow-hidden">
-                    {/* Image Section - Full Width */}
-                    <div className="w-full">
-                      <img 
-                        src={dish.image} 
-                        alt={dish.name}
-                        className="w-full h-40 object-cover"
-                      />
-                    </div>
-                    
-                    {/* Data Section */}
-                    <div className="p-4">
-                      <h3 className="text-white font-semibold text-lg mb-3">{dish.name}</h3>
-                      
-                      {/* Nutrition Info - Two Rows */}
-                      <div className="mb-3">
-                        <div className="flex items-center gap-6 text-sm mb-2">
-                          <span className="text-orange-400">• {dish.calories} calories</span>
-                          <span className="text-yellow-400">• {dish.protein} protein</span>
-                        </div>
-                        <div className="flex items-center gap-6 text-sm text-gray-300">
-                          <span className="text-blue-400">• {dish.cookTime} cook time</span>
-                          <span>{dish.difficulty} difficulty</span>
-                        </div>
-                      </div>
-                      
-                      {/* Action Buttons */}
-                      <div className="flex items-center gap-2">
-                        <button className="w-10 h-10 bg-yellow-600 hover:bg-yellow-700 rounded-lg flex items-center justify-center transition-colors">
-                          <ArrowLeftRight size={18} className="text-white" />
-                        </button>
-                        <button className="w-10 h-10 bg-purple-600 hover:bg-purple-700 rounded-lg flex items-center justify-center transition-colors">
-                          <Book size={18} className="text-white" />
-                        </button>
-                        <button className="w-10 h-10 bg-green-600 hover:bg-green-700 rounded-lg flex items-center justify-center transition-colors">
-                          <Heart size={18} className="text-white" />
-                        </button>
-                        <button className="w-10 h-10 bg-orange-600 hover:bg-orange-700 rounded-lg flex items-center justify-center transition-colors">
-                          <ChefHat size={18} className="text-white" />
-                        </button>
-                        <button className="w-10 h-10 bg-blue-600 hover:bg-blue-700 rounded-lg flex items-center justify-center transition-colors">
-                          <Plus size={18} className="text-white" />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+              {chefRecommendedDishes.map((dish) => (
+                <DishCard key={dish.id} dish={dish} />
+              ))}
             </div>
           </Card>
         )}
@@ -278,54 +228,9 @@ export default function ExploreRecipeOptionsScreen() {
               </button>
             </div>
             <div className="space-y-4">
-                {pantryDishes.map((dish) => (
-                  <div key={dish.id} className="bg-gray-700/50 rounded-lg overflow-hidden">
-                    {/* Image Section - Full Width */}
-                    <div className="w-full">
-                      <img 
-                        src={dish.image} 
-                        alt={dish.name}
-                        className="w-full h-40 object-cover"
-                      />
-                    </div>
-                    
-                    {/* Data Section */}
-                    <div className="p-4">
-                      <h3 className="text-white font-semibold text-lg mb-3">{dish.name}</h3>
-                      
-                      {/* Nutrition Info - Two Rows */}
-                      <div className="mb-3">
-                        <div className="flex items-center gap-6 text-sm mb-2">
-                          <span className="text-orange-400">• {dish.calories} calories</span>
-                          <span className="text-yellow-400">• {dish.protein} protein</span>
-                        </div>
-                        <div className="flex items-center gap-6 text-sm text-gray-300">
-                          <span className="text-blue-400">• {dish.cookTime} cook time</span>
-                          <span>{dish.difficulty} difficulty</span>
-                        </div>
-                      </div>
-                      
-                      {/* Action Buttons */}
-                      <div className="flex items-center gap-2">
-                        <button className="w-10 h-10 bg-yellow-600 hover:bg-yellow-700 rounded-lg flex items-center justify-center transition-colors">
-                          <ArrowLeftRight size={18} className="text-white" />
-                        </button>
-                        <button className="w-10 h-10 bg-purple-600 hover:bg-purple-700 rounded-lg flex items-center justify-center transition-colors">
-                          <Book size={18} className="text-white" />
-                        </button>
-                        <button className="w-10 h-10 bg-green-600 hover:bg-green-700 rounded-lg flex items-center justify-center transition-colors">
-                          <Heart size={18} className="text-white" />
-                        </button>
-                        <button className="w-10 h-10 bg-orange-600 hover:bg-orange-700 rounded-lg flex items-center justify-center transition-colors">
-                          <ChefHat size={18} className="text-white" />
-                        </button>
-                        <button className="w-10 h-10 bg-blue-600 hover:bg-blue-700 rounded-lg flex items-center justify-center transition-colors">
-                          <Plus size={18} className="text-white" />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+              {pantryDishes.map((dish) => (
+                <DishCard key={dish.id} dish={dish} />
+              ))}
             </div>
           </Card>
         )}
