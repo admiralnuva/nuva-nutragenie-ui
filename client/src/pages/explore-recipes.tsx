@@ -466,36 +466,36 @@ export default function ExploreRecipesScreen() {
   // Take-Out menu dish data
   const takeOutDishes = {
     soup: [
-      { id: 201, name: 'Tomato Basil Soup', calories: 280, time: '25 min', difficulty: 'Easy', image: '/api/placeholder/200/150' },
-      { id: 202, name: 'Chicken Noodle Soup', calories: 320, time: '35 min', difficulty: 'Easy', image: '/api/placeholder/200/150' },
-      { id: 203, name: 'Minestrone Soup', calories: 260, time: '40 min', difficulty: 'Medium', image: '/api/placeholder/200/150' },
-      { id: 204, name: 'Butternut Squash Soup', calories: 240, time: '30 min', difficulty: 'Easy', image: '/api/placeholder/200/150' },
-      { id: 205, name: 'French Onion Soup', calories: 350, time: '45 min', difficulty: 'Medium', image: '/api/placeholder/200/150' },
-      { id: 206, name: 'Mushroom Bisque', calories: 290, time: '35 min', difficulty: 'Medium', image: '/api/placeholder/200/150' }
+      { id: 201, name: 'Tomato Basil Soup', calories: 280, cookTime: '25 min', difficulty: 'Easy' as const, image: '/api/placeholder/200/150' },
+      { id: 202, name: 'Chicken Noodle Soup', calories: 320, cookTime: '35 min', difficulty: 'Easy' as const, image: '/api/placeholder/200/150' },
+      { id: 203, name: 'Minestrone Soup', calories: 260, cookTime: '40 min', difficulty: 'Medium' as const, image: '/api/placeholder/200/150' },
+      { id: 204, name: 'Butternut Squash Soup', calories: 240, cookTime: '30 min', difficulty: 'Easy' as const, image: '/api/placeholder/200/150' },
+      { id: 205, name: 'French Onion Soup', calories: 350, cookTime: '45 min', difficulty: 'Medium' as const, image: '/api/placeholder/200/150' },
+      { id: 206, name: 'Mushroom Bisque', calories: 290, cookTime: '35 min', difficulty: 'Medium' as const, image: '/api/placeholder/200/150' }
     ],
     salad: [
-      { id: 301, name: 'Caesar Salad', calories: 340, time: '15 min', difficulty: 'Easy', image: '/api/placeholder/200/150' },
-      { id: 302, name: 'Greek Salad', calories: 280, time: '10 min', difficulty: 'Easy', image: '/api/placeholder/200/150' },
-      { id: 303, name: 'Garden Salad', calories: 180, time: '10 min', difficulty: 'Easy', image: '/api/placeholder/200/150' },
-      { id: 304, name: 'Cobb Salad', calories: 420, time: '20 min', difficulty: 'Easy', image: '/api/placeholder/200/150' },
-      { id: 305, name: 'Quinoa Power Salad', calories: 360, time: '15 min', difficulty: 'Easy', image: '/api/placeholder/200/150' },
-      { id: 306, name: 'Spinach Berry Salad', calories: 240, time: '12 min', difficulty: 'Easy', image: '/api/placeholder/200/150' }
+      { id: 301, name: 'Caesar Salad', calories: 340, cookTime: '15 min', difficulty: 'Easy' as const, image: '/api/placeholder/200/150' },
+      { id: 302, name: 'Greek Salad', calories: 280, cookTime: '10 min', difficulty: 'Easy' as const, image: '/api/placeholder/200/150' },
+      { id: 303, name: 'Garden Salad', calories: 180, cookTime: '10 min', difficulty: 'Easy' as const, image: '/api/placeholder/200/150' },
+      { id: 304, name: 'Cobb Salad', calories: 420, cookTime: '20 min', difficulty: 'Easy' as const, image: '/api/placeholder/200/150' },
+      { id: 305, name: 'Quinoa Power Salad', calories: 360, cookTime: '15 min', difficulty: 'Easy' as const, image: '/api/placeholder/200/150' },
+      { id: 306, name: 'Spinach Berry Salad', calories: 240, cookTime: '12 min', difficulty: 'Easy' as const, image: '/api/placeholder/200/150' }
     ],
     entree: [
-      { id: 401, name: 'Grilled Chicken Breast', calories: 520, time: '25 min', difficulty: 'Medium', image: '/api/placeholder/200/150' },
-      { id: 402, name: 'Pan-Seared Salmon', calories: 480, time: '20 min', difficulty: 'Medium', image: '/api/placeholder/200/150' },
-      { id: 403, name: 'Beef Stir Fry', calories: 560, time: '30 min', difficulty: 'Medium', image: '/api/placeholder/200/150' },
-      { id: 404, name: 'Tofu Pad Thai', calories: 420, time: '25 min', difficulty: 'Medium', image: '/api/placeholder/200/150' },
-      { id: 405, name: 'Pork Tenderloin', calories: 540, time: '35 min', difficulty: 'Hard', image: '/api/placeholder/200/150' },
-      { id: 406, name: 'Lamb Chops', calories: 580, time: '30 min', difficulty: 'Hard', image: '/api/placeholder/200/150' }
+      { id: 401, name: 'Grilled Chicken Breast', calories: 520, cookTime: '25 min', difficulty: 'Medium' as const, image: '/api/placeholder/200/150' },
+      { id: 402, name: 'Pan-Seared Salmon', calories: 480, cookTime: '20 min', difficulty: 'Medium' as const, image: '/api/placeholder/200/150' },
+      { id: 403, name: 'Beef Stir Fry', calories: 560, cookTime: '30 min', difficulty: 'Medium' as const, image: '/api/placeholder/200/150' },
+      { id: 404, name: 'Tofu Pad Thai', calories: 420, cookTime: '25 min', difficulty: 'Medium' as const, image: '/api/placeholder/200/150' },
+      { id: 405, name: 'Pork Tenderloin', calories: 540, cookTime: '35 min', difficulty: 'Hard' as const, image: '/api/placeholder/200/150' },
+      { id: 406, name: 'Lamb Chops', calories: 580, cookTime: '30 min', difficulty: 'Hard' as const, image: '/api/placeholder/200/150' }
     ],
     dessert: [
-      { id: 501, name: 'Chocolate Cheesecake', calories: 450, time: '15 min', difficulty: 'Easy', image: '/api/placeholder/200/150' },
-      { id: 502, name: 'Vanilla Ice Cream', calories: 280, time: '5 min', difficulty: 'Easy', image: '/api/placeholder/200/150' },
-      { id: 503, name: 'Tiramisu', calories: 380, time: '20 min', difficulty: 'Medium', image: '/api/placeholder/200/150' },
-      { id: 504, name: 'Apple Pie', calories: 420, time: '45 min', difficulty: 'Hard', image: '/api/placeholder/200/150' },
-      { id: 505, name: 'Chocolate Lava Cake', calories: 520, time: '25 min', difficulty: 'Medium', image: '/api/placeholder/200/150' },
-      { id: 506, name: 'Fruit Tart', calories: 340, time: '30 min', difficulty: 'Medium', image: '/api/placeholder/200/150' }
+      { id: 501, name: 'Chocolate Cheesecake', calories: 450, cookTime: '15 min', difficulty: 'Easy' as const, image: '/api/placeholder/200/150' },
+      { id: 502, name: 'Vanilla Ice Cream', calories: 280, cookTime: '5 min', difficulty: 'Easy' as const, image: '/api/placeholder/200/150' },
+      { id: 503, name: 'Tiramisu', calories: 380, cookTime: '20 min', difficulty: 'Medium' as const, image: '/api/placeholder/200/150' },
+      { id: 504, name: 'Apple Pie', calories: 420, cookTime: '45 min', difficulty: 'Hard' as const, image: '/api/placeholder/200/150' },
+      { id: 505, name: 'Chocolate Lava Cake', calories: 520, cookTime: '25 min', difficulty: 'Medium' as const, image: '/api/placeholder/200/150' },
+      { id: 506, name: 'Fruit Tart', calories: 340, cookTime: '30 min', difficulty: 'Medium' as const, image: '/api/placeholder/200/150' }
     ]
   };
 
