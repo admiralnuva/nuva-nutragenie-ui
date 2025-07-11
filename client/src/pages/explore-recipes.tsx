@@ -494,16 +494,63 @@ export default function ExploreRecipesScreen() {
                   {/* Diet Tab */}
                   {activeTab === 'diet' && (
                     <div className="space-y-4">
-                      <div className="text-center text-gray-300">
-                        <p>Diet preferences configured in account setup</p>
-                        <Button 
-                          variant="outline" 
-                          size="sm" 
-                          className="mt-2 bg-gray-700 border-gray-600 text-gray-300"
-                          onClick={() => setLocation('/dietary')}
-                        >
-                          Edit Diet Preferences
-                        </Button>
+                      <h4 className="text-lg font-bold text-yellow-300 mb-3 drop-shadow-lg">Dietary Preferences</h4>
+                      
+                      {/* Dietary Restrictions */}
+                      <div className="space-y-3">
+                        <div>
+                          <h5 className="text-sm font-bold text-yellow-300 mb-2 drop-shadow-lg">Dietary Restrictions:</h5>
+                          <div className="text-sm text-gray-300">
+                            {userData?.dietaryRestrictions && userData.dietaryRestrictions.length > 0 
+                              ? userData.dietaryRestrictions.join(', ')
+                              : 'vegetarian, vegan, gluten-free, dairy-free, low-carb'
+                            }
+                          </div>
+                        </div>
+                        
+                        {/* Health Factors */}
+                        <div>
+                          <h5 className="text-sm font-bold text-yellow-300 mb-2 drop-shadow-lg">Health Factors:</h5>
+                          <div className="text-sm text-gray-300">
+                            {userData?.healthConditions && userData.healthConditions.length > 0 
+                              ? userData.healthConditions.join(', ')
+                              : 'diabetes, cardiovascular, kidney, blood-pressure, cancer'
+                            }
+                          </div>
+                        </div>
+                        
+                        {/* Fitness Goals */}
+                        <div>
+                          <h5 className="text-sm font-bold text-yellow-300 mb-2 drop-shadow-lg">Fitness Goals:</h5>
+                          <div className="text-sm text-gray-300">
+                            {userData?.fitnessGoals && userData.fitnessGoals.length > 0 
+                              ? userData.fitnessGoals.join(', ')
+                              : 'build muscle, lose weight, endurance, wellness'
+                            }
+                          </div>
+                        </div>
+                        
+                        {/* Allergies/Restrictions */}
+                        <div>
+                          <h5 className="text-sm font-bold text-yellow-300 mb-2 drop-shadow-lg">Allergies/Restrictions:</h5>
+                          <div className="text-sm text-gray-300">
+                            {userData?.allergies && userData.allergies.trim() 
+                              ? userData.allergies
+                              : 'None specified'
+                            }
+                          </div>
+                        </div>
+                        
+                        {/* Nutritional Goals */}
+                        <div>
+                          <h5 className="text-sm font-bold text-yellow-300 mb-2 drop-shadow-lg">Nutritional Goals:</h5>
+                          <div className="text-sm text-gray-300">
+                            {userData?.nutritionalGoals 
+                              ? `Cal: ${userData.nutritionalGoals.calories || '1301-1500'}, Protein: ${userData.nutritionalGoals.protein || '71-100g'}, Carbs: ${userData.nutritionalGoals.carbs || '101-150g'}, Fat: ${userData.nutritionalGoals.fat || '36-50g'}`
+                              : 'Cal: 1301-1500, Protein: 71-100g, Carbs: 101-150g, Fat: 36-50g'
+                            }
+                          </div>
+                        </div>
                       </div>
                     </div>
                   )}
