@@ -763,7 +763,7 @@ export default function ExploreRecipesScreen() {
                       
                       <div className="flex items-center justify-between mb-3">
                         <span className="text-sm font-bold text-yellow-300 drop-shadow-lg">Selected Ingredients:</span>
-                        <span className="text-sm text-gray-400">{selectedIngredients.length} items</span>
+                        <span className="text-sm text-gray-400">{selectedIngredients.length} items {selectedIngredients.length >= 3 ? '(Ready for confirmation)' : '(Select 3+ for confirmation)'}</span>
                       </div>
                       
                       <hr className="border-gray-600" />
