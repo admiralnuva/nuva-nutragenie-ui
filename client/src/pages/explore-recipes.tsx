@@ -306,9 +306,11 @@ export default function ExploreRecipesScreen() {
 
 
 
-  // Auto-slide preferences card after both completions
+  // Auto-slide preferences card after both completions - RUN ONLY ONCE
   useEffect(() => {
     if (isMealComplete && isPantryComplete && !preferencesCardSlid) {
+      console.log('Starting preferences card slide animation');
+      
       // Auto-collapse after 2 seconds
       const collapseTimer = setTimeout(() => {
         setIsPantryCardCollapsed(true);
@@ -319,14 +321,13 @@ export default function ExploreRecipesScreen() {
         setIsPantryCardAtBottom(true);
         setPreferencesCardSlid(true);
         
-        // Auto-select Chef's Choice only if no other option is currently selected
-        console.log('Auto-selection check:', { showPantryDishes, showTakeOut, selectedRecipeOption });
-        if (!showPantryDishes && !showTakeOut && selectedRecipeOption !== 'pantry-dishes' && selectedRecipeOption !== 'take-out' && selectedRecipeOption !== 'create-dishes') {
-          console.log('Auto-selecting Chef\'s Choice');
+        // ONLY auto-select if nothing is selected at this moment
+        if (selectedRecipeOption === '') {
+          console.log('Auto-selecting Chef\'s Choice (first time only)');
           setShowChefsChoice(true);
           setSelectedRecipeOption('chefs-choice');
         } else {
-          console.log('Auto-selection skipped due to existing selection');
+          console.log('Auto-selection skipped - user has selection:', selectedRecipeOption);
         }
         
         // Play swish sound effect
@@ -342,7 +343,7 @@ export default function ExploreRecipesScreen() {
         clearTimeout(slideTimer);
       };
     }
-  }, [isMealComplete, isPantryComplete, preferencesCardSlid, showPantryDishes, showTakeOut, selectedRecipeOption]);
+  }, [isMealComplete, isPantryComplete, preferencesCardSlid]);
 
   // Navigation-based initialization - only on initial load, don't override user selections
   useEffect(() => {
@@ -1324,7 +1325,11 @@ export default function ExploreRecipesScreen() {
                   <div className="flex items-center justify-between">
                     <CardTitle className="text-lg text-white">Chef Recommends</CardTitle>
                     <button
-                      onClick={() => setShowChefsChoice(false)}
+                      onClick={() => {
+        console.log('Collapsing Chef\'s Choice card');
+        setShowChefsChoice(false);
+        setSelectedRecipeOption('');
+      }}
                       className="text-gray-400 hover:text-white transition-colors"
                     >
                       <ChevronUp size={20} />
@@ -1510,7 +1515,11 @@ export default function ExploreRecipesScreen() {
                   <div className="flex items-center justify-between">
                     <CardTitle className="text-lg text-white">Pantry Dishes</CardTitle>
                     <button
-                      onClick={() => setShowPantryDishes(false)}
+                      onClick={() => {
+        console.log('Collapsing Pantry Dishes card');
+        setShowPantryDishes(false);
+        setSelectedRecipeOption('');
+      }}
                       className="text-gray-400 hover:text-white transition-colors"
                     >
                       <ChevronUp size={20} />
