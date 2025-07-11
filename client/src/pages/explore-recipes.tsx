@@ -1234,12 +1234,13 @@ export default function ExploreRecipesScreen() {
                       : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
                   }`}
                   onClick={() => {
-                    console.log('Chef\'s Choice button clicked');
+                    console.log('=== CHEF\'S CHOICE CLICKED ===');
+                    console.log('Before:', { showChefsChoice, showPantryDishes, showTakeOut, selectedRecipeOption });
                     setShowChefsChoice(true);
                     setShowPantryDishes(false);
                     setShowTakeOut(false);
                     setSelectedRecipeOption('chefs-choice');
-                    console.log('Chef\'s Choice states set: showChefsChoice=true, selectedRecipeOption=chefs-choice');
+                    console.log('After set: showChefsChoice=true, others=false, selectedRecipeOption=chefs-choice');
                   }}
                 >
                   Chef's Choice
@@ -1252,12 +1253,13 @@ export default function ExploreRecipesScreen() {
                       : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
                   }`}
                   onClick={() => {
-                    console.log('Pantry Dishes button clicked');
+                    console.log('=== PANTRY DISHES CLICKED ===');
+                    console.log('Before:', { showChefsChoice, showPantryDishes, showTakeOut, selectedRecipeOption });
                     setShowPantryDishes(true);
                     setShowChefsChoice(false);
                     setShowTakeOut(false);
                     setSelectedRecipeOption('pantry-dishes');
-                    console.log('Pantry Dishes states set: showPantryDishes=true, selectedRecipeOption=pantry-dishes');
+                    console.log('After set: showPantryDishes=true, others=false, selectedRecipeOption=pantry-dishes');
                   }}
                 >
                   Pantry Dishes
@@ -1270,12 +1272,13 @@ export default function ExploreRecipesScreen() {
                       : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
                   }`}
                   onClick={() => {
-                    console.log('Create Dishes button clicked');
+                    console.log('=== CREATE DISHES CLICKED ===');
+                    console.log('Before:', { showChefsChoice, showPantryDishes, showTakeOut, selectedRecipeOption });
                     setShowChefsChoice(false);
                     setShowPantryDishes(false);
                     setShowTakeOut(false);
                     setSelectedRecipeOption('create-dishes');
-                    console.log('Create Dishes states set: all shows=false, selectedRecipeOption=create-dishes');
+                    console.log('After set: all shows=false, selectedRecipeOption=create-dishes');
                     setLocation('/create-dishes');
                   }}
                 >
@@ -1289,12 +1292,13 @@ export default function ExploreRecipesScreen() {
                       : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
                   }`}
                   onClick={() => {
-                    console.log('Take-Out button clicked');
+                    console.log('=== TAKE-OUT CLICKED ===');
+                    console.log('Before:', { showChefsChoice, showPantryDishes, showTakeOut, selectedRecipeOption });
                     setShowTakeOut(true);
                     setShowChefsChoice(false);
                     setShowPantryDishes(false);
                     setSelectedRecipeOption('take-out');
-                    console.log('Take-Out states set: showTakeOut=true, selectedRecipeOption=take-out');
+                    console.log('After set: showTakeOut=true, others=false, selectedRecipeOption=take-out');
                   }}
                 >
                   Take-Out
@@ -1305,7 +1309,7 @@ export default function ExploreRecipesScreen() {
           </div>
 
           {/* Chef's Choice Dishes Card */}
-          {showChefsChoice && (
+          {(console.log('Render check - showChefsChoice:', showChefsChoice), showChefsChoice) && (
             <div className={`${isNavigatingFromTabs ? 'order-2' : 'order-2'}`}>
               <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
                 <CardHeader className="pb-4">
@@ -1495,7 +1499,7 @@ export default function ExploreRecipesScreen() {
           )}
 
           {/* Pantry Dishes Card */}
-          {showPantryDishes && (console.log('Rendering Pantry Dishes Card'), true) && (
+          {(console.log('Render check - showPantryDishes:', showPantryDishes), showPantryDishes) && (
             <div className={`${isNavigatingFromTabs ? 'order-2' : 'order-2'}`}>
               <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
                 <CardHeader className="pb-4">
@@ -1584,7 +1588,7 @@ export default function ExploreRecipesScreen() {
           )}
 
           {/* Take-Out Form Card */}
-          {showTakeOut && (
+          {(console.log('Render check - showTakeOut:', showTakeOut), showTakeOut) && (
             <div className={`${isNavigatingFromTabs ? 'order-2' : 'order-2'}`}>
               <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
                 <CardHeader className="pb-4">
