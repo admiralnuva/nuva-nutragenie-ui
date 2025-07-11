@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ChevronUp, Calendar } from "lucide-react";
+import { ChevronUp, Calendar, ChefHat, Truck, ShoppingBag, BookOpen } from "lucide-react";
 
 export default function ExploreRecipeOptionsScreen() {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
@@ -30,6 +30,9 @@ export default function ExploreRecipeOptionsScreen() {
   const [takeOutSpiceLevel, setTakeOutSpiceLevel] = useState("");
   const [deliveryDate, setDeliveryDate] = useState("");
   const [takeOutDishes, setTakeOutDishes] = useState<any[]>([]);
+  
+  // History selection state
+  const [selectedHistoryItem, setSelectedHistoryItem] = useState<string | null>(null);
 
   const handleOptionClick = (option: string) => {
     setSelectedOption(option);
@@ -704,34 +707,50 @@ export default function ExploreRecipeOptionsScreen() {
           <div className="grid grid-cols-2 gap-4">
             <Button
               variant="outline"
-              className="h-16 bg-gray-700 border-gray-600 hover:bg-gray-600 text-gray-300 flex flex-col items-center justify-center gap-2"
-              onClick={() => {/* Navigate to dishes cooked history */}}
+              className={`h-16 flex flex-col items-center justify-center gap-2 transition-all ${
+                selectedHistoryItem === 'dishes-cooked' 
+                  ? 'bg-orange-600 border-orange-500 text-white' 
+                  : 'bg-gray-700 border-gray-600 hover:bg-gray-600 text-gray-300'
+              }`}
+              onClick={() => setSelectedHistoryItem(selectedHistoryItem === 'dishes-cooked' ? null : 'dishes-cooked')}
             >
-              <span className="text-lg">🍳</span>
+              <ChefHat size={20} className="text-orange-400" />
               <span className="text-sm">Dishes Cooked</span>
             </Button>
             <Button
               variant="outline"
-              className="h-16 bg-gray-700 border-gray-600 hover:bg-gray-600 text-gray-300 flex flex-col items-center justify-center gap-2"
-              onClick={() => {/* Navigate to takeout orders */}}
+              className={`h-16 flex flex-col items-center justify-center gap-2 transition-all ${
+                selectedHistoryItem === 'takeout-orders' 
+                  ? 'bg-blue-600 border-blue-500 text-white' 
+                  : 'bg-gray-700 border-gray-600 hover:bg-gray-600 text-gray-300'
+              }`}
+              onClick={() => setSelectedHistoryItem(selectedHistoryItem === 'takeout-orders' ? null : 'takeout-orders')}
             >
-              <span className="text-lg">🚚</span>
+              <Truck size={20} className="text-blue-400" />
               <span className="text-sm">Takeout Orders</span>
             </Button>
             <Button
               variant="outline"
-              className="h-16 bg-gray-700 border-gray-600 hover:bg-gray-600 text-gray-300 flex flex-col items-center justify-center gap-2"
-              onClick={() => {/* Navigate to grocery list */}}
+              className={`h-16 flex flex-col items-center justify-center gap-2 transition-all ${
+                selectedHistoryItem === 'grocery-list' 
+                  ? 'bg-green-600 border-green-500 text-white' 
+                  : 'bg-gray-700 border-gray-600 hover:bg-gray-600 text-gray-300'
+              }`}
+              onClick={() => setSelectedHistoryItem(selectedHistoryItem === 'grocery-list' ? null : 'grocery-list')}
             >
-              <span className="text-lg">🛒</span>
+              <ShoppingBag size={20} className="text-green-400" />
               <span className="text-sm">Grocery List</span>
             </Button>
             <Button
               variant="outline"
-              className="h-16 bg-purple-600 border-purple-500 hover:bg-purple-700 text-white flex flex-col items-center justify-center gap-2"
-              onClick={() => {/* Navigate to recipes saved */}}
+              className={`h-16 flex flex-col items-center justify-center gap-2 transition-all ${
+                selectedHistoryItem === 'recipes-saved' 
+                  ? 'bg-purple-600 border-purple-500 text-white' 
+                  : 'bg-gray-700 border-gray-600 hover:bg-gray-600 text-gray-300'
+              }`}
+              onClick={() => setSelectedHistoryItem(selectedHistoryItem === 'recipes-saved' ? null : 'recipes-saved')}
             >
-              <span className="text-lg">📖</span>
+              <BookOpen size={20} className="text-purple-400" />
               <span className="text-sm">Recipes Saved</span>
             </Button>
           </div>
