@@ -464,9 +464,7 @@ export default function ExploreRecipesScreen() {
                   <CardTitle className="text-lg text-white">Personalize Diet & Pantry</CardTitle>
                   {cardCollapsed && (
                     <button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
+                      onClick={() => {
                         console.log('🔧 EXPAND: Chevron down clicked - expanding card');
                         setCardCollapsed(false);
                       }}
@@ -478,9 +476,7 @@ export default function ExploreRecipesScreen() {
                 </div>
                 {!cardCollapsed && (
                   <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
+                    onClick={() => {
                       console.log('🔧 COLLAPSE: Chevron up clicked - collapsing card');
                       setCardCollapsed(true);
                     }}
@@ -900,24 +896,22 @@ export default function ExploreRecipesScreen() {
           </Card>
         </div>
 
-        {/* Card 2: Recipe Options */}
-        <div className="order-2">
+        {/* Card 2: Recipe Options - COMPLETELY ISOLATED */}
+        <div className="order-2 isolate">
           <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
             <CardHeader className="pb-4">
               <CardTitle className="text-lg text-white">Recipe Options</CardTitle>
             </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-2 gap-3">
-                <Button 
-                  variant="outline"
-                  className={`h-14 border transition-all duration-200 ${
+            <CardContent className="isolate">
+              <div className="grid grid-cols-2 gap-3 isolate">
+                <button 
+                  className={`h-14 border rounded-md transition-all duration-200 font-medium isolate ${
                     selectedRecipeOption === 'chefs-choice'
                       ? 'bg-purple-600 border-purple-600 text-white' 
                       : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
                   }`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
+                  onClick={() => {
+                    console.log('🎯 DIRECT: Chef\'s Choice clicked');
                     setShowChefsChoice(true);
                     setShowPantryDishes(false);
                     setShowTakeOut(false);
@@ -926,17 +920,15 @@ export default function ExploreRecipesScreen() {
                   }}
                 >
                   Chef's Choice
-                </Button>
-                <Button 
-                  variant="outline"
-                  className={`h-14 border transition-all duration-200 ${
+                </button>
+                <button 
+                  className={`h-14 border rounded-md transition-all duration-200 font-medium isolate ${
                     selectedRecipeOption === 'pantry-dishes'
                       ? 'bg-purple-600 border-purple-600 text-white' 
                       : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
                   }`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
+                  onClick={() => {
+                    console.log('🎯 DIRECT: Pantry Dishes clicked');
                     setShowPantryDishes(true);
                     setShowChefsChoice(false);
                     setShowTakeOut(false);
@@ -945,17 +937,15 @@ export default function ExploreRecipesScreen() {
                   }}
                 >
                   Pantry Dishes
-                </Button>
-                <Button 
-                  variant="outline"
-                  className={`h-14 border transition-all duration-200 ${
+                </button>
+                <button 
+                  className={`h-14 border rounded-md transition-all duration-200 font-medium isolate ${
                     selectedRecipeOption === 'create-dishes'
                       ? 'bg-purple-600 border-purple-600 text-white' 
                       : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
                   }`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
+                  onClick={() => {
+                    console.log('🎯 DIRECT: Create Dishes clicked');
                     setShowChefsChoice(false);
                     setShowPantryDishes(false);
                     setShowTakeOut(false);
@@ -965,17 +955,15 @@ export default function ExploreRecipesScreen() {
                   }}
                 >
                   Create Dishes
-                </Button>
-                <Button 
-                  variant="outline"
-                  className={`h-14 border transition-all duration-200 ${
+                </button>
+                <button 
+                  className={`h-14 border rounded-md transition-all duration-200 font-medium isolate ${
                     selectedRecipeOption === 'take-out'
                       ? 'bg-purple-600 border-purple-600 text-white' 
                       : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
                   }`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
+                  onClick={() => {
+                    console.log('🎯 DIRECT: Take-Out clicked');
                     setShowTakeOut(true);
                     setShowChefsChoice(false);
                     setShowPantryDishes(false);
@@ -984,7 +972,7 @@ export default function ExploreRecipesScreen() {
                   }}
                 >
                   Take-Out
-                </Button>
+                </button>
               </div>
             </CardContent>
           </Card>
