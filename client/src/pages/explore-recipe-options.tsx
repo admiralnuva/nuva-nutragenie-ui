@@ -91,6 +91,8 @@ export default function ExploreRecipeOptionsScreen() {
       }
     ];
     setGeneratedDishes(variations);
+    // Automatically collapse the input form after generating dishes
+    setIsCreateDishesCollapsed(true);
   };
 
   const chefRecommendedDishes = [
