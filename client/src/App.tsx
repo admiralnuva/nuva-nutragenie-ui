@@ -14,6 +14,7 @@ import CookScreen from "@/pages/cook";
 import NuvaSplashScreen from "@/pages/nuva-splash";
 import NuvaSignupScreen from "@/pages/nuva-signup";
 import CreateDishesScreen from "@/pages/create-dishes";
+import ExploreRecipeOptionsScreen from "@/pages/explore-recipe-options";
 
 import ProfileScreen from "@/pages/profile";
 import HealthAnalyticsScreen from "@/pages/health";
@@ -48,6 +49,7 @@ function Router() {
 
 
       <Route path="/create-dishes" component={CreateDishesScreen} />
+      <Route path="/explore-recipe-options" component={ExploreRecipeOptionsScreen} />
       <Route path="/home" component={HomeScreen} />
 
       <Route path="/grocery-list" component={GroceryListEnhanced} />
