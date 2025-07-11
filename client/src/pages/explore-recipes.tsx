@@ -420,29 +420,9 @@ export default function ExploreRecipesScreen() {
   const [cookConfirmationOpen, setCookConfirmationOpen] = useState<number | null>(null);
   const [cookConfirmed, setCookConfirmed] = useState<{[dishId: number]: boolean}>({});
 
-  // Take-out ordering state
-  const [showTakeOutCard, setShowTakeOutCard] = useState(false);
-  const [takeOutCardCollapsed, setTakeOutCardCollapsed] = useState(false);
-  const [selectedCourse, setSelectedCourse] = useState<'soups' | 'salads' | 'main' | 'desserts'>('soups');
-  const [takeOutDishName, setTakeOutDishName] = useState('Chicken Curry');
-  const [takeOutServingSize, setTakeOutServingSize] = useState('2 people');
-  const [takeOutCuisine, setTakeOutCuisine] = useState('Indian');
-  const [takeOutMealType, setTakeOutMealType] = useState('Dinner');
-  const [takeOutCookMethod, setTakeOutCookMethod] = useState('');
-  const [takeOutDate, setTakeOutDate] = useState('07/11/2025');
 
-  // Take-out form handlers
-  const handleGenerateVariations = () => {
-    if (!takeOutDishName || !takeOutServingSize || !takeOutCuisine || !takeOutMealType || !takeOutCookMethod || !takeOutDate) {
-      alert('Please fill in all fields');
-      return;
-    }
-    setTakeOutCardCollapsed(true);
-    // Show course selection after form collapse
-    setTimeout(() => {
-      setTakeOutCardCollapsed(false);
-    }, 500);
-  };
+
+
 
   // Handle cook button click
   const handleCookClick = (dishId: number, dishName: string) => {
@@ -1208,16 +1188,8 @@ export default function ExploreRecipesScreen() {
                 </Button>
                 <Button 
                   variant="outline"
-                  className={`h-14 border transition-all duration-200 ${
-                    showTakeOutCard 
-                      ? 'bg-purple-600 border-purple-600 text-white' 
-                      : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
-                  }`}
-                  onClick={() => {
-                    setShowTakeOutCard(true);
-                    setShowChefsChoice(false);
-                    setShowPantryDishes(false);
-                  }}
+                  className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600 transition-all duration-200"
+                  onClick={() => setLocation('/take-out')}
                 >
                   Take-Out
                 </Button>
@@ -1636,183 +1608,6 @@ export default function ExploreRecipesScreen() {
           )}
         </div>
         
-        {/* Take-Out Card */}
-        {showTakeOutCard && (
-          <div className="mb-4">
-            <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
-              <CardHeader className="pb-4">
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-lg text-white">Tell us what you're craving</CardTitle>
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={() => setTakeOutCardCollapsed(!takeOutCardCollapsed)}
-                      className="text-gray-400 hover:text-white transition-colors"
-                    >
-                      <ChevronDown 
-                        size={20} 
-                        className={`transform transition-transform ${takeOutCardCollapsed ? 'rotate-180' : ''}`}
-                      />
-                    </button>
-                    <button
-                      onClick={() => setShowTakeOutCard(false)}
-                      className="text-gray-400 hover:text-white transition-colors"
-                    >
-                      <X size={16} />
-                    </button>
-                  </div>
-                </div>
-              </CardHeader>
-              
-              {!takeOutCardCollapsed && (
-                <CardContent className="space-y-4">
-                  {/* Dish Name */}
-                  <div>
-                    <label className="text-sm font-bold text-yellow-300 drop-shadow-lg mb-1 block">Dish Name</label>
-                    <Input
-                      value={takeOutDishName}
-                      onChange={(e) => setTakeOutDishName(e.target.value)}
-                      className="bg-gray-700 border-gray-600 text-white"
-                      placeholder="Enter dish name"
-                    />
-                  </div>
-                  
-                  {/* Row 1: Serving Size & Cuisine */}
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="text-sm font-bold text-yellow-300 drop-shadow-lg mb-1 block">Serving Size</label>
-                      <Select value={takeOutServingSize} onValueChange={setTakeOutServingSize}>
-                        <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
-                          <SelectValue placeholder="2 people" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="1 people">1 people</SelectItem>
-                          <SelectItem value="2 people">2 people</SelectItem>
-                          <SelectItem value="4 people">4 people</SelectItem>
-                          <SelectItem value="6+ people">6+ people</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    
-                    <div>
-                      <label className="text-sm font-bold text-yellow-300 drop-shadow-lg mb-1 block">Cuisine</label>
-                      <Select value={takeOutCuisine} onValueChange={setTakeOutCuisine}>
-                        <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
-                          <SelectValue placeholder="Indian" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="Italian">Italian</SelectItem>
-                          <SelectItem value="Mexican">Mexican</SelectItem>
-                          <SelectItem value="Asian">Asian</SelectItem>
-                          <SelectItem value="American">American</SelectItem>
-                          <SelectItem value="Indian">Indian</SelectItem>
-                          <SelectItem value="Mediterranean">Mediterranean</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
-                  
-                  {/* Row 2: Meal Type & Cook Method */}
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="text-sm font-bold text-yellow-300 drop-shadow-lg mb-1 block">Meal Type</label>
-                      <Select value={takeOutMealType} onValueChange={setTakeOutMealType}>
-                        <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
-                          <SelectValue placeholder="Dinner" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="Breakfast">Breakfast</SelectItem>
-                          <SelectItem value="Lunch">Lunch</SelectItem>
-                          <SelectItem value="Dinner">Dinner</SelectItem>
-                          <SelectItem value="Snack">Snack</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    
-                    <div>
-                      <label className="text-sm font-bold text-yellow-300 drop-shadow-lg mb-1 block">Cook Method</label>
-                      <Select value={takeOutCookMethod} onValueChange={setTakeOutCookMethod}>
-                        <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
-                          <SelectValue placeholder="Select method" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="Stove Top">Stove Top</SelectItem>
-                          <SelectItem value="Oven">Oven</SelectItem>
-                          <SelectItem value="Air Fryer">Air Fryer</SelectItem>
-                          <SelectItem value="Pressure Cooker">Pressure Cooker</SelectItem>
-                          <SelectItem value="No Cook">No Cook</SelectItem>
-                          <SelectItem value="Grill">Grill</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
-                  
-                  {/* Delivery Date */}
-                  <div>
-                    <label className="text-sm font-bold text-yellow-300 drop-shadow-lg mb-1 block">Delivery Date</label>
-                    <Input
-                      type="date"
-                      value={takeOutDate}
-                      onChange={(e) => setTakeOutDate(e.target.value)}
-                      className="bg-gray-700 border-gray-600 text-white"
-                      min={new Date().toISOString().split('T')[0]}
-                    />
-                  </div>
-                  
-                  <Button 
-                    onClick={handleGenerateVariations}
-                    className="w-full bg-blue-500 hover:bg-blue-600 text-white"
-                  >
-                    Generate Variations
-                  </Button>
-                  
-                  {/* Course Toggle Buttons */}
-                  <div className="grid grid-cols-4 gap-2 pt-4 border-t border-gray-600">
-                    <button
-                      onClick={() => setSelectedCourse('soups')}
-                      className={`px-3 py-2 rounded text-sm font-medium transition-all ${
-                        selectedCourse === 'soups'
-                          ? 'bg-orange-600 text-white'
-                          : 'bg-gray-700 text-gray-300 hover:bg-orange-500/50'
-                      }`}
-                    >
-                      Soups
-                    </button>
-                    <button
-                      onClick={() => setSelectedCourse('salads')}
-                      className={`px-3 py-2 rounded text-sm font-medium transition-all ${
-                        selectedCourse === 'salads'
-                          ? 'bg-orange-600 text-white'
-                          : 'bg-gray-700 text-gray-300 hover:bg-orange-500/50'
-                      }`}
-                    >
-                      Salads
-                    </button>
-                    <button
-                      onClick={() => setSelectedCourse('main')}
-                      className={`px-3 py-2 rounded text-sm font-medium transition-all ${
-                        selectedCourse === 'main'
-                          ? 'bg-orange-600 text-white'
-                          : 'bg-gray-700 text-gray-300 hover:bg-orange-500/50'
-                      }`}
-                    >
-                      Main Entree
-                    </button>
-                    <button
-                      onClick={() => setSelectedCourse('desserts')}
-                      className={`px-3 py-2 rounded text-sm font-medium transition-all ${
-                        selectedCourse === 'desserts'
-                          ? 'bg-orange-600 text-white'
-                          : 'bg-gray-700 text-gray-300 hover:bg-orange-500/50'
-                      }`}
-                    >
-                      Desserts
-                    </button>
-                  </div>
-                </CardContent>
-              )}
-            </Card>
-          </div>
-        )}
 
         {/* Bottom spacing to account for bottom navigation */}
         <div className="h-20"></div>
