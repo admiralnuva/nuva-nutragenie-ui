@@ -309,8 +309,35 @@ export default function ExploreRecipesScreen() {
 
 
 
-  // DISABLED ALL PREFERENCE ANIMATIONS - Recipe Options buttons work independently
-  // Animation will be re-enabled only after Recipe Options issue is completely resolved
+  // Auto-slide preferences card ONLY when user explicitly completes preferences
+  useEffect(() => {
+    if (isMealComplete && isPantryComplete && !preferencesCardSlid && userHasCompletedPreferences) {
+      console.log('Starting preferences card slide animation (user completed)');
+      
+      // Auto-collapse after 2 seconds
+      const collapseTimer = setTimeout(() => {
+        setIsPantryCardCollapsed(true);
+      }, 2000);
+
+      // Auto-slide to bottom after collapse animation
+      const slideTimer = setTimeout(() => {
+        setIsPantryCardAtBottom(true);
+        setPreferencesCardSlid(true);
+        
+        // Play swish sound effect
+        if (typeof Audio !== 'undefined') {
+          const audio = new Audio('/api/placeholder/audio/swish');
+          audio.volume = 0.3;
+          audio.play().catch(e => console.log('Audio play failed:', e));
+        }
+      }, 3500);
+
+      return () => {
+        clearTimeout(collapseTimer);
+        clearTimeout(slideTimer);
+      };
+    }
+  }, [isMealComplete, isPantryComplete, preferencesCardSlid, userHasCompletedPreferences]);
 
   // Simple navigation cleanup - no interference
   useEffect(() => {
@@ -745,8 +772,13 @@ export default function ExploreRecipesScreen() {
 
         <div className="flex flex-col space-y-4">
           {/* Card 1: Preferences and Pantry Ingredients */}
-          <div className="order-1 translate-y-0 scale-100 opacity-100">
-            <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
+          <div className={`transition-all duration-700 ease-in-out transform ${
+            isPantryCardAtBottom ? 'order-5 translate-y-2 scale-95 opacity-95' : 
+            'order-1 translate-y-0 scale-100 opacity-100'
+          }`}>
+            <Card className={`bg-gray-800/90 backdrop-blur-sm border border-gray-700 transition-all duration-700 ease-in-out ${
+              isPantryCardCollapsed ? 'min-h-[120px] scale-98' : 'min-h-[400px] scale-100'
+            }`}>
               <CardHeader className="pb-4 relative">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
@@ -776,43 +808,46 @@ export default function ExploreRecipesScreen() {
                 <div className="flex gap-2 mb-4">
                   <Button
                     variant={activeTab === 'diet' ? "default" : "outline"}
-                    onClick={() => setActiveTab('diet')}
+                    onClick={() => !isPantryCardCollapsed && setActiveTab('diet')}
+                    disabled={isPantryCardCollapsed}
                     className={`flex-1 ${
                       activeTab === 'diet' 
                         ? 'bg-purple-600 text-white border-purple-600' 
                         : 'bg-transparent border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
-                    }`}
+                    } ${isPantryCardCollapsed ? 'opacity-75 cursor-default' : ''}`}
                   >
                     Diet
                   </Button>
                   <Button
                     variant={activeTab === 'meal' ? "default" : "outline"}
-                    onClick={() => setActiveTab('meal')}
+                    onClick={() => !isPantryCardCollapsed && setActiveTab('meal')}
+                    disabled={isPantryCardCollapsed}
                     className={`flex-1 flex items-center justify-center gap-2 ${
                       activeTab === 'meal' 
                         ? 'bg-purple-600 text-white border-purple-600' 
                         : 'bg-transparent border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
-                    }`}
+                    } ${isPantryCardCollapsed ? 'opacity-75 cursor-default' : ''}`}
                   >
                     Meal
                     {isMealComplete && <span className="text-green-400 text-xs">✓</span>}
                   </Button>
                   <Button
                     variant={activeTab === 'pantry' ? "default" : "outline"}
-                    onClick={() => setActiveTab('pantry')}
+                    onClick={() => !isPantryCardCollapsed && setActiveTab('pantry')}
+                    disabled={isPantryCardCollapsed}
                     className={`flex-1 flex items-center justify-center gap-2 ${
                       activeTab === 'pantry' 
                         ? 'bg-purple-600 text-white border-purple-600' 
                         : 'bg-transparent border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
-                    }`}
+                    } ${isPantryCardCollapsed ? 'opacity-75 cursor-default' : ''}`}
                   >
                     Pantry
                     {isPantryComplete && <span className="text-green-400 text-xs">✓</span>}
                   </Button>
                 </div>
 
-                {/* Tab Content - Always visible */}
-                {(
+                {/* Tab Content - Hidden when collapsed */}
+                {!isPantryCardCollapsed && (
                   <div className="mt-4 min-h-[280px] transition-all duration-500 ease-in-out opacity-100">
                   {activeTab === 'diet' && (
                     <div className="space-y-3">
@@ -1853,7 +1888,7 @@ export default function ExploreRecipesScreen() {
           )}
 
           {/* Card 4: Summary */}
-          {(isMealComplete || isPantryComplete) && (
+          {(selectedIngredients.length > 0 || Object.values(mealPreferences).some(val => val !== "")) && (
             <div className={`${isNavigatingFromTabs ? 'order-5' : 'order-4'}`}>
               <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
               <CardHeader className="pb-4">
@@ -1863,7 +1898,7 @@ export default function ExploreRecipesScreen() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {isMealComplete && (
+                  {(mealPreferences.servingSize || mealPreferences.cuisine || mealPreferences.mealType) && (
                     <div>
                       <h4 className="text-sm font-bold text-yellow-300 mb-2 drop-shadow-lg">Meal Preferences</h4>
                       <div className="text-sm text-gray-400 space-y-1">
@@ -1873,7 +1908,7 @@ export default function ExploreRecipesScreen() {
                     </div>
                   )}
                   
-                  {isPantryComplete && (
+                  {selectedIngredients.length > 0 && (
                     <div>
                       <div className="border-t border-gray-600 pt-3"></div>
                       <h4 className="text-sm font-bold text-yellow-300 mb-2 drop-shadow-lg">Pantry Ingredients</h4>
