@@ -251,6 +251,7 @@ export default function ExploreRecipesScreen() {
   const [showChefsChoice, setShowChefsChoice] = useState(false);
   const [showPantryDishes, setShowPantryDishes] = useState(false);
   const [showTakeOut, setShowTakeOut] = useState(false);
+  const [selectedRecipeOption, setSelectedRecipeOption] = useState<string>('');
 
   // Get dynamic avatar for Card 3 based on active selection
   const getDynamicAvatar = () => {
@@ -318,6 +319,7 @@ export default function ExploreRecipesScreen() {
         setShowChefsChoice(true);
         setShowPantryDishes(false);
         setShowTakeOut(false);
+        setSelectedRecipeOption('chefs-choice');
         
         // Play swish sound effect
         if (typeof Audio !== 'undefined') {
@@ -1215,13 +1217,15 @@ export default function ExploreRecipesScreen() {
                 <Button 
                   variant="outline"
                   className={`h-14 border transition-all duration-200 ${
-                    showChefsChoice 
+                    selectedRecipeOption === 'chefs-choice'
                       ? 'bg-purple-600 border-purple-600 text-white' 
                       : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
                   }`}
                   onClick={() => {
                     setShowChefsChoice(true);
                     setShowPantryDishes(false);
+                    setShowTakeOut(false);
+                    setSelectedRecipeOption('chefs-choice');
                   }}
                 >
                   Chef's Choice
@@ -1229,13 +1233,15 @@ export default function ExploreRecipesScreen() {
                 <Button 
                   variant="outline"
                   className={`h-14 border transition-all duration-200 ${
-                    showPantryDishes 
+                    selectedRecipeOption === 'pantry-dishes'
                       ? 'bg-purple-600 border-purple-600 text-white' 
                       : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
                   }`}
                   onClick={() => {
                     setShowPantryDishes(true);
                     setShowChefsChoice(false);
+                    setShowTakeOut(false);
+                    setSelectedRecipeOption('pantry-dishes');
                   }}
                 >
                   Pantry Dishes
@@ -1243,18 +1249,21 @@ export default function ExploreRecipesScreen() {
                 <Button 
                   variant="outline"
                   className={`h-14 border transition-all duration-200 ${
-                    !showTakeOut 
+                    selectedRecipeOption === 'create-dishes'
                       ? 'bg-purple-600 border-purple-600 text-white' 
                       : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
                   }`}
-                  onClick={() => setLocation('/create-dishes')}
+                  onClick={() => {
+                    setSelectedRecipeOption('create-dishes');
+                    setLocation('/create-dishes');
+                  }}
                 >
                   Create Dishes
                 </Button>
                 <Button 
                   variant="outline"
                   className={`h-14 border transition-all duration-200 ${
-                    showTakeOut 
+                    selectedRecipeOption === 'take-out'
                       ? 'bg-purple-600 border-purple-600 text-white' 
                       : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
                   }`}
@@ -1262,6 +1271,7 @@ export default function ExploreRecipesScreen() {
                     setShowTakeOut(true);
                     setShowChefsChoice(false);
                     setShowPantryDishes(false);
+                    setSelectedRecipeOption('take-out');
                   }}
                 >
                   Take-Out
