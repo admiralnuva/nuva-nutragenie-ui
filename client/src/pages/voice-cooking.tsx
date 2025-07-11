@@ -144,7 +144,7 @@ export default function VoiceCookingScreen() {
     <div className="min-h-screen bg-black text-white flex flex-col">
       {/* Header */}
       <div className="flex items-center justify-between p-4 bg-gray-900">
-        <BackButton to="/recipes" className="text-white" />
+        <BackButton to="/explore-recipe-options" className="text-white" />
         <div className="flex-1 text-center">
           <h1 className="text-2xl font-bold text-white">NutraGenie</h1>
           <p className="text-lg font-semibold text-purple-300 mt-1">Voice Cooking</p>
@@ -271,42 +271,43 @@ export default function VoiceCookingScreen() {
       </div>
 
       {/* Message Input */}
-      <div className="p-4 bg-black fixed bottom-16 left-0 right-0 z-40">
-        <div className="flex items-center gap-3">
-          {/* Microphone Button */}
-          <button
-            onClick={toggleListening}
-            className={`w-14 h-14 rounded-full flex items-center justify-center transition-colors ${
-              isListening 
-                ? 'bg-red-600 text-white animate-pulse' 
-                : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
-            }`}
-          >
-            {isListening ? <MicOff size={24} /> : <Mic size={24} />}
-          </button>
+      <div className="fixed bottom-16 left-0 right-0 z-40 bg-black border-t border-gray-700">
+        <div className="max-w-md mx-auto p-4">
+          <div className="flex items-center gap-3">
+            {/* Microphone Button */}
+            <button
+              onClick={toggleListening}
+              className={`w-12 h-12 rounded-full flex items-center justify-center transition-colors flex-shrink-0 ${
+                isListening 
+                  ? 'bg-red-600 text-white animate-pulse' 
+                  : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+              }`}
+            >
+              {isListening ? <MicOff size={20} /> : <Mic size={20} />}
+            </button>
 
-          {/* Text Input Area */}
-          <div className="flex-1 bg-gray-700 rounded-full px-6 py-4">
-            <input
-              type="text"
-              placeholder="Type a message..."
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-              className="w-full bg-transparent text-white placeholder-gray-400 outline-none text-lg"
-            />
+            {/* Text Input Area */}
+            <div className="flex-1 bg-gray-700 rounded-full px-4 py-3">
+              <input
+                type="text"
+                placeholder="Type a message..."
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                className="w-full bg-transparent text-white placeholder-gray-400 outline-none text-base"
+              />
+            </div>
+
+            {/* Pause Button */}
+            <button 
+              onClick={() => {
+                // Handle pause functionality
+              }}
+              className="w-12 h-12 rounded-full bg-red-600 text-white flex items-center justify-center hover:bg-red-700 transition-colors flex-shrink-0"
+            >
+              <Pause size={20} />
+            </button>
           </div>
-
-          {/* Pause Button */}
-          <button 
-            onClick={() => {
-              // Handle pause functionality
-
-            }}
-            className="w-14 h-14 rounded-full bg-red-600 text-white flex items-center justify-center hover:bg-red-700 transition-colors"
-          >
-            <Pause size={24} />
-          </button>
         </div>
       </div>
     </div>

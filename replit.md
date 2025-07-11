@@ -776,6 +776,12 @@ Changelog:
   * Redirected AI Video Cooking button to voice-cooking page (deleted route cleanup)
   * Adjusted bottom padding from pb-20 to pb-24 for proper bottom navigation clearance
   * Resolved all HTML structural anomalies and routing inconsistencies
+- July 11, 2025. Voice Cooking Layout Fixes:
+  * Fixed chat input area extending across full canvas width by constraining to max-w-md container
+  * Reduced mic and pause button sizes from 14x14 to 12x12 for better mobile proportions
+  * Added flex-shrink-0 to prevent button distortion and centered layout with proper spacing
+  * Updated back button route from /recipes to /explore-recipe-options for consistency
+  * Added border-t border-gray-700 to chat input for better visual separation
 ```
 
 ## User Preferences
