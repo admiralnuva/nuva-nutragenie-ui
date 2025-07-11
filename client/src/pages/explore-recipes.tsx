@@ -1237,27 +1237,6 @@ export default function ExploreRecipesScreen() {
                 <Button 
                   variant="outline"
                   className={`h-14 border transition-all duration-200 ${
-                    selectedRecipeOption === 'pantry-ingredients'
-                      ? 'bg-purple-600 border-purple-600 text-white' 
-                      : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
-                  }`}
-                  onClick={() => {
-                    // Only expand the card, don't trigger any dish displays
-                    setIsPantryCardCollapsed(false);
-                    setIsPantryCardAtBottom(false);
-                    setActiveTab('pantry');
-                    setSelectedRecipeOption('pantry-ingredients');
-                    // Hide all dish displays
-                    setShowChefsChoice(false);
-                    setShowPantryDishes(false);
-                    setShowTakeOut(false);
-                  }}
-                >
-                  Pantry Ingredients
-                </Button>
-                <Button 
-                  variant="outline"
-                  className={`h-14 border transition-all duration-200 ${
                     selectedRecipeOption === 'chefs-choice'
                       ? 'bg-purple-600 border-purple-600 text-white' 
                       : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
