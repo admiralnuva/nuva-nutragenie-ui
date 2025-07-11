@@ -320,7 +320,7 @@ export default function ExploreRecipesScreen() {
         setPreferencesCardSlid(true);
         
         // Auto-select Chef's Choice only if no other option is currently selected
-        if (!showPantryDishes && !showTakeOut && selectedRecipeOption !== 'pantry-dishes' && selectedRecipeOption !== 'take-out') {
+        if (!showPantryDishes && !showTakeOut && selectedRecipeOption !== 'pantry-dishes' && selectedRecipeOption !== 'take-out' && selectedRecipeOption !== 'create-dishes') {
           setShowChefsChoice(true);
           setSelectedRecipeOption('chefs-choice');
         }
@@ -338,7 +338,7 @@ export default function ExploreRecipesScreen() {
         clearTimeout(slideTimer);
       };
     }
-  }, [isMealComplete, isPantryComplete, preferencesCardSlid]);
+  }, [isMealComplete, isPantryComplete, preferencesCardSlid, showPantryDishes, showTakeOut, selectedRecipeOption]);
 
   // Navigation-based initialization - only on initial load, don't override user selections
   useEffect(() => {
@@ -352,7 +352,7 @@ export default function ExploreRecipesScreen() {
       // Clear navigation source after handling
       setNavigationSource("");
     }
-  }, [isNavigatingFromTabs, setNavigationSource]);
+  }, [isNavigatingFromTabs, setNavigationSource, selectedRecipeOption]);
   
   // No automatic reset on navigation - preserve collapsed state after completion
 
