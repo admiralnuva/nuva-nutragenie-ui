@@ -31,7 +31,7 @@ export async function generateChefResponse(
     const result = JSON.parse(response.choices[0].message.content || '{"message": "I\'m here to help!"}');
     return result.message;
   } catch (error) {
-    console.error('Error generating chef response:', error);
+    // Handle OpenAI API errors gracefully
     return "I'm having trouble responding right now, but keep cooking! You're doing great!";
   }
 }

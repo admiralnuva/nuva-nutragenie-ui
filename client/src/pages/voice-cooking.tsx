@@ -1,7 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useLocation } from "wouter";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
-import { Button } from "@/components/ui/button";
 import { BackButton } from "@/components/ui/back-button";
 import { 
   Mic, 
@@ -16,7 +14,6 @@ import chef3Avatar from "@/assets/avatars/chef/chef3.png";
 import chef4Avatar from "@/assets/avatars/chef/chef4.png";
 
 export default function VoiceCookingScreen() {
-  const [, setLocation] = useLocation();
   const [currentUser] = useLocalStorage<any>("nutragenie_user", null);
   const [isListening, setIsListening] = useState(false);
   const [isChefThinking, setIsChefThinking] = useState(false);

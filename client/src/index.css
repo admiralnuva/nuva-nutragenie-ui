@@ -121,31 +121,7 @@
     to { opacity: 1; transform: scale(1) translateY(0); }
   }
 
-  /* Custom brand colors */
-  .bg-brand-green-50 { background-color: var(--brand-green-50); }
-  .bg-brand-green-100 { background-color: var(--brand-green-100); }
-  .bg-brand-green-200 { background-color: var(--brand-green-200); }
-  .bg-brand-green-300 { background-color: var(--brand-green-300); }
-  .bg-brand-green-400 { background-color: var(--brand-green-400); }
-  .bg-brand-green-500 { background-color: var(--brand-green-500); }
-  .bg-brand-green-600 { background-color: var(--brand-green-600); }
-  .bg-brand-green-700 { background-color: var(--brand-green-700); }
-  .bg-brand-green-800 { background-color: var(--brand-green-800); }
-  .bg-brand-green-900 { background-color: var(--brand-green-900); }
-
-  .text-brand-green-50 { color: var(--brand-green-50); }
-  .text-brand-green-100 { color: var(--brand-green-100); }
-  .text-brand-green-200 { color: var(--brand-green-200); }
-  .text-brand-green-300 { color: var(--brand-green-300); }
-  .text-brand-green-400 { color: var(--brand-green-400); }
-  .text-brand-green-500 { color: var(--brand-green-500); }
-  .text-brand-green-600 { color: var(--brand-green-600); }
-  .text-brand-green-700 { color: var(--brand-green-700); }
-  .text-brand-green-800 { color: var(--brand-green-800); }
-  .text-brand-green-900 { color: var(--brand-green-900); }
-
-  .border-brand-green-500 { border-color: var(--brand-green-500); }
-  .border-brand-green-600 { border-color: var(--brand-green-600); }
+  /* Removed unused brand-green CSS classes for production optimization */
 
   .bg-warm-neutral-50 { background-color: var(--warm-neutral-50); }
   .bg-warm-neutral-100 { background-color: var(--warm-neutral-100); }
