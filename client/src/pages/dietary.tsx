@@ -251,7 +251,7 @@ export default function DietaryScreen() {
         const response = await apiRequest("POST", "/api/users", userSubmissionData);
         return response.json();
       } catch (error) {
-        console.error('Backend save failed:', error);
+
         // Don't throw - we already saved to localStorage
         return updatedUserData;
       }
@@ -261,7 +261,7 @@ export default function DietaryScreen() {
       setLocation("/recipes");
     },
     onError: (error: any) => {
-      console.error('Save error:', error);
+
       // Even if there's an error, localStorage data is saved, so navigate anyway
       toast({ title: "Preferences saved locally. Continuing to recipes..." });
       setLocation("/recipes");
