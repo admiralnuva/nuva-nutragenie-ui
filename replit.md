@@ -777,10 +777,11 @@ Changelog:
   * Adjusted bottom padding from pb-20 to pb-24 for proper bottom navigation clearance
   * Resolved all HTML structural anomalies and routing inconsistencies
 - July 11, 2025. Voice Cooking Layout Fixes:
-  * Fixed chat input area extending across full canvas by using left-4 right-4 positioning with margins
-  * Redesigned input container with rounded-2xl border and proper padding for mobile-first design
-  * Reduced button sizes to w-10 h-10 and icons to 18px for compact mobile interface
-  * Replaced full-width background with contained rounded container for better visual hierarchy
+  * Fixed chat input extending across full canvas using max-w-sm mx-auto with px-8 outer padding
+  * Applied aggressive width constraint with centered positioning for proper mobile containment
+  * Reduced button sizes to w-9 h-9 and icons to 16px for compact interface
+  * Used rounded-3xl container with gray-800 background for better visual definition
+  * Added min-w-0 to input container to prevent text overflow issues
   * Updated back button route from /recipes to /explore-recipe-options for consistency
 ```
 
