@@ -32,62 +32,62 @@ export default function ExploreRecipeOptionsScreen() {
   };
 
   const handleCreateDishes = () => {
-    // Generate 6 variations based on user input
-    const baseDish = dishName || "Custom Dish";
+    // Generate 6 chicken curry variations with authentic images
+    const baseDish = dishName || "Chicken Curry";
     const variations = [
       {
         id: 1,
-        name: `${baseDish} - Classic Style`,
-        image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop",
+        name: `${baseDish} - Classic Indian Style`,
+        image: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400&h=300&fit=crop",
         calories: 420,
-        protein: "25g",
-        cookTime: "25 min",
+        protein: "28g",
+        cookTime: "45 min",
         difficulty: "Medium"
       },
       {
         id: 2,
-        name: `${baseDish} - Spicy Variant`,
-        image: "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&h=300&fit=crop",
+        name: `${baseDish} - Spicy Vindaloo Style`,
+        image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&h=300&fit=crop",
         calories: 450,
-        protein: "28g",
-        cookTime: "30 min",
+        protein: "30g",
+        cookTime: "50 min",
         difficulty: "Medium"
       },
       {
         id: 3,
-        name: `${baseDish} - Healthy Option`,
-        image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
-        calories: 350,
-        protein: "30g",
-        cookTime: "20 min",
+        name: `${baseDish} - Coconut Curry`,
+        image: "https://images.unsplash.com/photo-1574653771-2c3d2977e4bb?w=400&h=300&fit=crop",
+        calories: 380,
+        protein: "26g",
+        cookTime: "35 min",
         difficulty: "Easy"
       },
       {
         id: 4,
-        name: `${baseDish} - Comfort Style`,
-        image: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=400&h=300&fit=crop",
-        calories: 480,
-        protein: "22g",
-        cookTime: "35 min",
+        name: `${baseDish} - Butter Chicken Style`,
+        image: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&h=300&fit=crop",
+        calories: 520,
+        protein: "32g",
+        cookTime: "40 min",
         difficulty: "Medium"
       },
       {
         id: 5,
-        name: `${baseDish} - Quick & Easy`,
-        image: "https://images.unsplash.com/photo-1473093226795-af9932fe5856?w=400&h=300&fit=crop",
-        calories: 380,
-        protein: "20g",
-        cookTime: "15 min",
+        name: `${baseDish} - Thai Green Curry`,
+        image: "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=400&h=300&fit=crop",
+        calories: 350,
+        protein: "24g",
+        cookTime: "25 min",
         difficulty: "Easy"
       },
       {
         id: 6,
-        name: `${baseDish} - Gourmet Version`,
-        image: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=400&h=300&fit=crop",
-        calories: 520,
-        protein: "32g",
-        cookTime: "45 min",
-        difficulty: "Hard"
+        name: `${baseDish} - Japanese Curry`,
+        image: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=400&h=300&fit=crop",
+        calories: 400,
+        protein: "25g",
+        cookTime: "30 min",
+        difficulty: "Easy"
       }
     ];
     setGeneratedDishes(variations);

@@ -42,22 +42,22 @@ export function DishCard({ dish }: DishCardProps) {
           </div>
         </div>
         
-        {/* Action Buttons */}
-        <div className="flex items-center gap-2">
-          <button className="w-10 h-10 bg-yellow-600 hover:bg-yellow-700 rounded-lg flex items-center justify-center transition-colors">
-            <ArrowLeftRight size={18} className="text-white" />
+        {/* Action Buttons - Spaced for fat fingers */}
+        <div className="flex items-center justify-between w-full">
+          <button className="w-12 h-12 bg-yellow-600 hover:bg-yellow-700 rounded-lg flex items-center justify-center transition-colors">
+            <ArrowLeftRight size={20} className="text-white" />
           </button>
-          <button className="w-10 h-10 bg-purple-600 hover:bg-purple-700 rounded-lg flex items-center justify-center transition-colors">
-            <Book size={18} className="text-white" />
+          <button className="w-12 h-12 bg-purple-600 hover:bg-purple-700 rounded-lg flex items-center justify-center transition-colors">
+            <Book size={20} className="text-white" />
           </button>
-          <button className="w-10 h-10 bg-green-600 hover:bg-green-700 rounded-lg flex items-center justify-center transition-colors">
-            <Heart size={18} className="text-white" />
+          <button className="w-12 h-12 bg-green-600 hover:bg-green-700 rounded-lg flex items-center justify-center transition-colors">
+            <Heart size={20} className="text-white" />
           </button>
-          <button className="w-10 h-10 bg-orange-600 hover:bg-orange-700 rounded-lg flex items-center justify-center transition-colors">
-            <ChefHat size={18} className="text-white" />
+          <button className="w-12 h-12 bg-orange-600 hover:bg-orange-700 rounded-lg flex items-center justify-center transition-colors">
+            <ChefHat size={20} className="text-white" />
           </button>
-          <button className="w-10 h-10 bg-blue-600 hover:bg-blue-700 rounded-lg flex items-center justify-center transition-colors">
-            <Plus size={18} className="text-white" />
+          <button className="w-12 h-12 bg-blue-600 hover:bg-blue-700 rounded-lg flex items-center justify-center transition-colors">
+            <Plus size={20} className="text-white" />
           </button>
         </div>
       </div>
