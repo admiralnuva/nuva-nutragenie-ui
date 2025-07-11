@@ -763,20 +763,13 @@ export default function ExploreRecipeOptionsScreen() {
           </div>
 
           {/* Single Grocery List Button */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="flex justify-start">
             <Button
               variant="outline"
-              className="h-12 bg-gray-700 border-gray-600 hover:bg-gray-600 text-gray-300 flex items-center justify-center"
+              className="h-12 bg-gray-700 border-gray-600 hover:bg-gray-600 text-gray-300 flex items-center justify-center px-8"
               onClick={() => {/* Navigate to grocery list */}}
             >
               Grocery List
-            </Button>
-            <Button
-              variant="outline"
-              className="h-12 bg-gray-700 border-gray-600 hover:bg-gray-600 text-gray-300 flex items-center justify-center"
-              onClick={() => {/* Edit preferences */}}
-            >
-              Edit Preferences
             </Button>
           </div>
         </Card>
