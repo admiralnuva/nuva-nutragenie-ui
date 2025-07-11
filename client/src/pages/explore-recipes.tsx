@@ -247,12 +247,11 @@ export default function ExploreRecipesScreen() {
   const userAvatarSrc = userData?.avatar ? userAvatars[userData.avatar as keyof typeof userAvatars] : userAvatar1;
   const chefAvatarSrc = userData?.chef ? chefAvatars[userData.chef as keyof typeof chefAvatars] : chefAvatar1;
   
-  // Recipe options state - simplified and isolated
+  // Recipe options state - completely independent
   const [showChefsChoice, setShowChefsChoice] = useState(false);
   const [showPantryDishes, setShowPantryDishes] = useState(false);
   const [showTakeOut, setShowTakeOut] = useState(false);
   const [selectedRecipeOption, setSelectedRecipeOption] = useState<string>('');
-  const [previousRecipeOption, setPreviousRecipeOption] = useState<string>('');
   
   // Preferences completion state
   const [activeTab, setActiveTab] = useState<'diet' | 'meal' | 'pantry'>('meal');
@@ -339,45 +338,12 @@ export default function ExploreRecipesScreen() {
     }
   }, [isMealComplete, isPantryComplete, preferencesCardSlid]);
 
-  // Handle navigation back from Create Dishes
+  // Simple navigation cleanup - no interference
   useEffect(() => {
-    console.log('Navigation effect - location:', location, 'selectedRecipeOption:', selectedRecipeOption, 'previousRecipeOption:', previousRecipeOption);
-    
-    // Detect navigation back from Create Dishes page
-    if (location === '/explore-recipes' && selectedRecipeOption === 'create-dishes' && previousRecipeOption) {
-      console.log('Detected navigation back from Create Dishes, restoring:', previousRecipeOption);
-      
-      // Restore previous selection
-      setSelectedRecipeOption(previousRecipeOption);
-      
-      switch (previousRecipeOption) {
-        case 'chefs-choice':
-          setShowChefsChoice(true);
-          setShowPantryDishes(false);
-          setShowTakeOut(false);
-          break;
-        case 'pantry-dishes':
-          setShowPantryDishes(true);
-          setShowChefsChoice(false);
-          setShowTakeOut(false);
-          break;
-        case 'take-out':
-          setShowTakeOut(true);
-          setShowChefsChoice(false);
-          setShowPantryDishes(false);
-          break;
-      }
-      
-      // Clear previous option after restoration
-      setPreviousRecipeOption('');
-    }
-    
-    // Clear navigation source
     if (isNavigatingFromTabs) {
-      console.log('Clearing navigation source');
       setNavigationSource("");
     }
-  }, [location, selectedRecipeOption, previousRecipeOption]);
+  }, []);
   
   // No automatic reset on navigation - preserve collapsed state after completion
 
@@ -1306,17 +1272,7 @@ export default function ExploreRecipesScreen() {
                   }`}
                   onClick={() => {
                     console.log('=== CREATE DISHES CLICKED ===');
-                    console.log('Before:', { showChefsChoice, showPantryDishes, showTakeOut, selectedRecipeOption });
-                    
-                    // Save current selection before clearing
-                    setPreviousRecipeOption(selectedRecipeOption);
-                    console.log('Saving previous option:', selectedRecipeOption);
-                    
-                    setShowChefsChoice(false);
-                    setShowPantryDishes(false);
-                    setShowTakeOut(false);
-                    setSelectedRecipeOption('create-dishes');
-                    console.log('After set: all shows=false, selectedRecipeOption=create-dishes');
+                    // Just navigate - don't touch any state
                     setLocation('/create-dishes');
                   }}
                 >
