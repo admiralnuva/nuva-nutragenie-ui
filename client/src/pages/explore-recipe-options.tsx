@@ -56,7 +56,7 @@ export default function ExploreRecipeOptionsScreen() {
       {
         id: 3,
         name: `${baseDish} - Coconut Curry`,
-        image: "https://images.unsplash.com/photo-1574653771-2c3d2977e4bb?w=400&h=300&fit=crop",
+        image: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=400&h=300&fit=crop",
         calories: 380,
         protein: "26g",
         cookTime: "35 min",
