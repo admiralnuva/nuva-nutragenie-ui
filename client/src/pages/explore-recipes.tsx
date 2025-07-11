@@ -427,6 +427,8 @@ export default function ExploreRecipesScreen() {
   const [takeOutMealType, setTakeOutMealType] = useState('');
   const [takeOutDeliveryDate, setTakeOutDeliveryDate] = useState('');
   const [isTakeOutFormCollapsed, setIsTakeOutFormCollapsed] = useState(false);
+  const [showTakeOutMenu, setShowTakeOutMenu] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<'soup' | 'salad' | 'entree' | 'dessert'>('soup');
 
   // Handle cook button click
   const handleCookClick = (dishId: number, dishName: string) => {
@@ -445,8 +447,9 @@ export default function ExploreRecipesScreen() {
   // Handle take-out form submission
   const handleDesignTakeOutMenu = () => {
     if (takeOutServingSize && takeOutCuisine && takeOutMealType && takeOutDeliveryDate) {
-      // Collapse the form
+      // Collapse the form and show menu
       setIsTakeOutFormCollapsed(true);
+      setShowTakeOutMenu(true);
       console.log('Take-Out menu designed:', {
         servingSize: takeOutServingSize,
         cuisine: takeOutCuisine,
@@ -458,6 +461,42 @@ export default function ExploreRecipesScreen() {
 
   // Check if take-out form is complete
   const isTakeOutFormComplete = takeOutServingSize && takeOutCuisine && takeOutMealType && takeOutDeliveryDate;
+
+  // Take-Out menu dish data
+  const takeOutDishes = {
+    soup: [
+      { id: 201, name: 'Tomato Basil Soup', calories: 280, time: '25 min', difficulty: 'Easy', image: '/api/placeholder/200/150' },
+      { id: 202, name: 'Chicken Noodle Soup', calories: 320, time: '35 min', difficulty: 'Easy', image: '/api/placeholder/200/150' },
+      { id: 203, name: 'Minestrone Soup', calories: 260, time: '40 min', difficulty: 'Medium', image: '/api/placeholder/200/150' },
+      { id: 204, name: 'Butternut Squash Soup', calories: 240, time: '30 min', difficulty: 'Easy', image: '/api/placeholder/200/150' },
+      { id: 205, name: 'French Onion Soup', calories: 350, time: '45 min', difficulty: 'Medium', image: '/api/placeholder/200/150' },
+      { id: 206, name: 'Mushroom Bisque', calories: 290, time: '35 min', difficulty: 'Medium', image: '/api/placeholder/200/150' }
+    ],
+    salad: [
+      { id: 301, name: 'Caesar Salad', calories: 340, time: '15 min', difficulty: 'Easy', image: '/api/placeholder/200/150' },
+      { id: 302, name: 'Greek Salad', calories: 280, time: '10 min', difficulty: 'Easy', image: '/api/placeholder/200/150' },
+      { id: 303, name: 'Garden Salad', calories: 180, time: '10 min', difficulty: 'Easy', image: '/api/placeholder/200/150' },
+      { id: 304, name: 'Cobb Salad', calories: 420, time: '20 min', difficulty: 'Easy', image: '/api/placeholder/200/150' },
+      { id: 305, name: 'Quinoa Power Salad', calories: 360, time: '15 min', difficulty: 'Easy', image: '/api/placeholder/200/150' },
+      { id: 306, name: 'Spinach Berry Salad', calories: 240, time: '12 min', difficulty: 'Easy', image: '/api/placeholder/200/150' }
+    ],
+    entree: [
+      { id: 401, name: 'Grilled Chicken Breast', calories: 520, time: '25 min', difficulty: 'Medium', image: '/api/placeholder/200/150' },
+      { id: 402, name: 'Pan-Seared Salmon', calories: 480, time: '20 min', difficulty: 'Medium', image: '/api/placeholder/200/150' },
+      { id: 403, name: 'Beef Stir Fry', calories: 560, time: '30 min', difficulty: 'Medium', image: '/api/placeholder/200/150' },
+      { id: 404, name: 'Tofu Pad Thai', calories: 420, time: '25 min', difficulty: 'Medium', image: '/api/placeholder/200/150' },
+      { id: 405, name: 'Pork Tenderloin', calories: 540, time: '35 min', difficulty: 'Hard', image: '/api/placeholder/200/150' },
+      { id: 406, name: 'Lamb Chops', calories: 580, time: '30 min', difficulty: 'Hard', image: '/api/placeholder/200/150' }
+    ],
+    dessert: [
+      { id: 501, name: 'Chocolate Cheesecake', calories: 450, time: '15 min', difficulty: 'Easy', image: '/api/placeholder/200/150' },
+      { id: 502, name: 'Vanilla Ice Cream', calories: 280, time: '5 min', difficulty: 'Easy', image: '/api/placeholder/200/150' },
+      { id: 503, name: 'Tiramisu', calories: 380, time: '20 min', difficulty: 'Medium', image: '/api/placeholder/200/150' },
+      { id: 504, name: 'Apple Pie', calories: 420, time: '45 min', difficulty: 'Hard', image: '/api/placeholder/200/150' },
+      { id: 505, name: 'Chocolate Lava Cake', calories: 520, time: '25 min', difficulty: 'Medium', image: '/api/placeholder/200/150' },
+      { id: 506, name: 'Fruit Tart', calories: 340, time: '30 min', difficulty: 'Medium', image: '/api/placeholder/200/150' }
+    ]
+  };
 
 
 
@@ -1626,6 +1665,96 @@ export default function ExploreRecipesScreen() {
                     </Button>
                   </CardContent>
                 )}
+              </Card>
+            </div>
+          )}
+
+          {/* Take-Out Menu Card */}
+          {showTakeOutMenu && (
+            <div className="order-2">
+              <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
+                <CardHeader className="pb-4">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-white text-lg">Take-Out Menu Categories</CardTitle>
+                    <button
+                      onClick={() => setShowTakeOutMenu(false)}
+                      className="text-gray-400 hover:text-white transition-colors"
+                    >
+                      <ChevronUp size={20} />
+                    </button>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  {/* Category Buttons */}
+                  <div className="grid grid-cols-4 gap-2 mb-6">
+                    <Button
+                      variant="outline"
+                      className={`h-12 border transition-all duration-200 ${
+                        selectedCategory === 'soup'
+                          ? 'bg-purple-600 border-purple-600 text-white'
+                          : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
+                      }`}
+                      onClick={() => setSelectedCategory('soup')}
+                    >
+                      Soups
+                    </Button>
+                    <Button
+                      variant="outline"
+                      className={`h-12 border transition-all duration-200 ${
+                        selectedCategory === 'salad'
+                          ? 'bg-purple-600 border-purple-600 text-white'
+                          : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
+                      }`}
+                      onClick={() => setSelectedCategory('salad')}
+                    >
+                      Salads
+                    </Button>
+                    <Button
+                      variant="outline"
+                      className={`h-12 border transition-all duration-200 ${
+                        selectedCategory === 'entree'
+                          ? 'bg-purple-600 border-purple-600 text-white'
+                          : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
+                      }`}
+                      onClick={() => setSelectedCategory('entree')}
+                    >
+                      Main Entree
+                    </Button>
+                    <Button
+                      variant="outline"
+                      className={`h-12 border transition-all duration-200 ${
+                        selectedCategory === 'dessert'
+                          ? 'bg-purple-600 border-purple-600 text-white'
+                          : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
+                      }`}
+                      onClick={() => setSelectedCategory('dessert')}
+                    >
+                      Desserts
+                    </Button>
+                  </div>
+
+                  {/* Dish Grid */}
+                  <div className="grid grid-cols-2 gap-4">
+                    {takeOutDishes[selectedCategory].map((dish) => (
+                      <DishCard
+                        key={dish.id}
+                        dish={dish}
+                        isSelected={false}
+                        onSubstitutionClick={() => {}}
+                        onCookClick={handleCookClick}
+                        onSelectionChange={() => {}}
+                        substitutionOpenDish={substitutionOpenDish}
+                        substitutionSelections={{}}
+                        substitutionConfirmed={{}}
+                        onSubstitutionConfirm={() => {}}
+                        cookConfirmed={cookConfirmed}
+                        cookConfirmationOpen={cookConfirmationOpen}
+                        onCookConfirm={handleCookConfirm}
+                        setCookConfirmationOpen={setCookConfirmationOpen}
+                      />
+                    ))}
+                  </div>
+                </CardContent>
               </Card>
             </div>
           )}
