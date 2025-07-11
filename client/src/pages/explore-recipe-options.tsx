@@ -20,7 +20,6 @@ export default function ExploreRecipeOptionsScreen() {
   const [servingSize, setServingSize] = useState("");
   const [cuisine, setCuisine] = useState("");
   const [mealType, setMealType] = useState("");
-  const [spiceLevel, setSpiceLevel] = useState("");
   const [cookMethod, setCookMethod] = useState("");
   const [generatedDishes, setGeneratedDishes] = useState<any[]>([]);
   
