@@ -383,15 +383,9 @@ export default function DietaryScreen() {
     
 
     
-    // Set flag to indicate we're navigating from dietary preferences
-    localStorage.setItem('nutragenie_from_dietary', 'true');
-    
     // Show success message and navigate
-    toast({
-      title: "Dietary preferences saved successfully!",
-      description: "Your personalized nutrition profile has been updated and is ready for recipe exploration.",
-    });
-    setLocation("/explore-recipe-options");
+    toast({ title: "Dietary preferences saved successfully!" });
+    setLocation("/recipes");
   };
 
   const isFormValid = selectedDietary.length > 0 || selectedHealth.length > 0 || selectedFitness.length > 0;
@@ -654,7 +648,7 @@ export default function DietaryScreen() {
                   <div className="flex items-start space-x-2">
                     <div className="text-sm mt-5" title="Essential for muscle building and repair">💪</div>
                     <div className="flex-1">
-                      <div className="text-sm font-bold text-yellow-300 mb-1 drop-shadow-lg">Protein</div>
+                      <div className="text-sm font-bold text-yellow-300 mb-1 drop-shadow-lg">Protein (Auto-calculated, click to adjust)</div>
                       <Select value={selectedProteinRange} onValueChange={setSelectedProteinRange}>
                         <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-white text-xs h-8">
                           <SelectValue placeholder="Select range" />
@@ -680,13 +674,13 @@ export default function DietaryScreen() {
               {/* Secondary Nutrients Section */}
               <div className="space-y-3">
                 <div className="text-xs text-gray-400 uppercase tracking-wide">Secondary Nutrients</div>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                  <div className="flex items-start space-x-1">
-                    <div className="text-sm mt-5 flex-shrink-0" title="Energy source for workouts and brain function">🌾</div>
-                    <div className="flex-1 min-w-0">
-                      <div className="text-sm font-bold text-yellow-300 mb-1 drop-shadow-lg">Carbs</div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div className="flex items-start space-x-2">
+                    <div className="text-sm mt-5" title="Energy source for workouts and brain function">🌾</div>
+                    <div className="flex-1">
+                      <div className="text-sm font-bold text-yellow-300 mb-1 drop-shadow-lg">Carbs (Auto-calculated, click to adjust)</div>
                       <Select value={selectedCarbRange} onValueChange={setSelectedCarbRange}>
-                        <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-white text-xs h-8 min-w-0">
+                        <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-white text-xs h-8">
                           <SelectValue placeholder="Select" />
                         </SelectTrigger>
                         <SelectContent className="bg-gray-700 border-gray-600">
@@ -702,12 +696,12 @@ export default function DietaryScreen() {
                     </div>
                   </div>
 
-                  <div className="flex items-start space-x-1">
-                    <div className="text-sm mt-5 flex-shrink-0" title="Essential for hormone production and nutrient absorption">🥑</div>
-                    <div className="flex-1 min-w-0">
-                      <div className="text-sm font-bold text-yellow-300 mb-1 drop-shadow-lg">Fat</div>
+                  <div className="flex items-start space-x-2">
+                    <div className="text-sm mt-5" title="Essential for hormone production and nutrient absorption">🥑</div>
+                    <div className="flex-1">
+                      <div className="text-sm font-bold text-yellow-300 mb-1 drop-shadow-lg">Fat (Auto-calculated, click to adjust)</div>
                       <Select value={selectedFatRange} onValueChange={setSelectedFatRange}>
-                        <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-white text-xs h-8 min-w-0">
+                        <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-white text-xs h-8">
                           <SelectValue placeholder="Select" />
                         </SelectTrigger>
                         <SelectContent className="bg-gray-700 border-gray-600">
@@ -723,12 +717,12 @@ export default function DietaryScreen() {
                     </div>
                   </div>
 
-                  <div className="flex items-start space-x-1">
-                    <div className="text-sm mt-5 flex-shrink-0" title="Important for digestive health and satiety">🌿</div>
-                    <div className="flex-1 min-w-0">
-                      <div className="text-sm font-bold text-yellow-300 mb-1 drop-shadow-lg">Fiber</div>
+                  <div className="flex items-start space-x-2">
+                    <div className="text-sm mt-5" title="Important for digestive health and satiety">🌿</div>
+                    <div className="flex-1">
+                      <div className="text-sm font-bold text-yellow-300 mb-1 drop-shadow-lg">Fiber (Auto-calculated, click to adjust)</div>
                       <Select value={selectedFiberRange} onValueChange={setSelectedFiberRange}>
-                        <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-white text-xs h-8 min-w-0">
+                        <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-white text-xs h-8">
                           <SelectValue placeholder="Select" />
                         </SelectTrigger>
                         <SelectContent className="bg-gray-700 border-gray-600">
