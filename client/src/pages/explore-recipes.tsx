@@ -338,13 +338,34 @@ export default function ExploreRecipesScreen() {
     }
   }, [isMealComplete, isPantryComplete, preferencesCardSlid]);
 
-  // One-time initialization only - NO ONGOING INTERFERENCE
+  // Handle navigation back from Create Dishes
   useEffect(() => {
+    console.log('Navigation effect - location:', location, 'selectedRecipeOption:', selectedRecipeOption);
+    
+    // If we're on explore-recipes and have a selectedRecipeOption but no cards showing
+    if (location === '/explore-recipes' && selectedRecipeOption && 
+        !showChefsChoice && !showPantryDishes && !showTakeOut) {
+      console.log('Restoring card view for option:', selectedRecipeOption);
+      
+      switch (selectedRecipeOption) {
+        case 'chefs-choice':
+          setShowChefsChoice(true);
+          break;
+        case 'pantry-dishes':
+          setShowPantryDishes(true);
+          break;
+        case 'take-out':
+          setShowTakeOut(true);
+          break;
+      }
+    }
+    
+    // Clear navigation source
     if (isNavigatingFromTabs) {
-      console.log('Initial navigation setup');
+      console.log('Clearing navigation source');
       setNavigationSource("");
     }
-  }, []);
+  }, [location, selectedRecipeOption, showChefsChoice, showPantryDishes, showTakeOut]);
   
   // No automatic reset on navigation - preserve collapsed state after completion
 
