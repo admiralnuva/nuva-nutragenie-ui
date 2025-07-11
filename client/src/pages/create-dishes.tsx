@@ -313,7 +313,7 @@ export default function CreateDishesScreen() {
               <Button 
                 variant="outline"
                 className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600 transition-all duration-200"
-                onClick={() => setLocation('/takeout')}
+                onClick={() => console.log('Take-Out functionality coming soon')}
               >
                 Take-Out
               </Button>
