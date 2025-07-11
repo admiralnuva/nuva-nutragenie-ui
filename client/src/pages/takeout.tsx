@@ -2,25 +2,17 @@ import { useState } from "react";
 import { useLocation } from "wouter";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { BackButton } from "@/components/ui/back-button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
 import { 
-  Truck, 
-  Clock, 
   MapPin, 
-  Phone, 
   ChefHat, 
   Star, 
-  Plus,
-  Search,
-  Filter,
-  Calendar,
+  Clock,
   CreditCard,
-  ShoppingBag,
-  Users
+  ChevronRight
 } from "lucide-react";
 
 export default function TakeOutScreen() {
@@ -33,72 +25,54 @@ export default function TakeOutScreen() {
     setLocation("/explore-recipes");
   };
 
-  const [selectedOrderType, setSelectedOrderType] = useState<string>("");
-  const [activeTab, setActiveTab] = useState<'local' | 'chains'>('local');
+  const [selectedDishes, setSelectedDishes] = useState<string[]>([]);
+  const [selectedOrderType, setSelectedOrderType] = useState<string>("Individual");
+  const [selectedChef, setSelectedChef] = useState<string>("chef-ramsay");
 
-  const localChefs = [
+  const dishes = [
+    { id: "spicy-thai", name: "Spicy Thai Basil Chicken", price: 15.50 },
+    { id: "tuscan-salmon", name: "Creamy Tuscan Salmon", price: 18.00 },
+    { id: "lentil-soup", name: "Vegetarian Lentil Soup", price: 12.00 },
+    { id: "beef-stir-fry", name: "Beef and Broccoli Stir-fry", price: 16.00 }
+  ];
+
+  const chefs = [
     {
-      id: 1,
-      name: "Chef Maria's Kitchen",
-      cuisine: "Mediterranean",
+      id: "chef-ramsay",
+      name: "Chef Ramsay's Kitchen",
+      initial: "C",
       rating: 4.8,
-      deliveryTime: "45-60 min",
-      specialties: ["Healthy", "Organic", "Gluten-Free"],
-      image: "🧑‍🍳",
-      popular: true
+      reviews: 150,
+      price: 25.50
     },
     {
-      id: 2,
-      name: "Antonio's Home Cooking",
-      cuisine: "Italian",
-      rating: 4.9,
-      deliveryTime: "30-45 min",
-      specialties: ["Fresh Pasta", "Wood-Fired Pizza"],
-      image: "👨‍🍳",
-      popular: false
-    },
-    {
-      id: 3,
-      name: "Healthy Bites Co.",
-      cuisine: "Wellness",
+      id: "fresh-fast",
+      name: "Fresh & Fast Meals", 
+      initial: "F",
       rating: 4.7,
-      deliveryTime: "35-50 min",
-      specialties: ["Keto", "Vegan", "Meal Prep"],
-      image: "🥗",
-      popular: true
+      reviews: 89,
+      price: 22.00
     }
   ];
 
-  const orderTypes = [
-    {
-      id: "single",
-      title: "Single Order",
-      description: "1 person, ready in 30-60 minutes",
-      icon: "🍽️",
-      estimatedCost: "$15-25"
-    },
-    {
-      id: "family",
-      title: "Family Order",
-      description: "2-4 people, ready in 45-75 minutes",
-      icon: "👨‍👩‍👧‍👦",
-      estimatedCost: "$35-60"
-    },
-    {
-      id: "group",
-      title: "Group Order",
-      description: "5+ people, schedule 1-2 days ahead",
-      icon: "🎉",
-      estimatedCost: "$75-150"
-    },
-    {
-      id: "weekly",
-      title: "Weekly Meal Plan",
-      description: "7 days of meals, schedule weekly",
-      icon: "📅",
-      estimatedCost: "$120-200"
-    }
-  ];
+  const toggleDish = (dishId: string) => {
+    setSelectedDishes(prev => 
+      prev.includes(dishId) 
+        ? prev.filter(id => id !== dishId)
+        : [...prev, dishId]
+    );
+  };
+
+  const getSubtotal = () => {
+    return selectedDishes.reduce((total, dishId) => {
+      const dish = dishes.find(d => d.id === dishId);
+      return total + (dish?.price || 0);
+    }, 0);
+  };
+
+  const deliveryFee = 5.00;
+  const taxesFees = 0.00;
+  const total = getSubtotal() + deliveryFee + taxesFees;
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black pb-20">
@@ -107,15 +81,190 @@ export default function TakeOutScreen() {
         <BackButton to="/explore-recipes" className="text-white" />
         <div className="flex-1 text-center">
           <h1 className="text-2xl font-bold text-white">NutraGenie</h1>
-          <p className="text-lg font-semibold text-purple-300 mt-1">Take-Out Orders</p>
+          <p className="text-lg font-semibold text-purple-300 mt-1">Take-Out Order</p>
         </div>
         <div className="w-8"></div>
       </div>
 
       <div className="p-4 space-y-6">
+        {/* Select Your Dishes */}
+        <div>
+          <h2 className="text-xl font-bold text-white mb-4">Select Your Dishes</h2>
+          <div className="space-y-3">
+            {dishes.map((dish) => (
+              <div 
+                key={dish.id}
+                className="flex items-center justify-between p-4 bg-gray-800/90 rounded-lg border border-gray-700"
+              >
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => toggleDish(dish.id)}
+                    className={`w-5 h-5 rounded border-2 flex items-center justify-center ${
+                      selectedDishes.includes(dish.id)
+                        ? 'bg-blue-600 border-blue-600'
+                        : 'border-gray-500'
+                    }`}
+                  >
+                    {selectedDishes.includes(dish.id) && (
+                      <div className="w-2 h-2 bg-white rounded"></div>
+                    )}
+                  </button>
+                  <span className="text-white font-medium">{dish.name}</span>
+                </div>
+                <span className="text-white font-semibold">${dish.price.toFixed(2)}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Delivery Address */}
+        <div className="bg-gray-800/90 rounded-lg border border-gray-700 p-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <MapPin className="w-5 h-5 text-blue-400" />
+              <div>
+                <h3 className="text-white font-semibold">Delivery Address</h3>
+                <p className="text-gray-300 text-sm">123 Main Street, Anytown, USA 12345</p>
+              </div>
+            </div>
+            <Button variant="ghost" className="text-blue-400 hover:text-blue-300">
+              Change
+            </Button>
+          </div>
+        </div>
+
+        {/* Order Type Selection */}
+        <div className="flex bg-gray-800/90 rounded-lg border border-gray-700 p-1">
+          {["Individual", "Group Order", "Weekly Plan"].map((type) => (
+            <button
+              key={type}
+              onClick={() => setSelectedOrderType(type)}
+              className={`flex-1 py-2 px-4 rounded text-sm font-medium transition-all ${
+                selectedOrderType === type
+                  ? 'bg-gray-600 text-white'
+                  : 'text-gray-400 hover:text-white'
+              }`}
+            >
+              {type}
+            </button>
+          ))}
+        </div>
+
+        {/* Delivery Schedule */}
+        <div>
+          <h3 className="text-white font-semibold mb-3">Delivery Schedule</h3>
+          <div className="bg-blue-600/20 border border-blue-600 rounded-lg p-4">
+            <div className="flex items-center gap-3">
+              <div className="w-4 h-4 rounded-full bg-blue-600 flex items-center justify-center">
+                <div className="w-2 h-2 bg-white rounded-full"></div>
+              </div>
+              <div>
+                <h4 className="text-white font-medium">ASAP Delivery</h4>
+                <p className="text-gray-300 text-sm">Within 3 hours</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Choose a Chef or Kitchen */}
+        <div>
+          <h3 className="text-white font-semibold mb-3">Choose a Chef or Kitchen</h3>
+          <div className="space-y-3">
+            {chefs.map((chef) => (
+              <div 
+                key={chef.id}
+                className={`p-4 rounded-lg border transition-all cursor-pointer ${
+                  selectedChef === chef.id
+                    ? 'bg-blue-600/20 border-blue-600'
+                    : 'bg-gray-800/90 border-gray-700 hover:border-gray-600'
+                }`}
+                onClick={() => setSelectedChef(chef.id)}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
+                      selectedChef === chef.id 
+                        ? 'border-blue-600 bg-blue-600' 
+                        : 'border-gray-500'
+                    }`}>
+                      {selectedChef === chef.id && (
+                        <div className="w-2 h-2 bg-white rounded-full"></div>
+                      )}
+                    </div>
+                    <div className="w-10 h-10 bg-gray-600 rounded-full flex items-center justify-center">
+                      <span className="text-white font-bold">{chef.initial}</span>
+                    </div>
+                    <div>
+                      <h4 className="text-white font-medium">{chef.name}</h4>
+                      <div className="flex items-center gap-1">
+                        <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                        <span className="text-gray-300 text-sm">{chef.rating} ({chef.reviews})</span>
+                      </div>
+                    </div>
+                  </div>
+                  <span className="text-white font-semibold">${chef.price.toFixed(2)}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Payment Method */}
+        <div>
+          <h3 className="text-white font-semibold mb-3">Payment Method</h3>
+          <div className="space-y-3">
+            <Button className="w-full bg-white text-black hover:bg-gray-100 py-3">
+              <span className="font-semibold"> Pay</span>
+            </Button>
+            <Button className="w-full bg-blue-600 hover:bg-blue-700 py-3">
+              <span className="font-semibold">G Pay</span>
+            </Button>
+            <Button variant="outline" className="w-full border-gray-600 text-gray-300 hover:bg-gray-800 py-3">
+              <div className="flex items-center justify-between w-full">
+                <div className="flex items-center gap-2">
+                  <CreditCard className="w-5 h-5" />
+                  <span>Credit or Debit Card</span>
+                </div>
+                <ChevronRight className="w-4 h-4" />
+              </div>
+            </Button>
+          </div>
+        </div>
+
+        {/* Order Summary */}
+        <div className="bg-gray-800/90 rounded-lg border border-gray-700 p-4">
+          <div className="space-y-2">
+            <div className="flex justify-between">
+              <span className="text-gray-300">Subtotal</span>
+              <span className="text-white">${getSubtotal().toFixed(2)}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray-300">Delivery Fee</span>
+              <span className="text-white">${deliveryFee.toFixed(2)}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray-300">Taxes & Fees</span>
+              <span className="text-white">${taxesFees.toFixed(2)}</span>
+            </div>
+            <Separator className="bg-gray-600" />
+            <div className="flex justify-between">
+              <span className="text-white font-semibold">Total</span>
+              <span className="text-white font-bold">${total.toFixed(2)}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Place Order Button */}
+        <Button 
+          className="w-full bg-gray-600 hover:bg-gray-700 py-4 text-lg font-semibold"
+          disabled={selectedDishes.length === 0}
+        >
+          Place Order
+        </Button>
+
         {/* Quick Recipe Access */}
         <Card className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white">
-          <CardContent className="p-4">
+          <div className="p-4">
             <div className="flex items-center gap-3 mb-3">
               <ChefHat className="w-6 h-6" />
               <div className="flex-1">
@@ -130,183 +279,7 @@ export default function TakeOutScreen() {
               <ChefHat className="w-4 h-4 mr-2" />
               Explore Recipes
             </Button>
-          </CardContent>
-        </Card>
-
-        {/* Order Type Selection */}
-        <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
-          <CardHeader className="pb-4">
-            <CardTitle className="text-lg text-white">Select Order Type</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 gap-3">
-              {orderTypes.map((type) => (
-                <button
-                  key={type.id}
-                  onClick={() => setSelectedOrderType(type.id)}
-                  className={`p-4 rounded-lg border transition-all text-left ${
-                    selectedOrderType === type.id
-                      ? 'bg-purple-600 border-purple-600 text-white'
-                      : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600/20 hover:border-purple-500'
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="text-2xl">{type.icon}</span>
-                    <div className="flex-1">
-                      <h4 className="font-semibold">{type.title}</h4>
-                      <p className="text-sm opacity-80">{type.description}</p>
-                      <p className="text-xs font-medium mt-1">{type.estimatedCost}</p>
-                    </div>
-                  </div>
-                </button>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Local vs Chain Toggle */}
-        {selectedOrderType && (
-          <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
-            <CardHeader className="pb-4">
-              <div className="flex items-center justify-between">
-                <CardTitle className="text-lg text-white">Choose Restaurants</CardTitle>
-                <div className="flex bg-gray-700 rounded-lg p-1">
-                  <button
-                    onClick={() => setActiveTab('local')}
-                    className={`px-3 py-1 rounded text-sm font-medium transition-all ${
-                      activeTab === 'local'
-                        ? 'bg-purple-600 text-white'
-                        : 'text-gray-300 hover:text-white'
-                    }`}
-                  >
-                    Local Chefs
-                  </button>
-                  <button
-                    onClick={() => setActiveTab('chains')}
-                    className={`px-3 py-1 rounded text-sm font-medium transition-all ${
-                      activeTab === 'chains'
-                        ? 'bg-purple-600 text-white'
-                        : 'text-gray-300 hover:text-white'
-                    }`}
-                  >
-                    Chain Restaurants
-                  </button>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent>
-              {activeTab === 'local' ? (
-                <div className="space-y-3">
-                  {localChefs.map((chef) => (
-                    <div key={chef.id} className="p-4 bg-gray-700 rounded-lg">
-                      <div className="flex items-center gap-3 mb-3">
-                        <span className="text-3xl">{chef.image}</span>
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2">
-                            <h4 className="font-semibold text-white">{chef.name}</h4>
-                            {chef.popular && (
-                              <Badge className="bg-yellow-500 text-yellow-900 text-xs">
-                                Popular
-                              </Badge>
-                            )}
-                          </div>
-                          <p className="text-sm text-gray-300">{chef.cuisine}</p>
-                          <div className="flex items-center gap-4 mt-1">
-                            <div className="flex items-center gap-1">
-                              <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                              <span className="text-sm text-gray-300">{chef.rating}</span>
-                            </div>
-                            <div className="flex items-center gap-1">
-                              <Clock className="w-4 h-4 text-gray-400" />
-                              <span className="text-sm text-gray-300">{chef.deliveryTime}</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex gap-2 mb-3">
-                        {chef.specialties.map((specialty, index) => (
-                          <Badge key={index} variant="outline" className="text-xs border-gray-500 text-gray-300">
-                            {specialty}
-                          </Badge>
-                        ))}
-                      </div>
-                      <Button 
-                        className="w-full bg-purple-600 hover:bg-purple-700"
-                        onClick={() => {
-                          console.log(`Order from ${chef.name}`);
-                        }}
-                      >
-                        <ShoppingBag className="w-4 h-4 mr-2" />
-                        View Menu & Order
-                      </Button>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-8">
-                  <Truck className="w-12 h-12 text-gray-500 mx-auto mb-4" />
-                  <h4 className="text-lg font-semibold text-white mb-2">Chain Restaurants</h4>
-                  <p className="text-gray-400 mb-4">
-                    Integration with popular delivery services coming soon
-                  </p>
-                  <Badge variant="outline" className="border-gray-500 text-gray-300">
-                    Coming Soon
-                  </Badge>
-                </div>
-              )}
-            </CardContent>
-          </Card>
-        )}
-
-        {/* Quick Actions */}
-        <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
-          <CardHeader className="pb-4">
-            <CardTitle className="text-lg text-white">Quick Actions</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-2 gap-3">
-              <Button 
-                variant="outline" 
-                className="h-20 flex-col gap-2 bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white"
-                onClick={() => {
-                  console.log('View order history');
-                }}
-              >
-                <Clock className="w-5 h-5" />
-                <span className="text-xs">Order History</span>
-              </Button>
-              <Button 
-                variant="outline" 
-                className="h-20 flex-col gap-2 bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white"
-                onClick={() => {
-                  console.log('Reorder favorites');
-                }}
-              >
-                <Star className="w-5 h-5" />
-                <span className="text-xs">Reorder Favorites</span>
-              </Button>
-              <Button 
-                variant="outline" 
-                className="h-20 flex-col gap-2 bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white"
-                onClick={() => {
-                  console.log('Schedule delivery');
-                }}
-              >
-                <Calendar className="w-5 h-5" />
-                <span className="text-xs">Schedule Delivery</span>
-              </Button>
-              <Button 
-                variant="outline" 
-                className="h-20 flex-col gap-2 bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white"
-                onClick={() => {
-                  console.log('Group ordering');
-                }}
-              >
-                <Users className="w-5 h-5" />
-                <span className="text-xs">Group Ordering</span>
-              </Button>
-            </div>
-          </CardContent>
+          </div>
         </Card>
       </div>
     </div>
