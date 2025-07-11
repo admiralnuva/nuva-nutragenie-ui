@@ -4,6 +4,7 @@ import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { ScreenHeader } from "@/components/ui/screen-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ExpandableDishCard } from "@/components/ui/expandable-dish-card";
+import { DishCard } from "@/components/ui/dish-card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
