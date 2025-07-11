@@ -186,7 +186,7 @@ export default function ExploreRecipeOptionsScreen() {
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white">
       {/* Header */}
       <div className="flex items-center justify-between p-4 bg-gray-900 border-b border-gray-700">
-        <Link href="/explore-recipe-options">
+        <Link href="/dietary">
           <ArrowLeft className="w-6 h-6 text-purple-400" />
         </Link>
         <div className="text-center">
