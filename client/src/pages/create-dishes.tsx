@@ -478,7 +478,7 @@ export default function CreateDishesScreen() {
         )}
 
         {/* Input Form Card */}
-        {showInputForm && (
+        {showInputForm && !showTakeOut && (
           <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
             <CardHeader className="pb-4">
               <div className="flex items-center justify-between">
@@ -604,7 +604,7 @@ export default function CreateDishesScreen() {
         )}
 
         {/* Collapsed Input Form Indicator */}
-        {!showInputForm && !showResults && (
+        {!showInputForm && !showResults && !showTakeOut && (
           <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
             <CardHeader className="py-3">
               <div className="flex items-center justify-between">
@@ -621,7 +621,7 @@ export default function CreateDishesScreen() {
         )}
 
         {/* Results Card */}
-        {showResults && (
+        {showResults && !showTakeOut && (
           <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
             <CardHeader className="pb-4">
               <div className="flex items-center justify-between mb-4">
