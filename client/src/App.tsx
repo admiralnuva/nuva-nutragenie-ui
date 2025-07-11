@@ -5,31 +5,22 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { BottomNavigation } from "@/components/ui/bottom-navigation";
-import NotFound from "@/pages/not-found";
 
 
 import DietaryScreen from "@/pages/dietary";
-
-
-import RecipeDetailsScreen from "@/pages/recipe-details";
-import CookingScreen from "@/pages/cooking";
 import VoiceCookingScreen from "@/pages/voice-cooking";
-
-import AIVideoCookingScreen from "@/pages/ai-video-cooking";
 import TakeOutScreen from "@/pages/takeout";
 import CookScreen from "@/pages/cook";
 import NuvaSplashScreen from "@/pages/nuva-splash";
 import NuvaSignupScreen from "@/pages/nuva-signup";
-
 import CreateDishesScreen from "@/pages/create-dishes";
 import RecipesScreen from "@/pages/recipes";
 import ProfileScreen from "@/pages/profile";
 import HealthAnalyticsScreen from "@/pages/health";
 import HomeScreen from "@/pages/home";
-
 import GroceryListEnhanced from "@/pages/grocery-list-enhanced";
 import InstacartScreen from "@/pages/instacart";
-import WeeklyMealPlanningScreen from "@/pages/weekly-meal-planning";
+
 
 function Router() {
   const [location, setLocation] = useLocation();
@@ -59,20 +50,16 @@ function Router() {
       <Route path="/create-dishes" component={CreateDishesScreen} />
       <Route path="/home" component={HomeScreen} />
 
-      <Route path="/recipe-details" component={RecipeDetailsScreen} />
-
       <Route path="/grocery-list" component={GroceryListEnhanced} />
       <Route path="/instacart" component={InstacartScreen} />
-      <Route path="/cooking/:recipeId?" component={CookingScreen} />
       <Route path="/cook" component={CookScreen} />
       <Route path="/voice-cooking" component={VoiceCookingScreen} />
-      <Route path="/ai-video-cooking" component={AIVideoCookingScreen} />
-      <Route path="/weekly-meal-planning" component={WeeklyMealPlanningScreen} />
+
       <Route path="/takeout" component={TakeOutScreen} />
       <Route path="/nuva-signup" component={NuvaSignupScreen} />
       <Route path="/profile" component={ProfileScreen} />
       <Route path="/health" component={HealthAnalyticsScreen} />
-      <Route component={NotFound} />
+
     </Switch>
   );
 }
