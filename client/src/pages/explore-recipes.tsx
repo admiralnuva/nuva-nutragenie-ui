@@ -1161,7 +1161,7 @@ export default function ExploreRecipesScreen() {
           </div>
 
           {/* Card 2: Recipe Options */}
-          <div className={`${isNavigatingFromTabs ? 'order-1' : 'order-2'}`}>
+          <div className="order-2">
             <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
               <CardHeader className="pb-4">
               <CardTitle className="text-lg text-white">Recipe Options</CardTitle>
@@ -1247,7 +1247,7 @@ export default function ExploreRecipesScreen() {
 
           {/* Chef's Choice Dishes Card */}
           {(console.log('Render check - showChefsChoice:', showChefsChoice), showChefsChoice) && (
-            <div className={`${isNavigatingFromTabs ? 'order-2' : 'order-2'}`}>
+            <div className="order-2">
               <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
                 <CardHeader className="pb-4">
                   <div className="flex items-center justify-between">
@@ -1437,7 +1437,7 @@ export default function ExploreRecipesScreen() {
 
           {/* Pantry Dishes Card */}
           {(console.log('Render check - showPantryDishes:', showPantryDishes), showPantryDishes) && (
-            <div className={`${isNavigatingFromTabs ? 'order-2' : 'order-2'}`}>
+            <div className="order-2">
               <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
                 <CardHeader className="pb-4">
                   <div className="flex items-center justify-between">
@@ -1526,7 +1526,7 @@ export default function ExploreRecipesScreen() {
 
           {/* Take-Out Form Card */}
           {(console.log('Render check - showTakeOut:', showTakeOut), showTakeOut) && (
-            <div className={`${isNavigatingFromTabs ? 'order-2' : 'order-2'}`}>
+            <div className="order-2">
               <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
                 <CardHeader className="pb-4">
                   <div className="flex items-center justify-between">
@@ -1784,7 +1784,7 @@ export default function ExploreRecipesScreen() {
 
           {/* Card 3: History */}
           {(mealConfirmed || pantryConfirmed) && (
-            <div className={`${isNavigatingFromTabs ? 'order-4' : 'order-3'} mb-4`}>
+            <div className="order-3 mb-4">
               <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
                 <CardHeader className="pb-4">
                   <CardTitle className="text-lg text-white">
@@ -1846,7 +1846,7 @@ export default function ExploreRecipesScreen() {
 
           {/* Card 4: Summary */}
           {(selectedIngredients.length > 0 || Object.values(mealPreferences).some(val => val !== "")) && (
-            <div className={`${isNavigatingFromTabs ? 'order-5' : 'order-4'}`}>
+            <div className="order-4">
               <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
               <CardHeader className="pb-4">
                 <CardTitle className="text-lg text-white">
