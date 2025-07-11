@@ -803,6 +803,9 @@ Changelog:
   * Added Recipe Options card content with 2x2 grid layout matching user mockup
   * Implemented 4 buttons: Chef's Choice, Pantry Dishes, Create Dishes, Take-Out
   * Applied consistent gray-700 button styling with hover effects and rounded corners
+  * Added toggle functionality to Recipe Options buttons with purple selection states
+  * Implemented single selection mode - selecting same button deselects it, selecting different button switches selection
+  * Applied purple-600 background for selected state matching app theming color
 ```
 
 ## User Preferences
