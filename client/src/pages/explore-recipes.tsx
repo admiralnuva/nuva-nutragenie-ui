@@ -92,11 +92,24 @@ export default function ExploreRecipesScreen() {
   const [customIngredients, setCustomIngredients] = useState<string[]>([]);
   const [newIngredient, setNewIngredient] = useState('');
   
-  // Recipe options
+  // Recipe options - COMPLETELY INDEPENDENT STATE
   const [selectedRecipeOption, setSelectedRecipeOption] = useState<string>('');
   const [showChefsChoice, setShowChefsChoice] = useState(false);
   const [showPantryDishes, setShowPantryDishes] = useState(false);
   const [showTakeOut, setShowTakeOut] = useState(false);
+  
+  // TEST FUNCTION - Log state changes for debugging
+  const logRecipeOptionState = (action: string) => {
+    console.log(`RECIPE OPTION TEST - ${action}:`, {
+      selectedRecipeOption,
+      showChefsChoice,
+      showPantryDishes,
+      showTakeOut,
+      cardPosition,
+      mealConfirmed,
+      pantryConfirmed
+    });
+  };
   
   // Take-out form
   const [takeOutServingSize, setTakeOutServingSize] = useState('');
@@ -858,6 +871,7 @@ export default function ExploreRecipesScreen() {
                     setShowPantryDishes(false);
                     setShowTakeOut(false);
                     setSelectedRecipeOption('chefs-choice');
+                    logRecipeOptionState('Chef\'s Choice clicked');
                   }}
                 >
                   Chef's Choice
@@ -874,6 +888,7 @@ export default function ExploreRecipesScreen() {
                     setShowChefsChoice(false);
                     setShowTakeOut(false);
                     setSelectedRecipeOption('pantry-dishes');
+                    logRecipeOptionState('Pantry Dishes clicked');
                   }}
                 >
                   Pantry Dishes
@@ -885,7 +900,14 @@ export default function ExploreRecipesScreen() {
                       ? 'bg-purple-600 border-purple-600 text-white' 
                       : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
                   }`}
-                  onClick={() => setLocation('/create-dishes')}
+                  onClick={() => {
+                    setShowChefsChoice(false);
+                    setShowPantryDishes(false);
+                    setShowTakeOut(false);
+                    setSelectedRecipeOption('create-dishes');
+                    logRecipeOptionState('Create Dishes clicked');
+                    setLocation('/create-dishes');
+                  }}
                 >
                   Create Dishes
                 </Button>
@@ -901,6 +923,7 @@ export default function ExploreRecipesScreen() {
                     setShowChefsChoice(false);
                     setShowPantryDishes(false);
                     setSelectedRecipeOption('take-out');
+                    logRecipeOptionState('Take-Out clicked');
                   }}
                 >
                   Take-Out
