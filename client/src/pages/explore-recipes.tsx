@@ -1346,28 +1346,24 @@ export default function ExploreRecipesScreen() {
                             <div className="flex items-center justify-between mt-4">
                                 <button 
                                   onClick={() => setSubstitutionOpenDish(isSubstitutionOpen ? null : dish.id)}
-                                  className={`w-10 h-10 rounded flex items-center justify-center transition-colors ${
-                                    isSubstitutionOpen 
-                                      ? 'bg-purple-600 hover:bg-purple-700' 
-                                      : 'bg-gray-700 hover:bg-gray-600'
-                                  }`}
+                                  className="w-10 h-10 bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-lg flex items-center justify-center hover:from-yellow-600 hover:to-yellow-700 transition-all"
                                 >
-                                  <ArrowLeftRight size={20} className="text-white" />
+                                  <ArrowLeftRight size={18} className="text-white" />
                                 </button>
-                                <button className="w-10 h-10 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
-                                  <BookOpen size={20} className="text-gray-300" />
+                                <button className="w-10 h-10 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center hover:from-purple-600 hover:to-purple-700 transition-all">
+                                  <BookOpen size={18} className="text-white" />
                                 </button>
-                                <button className="w-10 h-10 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
-                                  <Save size={20} className="text-gray-300" />
+                                <button className="w-10 h-10 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center hover:from-green-600 hover:to-green-700 transition-all">
+                                  <Heart size={18} className="text-white" />
                                 </button>
                                 <button 
                                   onClick={() => handleCookClick(dish.id, dish.name)}
-                                  className="w-10 h-10 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors"
+                                  className="w-10 h-10 bg-gradient-to-r from-orange-500 to-red-600 rounded-lg flex items-center justify-center hover:from-orange-600 hover:to-red-700 transition-all"
                                 >
-                                  <CookingPot size={20} className="text-gray-300" />
+                                  <CookingPot size={18} className="text-white" />
                                 </button>
-                                <button className="w-10 h-10 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center justify-center transition-colors">
-                                  <Plus size={20} />
+                                <button className="w-10 h-10 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center hover:from-blue-600 hover:to-blue-700 transition-all">
+                                  <Plus size={18} className="text-white" />
                                 </button>
                             </div>
                           </div>
@@ -1518,23 +1514,23 @@ export default function ExploreRecipesScreen() {
                           
                           {/* Action Icons Row */}
                           <div className="flex items-center justify-between mt-4">
-                              <button className="w-10 h-10 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
-                                <Repeat size={20} className="text-gray-300" />
+                              <button className="w-10 h-10 bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-lg flex items-center justify-center hover:from-yellow-600 hover:to-yellow-700 transition-all">
+                                <ArrowLeftRight size={18} className="text-white" />
                               </button>
-                              <button className="w-10 h-10 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
-                                <BookOpen size={20} className="text-gray-300" />
+                              <button className="w-10 h-10 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center hover:from-purple-600 hover:to-purple-700 transition-all">
+                                <BookOpen size={18} className="text-white" />
                               </button>
-                              <button className="w-10 h-10 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors">
-                                <Save size={20} className="text-gray-300" />
+                              <button className="w-10 h-10 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center hover:from-green-600 hover:to-green-700 transition-all">
+                                <Heart size={18} className="text-white" />
                               </button>
                               <button 
                                 onClick={() => handleCookClick(dish.id, dish.name)}
-                                className="w-10 h-10 bg-gray-700 rounded flex items-center justify-center hover:bg-gray-600 transition-colors"
+                                className="w-10 h-10 bg-gradient-to-r from-orange-500 to-red-600 rounded-lg flex items-center justify-center hover:from-orange-600 hover:to-red-700 transition-all"
                               >
-                                <CookingPot size={20} className="text-gray-300" />
+                                <CookingPot size={18} className="text-white" />
                               </button>
-                              <button className="w-10 h-10 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center justify-center transition-colors">
-                                <Plus size={20} />
+                              <button className="w-10 h-10 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center hover:from-blue-600 hover:to-blue-700 transition-all">
+                                <Plus size={18} className="text-white" />
                               </button>
                           </div>
                         </div>
