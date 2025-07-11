@@ -423,7 +423,7 @@ export default function ExploreRecipeOptionsScreen() {
         {selectedOption === "create-dishes" && generatedDishes.length > 0 && (
           <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-bold text-white">Generated Dish Variations</h2>
+              <h2 className="text-xl font-bold text-white">Your Custom {dishName || "Chicken Curry"} Collection</h2>
               <button 
                 onClick={() => setGeneratedDishes([])}
                 className="text-gray-400 hover:text-white transition-colors"
