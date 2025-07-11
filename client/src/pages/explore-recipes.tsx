@@ -654,6 +654,11 @@ export default function ExploreRecipesScreen() {
                         </div>
                       </div>
 
+                      {/* Separator between required and optional fields */}
+                      <div className="my-4">
+                        <div className="bg-gray-600 h-px w-full"></div>
+                      </div>
+
                       {/* Row 3: Skill Level & Cook Method */}
                       <div className="grid grid-cols-2 gap-3">
                         <div>
@@ -738,8 +743,8 @@ export default function ExploreRecipesScreen() {
                               }}
                               className="w-6 h-6 rounded-full border-purple-400 data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600"
                             />
-                            <label htmlFor="meal-confirm" className="text-sm font-bold text-white drop-shadow-lg">
-                              I confirm these meal preferences are correct
+                            <label htmlFor="meal-confirm" className="text-sm font-bold text-yellow-300 drop-shadow-lg">
+                              I confirm the above meal preferences
                             </label>
                           </div>
                         </div>
