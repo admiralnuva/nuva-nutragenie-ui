@@ -1,5 +1,6 @@
 import { ArrowLeftRight, Book, Heart, ChefHat, Plus, Check } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useLocation } from "wouter";
 import { RecipeModal } from "./recipe-modal";
 
 interface Dish {
@@ -25,6 +26,7 @@ interface DishCardProps {
 }
 
 export function DishCard({ dish }: DishCardProps) {
+  const [, setLocation] = useLocation();
   const [isSubstitutionOpen, setIsSubstitutionOpen] = useState(false);
   const [selectedSubstitution, setSelectedSubstitution] = useState<string | null>(null);
   const [hasSubstitution, setHasSubstitution] = useState(false);
@@ -78,6 +80,12 @@ export function DishCard({ dish }: DishCardProps) {
     console.log('Saving recipe to profile:', { dishId: dish.id, recipeName: dish.name });
     setIsRecipeSaved(true);
     setIsRecipeOpen(false);
+  };
+
+  const handleCookClick = () => {
+    // API call to set current cooking dish would happen here
+    console.log('Starting cooking session for:', { dishId: dish.id, dishName: dish.name });
+    setLocation('/cook');
   };
 
   // Sample recipe data - will come from API
@@ -168,7 +176,10 @@ export function DishCard({ dish }: DishCardProps) {
               </div>
             )}
           </button>
-          <button className="w-14 h-14 bg-orange-600 hover:bg-orange-700 rounded-lg flex items-center justify-center transition-colors">
+          <button 
+            onClick={handleCookClick}
+            className="w-14 h-14 bg-orange-600 hover:bg-orange-700 rounded-lg flex items-center justify-center transition-colors"
+          >
             <ChefHat size={22} className="text-white" />
           </button>
           <button className="w-14 h-14 bg-blue-600 hover:bg-blue-700 rounded-lg flex items-center justify-center transition-colors">
