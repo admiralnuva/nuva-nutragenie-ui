@@ -8,6 +8,7 @@ interface GroceryItem {
   name: string;
   quantity: number;
   unit: string;
+  purchased?: boolean;
 }
 
 interface GroceryCategory {
@@ -21,6 +22,93 @@ export default function GroceryHubScreen() {
   const [activeTab, setActiveTab] = useState<'edit' | 'shop' | 'instacart'>('edit');
   const [newItemName, setNewItemName] = useState('');
   const [selectedCategoryForAdd, setSelectedCategoryForAdd] = useState<string>('');
+
+  // Shop screen state - dummy data from each category
+  const [shopCategories, setShopCategories] = useState<GroceryCategory[]>([
+    {
+      id: 'meat-poultry',
+      name: 'Meat & Poultry',
+      isExpanded: true,
+      items: [
+        { id: '1', name: 'Chicken Breast', quantity: 2, unit: 'lbs', purchased: false },
+        { id: '2', name: 'Ground Beef', quantity: 1, unit: 'lb', purchased: false }
+      ]
+    },
+    {
+      id: 'fish-seafood',
+      name: 'Fish & Seafood',
+      isExpanded: false,
+      items: [
+        { id: '4', name: 'Salmon Fillet', quantity: 1, unit: 'lb', purchased: false }
+      ]
+    },
+    {
+      id: 'vegetables',
+      name: 'Vegetables',
+      isExpanded: false,
+      items: [
+        { id: '7', name: 'Bell Peppers', quantity: 3, unit: 'pieces', purchased: false },
+        { id: '8', name: 'Onions', quantity: 2, unit: 'pieces', purchased: false }
+      ]
+    },
+    {
+      id: 'dairy-eggs',
+      name: 'Dairy & Eggs',
+      isExpanded: false,
+      items: [
+        { id: '11', name: 'Milk', quantity: 1, unit: 'gallon', purchased: false },
+        { id: '12', name: 'Eggs', quantity: 1, unit: 'dozen', purchased: false }
+      ]
+    },
+    {
+      id: 'grains-pasta',
+      name: 'Grains & Pasta',
+      isExpanded: false,
+      items: [
+        { id: '15', name: 'Brown Rice', quantity: 1, unit: 'bag', purchased: false }
+      ]
+    },
+    {
+      id: 'fruits',
+      name: 'Fruits',
+      isExpanded: false,
+      items: [
+        { id: '19', name: 'Bananas', quantity: 1, unit: 'bunch', purchased: false }
+      ]
+    },
+    {
+      id: 'legumes-beans',
+      name: 'Legumes & Beans',
+      isExpanded: false,
+      items: [
+        { id: '23', name: 'Black Beans', quantity: 3, unit: 'cans', purchased: false }
+      ]
+    },
+    {
+      id: 'nuts-seeds',
+      name: 'Nuts & Seeds',
+      isExpanded: false,
+      items: [
+        { id: '27', name: 'Almonds', quantity: 1, unit: 'bag', purchased: false }
+      ]
+    },
+    {
+      id: 'condiments-seasonings',
+      name: 'Condiments & Seasonings',
+      isExpanded: false,
+      items: [
+        { id: '31', name: 'Olive Oil', quantity: 1, unit: 'bottle', purchased: false }
+      ]
+    },
+    {
+      id: 'pantry-staples',
+      name: 'Pantry Staples',
+      isExpanded: false,
+      items: [
+        { id: '35', name: 'Flour', quantity: 1, unit: 'bag', purchased: false }
+      ]
+    }
+  ]);
 
   const [categories, setCategories] = useState<GroceryCategory[]>([
     {
@@ -200,6 +288,29 @@ export default function GroceryHubScreen() {
     // Navigate to Instacart integration
   };
 
+  const toggleShopCategory = (categoryId: string) => {
+    setShopCategories(prev => prev.map(cat => 
+      cat.id === categoryId 
+        ? { ...cat, isExpanded: !cat.isExpanded }
+        : cat
+    ));
+  };
+
+  const togglePurchased = (categoryId: string, itemId: string) => {
+    setShopCategories(prev => prev.map(cat => 
+      cat.id === categoryId 
+        ? {
+            ...cat,
+            items: cat.items.map(item => 
+              item.id === itemId 
+                ? { ...item, purchased: !item.purchased }
+                : item
+            )
+          }
+        : cat
+    ));
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white flex flex-col">
       {/* Header */}
@@ -351,9 +462,86 @@ export default function GroceryHubScreen() {
         )}
 
         {activeTab === 'shop' && (
-          <div className="text-center py-12">
-            <h3 className="text-xl font-semibold text-white mb-2">Shop View</h3>
-            <p className="text-gray-400">Coming soon - In-store shopping experience</p>
+          <div className="space-y-4">
+            {/* Shop Category Cards */}
+            {shopCategories.map((category) => (
+              <div key={category.id} className="bg-gray-800/90 backdrop-blur-sm border border-gray-700 rounded-lg overflow-hidden">
+                {/* Category Header */}
+                <button
+                  onClick={() => toggleShopCategory(category.id)}
+                  className="w-full px-6 py-4 flex items-center justify-between bg-gray-800 hover:bg-gray-750 transition-colors"
+                >
+                  <h3 className="text-lg font-semibold text-white">{category.name}</h3>
+                  {category.isExpanded ? (
+                    <ChevronUp className="w-5 h-5 text-gray-400" />
+                  ) : (
+                    <ChevronDown className="w-5 h-5 text-gray-400" />
+                  )}
+                </button>
+
+                {/* Category Content */}
+                {category.isExpanded && (
+                  <div className="p-6 space-y-3">
+                    {category.items.map((item) => (
+                      <div 
+                        key={item.id} 
+                        className={`flex items-center justify-between rounded-lg p-4 cursor-pointer transition-all ${
+                          item.purchased 
+                            ? 'bg-gray-600 opacity-60' 
+                            : 'bg-gray-700 hover:bg-gray-650'
+                        }`}
+                        onClick={() => togglePurchased(category.id, item.id)}
+                      >
+                        <div className="flex-1">
+                          <span className={`font-medium ${
+                            item.purchased ? 'text-gray-400 line-through' : 'text-white'
+                          }`}>
+                            {item.name}
+                          </span>
+                          <div className="text-sm text-gray-400 mt-1">
+                            {item.quantity} {item.unit}
+                          </div>
+                        </div>
+                        
+                        {/* Purchase Checkbox */}
+                        <div className="flex items-center">
+                          <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${
+                            item.purchased 
+                              ? 'bg-green-600 border-green-600' 
+                              : 'border-gray-400 hover:border-green-400'
+                          }`}>
+                            {item.purchased && (
+                              <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                              </svg>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+
+            {/* Shop Progress Summary */}
+            <div className="bg-gray-800/90 backdrop-blur-sm border border-gray-700 rounded-lg p-6 mt-6">
+              <h3 className="text-lg font-semibold text-white mb-4">Shopping Progress</h3>
+              <div className="text-gray-300">
+                {(() => {
+                  const totalItems = shopCategories.reduce((sum, cat) => sum + cat.items.length, 0);
+                  const purchasedItems = shopCategories.reduce((sum, cat) => 
+                    sum + cat.items.filter(item => item.purchased).length, 0
+                  );
+                  return (
+                    <div className="flex justify-between">
+                      <span>Items Purchased:</span>
+                      <span className="font-semibold">{purchasedItems} / {totalItems}</span>
+                    </div>
+                  );
+                })()}
+              </div>
+            </div>
           </div>
         )}
 
