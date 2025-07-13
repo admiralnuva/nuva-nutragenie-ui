@@ -874,8 +874,8 @@ export default function ExploreRecipeOptionsScreen() {
               onClick={() => handleOptionClick("chefs-choice")}
               className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
                 selectedOption === "chefs-choice"
-                  ? "bg-orange-700 text-white border-orange-600 shadow-lg shadow-orange-500/40"
-                  : "bg-orange-600 text-white border-orange-500 shadow-lg shadow-orange-500/30"
+                  ? "bg-blue-700 text-white border-blue-600 shadow-lg shadow-blue-500/40"
+                  : "bg-blue-600 text-white border-blue-500 shadow-lg shadow-blue-500/30"
               }`}
             >
               Chef's Choice
@@ -884,8 +884,8 @@ export default function ExploreRecipeOptionsScreen() {
               onClick={() => handleOptionClick("pantry-dishes")}
               className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
                 selectedOption === "pantry-dishes"
-                  ? "bg-orange-700 text-white border-orange-600 shadow-lg shadow-orange-500/40"
-                  : "bg-orange-600 text-white border-orange-500 shadow-lg shadow-orange-500/30"
+                  ? "bg-blue-700 text-white border-blue-600 shadow-lg shadow-blue-500/40"
+                  : "bg-blue-600 text-white border-blue-500 shadow-lg shadow-blue-500/30"
               }`}
             >
               Pantry Dishes
@@ -894,8 +894,8 @@ export default function ExploreRecipeOptionsScreen() {
               onClick={() => handleOptionClick("create-dishes")}
               className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
                 selectedOption === "create-dishes"
-                  ? "bg-orange-700 text-white border-orange-600 shadow-lg shadow-orange-500/40"
-                  : "bg-orange-600 text-white border-orange-500 shadow-lg shadow-orange-500/30"
+                  ? "bg-blue-700 text-white border-blue-600 shadow-lg shadow-blue-500/40"
+                  : "bg-blue-600 text-white border-blue-500 shadow-lg shadow-blue-500/30"
               }`}
             >
               Create Dishes
@@ -904,8 +904,8 @@ export default function ExploreRecipeOptionsScreen() {
               onClick={() => handleOptionClick("take-out")}
               className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
                 selectedOption === "take-out"
-                  ? "bg-orange-700 text-white border-orange-600 shadow-lg shadow-orange-500/40"
-                  : "bg-orange-600 text-white border-orange-500 shadow-lg shadow-orange-500/30"
+                  ? "bg-blue-700 text-white border-blue-600 shadow-lg shadow-blue-500/40"
+                  : "bg-blue-600 text-white border-blue-500 shadow-lg shadow-blue-500/30"
               }`}
             >
               Take-Out
