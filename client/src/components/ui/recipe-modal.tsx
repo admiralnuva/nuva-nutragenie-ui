@@ -67,7 +67,7 @@ export function RecipeModal({ recipe, isOpen, onClose, onSave }: RecipeModalProp
         <div className="flex-1 overflow-y-auto">
           {/* Recipe Info */}
           <div className="p-4 border-b border-gray-700">
-            <div className="flex gap-6 text-sm text-gray-300">
+            <div className="flex gap-6 text-sm text-white">
               <span>🕒 {recipe.cookTime}</span>
               <span>👥 {recipe.servings} servings</span>
             </div>
@@ -75,14 +75,14 @@ export function RecipeModal({ recipe, isOpen, onClose, onSave }: RecipeModalProp
 
           {/* Ingredients Section */}
           <div className="p-4 border-b border-gray-700">
-            <h3 className="text-lg font-semibold text-yellow-300 mb-3 flex items-center gap-2">
+            <h3 className="text-lg font-semibold text-yellow-400 mb-3 flex items-center gap-2">
               📋 Ingredients Summary
             </h3>
             <div className="space-y-2">
               {recipe.ingredients.map((ingredient, index) => (
                 <div key={index} className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
-                  <span className="text-gray-200">
+                  <span className="text-white">
                     <span className="font-medium">{ingredient.quantity}</span> {ingredient.name}
                   </span>
                 </div>
@@ -92,7 +92,7 @@ export function RecipeModal({ recipe, isOpen, onClose, onSave }: RecipeModalProp
 
           {/* Cooking Steps Section */}
           <div className="p-4">
-            <h3 className="text-lg font-semibold text-yellow-300 mb-3 flex items-center gap-2">
+            <h3 className="text-lg font-semibold text-yellow-400 mb-3 flex items-center gap-2">
               👩‍🍳 Cooking Steps
             </h3>
             <div className="space-y-4">
@@ -101,7 +101,7 @@ export function RecipeModal({ recipe, isOpen, onClose, onSave }: RecipeModalProp
                   <div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                     <span className="text-white font-bold text-sm">{index + 1}</span>
                   </div>
-                  <p className="text-gray-200 leading-relaxed pt-1">{step}</p>
+                  <p className="text-white leading-relaxed pt-1">{step}</p>
                 </div>
               ))}
             </div>
