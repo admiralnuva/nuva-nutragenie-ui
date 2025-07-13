@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ChevronUp, Calendar, ChefHat, Truck, ShoppingBag, BookOpen, ShoppingBasket, Edit, Settings, Pencil, Loader2 } from "lucide-react";
+import { Link } from "wouter";
 
 export default function ExploreRecipeOptionsScreen() {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
@@ -1241,16 +1242,13 @@ export default function ExploreRecipeOptionsScreen() {
             >
               Takeouts
             </button>
-            <button
-              className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
-                selectedHistoryItem === 'grocery-list' 
-                  ? 'bg-green-700 border-green-600 text-white shadow-lg shadow-green-500/40' 
-                  : 'bg-green-600 border-green-500 text-white shadow-lg shadow-green-500/30'
-              }`}
-              onClick={() => setSelectedHistoryItem(selectedHistoryItem === 'grocery-list' ? null : 'grocery-list')}
-            >
-              Grocery List
-            </button>
+            <Link href="/grocery-hub" className="block">
+              <button
+                className="w-full p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg bg-green-600 border-green-500 text-white shadow-lg shadow-green-500/30 hover:bg-green-700 hover:border-green-600 hover:shadow-green-500/40"
+              >
+                Grocery List
+              </button>
+            </Link>
             <button
               className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
                 selectedHistoryItem === 'recipes-saved' 

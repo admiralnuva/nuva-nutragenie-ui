@@ -21,6 +21,7 @@ import HealthAnalyticsScreen from "@/pages/health";
 import HomeScreen from "@/pages/home";
 
 import InstacartScreen from "@/pages/instacart";
+import GroceryHubScreen from "@/pages/grocery-hub";
 
 
 function Router() {
@@ -54,6 +55,7 @@ function Router() {
 
 
       <Route path="/instacart" component={InstacartScreen} />
+      <Route path="/grocery-hub" component={GroceryHubScreen} />
       <Route path="/cook" component={CookScreen} />
       <Route path="/voice-cooking" component={VoiceCookingScreen} />
 
