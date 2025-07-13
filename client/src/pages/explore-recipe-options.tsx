@@ -585,7 +585,7 @@ export default function ExploreRecipeOptionsScreen() {
               <div className="flex items-center space-x-4 mt-6">
                 <button
                   onClick={() => setMealPreferencesConfirmed(!mealPreferencesConfirmed)}
-                  className={`w-8 h-8 rounded-full border-2 flex items-center justify-center transition-colors ${
+                  className={`w-8 h-8 min-w-8 min-h-8 rounded-full border-2 flex items-center justify-center transition-colors flex-shrink-0 ${
                     mealPreferencesConfirmed 
                       ? "bg-purple-600 border-purple-600" 
                       : "border-gray-400 hover:border-purple-400"
