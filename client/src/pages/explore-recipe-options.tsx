@@ -1219,9 +1219,9 @@ export default function ExploreRecipeOptionsScreen() {
           </Card>
         )}
 
-        {/* Card 3 - History */}
+        {/* Card 3 - Activity */}
         <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
-          <h2 className="text-xl font-bold text-white mb-4">History</h2>
+          <h2 className="text-xl font-bold text-white mb-4">Your Activity</h2>
           <div className="grid grid-cols-2 gap-4">
             <Button
               variant="outline"
