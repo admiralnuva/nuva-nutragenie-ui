@@ -95,15 +95,11 @@ export function DishCard({ dish }: DishCardProps) {
             onClick={handleSubstitutionClick}
             className={`w-12 h-12 rounded-lg flex items-center justify-center transition-colors ${
               hasSubstitution 
-                ? 'bg-green-600 hover:bg-green-700' 
+                ? 'bg-teal-600 hover:bg-teal-700' 
                 : 'bg-yellow-600 hover:bg-yellow-700'
             }`}
           >
-            {hasSubstitution ? (
-              <Check size={20} className="text-white" />
-            ) : (
-              <ArrowLeftRight size={20} className="text-white" />
-            )}
+            <ArrowLeftRight size={20} className="text-white" />
           </button>
           <button className="w-12 h-12 bg-purple-600 hover:bg-purple-700 rounded-lg flex items-center justify-center transition-colors">
             <Book size={20} className="text-white" />
