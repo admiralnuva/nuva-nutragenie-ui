@@ -32,7 +32,7 @@ export default function ExploreRecipeOptionsScreen() {
   const [dishName, setDishName] = useState("");
   const [servingSize, setServingSize] = useState("");
   const [cuisine, setCuisine] = useState("");
-  const [mealType, setMealType] = useState("");
+  const [createMealType, setCreateMealType] = useState("");
   const [cookMethod, setCookMethod] = useState("");
   const [generatedDishes, setGeneratedDishes] = useState<any[]>([]);
   
@@ -761,8 +761,8 @@ export default function ExploreRecipeOptionsScreen() {
               {/* Row 2: Meal Type & Cook Method */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="mealType" className="text-yellow-300 font-bold text-sm mb-2 block">Meal Type</Label>
-                  <Select value={mealType} onValueChange={setMealType}>
+                  <Label htmlFor="createMealType" className="text-yellow-300 font-bold text-sm mb-2 block">Meal Type</Label>
+                  <Select value={createMealType} onValueChange={setCreateMealType}>
                     <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
                       <SelectValue placeholder="Dinner" />
                     </SelectTrigger>
