@@ -18,6 +18,16 @@ export default function ExploreRecipeOptionsScreen() {
   // Preferences state
   const [selectedPreferenceTab, setSelectedPreferenceTab] = useState<string>("diet");
   
+  // Meal preferences state
+  const [mealServingSize, setMealServingSize] = useState("2 people");
+  const [mealCuisine, setMealCuisine] = useState("American");
+  const [mealType, setMealType] = useState("Dinner");
+  const [mealSpiceLevel, setMealSpiceLevel] = useState("😊 Mild");
+  const [mealSkillLevel, setMealSkillLevel] = useState("🔰 Beginner");
+  const [mealCookMethod, setMealCookMethod] = useState("🔥 Oven");
+  const [mealPrepTime, setMealPrepTime] = useState("⏱️ 30 minutes");
+  const [mealPreferencesConfirmed, setMealPreferencesConfirmed] = useState(false);
+  
   // Create Dishes form state
   const [dishName, setDishName] = useState("");
   const [servingSize, setServingSize] = useState("");
@@ -446,8 +456,149 @@ export default function ExploreRecipeOptionsScreen() {
           
           {/* Meal Tab Content */}
           {selectedPreferenceTab === "meal" && (
-            <div className="text-center py-8">
-              <p className="text-gray-300">Meal preferences will be displayed here</p>
+            <div className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                {/* Serving Size */}
+                <div>
+                  <Label htmlFor="serving-size" className="text-yellow-300 font-bold text-sm mb-2 block">Serving Size *</Label>
+                  <Select value={mealServingSize} onValueChange={setMealServingSize}>
+                    <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                      <SelectValue placeholder="Select serving size" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-gray-700 border-gray-600">
+                      <SelectItem value="1 person">1 person</SelectItem>
+                      <SelectItem value="2 people">2 people</SelectItem>
+                      <SelectItem value="4 people">4 people</SelectItem>
+                      <SelectItem value="6 people">6 people</SelectItem>
+                      <SelectItem value="8 people">8 people</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Cuisine */}
+                <div>
+                  <Label htmlFor="cuisine" className="text-yellow-300 font-bold text-sm mb-2 block">Cuisine *</Label>
+                  <Select value={mealCuisine} onValueChange={setMealCuisine}>
+                    <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                      <SelectValue placeholder="Select cuisine" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-gray-700 border-gray-600">
+                      <SelectItem value="American">American</SelectItem>
+                      <SelectItem value="Italian">Italian</SelectItem>
+                      <SelectItem value="Mexican">Mexican</SelectItem>
+                      <SelectItem value="Chinese">Chinese</SelectItem>
+                      <SelectItem value="Indian">Indian</SelectItem>
+                      <SelectItem value="Mediterranean">Mediterranean</SelectItem>
+                      <SelectItem value="Thai">Thai</SelectItem>
+                      <SelectItem value="Japanese">Japanese</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Meal Type */}
+                <div>
+                  <Label htmlFor="meal-type" className="text-yellow-300 font-bold text-sm mb-2 block">Meal Type *</Label>
+                  <Select value={mealType} onValueChange={setMealType}>
+                    <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                      <SelectValue placeholder="Select meal type" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-gray-700 border-gray-600">
+                      <SelectItem value="Breakfast">Breakfast</SelectItem>
+                      <SelectItem value="Lunch">Lunch</SelectItem>
+                      <SelectItem value="Dinner">Dinner</SelectItem>
+                      <SelectItem value="Snack">Snack</SelectItem>
+                      <SelectItem value="Dessert">Dessert</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Spice Level */}
+                <div>
+                  <Label htmlFor="spice-level" className="text-yellow-300 font-bold text-sm mb-2 block">Spice Level</Label>
+                  <Select value={mealSpiceLevel} onValueChange={setMealSpiceLevel}>
+                    <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                      <SelectValue placeholder="Select spice level" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-gray-700 border-gray-600">
+                      <SelectItem value="😊 Mild">😊 Mild</SelectItem>
+                      <SelectItem value="🌶️ Medium">🌶️ Medium</SelectItem>
+                      <SelectItem value="🔥 Hot">🔥 Hot</SelectItem>
+                      <SelectItem value="🌋 Very Hot">🌋 Very Hot</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Skill Level */}
+                <div>
+                  <Label htmlFor="skill-level" className="text-yellow-300 font-bold text-sm mb-2 block">Skill Level</Label>
+                  <Select value={mealSkillLevel} onValueChange={setMealSkillLevel}>
+                    <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                      <SelectValue placeholder="Select skill level" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-gray-700 border-gray-600">
+                      <SelectItem value="🔰 Beginner">🔰 Beginner</SelectItem>
+                      <SelectItem value="👨‍🍳 Intermediate">👨‍🍳 Intermediate</SelectItem>
+                      <SelectItem value="⭐ Advanced">⭐ Advanced</SelectItem>
+                      <SelectItem value="👑 Expert">👑 Expert</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Cook Method */}
+                <div>
+                  <Label htmlFor="cook-method" className="text-yellow-300 font-bold text-sm mb-2 block">Cook Method</Label>
+                  <Select value={mealCookMethod} onValueChange={setMealCookMethod}>
+                    <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                      <SelectValue placeholder="Select cook method" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-gray-700 border-gray-600">
+                      <SelectItem value="🔥 Oven">🔥 Oven</SelectItem>
+                      <SelectItem value="🍳 Stovetop">🍳 Stovetop</SelectItem>
+                      <SelectItem value="🥘 Slow Cooker">🥘 Slow Cooker</SelectItem>
+                      <SelectItem value="⚡ Microwave">⚡ Microwave</SelectItem>
+                      <SelectItem value="🔥 Grill">🔥 Grill</SelectItem>
+                      <SelectItem value="🍎 No Cook">🍎 No Cook</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              {/* Prep Time - Full Width */}
+              <div>
+                <Label htmlFor="prep-time" className="text-yellow-300 font-bold text-sm mb-2 block">Prep Time</Label>
+                <Select value={mealPrepTime} onValueChange={setMealPrepTime}>
+                  <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                    <SelectValue placeholder="Select prep time" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-gray-700 border-gray-600">
+                    <SelectItem value="⏱️ 15 minutes">⏱️ 15 minutes</SelectItem>
+                    <SelectItem value="⏱️ 30 minutes">⏱️ 30 minutes</SelectItem>
+                    <SelectItem value="⏱️ 45 minutes">⏱️ 45 minutes</SelectItem>
+                    <SelectItem value="⏱️ 1 hour">⏱️ 1 hour</SelectItem>
+                    <SelectItem value="⏱️ 1.5 hours">⏱️ 1.5 hours</SelectItem>
+                    <SelectItem value="⏱️ 2+ hours">⏱️ 2+ hours</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Confirmation Checkbox */}
+              <div className="flex items-center space-x-3 mt-6">
+                <button
+                  onClick={() => setMealPreferencesConfirmed(!mealPreferencesConfirmed)}
+                  className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${
+                    mealPreferencesConfirmed 
+                      ? "bg-purple-600 border-purple-600" 
+                      : "border-gray-400 hover:border-purple-400"
+                  }`}
+                >
+                  {mealPreferencesConfirmed && (
+                    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  )}
+                </button>
+                <span className="text-white text-sm">I confirm these meal preferences are correct</span>
+              </div>
             </div>
           )}
           
