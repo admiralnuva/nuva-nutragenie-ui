@@ -185,20 +185,16 @@ export default function ExploreRecipeOptionsScreen() {
         try {
           const audio = new Audio('/attached_assets/ding-small-bell-sfx-233008%20(1)_1752375863891.mp3');
           audio.volume = 0.9;
-          audio.preload = 'auto';
-          audio.play().catch((err) => {
-            console.log('Primary audio failed, trying fallback:', err);
-            // Try alternative path if first fails
+          audio.play().catch(() => {
+            // Try fallback audio if primary fails
             const fallbackAudio = new Audio('/attached_assets/ding-small-bell-sfx-233008_1752105356799.mp3');
             fallbackAudio.volume = 0.9;
-            fallbackAudio.play().catch((fallbackErr) => {
-              console.log('Fallback audio also failed:', fallbackErr);
-            });
+            fallbackAudio.play().catch(() => {});
           });
         } catch (error) {
-          console.log('Audio creation failed:', error);
+          // Silent fail - audio is enhancement only
         }
-      }, 100); // Small delay to ensure state changes complete first
+      }, 100);
     } else {
       // Unchecking - keep card at bottom, just expand content
       setPantryConfirmed(false);
