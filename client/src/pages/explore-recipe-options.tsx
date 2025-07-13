@@ -545,17 +545,28 @@ export default function ExploreRecipeOptionsScreen() {
             >
               Meal
             </button>
-            <button
-              onClick={() => setSelectedPreferenceTab("pantry")}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center space-x-2 ${
-                selectedPreferenceTab === "pantry"
-                  ? "bg-purple-600 text-white"
-                  : "bg-gray-700 text-gray-300 hover:bg-gray-600"
-              }`}
-            >
-              <ShoppingBasket size={16} />
-              <span>Pantry</span>
-            </button>
+            <div className="flex items-center space-x-2">
+              <button
+                onClick={() => setSelectedPreferenceTab("pantry")}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center space-x-2 ${
+                  selectedPreferenceTab === "pantry"
+                    ? "bg-purple-600 text-white"
+                    : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+                }`}
+              >
+                <ShoppingBasket size={16} />
+                <span>Pantry</span>
+              </button>
+              {selectedPreferenceTab === "pantry" && pantryConfirmed && (
+                <button
+                  onClick={() => setPantryConfirmed(false)}
+                  className="text-purple-400 hover:text-purple-300 p-2 rounded-lg hover:bg-purple-600/10 transition-colors"
+                  title="Edit Ingredients"
+                >
+                  <Edit3 size={20} />
+                </button>
+              )}
+            </div>
           </div>
 
           {/* Diet Tab Content */}
@@ -829,16 +840,10 @@ export default function ExploreRecipeOptionsScreen() {
             </div>
           )}
           
-          {/* Collapsed Pantry Tab */}
+          {/* Collapsed Pantry Tab - now handled inline with tab header */}
           {selectedPreferenceTab === "pantry" && pantryConfirmed && (
             <div className="text-center py-2">
-              <button
-                onClick={() => setPantryConfirmed(false)}
-                className="text-purple-400 hover:text-purple-300 p-2 rounded-lg hover:bg-purple-600/10 transition-colors"
-                title="Edit Ingredients"
-              >
-                <Edit3 size={18} />
-              </button>
+              <p className="text-gray-400 text-sm">Pantry preferences confirmed</p>
             </div>
           )}
         </Card>
