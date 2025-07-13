@@ -82,9 +82,12 @@ NutraGenie is a mobile-first web application that serves as a personal AI chef a
 4. **Profile Management**: View achievements → Track progress → Update preferences
 
 ### State Management Pattern
-- Server state managed by TanStack Query with automatic caching
+- **Independent Component Architecture**: Each component fetches its own data from APIs without frontend dependencies
+- Components maintain minimal shared state and avoid cross-component data dependencies
+- Server state managed by TanStack Query with automatic caching per component
 - User data persisted in localStorage for offline access
 - Real-time updates through optimistic updates and cache invalidation
+- All workflows draw data from APIs rather than component interdependencies
 
 ## External Dependencies
 
@@ -972,6 +975,10 @@ To restore to this stable state if needed:
   * User preference documented: grocery functionality should integrate naturally with existing recipe workflow
   * Reverted all changes and restored original Grocery List button toggle functionality
   * Learning: grocery management should connect logically to recipe selection and meal planning process
+- July 13, 2025. Architecture Principle Documentation:
+  * User preference: Keep components independent with minimal frontend dependencies
+  * Architecture goal: All workflows should draw data from APIs rather than component interdependencies
+  * Design philosophy: Each component fetches its own data independently for better scalability
 
 - July 11, 2025. Take-Out Screen Navigation Fix:
   * Updated back button route from /recipes to /explore-recipe-options for consistent navigation flow
