@@ -27,7 +27,7 @@ export default function VoiceCookingScreen() {
   }>>([
     {
       sender: 'chef',
-      message: 'Hello! How can I help you with your cooking today?',
+      message: 'Hello this is your chef- lets cook Grilled Salmon. Ready?? say yes',
       timestamp: new Date()
     }
   ]);
