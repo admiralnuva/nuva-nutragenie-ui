@@ -8,8 +8,12 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ChevronUp, Calendar, ChefHat, Truck, ShoppingBag, BookOpen, ShoppingBasket, Edit, Settings, Pencil, Loader2 } from "lucide-react";
 import { Link } from "wouter";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
 
 export default function ExploreRecipeOptionsScreen() {
+  // Persistent diet & pantry completion status
+  const [dietPantryCompleted, setDietPantryCompleted] = useLocalStorage<boolean>("nutragenie_diet_pantry_completed", false);
+  
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [isChefRecommendsCollapsed, setIsChefRecommendsCollapsed] = useState(false);
   const [isPantryDishesCollapsed, setIsPantryDishesCollapsed] = useState(false);
@@ -24,7 +28,7 @@ export default function ExploreRecipeOptionsScreen() {
     "chicken-breast", "salmon", "bell-peppers" // Default selections
   ]);
   const [pantryConfirmed, setPantryConfirmed] = useState(false);
-  const [pantryAtBottom, setPantryAtBottom] = useState(false);
+  const [pantryAtBottom, setPantryAtBottom] = useState(dietPantryCompleted);
   
   // Meal preferences state
   const [mealServingSize, setMealServingSize] = useState("2 people");
@@ -177,9 +181,10 @@ export default function ExploreRecipeOptionsScreen() {
 
   const handlePantryConfirmation = () => {
     if (!pantryConfirmed) {
-      // Confirming - move card to bottom permanently
+      // Confirming - move card to bottom permanently and save completion status
       setPantryConfirmed(true);
       setPantryAtBottom(true);
+      setDietPantryCompleted(true); // Persist completion status in localStorage
       
       // Play bell sound effect for card movement
       setTimeout(() => {
@@ -1588,6 +1593,341 @@ export default function ExploreRecipeOptionsScreen() {
             )}
             
 
+          </Card>
+        )}
+
+        {/* Diet & Pantry Card at Bottom - shown when completed */}
+        {pantryAtBottom && (
+          <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-indigo-500 p-4 hover:shadow-2xl hover:shadow-indigo-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-indigo-400">
+            <div className="mb-4">
+              <h2 className="text-xl font-bold text-white text-center">Personalize Diet & Pantry</h2>
+            </div>
+          
+            {/* Tab Buttons with Edit Button */}
+            <div className="grid grid-cols-4 gap-2 mb-6 w-full">
+              <button
+                onClick={() => setSelectedPreferenceTab("diet")}
+                className={`p-4 rounded-lg text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
+                  selectedPreferenceTab === "diet"
+                    ? "bg-blue-700 text-white border border-blue-600 shadow-lg shadow-blue-500/40"
+                    : "bg-blue-600 text-white border border-blue-500 shadow-lg shadow-blue-500/30"
+                }`}
+              >
+                Diet
+              </button>
+              <button
+                onClick={() => setSelectedPreferenceTab("meal")}
+                className={`p-4 rounded-lg text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
+                  selectedPreferenceTab === "meal"
+                    ? "bg-blue-700 text-white border border-blue-600 shadow-lg shadow-blue-500/40"
+                    : "bg-blue-600 text-white border border-blue-500 shadow-lg shadow-blue-500/30"
+                }`}
+              >
+                Meal
+              </button>
+              <button
+                onClick={() => setSelectedPreferenceTab("pantry")}
+                className={`p-4 rounded-lg text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
+                  selectedPreferenceTab === "pantry"
+                    ? "bg-blue-700 text-white border border-blue-600 shadow-lg shadow-blue-500/40"
+                    : "bg-blue-600 text-white border border-blue-500 shadow-lg shadow-blue-500/30"
+                }`}
+              >
+                <ShoppingBasket size={16} className="mx-auto" />
+              </button>
+              {selectedPreferenceTab === "pantry" && pantryConfirmed && (
+                <button
+                  onClick={() => setPantryConfirmed(false)}
+                  className="p-4 rounded-lg transition-colors bg-yellow-600/20 hover:bg-yellow-600/30 border border-yellow-400/30 flex items-center justify-center"
+                  title="Edit Ingredients"
+                >
+                  <Settings size={20} className="text-yellow-400" />
+                </button>
+              )}
+            </div>
+
+            {/* Tab Content - Same as top card */}
+            {selectedPreferenceTab === "diet" && (
+              <div className="space-y-4">
+                <h3 className="text-lg font-bold text-yellow-300">Dietary Preferences</h3>
+                
+                {/* Dietary Restrictions */}
+                <div>
+                  <h4 className="text-sm font-bold text-yellow-300 mb-2">Dietary Restrictions:</h4>
+                  <p className="text-gray-300 text-sm">vegetarian, vegan, gluten-free, dairy-free, low-carb</p>
+                </div>
+                
+                <hr className="border-gray-600" />
+                
+                {/* Health Factors */}
+                <div>
+                  <h4 className="text-sm font-bold text-yellow-300 mb-2">Health Factors:</h4>
+                  <p className="text-gray-300 text-sm">diabetes, cardiovascular, kidney, blood-pressure, cancer</p>
+                </div>
+                
+                <hr className="border-gray-600" />
+                
+                {/* Fitness Goals */}
+                <div>
+                  <h4 className="text-sm font-bold text-yellow-300 mb-2">Fitness Goals:</h4>
+                  <p className="text-gray-300 text-sm">build muscle, lose weight, endurance, wellness</p>
+                </div>
+                
+                <hr className="border-gray-600" />
+                
+                {/* Allergies/Restrictions */}
+                <div>
+                  <h4 className="text-sm font-bold text-yellow-300 mb-2">Allergies/Restrictions:</h4>
+                  <p className="text-gray-300 text-sm">None specified</p>
+                </div>
+                
+                <hr className="border-gray-600" />
+                
+                {/* Nutritional Goals */}
+                <div>
+                  <h4 className="text-sm font-bold text-yellow-300 mb-2">Nutritional Goals:</h4>
+                  <p className="text-gray-300 text-sm">
+                    Cal: 1301-1500, Protein: 71-100g<br />
+                    Carbs: 101-150g, Fat: 36-50g
+                  </p>
+                </div>
+              </div>
+            )}
+            
+            {/* Meal Tab Content */}
+            {selectedPreferenceTab === "meal" && (
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  {/* Serving Size */}
+                  <div>
+                    <Label htmlFor="serving-size" className="text-yellow-300 font-bold text-sm mb-2 block">Serving Size *</Label>
+                    <Select value={mealServingSize} onValueChange={setMealServingSize}>
+                      <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                        <SelectValue placeholder="Select serving size" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-gray-700 border-gray-600">
+                        <SelectItem value="1 person">1 person</SelectItem>
+                        <SelectItem value="2 people">2 people</SelectItem>
+                        <SelectItem value="4 people">4 people</SelectItem>
+                        <SelectItem value="6 people">6 people</SelectItem>
+                        <SelectItem value="8 people">8 people</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  {/* Cuisine */}
+                  <div>
+                    <Label htmlFor="cuisine" className="text-yellow-300 font-bold text-sm mb-2 block">Cuisine *</Label>
+                    <Select value={mealCuisine} onValueChange={setMealCuisine}>
+                      <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                        <SelectValue placeholder="Select cuisine" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-gray-700 border-gray-600">
+                        <SelectItem value="American">American</SelectItem>
+                        <SelectItem value="Italian">Italian</SelectItem>
+                        <SelectItem value="Mexican">Mexican</SelectItem>
+                        <SelectItem value="Chinese">Chinese</SelectItem>
+                        <SelectItem value="Indian">Indian</SelectItem>
+                        <SelectItem value="Mediterranean">Mediterranean</SelectItem>
+                        <SelectItem value="Thai">Thai</SelectItem>
+                        <SelectItem value="Japanese">Japanese</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  {/* Meal Type */}
+                  <div>
+                    <Label htmlFor="meal-type" className="text-yellow-300 font-bold text-sm mb-2 block">Meal Type *</Label>
+                    <Select value={mealType} onValueChange={setMealType}>
+                      <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                        <SelectValue placeholder="Select meal type" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-gray-700 border-gray-600">
+                        <SelectItem value="Breakfast">Breakfast</SelectItem>
+                        <SelectItem value="Lunch">Lunch</SelectItem>
+                        <SelectItem value="Dinner">Dinner</SelectItem>
+                        <SelectItem value="Snack">Snack</SelectItem>
+                        <SelectItem value="Dessert">Dessert</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  {/* Spice Level */}
+                  <div>
+                    <Label htmlFor="spice-level" className="text-yellow-300 font-bold text-sm mb-2 block">Spice Level</Label>
+                    <Select value={mealSpiceLevel} onValueChange={setMealSpiceLevel}>
+                      <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                        <SelectValue placeholder="Select spice level" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-gray-700 border-gray-600">
+                        <SelectItem value="😊 Mild">😊 Mild</SelectItem>
+                        <SelectItem value="🌶️ Medium">🌶️ Medium</SelectItem>
+                        <SelectItem value="🔥 Hot">🔥 Hot</SelectItem>
+                        <SelectItem value="🌋 Very Hot">🌋 Very Hot</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  {/* Skill Level */}
+                  <div>
+                    <Label htmlFor="skill-level" className="text-yellow-300 font-bold text-sm mb-2 block">Skill Level</Label>
+                    <Select value={mealSkillLevel} onValueChange={setMealSkillLevel}>
+                      <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                        <SelectValue placeholder="Select skill level" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-gray-700 border-gray-600">
+                        <SelectItem value="🔰 Beginner">🔰 Beginner</SelectItem>
+                        <SelectItem value="👨‍🍳 Intermediate">👨‍🍳 Intermediate</SelectItem>
+                        <SelectItem value="⭐ Advanced">⭐ Advanced</SelectItem>
+                        <SelectItem value="👑 Expert">👑 Expert</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  {/* Cook Method */}
+                  <div>
+                    <Label htmlFor="cook-method" className="text-yellow-300 font-bold text-sm mb-2 block">Cook Method</Label>
+                    <Select value={mealCookMethod} onValueChange={setMealCookMethod}>
+                      <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                        <SelectValue placeholder="Select cook method" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-gray-700 border-gray-600">
+                        <SelectItem value="🔥 Oven">🔥 Oven</SelectItem>
+                        <SelectItem value="🍳 Stovetop">🍳 Stovetop</SelectItem>
+                        <SelectItem value="🥘 Slow Cooker">🥘 Slow Cooker</SelectItem>
+                        <SelectItem value="⚡ Microwave">⚡ Microwave</SelectItem>
+                        <SelectItem value="🔥 Grill">🔥 Grill</SelectItem>
+                        <SelectItem value="💨 Air Fryer">💨 Air Fryer</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  {/* Prep Time */}
+                  <div>
+                    <Label htmlFor="prep-time" className="text-yellow-300 font-bold text-sm mb-2 block">Prep Time</Label>
+                    <Select value={mealPrepTime} onValueChange={setMealPrepTime}>
+                      <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                        <SelectValue placeholder="Select prep time" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-gray-700 border-gray-600">
+                        <SelectItem value="⏱️ 15 minutes">⏱️ 15 minutes</SelectItem>
+                        <SelectItem value="⏱️ 30 minutes">⏱️ 30 minutes</SelectItem>
+                        <SelectItem value="⏱️ 45 minutes">⏱️ 45 minutes</SelectItem>
+                        <SelectItem value="⏱️ 1 hour">⏱️ 1 hour</SelectItem>
+                        <SelectItem value="⏱️ 1+ hours">⏱️ 1+ hours</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+
+                {/* Confirmation Checkbox */}
+                <div 
+                  className="flex items-center space-x-4 mt-6 cursor-pointer group" 
+                  onClick={handleMealConfirmation}
+                >
+                  <div
+                    className={`w-8 h-8 min-w-8 min-h-8 rounded-full border-2 flex items-center justify-center transition-all duration-300 flex-shrink-0 group-hover:scale-110 group-hover:shadow-lg ${
+                      mealPreferencesConfirmed 
+                        ? "bg-purple-600 border-purple-600 shadow-lg shadow-purple-500/30" 
+                        : "border-gray-400 hover:border-purple-400 group-hover:shadow-purple-500/20"
+                    }`}
+                  >
+                    {mealPreferencesConfirmed && (
+                      <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    )}
+                  </div>
+                  <span className="text-white text-base select-text group-hover:text-purple-200 transition-colors duration-300">I confirm these meal preferences are correct</span>
+                </div>
+              </div>
+            )}
+            
+            {/* Pantry Tab Content */}
+            {selectedPreferenceTab === "pantry" && !pantryConfirmed && (
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-lg font-bold text-yellow-300 mb-4">Available Ingredients</h3>
+                  <p className="text-yellow-300 text-sm mb-4">
+                    Selected Ingredients: <span className="font-semibold">{selectedIngredients.length} items</span>
+                  </p>
+                </div>
+
+                {/* Ingredient Categories */}
+                {Object.entries(pantryCategories).map(([categoryKey, category]) => {
+                  const selectedCount = getSelectedCountForCategory(category.items);
+                  const totalCount = category.items.length;
+                  
+                  return (
+                    <div key={categoryKey} className="space-y-3">
+                      {/* Category Header */}
+                      <div className="flex justify-between items-center">
+                        <h4 className="text-yellow-300 font-bold text-sm">{category.name}</h4>
+                        <span className="text-gray-400 text-sm">{selectedCount}/{totalCount}</span>
+                      </div>
+                      
+                      {/* Category Items */}
+                      <div className="grid grid-cols-2 gap-2">
+                        {category.items.map((item) => {
+                          const isSelected = selectedIngredients.includes(item.id);
+                          return (
+                            <label
+                              key={item.id}
+                              className="flex items-center space-x-2 cursor-pointer"
+                            >
+                              <input
+                                type="checkbox"
+                                checked={isSelected}
+                                onChange={() => toggleIngredient(item.id)}
+                                className="w-4 h-4 text-purple-600 bg-gray-700 border-gray-600 rounded focus:ring-purple-500 focus:ring-2"
+                              />
+                              <span className="text-gray-300 text-sm">{item.name}</span>
+                            </label>
+                          );
+                        })}
+                      </div>
+                      
+                      {/* Separator */}
+                      <hr className="border-gray-600" />
+                    </div>
+                  );
+                })}
+
+                {/* Confirmation Checkbox */}
+                <div 
+                  className="flex items-center space-x-4 mt-6 cursor-pointer group" 
+                  onClick={handlePantryConfirmation}
+                >
+                  <div
+                    className={`w-8 h-8 min-w-8 min-h-8 rounded-full border-2 flex items-center justify-center transition-all duration-300 flex-shrink-0 group-hover:scale-110 group-hover:shadow-lg ${
+                      pantryConfirmed 
+                        ? "bg-purple-600 border-purple-600 shadow-lg shadow-purple-500/30" 
+                        : "border-gray-400 hover:border-purple-400 group-hover:shadow-purple-500/20"
+                    }`}
+                  >
+                    {pantryConfirmed && (
+                      <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    )}
+                  </div>
+                  <span className="text-white text-base select-text group-hover:text-purple-200 transition-colors duration-300" style={{userSelect: 'text', WebkitUserSelect: 'text', MozUserSelect: 'text'}}>I confirm the above pantry ingredients</span>
+                </div>
+              </div>
+            )}
+
+            {/* Collapsed pantry state */}
+            {selectedPreferenceTab === "pantry" && pantryConfirmed && (
+              <div className="text-center py-4">
+                <Button
+                  onClick={() => setPantryConfirmed(false)}
+                  className="bg-yellow-600/20 hover:bg-yellow-600/30 border border-yellow-400/30 text-yellow-300"
+                >
+                  <Pencil size={16} className="mr-2" />
+                  Edit Ingredients
+                </Button>
+              </div>
+            )}
           </Card>
         )}
       </div>
