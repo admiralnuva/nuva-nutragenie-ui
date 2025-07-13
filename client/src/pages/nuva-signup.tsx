@@ -382,8 +382,8 @@ export default function NuvaSignupScreen() {
               <h3 className="text-xl font-semibold text-white">Phone Verification</h3>
               <p className="text-gray-300 text-sm">Verify your phone number for account security</p>
             </div>
-            <div className="w-20 h-20 rounded-full bg-gray-700 flex items-center justify-center border-2 border-gray-600">
-              <Phone className="w-8 h-8 text-gray-400" />
+            <div className="w-20 h-20 rounded-lg bg-purple-600/20 flex items-center justify-center border-2 border-purple-500">
+              <Phone className="w-8 h-8 text-purple-400" />
             </div>
           </div>
           {!codeSent ? (
