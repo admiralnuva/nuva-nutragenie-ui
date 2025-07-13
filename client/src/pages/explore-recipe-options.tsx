@@ -181,13 +181,24 @@ export default function ExploreRecipeOptionsScreen() {
       setPantryAtBottom(true);
       
       // Play bell sound effect for card movement
-      try {
-        const audio = new Audio('/attached_assets/ding-small-bell-sfx-233008 (1)_1752375863891.mp3');
-        audio.volume = 0.6; // Set to comfortable volume
-        audio.play().catch(console.error);
-      } catch (error) {
-        // Silent fail - audio is enhancement, not critical functionality
-      }
+      setTimeout(() => {
+        try {
+          const audio = new Audio('/attached_assets/ding-small-bell-sfx-233008%20(1)_1752375863891.mp3');
+          audio.volume = 0.9;
+          audio.preload = 'auto';
+          audio.play().catch((err) => {
+            console.log('Primary audio failed, trying fallback:', err);
+            // Try alternative path if first fails
+            const fallbackAudio = new Audio('/attached_assets/ding-small-bell-sfx-233008_1752105356799.mp3');
+            fallbackAudio.volume = 0.9;
+            fallbackAudio.play().catch((fallbackErr) => {
+              console.log('Fallback audio also failed:', fallbackErr);
+            });
+          });
+        } catch (error) {
+          console.log('Audio creation failed:', error);
+        }
+      }, 100); // Small delay to ensure state changes complete first
     } else {
       // Unchecking - keep card at bottom, just expand content
       setPantryConfirmed(false);
