@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BackButton } from "@/components/ui/back-button";
 import { Card } from "@/components/ui/card";
 import { DishCard } from "@/components/ui/dish-card";
@@ -28,6 +28,17 @@ export default function ExploreRecipeOptionsScreen() {
   const [mealPrepTime, setMealPrepTime] = useState("⏱️ 30 minutes");
   const [mealPreferencesConfirmed, setMealPreferencesConfirmed] = useState(false);
   
+  // Track original meal preferences to detect changes
+  const [originalMealPreferences, setOriginalMealPreferences] = useState({
+    servingSize: "2 people",
+    cuisine: "American", 
+    mealType: "Dinner",
+    spiceLevel: "😊 Mild",
+    skillLevel: "🔰 Beginner",
+    cookMethod: "🔥 Oven",
+    prepTime: "⏱️ 30 minutes"
+  });
+  
   // Create Dishes form state
   const [dishName, setDishName] = useState("");
   const [servingSize, setServingSize] = useState("");
@@ -46,6 +57,54 @@ export default function ExploreRecipeOptionsScreen() {
   
   // History selection state
   const [selectedHistoryItem, setSelectedHistoryItem] = useState<string | null>(null);
+
+  // Helper function to check if meal preferences have changed
+  const haveMealPreferencesChanged = () => {
+    return (
+      mealServingSize !== originalMealPreferences.servingSize ||
+      mealCuisine !== originalMealPreferences.cuisine ||
+      mealType !== originalMealPreferences.mealType ||
+      mealSpiceLevel !== originalMealPreferences.spiceLevel ||
+      mealSkillLevel !== originalMealPreferences.skillLevel ||
+      mealCookMethod !== originalMealPreferences.cookMethod ||
+      mealPrepTime !== originalMealPreferences.prepTime
+    );
+  };
+
+  // Effect to uncheck confirmation when meal preferences change
+  useEffect(() => {
+    if (haveMealPreferencesChanged() && mealPreferencesConfirmed) {
+      setMealPreferencesConfirmed(false);
+    }
+  }, [mealServingSize, mealCuisine, mealType, mealSpiceLevel, mealSkillLevel, mealCookMethod, mealPrepTime]);
+
+  // Effect to maintain confirmed state when switching back to meal tab without changes
+  useEffect(() => {
+    if (selectedPreferenceTab === "meal" && !haveMealPreferencesChanged()) {
+      // Keep the confirmed state as is - don't force uncheck if no changes
+    }
+  }, [selectedPreferenceTab]);
+
+  // Handle meal preferences confirmation
+  const handleMealConfirmation = () => {
+    if (!mealPreferencesConfirmed) {
+      // User is confirming - save current values as original and switch to pantry tab
+      setOriginalMealPreferences({
+        servingSize: mealServingSize,
+        cuisine: mealCuisine,
+        mealType: mealType,
+        spiceLevel: mealSpiceLevel,
+        skillLevel: mealSkillLevel,
+        cookMethod: mealCookMethod,
+        prepTime: mealPrepTime
+      });
+      setMealPreferencesConfirmed(true);
+      setSelectedPreferenceTab("pantry");
+    } else {
+      // User is unchecking
+      setMealPreferencesConfirmed(false);
+    }
+  };
 
   const handleOptionClick = (option: string) => {
     setSelectedOption(option);
@@ -584,7 +643,7 @@ export default function ExploreRecipeOptionsScreen() {
               {/* Confirmation Checkbox */}
               <div 
                 className="flex items-center space-x-4 mt-6 cursor-pointer" 
-                onClick={() => setMealPreferencesConfirmed(!mealPreferencesConfirmed)}
+                onClick={handleMealConfirmation}
               >
                 <div
                   className={`w-8 h-8 min-w-8 min-h-8 rounded-full border-2 flex items-center justify-center transition-colors flex-shrink-0 ${
