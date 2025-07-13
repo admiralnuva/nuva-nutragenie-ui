@@ -995,6 +995,7 @@ To restore to this stable state if needed:
   * Form labels in Nutritional Goals section already using correct yellow styling
   * Submit button and validation messages maintain existing styling
   * Achieved complete color scheme consistency: yellow titles, white subtitles, purple accents, enhanced hover effects
+  * Updated Create Account screen title to yellow (text-yellow-400) to match Dietary Preferences screen consistency
 - July 13, 2025. Diet & Pantry Card Positioning System Complete Implementation:
   * Fixed duplicate card rendering issue that was causing two Diet & Pantry cards to appear simultaneously
   * Resolved navigation focus problem where Recipe bottom tab was incorrectly directing users to Diet & Pantry card

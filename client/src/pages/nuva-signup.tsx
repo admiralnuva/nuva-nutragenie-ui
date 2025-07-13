@@ -147,7 +147,7 @@ export default function NuvaSignupScreen() {
         <div className="w-8"></div>
         <div className="flex-1 text-center">
           <h1 className="text-2xl font-bold text-white">NutraGenie</h1>
-          <p className="text-gray-300 text-lg font-semibold mt-1">Create Account</p>
+          <p className="text-yellow-400 text-lg font-semibold mt-1">Create Account</p>
         </div>
         <div className="w-8"></div>
       </div>
