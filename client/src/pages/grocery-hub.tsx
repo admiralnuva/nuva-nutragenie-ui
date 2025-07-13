@@ -201,7 +201,7 @@ export default function GroceryHubScreen() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white flex flex-col">
       {/* Header */}
       <div className="bg-gray-900 border-b border-gray-700 px-6 py-4">
         <div className="flex items-center justify-center">
@@ -249,7 +249,7 @@ export default function GroceryHubScreen() {
       </div>
 
       {/* Content Area */}
-      <div className="px-6 pb-6">
+      <div className="flex-1 px-6 pb-24 overflow-y-auto">
         {activeTab === 'edit' && (
           <div className="space-y-4">
             {/* Category Cards */}
@@ -333,16 +333,16 @@ export default function GroceryHubScreen() {
             ))}
 
             {/* Action Buttons */}
-            <div className="flex gap-4 mt-6">
+            <div className="flex gap-4 mt-8 mb-8">
               <Button 
                 onClick={handleSave}
-                className="flex-1 bg-green-600 hover:bg-green-500 text-white py-3 text-lg"
+                className="flex-1 bg-green-600 hover:bg-green-500 text-white py-4 text-lg font-semibold"
               >
                 Save
               </Button>
               <Button 
                 onClick={handleAddToInstacart}
-                className="flex-1 bg-blue-600 hover:bg-blue-500 text-white py-3 text-lg"
+                className="flex-1 bg-blue-600 hover:bg-blue-500 text-white py-4 text-lg font-semibold"
               >
                 Add to Instacart
               </Button>
