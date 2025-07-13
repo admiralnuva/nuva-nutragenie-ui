@@ -82,12 +82,14 @@ NutraGenie is a mobile-first web application that serves as a personal AI chef a
 4. **Profile Management**: View achievements → Track progress → Update preferences
 
 ### State Management Pattern
+- **API-Driven Architecture**: ALL DATA IS API DRIVEN - components fetch data from backend APIs, not mock/placeholder data
 - **Independent Component Architecture**: Each component fetches its own data from APIs without frontend dependencies
 - Components maintain minimal shared state and avoid cross-component data dependencies
 - Server state managed by TanStack Query with automatic caching per component
-- User data persisted in localStorage for offline access
+- User data persisted in localStorage for offline access with API synchronization
 - Real-time updates through optimistic updates and cache invalidation
 - All workflows draw data from APIs rather than component interdependencies
+- Voice Cooking is the single comprehensive cooking interface for all cooking activities
 
 ## External Dependencies
 
@@ -979,6 +981,16 @@ To restore to this stable state if needed:
   * User preference: Keep components independent with minimal frontend dependencies
   * Architecture goal: All workflows should draw data from APIs rather than component interdependencies
   * Design philosophy: Each component fetches its own data independently for better scalability
+- July 13, 2025. Diet & Pantry Card Positioning System Complete Implementation:
+  * Fixed duplicate card rendering issue that was causing two Diet & Pantry cards to appear simultaneously
+  * Resolved navigation focus problem where Recipe bottom tab was incorrectly directing users to Diet & Pantry card
+  * Updated card positioning logic to display only one card at a time (top when incomplete, bottom when completed)
+  * Implemented proper edit functionality using existing settings button (gear icon) in main card
+  * Removed redundant "Diet & Pantry Completed" card that duplicated edit functionality
+  * Maintained persistent localStorage tracking for Diet & Pantry completion status across navigation and page refreshes
+  * Recipe bottom tab now correctly navigates to Recipe Options page instead of focusing on Diet & Pantry card
+  * Removed back button navigation from Explore Recipe Options page for standalone experience
+  * Card behavior: shows at top for new users, moves to bottom position after completion, returns to top when editing
 - July 13, 2025. Grocery Hub Screen Implementation:
   * Created standalone Grocery Hub screen (no back button) accessed via Your Activity → Grocery List
   * Implemented 3-tab system: Edit List, Shop, Instacart with toggle functionality
