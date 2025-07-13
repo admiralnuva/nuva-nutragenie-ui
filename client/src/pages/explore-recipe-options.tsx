@@ -41,6 +41,8 @@ export default function ExploreRecipeOptionsScreen() {
     "chicken-breast", "salmon", "bell-peppers" // Default selections
   ]);
   const [pantryConfirmed, setPantryConfirmed] = useState(false);
+  
+  // EXPLICIT SEQUENCE CONTROL: Card position only changes on pantry confirmation
   const [pantryAtBottom, setPantryAtBottom] = useState(dietPantryCompleted);
   
   // Meal preferences state
@@ -192,11 +194,12 @@ export default function ExploreRecipeOptionsScreen() {
     return categoryItems.filter(item => selectedIngredients.includes(item.id)).length;
   };
 
+  // Handle pantry confirmation - STEP 2: Only here does card move to bottom
   const handlePantryConfirmation = () => {
     if (!pantryConfirmed) {
-      // Confirming - move card to bottom permanently and save completion status
+      // EXPLICIT SEQUENCE: Only move card when pantry is actually confirmed
       setPantryConfirmed(true);
-      setPantryAtBottom(true);
+      setPantryAtBottom(true); // Card slides down ONLY on pantry confirmation
       setDietPantryCompleted(true); // Persist completion status in localStorage
       
       // Play bell sound effect for card movement
@@ -217,10 +220,11 @@ export default function ExploreRecipeOptionsScreen() {
     } else {
       // Unchecking - keep card at bottom, just expand content
       setPantryConfirmed(false);
+      // NOTE: Card stays at bottom even when unchecked
     }
   };
 
-  // Handle meal preferences confirmation
+  // Handle meal preferences confirmation - STEP 1: Only switch tab, no card movement
   const handleMealConfirmation = () => {
     if (!mealPreferencesConfirmed) {
       // User is confirming - save current values as original and switch to pantry tab
@@ -235,6 +239,7 @@ export default function ExploreRecipeOptionsScreen() {
       });
       setMealPreferencesConfirmed(true);
       setSelectedPreferenceTab("pantry");
+      // NOTE: NO card movement here - card stays at top until pantry confirmation
     } else {
       // User is unchecking
       setMealPreferencesConfirmed(false);
