@@ -830,19 +830,13 @@ export default function ExploreRecipeOptionsScreen() {
           
           {/* Collapsed Pantry Tab */}
           {selectedPreferenceTab === "pantry" && pantryConfirmed && (
-            <div className="text-center py-8">
-              <div className="space-y-4">
-                <h3 className="text-lg font-bold text-yellow-300">Pantry Confirmed</h3>
-                <p className="text-gray-300">
-                  {selectedIngredients.length} ingredients selected
-                </p>
-                <button
-                  onClick={() => setPantryConfirmed(false)}
-                  className="text-purple-400 hover:text-purple-300 text-sm underline"
-                >
-                  Edit Ingredients
-                </button>
-              </div>
+            <div className="text-center py-4">
+              <button
+                onClick={() => setPantryConfirmed(false)}
+                className="text-purple-400 hover:text-purple-300 text-sm underline"
+              >
+                Edit Ingredients
+              </button>
             </div>
           )}
         </Card>
