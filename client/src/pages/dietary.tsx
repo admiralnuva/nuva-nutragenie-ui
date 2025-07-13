@@ -404,22 +404,22 @@ export default function DietaryScreen() {
           </button>
           <div className="flex-1 text-center">
             <h1 className="text-2xl font-bold text-white">NutraGenie</h1>
-            <p className="text-lg font-semibold text-purple-300 mt-1">Dietary Preferences</p>
+            <p className="text-lg font-semibold text-yellow-400 mt-1">Dietary Preferences</p>
           </div>
           <div className="w-8"></div>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-3">
           {/* Dietary Restrictions */}
-          <Card ref={dietaryCardRef} tabIndex={-1} className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
+          <Card ref={dietaryCardRef} tabIndex={-1} className="bg-gray-800/90 backdrop-blur-sm border border-gray-700 border-l-4 border-l-purple-500 hover:border-l-purple-400 hover:shadow-2xl hover:shadow-purple-500/20 hover:scale-[1.02] transition-all duration-300">
             <CardHeader className="pb-4">
               <div className="flex items-center justify-between">
                 <div className="flex-1 min-w-0">
-                  <CardTitle className="flex items-center gap-2 text-lg text-white whitespace-nowrap">
+                  <CardTitle className="flex items-center gap-2 text-lg text-yellow-400 whitespace-nowrap">
                     <Shield className="w-5 h-5 text-purple-400" />
                     Dietary Restrictions
                   </CardTitle>
-                  <CardDescription className="text-gray-300">Select dietary choice to create personalized nutrition</CardDescription>
+                  <CardDescription className="text-white">Select dietary choice to create personalized nutrition</CardDescription>
                 </div>
                 <div className="flex flex-col items-center flex-shrink-0">
                   <img 
@@ -465,15 +465,15 @@ export default function DietaryScreen() {
           </Card>
 
           {/* Health Conditions */}
-          <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
+          <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700 border-l-4 border-l-purple-500 hover:border-l-purple-400 hover:shadow-2xl hover:shadow-purple-500/20 hover:scale-[1.02] transition-all duration-300">
             <CardHeader className="pb-4">
               <div className="flex items-center justify-between">
                 <div className="flex-1 min-w-0">
-                  <CardTitle className="flex items-center gap-2 text-lg text-white whitespace-nowrap">
+                  <CardTitle className="flex items-center gap-2 text-lg text-yellow-400 whitespace-nowrap">
                     <Heart className="w-5 h-5 text-purple-400" />
                     Health Factors
                   </CardTitle>
-                  <CardDescription className="text-gray-300">Select health factors</CardDescription>
+                  <CardDescription className="text-white">Select health factors</CardDescription>
                 </div>
                 <div className="flex flex-col items-center flex-shrink-0">
                   <img 
@@ -519,15 +519,15 @@ export default function DietaryScreen() {
           </Card>
 
           {/* Fitness Goals */}
-          <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
+          <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700 border-l-4 border-l-purple-500 hover:border-l-purple-400 hover:shadow-2xl hover:shadow-purple-500/20 hover:scale-[1.02] transition-all duration-300">
             <CardHeader className="pb-4">
               <div className="flex items-center justify-between">
                 <div className="flex-1 min-w-0">
-                  <CardTitle className="flex items-center gap-2 text-lg text-white whitespace-nowrap">
+                  <CardTitle className="flex items-center gap-2 text-lg text-yellow-400 whitespace-nowrap">
                     <Target className="w-5 h-5 text-purple-400" />
                     Fitness Goals
                   </CardTitle>
-                  <CardDescription className="text-gray-300">Your fitness and wellness goals</CardDescription>
+                  <CardDescription className="text-white">Your fitness and wellness goals</CardDescription>
                 </div>
                 <div className="flex flex-col items-center flex-shrink-0">
                   <img 
@@ -564,12 +564,12 @@ export default function DietaryScreen() {
           </Card>
 
           {/* Allergies */}
-          <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
+          <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700 border-l-4 border-l-purple-500 hover:border-l-purple-400 hover:shadow-2xl hover:shadow-purple-500/20 hover:scale-[1.02] transition-all duration-300">
             <CardHeader className="pb-4">
               <div className="flex items-center justify-between">
                 <div className="flex-1 min-w-0">
-                  <CardTitle className="text-lg text-white whitespace-nowrap">Allergies & Restrictions</CardTitle>
-                  <CardDescription className="text-gray-300">List any food allergies or severe restrictions</CardDescription>
+                  <CardTitle className="text-lg text-yellow-400 whitespace-nowrap">Allergies & Restrictions</CardTitle>
+                  <CardDescription className="text-white">List any food allergies or severe restrictions</CardDescription>
                 </div>
                 <div className="flex flex-col items-center flex-shrink-0">
                   <img 
@@ -595,12 +595,12 @@ export default function DietaryScreen() {
           </Card>
 
           {/* Nutritional Adjustments */}
-          <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
+          <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700 border-l-4 border-l-purple-500 hover:border-l-purple-400 hover:shadow-2xl hover:shadow-purple-500/20 hover:scale-[1.02] transition-all duration-300">
             <CardHeader className="pb-2">
               <div className="flex items-center justify-between">
                 <div className="flex-1 min-w-0">
-                  <CardTitle className="text-lg text-white whitespace-nowrap">Nutritional Goals</CardTitle>
-                  <CardDescription className="text-gray-300">Set your daily nutrition targets</CardDescription>
+                  <CardTitle className="text-lg text-yellow-400 whitespace-nowrap">Nutritional Goals</CardTitle>
+                  <CardDescription className="text-white">Set your daily nutrition targets</CardDescription>
                 </div>
                 <div className="flex flex-col items-center flex-shrink-0">
                   <img 
