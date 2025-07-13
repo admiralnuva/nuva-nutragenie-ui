@@ -136,17 +136,17 @@ export function DishCard({ dish }: DishCardProps) {
           </div>
         </div>
         
-        {/* Action Buttons - Spaced for fat fingers */}
+        {/* Action Buttons - Equidistant spacing for better accessibility */}
         <div className="flex items-center justify-between w-full">
           <button 
             onClick={handleSubstitutionClick}
-            className={`w-12 h-12 rounded-lg flex items-center justify-center transition-colors relative ${
+            className={`w-14 h-14 rounded-lg flex items-center justify-center transition-colors relative ${
               hasSubstitution 
                 ? 'bg-teal-600 hover:bg-teal-700' 
                 : 'bg-yellow-600 hover:bg-yellow-700'
             }`}
           >
-            <ArrowLeftRight size={20} className="text-white" />
+            <ArrowLeftRight size={22} className="text-white" />
             {hasSubstitution && (
               <div className="absolute -top-1 -right-1 w-5 h-5 bg-green-500 rounded-full flex items-center justify-center border-2 border-white">
                 <Check size={12} className="text-white" />
@@ -155,27 +155,24 @@ export function DishCard({ dish }: DishCardProps) {
           </button>
           <button 
             onClick={handleRecipeClick}
-            className={`w-12 h-12 rounded-lg flex items-center justify-center transition-colors relative ${
+            className={`w-14 h-14 rounded-lg flex items-center justify-center transition-colors relative ${
               isRecipeSaved 
                 ? 'bg-green-600 hover:bg-green-700' 
                 : 'bg-purple-600 hover:bg-purple-700'
             }`}
           >
-            <Book size={20} className="text-white" />
+            <Book size={22} className="text-white" />
             {isRecipeSaved && (
               <div className="absolute -top-1 -right-1 w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center border-2 border-white">
                 <Check size={12} className="text-white" />
               </div>
             )}
           </button>
-          <button className="w-12 h-12 bg-green-600 hover:bg-green-700 rounded-lg flex items-center justify-center transition-colors">
-            <Heart size={20} className="text-white" />
+          <button className="w-14 h-14 bg-orange-600 hover:bg-orange-700 rounded-lg flex items-center justify-center transition-colors">
+            <ChefHat size={22} className="text-white" />
           </button>
-          <button className="w-12 h-12 bg-orange-600 hover:bg-orange-700 rounded-lg flex items-center justify-center transition-colors">
-            <ChefHat size={20} className="text-white" />
-          </button>
-          <button className="w-12 h-12 bg-blue-600 hover:bg-blue-700 rounded-lg flex items-center justify-center transition-colors">
-            <Plus size={20} className="text-white" />
+          <button className="w-14 h-14 bg-blue-600 hover:bg-blue-700 rounded-lg flex items-center justify-center transition-colors">
+            <Plus size={22} className="text-white" />
           </button>
         </div>
       </div>
