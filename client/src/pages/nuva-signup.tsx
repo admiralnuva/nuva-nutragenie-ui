@@ -158,8 +158,8 @@ export default function NuvaSignupScreen() {
         <div className="bg-gray-800/90 backdrop-blur-sm rounded-xl p-6 mb-6 border border-gray-700">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-xl font-semibold text-white">Your Profile</h3>
-              <p className="text-gray-300 text-sm">Choose your avatar, nickname, and age group</p>
+              <h3 className="text-xl font-semibold text-yellow-400">Your Profile</h3>
+              <p className="text-white text-sm">Choose your avatar, nickname, and age group</p>
             </div>
             <div className="w-20 h-20 rounded-lg overflow-hidden">
               {selectedAvatar ? (
@@ -195,7 +195,7 @@ export default function NuvaSignupScreen() {
           {/* Nickname and Age Group in same row */}
           <div className="grid grid-cols-3 gap-4">
             <div className="space-y-2 col-span-2">
-              <Label htmlFor="nickname" className="text-gray-300">Nickname</Label>
+              <Label htmlFor="nickname" className="text-yellow-400">Nickname</Label>
               <Input
                 id="nickname"
                 value={nickname}
@@ -205,7 +205,7 @@ export default function NuvaSignupScreen() {
               />
             </div>
             <div className="space-y-2 col-span-1">
-              <Label className="text-gray-300">Age Group</Label>
+              <Label className="text-yellow-400">Age Group</Label>
               <Select value={ageGroup} onValueChange={setAgeGroup}>
                 <SelectTrigger className="bg-gray-700 border-gray-600 text-white [&>svg]:text-gray-300">
                   <SelectValue placeholder="Select age group" />
@@ -227,8 +227,8 @@ export default function NuvaSignupScreen() {
         <div className="bg-gray-800/90 backdrop-blur-sm rounded-xl p-6 mb-6 border border-gray-700">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-xl font-semibold text-white">Your Address</h3>
-              <p className="text-gray-300 text-sm">Enter your delivery address</p>
+              <h3 className="text-xl font-semibold text-yellow-400">Your Address</h3>
+              <p className="text-white text-sm">Enter your delivery address</p>
             </div>
             <div className="w-20 h-20 rounded-full bg-purple-600/20 flex items-center justify-center border-2 border-purple-500">
               <MapPin className="w-8 h-8 text-purple-400" />
@@ -236,7 +236,7 @@ export default function NuvaSignupScreen() {
           </div>
           {/* Address 1 */}
           <div className="space-y-2 mb-3">
-            <Label htmlFor="address1" className="text-gray-300">Address</Label>
+            <Label htmlFor="address1" className="text-yellow-400">Address</Label>
             <Input
               id="address1"
               value={streetAddress}
@@ -249,7 +249,7 @@ export default function NuvaSignupScreen() {
           {/* City, State, Zip in same row */}
           <div className="grid grid-cols-12 gap-2">
             <div className="space-y-2 col-span-6">
-              <Label htmlFor="city" className="text-gray-300">City</Label>
+              <Label htmlFor="city" className="text-yellow-400">City</Label>
               <Input
                 id="city"
                 value={city}
@@ -259,7 +259,7 @@ export default function NuvaSignupScreen() {
               />
             </div>
             <div className="space-y-2 col-span-3">
-              <Label className="text-gray-300">State</Label>
+              <Label className="text-yellow-400">State</Label>
               <Select value={state} onValueChange={setState}>
                 <SelectTrigger className="bg-gray-700 border-gray-600 text-white [&>svg]:text-gray-300">
                   <SelectValue placeholder="State" />
@@ -319,7 +319,7 @@ export default function NuvaSignupScreen() {
               </Select>
             </div>
             <div className="space-y-2 col-span-3">
-              <Label htmlFor="zip" className="text-gray-300">Zip</Label>
+              <Label htmlFor="zip" className="text-yellow-400">Zip</Label>
               <Input
                 id="zip"
                 value={zipCode}
@@ -336,8 +336,8 @@ export default function NuvaSignupScreen() {
         <div className="bg-gray-800/90 backdrop-blur-sm rounded-xl p-6 mb-6 border border-gray-700">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-xl font-semibold text-white">Choose Your AI Chef</h3>
-              <p className="text-gray-300 text-sm">Select your personal cooking assistant</p>
+              <h3 className="text-xl font-semibold text-yellow-400">Choose Your AI Chef</h3>
+              <p className="text-white text-sm">Select your personal cooking assistant</p>
             </div>
             <div className="w-20 h-20 rounded-lg overflow-hidden">
               {selectedChef ? (
@@ -367,7 +367,7 @@ export default function NuvaSignupScreen() {
                 >
                   <img src={chef.avatar} alt={chef.name} className="w-full h-full object-cover" />
                 </button>
-                <p className="text-xs text-center mt-1 font-medium text-gray-300">{chef.displayName}</p>
+                <p className="text-xs text-center mt-1 font-medium text-white">{chef.displayName}</p>
               </div>
             ))}
           </div>
@@ -379,8 +379,8 @@ export default function NuvaSignupScreen() {
         <div className="bg-gray-800/90 backdrop-blur-sm rounded-xl p-6 mb-6 border border-gray-700">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-xl font-semibold text-white">Phone Verification</h3>
-              <p className="text-gray-300 text-sm">Verify your phone number for account security</p>
+              <h3 className="text-xl font-semibold text-yellow-400">Phone Verification</h3>
+              <p className="text-white text-sm">Verify your phone number for account security</p>
             </div>
             <div className="w-20 h-20 rounded-lg bg-purple-600/20 flex items-center justify-center border-2 border-purple-500">
               <Phone className="w-8 h-8 text-purple-400" />
