@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ChevronUp, Calendar, ChefHat, Truck, ShoppingBag, BookOpen, ShoppingBasket, Edit3 } from "lucide-react";
+import { ChevronUp, Calendar, ChefHat, Truck, ShoppingBag, BookOpen, ShoppingBasket, Edit, Settings, Pencil } from "lucide-react";
 
 export default function ExploreRecipeOptionsScreen() {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
@@ -560,10 +560,10 @@ export default function ExploreRecipeOptionsScreen() {
               {selectedPreferenceTab === "pantry" && pantryConfirmed && (
                 <button
                   onClick={() => setPantryConfirmed(false)}
-                  className="text-purple-400 hover:text-purple-300 p-2 rounded-lg hover:bg-purple-600/10 transition-colors"
+                  className="text-yellow-400 hover:text-yellow-300 p-2 rounded-lg hover:bg-yellow-600/20 transition-colors border border-yellow-400/30"
                   title="Edit Ingredients"
                 >
-                  <Edit3 size={20} />
+                  <Settings size={24} />
                 </button>
               )}
             </div>
