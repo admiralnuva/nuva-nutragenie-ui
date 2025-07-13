@@ -524,10 +524,10 @@ export default function ExploreRecipeOptionsScreen() {
           </div>
           
           {/* Tab Buttons */}
-          <div className="flex gap-2 mb-6">
+          <div className="flex justify-between items-center mb-6 w-full">
             <button
               onClick={() => setSelectedPreferenceTab("diet")}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+              className={`flex-1 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                 selectedPreferenceTab === "diet"
                   ? "bg-purple-600 text-white"
                   : "bg-gray-700 text-gray-300 hover:bg-gray-600"
@@ -537,7 +537,7 @@ export default function ExploreRecipeOptionsScreen() {
             </button>
             <button
               onClick={() => setSelectedPreferenceTab("meal")}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+              className={`flex-1 mx-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                 selectedPreferenceTab === "meal"
                   ? "bg-purple-600 text-white"
                   : "bg-gray-700 text-gray-300 hover:bg-gray-600"
@@ -545,10 +545,10 @@ export default function ExploreRecipeOptionsScreen() {
             >
               Meal
             </button>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 flex-1">
               <button
                 onClick={() => setSelectedPreferenceTab("pantry")}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center space-x-2 ${
+                className={`flex-1 px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center justify-center space-x-2 ${
                   selectedPreferenceTab === "pantry"
                     ? "bg-purple-600 text-white"
                     : "bg-gray-700 text-gray-300 hover:bg-gray-600"
@@ -560,7 +560,7 @@ export default function ExploreRecipeOptionsScreen() {
               {selectedPreferenceTab === "pantry" && pantryConfirmed && (
                 <button
                   onClick={() => setPantryConfirmed(false)}
-                  className="text-yellow-400 hover:text-yellow-300 p-2 rounded-lg hover:bg-yellow-600/20 transition-colors border border-yellow-400/30"
+                  className="text-yellow-400 hover:text-yellow-300 p-2 rounded-lg hover:bg-yellow-600/20 transition-colors border border-yellow-400/30 flex-shrink-0"
                   title="Edit Ingredients"
                 >
                   <Settings size={24} />
