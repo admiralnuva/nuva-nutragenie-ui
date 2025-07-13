@@ -178,19 +178,17 @@ export default function NuvaSignupScreen() {
           {/* Avatar Selection */}
           <div className="grid grid-cols-4 gap-3 mb-4">
             {userAvatars.map((avatar) => (
-              <div key={avatar.id} className="flex flex-col items-center">
-                <button
-                  onClick={() => setSelectedAvatar(avatar)}
-                  className={`w-20 h-20 rounded-lg border-2 overflow-hidden transition-all ${
-                    selectedAvatar?.id === avatar.id 
-                      ? 'ring-2 ring-gray-400 border-gray-400 scale-105' 
-                      : 'border-gray-600 hover:border-gray-500'
-                  }`}
-                >
-                  <img src={avatar.src} alt={avatar.alt} className="w-full h-full object-cover" />
-                </button>
-                <p className="text-xs text-center mt-1 font-medium text-gray-300">{avatar.alt.replace('User Avatar ', 'User ')}</p>
-              </div>
+              <button
+                key={avatar.id}
+                onClick={() => setSelectedAvatar(avatar)}
+                className={`w-20 h-20 rounded-lg border-2 overflow-hidden transition-all ${
+                  selectedAvatar?.id === avatar.id 
+                    ? 'ring-2 ring-gray-400 border-gray-400 scale-105' 
+                    : 'border-gray-600 hover:border-gray-500'
+                }`}
+              >
+                <img src={avatar.src} alt={avatar.alt} className="w-full h-full object-cover" />
+              </button>
             ))}
           </div>
 
