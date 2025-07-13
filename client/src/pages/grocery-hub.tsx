@@ -22,6 +22,40 @@ export default function GroceryHubScreen() {
   const [activeTab, setActiveTab] = useState<'edit' | 'shop' | 'instacart'>('edit');
   const [newItemName, setNewItemName] = useState('');
   const [selectedCategoryForAdd, setSelectedCategoryForAdd] = useState<string>('');
+  const [selectedStore, setSelectedStore] = useState<string>('');
+  const [orderSubmitted, setOrderSubmitted] = useState(false);
+
+  // Store options
+  const stores = [
+    'Whole Foods Market',
+    'Safeway',
+    'Kroger',
+    'Lucky Supermarkets',
+    'Target',
+    'Walmart Grocery',
+    'Sprouts Farmers Market'
+  ];
+
+  // Instacart items with prices - grouped by category
+  const instacartItems = [
+    { id: '1', name: 'Chicken Breast', quantity: 2, unit: 'lbs', price: 8.99, category: 'Meat & Poultry' },
+    { id: '2', name: 'Ground Beef', quantity: 1, unit: 'lb', price: 6.49, category: 'Meat & Poultry' },
+    { id: '4', name: 'Salmon Fillet', quantity: 1, unit: 'lb', price: 12.99, category: 'Fish & Seafood' },
+    { id: '5', name: 'Shrimp', quantity: 1, unit: 'bag', price: 9.99, category: 'Fish & Seafood' },
+    { id: '7', name: 'Bell Peppers', quantity: 3, unit: 'pieces', price: 4.29, category: 'Vegetables' },
+    { id: '8', name: 'Onions', quantity: 2, unit: 'pieces', price: 2.99, category: 'Vegetables' },
+    { id: '9', name: 'Carrots', quantity: 1, unit: 'bag', price: 2.49, category: 'Vegetables' },
+    { id: '11', name: 'Milk', quantity: 1, unit: 'gallon', price: 4.99, category: 'Dairy & Eggs' },
+    { id: '12', name: 'Eggs', quantity: 1, unit: 'dozen', price: 3.49, category: 'Dairy & Eggs' },
+    { id: '15', name: 'Brown Rice', quantity: 1, unit: 'bag', price: 3.99, category: 'Grains & Pasta' },
+    { id: '19', name: 'Bananas', quantity: 1, unit: 'bunch', price: 2.29, category: 'Fruits' },
+    { id: '23', name: 'Black Beans', quantity: 3, unit: 'cans', price: 4.47, category: 'Legumes & Beans' },
+    { id: '27', name: 'Almonds', quantity: 1, unit: 'bag', price: 6.99, category: 'Nuts & Seeds' },
+    { id: '31', name: 'Olive Oil', quantity: 1, unit: 'bottle', price: 7.99, category: 'Condiments & Seasonings' },
+    { id: '35', name: 'Flour', quantity: 1, unit: 'bag', price: 2.99, category: 'Pantry Staples' }
+  ];
+
+  const [instacartCart, setInstacartCart] = useState(instacartItems);
 
   // Shop screen state - dummy data from each category
   const [shopCategories, setShopCategories] = useState<GroceryCategory[]>([
@@ -287,8 +321,45 @@ export default function GroceryHubScreen() {
 
   const handleAddToInstacart = () => {
     console.log('Adding to Instacart:', categories);
-    // Navigate to Instacart integration
+    // Switch to Instacart tab with current grocery items
+    setActiveTab('instacart');
   };
+
+  const updateInstacartQuantity = (itemId: string, change: number) => {
+    setInstacartCart(prev => prev.map(item => 
+      item.id === itemId 
+        ? { ...item, quantity: Math.max(0, item.quantity + change) }
+        : item
+    ).filter(item => item.quantity > 0));
+  };
+
+  const removeInstacartItem = (itemId: string) => {
+    setInstacartCart(prev => prev.filter(item => item.id !== itemId));
+  };
+
+  const calculateTotal = () => {
+    return instacartCart.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2);
+  };
+
+  const handleSubmitOrder = () => {
+    if (!selectedStore) {
+      alert('Please select a store first');
+      return;
+    }
+    console.log('Submitting Instacart order:', { store: selectedStore, items: instacartCart });
+    setOrderSubmitted(true);
+    setTimeout(() => setOrderSubmitted(false), 3000);
+  };
+
+  // Group items by category
+  const groupedInstacartItems = instacartCart.reduce((groups, item) => {
+    const category = item.category;
+    if (!groups[category]) {
+      groups[category] = [];
+    }
+    groups[category].push(item);
+    return groups;
+  }, {} as Record<string, typeof instacartCart>);
 
   const toggleShopCategory = (categoryId: string) => {
     setShopCategories(prev => prev.map(cat => 
@@ -548,9 +619,131 @@ export default function GroceryHubScreen() {
         )}
 
         {activeTab === 'instacart' && (
-          <div className="text-center py-12">
-            <h3 className="text-xl font-semibold text-white mb-2">Instacart Integration</h3>
-            <p className="text-gray-400">Coming soon - Full Instacart shopping experience</p>
+          <div className="space-y-6">
+            {/* Order Confirmation */}
+            {orderSubmitted && (
+              <div className="bg-green-600/20 border border-green-600 rounded-lg p-4 text-center">
+                <h3 className="text-lg font-semibold text-green-400 mb-2">Order Submitted Successfully!</h3>
+                <p className="text-green-300">Your grocery order has been placed with {selectedStore}</p>
+                <p className="text-sm text-green-400 mt-1">Estimated delivery: 1-2 hours</p>
+              </div>
+            )}
+
+            {/* Store Selection */}
+            <div className="bg-gray-800/90 backdrop-blur-sm border border-gray-700 rounded-lg p-6">
+              <h3 className="text-lg font-semibold text-white mb-4">Select Grocery Store</h3>
+              <select
+                value={selectedStore}
+                onChange={(e) => setSelectedStore(e.target.value)}
+                className="w-full bg-gray-700 border border-gray-600 rounded-md px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+              >
+                <option value="">Choose a store...</option>
+                {stores.map((store) => (
+                  <option key={store} value={store}>{store}</option>
+                ))}
+              </select>
+            </div>
+
+            {/* Grouped Items List */}
+            <div className="bg-gray-800/90 backdrop-blur-sm border border-gray-700 rounded-lg p-6">
+              <h3 className="text-lg font-semibold text-white mb-6">Your Cart</h3>
+              
+              {Object.entries(groupedInstacartItems).map(([category, items]) => (
+                <div key={category} className="mb-6">
+                  {/* Category Header */}
+                  <h4 className="text-yellow-300 font-semibold text-sm uppercase tracking-wide mb-3 border-b border-gray-600 pb-2">
+                    {category}
+                  </h4>
+                  
+                  {/* Category Items */}
+                  <div className="space-y-3">
+                    {items.map((item) => (
+                      <div key={item.id} className="flex items-center justify-between bg-gray-700 rounded-lg p-4">
+                        <div className="flex-1">
+                          <span className="font-medium text-white">{item.name}</span>
+                          <div className="text-sm text-gray-400 mt-1">
+                            ${item.price.toFixed(2)} per {item.unit}
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-center space-x-3">
+                          {/* Quantity Controls */}
+                          <div className="flex items-center space-x-2">
+                            <button
+                              onClick={() => updateInstacartQuantity(item.id, -1)}
+                              className="w-8 h-8 bg-gray-600 hover:bg-gray-500 rounded-md flex items-center justify-center text-white transition-colors"
+                            >
+                              <Minus className="w-4 h-4" />
+                            </button>
+                            <span className="w-12 text-center font-medium text-white">
+                              {item.quantity}
+                            </span>
+                            <button
+                              onClick={() => updateInstacartQuantity(item.id, 1)}
+                              className="w-8 h-8 bg-gray-600 hover:bg-gray-500 rounded-md flex items-center justify-center text-white transition-colors"
+                            >
+                              <Plus className="w-4 h-4" />
+                            </button>
+                          </div>
+                          
+                          {/* Item Total */}
+                          <div className="w-16 text-right font-semibold text-white">
+                            ${(item.price * item.quantity).toFixed(2)}
+                          </div>
+                          
+                          {/* Delete Button */}
+                          <button
+                            onClick={() => removeInstacartItem(item.id)}
+                            className="w-8 h-8 bg-red-600 hover:bg-red-500 rounded-md flex items-center justify-center text-white transition-colors"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+
+              {instacartCart.length === 0 && (
+                <div className="text-center py-8">
+                  <p className="text-gray-400">Your cart is empty</p>
+                </div>
+              )}
+            </div>
+
+            {/* Order Summary & Submit */}
+            {instacartCart.length > 0 && (
+              <div className="bg-gray-800/90 backdrop-blur-sm border border-gray-700 rounded-lg p-6">
+                <div className="flex justify-between items-center mb-4">
+                  <span className="text-lg font-semibold text-white">Total:</span>
+                  <span className="text-2xl font-bold text-green-400">${calculateTotal()}</span>
+                </div>
+                
+                <div className="text-sm text-gray-400 mb-4">
+                  <div className="flex justify-between">
+                    <span>Delivery Fee:</span>
+                    <span>$3.99</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Service Fee:</span>
+                    <span>$2.99</span>
+                  </div>
+                  <div className="flex justify-between font-semibold text-white mt-2 pt-2 border-t border-gray-600">
+                    <span>Final Total:</span>
+                    <span>${(parseFloat(calculateTotal()) + 6.98).toFixed(2)}</span>
+                  </div>
+                </div>
+
+                <Button
+                  onClick={handleSubmitOrder}
+                  disabled={!selectedStore || instacartCart.length === 0}
+                  className="w-full bg-green-600 hover:bg-green-500 text-white font-semibold py-4 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Submit Order
+                </Button>
+              </div>
+            )}
           </div>
         )}
       </div>
