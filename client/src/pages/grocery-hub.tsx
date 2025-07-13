@@ -644,7 +644,7 @@ export default function GroceryHubScreen() {
               </select>
             </div>
 
-            {/* Grouped Items List */}
+            {/* Grouped Items List - Single Row Format */}
             <div className="bg-gray-800/90 backdrop-blur-sm border border-gray-700 rounded-lg p-6">
               <h3 className="text-lg font-semibold text-white mb-6">Your Cart</h3>
               
@@ -655,50 +655,51 @@ export default function GroceryHubScreen() {
                     {category}
                   </h4>
                   
-                  {/* Category Items */}
-                  <div className="space-y-3">
+                  {/* Category Items - Single Row Layout */}
+                  <div className="space-y-2">
                     {items.map((item) => (
-                      <div key={item.id} className="flex items-center justify-between bg-gray-700 rounded-lg p-4">
-                        <div className="flex-1">
-                          <span className="font-medium text-white">{item.name}</span>
-                          <div className="text-sm text-gray-400 mt-1">
-                            ${item.price.toFixed(2)} per {item.unit}
-                          </div>
+                      <div key={item.id} className="flex items-center justify-between py-2 px-3 bg-gray-700/50 rounded hover:bg-gray-700 transition-colors">
+                        {/* Item Name */}
+                        <div className="flex-1 min-w-0">
+                          <span className="font-medium text-white truncate block">{item.name}</span>
                         </div>
                         
-                        <div className="flex items-center space-x-3">
-                          {/* Quantity Controls */}
-                          <div className="flex items-center space-x-2">
-                            <button
-                              onClick={() => updateInstacartQuantity(item.id, -1)}
-                              className="w-8 h-8 bg-gray-600 hover:bg-gray-500 rounded-md flex items-center justify-center text-white transition-colors"
-                            >
-                              <Minus className="w-4 h-4" />
-                            </button>
-                            <span className="w-12 text-center font-medium text-white">
-                              {item.quantity}
-                            </span>
-                            <button
-                              onClick={() => updateInstacartQuantity(item.id, 1)}
-                              className="w-8 h-8 bg-gray-600 hover:bg-gray-500 rounded-md flex items-center justify-center text-white transition-colors"
-                            >
-                              <Plus className="w-4 h-4" />
-                            </button>
-                          </div>
-                          
-                          {/* Item Total */}
-                          <div className="w-16 text-right font-semibold text-white">
-                            ${(item.price * item.quantity).toFixed(2)}
-                          </div>
-                          
-                          {/* Delete Button */}
+                        {/* Price per unit */}
+                        <div className="text-sm text-gray-300 px-2">
+                          ${item.price.toFixed(2)}/{item.unit}
+                        </div>
+                        
+                        {/* Quantity Controls */}
+                        <div className="flex items-center space-x-1">
                           <button
-                            onClick={() => removeInstacartItem(item.id)}
-                            className="w-8 h-8 bg-red-600 hover:bg-red-500 rounded-md flex items-center justify-center text-white transition-colors"
+                            onClick={() => updateInstacartQuantity(item.id, -1)}
+                            className="w-7 h-7 bg-gray-600 hover:bg-gray-500 rounded flex items-center justify-center text-white transition-colors"
                           >
-                            <Trash2 className="w-4 h-4" />
+                            <Minus className="w-3 h-3" />
+                          </button>
+                          <span className="w-8 text-center text-sm font-medium text-white">
+                            {item.quantity}
+                          </span>
+                          <button
+                            onClick={() => updateInstacartQuantity(item.id, 1)}
+                            className="w-7 h-7 bg-gray-600 hover:bg-gray-500 rounded flex items-center justify-center text-white transition-colors"
+                          >
+                            <Plus className="w-3 h-3" />
                           </button>
                         </div>
+                        
+                        {/* Item Total */}
+                        <div className="w-16 text-right font-semibold text-white px-2">
+                          ${(item.price * item.quantity).toFixed(2)}
+                        </div>
+                        
+                        {/* Delete Button */}
+                        <button
+                          onClick={() => removeInstacartItem(item.id)}
+                          className="w-7 h-7 bg-red-600 hover:bg-red-500 rounded flex items-center justify-center text-white transition-colors ml-2"
+                        >
+                          <Trash2 className="w-3 h-3" />
+                        </button>
                       </div>
                     ))}
                   </div>
