@@ -88,6 +88,12 @@ export function DishCard({ dish }: DishCardProps) {
     setLocation('/voice-cooking');
   };
 
+  const handleTakeOutClick = () => {
+    // API call to add dish to takeout order would happen here
+    console.log('Adding dish to takeout order:', { dishId: dish.id, dishName: dish.name });
+    setLocation('/takeout');
+  };
+
   // Sample recipe data - will come from API
   const recipeData = {
     id: dish.id,
@@ -182,7 +188,10 @@ export function DishCard({ dish }: DishCardProps) {
           >
             <ChefHat size={22} className="text-white" />
           </button>
-          <button className="w-14 h-14 bg-blue-600 hover:bg-blue-700 rounded-lg flex items-center justify-center transition-colors">
+          <button 
+            onClick={handleTakeOutClick}
+            className="w-14 h-14 bg-blue-600 hover:bg-blue-700 rounded-lg flex items-center justify-center transition-colors"
+          >
             <Plus size={22} className="text-white" />
           </button>
         </div>
