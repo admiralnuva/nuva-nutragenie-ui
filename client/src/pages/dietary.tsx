@@ -158,7 +158,7 @@ export default function DietaryScreen() {
   };
   
   // Mascot guidance state
-  const [showMascot, setShowMascot] = useState(false);
+  const [showMascot, setShowMascot] = useState(true);
 
   // Dynamic mascot messages for dietary page
   const getDietaryMascotMessages = () => {
@@ -384,10 +384,7 @@ export default function DietaryScreen() {
 
     
     // Show success message and navigate
-    toast({ 
-      title: "Dietary preferences saved successfully!",
-      variant: "default"
-    });
+    toast({ title: "Dietary preferences saved successfully!" });
     setLocation("/explore-recipe-options");
   };
 
