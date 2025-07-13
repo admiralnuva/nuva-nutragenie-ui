@@ -19,7 +19,7 @@ import ExploreRecipeOptionsScreen from "@/pages/explore-recipe-options";
 import ProfileScreen from "@/pages/profile";
 import HealthAnalyticsScreen from "@/pages/health";
 import HomeScreen from "@/pages/home";
-import GroceryListEnhanced from "@/pages/grocery-list-enhanced";
+
 import InstacartScreen from "@/pages/instacart";
 
 
@@ -52,7 +52,7 @@ function Router() {
       <Route path="/explore-recipe-options" component={ExploreRecipeOptionsScreen} />
       <Route path="/home" component={HomeScreen} />
 
-      <Route path="/grocery-list" component={GroceryListEnhanced} />
+
       <Route path="/instacart" component={InstacartScreen} />
       <Route path="/cook" component={CookScreen} />
       <Route path="/voice-cooking" component={VoiceCookingScreen} />
