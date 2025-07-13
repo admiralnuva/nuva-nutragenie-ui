@@ -1238,7 +1238,7 @@ export default function ExploreRecipeOptionsScreen() {
               }`}
               onClick={() => setSelectedHistoryItem(selectedHistoryItem === 'takeout-orders' ? null : 'takeout-orders')}
             >
-              Takeout Orders
+              Takeouts
             </button>
             <button
               className={`p-4 rounded-lg border text-center transition-colors ${

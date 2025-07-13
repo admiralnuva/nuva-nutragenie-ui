@@ -912,6 +912,10 @@ To restore to this stable state if needed:
   * Enhanced edit button to larger yellow Settings icon (size 20) maintaining p-4 dimensions for uniform appearance
   * Zero impact on functionality - all tab switching, card positioning, and edit logic preserved perfectly
   * Achieved complete visual consistency across all button elements in the interface
+- July 13, 2025. Text Layout Optimizations:
+  * Fixed scrolling issue in Personalize Diet & Pantry card by adding bottom padding (pb-24)
+  * Renamed "Takeout Orders" to "Takeouts" in Your Activity card to prevent text wrapping to two rows
+  * Improved single-line text display across all button elements for cleaner appearance
 - July 11, 2025. Take-Out Screen Navigation Fix:
   * Updated back button route from /recipes to /explore-recipe-options for consistent navigation flow
   * Take-out screen now properly routes users back to the main recipe exploration interface
