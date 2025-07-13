@@ -1,5 +1,6 @@
 import { ArrowLeftRight, Book, Heart, ChefHat, Plus, Check } from "lucide-react";
 import { useState, useEffect } from "react";
+import { RecipeModal } from "./recipe-modal";
 
 interface Dish {
   id: number;
@@ -27,6 +28,7 @@ export function DishCard({ dish }: DishCardProps) {
   const [isSubstitutionOpen, setIsSubstitutionOpen] = useState(false);
   const [selectedSubstitution, setSelectedSubstitution] = useState<string | null>(null);
   const [hasSubstitution, setHasSubstitution] = useState(false);
+  const [isRecipeOpen, setIsRecipeOpen] = useState(false);
 
   // Sample substitution data - will come from API
   const substitutions: Substitution[] = [
@@ -60,6 +62,49 @@ export function DishCard({ dish }: DishCardProps) {
     setTimeout(() => {
       setIsSubstitutionOpen(false);
     }, 2000);
+  };
+
+  const handleRecipeClick = () => {
+    setIsRecipeOpen(true);
+  };
+
+  const handleRecipeClose = () => {
+    setIsRecipeOpen(false);
+  };
+
+  const handleRecipeSave = () => {
+    // API call to save recipe would happen here
+    console.log('Saving recipe to profile:', { dishId: dish.id, recipeName: dish.name });
+    setIsRecipeOpen(false);
+  };
+
+  // Sample recipe data - will come from API
+  const recipeData = {
+    id: dish.id,
+    name: dish.name,
+    cookTime: dish.cookTime,
+    servings: 4,
+    ingredients: [
+      { name: "chicken breast", quantity: "2 lbs" },
+      { name: "jasmine rice", quantity: "1 cup" },
+      { name: "olive oil", quantity: "2 tbsp" },
+      { name: "garlic cloves", quantity: "3 pieces" },
+      { name: "soy sauce", quantity: "3 tbsp" },
+      { name: "bell peppers", quantity: "2 medium" },
+      { name: "onion", quantity: "1 large" },
+      { name: "ginger", quantity: "1 inch piece" }
+    ],
+    steps: [
+      "Heat olive oil in a large skillet or wok over medium-high heat.",
+      "Season chicken breast with salt and pepper, then cut into bite-sized pieces.",
+      "Add chicken to the hot skillet and cook for 5-7 minutes until golden brown and cooked through.",
+      "Meanwhile, cook jasmine rice according to package instructions in a separate pot.",
+      "Add minced garlic and ginger to the skillet with chicken, stir for 30 seconds until fragrant.",
+      "Add sliced bell peppers and onion to the skillet, stir-fry for 3-4 minutes until tender-crisp.",
+      "Pour soy sauce over the mixture and stir to combine all ingredients evenly.",
+      "Serve the chicken stir-fry over the cooked jasmine rice while hot.",
+      "Garnish with chopped green onions or sesame seeds if desired."
+    ]
   };
 
   return (
@@ -106,7 +151,10 @@ export function DishCard({ dish }: DishCardProps) {
               </div>
             )}
           </button>
-          <button className="w-12 h-12 bg-purple-600 hover:bg-purple-700 rounded-lg flex items-center justify-center transition-colors">
+          <button 
+            onClick={handleRecipeClick}
+            className="w-12 h-12 bg-purple-600 hover:bg-purple-700 rounded-lg flex items-center justify-center transition-colors"
+          >
             <Book size={20} className="text-white" />
           </button>
           <button className="w-12 h-12 bg-green-600 hover:bg-green-700 rounded-lg flex items-center justify-center transition-colors">
@@ -184,6 +232,14 @@ export function DishCard({ dish }: DishCardProps) {
           )}
         </div>
       )}
+
+      {/* Recipe Modal */}
+      <RecipeModal
+        recipe={recipeData}
+        isOpen={isRecipeOpen}
+        onClose={handleRecipeClose}
+        onSave={handleRecipeSave}
+      />
     </div>
   );
 }
