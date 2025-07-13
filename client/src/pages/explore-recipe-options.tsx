@@ -582,22 +582,22 @@ export default function ExploreRecipeOptionsScreen() {
               </div>
 
               {/* Confirmation Checkbox */}
-              <div className="flex items-center space-x-3 mt-6">
+              <div className="flex items-center space-x-4 mt-6">
                 <button
                   onClick={() => setMealPreferencesConfirmed(!mealPreferencesConfirmed)}
-                  className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${
+                  className={`w-8 h-8 rounded-full border-2 flex items-center justify-center transition-colors ${
                     mealPreferencesConfirmed 
                       ? "bg-purple-600 border-purple-600" 
                       : "border-gray-400 hover:border-purple-400"
                   }`}
                 >
                   {mealPreferencesConfirmed && (
-                    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
                   )}
                 </button>
-                <span className="text-white text-sm">I confirm these meal preferences are correct</span>
+                <span className="text-white text-base select-text cursor-text">I confirm these meal preferences are correct</span>
               </div>
             </div>
           )}
@@ -794,7 +794,7 @@ export default function ExploreRecipeOptionsScreen() {
               {/* Generate Button */}
               <Button 
                 onClick={handleCreateDishes}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 mt-6"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 text-lg mt-6 select-text"
               >
                 Generate Variations
               </Button>
@@ -927,7 +927,7 @@ export default function ExploreRecipeOptionsScreen() {
               {/* Design Button */}
               <Button 
                 onClick={handleDesignTakeOutMenu}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 mt-6"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 text-lg mt-6 select-text"
               >
                 Design Take Out Menu
               </Button>
@@ -1039,7 +1039,7 @@ export default function ExploreRecipeOptionsScreen() {
           <div className="flex justify-center">
             <Button
               variant="outline"
-              className="h-12 bg-gray-700 border-gray-600 hover:bg-gray-600 text-gray-300 flex items-center justify-center px-8"
+              className="h-14 bg-gray-700 border-gray-600 hover:bg-gray-600 text-gray-300 flex items-center justify-center px-10 text-lg font-semibold select-text"
               onClick={() => {/* Navigate to grocery list */}}
             >
               Grocery List
