@@ -146,7 +146,7 @@ export function DishCard({ dish }: DishCardProps) {
           </div>
           <div className="flex items-center gap-6 text-sm text-white">
             <span className="text-blue-400 whitespace-nowrap">• {dish.cookTime}</span>
-            <span className="whitespace-nowrap">{dish.difficulty}</span>
+            <span className="whitespace-nowrap">• {dish.difficulty}</span>
           </div>
         </div>
         
