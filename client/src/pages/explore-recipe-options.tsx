@@ -890,41 +890,41 @@ export default function ExploreRecipeOptionsScreen() {
 
         {/* Card 2 - Recipe Options */}
         <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-purple-500 p-6 hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-purple-400">
-          <h2 className="text-xl font-bold text-yellow-400 mb-4 text-center">Recipe Options</h2>
+          <h2 className="text-xl font-bold text-yellow-400 mb-4 text-center">Recipe & Dishes</h2>
           <div className="grid grid-cols-2 gap-4">
             <button
               onClick={() => handleOptionClick("chefs-choice")}
-              className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
+              className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg whitespace-nowrap ${
                 selectedOption === "chefs-choice"
                   ? "bg-blue-700 text-white border-blue-600 shadow-lg shadow-blue-500/40"
                   : "bg-blue-600 text-white border-blue-500 shadow-lg shadow-blue-500/30"
               }`}
             >
-              Chef's Choice
+              Chef's Pick
             </button>
             <button
               onClick={() => handleOptionClick("pantry-dishes")}
-              className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
+              className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg whitespace-nowrap ${
                 selectedOption === "pantry-dishes"
                   ? "bg-blue-700 text-white border-blue-600 shadow-lg shadow-blue-500/40"
                   : "bg-blue-600 text-white border-blue-500 shadow-lg shadow-blue-500/30"
               }`}
             >
-              Pantry Dishes
+              Pantry
             </button>
             <button
               onClick={() => handleOptionClick("create-dishes")}
-              className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
+              className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg whitespace-nowrap ${
                 selectedOption === "create-dishes"
                   ? "bg-blue-700 text-white border-blue-600 shadow-lg shadow-blue-500/40"
                   : "bg-blue-600 text-white border-blue-500 shadow-lg shadow-blue-500/30"
               }`}
             >
-              Create Dishes
+              Create
             </button>
             <button
               onClick={() => handleOptionClick("take-out")}
-              className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
+              className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg whitespace-nowrap ${
                 selectedOption === "take-out"
                   ? "bg-blue-700 text-white border-blue-600 shadow-lg shadow-blue-500/40"
                   : "bg-blue-600 text-white border-blue-500 shadow-lg shadow-blue-500/30"
@@ -1244,7 +1244,7 @@ export default function ExploreRecipeOptionsScreen() {
           <h2 className="text-xl font-bold text-yellow-400 mb-4 text-center">Your Activity</h2>
           <div className="grid grid-cols-2 gap-4">
             <button
-              className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
+              className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg whitespace-nowrap ${
                 selectedHistoryItem === 'dishes-cooked' 
                   ? 'bg-green-700 border-green-600 text-white shadow-lg shadow-green-500/40' 
                   : 'bg-green-600 border-green-500 text-white shadow-lg shadow-green-500/30'
@@ -1254,7 +1254,7 @@ export default function ExploreRecipeOptionsScreen() {
               Cooked
             </button>
             <button
-              className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
+              className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg whitespace-nowrap ${
                 selectedHistoryItem === 'takeout-orders' 
                   ? 'bg-green-700 border-green-600 text-white shadow-lg shadow-green-500/40' 
                   : 'bg-green-600 border-green-500 text-white shadow-lg shadow-green-500/30'
@@ -1265,13 +1265,13 @@ export default function ExploreRecipeOptionsScreen() {
             </button>
             <Link href="/grocery-hub" className="block">
               <button
-                className="w-full p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg bg-green-600 border-green-500 text-white shadow-lg shadow-green-500/30 hover:bg-green-700 hover:border-green-600 hover:shadow-green-500/40"
+                className="w-full p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg whitespace-nowrap bg-green-600 border-green-500 text-white shadow-lg shadow-green-500/30 hover:bg-green-700 hover:border-green-600 hover:shadow-green-500/40"
               >
                 Grocery List
               </button>
             </Link>
             <button
-              className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
+              className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg whitespace-nowrap ${
                 selectedHistoryItem === 'recipes-saved' 
                   ? 'bg-green-700 border-green-600 text-white shadow-lg shadow-green-500/40' 
                   : 'bg-green-600 border-green-500 text-white shadow-lg shadow-green-500/30'
