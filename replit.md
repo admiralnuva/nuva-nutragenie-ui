@@ -1001,6 +1001,10 @@ To restore to this stable state if needed:
   * Added shopping progress summary showing items purchased vs total items
   * Maintained consistent dark theme styling and collapsible category design
   * Independent state management for shop items separate from edit list items
+- July 13, 2025. Auto-Navigation Enhancement:
+  * Enhanced Save button to automatically navigate to Shop screen after saving (simulates API autosave)
+  * Maintains independent tab toggling functionality for direct access to any tab
+  * User workflow: Edit List → Save → Auto-switch to Shop screen for immediate shopping experience
 
 - July 11, 2025. Take-Out Screen Navigation Fix:
   * Updated back button route from /recipes to /explore-recipe-options for consistent navigation flow

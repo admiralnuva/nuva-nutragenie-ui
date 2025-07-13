@@ -280,7 +280,9 @@ export default function GroceryHubScreen() {
 
   const handleSave = () => {
     console.log('Saving grocery list:', categories);
-    // API call to save grocery list
+    // API call to save grocery list - autosave functionality
+    // Automatically switch to Shop tab after saving
+    setActiveTab('shop');
   };
 
   const handleAddToInstacart = () => {
