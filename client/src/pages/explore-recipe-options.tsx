@@ -343,7 +343,7 @@ export default function ExploreRecipeOptionsScreen() {
       {/* Header */}
       <div className="bg-gray-900 border-b border-gray-700 p-4">
         <div className="flex items-center justify-between">
-          <BackButton to="/home" />
+          <BackButton to="/dietary" />
           <div className="flex flex-col items-center">
             <h1 className="text-2xl font-bold text-white">NutraGenie</h1>
             <p className="text-lg font-semibold text-purple-600 mt-1">Explore Recipe Options</p>

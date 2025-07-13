@@ -385,7 +385,7 @@ export default function DietaryScreen() {
     
     // Show success message and navigate
     toast({ title: "Dietary preferences saved successfully!" });
-    setLocation("/recipes");
+    setLocation("/explore-recipe-options");
   };
 
   const isFormValid = selectedDietary.length > 0 || selectedHealth.length > 0 || selectedFitness.length > 0;
