@@ -18,6 +18,12 @@ export default function ExploreRecipeOptionsScreen() {
   // Preferences state
   const [selectedPreferenceTab, setSelectedPreferenceTab] = useState<string>("diet");
   
+  // Pantry state - independent from other cards
+  const [selectedIngredients, setSelectedIngredients] = useState<string[]>([
+    "chicken-breast", "salmon", "bell-peppers" // Default selections
+  ]);
+  const [pantryConfirmed, setPantryConfirmed] = useState(false);
+  
   // Meal preferences state
   const [mealServingSize, setMealServingSize] = useState("2 people");
   const [mealCuisine, setMealCuisine] = useState("American");
@@ -84,6 +90,92 @@ export default function ExploreRecipeOptionsScreen() {
       // Keep the confirmed state as is - don't force uncheck if no changes
     }
   }, [selectedPreferenceTab]);
+
+  // Pantry ingredient categories
+  const pantryCategories = {
+    meat: {
+      name: "Meat",
+      items: [
+        { id: "chicken-breast", name: "Chicken Breast" },
+        { id: "ground-beef", name: "Ground Beef" },
+        { id: "turkey", name: "Turkey" },
+        { id: "pork-chops", name: "Pork Chops" },
+        { id: "bacon", name: "Bacon" },
+        { id: "ground-turkey", name: "Ground Turkey" },
+        { id: "lamb", name: "Lamb" },
+        { id: "duck", name: "Duck" }
+      ]
+    },
+    fish: {
+      name: "Fish & Seafood",
+      items: [
+        { id: "salmon", name: "Salmon" },
+        { id: "cod", name: "Cod" },
+        { id: "shrimp", name: "Shrimp" },
+        { id: "tuna", name: "Tuna" },
+        { id: "tilapia", name: "Tilapia" },
+        { id: "crab", name: "Crab" },
+        { id: "lobster", name: "Lobster" },
+        { id: "mussels", name: "Mussels" }
+      ]
+    },
+    vegetables: {
+      name: "Vegetables",
+      items: [
+        { id: "bell-peppers", name: "Bell Peppers" },
+        { id: "tomatoes", name: "Tomatoes" },
+        { id: "cucumber", name: "Cucumber" },
+        { id: "broccoli", name: "Broccoli" },
+        { id: "cauliflower", name: "Cauliflower" },
+        { id: "zucchini", name: "Zucchini" },
+        { id: "eggplant", name: "Eggplant" },
+        { id: "mushrooms", name: "Mushrooms" }
+      ]
+    },
+    dairy: {
+      name: "Dairy & Eggs",
+      items: [
+        { id: "milk", name: "Milk" },
+        { id: "eggs", name: "Eggs" },
+        { id: "cheese", name: "Cheese" },
+        { id: "yogurt", name: "Yogurt" },
+        { id: "butter", name: "Butter" },
+        { id: "cream", name: "Cream" },
+        { id: "sour-cream", name: "Sour Cream" },
+        { id: "cottage-cheese", name: "Cottage Cheese" }
+      ]
+    },
+    grains: {
+      name: "Grains & Pasta",
+      items: [
+        { id: "rice", name: "Rice" },
+        { id: "pasta", name: "Pasta" },
+        { id: "bread", name: "Bread" },
+        { id: "quinoa", name: "Quinoa" },
+        { id: "oats", name: "Oats" },
+        { id: "flour", name: "Flour" },
+        { id: "noodles", name: "Noodles" },
+        { id: "cereal", name: "Cereal" }
+      ]
+    }
+  };
+
+  // Pantry handlers - independent functionality
+  const toggleIngredient = (ingredientId: string) => {
+    setSelectedIngredients(prev => 
+      prev.includes(ingredientId)
+        ? prev.filter(id => id !== ingredientId)
+        : [...prev, ingredientId]
+    );
+  };
+
+  const getSelectedCountForCategory = (categoryItems: any[]) => {
+    return categoryItems.filter(item => selectedIngredients.includes(item.id)).length;
+  };
+
+  const handlePantryConfirmation = () => {
+    setPantryConfirmed(!pantryConfirmed);
+  };
 
   // Handle meal preferences confirmation
   const handleMealConfirmation = () => {
@@ -664,9 +756,93 @@ export default function ExploreRecipeOptionsScreen() {
           )}
           
           {/* Pantry Tab Content */}
-          {selectedPreferenceTab === "pantry" && (
+          {selectedPreferenceTab === "pantry" && !pantryConfirmed && (
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-lg font-bold text-yellow-300 mb-4">Available Ingredients</h3>
+                <p className="text-yellow-300 text-sm mb-4">
+                  Selected Ingredients: <span className="font-semibold">{selectedIngredients.length} items</span>
+                </p>
+              </div>
+
+              {/* Ingredient Categories */}
+              {Object.entries(pantryCategories).map(([categoryKey, category]) => {
+                const selectedCount = getSelectedCountForCategory(category.items);
+                const totalCount = category.items.length;
+                
+                return (
+                  <div key={categoryKey} className="space-y-3">
+                    {/* Category Header */}
+                    <div className="flex justify-between items-center">
+                      <h4 className="text-yellow-300 font-bold text-sm">{category.name}</h4>
+                      <span className="text-gray-400 text-sm">{selectedCount}/{totalCount}</span>
+                    </div>
+                    
+                    {/* Category Items */}
+                    <div className="grid grid-cols-2 gap-2">
+                      {category.items.map((item) => {
+                        const isSelected = selectedIngredients.includes(item.id);
+                        return (
+                          <label
+                            key={item.id}
+                            className="flex items-center space-x-2 cursor-pointer"
+                          >
+                            <input
+                              type="checkbox"
+                              checked={isSelected}
+                              onChange={() => toggleIngredient(item.id)}
+                              className="w-4 h-4 text-purple-600 bg-gray-700 border-gray-600 rounded focus:ring-purple-500 focus:ring-2"
+                            />
+                            <span className="text-gray-300 text-sm">{item.name}</span>
+                          </label>
+                        );
+                      })}
+                    </div>
+                    
+                    {/* Separator */}
+                    <hr className="border-gray-600" />
+                  </div>
+                );
+              })}
+
+              {/* Confirmation Checkbox */}
+              <div 
+                className="flex items-center space-x-4 mt-6 cursor-pointer" 
+                onClick={handlePantryConfirmation}
+              >
+                <div
+                  className={`w-8 h-8 min-w-8 min-h-8 rounded-full border-2 flex items-center justify-center transition-colors flex-shrink-0 ${
+                    pantryConfirmed 
+                      ? "bg-purple-600 border-purple-600" 
+                      : "border-gray-400 hover:border-purple-400"
+                  }`}
+                >
+                  {pantryConfirmed && (
+                    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  )}
+                </div>
+                <span className="text-white text-base select-text" style={{userSelect: 'text', WebkitUserSelect: 'text', MozUserSelect: 'text'}}>I confirm the above pantry ingredients</span>
+              </div>
+            </div>
+          )}
+          
+          {/* Collapsed Pantry Tab */}
+          {selectedPreferenceTab === "pantry" && pantryConfirmed && (
             <div className="text-center py-8">
-              <p className="text-gray-300">Pantry preferences will be displayed here</p>
+              <div className="space-y-4">
+                <h3 className="text-lg font-bold text-yellow-300">Pantry Confirmed</h3>
+                <p className="text-gray-300">
+                  {selectedIngredients.length} ingredients selected
+                </p>
+                <button
+                  onClick={() => setPantryConfirmed(false)}
+                  className="text-purple-400 hover:text-purple-300 text-sm underline"
+                >
+                  Edit Ingredients
+                </button>
+              </div>
             </div>
           )}
         </Card>
