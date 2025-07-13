@@ -201,15 +201,15 @@ export function DishCard({ dish }: DishCardProps) {
       {isSubstitutionOpen && (
         <div className="border-t border-gray-600 bg-gray-800/90 backdrop-blur-sm p-4 space-y-3 animate-in slide-in-from-top duration-300">
           <div className="text-center">
-            <h4 className="text-lg font-semibold text-white mb-2">Choose Substitution</h4>
+            <h4 className="text-lg font-semibold text-yellow-400 mb-2">Choose Substitution</h4>
           </div>
           
           {/* Original Ingredient */}
           <div className="bg-gray-700 rounded-lg p-3 border border-blue-500">
             <div className="flex items-center justify-between">
               <div className="flex-1">
-                <span className="font-medium text-white">Original: {dish.name} Protein</span>
-                <div className="text-sm text-gray-300 mt-1">
+                <span className="font-medium text-yellow-400">Original: {dish.name} Protein</span>
+                <div className="text-sm text-white mt-1">
                   2 lbs • {dish.calories} cal • {dish.protein} protein
                 </div>
               </div>
@@ -232,8 +232,8 @@ export function DishCard({ dish }: DishCardProps) {
             >
               <div className="flex items-center justify-between">
                 <div className="flex-1">
-                  <span className="font-medium text-white">{sub.name}</span>
-                  <div className="text-sm text-gray-300 mt-1">
+                  <span className="font-medium text-yellow-400">{sub.name}</span>
+                  <div className="text-sm text-white mt-1">
                     {sub.quantity} • {sub.calories} cal • {sub.protein} protein
                   </div>
                 </div>
@@ -253,7 +253,7 @@ export function DishCard({ dish }: DishCardProps) {
           {/* Quick Stats Comparison */}
           {selectedSubstitution && (
             <div className="bg-gray-700/50 rounded-lg p-3 mt-4">
-              <div className="text-sm text-gray-300 text-center">
+              <div className="text-sm text-white text-center">
                 <span className="text-green-400">✓</span> Substitution will be saved automatically
               </div>
             </div>
