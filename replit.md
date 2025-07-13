@@ -1077,4 +1077,19 @@ Development Standard: Always create reusable components first before implementin
 Selection Color Standard: All selected states across the app use purple-600 background with white text for consistency.
 Label Styling Standard: All form labels use bold yellow (text-yellow-300) with drop shadow for high visibility and consistency.
 Content Styling Standard: Dish titles and content names use white text to maintain visual hierarchy and readability, keeping yellow reserved for functional elements.
+First-Time User Experience: Card ordering must prioritize setup over activity for new users coming from dietary preferences.
+```
+
+## Critical Bug Fixes
+
+```
+- July 13, 2025. Critical First-Time User Experience Fix - Card Ordering Issue Resolution:
+  * PROBLEM: 3-day issue where first-time users saw wrong card order (Recipe Options first instead of Personalize Diet & Pantry)
+  * ROOT CAUSE: localStorage persistence of `nutragenie_diet_pantry_completed` causing `pantryAtBottom` to be true for new users
+  * SOLUTION: Implemented Option 1 - Force Reset for True First-Time Users
+  * Added `nutragenie_from_dietary` flag system to detect navigation from dietary preferences screen
+  * Implemented localStorage cleanup on dietary preferences submission to ensure proper first-time experience
+  * Added useEffect hook to override completion status when user navigates from dietary preferences
+  * RESULT: Card order now correctly shows for new users: 1) Personalize Diet & Pantry (top), 2) Recipe Options, 3) Your Activity
+  * Technical Implementation: Clear localStorage keys + navigation flag + useEffect override system
 ```

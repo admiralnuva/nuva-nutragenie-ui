@@ -14,6 +14,19 @@ export default function ExploreRecipeOptionsScreen() {
   // Persistent diet & pantry completion status
   const [dietPantryCompleted, setDietPantryCompleted] = useLocalStorage<boolean>("nutragenie_diet_pantry_completed", false);
   
+  // Force first-time user experience - always start with pantry at top for new users
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const fromDietary = localStorage.getItem('nutragenie_from_dietary');
+    
+    if (fromDietary === 'true') {
+      // User just came from dietary preferences - ensure first-time experience
+      setDietPantryCompleted(false);
+      setPantryAtBottom(false);
+      localStorage.removeItem('nutragenie_from_dietary');
+    }
+  }, []);
+  
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [isChefRecommendsCollapsed, setIsChefRecommendsCollapsed] = useState(false);
   const [isPantryDishesCollapsed, setIsPantryDishesCollapsed] = useState(false);

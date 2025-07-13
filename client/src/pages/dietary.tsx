@@ -383,6 +383,10 @@ export default function DietaryScreen() {
     
 
     
+    // Clear completion status and set flag for first-time user experience
+    localStorage.removeItem('nutragenie_diet_pantry_completed');
+    localStorage.setItem('nutragenie_from_dietary', 'true');
+    
     // Show success message and navigate
     toast({ title: "Dietary preferences saved successfully!" });
     setLocation("/explore-recipe-options");
