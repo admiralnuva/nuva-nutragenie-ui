@@ -941,6 +941,10 @@ To restore to this stable state if needed:
   * Fixed "Dishes Cooked" text overflow by shortening to "Cooked" for single-line display
   * Applied professional gradient approach (dark to light) for modern visual depth
   * Maintained readability while significantly improving visual appeal and user engagement
+- July 13, 2025. Button Color Revert:
+  * Reverted gradient button colors back to original styling at user request
+  * Maintained colored left border accents on cards and enhanced hover animations
+  * Kept improved visual effects while simplifying button color scheme for cleaner appearance
 - July 11, 2025. Take-Out Screen Navigation Fix:
   * Updated back button route from /recipes to /explore-recipe-options for consistent navigation flow
   * Take-out screen now properly routes users back to the main recipe exploration interface
