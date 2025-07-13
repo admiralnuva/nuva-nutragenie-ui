@@ -24,30 +24,23 @@ export default function GroceryHubScreen() {
 
   const [categories, setCategories] = useState<GroceryCategory[]>([
     {
-      id: 'dairy',
-      name: 'Dairy',
+      id: 'meat-poultry',
+      name: 'Meat & Poultry',
       isExpanded: true,
       items: [
-        { id: '1', name: 'Milk', quantity: 1, unit: 'gallon' },
-        { id: '2', name: 'Cheese', quantity: 2, unit: 'pack' }
+        { id: '1', name: 'Chicken Breast', quantity: 2, unit: 'lbs' },
+        { id: '2', name: 'Ground Beef', quantity: 1, unit: 'lb' },
+        { id: '3', name: 'Pork Chops', quantity: 4, unit: 'pieces' }
       ]
     },
     {
-      id: 'meat',
-      name: 'Meat',
+      id: 'fish-seafood',
+      name: 'Fish & Seafood',
       isExpanded: true,
       items: [
-        { id: '3', name: 'Chicken Breast', quantity: 2, unit: 'lbs' },
-        { id: '4', name: 'Ground Beef', quantity: 1, unit: 'lb' }
-      ]
-    },
-    {
-      id: 'pantry',
-      name: 'Pantry',
-      isExpanded: false,
-      items: [
-        { id: '5', name: 'Olive Oil', quantity: 1, unit: 'bottle' },
-        { id: '6', name: 'Rice', quantity: 2, unit: 'bags' }
+        { id: '4', name: 'Salmon Fillet', quantity: 1, unit: 'lb' },
+        { id: '5', name: 'Shrimp', quantity: 1, unit: 'bag' },
+        { id: '6', name: 'Tuna', quantity: 2, unit: 'cans' }
       ]
     },
     {
@@ -56,7 +49,31 @@ export default function GroceryHubScreen() {
       isExpanded: false,
       items: [
         { id: '7', name: 'Bell Peppers', quantity: 3, unit: 'pieces' },
-        { id: '8', name: 'Onions', quantity: 2, unit: 'pieces' }
+        { id: '8', name: 'Onions', quantity: 2, unit: 'pieces' },
+        { id: '9', name: 'Carrots', quantity: 1, unit: 'bag' },
+        { id: '10', name: 'Broccoli', quantity: 2, unit: 'heads' }
+      ]
+    },
+    {
+      id: 'dairy-eggs',
+      name: 'Dairy & Eggs',
+      isExpanded: false,
+      items: [
+        { id: '11', name: 'Milk', quantity: 1, unit: 'gallon' },
+        { id: '12', name: 'Eggs', quantity: 1, unit: 'dozen' },
+        { id: '13', name: 'Cheese', quantity: 2, unit: 'packs' },
+        { id: '14', name: 'Greek Yogurt', quantity: 4, unit: 'cups' }
+      ]
+    },
+    {
+      id: 'grains-pasta',
+      name: 'Grains & Pasta',
+      isExpanded: false,
+      items: [
+        { id: '15', name: 'Brown Rice', quantity: 1, unit: 'bag' },
+        { id: '16', name: 'Quinoa', quantity: 1, unit: 'box' },
+        { id: '17', name: 'Whole Wheat Pasta', quantity: 2, unit: 'boxes' },
+        { id: '18', name: 'Oats', quantity: 1, unit: 'container' }
       ]
     },
     {
@@ -64,8 +81,54 @@ export default function GroceryHubScreen() {
       name: 'Fruits',
       isExpanded: false,
       items: [
-        { id: '9', name: 'Bananas', quantity: 1, unit: 'bunch' },
-        { id: '10', name: 'Apples', quantity: 6, unit: 'pieces' }
+        { id: '19', name: 'Bananas', quantity: 1, unit: 'bunch' },
+        { id: '20', name: 'Apples', quantity: 6, unit: 'pieces' },
+        { id: '21', name: 'Berries', quantity: 2, unit: 'containers' },
+        { id: '22', name: 'Oranges', quantity: 4, unit: 'pieces' }
+      ]
+    },
+    {
+      id: 'legumes-beans',
+      name: 'Legumes & Beans',
+      isExpanded: false,
+      items: [
+        { id: '23', name: 'Black Beans', quantity: 3, unit: 'cans' },
+        { id: '24', name: 'Chickpeas', quantity: 2, unit: 'cans' },
+        { id: '25', name: 'Lentils', quantity: 1, unit: 'bag' },
+        { id: '26', name: 'Kidney Beans', quantity: 2, unit: 'cans' }
+      ]
+    },
+    {
+      id: 'nuts-seeds',
+      name: 'Nuts & Seeds',
+      isExpanded: false,
+      items: [
+        { id: '27', name: 'Almonds', quantity: 1, unit: 'bag' },
+        { id: '28', name: 'Walnuts', quantity: 1, unit: 'bag' },
+        { id: '29', name: 'Chia Seeds', quantity: 1, unit: 'container' },
+        { id: '30', name: 'Peanut Butter', quantity: 1, unit: 'jar' }
+      ]
+    },
+    {
+      id: 'condiments-seasonings',
+      name: 'Condiments & Seasonings',
+      isExpanded: false,
+      items: [
+        { id: '31', name: 'Olive Oil', quantity: 1, unit: 'bottle' },
+        { id: '32', name: 'Salt', quantity: 1, unit: 'container' },
+        { id: '33', name: 'Black Pepper', quantity: 1, unit: 'container' },
+        { id: '34', name: 'Garlic Powder', quantity: 1, unit: 'container' }
+      ]
+    },
+    {
+      id: 'pantry-staples',
+      name: 'Pantry Staples',
+      isExpanded: false,
+      items: [
+        { id: '35', name: 'Flour', quantity: 1, unit: 'bag' },
+        { id: '36', name: 'Sugar', quantity: 1, unit: 'bag' },
+        { id: '37', name: 'Baking Powder', quantity: 1, unit: 'container' },
+        { id: '38', name: 'Vanilla Extract', quantity: 1, unit: 'bottle' }
       ]
     }
   ]);
