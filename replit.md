@@ -916,6 +916,12 @@ To restore to this stable state if needed:
   * Fixed scrolling issue in Personalize Diet & Pantry card by adding bottom padding (pb-24)
   * Renamed "Takeout Orders" to "Takeouts" in Your Activity card to prevent text wrapping to two rows
   * Improved single-line text display across all button elements for cleaner appearance
+- July 13, 2025. Card Title Center Alignment Implementation:
+  * Center-aligned all card titles across the entire Explore Recipe Options page
+  * Fixed simple titles with text-center class: Recipe Options, Your Activity, Personalize Diet & Pantry
+  * Used spacer div approach for titles with chevron buttons to maintain centered appearance
+  * Applied to all dynamic cards: Chef Recommends, Pantry Dishes, Create Dishes, Take-Out input/results
+  * Achieved consistent visual hierarchy with all card titles perfectly centered
 - July 11, 2025. Take-Out Screen Navigation Fix:
   * Updated back button route from /recipes to /explore-recipe-options for consistent navigation flow
   * Take-out screen now properly routes users back to the main recipe exploration interface

@@ -545,7 +545,7 @@ export default function ExploreRecipeOptionsScreen() {
         {!pantryAtBottom && (
           <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
             <div className="mb-4">
-              <h2 className="text-xl font-bold text-white">Personalize Diet & Pantry</h2>
+              <h2 className="text-xl font-bold text-white text-center">Personalize Diet & Pantry</h2>
             </div>
           
           {/* Tab Buttons */}
@@ -873,7 +873,7 @@ export default function ExploreRecipeOptionsScreen() {
 
         {/* Card 2 - Recipe Options */}
         <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
-          <h2 className="text-xl font-bold text-white mb-4">Recipe Options</h2>
+          <h2 className="text-xl font-bold text-white mb-4 text-center">Recipe Options</h2>
           <div className="grid grid-cols-2 gap-4">
             <button
               onClick={() => handleOptionClick("chefs-choice")}
@@ -922,6 +922,7 @@ export default function ExploreRecipeOptionsScreen() {
         {selectedOption === "chefs-choice" && !isChefRecommendsCollapsed && (
           <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
             <div className="flex items-center justify-between mb-4">
+              <div className="w-6"></div>
               <h2 className="text-xl font-bold text-white">Chef Recommends</h2>
               <button 
                 onClick={() => setIsChefRecommendsCollapsed(true)}
@@ -942,6 +943,7 @@ export default function ExploreRecipeOptionsScreen() {
         {selectedOption === "pantry-dishes" && !isPantryDishesCollapsed && (
           <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
             <div className="flex items-center justify-between mb-4">
+              <div className="w-6"></div>
               <h2 className="text-xl font-bold text-white">Dishes from Pantry Ingredients</h2>
               <button 
                 onClick={() => setIsPantryDishesCollapsed(true)}
@@ -962,6 +964,7 @@ export default function ExploreRecipeOptionsScreen() {
         {selectedOption === "create-dishes" && !isCreateDishesCollapsed && (
           <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
             <div className="flex items-center justify-between mb-4">
+              <div className="w-6"></div>
               <h2 className="text-xl font-bold text-yellow-300">Tell us what you're craving</h2>
               <button 
                 onClick={() => setIsCreateDishesCollapsed(true)}
@@ -1067,6 +1070,7 @@ export default function ExploreRecipeOptionsScreen() {
         {selectedOption === "create-dishes" && generatedDishes.length > 0 && (
           <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
             <div className="flex items-center justify-between mb-4">
+              <div className="w-6"></div>
               <h2 className="text-xl font-bold text-white">Your Custom {dishName || "Chicken Curry"} Collection</h2>
               <button 
                 onClick={() => setGeneratedDishes([])}
@@ -1087,6 +1091,7 @@ export default function ExploreRecipeOptionsScreen() {
         {selectedOption === "take-out" && !isTakeOutCollapsed && (
           <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
             <div className="flex items-center justify-between mb-4">
+              <div className="w-6"></div>
               <h2 className="text-xl font-bold text-yellow-300">Take-Out for Individual, Group, Weekly Meals</h2>
               <button 
                 onClick={() => setIsTakeOutCollapsed(true)}
@@ -1200,6 +1205,7 @@ export default function ExploreRecipeOptionsScreen() {
         {selectedOption === "take-out" && takeOutDishes.length > 0 && (
           <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
             <div className="flex items-center justify-between mb-4">
+              <div className="w-6"></div>
               <h2 className="text-xl font-bold text-white">Select Dishes for Take-Out</h2>
               <button 
                 onClick={() => setTakeOutDishes([])}
@@ -1218,7 +1224,7 @@ export default function ExploreRecipeOptionsScreen() {
 
         {/* Card 3 - Activity */}
         <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
-          <h2 className="text-xl font-bold text-white mb-4">Your Activity</h2>
+          <h2 className="text-xl font-bold text-white mb-4 text-center">Your Activity</h2>
           <div className="grid grid-cols-2 gap-4">
             <button
               className={`p-4 rounded-lg border text-center transition-colors ${
@@ -1269,7 +1275,7 @@ export default function ExploreRecipeOptionsScreen() {
         {pantryAtBottom && (
           <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
             <div className="mb-4">
-              <h2 className="text-xl font-bold text-white">Personalize Diet & Pantry</h2>
+              <h2 className="text-xl font-bold text-white text-center">Personalize Diet & Pantry</h2>
             </div>
             
             {/* Tab Buttons */}
