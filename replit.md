@@ -967,6 +967,11 @@ To restore to this stable state if needed:
   * Your Activity: All buttons use green color scheme (green-600 default, green-700 selected)  
   * Personalize Diet & Pantry: All tabs use blue color scheme matching Recipe Options
   * Created cohesive color-coded system with meaningful button groupings and enhanced visual hierarchy
+- July 13, 2025. Grocery Management Implementation Attempted and Reverted:
+  * Attempted standalone "Groceries & Shopping" screen but user feedback indicated poor UX flow
+  * User preference documented: grocery functionality should integrate naturally with existing recipe workflow
+  * Reverted all changes and restored original Grocery List button toggle functionality
+  * Learning: grocery management should connect logically to recipe selection and meal planning process
 
 - July 11, 2025. Take-Out Screen Navigation Fix:
   * Updated back button route from /recipes to /explore-recipe-options for consistent navigation flow
