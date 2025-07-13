@@ -155,7 +155,7 @@ export default function NuvaSignupScreen() {
       <div className="p-4 space-y-4 max-w-md mx-auto" style={{ paddingBottom: '40px' }}>
         
         {/* Profile Card */}
-        <div className="bg-gray-800/90 backdrop-blur-sm rounded-xl p-6 mb-6 border border-gray-700 hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-300 hover:scale-[1.02]">
+        <div className="bg-gray-800/90 backdrop-blur-sm rounded-xl p-6 mb-6 border border-gray-700 hover:shadow-2xl hover:shadow-purple-400/40 hover:border-purple-400/50 transition-all duration-300 hover:scale-[1.02]">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h3 className="text-xl font-semibold text-yellow-400">Your Profile</h3>
@@ -224,7 +224,7 @@ export default function NuvaSignupScreen() {
         </div>
 
         {/* Address Card */}
-        <div className="bg-gray-800/90 backdrop-blur-sm rounded-xl p-6 mb-6 border border-gray-700 hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-300 hover:scale-[1.02]">
+        <div className="bg-gray-800/90 backdrop-blur-sm rounded-xl p-6 mb-6 border border-gray-700 hover:shadow-2xl hover:shadow-purple-400/40 hover:border-purple-400/50 transition-all duration-300 hover:scale-[1.02]">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h3 className="text-xl font-semibold text-yellow-400">Your Address</h3>
@@ -333,7 +333,7 @@ export default function NuvaSignupScreen() {
         </div>
 
         {/* Chef Card */}
-        <div className="bg-gray-800/90 backdrop-blur-sm rounded-xl p-6 mb-6 border border-gray-700 hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-300 hover:scale-[1.02]">
+        <div className="bg-gray-800/90 backdrop-blur-sm rounded-xl p-6 mb-6 border border-gray-700 hover:shadow-2xl hover:shadow-purple-400/40 hover:border-purple-400/50 transition-all duration-300 hover:scale-[1.02]">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h3 className="text-xl font-semibold text-yellow-400">Choose Your AI Chef</h3>
@@ -376,7 +376,7 @@ export default function NuvaSignupScreen() {
         </div>
 
         {/* Phone Verification Card */}
-        <div className="bg-gray-800/90 backdrop-blur-sm rounded-xl p-6 mb-6 border border-gray-700 hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-300 hover:scale-[1.02]">
+        <div className="bg-gray-800/90 backdrop-blur-sm rounded-xl p-6 mb-6 border border-gray-700 hover:shadow-2xl hover:shadow-purple-400/40 hover:border-purple-400/50 transition-all duration-300 hover:scale-[1.02]">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h3 className="text-xl font-semibold text-yellow-400">Phone Verification</h3>
