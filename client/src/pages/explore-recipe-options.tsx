@@ -1274,42 +1274,7 @@ export default function ExploreRecipeOptionsScreen() {
           </div>
         </Card>
 
-        {/* Card 4 - Summary */}
-        <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
-          <h2 className="text-xl font-bold text-white mb-4">Summary</h2>
-          
-          {/* Section 1: Meal Preferences */}
-          <div className="mb-6">
-            <h3 className="text-lg font-bold text-yellow-300 mb-3">Meal Preferences</h3>
-            <p className="text-gray-300 text-sm">
-              Serving: 2 people, Cuisine: American<br />
-              Meal Type: Dinner
-            </p>
-          </div>
 
-          {/* Divider */}
-          <hr className="border-gray-600 mb-6" />
-          
-          {/* Section 2: Pantry Ingredients */}
-          <div className="mb-6">
-            <h3 className="text-lg font-bold text-yellow-300 mb-3">Pantry Ingredients</h3>
-            <p className="text-gray-300 text-sm">
-              Chicken Breast, Salmon, Onions, Rice,<br />
-              Milk, Olive Oil, Apples, Basil and 2 more
-            </p>
-          </div>
-
-          {/* Single Grocery List Button */}
-          <div className="flex justify-center">
-            <Button
-              variant="outline"
-              className="h-14 bg-gray-700 border-gray-600 hover:bg-gray-600 text-gray-300 flex items-center justify-center px-10 text-lg font-semibold select-text"
-              onClick={() => {/* Navigate to grocery list */}}
-            >
-              Grocery List
-            </Button>
-          </div>
-        </Card>
 
         {/* Pantry Card at Bottom Position */}
         {pantryAtBottom && (

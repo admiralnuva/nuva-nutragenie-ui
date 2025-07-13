@@ -899,7 +899,12 @@ To restore to this stable state if needed:
   * Added bell sound effect (ding-small-bell-sfx) that plays when card moves to bottom position
   * Audio implementation uses silent fail approach - enhances UX without affecting core functionality
   * Fixed audio serving by adding Express static middleware for attached_assets folder with correct MIME types
-  * Server now properly serves MP3 files as audio/mpeg instead of text/html, enabling browser audio playback
+  * Server now properly serves MP3 files as audio/mpeg instead of text/html, enabling browser audio playbook
+- July 13, 2025. Interface Cleanup and Real Estate Optimization:
+  * Renamed History card to "Your Activity" for better user understanding of its purpose
+  * Removed Summary card completely to clean up interface and focus on core app functionality
+  * Summary card removal has zero impact on Personalize Diet & Pantry card positioning or functionality
+  * Streamlined layout now focuses on main features: Recipe Options, Activity tracking, and Diet/Pantry management
 - July 11, 2025. Take-Out Screen Navigation Fix:
   * Updated back button route from /recipes to /explore-recipe-options for consistent navigation flow
   * Take-out screen now properly routes users back to the main recipe exploration interface
