@@ -1,4 +1,5 @@
-import { X, Save } from "lucide-react";
+import { X, Save, Check } from "lucide-react";
+import { useState } from "react";
 
 interface Ingredient {
   name: string;
@@ -22,6 +23,26 @@ interface RecipeModalProps {
 }
 
 export function RecipeModal({ recipe, isOpen, onClose, onSave }: RecipeModalProps) {
+  const [isSaved, setIsSaved] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+
+  const handleSave = async () => {
+    setIsSaving(true);
+    
+    // Simulate API call delay
+    setTimeout(() => {
+      setIsSaved(true);
+      setIsSaving(false);
+      onSave();
+      
+      // Show saved state for 2 seconds, then close modal
+      setTimeout(() => {
+        setIsSaved(false);
+        onClose();
+      }, 2000);
+    }, 800);
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -93,15 +114,37 @@ export function RecipeModal({ recipe, isOpen, onClose, onSave }: RecipeModalProp
             <button
               onClick={onClose}
               className="px-6 py-3 bg-gray-600 hover:bg-gray-500 text-white rounded-lg transition-colors font-medium"
+              disabled={isSaving}
             >
               Close
             </button>
             <button
-              onClick={onSave}
-              className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium"
+              onClick={handleSave}
+              disabled={isSaving || isSaved}
+              className={`flex items-center gap-2 px-6 py-3 rounded-lg transition-all duration-300 font-medium ${
+                isSaved 
+                  ? 'bg-green-600 text-white scale-105' 
+                  : isSaving
+                  ? 'bg-blue-400 text-white cursor-not-allowed'
+                  : 'bg-blue-600 hover:bg-blue-700 text-white hover:scale-105'
+              }`}
             >
-              <Save size={18} />
-              <span>Save Recipe</span>
+              {isSaved ? (
+                <>
+                  <Check size={18} className="animate-in zoom-in duration-300" />
+                  <span>Saved to Profile!</span>
+                </>
+              ) : isSaving ? (
+                <>
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  <span>Saving...</span>
+                </>
+              ) : (
+                <>
+                  <Save size={18} />
+                  <span>Save Recipe</span>
+                </>
+              )}
             </button>
           </div>
         </div>
