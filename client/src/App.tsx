@@ -50,7 +50,14 @@ function Router() {
 
 
       <Route path="/create-dishes" component={CreateDishesScreen} />
-      <Route path="/explore-recipe-options" component={ExploreRecipeOptionsScreen} />
+      <Route path="/explore-recipe-options" component={() => {
+        try {
+          return <ExploreRecipeOptionsScreen />;
+        } catch (error) {
+          console.error("ExploreRecipeOptionsScreen error:", error);
+          return <div className="p-4 text-white bg-red-900">Error loading page: {String(error)}</div>;
+        }
+      }} />
       <Route path="/home" component={HomeScreen} />
 
 
