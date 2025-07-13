@@ -621,7 +621,7 @@ export default function ExploreRecipeOptionsScreen() {
               {/* Dietary Restrictions */}
               <div>
                 <h4 className="text-sm font-bold text-yellow-300 mb-2">Dietary Restrictions:</h4>
-                <p className="text-gray-300 text-sm">vegetarian, vegan, gluten-free, dairy-free, low-carb</p>
+                <p className="text-white text-sm">vegetarian, vegan, gluten-free, dairy-free, low-carb</p>
               </div>
               
               <hr className="border-gray-600" />
@@ -629,7 +629,7 @@ export default function ExploreRecipeOptionsScreen() {
               {/* Health Factors */}
               <div>
                 <h4 className="text-sm font-bold text-yellow-300 mb-2">Health Factors:</h4>
-                <p className="text-gray-300 text-sm">diabetes, cardiovascular, kidney, blood-pressure, cancer</p>
+                <p className="text-white text-sm">diabetes, cardiovascular, kidney, blood-pressure, cancer</p>
               </div>
               
               <hr className="border-gray-600" />
@@ -637,7 +637,7 @@ export default function ExploreRecipeOptionsScreen() {
               {/* Fitness Goals */}
               <div>
                 <h4 className="text-sm font-bold text-yellow-300 mb-2">Fitness Goals:</h4>
-                <p className="text-gray-300 text-sm">build muscle, lose weight, endurance, wellness</p>
+                <p className="text-white text-sm">build muscle, lose weight, endurance, wellness</p>
               </div>
               
               <hr className="border-gray-600" />
@@ -645,7 +645,7 @@ export default function ExploreRecipeOptionsScreen() {
               {/* Allergies/Restrictions */}
               <div>
                 <h4 className="text-sm font-bold text-yellow-300 mb-2">Allergies/Restrictions:</h4>
-                <p className="text-gray-300 text-sm">None specified</p>
+                <p className="text-white text-sm">None specified</p>
               </div>
               
               <hr className="border-gray-600" />
@@ -653,7 +653,7 @@ export default function ExploreRecipeOptionsScreen() {
               {/* Nutritional Goals */}
               <div>
                 <h4 className="text-sm font-bold text-yellow-300 mb-2">Nutritional Goals:</h4>
-                <p className="text-gray-300 text-sm">
+                <p className="text-white text-sm">
                   Cal: 1301-1500, Protein: 71-100g<br />
                   Carbs: 101-150g, Fat: 36-50g
                 </p>
@@ -849,7 +849,7 @@ export default function ExploreRecipeOptionsScreen() {
                               onChange={() => toggleIngredient(item.id)}
                               className="w-4 h-4 text-purple-600 bg-gray-700 border-gray-600 rounded focus:ring-purple-500 focus:ring-2"
                             />
-                            <span className="text-gray-300 text-sm">{item.name}</span>
+                            <span className="text-white text-sm">{item.name}</span>
                           </label>
                         );
                       })}
@@ -940,7 +940,7 @@ export default function ExploreRecipeOptionsScreen() {
           <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
             <div className="flex items-center justify-between mb-4">
               <div className="w-6"></div>
-              <h2 className="text-xl font-bold text-white">Chef Recommends</h2>
+              <h2 className="text-xl font-bold text-yellow-400">Chef Recommends</h2>
               <button 
                 onClick={() => setIsChefRecommendsCollapsed(true)}
                 className="text-gray-400 hover:text-white transition-colors"
@@ -961,7 +961,7 @@ export default function ExploreRecipeOptionsScreen() {
           <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
             <div className="flex items-center justify-between mb-4">
               <div className="w-6"></div>
-              <h2 className="text-xl font-bold text-white">Dishes from Pantry Ingredients</h2>
+              <h2 className="text-xl font-bold text-yellow-400">Dishes from Pantry Ingredients</h2>
               <button 
                 onClick={() => setIsPantryDishesCollapsed(true)}
                 className="text-gray-400 hover:text-white transition-colors"
@@ -1088,7 +1088,7 @@ export default function ExploreRecipeOptionsScreen() {
           <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
             <div className="flex items-center justify-between mb-4">
               <div className="w-6"></div>
-              <h2 className="text-xl font-bold text-white">Your Custom {dishName || "Chicken Curry"} Collection</h2>
+              <h2 className="text-xl font-bold text-yellow-400">Your Custom {dishName || "Chicken Curry"} Collection</h2>
               <button 
                 onClick={() => setGeneratedDishes([])}
                 className="text-gray-400 hover:text-white transition-colors"
@@ -1223,7 +1223,7 @@ export default function ExploreRecipeOptionsScreen() {
           <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
             <div className="flex items-center justify-between mb-4">
               <div className="w-6"></div>
-              <h2 className="text-xl font-bold text-white">Select Dishes for Take-Out</h2>
+              <h2 className="text-xl font-bold text-yellow-400">Select Dishes for Take-Out</h2>
               <button 
                 onClick={() => setTakeOutDishes([])}
                 className="text-gray-400 hover:text-white transition-colors"
@@ -1343,7 +1343,7 @@ export default function ExploreRecipeOptionsScreen() {
                 {/* Dietary Restrictions */}
                 <div>
                   <h4 className="text-sm font-bold text-yellow-300 mb-2">Dietary Restrictions:</h4>
-                  <p className="text-gray-300 text-sm">vegetarian, vegan, gluten-free, dairy-free, low-carb</p>
+                  <p className="text-white text-sm">vegetarian, vegan, gluten-free, dairy-free, low-carb</p>
                 </div>
                 
                 <hr className="border-gray-600" />
@@ -1351,7 +1351,7 @@ export default function ExploreRecipeOptionsScreen() {
                 {/* Health Factors */}
                 <div>
                   <h4 className="text-sm font-bold text-yellow-300 mb-2">Health Factors:</h4>
-                  <p className="text-gray-300 text-sm">diabetes, cardiovascular, kidney health</p>
+                  <p className="text-white text-sm">diabetes, cardiovascular, kidney health</p>
                 </div>
                 
                 <hr className="border-gray-600" />
@@ -1359,7 +1359,7 @@ export default function ExploreRecipeOptionsScreen() {
                 {/* Fitness Goals */}
                 <div>
                   <h4 className="text-sm font-bold text-yellow-300 mb-2">Fitness Goals:</h4>
-                  <p className="text-gray-300 text-sm">build muscle, lose weight, improve endurance</p>
+                  <p className="text-white text-sm">build muscle, lose weight, improve endurance</p>
                 </div>
                 
                 <hr className="border-gray-600" />
@@ -1367,7 +1367,7 @@ export default function ExploreRecipeOptionsScreen() {
                 {/* Allergies/Restrictions */}
                 <div>
                   <h4 className="text-sm font-bold text-yellow-300 mb-2">Allergies/Restrictions:</h4>
-                  <p className="text-gray-300 text-sm">tree nuts, shellfish</p>
+                  <p className="text-white text-sm">tree nuts, shellfish</p>
                 </div>
                 
                 <hr className="border-gray-600" />
@@ -1375,7 +1375,7 @@ export default function ExploreRecipeOptionsScreen() {
                 {/* Nutritional Goals */}
                 <div>
                   <h4 className="text-sm font-bold text-yellow-300 mb-2">Nutritional Goals:</h4>
-                  <p className="text-gray-300 text-sm">Cal (1301-1500), Protein (71-100g), Carbs (101-150g), Fat (36-50g)</p>
+                  <p className="text-white text-sm">Cal (1301-1500), Protein (71-100g), Carbs (101-150g), Fat (36-50g)</p>
                 </div>
               </div>
             )}
@@ -1573,7 +1573,7 @@ export default function ExploreRecipeOptionsScreen() {
                                 onChange={() => toggleIngredient(item.id)}
                                 className="w-4 h-4 text-purple-600 bg-gray-700 border-gray-600 rounded focus:ring-purple-500 focus:ring-2"
                               />
-                              <span className="text-gray-300 text-sm">{item.name}</span>
+                              <span className="text-white text-sm">{item.name}</span>
                             </label>
                           );
                         })}
