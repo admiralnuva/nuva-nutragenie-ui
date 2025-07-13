@@ -543,7 +543,7 @@ export default function ExploreRecipeOptionsScreen() {
       <div className="container mx-auto px-4 py-6 space-y-6 pb-24">
         {/* Card 1 - Preferences - only show if pantry not moved to bottom */}
         {!pantryAtBottom && (
-          <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
+          <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-4">
             <div className="mb-4">
               <h2 className="text-xl font-bold text-white text-center">Personalize Diet & Pantry</h2>
             </div>
@@ -862,12 +862,7 @@ export default function ExploreRecipeOptionsScreen() {
             </div>
           )}
           
-          {/* Collapsed Pantry Tab - now handled inline with tab header */}
-          {selectedPreferenceTab === "pantry" && pantryConfirmed && (
-            <div className="text-center py-2">
-              <p className="text-gray-400 text-sm">Pantry preferences confirmed</p>
-            </div>
-          )}
+
           </Card>
         )}
 
@@ -1273,7 +1268,7 @@ export default function ExploreRecipeOptionsScreen() {
 
         {/* Pantry Card at Bottom Position */}
         {pantryAtBottom && (
-          <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
+          <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-4">
             <div className="mb-4">
               <h2 className="text-xl font-bold text-white text-center">Personalize Diet & Pantry</h2>
             </div>
@@ -1594,12 +1589,7 @@ export default function ExploreRecipeOptionsScreen() {
               </div>
             )}
             
-            {/* Collapsed Pantry Tab - now handled inline with tab header */}
-            {selectedPreferenceTab === "pantry" && pantryConfirmed && (
-              <div className="text-center py-2">
-                <p className="text-gray-400 text-sm">Pantry preferences confirmed</p>
-              </div>
-            )}
+
           </Card>
         )}
       </div>
