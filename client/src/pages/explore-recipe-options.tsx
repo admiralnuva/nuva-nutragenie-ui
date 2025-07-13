@@ -1229,7 +1229,7 @@ export default function ExploreRecipeOptionsScreen() {
               }`}
               onClick={() => setSelectedHistoryItem(selectedHistoryItem === 'dishes-cooked' ? null : 'dishes-cooked')}
             >
-              Dishes Cooked
+              Cooked
             </button>
             <button
               className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
