@@ -1594,24 +1594,7 @@ export default function ExploreRecipeOptionsScreen() {
           </Card>
         )}
 
-        {/* Card 1 moved to bottom when completed - compact edit state */}
-        {pantryAtBottom && (
-          <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-indigo-500 p-4 hover:shadow-2xl hover:shadow-indigo-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-indigo-400">
-            <div className="text-center py-2">
-              <h2 className="text-lg font-bold text-white mb-2">Diet & Pantry Completed</h2>
-              <Button
-                onClick={() => {
-                  setPantryConfirmed(false);
-                  setPantryAtBottom(false);
-                }}
-                className="bg-yellow-600/20 hover:bg-yellow-600/30 border border-yellow-400/30 text-yellow-300"
-              >
-                <Pencil size={16} className="mr-2" />
-                Edit Preferences
-              </Button>
-            </div>
-          </Card>
-        )}
+
       </div>
     </div>
   );
