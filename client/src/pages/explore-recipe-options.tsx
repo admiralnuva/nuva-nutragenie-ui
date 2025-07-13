@@ -597,7 +597,7 @@ export default function ExploreRecipeOptionsScreen() {
                     </svg>
                   )}
                 </button>
-                <span className="text-white text-base select-text cursor-text">I confirm these meal preferences are correct</span>
+                <span className="text-white text-base select-text cursor-text user-select-text" style={{userSelect: 'text', WebkitUserSelect: 'text', MozUserSelect: 'text'}}>I confirm these meal preferences are correct</span>
               </div>
             </div>
           )}
