@@ -46,7 +46,7 @@ export function RecipeModal({ recipe, isOpen, onClose, onSave }: RecipeModalProp
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-start justify-center p-4 pt-8 md:pt-16">
       <div className="bg-gray-800 rounded-lg w-full max-w-2xl max-h-[90vh] overflow-hidden animate-in fade-in zoom-in-95 duration-300 flex flex-col">
         {/* Fixed Header */}
         <div className="bg-gray-900 p-4 border-b border-gray-700 flex-shrink-0">

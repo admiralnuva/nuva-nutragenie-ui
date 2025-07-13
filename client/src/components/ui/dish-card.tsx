@@ -29,6 +29,7 @@ export function DishCard({ dish }: DishCardProps) {
   const [selectedSubstitution, setSelectedSubstitution] = useState<string | null>(null);
   const [hasSubstitution, setHasSubstitution] = useState(false);
   const [isRecipeOpen, setIsRecipeOpen] = useState(false);
+  const [isRecipeSaved, setIsRecipeSaved] = useState(false);
 
   // Sample substitution data - will come from API
   const substitutions: Substitution[] = [
@@ -75,6 +76,7 @@ export function DishCard({ dish }: DishCardProps) {
   const handleRecipeSave = () => {
     // API call to save recipe would happen here
     console.log('Saving recipe to profile:', { dishId: dish.id, recipeName: dish.name });
+    setIsRecipeSaved(true);
     setIsRecipeOpen(false);
   };
 
@@ -153,9 +155,18 @@ export function DishCard({ dish }: DishCardProps) {
           </button>
           <button 
             onClick={handleRecipeClick}
-            className="w-12 h-12 bg-purple-600 hover:bg-purple-700 rounded-lg flex items-center justify-center transition-colors"
+            className={`w-12 h-12 rounded-lg flex items-center justify-center transition-colors relative ${
+              isRecipeSaved 
+                ? 'bg-green-600 hover:bg-green-700' 
+                : 'bg-purple-600 hover:bg-purple-700'
+            }`}
           >
             <Book size={20} className="text-white" />
+            {isRecipeSaved && (
+              <div className="absolute -top-1 -right-1 w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center border-2 border-white">
+                <Check size={12} className="text-white" />
+              </div>
+            )}
           </button>
           <button className="w-12 h-12 bg-green-600 hover:bg-green-700 rounded-lg flex items-center justify-center transition-colors">
             <Heart size={20} className="text-white" />
