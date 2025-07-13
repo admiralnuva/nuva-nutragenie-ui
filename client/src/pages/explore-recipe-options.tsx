@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ChevronUp, Calendar, ChefHat, Truck, ShoppingBag, BookOpen, ShoppingBasket, Edit, Settings, Pencil } from "lucide-react";
+import { ChevronUp, Calendar, ChefHat, Truck, ShoppingBag, BookOpen, ShoppingBasket, Edit, Settings, Pencil, Loader2 } from "lucide-react";
 
 export default function ExploreRecipeOptionsScreen() {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
@@ -543,7 +543,7 @@ export default function ExploreRecipeOptionsScreen() {
       <div className="container mx-auto px-4 py-6 space-y-6 pb-24">
         {/* Card 1 - Preferences - only show if pantry not moved to bottom */}
         {!pantryAtBottom && (
-          <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-4">
+          <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-4 hover:shadow-2xl hover:shadow-indigo-500/20 transition-all duration-300 hover:scale-[1.02]">
             <div className="mb-4">
               <h2 className="text-xl font-bold text-white text-center">Personalize Diet & Pantry</h2>
             </div>
@@ -552,30 +552,30 @@ export default function ExploreRecipeOptionsScreen() {
           <div className="grid grid-cols-4 gap-2 mb-6 w-full">
             <button
               onClick={() => setSelectedPreferenceTab("diet")}
-              className={`p-4 rounded-lg text-center transition-colors ${
+              className={`p-4 rounded-lg text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
                 selectedPreferenceTab === "diet"
-                  ? "bg-purple-600 text-white border border-purple-500"
-                  : "bg-gray-700 text-gray-300 hover:bg-gray-600 border border-gray-600"
+                  ? "bg-purple-600 text-white border border-purple-500 shadow-lg shadow-purple-500/30"
+                  : "bg-gray-700 text-gray-300 hover:bg-gray-600 border border-gray-600 hover:border-purple-400"
               }`}
             >
               Diet
             </button>
             <button
               onClick={() => setSelectedPreferenceTab("meal")}
-              className={`p-4 rounded-lg text-center transition-colors ${
+              className={`p-4 rounded-lg text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
                 selectedPreferenceTab === "meal"
-                  ? "bg-purple-600 text-white border border-purple-500"
-                  : "bg-gray-700 text-gray-300 hover:bg-gray-600 border border-gray-600"
+                  ? "bg-purple-600 text-white border border-purple-500 shadow-lg shadow-purple-500/30"
+                  : "bg-gray-700 text-gray-300 hover:bg-gray-600 border border-gray-600 hover:border-purple-400"
               }`}
             >
               Meal
             </button>
             <button
               onClick={() => setSelectedPreferenceTab("pantry")}
-              className={`p-4 rounded-lg text-center transition-colors ${
+              className={`p-4 rounded-lg text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
                 selectedPreferenceTab === "pantry"
-                  ? "bg-purple-600 text-white border border-purple-500"
-                  : "bg-gray-700 text-gray-300 hover:bg-gray-600 border border-gray-600"
+                  ? "bg-purple-600 text-white border border-purple-500 shadow-lg shadow-purple-500/30"
+                  : "bg-gray-700 text-gray-300 hover:bg-gray-600 border border-gray-600 hover:border-purple-400"
               }`}
             >
               Pantry
@@ -768,14 +768,14 @@ export default function ExploreRecipeOptionsScreen() {
 
               {/* Confirmation Checkbox */}
               <div 
-                className="flex items-center space-x-4 mt-6 cursor-pointer" 
+                className="flex items-center space-x-4 mt-6 cursor-pointer group" 
                 onClick={handleMealConfirmation}
               >
                 <div
-                  className={`w-8 h-8 min-w-8 min-h-8 rounded-full border-2 flex items-center justify-center transition-colors flex-shrink-0 ${
+                  className={`w-8 h-8 min-w-8 min-h-8 rounded-full border-2 flex items-center justify-center transition-all duration-300 flex-shrink-0 group-hover:scale-110 group-hover:shadow-lg ${
                     mealPreferencesConfirmed 
-                      ? "bg-purple-600 border-purple-600" 
-                      : "border-gray-400 hover:border-purple-400"
+                      ? "bg-purple-600 border-purple-600 shadow-lg shadow-purple-500/30" 
+                      : "border-gray-400 hover:border-purple-400 group-hover:shadow-purple-500/20"
                   }`}
                 >
                   {mealPreferencesConfirmed && (
@@ -784,7 +784,7 @@ export default function ExploreRecipeOptionsScreen() {
                     </svg>
                   )}
                 </div>
-                <span className="text-white text-base select-text">I confirm these meal preferences are correct</span>
+                <span className="text-white text-base select-text group-hover:text-purple-200 transition-colors duration-300">I confirm these meal preferences are correct</span>
               </div>
             </div>
           )}
@@ -841,14 +841,14 @@ export default function ExploreRecipeOptionsScreen() {
 
               {/* Confirmation Checkbox */}
               <div 
-                className="flex items-center space-x-4 mt-6 cursor-pointer" 
+                className="flex items-center space-x-4 mt-6 cursor-pointer group" 
                 onClick={handlePantryConfirmation}
               >
                 <div
-                  className={`w-8 h-8 min-w-8 min-h-8 rounded-full border-2 flex items-center justify-center transition-colors flex-shrink-0 ${
+                  className={`w-8 h-8 min-w-8 min-h-8 rounded-full border-2 flex items-center justify-center transition-all duration-300 flex-shrink-0 group-hover:scale-110 group-hover:shadow-lg ${
                     pantryConfirmed 
-                      ? "bg-purple-600 border-purple-600" 
-                      : "border-gray-400 hover:border-purple-400"
+                      ? "bg-purple-600 border-purple-600 shadow-lg shadow-purple-500/30" 
+                      : "border-gray-400 hover:border-purple-400 group-hover:shadow-purple-500/20"
                   }`}
                 >
                   {pantryConfirmed && (
@@ -857,7 +857,7 @@ export default function ExploreRecipeOptionsScreen() {
                     </svg>
                   )}
                 </div>
-                <span className="text-white text-base select-text" style={{userSelect: 'text', WebkitUserSelect: 'text', MozUserSelect: 'text'}}>I confirm the above pantry ingredients</span>
+                <span className="text-white text-base select-text group-hover:text-purple-200 transition-colors duration-300" style={{userSelect: 'text', WebkitUserSelect: 'text', MozUserSelect: 'text'}}>I confirm the above pantry ingredients</span>
               </div>
             </div>
           )}
@@ -867,45 +867,45 @@ export default function ExploreRecipeOptionsScreen() {
         )}
 
         {/* Card 2 - Recipe Options */}
-        <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
+        <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6 hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-300 hover:scale-[1.02]">
           <h2 className="text-xl font-bold text-white mb-4 text-center">Recipe Options</h2>
           <div className="grid grid-cols-2 gap-4">
             <button
               onClick={() => handleOptionClick("chefs-choice")}
-              className={`p-4 rounded-lg border text-center transition-colors ${
+              className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
                 selectedOption === "chefs-choice"
-                  ? "bg-purple-600 text-white border-purple-500"
-                  : "bg-gray-700 text-gray-300 border-gray-600 hover:bg-gray-600"
+                  ? "bg-purple-600 text-white border-purple-500 shadow-lg shadow-purple-500/30"
+                  : "bg-gray-700 text-gray-300 border-gray-600 hover:bg-gray-600 hover:border-purple-400"
               }`}
             >
               Chef's Choice
             </button>
             <button
               onClick={() => handleOptionClick("pantry-dishes")}
-              className={`p-4 rounded-lg border text-center transition-colors ${
+              className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
                 selectedOption === "pantry-dishes"
-                  ? "bg-purple-600 text-white border-purple-500"
-                  : "bg-gray-700 text-gray-300 border-gray-600 hover:bg-gray-600"
+                  ? "bg-purple-600 text-white border-purple-500 shadow-lg shadow-purple-500/30"
+                  : "bg-gray-700 text-gray-300 border-gray-600 hover:bg-gray-600 hover:border-purple-400"
               }`}
             >
               Pantry Dishes
             </button>
             <button
               onClick={() => handleOptionClick("create-dishes")}
-              className={`p-4 rounded-lg border text-center transition-colors ${
+              className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
                 selectedOption === "create-dishes"
-                  ? "bg-purple-600 text-white border-purple-500"
-                  : "bg-gray-700 text-gray-300 border-gray-600 hover:bg-gray-600"
+                  ? "bg-purple-600 text-white border-purple-500 shadow-lg shadow-purple-500/30"
+                  : "bg-gray-700 text-gray-300 border-gray-600 hover:bg-gray-600 hover:border-purple-400"
               }`}
             >
               Create Dishes
             </button>
             <button
               onClick={() => handleOptionClick("take-out")}
-              className={`p-4 rounded-lg border text-center transition-colors ${
+              className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
                 selectedOption === "take-out"
-                  ? "bg-purple-600 text-white border-purple-500"
-                  : "bg-gray-700 text-gray-300 border-gray-600 hover:bg-gray-600"
+                  ? "bg-purple-600 text-white border-purple-500 shadow-lg shadow-purple-500/30"
+                  : "bg-gray-700 text-gray-300 border-gray-600 hover:bg-gray-600 hover:border-purple-400"
               }`}
             >
               Take-Out
@@ -1218,44 +1218,44 @@ export default function ExploreRecipeOptionsScreen() {
         )}
 
         {/* Card 3 - Activity */}
-        <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
+        <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6 hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-300 hover:scale-[1.02]">
           <h2 className="text-xl font-bold text-white mb-4 text-center">Your Activity</h2>
           <div className="grid grid-cols-2 gap-4">
             <button
-              className={`p-4 rounded-lg border text-center transition-colors ${
+              className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
                 selectedHistoryItem === 'dishes-cooked' 
-                  ? 'bg-orange-600 border-orange-500 text-white' 
-                  : 'bg-gray-700 border-gray-600 hover:bg-gray-600 text-gray-300'
+                  ? 'bg-orange-600 border-orange-500 text-white shadow-lg shadow-orange-500/30' 
+                  : 'bg-gray-700 border-gray-600 hover:bg-gray-600 text-gray-300 hover:border-orange-400'
               }`}
               onClick={() => setSelectedHistoryItem(selectedHistoryItem === 'dishes-cooked' ? null : 'dishes-cooked')}
             >
               Dishes Cooked
             </button>
             <button
-              className={`p-4 rounded-lg border text-center transition-colors ${
+              className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
                 selectedHistoryItem === 'takeout-orders' 
-                  ? 'bg-blue-600 border-blue-500 text-white' 
-                  : 'bg-gray-700 border-gray-600 hover:bg-gray-600 text-gray-300'
+                  ? 'bg-blue-600 border-blue-500 text-white shadow-lg shadow-blue-500/30' 
+                  : 'bg-gray-700 border-gray-600 hover:bg-gray-600 text-gray-300 hover:border-blue-400'
               }`}
               onClick={() => setSelectedHistoryItem(selectedHistoryItem === 'takeout-orders' ? null : 'takeout-orders')}
             >
               Takeouts
             </button>
             <button
-              className={`p-4 rounded-lg border text-center transition-colors ${
+              className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
                 selectedHistoryItem === 'grocery-list' 
-                  ? 'bg-green-600 border-green-500 text-white' 
-                  : 'bg-gray-700 border-gray-600 hover:bg-gray-600 text-gray-300'
+                  ? 'bg-green-600 border-green-500 text-white shadow-lg shadow-green-500/30' 
+                  : 'bg-gray-700 border-gray-600 hover:bg-gray-600 text-gray-300 hover:border-green-400'
               }`}
               onClick={() => setSelectedHistoryItem(selectedHistoryItem === 'grocery-list' ? null : 'grocery-list')}
             >
               Grocery List
             </button>
             <button
-              className={`p-4 rounded-lg border text-center transition-colors ${
+              className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
                 selectedHistoryItem === 'recipes-saved' 
-                  ? 'bg-purple-600 border-purple-500 text-white' 
-                  : 'bg-gray-700 border-gray-600 hover:bg-gray-600 text-gray-300'
+                  ? 'bg-purple-600 border-purple-500 text-white shadow-lg shadow-purple-500/30' 
+                  : 'bg-gray-700 border-gray-600 hover:bg-gray-600 text-gray-300 hover:border-purple-400'
               }`}
               onClick={() => setSelectedHistoryItem(selectedHistoryItem === 'recipes-saved' ? null : 'recipes-saved')}
             >
@@ -1268,7 +1268,7 @@ export default function ExploreRecipeOptionsScreen() {
 
         {/* Pantry Card at Bottom Position */}
         {pantryAtBottom && (
-          <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-4">
+          <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-4 hover:shadow-2xl hover:shadow-indigo-500/20 transition-all duration-300 hover:scale-[1.02]">
             <div className="mb-4">
               <h2 className="text-xl font-bold text-white text-center">Personalize Diet & Pantry</h2>
             </div>
@@ -1277,30 +1277,30 @@ export default function ExploreRecipeOptionsScreen() {
             <div className="grid grid-cols-4 gap-2 mb-6 w-full">
               <button
                 onClick={() => setSelectedPreferenceTab("diet")}
-                className={`p-4 rounded-lg text-center transition-colors ${
+                className={`p-4 rounded-lg text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
                   selectedPreferenceTab === "diet"
-                    ? "bg-purple-600 text-white border border-purple-500"
-                    : "bg-gray-700 text-gray-300 hover:bg-gray-600 border border-gray-600"
+                    ? "bg-purple-600 text-white border border-purple-500 shadow-lg shadow-purple-500/30"
+                    : "bg-gray-700 text-gray-300 hover:bg-gray-600 border border-gray-600 hover:border-purple-400"
                 }`}
               >
                 Diet
               </button>
               <button
                 onClick={() => setSelectedPreferenceTab("meal")}
-                className={`p-4 rounded-lg text-center transition-colors ${
+                className={`p-4 rounded-lg text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
                   selectedPreferenceTab === "meal"
-                    ? "bg-purple-600 text-white border border-purple-500"
-                    : "bg-gray-700 text-gray-300 hover:bg-gray-600 border border-gray-600"
+                    ? "bg-purple-600 text-white border border-purple-500 shadow-lg shadow-purple-500/30"
+                    : "bg-gray-700 text-gray-300 hover:bg-gray-600 border border-gray-600 hover:border-purple-400"
                 }`}
               >
                 Meal
               </button>
               <button
                 onClick={() => setSelectedPreferenceTab("pantry")}
-                className={`p-4 rounded-lg text-center transition-colors ${
+                className={`p-4 rounded-lg text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
                   selectedPreferenceTab === "pantry"
-                    ? "bg-purple-600 text-white border border-purple-500"
-                    : "bg-gray-700 text-gray-300 hover:bg-gray-600 border border-gray-600"
+                    ? "bg-purple-600 text-white border border-purple-500 shadow-lg shadow-purple-500/30"
+                    : "bg-gray-700 text-gray-300 hover:bg-gray-600 border border-gray-600 hover:border-purple-400"
                 }`}
               >
                 Pantry
@@ -1308,10 +1308,10 @@ export default function ExploreRecipeOptionsScreen() {
               {selectedPreferenceTab === "pantry" && pantryConfirmed && (
                 <button
                   onClick={() => setPantryConfirmed(false)}
-                  className="p-4 rounded-lg transition-colors bg-yellow-600/20 hover:bg-yellow-600/30 border border-yellow-400/30 flex items-center justify-center"
+                  className="p-4 rounded-lg transition-all duration-300 transform hover:scale-110 hover:shadow-lg bg-yellow-600/20 hover:bg-yellow-600/40 border border-yellow-400/30 hover:border-yellow-400/60 flex items-center justify-center"
                   title="Edit Ingredients"
                 >
-                  <Settings size={20} className="text-yellow-400" />
+                  <Settings size={20} className="text-yellow-400 hover:text-yellow-300 transition-colors duration-300" />
                 </button>
               )}
             </div>
