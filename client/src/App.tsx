@@ -10,7 +10,7 @@ import { BottomNavigation } from "@/components/ui/bottom-navigation";
 import DietaryScreen from "@/pages/dietary";
 import VoiceCookingScreen from "@/pages/voice-cooking";
 import TakeOutScreen from "@/pages/takeout";
-import CookScreen from "@/pages/cook";
+
 import NuvaSplashScreen from "@/pages/nuva-splash";
 import NuvaSignupScreen from "@/pages/nuva-signup";
 import CreateDishesScreen from "@/pages/create-dishes";
@@ -56,7 +56,7 @@ function Router() {
 
       <Route path="/instacart" component={InstacartScreen} />
       <Route path="/grocery-hub" component={GroceryHubScreen} />
-      <Route path="/cook" component={CookScreen} />
+
       <Route path="/voice-cooking" component={VoiceCookingScreen} />
 
       <Route path="/takeout" component={TakeOutScreen} />

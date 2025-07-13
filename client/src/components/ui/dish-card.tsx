@@ -85,7 +85,7 @@ export function DishCard({ dish }: DishCardProps) {
   const handleCookClick = () => {
     // API call to set current cooking dish would happen here
     console.log('Starting cooking session for:', { dishId: dish.id, dishName: dish.name });
-    setLocation('/cook');
+    setLocation('/voice-cooking');
   };
 
   // Sample recipe data - will come from API
