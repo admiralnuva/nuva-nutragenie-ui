@@ -934,6 +934,13 @@ To restore to this stable state if needed:
   * Enhanced text hover states with purple-200 color transitions for better visual feedback
   * Applied consistent hover patterns excluding dish cards as requested
   * Created engaging micro-interactions while maintaining professional appearance
+- July 13, 2025. Colored Card Borders and Gradient Button Enhancement:
+  * Added colored left border accents to cards: purple (Recipe Options), blue (Activity), indigo (Diet & Pantry)
+  * Implemented gradient button backgrounds with color-coded themes for better visual distinction
+  * Enhanced button hover effects with color preview and smooth gradient transitions
+  * Fixed "Dishes Cooked" text overflow by shortening to "Cooked" for single-line display
+  * Applied professional gradient approach (dark to light) for modern visual depth
+  * Maintained readability while significantly improving visual appeal and user engagement
 - July 11, 2025. Take-Out Screen Navigation Fix:
   * Updated back button route from /recipes to /explore-recipe-options for consistent navigation flow
   * Take-out screen now properly routes users back to the main recipe exploration interface

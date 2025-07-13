@@ -554,8 +554,8 @@ export default function ExploreRecipeOptionsScreen() {
               onClick={() => setSelectedPreferenceTab("diet")}
               className={`p-4 rounded-lg text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
                 selectedPreferenceTab === "diet"
-                  ? "bg-purple-600 text-white border border-purple-500 shadow-lg shadow-purple-500/30"
-                  : "bg-gray-700 text-gray-300 hover:bg-gray-600 border border-gray-600 hover:border-purple-400"
+                  ? "bg-gradient-to-r from-indigo-600 to-indigo-500 text-white border border-indigo-400 shadow-lg shadow-indigo-500/40"
+                  : "bg-gradient-to-r from-gray-700 to-gray-600 text-gray-200 border border-gray-500 hover:from-indigo-600/30 hover:to-indigo-500/30 hover:border-indigo-400 hover:text-white"
               }`}
             >
               Diet
@@ -564,8 +564,8 @@ export default function ExploreRecipeOptionsScreen() {
               onClick={() => setSelectedPreferenceTab("meal")}
               className={`p-4 rounded-lg text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
                 selectedPreferenceTab === "meal"
-                  ? "bg-purple-600 text-white border border-purple-500 shadow-lg shadow-purple-500/30"
-                  : "bg-gray-700 text-gray-300 hover:bg-gray-600 border border-gray-600 hover:border-purple-400"
+                  ? "bg-gradient-to-r from-indigo-600 to-indigo-500 text-white border border-indigo-400 shadow-lg shadow-indigo-500/40"
+                  : "bg-gradient-to-r from-gray-700 to-gray-600 text-gray-200 border border-gray-500 hover:from-indigo-600/30 hover:to-indigo-500/30 hover:border-indigo-400 hover:text-white"
               }`}
             >
               Meal
@@ -574,8 +574,8 @@ export default function ExploreRecipeOptionsScreen() {
               onClick={() => setSelectedPreferenceTab("pantry")}
               className={`p-4 rounded-lg text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
                 selectedPreferenceTab === "pantry"
-                  ? "bg-purple-600 text-white border border-purple-500 shadow-lg shadow-purple-500/30"
-                  : "bg-gray-700 text-gray-300 hover:bg-gray-600 border border-gray-600 hover:border-purple-400"
+                  ? "bg-gradient-to-r from-indigo-600 to-indigo-500 text-white border border-indigo-400 shadow-lg shadow-indigo-500/40"
+                  : "bg-gradient-to-r from-gray-700 to-gray-600 text-gray-200 border border-gray-500 hover:from-indigo-600/30 hover:to-indigo-500/30 hover:border-indigo-400 hover:text-white"
               }`}
             >
               Pantry
@@ -874,8 +874,8 @@ export default function ExploreRecipeOptionsScreen() {
               onClick={() => handleOptionClick("chefs-choice")}
               className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
                 selectedOption === "chefs-choice"
-                  ? "bg-purple-600 text-white border-purple-500 shadow-lg shadow-purple-500/30"
-                  : "bg-gray-700 text-gray-300 border-gray-600 hover:bg-gray-600 hover:border-purple-400"
+                  ? "bg-gradient-to-r from-purple-600 to-purple-500 text-white border-purple-400 shadow-lg shadow-purple-500/40"
+                  : "bg-gradient-to-r from-gray-700 to-gray-600 text-gray-200 border-gray-500 hover:from-purple-600/30 hover:to-purple-500/30 hover:border-purple-400 hover:text-white"
               }`}
             >
               Chef's Choice
@@ -884,8 +884,8 @@ export default function ExploreRecipeOptionsScreen() {
               onClick={() => handleOptionClick("pantry-dishes")}
               className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
                 selectedOption === "pantry-dishes"
-                  ? "bg-purple-600 text-white border-purple-500 shadow-lg shadow-purple-500/30"
-                  : "bg-gray-700 text-gray-300 border-gray-600 hover:bg-gray-600 hover:border-purple-400"
+                  ? "bg-gradient-to-r from-green-600 to-green-500 text-white border-green-400 shadow-lg shadow-green-500/40"
+                  : "bg-gradient-to-r from-gray-700 to-gray-600 text-gray-200 border-gray-500 hover:from-green-600/30 hover:to-green-500/30 hover:border-green-400 hover:text-white"
               }`}
             >
               Pantry Dishes
@@ -894,8 +894,8 @@ export default function ExploreRecipeOptionsScreen() {
               onClick={() => handleOptionClick("create-dishes")}
               className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
                 selectedOption === "create-dishes"
-                  ? "bg-purple-600 text-white border-purple-500 shadow-lg shadow-purple-500/30"
-                  : "bg-gray-700 text-gray-300 border-gray-600 hover:bg-gray-600 hover:border-purple-400"
+                  ? "bg-gradient-to-r from-orange-600 to-orange-500 text-white border-orange-400 shadow-lg shadow-orange-500/40"
+                  : "bg-gradient-to-r from-gray-700 to-gray-600 text-gray-200 border-gray-500 hover:from-orange-600/30 hover:to-orange-500/30 hover:border-orange-400 hover:text-white"
               }`}
             >
               Create Dishes
@@ -904,8 +904,8 @@ export default function ExploreRecipeOptionsScreen() {
               onClick={() => handleOptionClick("take-out")}
               className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
                 selectedOption === "take-out"
-                  ? "bg-purple-600 text-white border-purple-500 shadow-lg shadow-purple-500/30"
-                  : "bg-gray-700 text-gray-300 border-gray-600 hover:bg-gray-600 hover:border-purple-400"
+                  ? "bg-gradient-to-r from-blue-600 to-blue-500 text-white border-blue-400 shadow-lg shadow-blue-500/40"
+                  : "bg-gradient-to-r from-gray-700 to-gray-600 text-gray-200 border-gray-500 hover:from-blue-600/30 hover:to-blue-500/30 hover:border-blue-400 hover:text-white"
               }`}
             >
               Take-Out
@@ -1224,8 +1224,8 @@ export default function ExploreRecipeOptionsScreen() {
             <button
               className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
                 selectedHistoryItem === 'dishes-cooked' 
-                  ? 'bg-orange-600 border-orange-500 text-white shadow-lg shadow-orange-500/30' 
-                  : 'bg-gray-700 border-gray-600 hover:bg-gray-600 text-gray-300 hover:border-orange-400'
+                  ? 'bg-gradient-to-r from-orange-600 to-orange-500 border-orange-400 text-white shadow-lg shadow-orange-500/40' 
+                  : 'bg-gradient-to-r from-gray-700 to-gray-600 border-gray-500 text-gray-200 hover:from-orange-600/30 hover:to-orange-500/30 hover:border-orange-400 hover:text-white'
               }`}
               onClick={() => setSelectedHistoryItem(selectedHistoryItem === 'dishes-cooked' ? null : 'dishes-cooked')}
             >
@@ -1234,8 +1234,8 @@ export default function ExploreRecipeOptionsScreen() {
             <button
               className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
                 selectedHistoryItem === 'takeout-orders' 
-                  ? 'bg-blue-600 border-blue-500 text-white shadow-lg shadow-blue-500/30' 
-                  : 'bg-gray-700 border-gray-600 hover:bg-gray-600 text-gray-300 hover:border-blue-400'
+                  ? 'bg-gradient-to-r from-blue-600 to-blue-500 border-blue-400 text-white shadow-lg shadow-blue-500/40' 
+                  : 'bg-gradient-to-r from-gray-700 to-gray-600 border-gray-500 text-gray-200 hover:from-blue-600/30 hover:to-blue-500/30 hover:border-blue-400 hover:text-white'
               }`}
               onClick={() => setSelectedHistoryItem(selectedHistoryItem === 'takeout-orders' ? null : 'takeout-orders')}
             >
@@ -1244,8 +1244,8 @@ export default function ExploreRecipeOptionsScreen() {
             <button
               className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
                 selectedHistoryItem === 'grocery-list' 
-                  ? 'bg-green-600 border-green-500 text-white shadow-lg shadow-green-500/30' 
-                  : 'bg-gray-700 border-gray-600 hover:bg-gray-600 text-gray-300 hover:border-green-400'
+                  ? 'bg-gradient-to-r from-green-600 to-green-500 border-green-400 text-white shadow-lg shadow-green-500/40' 
+                  : 'bg-gradient-to-r from-gray-700 to-gray-600 border-gray-500 text-gray-200 hover:from-green-600/30 hover:to-green-500/30 hover:border-green-400 hover:text-white'
               }`}
               onClick={() => setSelectedHistoryItem(selectedHistoryItem === 'grocery-list' ? null : 'grocery-list')}
             >
@@ -1254,8 +1254,8 @@ export default function ExploreRecipeOptionsScreen() {
             <button
               className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
                 selectedHistoryItem === 'recipes-saved' 
-                  ? 'bg-purple-600 border-purple-500 text-white shadow-lg shadow-purple-500/30' 
-                  : 'bg-gray-700 border-gray-600 hover:bg-gray-600 text-gray-300 hover:border-purple-400'
+                  ? 'bg-gradient-to-r from-purple-600 to-purple-500 border-purple-400 text-white shadow-lg shadow-purple-500/40' 
+                  : 'bg-gradient-to-r from-gray-700 to-gray-600 border-gray-500 text-gray-200 hover:from-purple-600/30 hover:to-purple-500/30 hover:border-purple-400 hover:text-white'
               }`}
               onClick={() => setSelectedHistoryItem(selectedHistoryItem === 'recipes-saved' ? null : 'recipes-saved')}
             >
