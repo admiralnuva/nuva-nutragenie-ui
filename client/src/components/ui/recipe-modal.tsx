@@ -25,32 +25,25 @@ export function RecipeModal({ recipe, isOpen, onClose, onSave }: RecipeModalProp
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-gray-800 rounded-lg w-full max-w-2xl max-h-[90vh] overflow-hidden animate-in fade-in zoom-in-95 duration-300">
-        {/* Header */}
-        <div className="bg-gray-900 p-4 flex items-center justify-between border-b border-gray-700">
-          <h2 className="text-xl font-bold text-white truncate flex-1 mr-4">
-            {recipe.name}
-          </h2>
-          <div className="flex items-center gap-3">
-            <button
-              onClick={onSave}
-              className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
-            >
-              <Save size={16} />
-              <span>Save</span>
-            </button>
+    <div className="fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-center justify-center p-4">
+      <div className="bg-gray-800 rounded-lg w-full max-w-2xl max-h-[90vh] overflow-hidden animate-in fade-in zoom-in-95 duration-300 flex flex-col">
+        {/* Fixed Header */}
+        <div className="bg-gray-900 p-4 border-b border-gray-700 flex-shrink-0">
+          <div className="flex items-center justify-between">
+            <h2 className="text-xl font-bold text-white truncate flex-1">
+              {recipe.name}
+            </h2>
             <button
               onClick={onClose}
-              className="w-10 h-10 bg-gray-700 hover:bg-gray-600 rounded-lg flex items-center justify-center transition-colors"
+              className="w-10 h-10 bg-gray-700 hover:bg-gray-600 rounded-lg flex items-center justify-center transition-colors ml-4"
             >
               <X size={20} className="text-white" />
             </button>
           </div>
         </div>
 
-        {/* Content */}
-        <div className="overflow-y-auto max-h-[calc(90vh-80px)]">
+        {/* Scrollable Content */}
+        <div className="flex-1 overflow-y-auto">
           {/* Recipe Info */}
           <div className="p-4 border-b border-gray-700">
             <div className="flex gap-6 text-sm text-gray-300">
@@ -91,6 +84,25 @@ export function RecipeModal({ recipe, isOpen, onClose, onSave }: RecipeModalProp
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+
+        {/* Fixed Footer Action Bar */}
+        <div className="bg-gray-900 p-4 border-t border-gray-700 flex-shrink-0">
+          <div className="flex gap-3 justify-end">
+            <button
+              onClick={onClose}
+              className="px-6 py-3 bg-gray-600 hover:bg-gray-500 text-white rounded-lg transition-colors font-medium"
+            >
+              Close
+            </button>
+            <button
+              onClick={onSave}
+              className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium"
+            >
+              <Save size={18} />
+              <span>Save Recipe</span>
+            </button>
           </div>
         </div>
       </div>
