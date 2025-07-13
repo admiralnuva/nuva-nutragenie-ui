@@ -15,6 +15,9 @@ export default function ExploreRecipeOptionsScreen() {
   const [isCreateDishesCollapsed, setIsCreateDishesCollapsed] = useState(false);
   const [isTakeOutCollapsed, setIsTakeOutCollapsed] = useState(false);
   
+  // Preferences state
+  const [selectedPreferenceTab, setSelectedPreferenceTab] = useState<string>("diet");
+  
   // Create Dishes form state
   const [dishName, setDishName] = useState("");
   const [servingSize, setServingSize] = useState("");
@@ -355,8 +358,108 @@ export default function ExploreRecipeOptionsScreen() {
       <div className="container mx-auto px-4 py-6 space-y-6">
         {/* Card 1 - Preferences */}
         <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
-          <h2 className="text-xl font-bold text-white mb-4">Preferences</h2>
-          <p className="text-gray-300">Configure your dietary preferences and nutrition goals.</p>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-xl font-bold text-white">Personalize Diet & Pantry</h2>
+            <div className="w-12 h-12 rounded-full bg-orange-500 flex items-center justify-center">
+              <span className="text-2xl">👨‍🍳</span>
+            </div>
+          </div>
+          
+          {/* Tab Buttons */}
+          <div className="flex gap-2 mb-6">
+            <button
+              onClick={() => setSelectedPreferenceTab("diet")}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                selectedPreferenceTab === "diet"
+                  ? "bg-purple-600 text-white"
+                  : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+              }`}
+            >
+              Diet
+            </button>
+            <button
+              onClick={() => setSelectedPreferenceTab("meal")}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                selectedPreferenceTab === "meal"
+                  ? "bg-purple-600 text-white"
+                  : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+              }`}
+            >
+              Meal
+            </button>
+            <button
+              onClick={() => setSelectedPreferenceTab("pantry")}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                selectedPreferenceTab === "pantry"
+                  ? "bg-purple-600 text-white"
+                  : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+              }`}
+            >
+              Pantry
+            </button>
+          </div>
+
+          {/* Diet Tab Content */}
+          {selectedPreferenceTab === "diet" && (
+            <div className="space-y-4">
+              <h3 className="text-lg font-bold text-yellow-300">Dietary Preferences</h3>
+              
+              {/* Dietary Restrictions */}
+              <div>
+                <h4 className="text-sm font-bold text-yellow-300 mb-2">Dietary Restrictions:</h4>
+                <p className="text-gray-300 text-sm">vegetarian, vegan, gluten-free, dairy-free, low-carb</p>
+              </div>
+              
+              <hr className="border-gray-600" />
+              
+              {/* Health Factors */}
+              <div>
+                <h4 className="text-sm font-bold text-yellow-300 mb-2">Health Factors:</h4>
+                <p className="text-gray-300 text-sm">diabetes, cardiovascular, kidney, blood-pressure, cancer</p>
+              </div>
+              
+              <hr className="border-gray-600" />
+              
+              {/* Fitness Goals */}
+              <div>
+                <h4 className="text-sm font-bold text-yellow-300 mb-2">Fitness Goals:</h4>
+                <p className="text-gray-300 text-sm">build muscle, lose weight, endurance, wellness</p>
+              </div>
+              
+              <hr className="border-gray-600" />
+              
+              {/* Allergies/Restrictions */}
+              <div>
+                <h4 className="text-sm font-bold text-yellow-300 mb-2">Allergies/Restrictions:</h4>
+                <p className="text-gray-300 text-sm">None specified</p>
+              </div>
+              
+              <hr className="border-gray-600" />
+              
+              {/* Nutritional Goals */}
+              <div>
+                <h4 className="text-sm font-bold text-yellow-300 mb-2">Nutritional Goals:</h4>
+                <p className="text-gray-300 text-sm">
+                  Cal: 1301-1500, Protein: 71-100g<br />
+                  Carbs: 101-150g, Fat: 36-50g
+                </p>
+              </div>
+            </div>
+          )}
+          
+          {/* Meal Tab Content */}
+          {selectedPreferenceTab === "meal" && (
+            <div className="text-center py-8">
+              <p className="text-gray-300">Meal preferences will be displayed here</p>
+            </div>
+          )}
+          
+          {/* Pantry Tab Content */}
+          {selectedPreferenceTab === "pantry" && (
+            <div className="text-center py-8">
+              <p className="text-gray-300">Pantry preferences will be displayed here</p>
+            </div>
+          )}
         </Card>
 
         {/* Card 2 - Recipe Options */}
