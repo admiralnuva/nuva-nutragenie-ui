@@ -582,9 +582,11 @@ export default function ExploreRecipeOptionsScreen() {
               </div>
 
               {/* Confirmation Checkbox */}
-              <div className="flex items-center space-x-4 mt-6">
-                <button
-                  onClick={() => setMealPreferencesConfirmed(!mealPreferencesConfirmed)}
+              <div 
+                className="flex items-center space-x-4 mt-6 cursor-pointer" 
+                onClick={() => setMealPreferencesConfirmed(!mealPreferencesConfirmed)}
+              >
+                <div
                   className={`w-8 h-8 min-w-8 min-h-8 rounded-full border-2 flex items-center justify-center transition-colors flex-shrink-0 ${
                     mealPreferencesConfirmed 
                       ? "bg-purple-600 border-purple-600" 
@@ -596,8 +598,8 @@ export default function ExploreRecipeOptionsScreen() {
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
                   )}
-                </button>
-                <span className="text-white text-base select-text cursor-text user-select-text" style={{userSelect: 'text', WebkitUserSelect: 'text', MozUserSelect: 'text'}}>I confirm these meal preferences are correct</span>
+                </div>
+                <span className="text-white text-base select-text">I confirm these meal preferences are correct</span>
               </div>
             </div>
           )}
