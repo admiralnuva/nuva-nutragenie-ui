@@ -141,12 +141,12 @@ export function DishCard({ dish }: DishCardProps) {
         {/* Nutrition Info - Two Rows */}
         <div className="mb-3">
           <div className="flex items-center gap-6 text-sm mb-2">
-            <span className="text-orange-400">• {dish.calories} calories</span>
-            <span className="text-yellow-400">• {dish.protein} protein</span>
+            <span className="text-orange-400 whitespace-nowrap">• {dish.calories} calories</span>
+            <span className="text-yellow-400 whitespace-nowrap">• {dish.protein} protein</span>
           </div>
-          <div className="flex items-center gap-6 text-sm text-gray-300">
-            <span className="text-blue-400">• {dish.cookTime} cook time</span>
-            <span>{dish.difficulty} difficulty</span>
+          <div className="flex items-center gap-6 text-sm text-white">
+            <span className="text-blue-400 whitespace-nowrap">• {dish.cookTime}</span>
+            <span className="whitespace-nowrap">{dish.difficulty}</span>
           </div>
         </div>
         
