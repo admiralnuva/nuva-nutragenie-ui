@@ -540,7 +540,7 @@ export default function ExploreRecipeOptionsScreen() {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-6 space-y-6">
+      <div className="container mx-auto px-4 py-6 space-y-6 pb-24">
         {/* Card 1 - Preferences - only show if pantry not moved to bottom */}
         {!pantryAtBottom && (
           <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
