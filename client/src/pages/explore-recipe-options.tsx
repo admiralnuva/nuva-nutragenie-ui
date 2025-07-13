@@ -1278,7 +1278,7 @@ export default function ExploreRecipeOptionsScreen() {
               }`}
               onClick={() => setSelectedHistoryItem(selectedHistoryItem === 'recipes-saved' ? null : 'recipes-saved')}
             >
-              Recipes Saved
+              Recipes
             </button>
           </div>
         </Card>
