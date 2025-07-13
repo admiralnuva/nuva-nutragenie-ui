@@ -179,6 +179,15 @@ export default function ExploreRecipeOptionsScreen() {
       // Confirming - move card to bottom permanently
       setPantryConfirmed(true);
       setPantryAtBottom(true);
+      
+      // Play bell sound effect for card movement
+      try {
+        const audio = new Audio('/attached_assets/ding-small-bell-sfx-233008 (1)_1752375863891.mp3');
+        audio.volume = 0.6; // Set to comfortable volume
+        audio.play().catch(console.error);
+      } catch (error) {
+        // Silent fail - audio is enhancement, not critical functionality
+      }
     } else {
       // Unchecking - keep card at bottom, just expand content
       setPantryConfirmed(false);

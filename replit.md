@@ -896,6 +896,8 @@ To restore to this stable state if needed:
   * Enhanced tab button layout with full-width distribution and shopping basket icon for Pantry tab
   * Edit button appears inline with Pantry tab using larger yellow Settings icon (size 24) for better visibility
   * Zero impact on other cards' code or positioning - completely independent implementation
+  * Added bell sound effect (ding-small-bell-sfx) that plays when card moves to bottom position
+  * Audio implementation uses silent fail approach - enhances UX without affecting core functionality
 - July 11, 2025. Take-Out Screen Navigation Fix:
   * Updated back button route from /recipes to /explore-recipe-options for consistent navigation flow
   * Take-out screen now properly routes users back to the main recipe exploration interface
