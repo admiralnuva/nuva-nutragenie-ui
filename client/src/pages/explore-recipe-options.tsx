@@ -896,8 +896,8 @@ export default function ExploreRecipeOptionsScreen() {
               onClick={() => handleOptionClick("chefs-choice")}
               className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg whitespace-nowrap ${
                 selectedOption === "chefs-choice"
-                  ? "bg-blue-700 text-white border-blue-600 shadow-lg shadow-blue-500/40"
-                  : "bg-blue-600 text-white border-blue-500 shadow-lg shadow-blue-500/30"
+                  ? "bg-purple-700 text-white border-purple-600 shadow-lg shadow-purple-500/40"
+                  : "bg-purple-600 text-white border-purple-500 shadow-lg shadow-purple-500/30"
               }`}
             >
               Chef's Pick
@@ -906,8 +906,8 @@ export default function ExploreRecipeOptionsScreen() {
               onClick={() => handleOptionClick("pantry-dishes")}
               className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg whitespace-nowrap ${
                 selectedOption === "pantry-dishes"
-                  ? "bg-blue-700 text-white border-blue-600 shadow-lg shadow-blue-500/40"
-                  : "bg-blue-600 text-white border-blue-500 shadow-lg shadow-blue-500/30"
+                  ? "bg-green-700 text-white border-green-600 shadow-lg shadow-green-500/40"
+                  : "bg-green-600 text-white border-green-500 shadow-lg shadow-green-500/30"
               }`}
             >
               Pantry
@@ -916,8 +916,8 @@ export default function ExploreRecipeOptionsScreen() {
               onClick={() => handleOptionClick("create-dishes")}
               className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg whitespace-nowrap ${
                 selectedOption === "create-dishes"
-                  ? "bg-blue-700 text-white border-blue-600 shadow-lg shadow-blue-500/40"
-                  : "bg-blue-600 text-white border-blue-500 shadow-lg shadow-blue-500/30"
+                  ? "bg-orange-700 text-white border-orange-600 shadow-lg shadow-orange-500/40"
+                  : "bg-orange-600 text-white border-orange-500 shadow-lg shadow-orange-500/30"
               }`}
             >
               Create
