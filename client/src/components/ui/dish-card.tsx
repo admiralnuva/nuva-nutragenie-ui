@@ -171,7 +171,7 @@ export function DishCard({ dish }: DishCardProps) {
             onClick={handleRecipeClick}
             className={`w-14 h-14 rounded-lg flex items-center justify-center transition-colors relative ${
               isRecipeSaved 
-                ? 'bg-green-600 hover:bg-green-700' 
+                ? 'bg-purple-600 hover:bg-purple-700' 
                 : 'bg-purple-600 hover:bg-purple-700'
             }`}
           >
