@@ -54,16 +54,7 @@ export default function ExploreRecipeOptionsScreen() {
   const [mealPrepTime, setMealPrepTime] = useState("⏱️ 30 minutes");
   const [mealPreferencesConfirmed, setMealPreferencesConfirmed] = useState(false);
   
-  // Track original meal preferences to detect changes
-  const [originalMealPreferences] = useState({
-    servingSize: "2 people",
-    cuisine: "American", 
-    mealType: "Dinner",
-    spiceLevel: "😊 Mild",
-    skillLevel: "🔰 Beginner",
-    cookMethod: "🔥 Oven",
-    prepTime: "⏱️ 30 minutes"
-  });
+
   
   // Create Dishes form state
   const [dishName, setDishName] = useState("");
@@ -216,16 +207,7 @@ export default function ExploreRecipeOptionsScreen() {
   // Handle meal preferences confirmation - STEP 1: Only switch tab, no card movement
   const handleMealConfirmation = () => {
     if (!mealPreferencesConfirmed) {
-      // User is confirming - save current values as original and switch to pantry tab
-      setOriginalMealPreferences({
-        servingSize: mealServingSize,
-        cuisine: mealCuisine,
-        mealType: mealType,
-        spiceLevel: mealSpiceLevel,
-        skillLevel: mealSkillLevel,
-        cookMethod: mealCookMethod,
-        prepTime: mealPrepTime
-      });
+      // User is confirming - switch to pantry tab
       setMealPreferencesConfirmed(true);
       setSelectedPreferenceTab("pantry");
       // NOTE: NO card movement here - card stays at top until pantry confirmation
