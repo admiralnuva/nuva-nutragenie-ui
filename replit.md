@@ -979,6 +979,12 @@ To restore to this stable state if needed:
   * Personalize Diet & Pantry Card: All tabs changed from blue to purple-500 (Diet, Meal, Pantry tabs)
   * Applied warm color theme to both top and bottom positions of Personalize Diet & Pantry card
   * Created unified warm color-coded system using indigo-500, blue-500, and purple-500 throughout interface
+- July 14, 2025. Emerald Color Integration for Diet & Pantry:
+  * Updated Personalize Diet & Pantry card tabs from purple-500 to emerald-500 to match Home screen Grocery List quick action
+  * Diet, Meal, and Pantry tabs now use emerald-500/600 color scheme (bg-emerald-500 default, bg-emerald-600 selected)
+  * Applied emerald theme to both top and bottom card positions consistently
+  * Created visual connection between Grocery List functionality and dietary preferences management
+  * Final color coordination: Recipe & Dishes (indigo-500), Your Activity (blue-500), Personalize Diet & Pantry (emerald-500)
 - July 13, 2025. Grocery Management Implementation Attempted and Reverted:
   * Attempted standalone "Groceries & Shopping" screen but user feedback indicated poor UX flow
   * User preference documented: grocery functionality should integrate naturally with existing recipe workflow
