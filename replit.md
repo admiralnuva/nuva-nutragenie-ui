@@ -972,6 +972,13 @@ To restore to this stable state if needed:
   * Your Activity: All buttons use green color scheme (green-600 default, green-700 selected)  
   * Personalize Diet & Pantry: All tabs use blue color scheme matching Recipe Options
   * Created cohesive color-coded system with meaningful button groupings and enhanced visual hierarchy
+- July 14, 2025. Warm Color Scheme Implementation:
+  * Updated all button colors to match warm tones from Home screen quick actions for visual consistency
+  * Recipe & Dishes Card: All buttons changed from purple to indigo-500 (Chef's Pick, Pantry, Create, Take-Out)
+  * Your Activity Card: All buttons changed from green to blue-500 (Cooked, Takeouts, Grocery List, Recipes)
+  * Personalize Diet & Pantry Card: All tabs changed from blue to purple-500 (Diet, Meal, Pantry tabs)
+  * Applied warm color theme to both top and bottom positions of Personalize Diet & Pantry card
+  * Created unified warm color-coded system using indigo-500, blue-500, and purple-500 throughout interface
 - July 13, 2025. Grocery Management Implementation Attempted and Reverted:
   * Attempted standalone "Groceries & Shopping" screen but user feedback indicated poor UX flow
   * User preference documented: grocery functionality should integrate naturally with existing recipe workflow
