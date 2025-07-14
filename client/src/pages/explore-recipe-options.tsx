@@ -102,7 +102,7 @@ export default function ExploreRecipeOptionsScreen() {
     if (haveMealPreferencesChanged() && mealPreferencesConfirmed) {
       setMealPreferencesConfirmed(false);
     }
-  }, [mealServingSize, mealCuisine, mealType, mealSpiceLevel, mealSkillLevel, mealCookMethod, mealPrepTime, originalMealPreferences, mealPreferencesConfirmed]);
+  }, [mealServingSize, mealCuisine, mealType, mealSpiceLevel, mealSkillLevel, mealCookMethod, mealPrepTime, originalMealPreferences]);
 
   // Pantry ingredient categories
   const pantryCategories = {

@@ -997,6 +997,12 @@ To restore to this stable state if needed:
   * Applied white font color to both top and bottom positions of Personalize Diet & Pantry card
   * Enhanced professional appearance with clean white titles against dark card backgrounds
   * Complements warm button color scheme while maintaining excellent contrast and readability
+- July 14, 2025. Meal Tab Runtime Error Fix:
+  * Fixed circular dependency in useEffect causing runtime errors when changing meal preference dropdowns
+  * Removed mealPreferencesConfirmed from dependency array to prevent infinite re-render loop
+  * Meal tab editing now works smoothly without plugin runtime errors
+  * Users can safely change Serving Size, Cuisine, Meal Type, and other dropdown values
+  * Confirmation checkbox properly tracks changes and allows saving updated preferences
 - July 13, 2025. Grocery Management Implementation Attempted and Reverted:
   * Attempted standalone "Groceries & Shopping" screen but user feedback indicated poor UX flow
   * User preference documented: grocery functionality should integrate naturally with existing recipe workflow
