@@ -25,7 +25,7 @@ export default function ExploreRecipeOptionsScreen() {
       setPantryAtBottom(false);
       localStorage.removeItem('nutragenie_from_dietary');
     }
-  }, []);
+  }, [setDietPantryCompleted]);
   
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [isChefRecommendsCollapsed, setIsChefRecommendsCollapsed] = useState(false);
@@ -85,32 +85,24 @@ export default function ExploreRecipeOptionsScreen() {
   // History selection state
   const [selectedHistoryItem, setSelectedHistoryItem] = useState<string | null>(null);
 
-  // Helper function to check if meal preferences have changed
-  const haveMealPreferencesChanged = () => {
-    return (
-      mealServingSize !== originalMealPreferences.servingSize ||
-      mealCuisine !== originalMealPreferences.cuisine ||
-      mealType !== originalMealPreferences.mealType ||
-      mealSpiceLevel !== originalMealPreferences.spiceLevel ||
-      mealSkillLevel !== originalMealPreferences.skillLevel ||
-      mealCookMethod !== originalMealPreferences.cookMethod ||
-      mealPrepTime !== originalMealPreferences.prepTime
-    );
-  };
-
   // Effect to uncheck confirmation when meal preferences change
   useEffect(() => {
+    const haveMealPreferencesChanged = () => {
+      return (
+        mealServingSize !== originalMealPreferences.servingSize ||
+        mealCuisine !== originalMealPreferences.cuisine ||
+        mealType !== originalMealPreferences.mealType ||
+        mealSpiceLevel !== originalMealPreferences.spiceLevel ||
+        mealSkillLevel !== originalMealPreferences.skillLevel ||
+        mealCookMethod !== originalMealPreferences.cookMethod ||
+        mealPrepTime !== originalMealPreferences.prepTime
+      );
+    };
+
     if (haveMealPreferencesChanged() && mealPreferencesConfirmed) {
       setMealPreferencesConfirmed(false);
     }
-  }, [mealServingSize, mealCuisine, mealType, mealSpiceLevel, mealSkillLevel, mealCookMethod, mealPrepTime]);
-
-  // Effect to maintain confirmed state when switching back to meal tab without changes
-  useEffect(() => {
-    if (selectedPreferenceTab === "meal" && !haveMealPreferencesChanged()) {
-      // Keep the confirmed state as is - don't force uncheck if no changes
-    }
-  }, [selectedPreferenceTab]);
+  }, [mealServingSize, mealCuisine, mealType, mealSpiceLevel, mealSkillLevel, mealCookMethod, mealPrepTime, originalMealPreferences, mealPreferencesConfirmed]);
 
   // Pantry ingredient categories
   const pantryCategories = {
