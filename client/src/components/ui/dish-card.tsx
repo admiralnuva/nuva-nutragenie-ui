@@ -156,8 +156,8 @@ export function DishCard({ dish }: DishCardProps) {
             onClick={handleSubstitutionClick}
             className={`w-14 h-14 rounded-lg flex items-center justify-center transition-colors relative ${
               hasSubstitution 
-                ? 'bg-teal-600 hover:bg-teal-700' 
-                : 'bg-yellow-600 hover:bg-yellow-700'
+                ? 'bg-purple-600 hover:bg-purple-700' 
+                : 'bg-purple-600 hover:bg-purple-700'
             }`}
           >
             <ArrowLeftRight size={22} className="text-white" />
