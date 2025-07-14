@@ -996,6 +996,13 @@ To restore to this stable state if needed:
   * Updated Recipe & Dishes, Your Activity, and Personalize Diet & Pantry card titles
   * Applied white font color to both top and bottom positions of Personalize Diet & Pantry card
   * Enhanced professional appearance with clean white titles against dark card backgrounds
+- July 14, 2025. Meal Tab Dropdown Runtime Error Investigation:
+  * ONGOING ISSUE: ResizeObserver loop errors persist when clicking dropdowns in meal tab
+  * Attempted fixes: Removed circular dependencies, eliminated setOriginalMealPreferences references, simplified useEffect
+  * Fixed pantryAtBottom state initialization and cleaned up object dependencies in useEffect hooks
+  * Removed problematic originalMealPreferences state variable and simplified handleMealConfirmation function
+  * Current status: Runtime errors still occur on dropdown interaction - requires further investigation
+  * User preference: Cautious debugging approach with step-by-step problem analysis before implementation
   * Complements warm button color scheme while maintaining excellent contrast and readability
 - July 14, 2025. Meal Tab Runtime Error Fix:
   * Fixed circular dependency in useEffect causing runtime errors when changing meal preference dropdowns
