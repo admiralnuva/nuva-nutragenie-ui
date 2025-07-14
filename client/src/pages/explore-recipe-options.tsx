@@ -567,7 +567,7 @@ export default function ExploreRecipeOptionsScreen() {
         {!pantryAtBottom && (
           <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-indigo-500 p-4 hover:shadow-2xl hover:shadow-indigo-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-indigo-400">
             <div className="mb-4">
-              <h2 className="text-xl font-bold text-yellow-400 text-center">Personalize Diet & Pantry</h2>
+              <h2 className="text-xl font-bold text-white text-center">Personalize Diet & Pantry</h2>
             </div>
           
           {/* Tab Buttons */}
@@ -890,7 +890,7 @@ export default function ExploreRecipeOptionsScreen() {
 
         {/* Card 2 - Recipe Options */}
         <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-purple-500 p-4 hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-purple-400">
-          <h2 className="text-xl font-bold text-yellow-400 mb-3 text-center">Recipe & Dishes</h2>
+          <h2 className="text-xl font-bold text-white mb-3 text-center">Recipe & Dishes</h2>
           <div className="grid grid-cols-2 gap-4">
             <button
               onClick={() => handleOptionClick("chefs-choice")}
@@ -1241,7 +1241,7 @@ export default function ExploreRecipeOptionsScreen() {
 
         {/* Card 3 - Activity */}
         <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-blue-500 p-4 hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-blue-400">
-          <h2 className="text-xl font-bold text-yellow-400 mb-3 text-center">Your Activity</h2>
+          <h2 className="text-xl font-bold text-white mb-3 text-center">Your Activity</h2>
           <div className="grid grid-cols-2 gap-4">
             <button
               className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg whitespace-nowrap ${
@@ -1289,7 +1289,7 @@ export default function ExploreRecipeOptionsScreen() {
         {pantryAtBottom && (
           <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-indigo-500 p-4 hover:shadow-2xl hover:shadow-indigo-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-indigo-400">
             <div className="mb-4">
-              <h2 className="text-xl font-bold text-yellow-400 text-center">Personalize Diet & Pantry</h2>
+              <h2 className="text-xl font-bold text-white text-center">Personalize Diet & Pantry</h2>
             </div>
             
             {/* Tab Buttons */}

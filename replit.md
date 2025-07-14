@@ -991,6 +991,12 @@ To restore to this stable state if needed:
   * Applied consistent indigo theme to both top and bottom card positions
   * Final unified color coordination: Recipe & Dishes (indigo-500), Your Activity (blue-500), Personalize Diet & Pantry (indigo-500)
   * Creates cohesive visual consistency between Recipe & Dishes and Diet & Pantry functionality
+- July 14, 2025. Card Title Font Color Update to White:
+  * Changed all card titles from yellow (text-yellow-400) to white (text-white) for better visual consistency
+  * Updated Recipe & Dishes, Your Activity, and Personalize Diet & Pantry card titles
+  * Applied white font color to both top and bottom positions of Personalize Diet & Pantry card
+  * Enhanced professional appearance with clean white titles against dark card backgrounds
+  * Complements warm button color scheme while maintaining excellent contrast and readability
 - July 13, 2025. Grocery Management Implementation Attempted and Reverted:
   * Attempted standalone "Groceries & Shopping" screen but user feedback indicated poor UX flow
   * User preference documented: grocery functionality should integrate naturally with existing recipe workflow
