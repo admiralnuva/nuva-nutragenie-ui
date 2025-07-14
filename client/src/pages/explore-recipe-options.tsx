@@ -16,7 +16,6 @@ export default function ExploreRecipeOptionsScreen() {
   
   // Force first-time user experience - always start with pantry at top for new users
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
     const fromDietary = localStorage.getItem('nutragenie_from_dietary');
     
     if (fromDietary === 'true') {
@@ -25,7 +24,7 @@ export default function ExploreRecipeOptionsScreen() {
       setPantryAtBottom(false);
       localStorage.removeItem('nutragenie_from_dietary');
     }
-  }, [setDietPantryCompleted]);
+  }, []);
   
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [isChefRecommendsCollapsed, setIsChefRecommendsCollapsed] = useState(false);
@@ -43,7 +42,7 @@ export default function ExploreRecipeOptionsScreen() {
   const [pantryConfirmed, setPantryConfirmed] = useState(false);
   
   // EXPLICIT SEQUENCE CONTROL: Card position only changes on pantry confirmation
-  const [pantryAtBottom, setPantryAtBottom] = useState(dietPantryCompleted);
+  const [pantryAtBottom, setPantryAtBottom] = useState(false);
   
   // Meal preferences state
   const [mealServingSize, setMealServingSize] = useState("2 people");
@@ -56,7 +55,7 @@ export default function ExploreRecipeOptionsScreen() {
   const [mealPreferencesConfirmed, setMealPreferencesConfirmed] = useState(false);
   
   // Track original meal preferences to detect changes
-  const [originalMealPreferences, setOriginalMealPreferences] = useState({
+  const [originalMealPreferences] = useState({
     servingSize: "2 people",
     cuisine: "American", 
     mealType: "Dinner",
@@ -87,22 +86,20 @@ export default function ExploreRecipeOptionsScreen() {
 
   // Effect to uncheck confirmation when meal preferences change
   useEffect(() => {
-    const haveMealPreferencesChanged = () => {
-      return (
-        mealServingSize !== originalMealPreferences.servingSize ||
-        mealCuisine !== originalMealPreferences.cuisine ||
-        mealType !== originalMealPreferences.mealType ||
-        mealSpiceLevel !== originalMealPreferences.spiceLevel ||
-        mealSkillLevel !== originalMealPreferences.skillLevel ||
-        mealCookMethod !== originalMealPreferences.cookMethod ||
-        mealPrepTime !== originalMealPreferences.prepTime
-      );
-    };
+    const hasChanges = (
+      mealServingSize !== "2 people" ||
+      mealCuisine !== "American" ||
+      mealType !== "Dinner" ||
+      mealSpiceLevel !== "😊 Mild" ||
+      mealSkillLevel !== "🔰 Beginner" ||
+      mealCookMethod !== "🔥 Oven" ||
+      mealPrepTime !== "⏱️ 30 minutes"
+    );
 
-    if (haveMealPreferencesChanged() && mealPreferencesConfirmed) {
+    if (hasChanges && mealPreferencesConfirmed) {
       setMealPreferencesConfirmed(false);
     }
-  }, [mealServingSize, mealCuisine, mealType, mealSpiceLevel, mealSkillLevel, mealCookMethod, mealPrepTime, originalMealPreferences]);
+  }, [mealServingSize, mealCuisine, mealType, mealSpiceLevel, mealSkillLevel, mealCookMethod, mealPrepTime]);
 
   // Pantry ingredient categories
   const pantryCategories = {
