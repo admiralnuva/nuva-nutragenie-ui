@@ -576,8 +576,8 @@ export default function ExploreRecipeOptionsScreen() {
               onClick={() => setSelectedPreferenceTab("diet")}
               className={`p-4 rounded-lg text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
                 selectedPreferenceTab === "diet"
-                  ? "bg-emerald-600 text-white border border-emerald-500 shadow-lg shadow-emerald-500/40"
-                  : "bg-emerald-500 text-white border border-emerald-400 shadow-lg shadow-emerald-500/30"
+                  ? "bg-indigo-600 text-white border border-indigo-500 shadow-lg shadow-indigo-500/40"
+                  : "bg-indigo-500 text-white border border-indigo-400 shadow-lg shadow-indigo-500/30"
               }`}
             >
               Diet
@@ -586,8 +586,8 @@ export default function ExploreRecipeOptionsScreen() {
               onClick={() => setSelectedPreferenceTab("meal")}
               className={`p-4 rounded-lg text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
                 selectedPreferenceTab === "meal"
-                  ? "bg-emerald-600 text-white border border-emerald-500 shadow-lg shadow-emerald-500/40"
-                  : "bg-emerald-500 text-white border border-emerald-400 shadow-lg shadow-emerald-500/30"
+                  ? "bg-indigo-600 text-white border border-indigo-500 shadow-lg shadow-indigo-500/40"
+                  : "bg-indigo-500 text-white border border-indigo-400 shadow-lg shadow-indigo-500/30"
               }`}
             >
               Meal
@@ -596,8 +596,8 @@ export default function ExploreRecipeOptionsScreen() {
               onClick={() => setSelectedPreferenceTab("pantry")}
               className={`p-4 rounded-lg text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
                 selectedPreferenceTab === "pantry"
-                  ? "bg-emerald-600 text-white border border-emerald-500 shadow-lg shadow-emerald-500/40"
-                  : "bg-emerald-500 text-white border border-emerald-400 shadow-lg shadow-emerald-500/30"
+                  ? "bg-indigo-600 text-white border border-indigo-500 shadow-lg shadow-indigo-500/40"
+                  : "bg-indigo-500 text-white border border-indigo-400 shadow-lg shadow-indigo-500/30"
               }`}
             >
               Pantry
@@ -1298,8 +1298,8 @@ export default function ExploreRecipeOptionsScreen() {
                 onClick={() => setSelectedPreferenceTab("diet")}
                 className={`p-4 rounded-lg text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
                   selectedPreferenceTab === "diet"
-                    ? "bg-emerald-600 text-white border border-emerald-500 shadow-lg shadow-emerald-500/40"
-                    : "bg-emerald-500 text-white border border-emerald-400 shadow-lg shadow-emerald-500/30"
+                    ? "bg-indigo-600 text-white border border-indigo-500 shadow-lg shadow-indigo-500/40"
+                    : "bg-indigo-500 text-white border border-indigo-400 shadow-lg shadow-indigo-500/30"
                 }`}
               >
                 Diet
@@ -1308,8 +1308,8 @@ export default function ExploreRecipeOptionsScreen() {
                 onClick={() => setSelectedPreferenceTab("meal")}
                 className={`p-4 rounded-lg text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
                   selectedPreferenceTab === "meal"
-                    ? "bg-emerald-600 text-white border border-emerald-500 shadow-lg shadow-emerald-500/40"
-                    : "bg-emerald-500 text-white border border-emerald-400 shadow-lg shadow-emerald-500/30"
+                    ? "bg-indigo-600 text-white border border-indigo-500 shadow-lg shadow-indigo-500/40"
+                    : "bg-indigo-500 text-white border border-indigo-400 shadow-lg shadow-indigo-500/30"
                 }`}
               >
                 Meal
@@ -1318,8 +1318,8 @@ export default function ExploreRecipeOptionsScreen() {
                 onClick={() => setSelectedPreferenceTab("pantry")}
                 className={`p-4 rounded-lg text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
                   selectedPreferenceTab === "pantry"
-                    ? "bg-emerald-600 text-white border border-emerald-500 shadow-lg shadow-emerald-500/40"
-                    : "bg-emerald-500 text-white border border-emerald-400 shadow-lg shadow-emerald-500/30"
+                    ? "bg-indigo-600 text-white border border-indigo-500 shadow-lg shadow-indigo-500/40"
+                    : "bg-indigo-500 text-white border border-indigo-400 shadow-lg shadow-indigo-500/30"
                 }`}
               >
                 Pantry
