@@ -1013,6 +1013,8 @@ To restore to this stable state if needed:
   * Enhanced useEffect logic to restore bottom position when dietPantryCompleted is true and user navigates from bottom tabs
   * Maintained first-time user experience while fixing return navigation behavior
   * Card now correctly stays at bottom position after completion regardless of navigation source
+  * **CONFIRMED WORKING**: User tested complete flow from beginning - both first-time experience and persistence working correctly
+  * **STABILITY NOTE**: User reports this was working yesterday but broke temporarily, indicating potential regression risk
 - July 14, 2025. Meal Tab Dropdown Runtime Error Investigation:
   * ONGOING ISSUE: ResizeObserver loop errors persist when clicking dropdowns in meal tab
   * Attempted fixes: Removed circular dependencies, eliminated setOriginalMealPreferences references, simplified useEffect

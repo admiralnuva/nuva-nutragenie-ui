@@ -31,10 +31,11 @@ export default function ExploreRecipeOptionsScreen() {
 
   // Separate effect to sync pantry position with completion status
   useEffect(() => {
-    if (dietPantryCompleted) {
+    if (dietPantryCompleted && !pantryAtBottom) {
+      // Only move to bottom if not already there to prevent unnecessary state updates
       setPantryAtBottom(true);
     }
-  }, [dietPantryCompleted, setPantryAtBottom]);
+  }, [dietPantryCompleted, pantryAtBottom, setPantryAtBottom]);
   
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [isChefRecommendsCollapsed, setIsChefRecommendsCollapsed] = useState(false);
