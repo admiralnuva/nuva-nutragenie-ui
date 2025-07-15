@@ -26,7 +26,7 @@ export default function ExploreRecipeOptionsScreen() {
         <div className="border border-gray-600 rounded-lg p-3 space-y-3">
           <Button
             onClick={() => setLocation("/chefs-choice")}
-            className="w-full bg-gray-800 hover:bg-gray-700 text-white p-4 h-20 rounded-lg"
+            className="w-full bg-purple-500/20 hover:bg-purple-500/30 text-white p-4 h-20 rounded-lg"
           >
             <div className="flex items-center gap-3 h-full">
               <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
