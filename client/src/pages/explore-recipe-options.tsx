@@ -29,7 +29,7 @@ export default function ExploreRecipeOptionsScreen() {
               className="w-full bg-gray-800 hover:bg-gray-700 text-white py-4 pr-4 pl-0 h-20"
             >
               <div className="flex items-center h-full">
-                <div className="w-10 h-10 bg-blue-600 flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-20 bg-blue-600 flex items-center justify-center flex-shrink-0">
                   <span className="text-lg">⭐</span>
                 </div>
                 <div className="ml-3 text-left flex-1 min-w-0">
@@ -45,7 +45,7 @@ export default function ExploreRecipeOptionsScreen() {
               className="w-full bg-gray-800 hover:bg-gray-700 text-white py-4 pr-4 pl-0 h-20"
             >
               <div className="flex items-center h-full">
-                <div className="w-10 h-10 bg-amber-600 flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-20 bg-amber-600 flex items-center justify-center flex-shrink-0">
                   <span className="text-lg">🏠</span>
                 </div>
                 <div className="ml-3 text-left flex-1 min-w-0">
@@ -61,7 +61,7 @@ export default function ExploreRecipeOptionsScreen() {
               className="w-full bg-gray-800 hover:bg-gray-700 text-white py-4 pr-4 pl-0 h-20"
             >
               <div className="flex items-center h-full">
-                <div className="w-10 h-10 bg-purple-600 flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-20 bg-purple-600 flex items-center justify-center flex-shrink-0">
                   <span className="text-lg">🎨</span>
                 </div>
                 <div className="ml-3 text-left flex-1 min-w-0">
@@ -77,7 +77,7 @@ export default function ExploreRecipeOptionsScreen() {
               className="w-full bg-gray-800 hover:bg-gray-700 text-white py-4 pr-4 pl-0 h-20"
             >
               <div className="flex items-center h-full">
-                <div className="w-10 h-10 bg-emerald-600 flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-20 bg-emerald-600 flex items-center justify-center flex-shrink-0">
                   <span className="text-lg">📦</span>
                 </div>
                 <div className="ml-3 text-left flex-1 min-w-0">
@@ -96,7 +96,7 @@ export default function ExploreRecipeOptionsScreen() {
             className="w-full bg-gray-800 hover:bg-gray-700 text-white py-4 pr-4 pl-0 h-20"
           >
             <div className="flex items-center h-full">
-              <div className="w-10 h-10 bg-teal-600 flex items-center justify-center flex-shrink-0">
+              <div className="w-10 h-20 bg-teal-600 flex items-center justify-center flex-shrink-0">
                 <span className="text-lg">🥬</span>
               </div>
               <div className="ml-3 text-left flex-1 min-w-0">
@@ -112,7 +112,7 @@ export default function ExploreRecipeOptionsScreen() {
             className="w-full bg-gray-800 hover:bg-gray-700 text-white py-4 pr-4 pl-0 h-20"
           >
             <div className="flex items-center h-full">
-              <div className="w-10 h-10 bg-indigo-600 flex items-center justify-center flex-shrink-0">
+              <div className="w-10 h-20 bg-indigo-600 flex items-center justify-center flex-shrink-0">
                 <span className="text-lg">⚙️</span>
               </div>
               <div className="ml-3 text-left flex-1 min-w-0">
