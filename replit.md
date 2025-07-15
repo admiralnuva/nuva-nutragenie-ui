@@ -135,6 +135,14 @@ Required environment variables:
 
 ```
 Changelog:
+- July 15, 2025. Enhanced Explore Recipe Options layout with grouped containers and optimal spacing:
+  * Reorganized 6 buttons into two bordered containers for better visual organization
+  * Top container: 4 recipe options (Chef's Choice, Pantry Dishes, Create Dishes, Take-Out)
+  * Bottom container: 2 additional options (Grocery Hub, Personalize Diet & Pantry)
+  * Applied Health Analytics alignment pattern with uniform p-4 padding and gap-3 spacing
+  * Implemented dark gray button backgrounds (bg-gray-800) with colored icon containers
+  * Added 64px spacing between containers for optimal visual breathing room
+  * Maintained perfect icon alignment using consistent flex layout structure
 - July 03, 2025. Initial setup
 - July 15, 2025. Streamlined Your Activity section from 4 cards to 2 cards for better UX:
   * Grocery List - direct access to grocery hub functionality
