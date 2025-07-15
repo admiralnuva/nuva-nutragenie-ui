@@ -997,6 +997,14 @@ To restore to this stable state if needed:
   * Your Activity: All buttons use green color scheme (green-600 default, green-700 selected)  
   * Personalize Diet & Pantry: All tabs use blue color scheme matching Recipe Options
   * Created cohesive color-coded system with meaningful button groupings and enhanced visual hierarchy
+- July 15, 2025. Navigation Flow Enhancement and Avatar Cleanup:
+  * Fixed navigation flow from Dietary Preferences to automatically open Personalize Diet & Pantry page
+  * Auto-opens Meal tab (required first step) when coming from dietary preferences
+  * Added completion detection that automatically navigates back to /explore-recipe-options
+  * Implemented seamless workflow: Dietary → Personalize (Meal → Pantry) → Explore Recipe Options
+  * Cleaned up dietary preferences screen by removing duplicate user avatars from all cards except topmost
+  * Preserved single avatar on Dietary Restrictions card while simplifying other card headers
+  * User tested flow and confirmed it works correctly for first-time users
 - July 15, 2025. Premium Recipe Modal Redesign - Modern Glassmorphism UI:
   * Implemented modern glassmorphism design with frosted glass backdrop and subtle transparency effects
   * Added purple/blue gradient accents throughout header, sections, and action buttons for premium feel
