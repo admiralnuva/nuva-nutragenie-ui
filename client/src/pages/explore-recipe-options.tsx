@@ -136,59 +136,27 @@ export default function ExploreRecipeOptionsScreen() {
         </Button>
       </div>
 
-      {/* Recipe Options - Organized Sections */}
-      <div className="mb-8 space-y-8">
-        {/* Main Recipe Functions */}
-        <div>
-          <h3 className="text-lg font-semibold text-white mb-4 text-center">Recipe Functions</h3>
-          <div className="grid grid-cols-2 gap-6 max-w-xs mx-auto">
-            {recipeOptions.slice(1, 5).map((option) => {
-              const IconComponent = option.icon;
-              const buttonBg = option.id === 'chefs-choice' ? 'bg-emerald-500/25' : 
-                              option.id === 'pantry' ? 'bg-blue-500/30' :
-                              option.id === 'create' ? 'bg-emerald-500/25' :
-                              option.id === 'takeout' ? 'bg-blue-500/30' : '';
-              return (
-                <div key={option.id} className="flex flex-col items-center space-y-2">
-                  <button
-                    onClick={() => setLocation(option.path)}
-                    className={`w-20 h-20 rounded-2xl flex items-center justify-center shadow-lg hover:scale-105 transition-transform ${option.color} ${buttonBg}`}
-                  >
-                    <IconComponent />
-                  </button>
-                  <span className="text-sm font-medium text-white text-center leading-tight">{option.title}</span>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Visual Separator */}
-        <div className="flex items-center justify-center">
-          <div className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent w-full max-w-xs"></div>
-        </div>
-
-        {/* Personal Settings */}
-        <div>
-          <h3 className="text-lg font-semibold text-white mb-4 text-center">Personal Settings</h3>
-          <div className="grid grid-cols-2 gap-6 max-w-xs mx-auto">
-            {[recipeOptions[0], recipeOptions[5]].map((option) => {
-              const IconComponent = option.icon;
-              const buttonBg = option.id === 'personalize' ? 'bg-indigo-500/25' : 
-                              option.id === 'grocery' ? 'bg-teal-500/30' : '';
-              return (
-                <div key={option.id} className="flex flex-col items-center space-y-2">
-                  <button
-                    onClick={() => setLocation(option.path)}
-                    className={`w-20 h-20 rounded-2xl flex items-center justify-center shadow-lg hover:scale-105 transition-transform ${option.color} ${buttonBg}`}
-                  >
-                    <IconComponent />
-                  </button>
-                  <span className="text-sm font-medium text-white text-center leading-tight">{option.title}</span>
-                </div>
-              );
-            })}
-          </div>
+      {/* iOS-Style Grid Layout */}
+      <div className="mb-8">
+        <div className="grid grid-cols-3 gap-6 max-w-md mx-auto">
+          {recipeOptions.map((option) => {
+            const IconComponent = option.icon;
+            const buttonBg = option.id === 'chefs-choice' ? 'bg-emerald-500/25' : 
+                            option.id === 'pantry' ? 'bg-blue-500/30' :
+                            option.id === 'create' ? 'bg-emerald-500/25' :
+                            option.id === 'takeout' ? 'bg-blue-500/30' : '';
+            return (
+              <div key={option.id} className="flex flex-col items-center space-y-2">
+                <button
+                  onClick={() => setLocation(option.path)}
+                  className={`w-20 h-20 rounded-2xl flex items-center justify-center shadow-lg hover:scale-105 transition-transform ${option.color} ${buttonBg}`}
+                >
+                  <IconComponent />
+                </button>
+                <span className="text-sm font-medium text-white text-center leading-tight">{option.title}</span>
+              </div>
+            );
+          })}
         </div>
       </div>
 
