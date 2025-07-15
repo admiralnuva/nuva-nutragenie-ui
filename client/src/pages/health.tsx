@@ -301,65 +301,65 @@ export default function HealthAnalyticsScreen() {
           <CardContent className="space-y-3">
             <Button
               onClick={() => setLocation("/profile")}
-              className="w-full bg-purple-500 hover:bg-purple-600 text-white p-4 h-auto rounded-lg"
+              className="w-full bg-purple-500 hover:bg-purple-600 text-white p-4 h-20 rounded-lg"
             >
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center">
+              <div className="flex items-center gap-3 h-full">
+                <div className="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
                   <span className="text-lg">🕐</span>
                 </div>
-                <div className="text-left">
-                  <p className="font-semibold">Past Recipes</p>
-                  <p className="text-sm opacity-90">Review your history</p>
+                <div className="text-left flex-1 min-w-0">
+                  <p className="font-semibold truncate">Past Recipes</p>
+                  <p className="text-sm opacity-90 truncate">Review your history</p>
                 </div>
-                <div className="text-white text-lg">→</div>
+                <div className="text-white text-lg flex-shrink-0">→</div>
               </div>
             </Button>
 
             <Button
               onClick={() => setLocation("/grocery-hub")}
-              className="w-full bg-green-500 hover:bg-green-600 text-white p-4 h-auto rounded-lg"
+              className="w-full bg-green-500 hover:bg-green-600 text-white p-4 h-20 rounded-lg"
             >
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center">
+              <div className="flex items-center gap-3 h-full">
+                <div className="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center flex-shrink-0">
                   <span className="text-lg">🛒</span>
                 </div>
-                <div className="text-left">
-                  <p className="font-semibold">Grocery List</p>
-                  <p className="text-sm opacity-90">Manage shopping</p>
+                <div className="text-left flex-1 min-w-0">
+                  <p className="font-semibold truncate">Grocery List</p>
+                  <p className="text-sm opacity-90 truncate">Manage shopping</p>
                 </div>
-                <div className="text-white text-lg">→</div>
+                <div className="text-white text-lg flex-shrink-0">→</div>
               </div>
             </Button>
 
             <Button
               onClick={() => setLocation("/explore-recipe-options")}
-              className="w-full bg-blue-500 hover:bg-blue-600 text-white p-4 h-auto rounded-lg"
+              className="w-full bg-blue-500 hover:bg-blue-600 text-white p-4 h-20 rounded-lg"
             >
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+              <div className="flex items-center gap-3 h-full">
+                <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
                   <span className="text-lg">🍴</span>
                 </div>
-                <div className="text-left">
-                  <p className="font-semibold">Explore Recipes</p>
-                  <p className="text-sm opacity-90">Find new dishes</p>
+                <div className="text-left flex-1 min-w-0">
+                  <p className="font-semibold truncate">Explore Recipes</p>
+                  <p className="text-sm opacity-90 truncate">Find new dishes</p>
                 </div>
-                <div className="text-white text-lg">→</div>
+                <div className="text-white text-lg flex-shrink-0">→</div>
               </div>
             </Button>
 
             <Button
               onClick={() => setLocation("/voice-cooking")}
-              className="w-full bg-indigo-500 hover:bg-indigo-600 text-white p-4 h-auto rounded-lg"
+              className="w-full bg-indigo-500 hover:bg-indigo-600 text-white p-4 h-20 rounded-lg"
             >
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center">
+              <div className="flex items-center gap-3 h-full">
+                <div className="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center flex-shrink-0">
                   <span className="text-lg">▶️</span>
                 </div>
-                <div className="text-left">
-                  <p className="font-semibold">Interactive Voice Cooking</p>
-                  <p className="text-sm opacity-90">Start cooking with AI</p>
+                <div className="text-left flex-1 min-w-0">
+                  <p className="font-semibold truncate">Interactive Voice Cooking</p>
+                  <p className="text-sm opacity-90 truncate">Start cooking with AI</p>
                 </div>
-                <div className="text-white text-lg">→</div>
+                <div className="text-white text-lg flex-shrink-0">→</div>
               </div>
             </Button>
           </CardContent>
