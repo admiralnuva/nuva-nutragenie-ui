@@ -3,9 +3,8 @@ import React, { useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useLocation } from "wouter";
-import { ArrowLeft } from "lucide-react";
 
-export default function ExploreRecipeTestScreen() {
+export default function ExploreRecipeOptionsScreen() {
   // Recipe type selection state
   const [selectedRecipeType, setSelectedRecipeType] = useState<string | null>(null);
   const [, setLocation] = useLocation();
@@ -14,19 +13,17 @@ export default function ExploreRecipeTestScreen() {
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white p-4 pb-24">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
-        <Button
-          onClick={() => setLocation("/explore-recipe-options")}
-          variant="ghost"
-          size="sm"
-          className="text-white hover:bg-gray-800 p-2"
-        >
-          <ArrowLeft size={20} />
-        </Button>
+        <div className="w-8"></div>
         <div className="text-center">
           <h1 className="text-2xl font-bold text-white">NutraGenie</h1>
-          <h2 className="text-lg font-semibold text-purple-300 mt-1">Explore Recipe Options (Test)</h2>
+          <h2 className="text-lg font-semibold text-purple-300 mt-1">Explore Recipe Options</h2>
         </div>
-        <div className="w-8"></div>
+        <Button
+          onClick={() => setLocation("/explore-recipe-test")}
+          className="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 text-sm rounded-lg"
+        >
+          Test
+        </Button>
       </div>
 
       <div className="space-y-4">
