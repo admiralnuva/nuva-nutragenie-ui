@@ -134,7 +134,7 @@ export default function InstacartScreen() {
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <div className="bg-white border-b sticky top-0 z-10">
-        <div className="max-w-md mx-auto px-4 py-3">
+        <div className="max-w-sm mx-auto px-3 py-3">
           <div className="flex items-center justify-between mb-3">
             <BackButton to="/grocery-list" />
             <div className="flex-1 text-center">
@@ -163,7 +163,7 @@ export default function InstacartScreen() {
       </div>
 
       {/* Content */}
-      <div className="max-w-md mx-auto p-4 space-y-3 pb-20">
+      <div className="max-w-sm mx-auto p-3 space-y-3 pb-20">
         {/* Cart Items */}
         <Card>
           <CardHeader className="pb-3 space-y-3">

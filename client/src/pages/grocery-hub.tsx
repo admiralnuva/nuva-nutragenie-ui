@@ -387,7 +387,7 @@ export default function GroceryHubScreen() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white flex flex-col">
       {/* Header */}
-      <div className="bg-gray-900 border-b border-gray-700 px-6 py-4">
+      <div className="bg-gray-900 border-b border-gray-700 px-3 py-3">
         <div className="flex items-center justify-center">
           <h1 className="text-2xl font-bold text-white">NutraGenie</h1>
         </div>
@@ -397,7 +397,7 @@ export default function GroceryHubScreen() {
       </div>
 
       {/* Tab Buttons */}
-      <div className="px-6 py-4">
+      <div className="px-3 py-3">
         <div className="flex gap-2">
           <button
             onClick={() => setActiveTab('edit')}
@@ -433,7 +433,7 @@ export default function GroceryHubScreen() {
       </div>
 
       {/* Content Area */}
-      <div className="flex-1 px-6 pb-24 overflow-y-auto">
+      <div className="flex-1 px-3 pb-20 overflow-y-auto">
         {activeTab === 'edit' && (
           <div className="space-y-4">
             {/* Category Cards */}
