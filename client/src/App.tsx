@@ -22,6 +22,10 @@ import HomeScreen from "@/pages/home";
 
 import InstacartScreen from "@/pages/instacart";
 import GroceryHubScreen from "@/pages/grocery-hub";
+import ChefsChoiceScreen from "@/pages/chefs-choice";
+import PantryDishesScreen from "@/pages/pantry-dishes";
+import CustomDishesScreen from "@/pages/custom-dishes";
+import TakeoutOrdersScreen from "@/pages/takeout-orders";
 
 
 function Router() {
@@ -67,7 +71,10 @@ function Router() {
       <Route path="/voice-cooking" component={VoiceCookingScreen} />
 
       <Route path="/takeout" component={TakeOutScreen} />
-      <Route path="/nuva-signup" component={NuvaSignupScreen} />
+      <Route path="/chefs-choice" component={ChefsChoiceScreen} />
+      <Route path="/pantry-dishes" component={PantryDishesScreen} />
+      <Route path="/custom-dishes" component={CustomDishesScreen} />
+      <Route path="/takeout-orders" component={TakeoutOrdersScreen} />
       <Route path="/profile" component={ProfileScreen} />
       <Route path="/health" component={HealthAnalyticsScreen} />
 
