@@ -753,7 +753,7 @@ export default function CreateDishesScreen() {
                   }`}
                   onClick={() => setActiveTab('variations')}
                 >
-                  Dish Variations
+                  Recipes for you
                 </Button>
                 <Button
                   variant="outline"
@@ -764,7 +764,7 @@ export default function CreateDishesScreen() {
                   }`}
                   onClick={() => setActiveTab('favorites')}
                 >
-                  My Favorites
+                  Saved Recipes
                 </Button>
               </div>
             </CardHeader>
