@@ -434,9 +434,9 @@ export default function HomeScreen() {
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto p-4 space-y-6">
+      <div className="max-w-lg mx-auto p-3 space-y-4">
         {/* Compact Welcome Card */}
-        <Card className="p-4 bg-gray-900/80 backdrop-blur-sm border border-gray-700 text-white">
+        <Card className="p-3 bg-gray-900/80 backdrop-blur-sm border border-gray-700 text-white">
           <div className="flex items-center justify-between">
             {/* Greeting & Username - Left */}
             <div className="flex-1">
@@ -485,12 +485,12 @@ export default function HomeScreen() {
               {quickActions.map((action, index) => (
                 <Card 
                   key={index} 
-                  className="p-4 cursor-pointer hover:shadow-md transition-all duration-200 hover:scale-105 bg-gray-900/80 backdrop-blur-sm border border-gray-700"
+                  className="p-3 cursor-pointer hover:shadow-md transition-all duration-200 hover:scale-105 bg-gray-900/80 backdrop-blur-sm border border-gray-700"
                   onClick={() => handleNavigation(action.path)}
                 >
-                  <div className="flex items-center gap-4">
-                    <div className={`w-12 h-12 ${action.color} rounded-lg flex items-center justify-center text-white`}>
-                      <action.icon size={24} />
+                  <div className="flex items-center gap-3">
+                    <div className={`w-10 h-10 ${action.color} rounded-lg flex items-center justify-center text-white`}>
+                      <action.icon size={20} />
                     </div>
                     <div className="flex-1">
                       <div className="font-medium text-white">{action.label}</div>

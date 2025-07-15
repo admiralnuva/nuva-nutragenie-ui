@@ -227,15 +227,15 @@ export default function VoiceCookingScreen() {
 
 
       {/* Chat Messages */}
-      <div className="flex-1 p-4 overflow-y-auto">
-        <div className="max-w-2xl mx-auto space-y-4">
+      <div className="flex-1 p-3 overflow-y-auto">
+        <div className="max-w-sm mx-auto space-y-3">
           {conversation.map((msg, index) => (
             <div 
               key={index}
               className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               <div 
-                className={`max-w-xs px-4 py-3 rounded-2xl ${
+                className={`max-w-xs px-3 py-2 rounded-2xl ${
                   msg.sender === 'user' 
                     ? 'bg-blue-600 text-white' 
                     : 'bg-gray-700 text-white'

@@ -533,10 +533,10 @@ export default function ExploreRecipeOptionsScreen() {
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto px-4 sm:px-6 py-4 space-y-4 pb-24">
+      <div className="max-w-lg mx-auto px-3 py-3 space-y-3 pb-20">
         {/* Card 1 - Preferences - show at top when not completed */}
         {!pantryAtBottom && (
-          <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-indigo-500 p-4 hover:shadow-2xl hover:shadow-indigo-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-indigo-400">
+          <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-indigo-500 p-3 hover:shadow-xl hover:shadow-indigo-500/20 transition-all duration-300 hover:scale-[1.01] hover:border-l-indigo-400">
             <div className="mb-4">
               <h2 className="text-xl font-bold text-white text-center">Personalize Diet & Pantry</h2>
             </div>
@@ -860,12 +860,12 @@ export default function ExploreRecipeOptionsScreen() {
         )}
 
         {/* Card 2 - Recipe Options */}
-        <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-purple-500 p-4 hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-purple-400">
+        <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-purple-500 p-3 hover:shadow-xl hover:shadow-purple-500/20 transition-all duration-300 hover:scale-[1.01] hover:border-l-purple-400">
           <h2 className="text-xl font-bold text-white mb-3 text-center">Recipe & Dishes</h2>
           <div className="grid grid-cols-2 gap-4">
             <button
               onClick={() => handleOptionClick("chefs-choice")}
-              className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg whitespace-nowrap ${
+              className={`p-3 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg whitespace-nowrap ${
                 selectedOption === "chefs-choice"
                   ? "bg-indigo-600 text-white border-indigo-500 shadow-lg shadow-indigo-500/40"
                   : "bg-indigo-500 text-white border-indigo-400 shadow-lg shadow-indigo-500/30"
@@ -875,7 +875,7 @@ export default function ExploreRecipeOptionsScreen() {
             </button>
             <button
               onClick={() => handleOptionClick("pantry-dishes")}
-              className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg whitespace-nowrap ${
+              className={`p-3 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg whitespace-nowrap ${
                 selectedOption === "pantry-dishes"
                   ? "bg-indigo-600 text-white border-indigo-500 shadow-lg shadow-indigo-500/40"
                   : "bg-indigo-500 text-white border-indigo-400 shadow-lg shadow-indigo-500/30"
@@ -885,7 +885,7 @@ export default function ExploreRecipeOptionsScreen() {
             </button>
             <button
               onClick={() => handleOptionClick("create-dishes")}
-              className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg whitespace-nowrap ${
+              className={`p-3 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg whitespace-nowrap ${
                 selectedOption === "create-dishes"
                   ? "bg-indigo-600 text-white border-indigo-500 shadow-lg shadow-indigo-500/40"
                   : "bg-indigo-500 text-white border-indigo-400 shadow-lg shadow-indigo-500/30"
@@ -895,7 +895,7 @@ export default function ExploreRecipeOptionsScreen() {
             </button>
             <button
               onClick={() => handleOptionClick("take-out")}
-              className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg whitespace-nowrap ${
+              className={`p-3 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg whitespace-nowrap ${
                 selectedOption === "take-out"
                   ? "bg-indigo-600 text-white border-indigo-500 shadow-lg shadow-indigo-500/40"
                   : "bg-indigo-500 text-white border-indigo-400 shadow-lg shadow-indigo-500/30"
@@ -1211,11 +1211,11 @@ export default function ExploreRecipeOptionsScreen() {
         )}
 
         {/* Card 3 - Activity */}
-        <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-blue-500 p-4 hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-blue-400">
+        <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-blue-500 p-3 hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 hover:scale-[1.01] hover:border-l-blue-400">
           <h2 className="text-xl font-bold text-white mb-3 text-center">Your Activity</h2>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-3">
             <button
-              className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg whitespace-nowrap ${
+              className={`p-3 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg whitespace-nowrap ${
                 selectedHistoryItem === 'dishes-cooked' 
                   ? 'bg-blue-600 border-blue-500 text-white shadow-lg shadow-blue-500/40' 
                   : 'bg-blue-500 border-blue-400 text-white shadow-lg shadow-blue-500/30'
@@ -1225,7 +1225,7 @@ export default function ExploreRecipeOptionsScreen() {
               Cooked
             </button>
             <button
-              className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg whitespace-nowrap ${
+              className={`p-3 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg whitespace-nowrap ${
                 selectedHistoryItem === 'takeout-orders' 
                   ? 'bg-blue-600 border-blue-500 text-white shadow-lg shadow-blue-500/40' 
                   : 'bg-blue-500 border-blue-400 text-white shadow-lg shadow-blue-500/30'
@@ -1236,13 +1236,13 @@ export default function ExploreRecipeOptionsScreen() {
             </button>
             <Link href="/grocery-hub" className="block">
               <button
-                className="w-full p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg whitespace-nowrap bg-blue-500 border-blue-400 text-white shadow-lg shadow-blue-500/30 hover:bg-blue-600 hover:border-blue-500 hover:shadow-blue-500/40"
+                className="w-full p-3 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg whitespace-nowrap bg-blue-500 border-blue-400 text-white shadow-lg shadow-blue-500/30 hover:bg-blue-600 hover:border-blue-500 hover:shadow-blue-500/40"
               >
                 Grocery List
               </button>
             </Link>
             <button
-              className={`p-4 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg whitespace-nowrap ${
+              className={`p-3 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg whitespace-nowrap ${
                 selectedHistoryItem === 'recipes-saved' 
                   ? 'bg-blue-600 border-blue-500 text-white shadow-lg shadow-blue-500/40' 
                   : 'bg-blue-500 border-blue-400 text-white shadow-lg shadow-blue-500/30'
@@ -1258,7 +1258,7 @@ export default function ExploreRecipeOptionsScreen() {
 
         {/* Pantry Card at Bottom Position */}
         {pantryAtBottom && (
-          <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-indigo-500 p-4 hover:shadow-2xl hover:shadow-indigo-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-indigo-400">
+          <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-indigo-500 p-3 hover:shadow-xl hover:shadow-indigo-500/20 transition-all duration-300 hover:scale-[1.01] hover:border-l-indigo-400">
             <div className="mb-4">
               <h2 className="text-xl font-bold text-white text-center">Personalize Diet & Pantry</h2>
             </div>

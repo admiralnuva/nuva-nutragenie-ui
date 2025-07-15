@@ -395,8 +395,8 @@ export default function DietaryScreen() {
   const isFormValid = selectedDietary.length > 0 || selectedHealth.length > 0 || selectedFitness.length > 0;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black p-6">
-      <div className="max-w-2xl mx-auto pt-2">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black p-4">
+      <div className="max-w-lg mx-auto pt-2">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
           <button 
