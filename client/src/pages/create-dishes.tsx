@@ -145,7 +145,7 @@ export default function CreateDishesScreen() {
     {
       id: 3,
       name: "Beef Stir Fry Noodles",
-      image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop",
+      image: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400&h=300&fit=crop",
       calories: 480,
       protein: "28g",
       cookTime: "30 min",
@@ -172,7 +172,7 @@ export default function CreateDishesScreen() {
     {
       id: 6,
       name: "Vegetable Pasta Primavera",
-      image: "https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?w=400&h=300&fit=crop",
+      image: "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=400&h=300&fit=crop",
       calories: 360,
       protein: "14g",
       cookTime: "25 min",
