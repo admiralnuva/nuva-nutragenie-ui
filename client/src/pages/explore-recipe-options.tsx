@@ -24,12 +24,12 @@ export default function ExploreRecipeOptionsScreen() {
       <div className="space-y-6">
         {/* Card 1 - Recipe & Dishes */}
         <Card className="mb-3 bg-gray-800/90 backdrop-blur-sm border-gray-700">
-          <CardContent className="space-y-3">
+          <CardContent className="space-y-3 p-4">
             <Button
               onClick={() => setLocation("/chefs-choice")}
-              className="w-full bg-transparent hover:bg-gray-700/50 text-white h-20 rounded-lg border border-gray-600"
+              className="w-full bg-transparent hover:bg-gray-700/50 text-white p-4 h-20 rounded-lg border border-gray-600"
             >
-              <div className="flex items-center gap-3 h-full w-full px-4">
+              <div className="flex items-center justify-start gap-3 h-full pl-0">
                 <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
                   <span className="text-lg">⭐</span>
                 </div>
@@ -43,9 +43,9 @@ export default function ExploreRecipeOptionsScreen() {
 
             <Button
               onClick={() => setLocation("/pantry-dishes")}
-              className="w-full bg-transparent hover:bg-gray-700/50 text-white h-20 rounded-lg border border-gray-600"
+              className="w-full bg-transparent hover:bg-gray-700/50 text-white p-4 h-20 rounded-lg border border-gray-600"
             >
-              <div className="flex items-center gap-3 h-full w-full px-4">
+              <div className="flex items-center justify-start gap-3 h-full pl-0">
                 <div className="w-10 h-10 bg-amber-600 rounded-lg flex items-center justify-center flex-shrink-0">
                   <span className="text-lg">🏠</span>
                 </div>
@@ -61,7 +61,7 @@ export default function ExploreRecipeOptionsScreen() {
               onClick={() => setLocation("/create-dishes")}
               className="w-full bg-transparent hover:bg-gray-700/50 text-white p-4 h-20 rounded-lg border border-gray-600"
             >
-              <div className="flex items-center gap-3 h-full">
+              <div className="flex items-center justify-start gap-3 h-full pl-0">
                 <div className="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
                   <span className="text-lg">🎨</span>
                 </div>
@@ -77,7 +77,7 @@ export default function ExploreRecipeOptionsScreen() {
               onClick={() => setLocation("/takeout-orders")}
               className="w-full bg-transparent hover:bg-gray-700/50 text-white p-4 h-20 rounded-lg border border-gray-600"
             >
-              <div className="flex items-center gap-3 h-full">
+              <div className="flex items-center justify-start gap-3 h-full pl-0">
                 <div className="w-10 h-10 bg-emerald-600 rounded-lg flex items-center justify-center flex-shrink-0">
                   <span className="text-lg">📦</span>
                 </div>
@@ -93,12 +93,12 @@ export default function ExploreRecipeOptionsScreen() {
 
         {/* Card 2 - Grocery Hub */}
         <Card className="mb-3 bg-gray-800/90 backdrop-blur-sm border-gray-700">
-          <CardContent className="space-y-3">
+          <CardContent className="p-3">
             <Button
               onClick={() => setLocation("/grocery-hub")}
               className="w-full bg-transparent hover:bg-gray-700/50 text-white p-4 h-20 rounded-lg border border-gray-600"
             >
-              <div className="flex items-center gap-3 h-full">
+              <div className="flex items-center justify-start gap-3 h-full pl-0">
                 <div className="w-10 h-10 bg-teal-600 rounded-lg flex items-center justify-center flex-shrink-0">
                   <span className="text-lg">🥬</span>
                 </div>
@@ -114,12 +114,12 @@ export default function ExploreRecipeOptionsScreen() {
 
         {/* Card 3 - Personalize Diet & Pantry */}
         <Card className="mb-3 bg-gray-800/90 backdrop-blur-sm border-gray-700">
-          <CardContent className="space-y-3">
+          <CardContent className="p-3">
             <Button
               onClick={() => setLocation("/personalize-diet-pantry")}
               className="w-full bg-transparent hover:bg-gray-700/50 text-white p-4 h-20 rounded-lg border border-gray-600"
             >
-              <div className="flex items-center gap-3 h-full">
+              <div className="flex items-center justify-start gap-3 h-full pl-0">
                 <div className="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center flex-shrink-0">
                   <span className="text-lg">⚙️</span>
                 </div>
