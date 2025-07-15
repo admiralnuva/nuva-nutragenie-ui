@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BackButton } from "@/components/ui/back-button";
+
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useLocation } from "wouter";
@@ -12,13 +12,11 @@ export default function ExploreRecipeOptionsScreen() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white p-4 pb-24">
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
-        <BackButton />
-        <div className="flex-1 text-center">
+      <div className="flex items-center justify-center mb-6">
+        <div className="text-center">
           <h1 className="text-2xl font-bold text-white">NutraGenie</h1>
           <h2 className="text-lg font-semibold text-purple-300 mt-1">Explore Recipe Options</h2>
         </div>
-        <div className="w-8"></div>
       </div>
 
       <div className="space-y-4">
