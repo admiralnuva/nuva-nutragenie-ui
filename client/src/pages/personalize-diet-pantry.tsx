@@ -93,6 +93,11 @@ export default function PersonalizeDietPantryScreen() {
       title: "Pantry Confirmed",
       description: `${selectedIngredients.length} ingredients saved to your pantry`,
     });
+
+    // Navigate back after toast notification (200ms + small buffer)
+    setTimeout(() => {
+      setLocation("/explore-recipe-options");
+    }, 300);
   };
 
   // Check if coming from dietary preferences and handle completion
