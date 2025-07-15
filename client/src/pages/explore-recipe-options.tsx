@@ -96,7 +96,7 @@ export default function ExploreRecipeOptionsScreen() {
             className="w-full bg-gray-800 hover:bg-gray-700 text-white py-4 pr-4 pl-0 h-20 rounded-lg"
           >
             <div className="flex items-center h-full">
-              <div className="w-10 h-10 bg-teal-600 rounded-lg flex items-center justify-center flex-shrink-0 -ml-4">
+              <div className="w-10 h-10 bg-teal-600 rounded-lg flex items-center justify-center flex-shrink-0 -ml-2">
                 <span className="text-lg">🥬</span>
               </div>
               <div className="ml-3 text-left flex-1 min-w-0">
