@@ -58,7 +58,7 @@ export default function ExploreRecipeOptionsScreen() {
 
           <Button
             onClick={() => setLocation("/create-dishes")}
-            className="w-full bg-white/10 hover:bg-white/20 text-white p-4 h-20 rounded-lg"
+            className="w-full bg-emerald-500/25 hover:bg-emerald-500/35 text-white p-4 h-20 rounded-lg"
           >
             <div className="flex items-center gap-3 h-full">
               <div className="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
