@@ -24,13 +24,7 @@ export default function ExploreRecipeOptionsScreen() {
       <div className="space-y-6">
         {/* Card 1 - Recipe & Dishes */}
         <Card className="mb-3 bg-gray-800/90 backdrop-blur-sm border-gray-700">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-white">
-              <span className="text-lg">🍴</span>
-              Recipe & Dishes
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
+          <CardContent className="space-y-3 p-4">
             <Button
               onClick={() => setLocation("/chefs-choice")}
               className="w-full bg-blue-500 hover:bg-blue-600 text-white p-4 h-20 rounded-lg"
