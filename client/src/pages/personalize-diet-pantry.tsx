@@ -4,10 +4,13 @@ import { Card } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Settings } from "lucide-react";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { useLocation } from "wouter";
 
 export default function PersonalizeDietPantryScreen() {
+  const [, setLocation] = useLocation();
+  
   // Tab selection state
-  const [selectedTab, setSelectedTab] = useState<"diet" | "meal" | "pantry">("diet");
+  const [selectedTab, setSelectedTab] = useState<"diet" | "meal" | "pantry">("meal");
   
   // Confirmation states
   const [mealPreferencesConfirmed, setMealPreferencesConfirmed] = useState(false);
@@ -47,6 +50,20 @@ export default function PersonalizeDietPantryScreen() {
     localStorage.setItem("nutragenie_diet_pantry_completed", "true");
     localStorage.setItem("nutragenie_pantry_at_bottom", "true");
   };
+
+  // Check if coming from dietary preferences and handle completion
+  useEffect(() => {
+    if (mealPreferencesConfirmed && pantryConfirmed) {
+      const fromDietary = localStorage.getItem("nutragenie_from_dietary");
+      if (fromDietary === "true") {
+        // Clear the flag and navigate back to explore recipe options
+        localStorage.removeItem("nutragenie_from_dietary");
+        setTimeout(() => {
+          setLocation("/explore-recipe-options");
+        }, 1000); // Small delay to show completion
+      }
+    }
+  }, [mealPreferencesConfirmed, pantryConfirmed, setLocation]);
 
   // Toggle ingredient selection
   const toggleIngredient = (ingredient: string) => {

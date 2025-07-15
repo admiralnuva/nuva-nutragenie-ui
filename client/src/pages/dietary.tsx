@@ -387,9 +387,9 @@ export default function DietaryScreen() {
     localStorage.removeItem('nutragenie_diet_pantry_completed');
     localStorage.setItem('nutragenie_from_dietary', 'true');
     
-    // Show success message and navigate
+    // Show success message and navigate to personalize diet & pantry page
     toast({ title: "Dietary preferences saved successfully!" });
-    setLocation("/explore-recipe-options");
+    setLocation("/personalize-diet-pantry");
   };
 
   const isFormValid = selectedDietary.length > 0 || selectedHealth.length > 0 || selectedFitness.length > 0;
