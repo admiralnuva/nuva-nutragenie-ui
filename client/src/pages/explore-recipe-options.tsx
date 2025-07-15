@@ -190,28 +190,71 @@ export default function ExploreRecipeOptionsScreen() {
         </Card>
 
         {/* Card 2 - Your Activity */}
-        <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-blue-500 p-3 hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 hover:scale-[1.01] hover:border-l-blue-400">
-          <h2 className="text-xl font-bold text-white mb-3 text-center">Your Activity</h2>
-          <div className="grid grid-cols-2 gap-3">
+        <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-blue-500 p-4 hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-blue-400">
+          <h2 className="text-xl font-bold text-white mb-4 text-center">Your Activity</h2>
+          <div className="space-y-4">
             <Link href="/profile?section=cooking" className="block">
-              <button className="w-full p-3 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg whitespace-nowrap bg-blue-500 border-blue-400 text-white shadow-lg shadow-blue-500/30 hover:bg-blue-600 hover:border-blue-500 hover:shadow-blue-500/40">
-                Cooked
-              </button>
+              <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-green-500 p-4 hover:shadow-xl hover:shadow-green-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-green-400">
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center">
+                    <span className="text-2xl">👨‍🍳</span>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-lg font-semibold text-white">Dishes Cooked</h3>
+                    <p className="text-gray-300 text-sm">Track your cooking history</p>
+                    <p className="text-gray-400 text-xs">View completed recipes</p>
+                  </div>
+                  <div className="text-gray-400">→</div>
+                </div>
+              </Card>
             </Link>
+
             <Link href="/profile?section=takeout" className="block">
-              <button className="w-full p-3 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg whitespace-nowrap bg-blue-500 border-blue-400 text-white shadow-lg shadow-blue-500/30 hover:bg-blue-600 hover:border-blue-500 hover:shadow-blue-500/40">
-                Takeouts
-              </button>
+              <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-orange-500 p-4 hover:shadow-xl hover:shadow-orange-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-orange-400">
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center">
+                    <span className="text-2xl">🚚</span>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-lg font-semibold text-white">Takeout Orders</h3>
+                    <p className="text-gray-300 text-sm">View order history</p>
+                    <p className="text-gray-400 text-xs">Track deliveries & status</p>
+                  </div>
+                  <div className="text-gray-400">→</div>
+                </div>
+              </Card>
             </Link>
+
             <Link href="/grocery-hub" className="block">
-              <button className="w-full p-3 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg whitespace-nowrap bg-blue-500 border-blue-400 text-white shadow-lg shadow-blue-500/30 hover:bg-blue-600 hover:border-blue-500 hover:shadow-blue-500/40">
-                Grocery List
-              </button>
+              <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-purple-500 p-4 hover:shadow-xl hover:shadow-purple-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-purple-400">
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center">
+                    <span className="text-2xl">🛒</span>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-lg font-semibold text-white">Grocery List</h3>
+                    <p className="text-gray-300 text-sm">Manage shopping lists</p>
+                    <p className="text-gray-400 text-xs">Add & organize ingredients</p>
+                  </div>
+                  <div className="text-gray-400">→</div>
+                </div>
+              </Card>
             </Link>
+
             <Link href="/profile?section=recipes" className="block">
-              <button className="w-full p-3 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg whitespace-nowrap bg-blue-500 border-blue-400 text-white shadow-lg shadow-blue-500/30 hover:bg-blue-600 hover:border-blue-500 hover:shadow-blue-500/40">
-                Recipes
-              </button>
+              <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-blue-500 p-4 hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-blue-400">
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center">
+                    <span className="text-2xl">📖</span>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-lg font-semibold text-white">Saved Recipes</h3>
+                    <p className="text-gray-300 text-sm">Your recipe collection</p>
+                    <p className="text-gray-400 text-xs">Bookmarked favorites</p>
+                  </div>
+                  <div className="text-gray-400">→</div>
+                </div>
+              </Card>
             </Link>
           </div>
         </Card>
