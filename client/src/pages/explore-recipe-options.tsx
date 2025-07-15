@@ -42,13 +42,13 @@ export default function ExploreRecipeOptionsScreen() {
 
             <Button
               onClick={() => setLocation("/pantry-dishes")}
-              className="w-full bg-gray-800 hover:bg-gray-700 text-white py-4 pr-4 pl-0 h-20 rounded-lg"
+              className="w-full bg-gray-800 hover:bg-gray-700 text-white p-4 h-20 rounded-lg"
             >
-              <div className="flex items-center h-full">
+              <div className="flex items-center gap-3 h-full">
                 <div className="w-10 h-10 bg-amber-600 rounded-lg flex items-center justify-center flex-shrink-0">
                   <span className="text-lg">🏠</span>
                 </div>
-                <div className="ml-3 text-left flex-1 min-w-0">
+                <div className="text-left flex-1 min-w-0">
                   <p className="font-semibold text-white truncate">Pantry Dishes</p>
                   <p className="text-sm text-amber-200 truncate">Use what you have</p>
                 </div>
@@ -58,13 +58,13 @@ export default function ExploreRecipeOptionsScreen() {
 
             <Button
               onClick={() => setLocation("/create-dishes")}
-              className="w-full bg-gray-800 hover:bg-gray-700 text-white py-4 pr-4 pl-0 h-20 rounded-lg"
+              className="w-full bg-gray-800 hover:bg-gray-700 text-white p-4 h-20 rounded-lg"
             >
-              <div className="flex items-center h-full">
+              <div className="flex items-center gap-3 h-full">
                 <div className="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
                   <span className="text-lg">🎨</span>
                 </div>
-                <div className="ml-3 text-left flex-1 min-w-0">
+                <div className="text-left flex-1 min-w-0">
                   <p className="font-semibold text-white truncate">Create Dishes</p>
                   <p className="text-sm text-amber-200 truncate">Build custom recipes</p>
                 </div>
@@ -74,13 +74,13 @@ export default function ExploreRecipeOptionsScreen() {
 
             <Button
               onClick={() => setLocation("/takeout-orders")}
-              className="w-full bg-gray-800 hover:bg-gray-700 text-white py-4 pr-4 pl-0 h-20 rounded-lg"
+              className="w-full bg-gray-800 hover:bg-gray-700 text-white p-4 h-20 rounded-lg"
             >
-              <div className="flex items-center h-full">
+              <div className="flex items-center gap-3 h-full">
                 <div className="w-10 h-10 bg-emerald-600 rounded-lg flex items-center justify-center flex-shrink-0">
                   <span className="text-lg">📦</span>
                 </div>
-                <div className="ml-3 text-left flex-1 min-w-0">
+                <div className="text-left flex-1 min-w-0">
                   <p className="font-semibold text-white truncate">Take-Out</p>
                   <p className="text-sm text-amber-200 truncate">Order from local chefs</p>
                 </div>
@@ -93,13 +93,13 @@ export default function ExploreRecipeOptionsScreen() {
         <div className="mt-16 mb-3 border border-gray-600 rounded-lg p-3 space-y-2">
           <Button
             onClick={() => setLocation("/grocery-hub")}
-            className="w-full bg-gray-800 hover:bg-gray-700 text-white py-4 pr-4 pl-0 h-20 rounded-lg"
+            className="w-full bg-gray-800 hover:bg-gray-700 text-white p-4 h-20 rounded-lg"
           >
-            <div className="flex items-center h-full">
+            <div className="flex items-center gap-3 h-full">
               <div className="w-10 h-10 bg-teal-600 rounded-lg flex items-center justify-center flex-shrink-0">
                 <span className="text-lg">🥬</span>
               </div>
-              <div className="ml-3 text-left flex-1 min-w-0">
+              <div className="text-left flex-1 min-w-0">
                 <p className="font-semibold text-white truncate">Grocery Hub</p>
                 <p className="text-sm text-amber-200 truncate">Manage shopping lists</p>
               </div>
@@ -109,13 +109,13 @@ export default function ExploreRecipeOptionsScreen() {
 
           <Button
             onClick={() => setLocation("/personalize-diet-pantry")}
-            className="w-full bg-gray-800 hover:bg-gray-700 text-white py-4 pr-4 pl-0 h-20 rounded-lg"
+            className="w-full bg-gray-800 hover:bg-gray-700 text-white p-4 h-20 rounded-lg"
           >
-            <div className="flex items-center h-full">
+            <div className="flex items-center gap-3 h-full">
               <div className="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center flex-shrink-0">
                 <span className="text-lg">⚙️</span>
               </div>
-              <div className="ml-3 text-left flex-1 min-w-0">
+              <div className="text-left flex-1 min-w-0">
                 <p className="font-semibold text-white truncate">Personalize Diet & Pantry</p>
                 <p className="text-sm text-amber-200 truncate">Set your preferences</p>
               </div>
