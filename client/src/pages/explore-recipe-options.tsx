@@ -193,38 +193,6 @@ export default function ExploreRecipeOptionsScreen() {
         <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-blue-500 p-4 hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-blue-400">
           <h2 className="text-xl font-bold text-white mb-4 text-center">Your Activity</h2>
           <div className="space-y-4">
-            <Link href="/profile?section=cooking" className="block">
-              <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-green-500 p-4 hover:shadow-xl hover:shadow-green-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-green-400">
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center">
-                    <span className="text-2xl">👨‍🍳</span>
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-white">Dishes Cooked</h3>
-                    <p className="text-gray-300 text-sm">Track your cooking history</p>
-                    <p className="text-gray-400 text-xs">View completed recipes</p>
-                  </div>
-                  <div className="text-gray-400">→</div>
-                </div>
-              </Card>
-            </Link>
-
-            <Link href="/profile?section=takeout" className="block">
-              <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-orange-500 p-4 hover:shadow-xl hover:shadow-orange-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-orange-400">
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center">
-                    <span className="text-2xl">🚚</span>
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-white">Takeout Orders</h3>
-                    <p className="text-gray-300 text-sm">View order history</p>
-                    <p className="text-gray-400 text-xs">Track deliveries & status</p>
-                  </div>
-                  <div className="text-gray-400">→</div>
-                </div>
-              </Card>
-            </Link>
-
             <Link href="/grocery-hub" className="block">
               <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-purple-500 p-4 hover:shadow-xl hover:shadow-purple-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-purple-400">
                 <div className="flex items-center space-x-4">
@@ -241,16 +209,16 @@ export default function ExploreRecipeOptionsScreen() {
               </Card>
             </Link>
 
-            <Link href="/profile?section=recipes" className="block">
-              <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-blue-500 p-4 hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-blue-400">
+            <Link href="/profile" className="block">
+              <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-green-500 p-4 hover:shadow-xl hover:shadow-green-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-green-400">
                 <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center">
-                    <span className="text-2xl">📖</span>
+                  <div className="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center">
+                    <span className="text-2xl">📊</span>
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-white">Saved Recipes</h3>
-                    <p className="text-gray-300 text-sm">Your recipe collection</p>
-                    <p className="text-gray-400 text-xs">Bookmarked favorites</p>
+                    <h3 className="text-lg font-semibold text-white">Your Activity</h3>
+                    <p className="text-gray-300 text-sm">View all your progress</p>
+                    <p className="text-gray-400 text-xs">Cooking, takeout & recipe history</p>
                   </div>
                   <div className="text-gray-400">→</div>
                 </div>

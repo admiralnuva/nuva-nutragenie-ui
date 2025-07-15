@@ -136,6 +136,11 @@ Required environment variables:
 ```
 Changelog:
 - July 03, 2025. Initial setup
+- July 15, 2025. Streamlined Your Activity section from 4 cards to 2 cards for better UX:
+  * Grocery List - direct access to grocery hub functionality
+  * Your Activity - consolidated access to all personal history (cooking, takeout, recipes)
+  * Reduced cognitive load and visual clutter for users 40+
+  * Improved information architecture separating "doing" from "reviewing"
 - July 03, 2025. Updated splash screen with NutraGenie branding, AI+Health logo placeholder, and 2-line app description explaining the AI nutrition platform vision
 - July 03, 2025. Enhanced recipes screen with comprehensive UX improvements:
   * Smart defaults based on dietary preferences (vegetarian/vegan get plant-based ingredients pre-selected)
