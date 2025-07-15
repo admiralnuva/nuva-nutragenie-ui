@@ -205,15 +205,15 @@ export function DishCard({ dish }: DishCardProps) {
           </div>
           
           {/* Original Ingredient */}
-          <div className="bg-gray-700 rounded-lg p-3 border border-blue-500">
-            <div className="flex items-center justify-between">
-              <div className="flex-1">
-                <span className="font-medium text-yellow-400">Original: {dish.name} Protein</span>
-                <div className="text-sm text-white mt-1">
+          <div className="bg-gray-700 rounded-lg p-3 border border-blue-500 h-16">
+            <div className="flex items-center justify-between h-full">
+              <div className="flex-1 min-w-0">
+                <span className="font-medium text-yellow-400 truncate block">Original: {dish.name} Protein</span>
+                <div className="text-sm text-white mt-1 truncate">
                   2 lbs • {dish.calories} cal • {dish.protein} protein
                 </div>
               </div>
-              <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+              <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
                 <Check size={14} className="text-white" />
               </div>
             </div>
@@ -224,20 +224,20 @@ export function DishCard({ dish }: DishCardProps) {
             <div 
               key={sub.id}
               onClick={() => handleSubstitutionSelect(sub.id)}
-              className={`bg-gray-700 rounded-lg p-3 border cursor-pointer transition-all hover:bg-gray-650 ${
+              className={`bg-gray-700 rounded-lg p-3 border cursor-pointer transition-all hover:bg-gray-650 h-16 ${
                 selectedSubstitution === sub.id 
                   ? 'border-purple-500 bg-gray-650' 
                   : 'border-gray-600 hover:border-gray-500'
               }`}
             >
-              <div className="flex items-center justify-between">
-                <div className="flex-1">
-                  <span className="font-medium text-yellow-400">{sub.name}</span>
-                  <div className="text-sm text-white mt-1">
+              <div className="flex items-center justify-between h-full">
+                <div className="flex-1 min-w-0">
+                  <span className="font-medium text-yellow-400 truncate block">{sub.name}</span>
+                  <div className="text-sm text-white mt-1 truncate">
                     {sub.quantity} • {sub.calories} cal • {sub.protein} protein
                   </div>
                 </div>
-                <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${
+                <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all flex-shrink-0 ${
                   selectedSubstitution === sub.id
                     ? 'bg-purple-500 border-purple-500'
                     : 'border-gray-400 hover:border-purple-400'
