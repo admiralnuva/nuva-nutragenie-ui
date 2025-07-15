@@ -154,71 +154,44 @@ export default function PersonalizeDietPantryScreen() {
               <h3 className="text-lg font-bold text-yellow-300">Diet Preferences Summary</h3>
               
               {/* Dietary Restrictions */}
-              <div className="bg-gray-700/50 rounded-lg p-4 border border-gray-600">
-                <h4 className="text-yellow-300 font-bold text-sm mb-3">Dietary Restrictions</h4>
-                <div className="flex flex-wrap gap-2">
-                  <span className="bg-green-600 text-white px-3 py-1 rounded-full text-xs">Vegetarian</span>
-                  <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-xs">Low Sodium</span>
-                </div>
+              <div className="mb-4">
+                <h4 className="text-yellow-300 font-bold text-sm mb-2">Dietary Restrictions</h4>
+                <p className="text-gray-300 text-sm">Vegetarian, Low Sodium</p>
               </div>
 
               {/* Health Factors */}
-              <div className="bg-gray-700/50 rounded-lg p-4 border border-gray-600">
-                <h4 className="text-yellow-300 font-bold text-sm mb-3">Health Factors</h4>
-                <div className="flex flex-wrap gap-2">
-                  <span className="bg-red-600 text-white px-3 py-1 rounded-full text-xs">Diabetes</span>
-                  <span className="bg-orange-600 text-white px-3 py-1 rounded-full text-xs">Blood Pressure</span>
-                </div>
+              <div className="mb-4">
+                <h4 className="text-yellow-300 font-bold text-sm mb-2">Health Factors</h4>
+                <p className="text-gray-300 text-sm">Diabetes, Blood Pressure</p>
               </div>
 
               {/* Fitness Goals */}
-              <div className="bg-gray-700/50 rounded-lg p-4 border border-gray-600">
-                <h4 className="text-yellow-300 font-bold text-sm mb-3">Fitness Goals</h4>
-                <div className="flex flex-wrap gap-2">
-                  <span className="bg-purple-600 text-white px-3 py-1 rounded-full text-xs">Build Muscle</span>
-                  <span className="bg-indigo-600 text-white px-3 py-1 rounded-full text-xs">General Wellness</span>
-                </div>
+              <div className="mb-4">
+                <h4 className="text-yellow-300 font-bold text-sm mb-2">Fitness Goals</h4>
+                <p className="text-gray-300 text-sm">Build Muscle, General Wellness</p>
               </div>
 
               {/* Allergies & Restrictions */}
-              <div className="bg-gray-700/50 rounded-lg p-4 border border-gray-600">
-                <h4 className="text-yellow-300 font-bold text-sm mb-3">Allergies & Restrictions</h4>
-                <div className="flex flex-wrap gap-2">
-                  <span className="bg-yellow-600 text-white px-3 py-1 rounded-full text-xs">Tree Nuts</span>
-                  <span className="bg-pink-600 text-white px-3 py-1 rounded-full text-xs">Shellfish</span>
-                </div>
+              <div className="mb-4">
+                <h4 className="text-yellow-300 font-bold text-sm mb-2">Allergies & Restrictions</h4>
+                <p className="text-gray-300 text-sm">Tree Nuts, Shellfish</p>
               </div>
 
               {/* Nutritional Goals */}
-              <div className="bg-gray-700/50 rounded-lg p-4 border border-gray-600">
-                <h4 className="text-yellow-300 font-bold text-sm mb-3">Daily Nutritional Goals</h4>
-                <div className="grid grid-cols-2 gap-3 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-gray-300">🔥 Calories:</span>
-                    <span className="text-white font-semibold">1801-2000</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-300">💪 Protein:</span>
-                    <span className="text-white font-semibold">121-140g</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-300">🌾 Carbs:</span>
-                    <span className="text-white font-semibold">201-250g</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-300">🥑 Fat:</span>
-                    <span className="text-white font-semibold">56-70g</span>
-                  </div>
-                  <div className="flex justify-between col-span-2">
-                    <span className="text-gray-300">🌿 Fiber:</span>
-                    <span className="text-white font-semibold">25-30g</span>
-                  </div>
+              <div className="mb-4">
+                <h4 className="text-yellow-300 font-bold text-sm mb-2">Daily Nutritional Goals</h4>
+                <div className="text-sm text-gray-300 space-y-1">
+                  <p>🔥 Calories: 1801-2000</p>
+                  <p>💪 Protein: 121-140g</p>
+                  <p>🌾 Carbs: 201-250g</p>
+                  <p>🥑 Fat: 56-70g</p>
+                  <p>🌿 Fiber: 25-30g</p>
                 </div>
               </div>
 
               {/* Additional Notes */}
-              <div className="bg-gray-700/50 rounded-lg p-4 border border-gray-600">
-                <h4 className="text-yellow-300 font-bold text-sm mb-3">Additional Notes</h4>
+              <div className="mb-4">
+                <h4 className="text-yellow-300 font-bold text-sm mb-2">Additional Notes</h4>
                 <p className="text-gray-300 text-sm leading-relaxed">
                   "Prefer plant-based proteins when possible. Avoid processed foods and focus on whole grains. 
                   Need recipes that are quick to prepare on weekdays (under 30 minutes)."
