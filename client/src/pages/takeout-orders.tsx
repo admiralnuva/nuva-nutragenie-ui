@@ -79,15 +79,15 @@ export default function TakeoutOrdersScreen() {
               <div>
                 <label className="block text-yellow-400 text-sm font-medium mb-2 drop-shadow">Serving Size</label>
                 <Select value={formData.servingSize} onValueChange={(value) => setFormData({...formData, servingSize: value})}>
-                  <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                  <SelectTrigger className="bg-gray-700 border-gray-600 text-white [&>svg]:text-yellow-400">
                     <SelectValue placeholder="Select serving size" />
                   </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="1">1 person</SelectItem>
-                    <SelectItem value="2">2 people</SelectItem>
-                    <SelectItem value="4">4 people</SelectItem>
-                    <SelectItem value="weekly">Weekly (7 meals)</SelectItem>
-                    <SelectItem value="monthly">Monthly (30 meals)</SelectItem>
+                  <SelectContent className="bg-gray-700 border-gray-600">
+                    <SelectItem value="1" className="text-white">1 person</SelectItem>
+                    <SelectItem value="2" className="text-white">2 people</SelectItem>
+                    <SelectItem value="4" className="text-white">4 people</SelectItem>
+                    <SelectItem value="weekly" className="text-white">Weekly (7 meals)</SelectItem>
+                    <SelectItem value="monthly" className="text-white">Monthly (30 meals)</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -95,18 +95,18 @@ export default function TakeoutOrdersScreen() {
               <div>
                 <label className="block text-yellow-400 text-sm font-medium mb-2 drop-shadow">Cuisine</label>
                 <Select value={formData.cuisine} onValueChange={(value) => setFormData({...formData, cuisine: value})}>
-                  <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                  <SelectTrigger className="bg-gray-700 border-gray-600 text-white [&>svg]:text-yellow-400">
                     <SelectValue placeholder="Select cuisine" />
                   </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="american">American</SelectItem>
-                    <SelectItem value="italian">Italian</SelectItem>
-                    <SelectItem value="asian">Asian</SelectItem>
-                    <SelectItem value="mexican">Mexican</SelectItem>
-                    <SelectItem value="indian">Indian</SelectItem>
-                    <SelectItem value="mediterranean">Mediterranean</SelectItem>
-                    <SelectItem value="thai">Thai</SelectItem>
-                    <SelectItem value="chinese">Chinese</SelectItem>
+                  <SelectContent className="bg-gray-700 border-gray-600">
+                    <SelectItem value="american" className="text-white">American</SelectItem>
+                    <SelectItem value="italian" className="text-white">Italian</SelectItem>
+                    <SelectItem value="asian" className="text-white">Asian</SelectItem>
+                    <SelectItem value="mexican" className="text-white">Mexican</SelectItem>
+                    <SelectItem value="indian" className="text-white">Indian</SelectItem>
+                    <SelectItem value="mediterranean" className="text-white">Mediterranean</SelectItem>
+                    <SelectItem value="thai" className="text-white">Thai</SelectItem>
+                    <SelectItem value="chinese" className="text-white">Chinese</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -114,15 +114,15 @@ export default function TakeoutOrdersScreen() {
               <div>
                 <label className="block text-yellow-400 text-sm font-medium mb-2 drop-shadow">Meal Type</label>
                 <Select value={formData.mealType} onValueChange={(value) => setFormData({...formData, mealType: value})}>
-                  <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                  <SelectTrigger className="bg-gray-700 border-gray-600 text-white [&>svg]:text-yellow-400">
                     <SelectValue placeholder="Select meal type" />
                   </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="breakfast">Breakfast</SelectItem>
-                    <SelectItem value="lunch">Lunch</SelectItem>
-                    <SelectItem value="dinner">Dinner</SelectItem>
-                    <SelectItem value="mixed">Mixed Meals</SelectItem>
-                    <SelectItem value="party">Party Catering</SelectItem>
+                  <SelectContent className="bg-gray-700 border-gray-600">
+                    <SelectItem value="breakfast" className="text-white">Breakfast</SelectItem>
+                    <SelectItem value="lunch" className="text-white">Lunch</SelectItem>
+                    <SelectItem value="dinner" className="text-white">Dinner</SelectItem>
+                    <SelectItem value="mixed" className="text-white">Mixed Meals</SelectItem>
+                    <SelectItem value="party" className="text-white">Party Catering</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -130,14 +130,14 @@ export default function TakeoutOrdersScreen() {
               <div>
                 <label className="block text-yellow-400 text-sm font-medium mb-2 drop-shadow">Spice Level</label>
                 <Select value={formData.spiceLevel} onValueChange={(value) => setFormData({...formData, spiceLevel: value})}>
-                  <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                  <SelectTrigger className="bg-gray-700 border-gray-600 text-white [&>svg]:text-yellow-400">
                     <SelectValue placeholder="Select spice level" />
                   </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="mild">Mild</SelectItem>
-                    <SelectItem value="medium">Medium</SelectItem>
-                    <SelectItem value="spicy">Spicy</SelectItem>
-                    <SelectItem value="extra-hot">Extra Hot</SelectItem>
+                  <SelectContent className="bg-gray-700 border-gray-600">
+                    <SelectItem value="mild" className="text-white">Mild</SelectItem>
+                    <SelectItem value="medium" className="text-white">Medium</SelectItem>
+                    <SelectItem value="spicy" className="text-white">Spicy</SelectItem>
+                    <SelectItem value="extra-hot" className="text-white">Extra Hot</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
