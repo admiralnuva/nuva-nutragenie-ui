@@ -378,7 +378,7 @@ export default function CreateDishesScreen() {
                       Serving Size
                     </label>
                     <Select onValueChange={setTakeOutServingSize} value={takeOutServingSize}>
-                      <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                      <SelectTrigger className="bg-gray-700 border-gray-600 text-white [&>svg]:text-yellow-400">
                         <SelectValue placeholder="Select size" />
                       </SelectTrigger>
                       <SelectContent className="bg-gray-700 border-gray-600">
@@ -397,7 +397,7 @@ export default function CreateDishesScreen() {
                       Cuisine
                     </label>
                     <Select onValueChange={setTakeOutCuisine} value={takeOutCuisine}>
-                      <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                      <SelectTrigger className="bg-gray-700 border-gray-600 text-white [&>svg]:text-yellow-400">
                         <SelectValue placeholder="Select cuisine" />
                       </SelectTrigger>
                       <SelectContent className="bg-gray-700 border-gray-600">
@@ -421,7 +421,7 @@ export default function CreateDishesScreen() {
                       Meal Type
                     </label>
                     <Select onValueChange={setTakeOutMealType} value={takeOutMealType}>
-                      <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+                      <SelectTrigger className="bg-gray-700 border-gray-600 text-white [&>svg]:text-yellow-400">
                         <SelectValue placeholder="Select meal" />
                       </SelectTrigger>
                       <SelectContent className="bg-gray-700 border-gray-600">
