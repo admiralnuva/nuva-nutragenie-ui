@@ -203,20 +203,11 @@ export default function HealthAnalyticsScreen() {
     <div className="min-h-screen bg-warm-neutral-50 p-6">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
-        <div className="flex items-center justify-between mb-3">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setLocation("/profile")}
-            className="rounded-full hover:bg-warm-neutral-200"
-          >
-            <ArrowLeft className="h-6 w-6 text-warm-neutral-700" />
-          </Button>
-          <div className="flex-1 text-center">
+        <div className="flex items-center justify-center mb-3">
+          <div className="text-center">
             <h1 className="text-2xl font-bold text-warm-neutral-800">NutraGenie</h1>
-            <p className="text-lg font-semibold text-purple-600 mt-1">Health Analytics</p>
+            <p className="text-lg font-semibold text-purple-600 mt-1">My Health Dashboard</p>
           </div>
-          <div className="w-10"></div>
         </div>
 
         {/* Date Selector */}
