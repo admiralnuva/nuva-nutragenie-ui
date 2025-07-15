@@ -443,7 +443,7 @@ export default function HomeScreen() {
             </div>
             
             {/* User Avatar - Right */}
-            <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-purple-500">
+            <div className="w-20 h-20 rounded-full overflow-hidden">
               <img 
                 src={user1Avatar} 
                 alt="User Avatar" 
