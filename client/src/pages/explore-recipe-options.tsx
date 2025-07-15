@@ -140,11 +140,12 @@ export default function ExploreRecipeOptionsScreen() {
         <div className="grid grid-cols-3 gap-6 max-w-md mx-auto">
           {recipeOptions.map((option) => {
             const IconComponent = option.icon;
+            const buttonBg = option.id === 'chefs-choice' ? 'bg-emerald-500/25' : '';
             return (
               <div key={option.id} className="flex flex-col items-center space-y-2">
                 <button
                   onClick={() => setLocation(option.path)}
-                  className={`w-20 h-20 rounded-2xl flex items-center justify-center shadow-lg hover:scale-105 transition-transform ${option.color}`}
+                  className={`w-20 h-20 rounded-2xl flex items-center justify-center shadow-lg hover:scale-105 transition-transform ${option.color} ${buttonBg}`}
                 >
                   <IconComponent />
                 </button>
