@@ -365,7 +365,7 @@ export default function PersonalizeDietPantryScreen() {
                             type="checkbox"
                             checked={selectedIngredients.includes(ingredient)}
                             onChange={() => toggleIngredient(ingredient)}
-                            className="w-4 h-4 text-purple-600 bg-gray-700 border-gray-600 rounded focus:ring-purple-500 focus:ring-2"
+                            className="w-6 h-6 text-purple-600 bg-gray-700 border-gray-600 rounded focus:ring-purple-500 focus:ring-2"
                           />
                           <span className="text-gray-300 text-sm select-text">{ingredient}</span>
                         </label>
