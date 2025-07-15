@@ -24,7 +24,7 @@ export default function ExploreRecipeOptionsScreen() {
         <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-purple-500 p-4 hover:shadow-xl hover:shadow-purple-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-purple-400">
           <div className="space-y-4">
             <Link href="/chefs-choice" className="block">
-              <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-indigo-500 p-4 hover:shadow-xl hover:shadow-indigo-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-indigo-400">
+              <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-4 hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center">
                     <span className="text-2xl">⭐</span>
@@ -40,7 +40,7 @@ export default function ExploreRecipeOptionsScreen() {
             </Link>
 
             <Link href="/pantry-dishes" className="block">
-              <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-indigo-500 p-4 hover:shadow-xl hover:shadow-indigo-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-indigo-400">
+              <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-4 hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-amber-400 rounded-lg flex items-center justify-center">
                     <span className="text-2xl">🏠</span>
@@ -56,7 +56,7 @@ export default function ExploreRecipeOptionsScreen() {
             </Link>
 
             <Link href="/create-dishes" className="block">
-              <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-indigo-500 p-4 hover:shadow-xl hover:shadow-indigo-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-indigo-400">
+              <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-4 hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center">
                     <span className="text-2xl">🎨</span>
@@ -72,7 +72,7 @@ export default function ExploreRecipeOptionsScreen() {
             </Link>
 
             <Link href="/takeout-orders" className="block">
-              <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-indigo-500 p-4 hover:shadow-xl hover:shadow-indigo-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-indigo-400">
+              <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-4 hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-emerald-400 rounded-lg flex items-center justify-center">
                     <span className="text-2xl">📦</span>
