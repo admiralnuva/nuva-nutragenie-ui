@@ -381,14 +381,14 @@ export default function CreateDishesScreen() {
                       <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
                         <SelectValue placeholder="Select size" />
                       </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="2 people">2 people</SelectItem>
-                        <SelectItem value="4 people">4 people</SelectItem>
-                        <SelectItem value="6 people">6 people</SelectItem>
-                        <SelectItem value="8 people">8 people</SelectItem>
-                        <SelectItem value="10+ people">10+ people</SelectItem>
-                        <SelectItem value="Weekly (14 meals)">Weekly (14 meals)</SelectItem>
-                        <SelectItem value="Monthly (30 meals)">Monthly (30 meals)</SelectItem>
+                      <SelectContent className="bg-gray-700 border-gray-600">
+                        <SelectItem value="2 people" className="text-white hover:bg-gray-600">2 people</SelectItem>
+                        <SelectItem value="4 people" className="text-white hover:bg-gray-600">4 people</SelectItem>
+                        <SelectItem value="6 people" className="text-white hover:bg-gray-600">6 people</SelectItem>
+                        <SelectItem value="8 people" className="text-white hover:bg-gray-600">8 people</SelectItem>
+                        <SelectItem value="10+ people" className="text-white hover:bg-gray-600">10+ people</SelectItem>
+                        <SelectItem value="Weekly (14 meals)" className="text-white hover:bg-gray-600">Weekly (14 meals)</SelectItem>
+                        <SelectItem value="Monthly (30 meals)" className="text-white hover:bg-gray-600">Monthly (30 meals)</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -400,15 +400,15 @@ export default function CreateDishesScreen() {
                       <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
                         <SelectValue placeholder="Select cuisine" />
                       </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="American">American</SelectItem>
-                        <SelectItem value="Italian">Italian</SelectItem>
-                        <SelectItem value="Mexican">Mexican</SelectItem>
-                        <SelectItem value="Chinese">Chinese</SelectItem>
-                        <SelectItem value="Indian">Indian</SelectItem>
-                        <SelectItem value="Japanese">Japanese</SelectItem>
-                        <SelectItem value="Thai">Thai</SelectItem>
-                        <SelectItem value="Mediterranean">Mediterranean</SelectItem>
+                      <SelectContent className="bg-gray-700 border-gray-600">
+                        <SelectItem value="American" className="text-white hover:bg-gray-600">American</SelectItem>
+                        <SelectItem value="Italian" className="text-white hover:bg-gray-600">Italian</SelectItem>
+                        <SelectItem value="Mexican" className="text-white hover:bg-gray-600">Mexican</SelectItem>
+                        <SelectItem value="Chinese" className="text-white hover:bg-gray-600">Chinese</SelectItem>
+                        <SelectItem value="Indian" className="text-white hover:bg-gray-600">Indian</SelectItem>
+                        <SelectItem value="Japanese" className="text-white hover:bg-gray-600">Japanese</SelectItem>
+                        <SelectItem value="Thai" className="text-white hover:bg-gray-600">Thai</SelectItem>
+                        <SelectItem value="Mediterranean" className="text-white hover:bg-gray-600">Mediterranean</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -424,12 +424,12 @@ export default function CreateDishesScreen() {
                       <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
                         <SelectValue placeholder="Select meal" />
                       </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="Breakfast">Breakfast</SelectItem>
-                        <SelectItem value="Lunch">Lunch</SelectItem>
-                        <SelectItem value="Dinner">Dinner</SelectItem>
-                        <SelectItem value="Mixed Meals">Mixed Meals</SelectItem>
-                        <SelectItem value="Party Catering">Party Catering</SelectItem>
+                      <SelectContent className="bg-gray-700 border-gray-600">
+                        <SelectItem value="Breakfast" className="text-white hover:bg-gray-600">Breakfast</SelectItem>
+                        <SelectItem value="Lunch" className="text-white hover:bg-gray-600">Lunch</SelectItem>
+                        <SelectItem value="Dinner" className="text-white hover:bg-gray-600">Dinner</SelectItem>
+                        <SelectItem value="Mixed Meals" className="text-white hover:bg-gray-600">Mixed Meals</SelectItem>
+                        <SelectItem value="Party Catering" className="text-white hover:bg-gray-600">Party Catering</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
