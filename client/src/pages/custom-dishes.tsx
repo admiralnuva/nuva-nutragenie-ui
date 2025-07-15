@@ -31,7 +31,7 @@ export default function CustomDishesScreen() {
     {
       id: 2,
       name: "Thai Coconut Style",
-      image: "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=400&h=300&fit=crop",
+      image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&h=300&fit=crop",
       calories: 420,
       protein: "28g",
       cookTime: "40 min",
@@ -40,7 +40,7 @@ export default function CustomDishesScreen() {
     {
       id: 3,
       name: "Mediterranean Herb",
-      image: "https://images.unsplash.com/photo-1574484284002-952d92456975?w=400&h=300&fit=crop",
+      image: "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&h=300&fit=crop",
       calories: 350,
       protein: "30g",
       cookTime: "30 min",

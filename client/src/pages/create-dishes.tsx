@@ -69,7 +69,7 @@ export default function CreateDishesScreen() {
     {
       id: 1,
       name: "Classic Chicken Curry",
-      image: "/api/placeholder/300/200",
+      image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&h=300&fit=crop",
       calories: 420,
       protein: "32g",
       cookTime: "45 min",
@@ -78,7 +78,7 @@ export default function CreateDishesScreen() {
     {
       id: 2,
       name: "Coconut Chicken Curry",
-      image: "/api/placeholder/300/200",
+      image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&h=300&fit=crop",
       calories: 385,
       protein: "28g",
       cookTime: "40 min",
@@ -87,7 +87,7 @@ export default function CreateDishesScreen() {
     {
       id: 3,
       name: "Spicy Chicken Curry",
-      image: "/api/placeholder/300/200",
+      image: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&h=300&fit=crop",
       calories: 410,
       protein: "30g",
       cookTime: "50 min",
@@ -96,7 +96,7 @@ export default function CreateDishesScreen() {
     {
       id: 4,
       name: "Thai Chicken Curry",
-      image: "/api/placeholder/300/200",
+      image: "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=400&h=300&fit=crop",
       calories: 395,
       protein: "29g",
       cookTime: "35 min",
@@ -105,7 +105,7 @@ export default function CreateDishesScreen() {
     {
       id: 5,
       name: "Butter Chicken Curry",
-      image: "/api/placeholder/300/200",
+      image: "https://images.unsplash.com/photo-1628294895950-9805252327bc?w=400&h=300&fit=crop",
       calories: 450,
       protein: "34g",
       cookTime: "55 min",
@@ -114,7 +114,7 @@ export default function CreateDishesScreen() {
     {
       id: 6,
       name: "Green Chicken Curry",
-      image: "/api/placeholder/300/200",
+      image: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=400&h=300&fit=crop",
       calories: 375,
       protein: "27g",
       cookTime: "42 min",
@@ -127,7 +127,7 @@ export default function CreateDishesScreen() {
     {
       id: 1,
       name: "Mediterranean Quinoa Bowl",
-      image: "/api/placeholder/300/200",
+      image: "https://images.unsplash.com/photo-1546793665-c74683f339c1?w=400&h=300&fit=crop",
       calories: 350,
       protein: "18g",
       cookTime: "25 min",
@@ -136,7 +136,7 @@ export default function CreateDishesScreen() {
     {
       id: 2,
       name: "Grilled Salmon Teriyaki",
-      image: "/api/placeholder/300/200",
+      image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400&h=300&fit=crop",
       calories: 420,
       protein: "35g",
       cookTime: "20 min",
@@ -145,7 +145,7 @@ export default function CreateDishesScreen() {
     {
       id: 3,
       name: "Beef Stir Fry Noodles",
-      image: "/api/placeholder/300/200",
+      image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop",
       calories: 480,
       protein: "28g",
       cookTime: "30 min",
@@ -154,7 +154,7 @@ export default function CreateDishesScreen() {
     {
       id: 4,
       name: "Mushroom Risotto",
-      image: "/api/placeholder/300/200",
+      image: "https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=400&h=300&fit=crop",
       calories: 390,
       protein: "12g",
       cookTime: "40 min",
@@ -163,7 +163,7 @@ export default function CreateDishesScreen() {
     {
       id: 5,
       name: "Chicken Caesar Salad",
-      image: "/api/placeholder/300/200",
+      image: "https://images.unsplash.com/photo-1512852939750-1305098529bf?w=400&h=300&fit=crop",
       calories: 320,
       protein: "25g",
       cookTime: "15 min",
@@ -172,7 +172,7 @@ export default function CreateDishesScreen() {
     {
       id: 6,
       name: "Vegetable Pasta Primavera",
-      image: "/api/placeholder/300/200",
+      image: "https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?w=400&h=300&fit=crop",
       calories: 360,
       protein: "14g",
       cookTime: "25 min",

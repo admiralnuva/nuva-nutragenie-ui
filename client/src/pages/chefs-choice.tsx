@@ -9,7 +9,7 @@ export default function ChefsChoiceScreen() {
     {
       id: 1,
       name: "Classic Beef Stew",
-      image: "https://images.unsplash.com/photo-1574484284002-952d92456975?w=400&h=300&fit=crop",
+      image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop",
       calories: 420,
       protein: "35g",
       cookTime: "45 min",
@@ -18,7 +18,7 @@ export default function ChefsChoiceScreen() {
     {
       id: 2,
       name: "Lemon Herb Salmon",
-      image: "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=400&h=300&fit=crop",
+      image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400&h=300&fit=crop",
       calories: 380,
       protein: "42g",
       cookTime: "25 min",
@@ -27,7 +27,7 @@ export default function ChefsChoiceScreen() {
     {
       id: 3,
       name: "Mediterranean Quinoa Bowl",
-      image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+      image: "https://images.unsplash.com/photo-1546793665-c74683f339c1?w=400&h=300&fit=crop",
       calories: 340,
       protein: "18g",
       cookTime: "20 min",
@@ -45,7 +45,7 @@ export default function ChefsChoiceScreen() {
     {
       id: 5,
       name: "Roasted Chicken Thighs",
-      image: "https://images.unsplash.com/photo-1532550907401-a500c9a57435?w=400&h=300&fit=crop",
+      image: "https://images.unsplash.com/photo-1598103442097-8b74394b95c6?w=400&h=300&fit=crop",
       calories: 450,
       protein: "38g",
       cookTime: "40 min",
@@ -54,7 +54,7 @@ export default function ChefsChoiceScreen() {
     {
       id: 6,
       name: "Vegetable Stir-Fry",
-      image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?w=400&h=300&fit=crop",
+      image: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=400&h=300&fit=crop",
       calories: 220,
       protein: "8g",
       cookTime: "15 min",

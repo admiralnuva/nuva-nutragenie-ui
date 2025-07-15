@@ -27,7 +27,7 @@ export default function PantryDishesScreen() {
     {
       id: 3,
       name: "Simple Pasta",
-      image: "https://images.unsplash.com/photo-1551892374-ecf8754cf8b0?w=400&h=300&fit=crop",
+      image: "https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?w=400&h=300&fit=crop",
       calories: 280,
       protein: "10g",
       cookTime: "12 min",
@@ -36,7 +36,7 @@ export default function PantryDishesScreen() {
     {
       id: 4,
       name: "Scrambled Eggs",
-      image: "https://images.unsplash.com/photo-1506084868230-bb9d95c24759?w=400&h=300&fit=crop",
+      image: "https://images.unsplash.com/photo-1525351484163-7529414344d8?w=400&h=300&fit=crop",
       calories: 220,
       protein: "18g",
       cookTime: "5 min",

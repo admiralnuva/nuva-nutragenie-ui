@@ -997,6 +997,15 @@ To restore to this stable state if needed:
   * Your Activity: All buttons use green color scheme (green-600 default, green-700 selected)  
   * Personalize Diet & Pantry: All tabs use blue color scheme matching Recipe Options
   * Created cohesive color-coded system with meaningful button groupings and enhanced visual hierarchy
+- July 15, 2025. Professional Food Photography Implementation:
+  * Updated all dish cards across entire application with appropriate Unsplash food photography based on dish names
+  * Chef's Choice: Enhanced 6 dishes with professional images (beef stew, salmon, quinoa bowl, curry, chicken, stir-fry)
+  * Pantry Dishes: Updated 6 pantry-friendly dishes with relevant images (fried rice, garlic bread, pasta, eggs, soup, toast)
+  * Create Dishes: Added authentic curry variation images (classic, coconut, spicy, Thai, butter, green) plus favorite dishes
+  * Take-Out Orders: Maintained existing professional burger, pizza, and pad thai images
+  * Custom Dishes: Enhanced 3 custom variations with Indian, Thai coconut, and Mediterranean herb styling
+  * Replaced placeholder "/api/placeholder" URLs with high-quality Unsplash food photography
+  * Applied consistent 400x300 crop dimensions for uniform card appearance across all pages
 - July 15, 2025. Card Layout Optimization and UI Cleanup:
   * Removed redundant card titles from all 4 recipe pages (Chef's Choice, Pantry Dishes, Create Dishes, Take-Out) since page headers provide sufficient context
   * Eliminated chevron collapse/expand buttons that added no value - users can navigate with back buttons instead
