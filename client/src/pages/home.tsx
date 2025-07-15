@@ -843,18 +843,18 @@ export default function HomeScreen() {
             Achievement
           </h3>
           
-          <Card className="p-4 mb-4 bg-white/95 backdrop-blur-md border-white/30 shadow-xl">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-20 h-20 bg-yellow-100 rounded-full flex items-center justify-center">
-                  🏆
-                </div>
-                <div>
-                  <div className="font-medium text-gray-800">Master Chef</div>
-                  <div className="text-sm text-gray-600">Complete 10 recipes</div>
-                </div>
+          <Card className="p-3 mb-4 cursor-pointer hover:shadow-md transition-all duration-200 hover:scale-105">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-yellow-500 rounded-lg flex items-center justify-center text-white">
+                🏆
               </div>
-              <Badge className="bg-green-100 text-green-800">Earned</Badge>
+              <div className="flex-1 min-w-0">
+                <div className="font-medium text-gray-800 truncate">Master Chef</div>
+                <div className="text-sm text-gray-600 truncate">Complete 10 recipes</div>
+              </div>
+              <div className="flex items-center gap-2 flex-shrink-0">
+                <Badge className="bg-green-100 text-green-800 text-xs">Earned</Badge>
+              </div>
             </div>
           </Card>
         </div>
