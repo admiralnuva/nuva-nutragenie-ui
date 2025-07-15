@@ -90,7 +90,7 @@ export default function ExploreRecipeOptionsScreen() {
         </div>
 
         {/* Additional Options - Grouped with Border */}
-        <div className="mt-8 mb-3 border border-gray-600 rounded-lg p-3 space-y-2">
+        <div className="mt-16 mb-3 border border-gray-600 rounded-lg p-3 space-y-2">
           <Button
             onClick={() => setLocation("/grocery-hub")}
             className="w-full bg-gray-800 hover:bg-gray-700 text-white p-4 h-20 rounded-lg"
