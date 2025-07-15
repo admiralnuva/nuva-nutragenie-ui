@@ -355,7 +355,7 @@ export default function PersonalizeDietPantryScreen() {
                     <h4 className="text-sm font-bold text-yellow-300 mb-2">
                       {category} ({ingredients.filter(ing => selectedIngredients.includes(ing)).length}/{ingredients.length})
                     </h4>
-                    <div className="grid grid-cols-1 gap-2">
+                    <div className="grid grid-cols-2 gap-2">
                       {ingredients.map((ingredient) => (
                         <label
                           key={ingredient}
