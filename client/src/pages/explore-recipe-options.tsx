@@ -27,7 +27,7 @@ export default function ExploreRecipeOptionsScreen() {
               <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-indigo-500 p-4 hover:shadow-xl hover:shadow-indigo-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-indigo-400">
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center">
-                    <span className="text-2xl">👨‍🍳</span>
+                    <span className="text-2xl">⭐</span>
                   </div>
                   <div className="flex-1">
                     <h3 className="text-lg font-semibold text-white">Chef's Choice</h3>
@@ -43,7 +43,7 @@ export default function ExploreRecipeOptionsScreen() {
               <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-indigo-500 p-4 hover:shadow-xl hover:shadow-indigo-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-indigo-400">
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center">
-                    <span className="text-2xl">🥘</span>
+                    <span className="text-2xl">🏠</span>
                   </div>
                   <div className="flex-1">
                     <h3 className="text-lg font-semibold text-white">Pantry Dishes</h3>
@@ -59,7 +59,7 @@ export default function ExploreRecipeOptionsScreen() {
               <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-indigo-500 p-4 hover:shadow-xl hover:shadow-indigo-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-indigo-400">
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center">
-                    <span className="text-2xl">✨</span>
+                    <span className="text-2xl">🎨</span>
                   </div>
                   <div className="flex-1">
                     <h3 className="text-lg font-semibold text-white">Create Dishes</h3>
@@ -75,7 +75,7 @@ export default function ExploreRecipeOptionsScreen() {
               <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-indigo-500 p-4 hover:shadow-xl hover:shadow-indigo-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-indigo-400">
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center">
-                    <span className="text-2xl">🚚</span>
+                    <span className="text-2xl">📦</span>
                   </div>
                   <div className="flex-1">
                     <h3 className="text-lg font-semibold text-white">Take-Out</h3>
