@@ -161,6 +161,11 @@ function toast({ ...props }: Toast) {
     },
   })
 
+  // Auto-dismiss after 50ms
+  setTimeout(() => {
+    dismiss()
+  }, 50)
+
   return {
     id: id,
     dismiss,
