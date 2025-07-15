@@ -534,7 +534,7 @@ export default function ExploreRecipeOptionsScreen() {
       <div className="max-w-lg mx-auto px-3 py-3 space-y-3 pb-20">
         {/* Card 1 - Preferences - show at top when not completed */}
         {!pantryAtBottom && (
-          <Card className="bg-gradient-to-br from-purple-500 to-purple-900 border-purple-400 border-l-4 border-l-indigo-300 p-3 hover:shadow-xl hover:shadow-indigo-400/30 transition-all duration-300 hover:scale-[1.01] hover:border-l-indigo-200">
+          <Card className="bg-gradient-to-br from-purple-600 to-purple-800 backdrop-blur-sm border-purple-500 border-l-4 border-l-indigo-300 p-3 hover:shadow-xl hover:shadow-indigo-400/30 transition-all duration-300 hover:scale-[1.01] hover:border-l-indigo-200">
             <div className="mb-4">
               <h2 className="text-xl font-bold text-white text-center">Personalize Diet & Pantry</h2>
             </div>
@@ -861,7 +861,7 @@ export default function ExploreRecipeOptionsScreen() {
         )}
 
         {/* Card 2 - Recipe Options */}
-        <Card className="bg-gradient-to-br from-purple-500 to-purple-900 border-purple-400 border-l-4 border-l-purple-300 p-3 hover:shadow-xl hover:shadow-purple-400/30 transition-all duration-300 hover:scale-[1.01] hover:border-l-purple-200">
+        <Card className="bg-gradient-to-br from-purple-600 to-purple-800 backdrop-blur-sm border-purple-500 border-l-4 border-l-purple-300 p-3 hover:shadow-xl hover:shadow-purple-400/30 transition-all duration-300 hover:scale-[1.01] hover:border-l-purple-200">
           <h2 className="text-xl font-bold text-white mb-3 text-center">Recipe & Dishes</h2>
           <div className="grid grid-cols-2 gap-4">
             <button
@@ -1212,7 +1212,7 @@ export default function ExploreRecipeOptionsScreen() {
         )}
 
         {/* Card 3 - Activity */}
-        <Card className="bg-gradient-to-br from-purple-500 to-purple-900 border-purple-400 border-l-4 border-l-blue-300 p-3 hover:shadow-xl hover:shadow-blue-400/30 transition-all duration-300 hover:scale-[1.01] hover:border-l-blue-200">
+        <Card className="bg-gradient-to-br from-purple-600 to-purple-800 backdrop-blur-sm border-purple-500 border-l-4 border-l-blue-300 p-3 hover:shadow-xl hover:shadow-blue-400/30 transition-all duration-300 hover:scale-[1.01] hover:border-l-blue-200">
           <h2 className="text-xl font-bold text-white mb-3 text-center">Your Activity</h2>
           <div className="grid grid-cols-2 gap-3">
             <Link href="/profile?section=cooking" className="block">
@@ -1250,7 +1250,7 @@ export default function ExploreRecipeOptionsScreen() {
 
         {/* Pantry Card at Bottom Position */}
         {pantryAtBottom && (
-          <Card className="bg-gradient-to-br from-purple-500 to-purple-900 border-purple-400 border-l-4 border-l-indigo-300 p-3 hover:shadow-xl hover:shadow-indigo-400/30 transition-all duration-300 hover:scale-[1.01] hover:border-l-indigo-200">
+          <Card className="bg-gradient-to-br from-purple-600 to-purple-800 backdrop-blur-sm border-purple-500 border-l-4 border-l-indigo-300 p-3 hover:shadow-xl hover:shadow-indigo-400/30 transition-all duration-300 hover:scale-[1.01] hover:border-l-indigo-200">
             <div className="mb-4">
               <h2 className="text-xl font-bold text-white text-center">Personalize Diet & Pantry</h2>
             </div>
