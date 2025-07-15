@@ -342,52 +342,6 @@ export default function CreateDishesScreen() {
       </div>
 
       <div className="max-w-lg mx-auto p-3 space-y-4">
-        {/* Recipe Options Card - Always at Top */}
-        <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
-          <CardHeader>
-            <CardTitle className="text-yellow-300 font-bold text-xl drop-shadow-lg">Recipe Options</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-2 gap-3">
-              <Button 
-                variant="outline"
-                className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600 transition-all duration-200"
-                onClick={() => setLocation('/recipes')}
-              >
-                Chef's Choice
-              </Button>
-              <Button 
-                variant="outline"
-                className="h-14 bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600 transition-all duration-200"
-                onClick={() => setLocation('/recipes')}
-              >
-                Pantry Dishes
-              </Button>
-              <Button 
-                variant="outline"
-                className={`h-14 border transition-all duration-200 ${
-                  !showTakeOut 
-                    ? 'bg-purple-600 border-purple-600 text-white' 
-                    : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
-                }`}
-                onClick={() => setShowTakeOut(false)}
-              >
-                Create Dishes
-              </Button>
-              <Button 
-                variant="outline"
-                className={`h-14 border transition-all duration-200 ${
-                  showTakeOut 
-                    ? 'bg-purple-600 border-purple-600 text-white' 
-                    : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-purple-600 hover:text-white hover:border-purple-600'
-                }`}
-                onClick={() => setShowTakeOut(true)}
-              >
-                Take-Out
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
 
         {/* Take-Out Form Card */}
         {showTakeOut && (
