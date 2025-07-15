@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ChevronUp, ChevronDown, Plus, Minus, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface GroceryItem {
   id: string;
@@ -632,20 +633,22 @@ export default function GroceryHubScreen() {
             {/* Store Selection */}
             <div className="bg-gray-800/90 backdrop-blur-sm border border-gray-700 rounded-lg p-6">
               <h3 className="text-lg font-semibold text-white mb-4">Select Grocery Store</h3>
-              <select
-                value={selectedStore}
-                onChange={(e) => setSelectedStore(e.target.value)}
-                className="w-full bg-blue-600 border border-blue-500 rounded-md px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
-                style={{
-                  background: '#2563eb',
-                  color: 'white'
-                }}
-              >
-                <option value="" style={{ backgroundColor: '#f3f4f6', color: '#1f2937' }}>Choose a store...</option>
-                {stores.map((store) => (
-                  <option key={store} value={store} style={{ backgroundColor: '#f3f4f6', color: '#1f2937' }}>{store}</option>
-                ))}
-              </select>
+              <Select value={selectedStore} onValueChange={setSelectedStore}>
+                <SelectTrigger className="w-full bg-blue-600 border-blue-500 text-white hover:bg-blue-700 [&>svg]:text-white">
+                  <SelectValue placeholder="Choose a store..." />
+                </SelectTrigger>
+                <SelectContent className="bg-gray-200 border-gray-300">
+                  {stores.map((store) => (
+                    <SelectItem 
+                      key={store} 
+                      value={store}
+                      className="text-gray-900 hover:bg-gray-300 focus:bg-gray-300"
+                    >
+                      {store}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
 
             {/* Grouped Items List - Single Row Format */}
