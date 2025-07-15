@@ -160,6 +160,11 @@ export default function ExploreRecipeOptionsScreen() {
         </div>
       </div>
 
+      {/* Rectangle Separator */}
+      <div className="mb-8">
+        <div className="h-px bg-gradient-to-r from-transparent via-gray-600/50 to-transparent max-w-md mx-auto"></div>
+      </div>
+
       {/* Streaming Section */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
