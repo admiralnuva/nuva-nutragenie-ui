@@ -2,52 +2,87 @@ import React, { useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useLocation } from "wouter";
-import { ArrowLeft, Settings, Star, Home, Palette, Truck, ShoppingBag, Play, Clock, Users } from "lucide-react";
+import { ArrowLeft, Play, Clock, Users } from "lucide-react";
 
 export default function ExploreRecipeTestScreen() {
   const [, setLocation] = useLocation();
+
+  // Custom SVG Icons for better visibility
+  const CustomIcons = {
+    Settings: () => (
+      <svg viewBox="0 0 64 64" fill="currentColor" className="w-16 h-16">
+        <path d="M32 40c4.4 0 8-3.6 8-8s-3.6-8-8-8-8 3.6-8 8 3.6 8 8 8z"/>
+        <path d="M56 28h-4.6c-.8-3.2-2.4-6-4.6-8.4L50 16.4c1.2-1.2 1.2-3.2 0-4.4s-3.2-1.2-4.4 0l-3.2 3.2c-2.4-2.2-5.2-3.8-8.4-4.6V6c0-1.6-1.4-3-3-3s-3 1.4-3 3v4.6c-3.2.8-6 2.4-8.4 4.6L16.4 12c-1.2-1.2-3.2-1.2-4.4 0s-1.2 3.2 0 4.4l3.2 3.2c-2.2 2.4-3.8 5.2-4.6 8.4H6c-1.6 0-3 1.4-3 3s1.4 3 3 3h4.6c.8 3.2 2.4 6 4.6 8.4L12 47.6c-1.2 1.2-1.2 3.2 0 4.4.6.6 1.4.9 2.2.9s1.6-.3 2.2-.9l3.2-3.2c2.4 2.2 5.2 3.8 8.4 4.6V58c0 1.6 1.4 3 3 3s3-1.4 3-3v-4.6c3.2-.8 6-2.4 8.4-4.6l3.2 3.2c.6.6 1.4.9 2.2.9s1.6-.3 2.2-.9c1.2-1.2 1.2-3.2 0-4.4l-3.2-3.2c2.2-2.4 3.8-5.2 4.6-8.4H56c1.6 0 3-1.4 3-3s-1.4-3-3-3z"/>
+      </svg>
+    ),
+    Star: () => (
+      <svg viewBox="0 0 64 64" fill="currentColor" className="w-16 h-16">
+        <path d="M32 4l7.4 15.8L56 22.2l-12 11.7L46.8 50 32 42.2 17.2 50l2.8-16.1L8 22.2l16.6-2.4L32 4z"/>
+      </svg>
+    ),
+    Home: () => (
+      <svg viewBox="0 0 64 64" fill="currentColor" className="w-16 h-16">
+        <path d="M32 6L8 26v32h48V26L32 6zM20 50v-16h24v16H20z"/>
+      </svg>
+    ),
+    Palette: () => (
+      <svg viewBox="0 0 64 64" fill="currentColor" className="w-16 h-16">
+        <path d="M32 8C18.7 8 8 18.7 8 32c0 6.6 5.4 12 12 12 2.7 0 4-2.1 4-4 0-1.1-.4-2.1-1.2-2.8-.4-.4-.8-1.2-.8-2.2 0-2.2 1.8-4 4-4 8.8 0 16-7.2 16-16 0-13.3-10.7-24-24-24zM20 36c-2.2 0-4-1.8-4-4s1.8-4 4-4 4 1.8 4 4-1.8 4-4 4zm8-16c-2.2 0-4-1.8-4-4s1.8-4 4-4 4 1.8 4 4-1.8 4-4 4zm16 0c-2.2 0-4-1.8-4-4s1.8-4 4-4 4 1.8 4 4-1.8 4-4 4z"/>
+      </svg>
+    ),
+    Truck: () => (
+      <svg viewBox="0 0 64 64" fill="currentColor" className="w-16 h-16">
+        <path d="M52 28H44V16c0-2.2-1.8-4-4-4H8c-2.2 0-4 1.8-4 4v28c0 2.2 1.8 4 4 4h4c0 4.4 3.6 8 8 8s8-3.6 8-8h12c0 4.4 3.6 8 8 8s8-3.6 8-8h4c2.2 0 4-1.8 4-4V36c0-4.4-3.6-8-8-8zM20 48c-2.2 0-4-1.8-4-4s1.8-4 4-4 4 1.8 4 4-1.8 4-4 4zm28 0c-2.2 0-4-1.8-4-4s1.8-4 4-4 4 1.8 4 4-1.8 4-4 4z"/>
+      </svg>
+    ),
+    ShoppingBag: () => (
+      <svg viewBox="0 0 64 64" fill="currentColor" className="w-16 h-16">
+        <path d="M48 20h-8v-4c0-4.4-3.6-8-8-8s-8 3.6-8 8v4h-8c-2.2 0-4 1.8-4 4v32c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V24c0-2.2-1.8-4-4-4zM24 16c0-4.4 3.6-8 8-8s8 3.6 8 8v4H24v-4zm16 16c0 2.2-1.8 4-4 4s-4-1.8-4-4v-4h8v4z"/>
+      </svg>
+    )
+  };
 
   // iOS-style grid options
   const recipeOptions = [
     {
       id: "personalize",
       title: "Personalize Diet",
-      icon: Settings,
+      icon: CustomIcons.Settings,
       color: "bg-indigo-600",
       path: "/personalize-diet-pantry"
     },
     {
       id: "chefs-choice", 
       title: "Chef's Choice",
-      icon: Star,
+      icon: CustomIcons.Star,
       color: "bg-blue-600",
       path: "/chefs-choice"
     },
     {
       id: "pantry",
       title: "Pantry Dishes", 
-      icon: Home,
+      icon: CustomIcons.Home,
       color: "bg-amber-600",
       path: "/pantry-dishes"
     },
     {
       id: "create",
       title: "Create Dishes",
-      icon: Palette,
+      icon: CustomIcons.Palette,
       color: "bg-purple-600", 
       path: "/create-dishes"
     },
     {
       id: "takeout",
       title: "Take-Out",
-      icon: Truck,
+      icon: CustomIcons.Truck,
       color: "bg-emerald-600",
       path: "/takeout"
     },
     {
       id: "grocery",
       title: "Grocery Hub",
-      icon: ShoppingBag,
+      icon: CustomIcons.ShoppingBag,
       color: "bg-teal-600",
       path: "/grocery-hub"
     }
@@ -115,7 +150,9 @@ export default function ExploreRecipeTestScreen() {
                 className="flex flex-col items-center p-4 bg-transparent hover:bg-gray-800/30 transition-all duration-200 h-auto space-y-2"
               >
                 <div className={`w-24 h-24 ${option.color} rounded-2xl flex items-center justify-center shadow-lg hover:scale-105 transition-transform`}>
-                  <IconComponent size={56} className="text-white drop-shadow-sm" />
+                  <div className="text-white">
+                    <IconComponent />
+                  </div>
                 </div>
                 <span className="text-sm font-medium text-white text-center leading-tight">{option.title}</span>
               </Button>
