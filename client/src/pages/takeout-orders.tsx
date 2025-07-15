@@ -149,10 +149,8 @@ export default function TakeoutOrdersScreen() {
                     type="date"
                     value={formData.deliveryDate}
                     onChange={(e) => setFormData({...formData, deliveryDate: e.target.value})}
-                    className="bg-gray-700 border-gray-600 text-white pl-10"
-                    min={new Date().toISOString().split('T')[0]}
+                    className="bg-gray-700 border-gray-600 text-white [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert"
                   />
-                  <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                 </div>
               </div>
 
