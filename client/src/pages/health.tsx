@@ -308,8 +308,8 @@ export default function HealthAnalyticsScreen() {
                   <span className="text-lg">🕐</span>
                 </div>
                 <div className="text-left flex-1 min-w-0">
-                  <p className="font-semibold truncate">Past Recipes</p>
-                  <p className="text-sm opacity-90 truncate">Review your history</p>
+                  <p className="font-semibold text-white truncate">Past Recipes</p>
+                  <p className="text-sm text-amber-200 truncate">Review your history</p>
                 </div>
                 <div className="text-white text-lg flex-shrink-0">→</div>
               </div>
@@ -324,8 +324,8 @@ export default function HealthAnalyticsScreen() {
                   <span className="text-lg">🛒</span>
                 </div>
                 <div className="text-left flex-1 min-w-0">
-                  <p className="font-semibold truncate">Grocery List</p>
-                  <p className="text-sm opacity-90 truncate">Manage shopping</p>
+                  <p className="font-semibold text-white truncate">Grocery List</p>
+                  <p className="text-sm text-amber-200 truncate">Manage shopping</p>
                 </div>
                 <div className="text-white text-lg flex-shrink-0">→</div>
               </div>
@@ -340,8 +340,8 @@ export default function HealthAnalyticsScreen() {
                   <span className="text-lg">🍴</span>
                 </div>
                 <div className="text-left flex-1 min-w-0">
-                  <p className="font-semibold truncate">Explore Recipes</p>
-                  <p className="text-sm opacity-90 truncate">Find new dishes</p>
+                  <p className="font-semibold text-white truncate">Explore Recipes</p>
+                  <p className="text-sm text-amber-200 truncate">Find new dishes</p>
                 </div>
                 <div className="text-white text-lg flex-shrink-0">→</div>
               </div>
@@ -356,8 +356,8 @@ export default function HealthAnalyticsScreen() {
                   <span className="text-lg">▶️</span>
                 </div>
                 <div className="text-left flex-1 min-w-0">
-                  <p className="font-semibold truncate">Interactive Voice Cooking</p>
-                  <p className="text-sm opacity-90 truncate">Start cooking with AI</p>
+                  <p className="font-semibold text-white truncate">Interactive Voice Cooking</p>
+                  <p className="text-sm text-amber-200 truncate">Start cooking with AI</p>
                 </div>
                 <div className="text-white text-lg flex-shrink-0">→</div>
               </div>
