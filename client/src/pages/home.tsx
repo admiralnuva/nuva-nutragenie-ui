@@ -423,7 +423,7 @@ export default function HomeScreen() {
         <BackButton to="/recipes" className="text-white" />
         <div className="flex-1 text-center">
           <h1 className="text-2xl font-bold text-white">NutraGenie</h1>
-          <p className="text-lg font-semibold text-purple-300 mt-1">Health Analytics</p>
+          <p className="text-lg font-semibold text-purple-300 mt-1">My Health Dashboard</p>
         </div>
         <div className="w-8">
           {chartError && (
