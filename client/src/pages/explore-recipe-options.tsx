@@ -42,7 +42,7 @@ export default function ExploreRecipeOptionsScreen() {
 
           <Button
             onClick={() => setLocation("/pantry-dishes")}
-            className="w-full bg-gray-800 hover:bg-gray-700 text-white p-4 h-20 rounded-lg"
+            className="w-full bg-gray-900/50 hover:bg-gray-900/60 text-white p-4 h-20 rounded-lg"
           >
             <div className="flex items-center gap-3 h-full">
               <div className="w-10 h-10 bg-amber-600 rounded-lg flex items-center justify-center flex-shrink-0">
