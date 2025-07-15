@@ -232,18 +232,18 @@ export default function ExploreRecipeOptionsScreen() {
         </div>
 
         {/* Featured Content */}
-        <Card className="bg-gradient-to-r from-purple-900/50 to-indigo-900/50 border-purple-700">
+        <Card className="bg-gradient-to-r from-purple-600 to-indigo-600 border-purple-400">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
                 <h4 className="text-lg font-bold text-white mb-2">🔥 Trending Now</h4>
-                <p className="text-purple-200 text-sm mb-3">Master Chef Antoine's 5-Course French Dinner</p>
-                <div className="flex items-center gap-4 text-xs text-gray-300">
+                <p className="text-purple-100 text-sm mb-3">Master Chef Antoine's 5-Course French Dinner</p>
+                <div className="flex items-center gap-4 text-xs text-purple-100">
                   <span className="flex items-center gap-1"><Clock size={12} /> 2 hours</span>
                   <span className="flex items-center gap-1"><Users size={12} /> 5.2K watching</span>
                 </div>
               </div>
-              <Button className="bg-white text-purple-900 hover:bg-gray-100 font-semibold px-6">
+              <Button className="bg-white text-purple-600 hover:bg-purple-50 font-semibold px-6">
                 Join Now
               </Button>
             </div>
