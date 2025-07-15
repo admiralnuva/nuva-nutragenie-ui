@@ -82,8 +82,7 @@ export default function ChefsChoiceScreen() {
 
       <div className="max-w-lg mx-auto px-3 py-3 space-y-3 pb-20">
         <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-bold text-white text-center flex-1">Chef Recommends</h2>
+          <div className="flex items-center justify-end mb-4">
             <button
               onClick={() => setIsCollapsed(!isCollapsed)}
               className="text-purple-400 hover:text-purple-300"

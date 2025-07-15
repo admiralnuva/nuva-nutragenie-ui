@@ -169,8 +169,7 @@ export default function TakeoutOrdersScreen() {
         {/* Results Card */}
         {showResults && (
           <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-bold text-white text-center flex-1">Available Takeout Options</h2>
+            <div className="flex items-center justify-end mb-4">
               <button
                 onClick={() => setShowResults(false)}
                 className="text-purple-400 hover:text-purple-300"

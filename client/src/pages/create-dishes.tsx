@@ -744,10 +744,7 @@ export default function CreateDishesScreen() {
         {showResults && !showTakeOut && (
           <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
             <CardHeader className="pb-4">
-              <div className="flex items-center justify-between mb-4">
-                <CardTitle className="text-lg text-white">
-                  {activeTab === 'variations' ? 'Chef-Created Variations' : 'My Favorite Dishes'}
-                </CardTitle>
+              <div className="flex items-center justify-end mb-4">
                 <button
                   onClick={() => {
                     setShowResults(false);
