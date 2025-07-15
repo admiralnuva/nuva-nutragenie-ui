@@ -147,6 +147,12 @@ Changelog:
   * Eliminated state management complexity, bell sounds, and localStorage positioning
   * Follows successful pattern from Recipe & Dishes individual card approach
   * Provides focused environment for diet/pantry setup without cluttering main page
+- July 15, 2025. Streamlined Your Activity to single card and relocated activity tracking:
+  * Reduced Your Activity section from 2 cards to 1 card (Grocery List only)
+  * Moved "Your Activity" functionality to Health Analytics page under Quick Actions
+  * Maximum simplification: 4 cards → 2 cards → 1 card for users 40+
+  * Consolidated activity tracking with health analytics for logical grouping
+  * Single-purpose Your Activity section now focused on grocery management
 - July 03, 2025. Updated splash screen with NutraGenie branding, AI+Health logo placeholder, and 2-line app description explaining the AI nutrition platform vision
 - July 03, 2025. Enhanced recipes screen with comprehensive UX improvements:
   * Smart defaults based on dietary preferences (vegetarian/vegan get plant-based ingredients pre-selected)

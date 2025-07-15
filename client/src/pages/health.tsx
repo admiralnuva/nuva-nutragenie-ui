@@ -290,6 +290,32 @@ export default function HealthAnalyticsScreen() {
           </Card>
         </div>
 
+        {/* Quick Actions */}
+        <Card className="mb-3">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <BarChart3 className="w-5 h-5" />
+              Quick Actions
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Button
+              onClick={() => setLocation("/profile")}
+              className="w-full bg-green-500 hover:bg-green-600 text-white p-4 h-auto"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center">
+                  <span className="text-lg">📊</span>
+                </div>
+                <div className="text-left">
+                  <p className="font-semibold">Your Activity</p>
+                  <p className="text-sm opacity-90">View cooking, takeout & recipe history</p>
+                </div>
+              </div>
+            </Button>
+          </CardContent>
+        </Card>
+
         {/* Main Content Tabs */}
         <Tabs defaultValue="nutrition" className="space-y-3">
           <TabsList className="grid w-full grid-cols-3">
