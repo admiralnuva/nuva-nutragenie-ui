@@ -141,7 +141,8 @@ export default function ExploreRecipeOptionsScreen() {
           {recipeOptions.map((option) => {
             const IconComponent = option.icon;
             const buttonBg = option.id === 'chefs-choice' ? 'bg-emerald-500/25' : 
-                            option.id === 'pantry' ? 'bg-blue-500/30' : '';
+                            option.id === 'pantry' ? 'bg-blue-500/30' :
+                            option.id === 'create' ? 'bg-emerald-500/25' : '';
             return (
               <div key={option.id} className="flex flex-col items-center space-y-2">
                 <button
