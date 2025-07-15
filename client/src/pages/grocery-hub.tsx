@@ -635,11 +635,15 @@ export default function GroceryHubScreen() {
               <select
                 value={selectedStore}
                 onChange={(e) => setSelectedStore(e.target.value)}
-                className="w-full bg-gray-700 border border-gray-600 rounded-md px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="w-full bg-blue-600 border border-blue-500 rounded-md px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+                style={{
+                  background: '#2563eb',
+                  color: 'white'
+                }}
               >
-                <option value="">Choose a store...</option>
+                <option value="" style={{ backgroundColor: '#f3f4f6', color: '#1f2937' }}>Choose a store...</option>
                 {stores.map((store) => (
-                  <option key={store} value={store}>{store}</option>
+                  <option key={store} value={store} style={{ backgroundColor: '#f3f4f6', color: '#1f2937' }}>{store}</option>
                 ))}
               </select>
             </div>
