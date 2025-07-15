@@ -81,7 +81,7 @@ export default function TakeOutScreen() {
         <BackButton to="/explore-recipe-options" className="text-white" />
         <div className="flex-1 text-center">
           <h1 className="text-2xl font-bold text-white">NutraGenie</h1>
-          <p className="text-lg font-semibold text-purple-300 mt-1">Take-Out Order</p>
+          <p className="text-lg font-semibold text-purple-300 mt-1">Take-Out Order Summary</p>
         </div>
         <div className="w-8"></div>
       </div>
