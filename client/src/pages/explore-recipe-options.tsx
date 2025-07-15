@@ -41,13 +41,14 @@ export default function ExploreRecipeOptionsScreen() {
     )
   };
 
-  // iOS-style grid options
+  // iOS-style grid options with test page matching colors
   const recipeOptions = [
     {
       id: "personalize",
       title: "Personalize Diet",
       icon: CustomIcons.Settings,
       color: "bg-indigo-600",
+      buttonBg: "bg-indigo-500/30",
       path: "/personalize-diet-pantry"
     },
     {
@@ -55,6 +56,7 @@ export default function ExploreRecipeOptionsScreen() {
       title: "Chef's Choice",
       icon: CustomIcons.Star,
       color: "bg-blue-600",
+      buttonBg: "bg-emerald-500/25",
       path: "/chefs-choice"
     },
     {
@@ -62,13 +64,15 @@ export default function ExploreRecipeOptionsScreen() {
       title: "Pantry Dishes", 
       icon: CustomIcons.Home,
       color: "bg-amber-600",
+      buttonBg: "bg-blue-500/30",
       path: "/pantry-dishes"
     },
     {
       id: "create",
       title: "Create Dishes",
       icon: CustomIcons.Palette,
-      color: "bg-purple-600", 
+      color: "bg-purple-600",
+      buttonBg: "bg-emerald-500/25",
       path: "/create-dishes"
     },
     {
@@ -76,6 +80,7 @@ export default function ExploreRecipeOptionsScreen() {
       title: "Take-Out",
       icon: CustomIcons.Truck,
       color: "bg-emerald-600",
+      buttonBg: "bg-blue-500/30",
       path: "/takeout"
     },
     {
@@ -83,6 +88,7 @@ export default function ExploreRecipeOptionsScreen() {
       title: "Grocery Hub",
       icon: CustomIcons.ShoppingBag,
       color: "bg-teal-600",
+      buttonBg: "bg-teal-500/30",
       path: "/grocery-hub"
     }
   ];
@@ -144,7 +150,7 @@ export default function ExploreRecipeOptionsScreen() {
               <Button
                 key={option.id}
                 onClick={() => setLocation(option.path)}
-                className="flex flex-col items-center p-2 bg-transparent hover:bg-gray-800/30 transition-all duration-200 h-auto space-y-2"
+                className={`flex flex-col items-center p-2 ${option.buttonBg} hover:bg-gray-800/30 transition-all duration-200 h-auto space-y-2 rounded-lg`}
               >
                 <div className={`w-24 h-24 ${option.color} rounded-2xl flex items-center justify-center shadow-lg hover:scale-105 transition-transform`}>
                   <div className="text-white">
