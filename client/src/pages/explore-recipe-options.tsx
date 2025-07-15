@@ -666,21 +666,24 @@ export default function ExploreRecipeOptionsScreen() {
                   </Select>
                 </div>
 
-                {/* Meal Type */}
+                {/* Meal Type - Using button group to avoid ResizeObserver issues */}
                 <div>
-                  <Label htmlFor="meal-type" className="text-yellow-300 font-bold text-sm mb-2 block">Meal Type *</Label>
-                  <Select value={mealType} onValueChange={setMealType}>
-                    <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
-                      <SelectValue placeholder="Select meal type" />
-                    </SelectTrigger>
-                    <SelectContent className="bg-gray-700 border-gray-600">
-                      <SelectItem value="Breakfast">Breakfast</SelectItem>
-                      <SelectItem value="Lunch">Lunch</SelectItem>
-                      <SelectItem value="Dinner">Dinner</SelectItem>
-                      <SelectItem value="Snack">Snack</SelectItem>
-                      <SelectItem value="Dessert">Dessert</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <Label className="text-yellow-300 font-bold text-sm mb-2 block">Meal Type *</Label>
+                  <div className="grid grid-cols-3 gap-2">
+                    {["Breakfast", "Lunch", "Dinner", "Snack", "Dessert"].map((meal) => (
+                      <button
+                        key={meal}
+                        onClick={() => setMealType(meal)}
+                        className={`px-3 py-2 text-sm rounded-md border transition-all duration-200 ${
+                          mealType === meal
+                            ? "bg-purple-600 border-purple-600 text-white shadow-lg"
+                            : "bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600 hover:border-gray-500"
+                        }`}
+                      >
+                        {meal}
+                      </button>
+                    ))}
+                  </div>
                 </div>
 
                 {/* Spice Level */}
