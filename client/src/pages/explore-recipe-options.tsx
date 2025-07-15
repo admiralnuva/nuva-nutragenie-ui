@@ -1215,16 +1215,13 @@ export default function ExploreRecipeOptionsScreen() {
         <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-blue-500 p-3 hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 hover:scale-[1.01] hover:border-l-blue-400">
           <h2 className="text-xl font-bold text-white mb-3 text-center">Your Activity</h2>
           <div className="grid grid-cols-2 gap-3">
-            <button
-              className={`p-3 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg whitespace-nowrap ${
-                selectedHistoryItem === 'dishes-cooked' 
-                  ? 'bg-blue-600 border-blue-500 text-white shadow-lg shadow-blue-500/40' 
-                  : 'bg-blue-500 border-blue-400 text-white shadow-lg shadow-blue-500/30'
-              }`}
-              onClick={() => setSelectedHistoryItem(selectedHistoryItem === 'dishes-cooked' ? null : 'dishes-cooked')}
-            >
-              Cooked
-            </button>
+            <Link href="/profile?section=cooking" className="block">
+              <button
+                className="w-full p-3 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg whitespace-nowrap bg-blue-500 border-blue-400 text-white shadow-lg shadow-blue-500/30 hover:bg-blue-600 hover:border-blue-500 hover:shadow-blue-500/40"
+              >
+                Cooked
+              </button>
+            </Link>
             <button
               className={`p-3 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg whitespace-nowrap ${
                 selectedHistoryItem === 'takeout-orders' 
@@ -1242,16 +1239,13 @@ export default function ExploreRecipeOptionsScreen() {
                 Grocery List
               </button>
             </Link>
-            <button
-              className={`p-3 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg whitespace-nowrap ${
-                selectedHistoryItem === 'recipes-saved' 
-                  ? 'bg-blue-600 border-blue-500 text-white shadow-lg shadow-blue-500/40' 
-                  : 'bg-blue-500 border-blue-400 text-white shadow-lg shadow-blue-500/30'
-              }`}
-              onClick={() => setSelectedHistoryItem(selectedHistoryItem === 'recipes-saved' ? null : 'recipes-saved')}
-            >
-              Recipes
-            </button>
+            <Link href="/profile?section=recipes" className="block">
+              <button
+                className="w-full p-3 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg whitespace-nowrap bg-blue-500 border-blue-400 text-white shadow-lg shadow-blue-500/30 hover:bg-blue-600 hover:border-blue-500 hover:shadow-blue-500/40"
+              >
+                Recipes
+              </button>
+            </Link>
           </div>
         </Card>
 

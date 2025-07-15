@@ -1019,6 +1019,11 @@ To restore to this stable state if needed:
   * Card content now always starts collapsed when navigating from other screens
   * Preserved card position logic - card stays at bottom if previously moved
   * Users must click edit buttons to expand content, ensuring clean state on navigation entry
+- July 15, 2025. Your Activity Button Navigation Integration:
+  * Connected "Cooked" button to Profile Settings "Cooking History" section via /profile?section=cooking
+  * Connected "Recipes" button to Profile Settings "Recipes Created" section via /profile?section=recipes
+  * Added URL parameter detection in Profile page to automatically open requested sections
+  * Enhanced navigation flow between Explore Recipe Options and Profile sections
 - July 15, 2025. Complete Mobile Optimization for Investor Demo:
   * Systematically reduced all page container widths from max-w-2xl to max-w-lg for better mobile display
   * Updated padding and spacing across all major pages for mobile-first design
