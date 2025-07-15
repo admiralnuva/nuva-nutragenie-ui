@@ -40,7 +40,7 @@ export default function ProfileScreen() {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const section = urlParams.get('section');
-    if (section && ['account', 'dietary', 'health', 'grocery', 'takeout', 'recipes', 'cooking'].includes(section)) {
+    if (section && ['account', 'dietary', 'health', 'grocery', 'orders', 'takeout', 'recipes', 'cooking'].includes(section)) {
       setActiveSection(section);
     }
   }, []);
@@ -60,6 +60,7 @@ export default function ProfileScreen() {
     { id: "dietary", title: "Dietary Needs", icon: Apple },
     { id: "health", title: "Health & Tracking", icon: Activity },
     { id: "grocery", title: "Grocery List", icon: FileText },
+    { id: "orders", title: "Instacart Orders", icon: ShoppingCart },
     { id: "takeout", title: "Takeout History", icon: Truck },
     { id: "recipes", title: "Recipes Created", icon: BookOpen },
     { id: "cooking", title: "Cooking History", icon: ChefHat }
@@ -799,6 +800,7 @@ export default function ProfileScreen() {
       case "dietary": return <DietaryPreferencesCard userData={currentUser} onSave={handleSaveDietary} />;
       case "health": return renderHealthSection();
       case "grocery": return renderGroceryHistory();
+      case "orders": return renderOrderHistory();
       case "takeout": return renderTakeoutHistory();
       case "recipes": return renderRecipesCreated();
       case "cooking": return renderCookingHistory();
