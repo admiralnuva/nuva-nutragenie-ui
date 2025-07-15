@@ -396,7 +396,7 @@ export default function DietaryScreen() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black p-6">
-      <div className="max-w-md mx-auto pt-2">
+      <div className="max-w-2xl mx-auto pt-2">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
           <button 

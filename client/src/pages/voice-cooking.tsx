@@ -228,7 +228,7 @@ export default function VoiceCookingScreen() {
 
       {/* Chat Messages */}
       <div className="flex-1 p-4 overflow-y-auto">
-        <div className="space-y-4">
+        <div className="max-w-2xl mx-auto space-y-4">
           {conversation.map((msg, index) => (
             <div 
               key={index}

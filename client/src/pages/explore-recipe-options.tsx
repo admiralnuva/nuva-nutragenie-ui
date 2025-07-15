@@ -533,7 +533,7 @@ export default function ExploreRecipeOptionsScreen() {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-4 space-y-4 pb-24">
+      <div className="max-w-2xl mx-auto px-4 sm:px-6 py-4 space-y-4 pb-24">
         {/* Card 1 - Preferences - show at top when not completed */}
         {!pantryAtBottom && (
           <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-indigo-500 p-4 hover:shadow-2xl hover:shadow-indigo-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-indigo-400">
