@@ -326,18 +326,17 @@ export default function CreateDishesScreen() {
       {/* Header */}
       <div className="bg-gray-900 border-b border-gray-700 p-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <button 
-              onClick={() => setLocation('/recipes')}
-              className="text-gray-400 hover:text-white transition-colors"
-            >
-              <ArrowLeft size={24} />
-            </button>
-            <div>
-              <h1 className="text-2xl font-bold">NutraGenie</h1>
-              <p className="text-lg font-semibold text-purple-300 mt-1">Create Your Meal</p>
-            </div>
+          <button 
+            onClick={() => setLocation('/explore-recipe-options')}
+            className="text-gray-400 hover:text-white transition-colors"
+          >
+            <ArrowLeft size={24} />
+          </button>
+          <div className="flex-1 text-center">
+            <h1 className="text-2xl font-bold text-white">NutraGenie</h1>
+            <p className="text-lg font-semibold text-purple-300 mt-1">Create Your Meal</p>
           </div>
+          <div className="w-6"></div> {/* Spacer to balance the back button */}
         </div>
       </div>
 
