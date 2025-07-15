@@ -631,7 +631,7 @@ export default function CreateDishesScreen() {
                   Serving Size
                 </label>
                 <Select value={servingSize} onValueChange={setServingSize}>
-                  <SelectTrigger className="bg-gray-700 border-gray-600 text-white [&>svg]:text-gray-300">
+                  <SelectTrigger className="bg-gray-700 border-gray-600 text-white [&>svg]:text-blue-400">
                     <SelectValue placeholder="2 people" />
                   </SelectTrigger>
                   <SelectContent className="bg-gray-700 border-gray-600">
@@ -650,7 +650,7 @@ export default function CreateDishesScreen() {
                   Cuisine
                 </label>
                 <Select value={cuisine} onValueChange={setCuisine}>
-                  <SelectTrigger className="bg-gray-700 border-gray-600 text-white [&>svg]:text-gray-300">
+                  <SelectTrigger className="bg-gray-700 border-gray-600 text-white [&>svg]:text-blue-400">
                     <SelectValue placeholder="Indian" />
                   </SelectTrigger>
                   <SelectContent className="bg-gray-700 border-gray-600">
@@ -674,7 +674,7 @@ export default function CreateDishesScreen() {
                   Meal Type
                 </label>
                 <Select value={mealType} onValueChange={setMealType}>
-                  <SelectTrigger className="bg-gray-700 border-gray-600 text-white [&>svg]:text-gray-300">
+                  <SelectTrigger className="bg-gray-700 border-gray-600 text-white [&>svg]:text-blue-400">
                     <SelectValue placeholder="Dinner" />
                   </SelectTrigger>
                   <SelectContent className="bg-gray-700 border-gray-600">
@@ -691,7 +691,7 @@ export default function CreateDishesScreen() {
                   Cook Method
                 </label>
                 <Select value={cookMethod} onValueChange={setCookMethod}>
-                  <SelectTrigger className="bg-gray-700 border-gray-600 text-white [&>svg]:text-gray-300">
+                  <SelectTrigger className="bg-gray-700 border-gray-600 text-white [&>svg]:text-blue-400">
                     <SelectValue placeholder="Stove-top" />
                   </SelectTrigger>
                   <SelectContent className="bg-gray-700 border-gray-600">
