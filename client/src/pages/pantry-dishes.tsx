@@ -54,7 +54,7 @@ export default function PantryDishesScreen() {
     {
       id: 6,
       name: "Toast with Jam",
-      image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400&h=300&fit=crop",
+      image: "https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=400&h=300&fit=crop",
       calories: 140,
       protein: "4g",
       cookTime: "3 min",
