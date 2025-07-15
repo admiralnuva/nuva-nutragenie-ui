@@ -24,7 +24,7 @@ export default function ExploreRecipeOptionsScreen() {
       <div className="space-y-6">
         {/* Card 1 - Recipe & Dishes */}
         <Card className="mb-3 bg-gray-900 border-gray-700">
-          <CardContent className="space-y-3 p-4">
+          <CardContent className="space-y-3">
             <Button
               onClick={() => setLocation("/chefs-choice")}
               className="w-full bg-gray-800 hover:bg-gray-700 text-white p-4 h-20 rounded-lg"
@@ -93,7 +93,7 @@ export default function ExploreRecipeOptionsScreen() {
 
         {/* Card 2 - Grocery Hub */}
         <Card className="mb-3 bg-gray-900 border-gray-700">
-          <CardContent className="p-3">
+          <CardContent className="space-y-3">
             <Button
               onClick={() => setLocation("/grocery-hub")}
               className="w-full bg-gray-800 hover:bg-gray-700 text-white p-4 h-20 rounded-lg"
@@ -114,7 +114,7 @@ export default function ExploreRecipeOptionsScreen() {
 
         {/* Card 3 - Personalize Diet & Pantry */}
         <Card className="mb-3 bg-gray-900 border-gray-700">
-          <CardContent className="p-3">
+          <CardContent className="space-y-3">
             <Button
               onClick={() => setLocation("/personalize-diet-pantry")}
               className="w-full bg-gray-800 hover:bg-gray-700 text-white p-4 h-20 rounded-lg"
