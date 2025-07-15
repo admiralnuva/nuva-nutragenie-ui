@@ -10,32 +10,32 @@ export default function ExploreRecipeTestScreen() {
   // Custom SVG Icons for better visibility
   const CustomIcons = {
     Settings: () => (
-      <svg viewBox="0 0 24 24" fill="currentColor" className="w-20 h-20">
+      <svg viewBox="0 0 24 24" fill="currentColor" className="w-18 h-18">
         <path d="M12 15.5A3.5 3.5 0 0 1 8.5 12A3.5 3.5 0 0 1 12 8.5a3.5 3.5 0 0 1 3.5 3.5a3.5 3.5 0 0 1-3.5 3.5m7.43-2.53c.04-.32.07-.64.07-.97c0-.33-.03-.66-.07-1l2.11-1.63c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.31-.61-.22l-2.49 1c-.52-.39-1.06-.73-1.69-.98l-.37-2.65A.506.506 0 0 0 14 2h-4c-.25 0-.46.18-.5.42l-.37 2.65c-.63.25-1.17.59-1.69.98l-2.49-1c-.22-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64L4.57 11c-.04.34-.07.67-.07 1c0 .33.03.65.07.97L2.46 14.6c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.31.61.22l2.49-1c.52.39 1.06.73 1.69.98l.37 2.65c.04.24.25.42.5.42h4c.25 0 .46-.18.5-.42l.37-2.65c.63-.25 1.17-.59 1.69-.98l2.49 1c.22.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.66Z"/>
       </svg>
     ),
     Star: () => (
-      <svg viewBox="0 0 24 24" fill="currentColor" className="w-20 h-20">
+      <svg viewBox="0 0 24 24" fill="currentColor" className="w-18 h-18">
         <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22L12 18.77L5.82 22L7 14.14L2 9.27l6.91-1.01L12 2z"/>
       </svg>
     ),
     Home: () => (
-      <svg viewBox="0 0 24 24" fill="currentColor" className="w-20 h-20">
+      <svg viewBox="0 0 24 24" fill="currentColor" className="w-18 h-18">
         <path d="M10 20v-6h4v6h5v-8h3L12 3L2 12h3v8h5z"/>
       </svg>
     ),
     Palette: () => (
-      <svg viewBox="0 0 24 24" fill="currentColor" className="w-20 h-20">
+      <svg viewBox="0 0 24 24" fill="currentColor" className="w-18 h-18">
         <path d="M12 2C6.49 2 2 6.49 2 12s4.49 10 10 10c1.38 0 2.5-1.12 2.5-2.5c0-.61-.23-1.21-.64-1.67c-.08-.09-.13-.21-.13-.33c0-.28.22-.5.5-.5H16c3.31 0 6-2.69 6-6C22 6.04 17.51 2 12 2zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 8 6.5 8S8 8.67 8 9.5S7.33 11 6.5 11zm3-4C8.67 7 8 6.33 8 5.5S8.67 4 9.5 4s1.5.67 1.5 1.5S10.33 7 9.5 7zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 4 14.5 4s1.5.67 1.5 1.5S15.33 7 14.5 7zm3 4c-.83 0-1.5-.67-1.5-1.5S16.67 8 17.5 8s1.5.67 1.5 1.5S18.33 11 17.5 11z"/>
       </svg>
     ),
     Truck: () => (
-      <svg viewBox="0 0 24 24" fill="currentColor" className="w-20 h-20">
+      <svg viewBox="0 0 24 24" fill="currentColor" className="w-18 h-18">
         <path d="M18 18.5a1.5 1.5 0 0 1-1.5 1.5a1.5 1.5 0 0 1-1.5-1.5a1.5 1.5 0 0 1 1.5-1.5a1.5 1.5 0 0 1 1.5 1.5m1.5-9L17 12v6a1 1 0 0 1-1 1h-1a3 3 0 0 0-6 0H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v3h2.5m-11 7.5a1.5 1.5 0 0 1-1.5 1.5A1.5 1.5 0 0 1 6.5 18A1.5 1.5 0 0 1 8 16.5a1.5 1.5 0 0 1 1.5 1.5Z"/>
       </svg>
     ),
     ShoppingBag: () => (
-      <svg viewBox="0 0 24 24" fill="currentColor" className="w-20 h-20">
+      <svg viewBox="0 0 24 24" fill="currentColor" className="w-18 h-18">
         <path d="M19 7h-3V6a4 4 0 0 0-8 0v1H5a1 1 0 0 0-1 1v11a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8a1 1 0 0 0-1-1zM10 6a2 2 0 0 1 4 0v1h-4V6zm6 9a1 1 0 0 1-2 0v-1a1 1 0 0 1 2 0v1z"/>
       </svg>
     )
@@ -146,7 +146,7 @@ export default function ExploreRecipeTestScreen() {
               <Button
                 key={option.id}
                 onClick={() => setLocation(option.path)}
-                className="flex flex-col items-center p-4 bg-transparent hover:bg-gray-800/30 transition-all duration-200 h-auto space-y-2"
+                className="flex flex-col items-center p-2 bg-transparent hover:bg-gray-800/30 transition-all duration-200 h-auto space-y-2"
               >
                 <div className={`w-24 h-24 ${option.color} rounded-2xl flex items-center justify-center shadow-lg hover:scale-105 transition-transform`}>
                   <div className="text-white">
