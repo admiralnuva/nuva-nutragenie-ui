@@ -90,7 +90,7 @@ export default function ExploreRecipeOptionsScreen() {
         </Card>
 
         {/* Card 2 - Grocery List */}
-        <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-purple-500 p-4 hover:shadow-xl hover:shadow-purple-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-purple-400">
+        <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-4">
           <Link href="/grocery-hub" className="block">
             <div className="flex items-center space-x-4">
               <div className="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center">
