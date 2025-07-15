@@ -406,17 +406,17 @@ export default function TakeoutOrdersScreen() {
             {/* Tab Navigation */}
             <div className="grid grid-cols-4 gap-2 mb-6">
               {[
-                { key: "soups", label: "Soups" },
-                { key: "salads", label: "Salads" },
-                { key: "entrees", label: "Entrees" },
-                { key: "desserts", label: "Desserts" }
+                { key: "soups", label: "Soup" },
+                { key: "salads", label: "Salad" },
+                { key: "entrees", label: "Entree" },
+                { key: "desserts", label: "Dessert" }
               ].map((tab) => (
                 <button
                   key={tab.key}
                   onClick={() => setActiveTab(tab.key)}
-                  className={`p-3 rounded-lg font-medium transition-colors ${
+                  className={`p-2 rounded-lg font-medium text-sm transition-colors ${
                     activeTab === tab.key
-                      ? "bg-yellow-500 text-black"
+                      ? "bg-purple-500 text-white"
                       : "bg-gray-700 text-white hover:bg-gray-600"
                   }`}
                 >
