@@ -403,7 +403,7 @@ export default function GroceryHubScreen() {
             onClick={() => setActiveTab('edit')}
             className={`flex-1 py-3 px-4 rounded-lg font-medium transition-all duration-300 ${
               activeTab === 'edit'
-                ? 'bg-blue-600 text-white shadow-lg'
+                ? 'bg-purple-600 text-white shadow-lg'
                 : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
             }`}
           >
@@ -413,7 +413,7 @@ export default function GroceryHubScreen() {
             onClick={() => setActiveTab('shop')}
             className={`flex-1 py-3 px-4 rounded-lg font-medium transition-all duration-300 ${
               activeTab === 'shop'
-                ? 'bg-blue-600 text-white shadow-lg'
+                ? 'bg-purple-600 text-white shadow-lg'
                 : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
             }`}
           >
@@ -423,7 +423,7 @@ export default function GroceryHubScreen() {
             onClick={() => setActiveTab('instacart')}
             className={`flex-1 py-3 px-4 rounded-lg font-medium transition-all duration-300 ${
               activeTab === 'instacart'
-                ? 'bg-blue-600 text-white shadow-lg'
+                ? 'bg-purple-600 text-white shadow-lg'
                 : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
             }`}
           >
