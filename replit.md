@@ -1006,6 +1006,13 @@ To restore to this stable state if needed:
   * Enhanced instacart.tsx: reduced max-width from max-w-md to max-w-sm for better mobile cart display
   * Maintained consistent design language while improving mobile usability for users 40+
   * Prepared app for investor demo with professional mobile presentation across all grocery and shopping features
+- July 15, 2025. Fixed Personalize Diet & Pantry Card Position Persistence Issue:
+  * **Root Cause**: pantryAtBottom state was using regular useState instead of localStorage persistence
+  * **Problem**: Card moved back to top when navigating from bottom tabs (Home, Cook, Takeout) even after completion
+  * **Solution**: Changed pantryAtBottom to use useLocalStorage for proper state persistence across page visits
+  * Enhanced useEffect logic to restore bottom position when dietPantryCompleted is true and user navigates from bottom tabs
+  * Maintained first-time user experience while fixing return navigation behavior
+  * Card now correctly stays at bottom position after completion regardless of navigation source
 - July 14, 2025. Meal Tab Dropdown Runtime Error Investigation:
   * ONGOING ISSUE: ResizeObserver loop errors persist when clicking dropdowns in meal tab
   * Attempted fixes: Removed circular dependencies, eliminated setOriginalMealPreferences references, simplified useEffect

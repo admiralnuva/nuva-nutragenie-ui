@@ -14,7 +14,10 @@ export default function ExploreRecipeOptionsScreen() {
   // Persistent diet & pantry completion status
   const [dietPantryCompleted, setDietPantryCompleted] = useLocalStorage<boolean>("nutragenie_diet_pantry_completed", false);
   
-  // Force first-time user experience - always start with pantry at top for new users
+  // EXPLICIT SEQUENCE CONTROL: Card position persisted in localStorage
+  const [pantryAtBottom, setPantryAtBottom] = useLocalStorage<boolean>("nutragenie_pantry_at_bottom", false);
+  
+  // Initialize card positioning based on user flow and completion status
   useEffect(() => {
     const fromDietary = localStorage.getItem('nutragenie_from_dietary');
     
@@ -24,7 +27,14 @@ export default function ExploreRecipeOptionsScreen() {
       setPantryAtBottom(false);
       localStorage.removeItem('nutragenie_from_dietary');
     }
-  }, []);
+  }, [setDietPantryCompleted, setPantryAtBottom]);
+
+  // Separate effect to sync pantry position with completion status
+  useEffect(() => {
+    if (dietPantryCompleted) {
+      setPantryAtBottom(true);
+    }
+  }, [dietPantryCompleted, setPantryAtBottom]);
   
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [isChefRecommendsCollapsed, setIsChefRecommendsCollapsed] = useState(false);
@@ -40,9 +50,6 @@ export default function ExploreRecipeOptionsScreen() {
     "chicken-breast", "salmon", "bell-peppers" // Default selections
   ]);
   const [pantryConfirmed, setPantryConfirmed] = useState(false);
-  
-  // EXPLICIT SEQUENCE CONTROL: Card position only changes on pantry confirmation
-  const [pantryAtBottom, setPantryAtBottom] = useState(false);
   
   // Meal preferences state
   const [mealServingSize, setMealServingSize] = useState("2 people");
