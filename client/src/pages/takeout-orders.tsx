@@ -63,7 +63,7 @@ export default function TakeoutOrdersScreen() {
           </Link>
           <div className="flex flex-col items-center">
             <h1 className="text-2xl font-bold text-white">NutraGenie</h1>
-            <p className="text-lg font-semibold text-purple-300 mt-1">Takeout Orders</p>
+            <p className="text-lg font-semibold text-purple-300 mt-1">Take-Out Orders</p>
           </div>
           <div className="w-6"></div>
         </div>
@@ -158,7 +158,7 @@ export default function TakeoutOrdersScreen() {
                 onClick={handleOrder}
                 className="w-full bg-blue-500 hover:bg-blue-600 text-white"
               >
-                Design Take out Menu
+                Design Take-Out Menu
               </Button>
             </div>
           </Card>
