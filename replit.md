@@ -1015,6 +1015,13 @@ To restore to this stable state if needed:
   * Card now correctly stays at bottom position after completion regardless of navigation source
   * **CONFIRMED WORKING**: User tested complete flow from beginning - both first-time experience and persistence working correctly
   * **STABILITY NOTE**: User reports this was working yesterday but broke temporarily, indicating potential regression risk
+- July 15, 2025. Fixed Meal Type Dropdown Plugin Error:
+  * **Root Cause**: Circular dependency in useEffect monitoring meal preferences changes causing ResizeObserver loop
+  * **Problem**: Meal Type dropdown specifically throwing plugin errors when clicked due to infinite re-render cycle
+  * **Solution**: Removed automatic "uncheck confirmation when values change" useEffect logic entirely
+  * Users now manually control confirmation state without automatic interference from dropdown changes
+  * Eliminated circular dependency: mealType change → useEffect → state update → re-render → useEffect loop
+  * **CONFIRMED WORKING**: Plugin error resolved, dropdown functions normally
 - July 14, 2025. Meal Tab Dropdown Runtime Error Investigation:
   * ONGOING ISSUE: ResizeObserver loop errors persist when clicking dropdowns in meal tab
   * Attempted fixes: Removed circular dependencies, eliminated setOriginalMealPreferences references, simplified useEffect

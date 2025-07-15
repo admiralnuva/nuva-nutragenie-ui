@@ -83,22 +83,7 @@ export default function ExploreRecipeOptionsScreen() {
   // History selection state
   const [selectedHistoryItem, setSelectedHistoryItem] = useState<string | null>(null);
 
-  // Effect to uncheck confirmation when meal preferences change
-  useEffect(() => {
-    const hasChanges = (
-      mealServingSize !== "2 people" ||
-      mealCuisine !== "American" ||
-      mealType !== "Dinner" ||
-      mealSpiceLevel !== "😊 Mild" ||
-      mealSkillLevel !== "🔰 Beginner" ||
-      mealCookMethod !== "🔥 Oven" ||
-      mealPrepTime !== "⏱️ 30 minutes"
-    );
-
-    if (hasChanges && mealPreferencesConfirmed) {
-      setMealPreferencesConfirmed(false);
-    }
-  }, [mealServingSize, mealCuisine, mealType, mealSpiceLevel, mealSkillLevel, mealCookMethod, mealPrepTime]);
+  // Removed automatic uncheck logic to prevent circular dependencies and plugin errors
 
   // Pantry ingredient categories
   const pantryCategories = {
