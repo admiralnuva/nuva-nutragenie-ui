@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
-import { BackButton } from "@/components/ui/back-button";
+
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -419,19 +419,16 @@ export default function HomeScreen() {
   return (
     <div className="min-h-screen bg-black pb-20">
       {/* Header */}
-      <div className="bg-gray-900 border-b border-gray-700 px-4 py-4 flex items-center justify-between">
-        <BackButton to="/recipes" className="text-white" />
-        <div className="flex-1 text-center">
+      <div className="bg-gray-900 border-b border-gray-700 px-4 py-4 flex items-center justify-center">
+        <div className="text-center">
           <h1 className="text-2xl font-bold text-white">NutraGenie</h1>
           <p className="text-lg font-semibold text-purple-300 mt-1">My Health Dashboard</p>
         </div>
-        <div className="w-8">
-          {chartError && (
-            <div className="flex items-center gap-2 text-amber-300 text-sm">
-              <AlertCircle className="w-4 h-4" />
-            </div>
-          )}
-        </div>
+        {chartError && (
+          <div className="absolute right-4 flex items-center gap-2 text-amber-300 text-sm">
+            <AlertCircle className="w-4 h-4" />
+          </div>
+        )}
       </div>
 
       <div className="max-w-lg mx-auto p-3 space-y-4">
