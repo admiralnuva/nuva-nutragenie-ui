@@ -11,32 +11,32 @@ export default function ExploreRecipeOptionsScreen() {
   // Custom SVG Icons optimized for 36px size
   const CustomIcons = {
     Settings: () => (
-      <svg viewBox="0 0 24 24" fill="currentColor" className="w-11 h-11">
+      <svg viewBox="0 0 24 24" fill="currentColor" className="w-9 h-9">
         <path d="M12 15.5A3.5 3.5 0 0 1 8.5 12A3.5 3.5 0 0 1 12 8.5a3.5 3.5 0 0 1 3.5 3.5a3.5 3.5 0 0 1-3.5 3.5m7.43-2.53c.04-.32.07-.64.07-.97c0-.33-.03-.66-.07-1l2.11-1.63c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.31-.61-.22l-2.49 1c-.52-.39-1.06-.73-1.69-.98l-.37-2.65A.506.506 0 0 0 14 2h-4c-.25 0-.46.18-.5.42l-.37 2.65c-.63.25-1.17.59-1.69.98l-2.49-1c-.22-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64L4.57 11c-.04.34-.07.67-.07 1c0 .33.03.65.07.97L2.46 14.6c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.31.61.22l2.49-1c.52.39 1.06.73 1.69.98l.37 2.65c.04.24.25.42.5.42h4c.25 0 .46-.18.5-.42l.37-2.65c.63-.25 1.17-.59 1.69-.98l2.49 1c.22.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.66Z"/>
       </svg>
     ),
     Star: () => (
-      <svg viewBox="0 0 24 24" fill="currentColor" className="w-11 h-11">
+      <svg viewBox="0 0 24 24" fill="currentColor" className="w-9 h-9">
         <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22L12 18.77L5.82 22L7 14.14L2 9.27l6.91-1.01L12 2z"/>
       </svg>
     ),
     Refrigerator: () => (
-      <svg viewBox="0 0 24 24" fill="currentColor" className="w-11 h-11">
+      <svg viewBox="0 0 24 24" fill="currentColor" className="w-9 h-9">
         <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM5 5h14v6H5V5zm0 8h14v6H5v-6zm2-6h2v2H7V7zm0 8h2v2H7v-2z"/>
       </svg>
     ),
     Chef: () => (
-      <svg viewBox="0 0 24 24" fill="currentColor" className="w-11 h-11">
+      <svg viewBox="0 0 24 24" fill="currentColor" className="w-9 h-9">
         <path d="M12.5 1.5c-1.79 0-3.25 1.46-3.25 3.25v.75c-2.25.83-3.75 3.01-3.75 5.5v.5c0 .28.22.5.5.5h.75V19c0 1.66 1.34 3 3 3h4.5c1.66 0 3-1.34 3-3v-7h.75c.28 0 .5-.22.5-.5v-.5c0-2.49-1.5-4.67-3.75-5.5v-.75c0-1.79-1.46-3.25-3.25-3.25zm0 1.5c.97 0 1.75.78 1.75 1.75v.5h-3.5v-.5c0-.97.78-1.75 1.75-1.75zm-4.5 5.25c0-1.66 1.34-3 3-3h3c1.66 0 3 1.34 3 3v1.5h-9v-1.5zm1.5 3h6V19c0 .83-.67 1.5-1.5 1.5h-3c-.83 0-1.5-.67-1.5-1.5v-7.75zm2.25 2.25c0-.41.34-.75.75-.75s.75.34.75.75v3c0 .41-.34.75-.75.75s-.75-.34-.75-.75v-3z"/>
       </svg>
     ),
     Truck: () => (
-      <svg viewBox="0 0 24 24" fill="currentColor" className="w-11 h-11">
+      <svg viewBox="0 0 24 24" fill="currentColor" className="w-9 h-9">
         <path d="M18 18.5a1.5 1.5 0 0 1-1.5 1.5a1.5 1.5 0 0 1-1.5-1.5a1.5 1.5 0 0 1 1.5-1.5a1.5 1.5 0 0 1 1.5 1.5m1.5-9L17 12v6a1 1 0 0 1-1 1h-1a3 3 0 0 0-6 0H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v3h2.5m-11 7.5a1.5 1.5 0 0 1-1.5 1.5A1.5 1.5 0 0 1 6.5 18A1.5 1.5 0 0 1 8 16.5a1.5 1.5 0 0 1 1.5 1.5Z"/>
       </svg>
     ),
     ShoppingBag: () => (
-      <svg viewBox="0 0 24 24" fill="currentColor" className="w-11 h-11">
+      <svg viewBox="0 0 24 24" fill="currentColor" className="w-9 h-9">
         <path d="M19 7h-3V6a4 4 0 0 0-8 0v1H5a1 1 0 0 0-1 1v11a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8a1 1 0 0 0-1-1zM10 6a2 2 0 0 1 4 0v1h-4V6zm6 9a1 1 0 0 1-2 0v-1a1 1 0 0 1 2 0v1z"/>
       </svg>
     )
@@ -149,7 +149,7 @@ export default function ExploreRecipeOptionsScreen() {
               <div key={option.id} className="flex flex-col items-center space-y-2">
                 <button
                   onClick={() => setLocation(option.path)}
-                  className={`w-18 h-18 rounded-2xl flex items-center justify-center shadow-lg hover:scale-105 transition-transform ${option.color} ${buttonBg}`}
+                  className={`w-20 h-20 rounded-2xl flex items-center justify-center shadow-lg hover:scale-105 transition-transform ${option.color} ${buttonBg}`}
                 >
                   <IconComponent />
                 </button>
