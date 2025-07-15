@@ -136,27 +136,36 @@ export default function ExploreRecipeOptionsScreen() {
         </Button>
       </div>
 
-      {/* iOS-Style Grid Layout */}
+      {/* iOS-Style Grid Layout with Visual Compartments */}
       <div className="mb-8">
-        <div className="grid grid-cols-3 gap-6 max-w-md mx-auto">
-          {recipeOptions.map((option) => {
-            const IconComponent = option.icon;
-            const buttonBg = option.id === 'chefs-choice' ? 'bg-emerald-500/25' : 
-                            option.id === 'pantry' ? 'bg-blue-500/30' :
-                            option.id === 'create' ? 'bg-emerald-500/25' :
-                            option.id === 'takeout' ? 'bg-blue-500/30' : '';
-            return (
-              <div key={option.id} className="flex flex-col items-center space-y-2">
-                <button
-                  onClick={() => setLocation(option.path)}
-                  className={`w-20 h-20 rounded-2xl flex items-center justify-center shadow-lg hover:scale-105 transition-transform ${option.color} ${buttonBg}`}
-                >
-                  <IconComponent />
-                </button>
-                <span className="text-sm font-medium text-white text-center leading-tight">{option.title}</span>
-              </div>
-            );
-          })}
+        <div className="relative border border-gray-600/40 rounded-xl p-4 max-w-md mx-auto bg-gray-800/20">
+          <div className="grid grid-cols-3 gap-6">
+            {recipeOptions.map((option, index) => {
+              const IconComponent = option.icon;
+              const buttonBg = option.id === 'chefs-choice' ? 'bg-emerald-500/25' : 
+                              option.id === 'pantry' ? 'bg-blue-500/30' :
+                              option.id === 'create' ? 'bg-emerald-500/25' :
+                              option.id === 'takeout' ? 'bg-blue-500/30' : '';
+              return (
+                <div key={option.id} className="flex flex-col items-center space-y-2">
+                  <button
+                    onClick={() => setLocation(option.path)}
+                    className={`w-20 h-20 rounded-2xl flex items-center justify-center shadow-lg hover:scale-105 transition-transform ${option.color} ${buttonBg}`}
+                  >
+                    <IconComponent />
+                  </button>
+                  <span className="text-sm font-medium text-white text-center leading-tight">{option.title}</span>
+                </div>
+              );
+            })}
+          </div>
+          
+          {/* Vertical separators between columns */}
+          <div className="absolute top-4 bottom-4 left-1/3 w-px bg-gray-600/30"></div>
+          <div className="absolute top-4 bottom-4 right-1/3 w-px bg-gray-600/30"></div>
+          
+          {/* Horizontal separator between rows */}
+          <div className="absolute left-4 right-4 top-1/2 h-px bg-gray-600/30 transform -translate-y-1/2"></div>
         </div>
       </div>
 
