@@ -31,10 +31,10 @@ export default function ExploreRecipeOptionsScreen() {
                   </div>
                   <div className="flex-1">
                     <h3 className="text-lg font-semibold text-white">Chef's Choice</h3>
-                    <p className="text-gray-300 text-sm">AI-selected recipes for you</p>
-                    <p className="text-gray-400 text-xs">Personalized recommendations</p>
+                    <p className="text-blue-200 text-sm">AI-selected recipes for you</p>
+                    <p className="text-blue-200 text-xs">Personalized recommendations</p>
                   </div>
-                  <div className="text-gray-400">→</div>
+                  <div className="text-blue-200">→</div>
                 </div>
               </Card>
             </Link>
@@ -47,10 +47,10 @@ export default function ExploreRecipeOptionsScreen() {
                   </div>
                   <div className="flex-1">
                     <h3 className="text-lg font-semibold text-white">Pantry Dishes</h3>
-                    <p className="text-gray-300 text-sm">Use what you have at home</p>
-                    <p className="text-gray-400 text-xs">Quick & easy options</p>
+                    <p className="text-blue-200 text-sm">Use what you have at home</p>
+                    <p className="text-blue-200 text-xs">Quick & easy options</p>
                   </div>
-                  <div className="text-gray-400">→</div>
+                  <div className="text-blue-200">→</div>
                 </div>
               </Card>
             </Link>
@@ -63,10 +63,10 @@ export default function ExploreRecipeOptionsScreen() {
                   </div>
                   <div className="flex-1">
                     <h3 className="text-lg font-semibold text-white">Create Dishes</h3>
-                    <p className="text-gray-300 text-sm">Build custom recipes</p>
-                    <p className="text-gray-400 text-xs">Tell us what you're craving</p>
+                    <p className="text-blue-200 text-sm">Build custom recipes</p>
+                    <p className="text-blue-200 text-xs">Tell us what you're craving</p>
                   </div>
-                  <div className="text-gray-400">→</div>
+                  <div className="text-blue-200">→</div>
                 </div>
               </Card>
             </Link>
@@ -79,10 +79,10 @@ export default function ExploreRecipeOptionsScreen() {
                   </div>
                   <div className="flex-1">
                     <h3 className="text-lg font-semibold text-white">Take-Out</h3>
-                    <p className="text-gray-300 text-sm">Order from local chefs</p>
-                    <p className="text-gray-400 text-xs">Group & weekly meals</p>
+                    <p className="text-blue-200 text-sm">Order from local chefs</p>
+                    <p className="text-blue-200 text-xs">Group & weekly meals</p>
                   </div>
-                  <div className="text-gray-400">→</div>
+                  <div className="text-blue-200">→</div>
                 </div>
               </Card>
             </Link>
@@ -98,10 +98,10 @@ export default function ExploreRecipeOptionsScreen() {
               </div>
               <div className="flex-1">
                 <h3 className="text-lg font-semibold text-white">Grocery Hub</h3>
-                <p className="text-gray-300 text-sm">Manage shopping lists</p>
-                <p className="text-gray-400 text-xs">Add & organize ingredients</p>
+                <p className="text-blue-200 text-sm">Manage shopping lists</p>
+                <p className="text-blue-200 text-xs">Add & organize ingredients</p>
               </div>
-              <div className="text-gray-400">→</div>
+              <div className="text-blue-200">→</div>
             </div>
           </Link>
         </Card>
@@ -115,10 +115,10 @@ export default function ExploreRecipeOptionsScreen() {
               </div>
               <div className="flex-1">
                 <h3 className="text-lg font-semibold text-white">Personalize Diet & Pantry</h3>
-                <p className="text-gray-300 text-sm">Set your preferences</p>
-                <p className="text-gray-400 text-xs">Diet, meal types & pantry items</p>
+                <p className="text-blue-200 text-sm">Set your preferences</p>
+                <p className="text-blue-200 text-xs">Diet, meal types & pantry items</p>
               </div>
-              <div className="text-gray-400">→</div>
+              <div className="text-blue-200">→</div>
             </div>
           </Link>
         </Card>
