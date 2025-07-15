@@ -162,7 +162,7 @@ export default function ExploreRecipeOptionsScreen() {
 
       {/* Rectangle Separator */}
       <div className="mb-8">
-        <div className="h-px bg-gradient-to-r from-transparent via-gray-400 to-transparent max-w-md mx-auto"></div>
+        <div className="h-0.5 bg-gray-500 max-w-xs mx-auto rounded-full"></div>
       </div>
 
       {/* Streaming Section */}
