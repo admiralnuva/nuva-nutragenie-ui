@@ -17,7 +17,7 @@ import CreateDishesScreen from "@/pages/create-dishes";
 import ExploreRecipeOptionsScreen from "@/pages/explore-recipe-options";
 
 import ProfileScreen from "@/pages/profile";
-import HealthAnalyticsScreen from "@/pages/health";
+
 import HomeScreen from "@/pages/home";
 
 import InstacartScreen from "@/pages/instacart";
@@ -78,7 +78,7 @@ function Router() {
       <Route path="/takeout-orders" component={TakeoutOrdersScreen} />
       <Route path="/personalize-diet-pantry" component={PersonalizeDietPantryScreen} />
       <Route path="/profile" component={ProfileScreen} />
-      <Route path="/health" component={HealthAnalyticsScreen} />
+
 
     </Switch>
   );
