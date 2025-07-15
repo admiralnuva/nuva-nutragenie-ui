@@ -149,7 +149,7 @@ export default function TakeoutOrdersScreen() {
                     type="date"
                     value={formData.deliveryDate}
                     onChange={(e) => setFormData({...formData, deliveryDate: e.target.value})}
-                    className="bg-gray-700 border-gray-600 text-white [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert"
+                    className="bg-gray-700 border-gray-600 text-white [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert [&::-webkit-calendar-picker-indicator]:w-6 [&::-webkit-calendar-picker-indicator]:h-6 [&::-webkit-calendar-picker-indicator]:cursor-pointer"
                   />
                 </div>
               </div>
