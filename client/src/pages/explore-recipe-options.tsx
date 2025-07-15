@@ -6,6 +6,7 @@ import { ArrowLeft, Play, Clock, Users } from "lucide-react";
 
 export default function ExploreRecipeOptionsScreen() {
   const [, setLocation] = useLocation();
+  const [currentCardIndex, setCurrentCardIndex] = useState(0);
 
   // Custom SVG Icons optimized for 36px size
   const CustomIcons = {
@@ -168,44 +169,66 @@ export default function ExploreRecipeOptionsScreen() {
           </Button>
         </div>
 
-        {/* Horizontal Scrollable Cards */}
-        <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
-          {streamingContent.map((content) => (
-            <Card key={content.id} className="min-w-[280px] bg-gray-800/80 border-gray-700 hover:bg-gray-700/80 transition-all cursor-pointer">
-              <div className="relative">
-                <img 
-                  src={content.thumbnail}
-                  alt={content.title}
-                  className="w-full h-40 object-cover rounded-t-lg"
-                />
-                {content.isLive && (
-                  <div className="absolute top-2 left-2 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold flex items-center gap-1">
-                    <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-                    LIVE
+        {/* Single Card with Swipe Navigation */}
+        <div className="relative">
+          <div className="overflow-hidden">
+            <div 
+              className="flex transition-transform duration-300 ease-in-out"
+              style={{ transform: `translateX(-${currentCardIndex * 100}%)` }}
+            >
+              {streamingContent.map((content) => (
+                <Card key={content.id} className="w-full flex-shrink-0 bg-gray-800/80 border-gray-700 hover:bg-gray-700/80 transition-all cursor-pointer">
+                  <div className="relative">
+                    <img 
+                      src={content.thumbnail}
+                      alt={content.title}
+                      className="w-full h-40 object-cover rounded-t-lg"
+                    />
+                    {content.isLive && (
+                      <div className="absolute top-2 left-2 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+                        <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                        LIVE
+                      </div>
+                    )}
+                    <div className="absolute bottom-2 right-2 bg-black/70 text-white px-2 py-1 rounded text-xs">
+                      {content.duration}
+                    </div>
+                    <div className="absolute inset-0 bg-black/20 rounded-t-lg flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+                      <Play size={32} className="text-white" />
+                    </div>
                   </div>
-                )}
-                <div className="absolute bottom-2 right-2 bg-black/70 text-white px-2 py-1 rounded text-xs">
-                  {content.duration}
-                </div>
-                <div className="absolute inset-0 bg-black/20 rounded-t-lg flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
-                  <Play size={32} className="text-white" />
-                </div>
-              </div>
-              <CardContent className="p-4">
-                <h4 className="font-semibold text-white text-sm mb-2 line-clamp-2">{content.title}</h4>
-                <p className="text-gray-300 text-xs mb-2">{content.chef}</p>
-                <div className="flex items-center justify-between text-xs text-gray-400">
-                  <div className="flex items-center gap-1">
-                    <Users size={12} />
-                    {content.viewers} watching
-                  </div>
-                  <Button size="sm" className="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 h-auto text-xs">
-                    {content.isLive ? "Join Live" : "Watch"}
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                  <CardContent className="p-4">
+                    <h4 className="font-semibold text-white text-sm mb-2 line-clamp-2">{content.title}</h4>
+                    <p className="text-gray-300 text-xs mb-2">{content.chef}</p>
+                    <div className="flex items-center justify-between text-xs text-gray-400">
+                      <div className="flex items-center gap-1">
+                        <Users size={12} />
+                        {content.viewers} watching
+                      </div>
+                      <Button size="sm" className="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 h-auto text-xs">
+                        {content.isLive ? "Join Live" : "Watch"}
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+          
+          {/* Navigation Dots */}
+          <div className="flex justify-center gap-2 mt-3">
+            {streamingContent.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentCardIndex(index)}
+                className={`w-2 h-2 rounded-full transition-all ${
+                  index === currentCardIndex 
+                    ? 'bg-purple-400 w-6' 
+                    : 'bg-gray-600 hover:bg-gray-500'
+                }`}
+              />
+            ))}
+          </div>
         </div>
 
         {/* Featured Content */}
