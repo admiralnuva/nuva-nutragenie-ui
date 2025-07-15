@@ -22,8 +22,8 @@ export default function ExploreRecipeOptionsScreen() {
       </div>
 
       <div className="space-y-6">
-        {/* Recipe & Dishes - No Card Container */}
-        <div className="mb-3 space-y-3">
+        {/* Recipe & Dishes - Grouped with Border */}
+        <div className="mb-3 border border-gray-600 rounded-lg p-3 space-y-2">
             <Button
               onClick={() => setLocation("/chefs-choice")}
               className="w-full bg-gray-800 hover:bg-gray-700 text-white p-4 h-20 rounded-lg"
