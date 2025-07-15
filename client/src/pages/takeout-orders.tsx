@@ -10,6 +10,7 @@ import { DishCard } from "@/components/ui/dish-card";
 export default function TakeoutOrdersScreen() {
   const [showForm, setShowForm] = useState(true);
   const [showResults, setShowResults] = useState(false);
+  const [activeTab, setActiveTab] = useState("soups");
   const [formData, setFormData] = useState({
     servingSize: "",
     cuisine: "",
@@ -18,35 +19,268 @@ export default function TakeoutOrdersScreen() {
     deliveryDate: ""
   });
 
-  const takeoutDishes = [
-    {
-      id: 1,
-      name: "Classic Burger",
-      image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop",
-      calories: 520,
-      protein: "28g",
-      cookTime: "Ready in 30 min",
-      difficulty: "Takeout"
-    },
-    {
-      id: 2,
-      name: "Margherita Pizza",
-      image: "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=400&h=300&fit=crop",
-      calories: 380,
-      protein: "18g",
-      cookTime: "Ready in 25 min",
-      difficulty: "Takeout"
-    },
-    {
-      id: 3,
-      name: "Chicken Pad Thai",
-      image: "https://images.unsplash.com/photo-1559314809-0f31657def5e?w=400&h=300&fit=crop",
-      calories: 450,
-      protein: "32g",
-      cookTime: "Ready in 35 min",
-      difficulty: "Takeout"
-    }
-  ];
+  const menuCategories = {
+    soups: [
+      {
+        id: 1,
+        name: "Chicken Noodle Soup",
+        image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400&h=300&fit=crop",
+        calories: 220,
+        protein: "18g",
+        cookTime: "Ready in 20 min",
+        difficulty: "Takeout"
+      },
+      {
+        id: 2,
+        name: "Tomato Basil Soup",
+        image: "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&h=300&fit=crop",
+        calories: 180,
+        protein: "6g",
+        cookTime: "Ready in 15 min",
+        difficulty: "Takeout"
+      },
+      {
+        id: 3,
+        name: "Mushroom Bisque",
+        image: "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&h=300&fit=crop",
+        calories: 260,
+        protein: "8g",
+        cookTime: "Ready in 25 min",
+        difficulty: "Takeout"
+      },
+      {
+        id: 4,
+        name: "Vegetable Minestrone",
+        image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400&h=300&fit=crop",
+        calories: 190,
+        protein: "7g",
+        cookTime: "Ready in 18 min",
+        difficulty: "Takeout"
+      },
+      {
+        id: 5,
+        name: "Butternut Squash Soup",
+        image: "https://images.unsplash.com/photo-1476718406336-bb5a9690ee2a?w=400&h=300&fit=crop",
+        calories: 210,
+        protein: "5g",
+        cookTime: "Ready in 22 min",
+        difficulty: "Takeout"
+      },
+      {
+        id: 6,
+        name: "Seafood Chowder",
+        image: "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&h=300&fit=crop",
+        calories: 340,
+        protein: "24g",
+        cookTime: "Ready in 30 min",
+        difficulty: "Takeout"
+      },
+      {
+        id: 7,
+        name: "Lentil Soup",
+        image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400&h=300&fit=crop",
+        calories: 230,
+        protein: "16g",
+        cookTime: "Ready in 25 min",
+        difficulty: "Takeout"
+      }
+    ],
+    salads: [
+      {
+        id: 8,
+        name: "Caesar Salad",
+        image: "https://images.unsplash.com/photo-1512852939750-1305098529bf?w=400&h=300&fit=crop",
+        calories: 320,
+        protein: "25g",
+        cookTime: "Ready in 10 min",
+        difficulty: "Takeout"
+      },
+      {
+        id: 9,
+        name: "Greek Salad",
+        image: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=400&h=300&fit=crop",
+        calories: 280,
+        protein: "12g",
+        cookTime: "Ready in 8 min",
+        difficulty: "Takeout"
+      },
+      {
+        id: 10,
+        name: "Quinoa Buddha Bowl",
+        image: "https://images.unsplash.com/photo-1546793665-c74683f339c1?w=400&h=300&fit=crop",
+        calories: 350,
+        protein: "18g",
+        cookTime: "Ready in 12 min",
+        difficulty: "Takeout"
+      },
+      {
+        id: 11,
+        name: "Kale & Avocado Salad",
+        image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+        calories: 290,
+        protein: "8g",
+        cookTime: "Ready in 7 min",
+        difficulty: "Takeout"
+      },
+      {
+        id: 12,
+        name: "Spinach & Strawberry Salad",
+        image: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=400&h=300&fit=crop",
+        calories: 240,
+        protein: "10g",
+        cookTime: "Ready in 9 min",
+        difficulty: "Takeout"
+      },
+      {
+        id: 13,
+        name: "Mediterranean Salad",
+        image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+        calories: 310,
+        protein: "14g",
+        cookTime: "Ready in 11 min",
+        difficulty: "Takeout"
+      },
+      {
+        id: 14,
+        name: "Asian Chicken Salad",
+        image: "https://images.unsplash.com/photo-1512852939750-1305098529bf?w=400&h=300&fit=crop",
+        calories: 380,
+        protein: "28g",
+        cookTime: "Ready in 13 min",
+        difficulty: "Takeout"
+      }
+    ],
+    entrees: [
+      {
+        id: 15,
+        name: "Grilled Salmon",
+        image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400&h=300&fit=crop",
+        calories: 420,
+        protein: "35g",
+        cookTime: "Ready in 25 min",
+        difficulty: "Takeout"
+      },
+      {
+        id: 16,
+        name: "Chicken Parmesan",
+        image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop",
+        calories: 480,
+        protein: "42g",
+        cookTime: "Ready in 30 min",
+        difficulty: "Takeout"
+      },
+      {
+        id: 17,
+        name: "Beef Stir Fry",
+        image: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400&h=300&fit=crop",
+        calories: 450,
+        protein: "32g",
+        cookTime: "Ready in 20 min",
+        difficulty: "Takeout"
+      },
+      {
+        id: 18,
+        name: "Vegetable Pasta",
+        image: "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=400&h=300&fit=crop",
+        calories: 360,
+        protein: "14g",
+        cookTime: "Ready in 22 min",
+        difficulty: "Takeout"
+      },
+      {
+        id: 19,
+        name: "Turkey Meatballs",
+        image: "https://images.unsplash.com/photo-1529042410759-befb1204b468?w=400&h=300&fit=crop",
+        calories: 390,
+        protein: "28g",
+        cookTime: "Ready in 27 min",
+        difficulty: "Takeout"
+      },
+      {
+        id: 20,
+        name: "Fish Tacos",
+        image: "https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=400&h=300&fit=crop",
+        calories: 340,
+        protein: "25g",
+        cookTime: "Ready in 18 min",
+        difficulty: "Takeout"
+      },
+      {
+        id: 21,
+        name: "Mushroom Risotto",
+        image: "https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=400&h=300&fit=crop",
+        calories: 390,
+        protein: "12g",
+        cookTime: "Ready in 35 min",
+        difficulty: "Takeout"
+      }
+    ],
+    desserts: [
+      {
+        id: 22,
+        name: "Chocolate Lava Cake",
+        image: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=400&h=300&fit=crop",
+        calories: 420,
+        protein: "6g",
+        cookTime: "Ready in 15 min",
+        difficulty: "Takeout"
+      },
+      {
+        id: 23,
+        name: "Tiramisu",
+        image: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=400&h=300&fit=crop",
+        calories: 380,
+        protein: "8g",
+        cookTime: "Ready in 10 min",
+        difficulty: "Takeout"
+      },
+      {
+        id: 24,
+        name: "Berry Cheesecake",
+        image: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400&h=300&fit=crop",
+        calories: 450,
+        protein: "7g",
+        cookTime: "Ready in 12 min",
+        difficulty: "Takeout"
+      },
+      {
+        id: 25,
+        name: "Apple Pie",
+        image: "https://images.unsplash.com/photo-1535920527002-b35e96722bd4?w=400&h=300&fit=crop",
+        calories: 320,
+        protein: "4g",
+        cookTime: "Ready in 8 min",
+        difficulty: "Takeout"
+      },
+      {
+        id: 26,
+        name: "Crème Brûlée",
+        image: "https://images.unsplash.com/photo-1470324161839-ce2bb6fa6bc3?w=400&h=300&fit=crop",
+        calories: 290,
+        protein: "5g",
+        cookTime: "Ready in 6 min",
+        difficulty: "Takeout"
+      },
+      {
+        id: 27,
+        name: "Gelato Trio",
+        image: "https://images.unsplash.com/photo-1567206563064-6f60f40a2b57?w=400&h=300&fit=crop",
+        calories: 240,
+        protein: "4g",
+        cookTime: "Ready in 3 min",
+        difficulty: "Takeout"
+      },
+      {
+        id: 28,
+        name: "Chocolate Mousse",
+        image: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=400&h=300&fit=crop",
+        calories: 310,
+        protein: "6g",
+        cookTime: "Ready in 5 min",
+        difficulty: "Takeout"
+      }
+    ]
+  };
 
   const handleOrder = () => {
     setShowForm(false);
@@ -164,11 +398,36 @@ export default function TakeoutOrdersScreen() {
           </Card>
         )}
 
-        {/* Results Card */}
+        {/* Results Card with Tabs */}
         {showResults && (
           <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
+            <h2 className="text-xl font-bold text-yellow-400 mb-4 text-center drop-shadow">7-Day Take-Out Menu</h2>
+            
+            {/* Tab Navigation */}
+            <div className="grid grid-cols-4 gap-2 mb-6">
+              {[
+                { key: "soups", label: "Soups" },
+                { key: "salads", label: "Salads" },
+                { key: "entrees", label: "Entrees" },
+                { key: "desserts", label: "Desserts" }
+              ].map((tab) => (
+                <button
+                  key={tab.key}
+                  onClick={() => setActiveTab(tab.key)}
+                  className={`p-3 rounded-lg font-medium transition-colors ${
+                    activeTab === tab.key
+                      ? "bg-yellow-500 text-black"
+                      : "bg-gray-700 text-white hover:bg-gray-600"
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Dishes Grid */}
             <div className="grid grid-cols-1 gap-4">
-              {takeoutDishes.map((dish) => (
+              {menuCategories[activeTab as keyof typeof menuCategories].map((dish) => (
                 <DishCard key={dish.id} dish={dish} />
               ))}
             </div>
