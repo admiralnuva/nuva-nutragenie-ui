@@ -86,7 +86,7 @@ export function RecipeModal({ recipe, isOpen, onClose, onSave }: RecipeModalProp
 
           {/* Ingredients Section */}
           <div className="p-6 border-b border-gray-700/50">
-            <h3 className="text-xl font-bold mb-4 flex items-center gap-3">
+            <h3 className="text-xl font-bold mb-6 flex items-center gap-3">
               <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-emerald-500 rounded-lg flex items-center justify-center">
                 <Utensils size={18} className="text-white" />
               </div>
@@ -94,18 +94,18 @@ export function RecipeModal({ recipe, isOpen, onClose, onSave }: RecipeModalProp
                 Ingredients
               </span>
             </h3>
-            <div className="grid gap-3">
-              {recipe.ingredients.map((ingredient, index) => (
-                <div key={index} className="bg-green-500/10 border border-green-500/20 rounded-xl p-4 backdrop-blur-sm hover:bg-green-500/15 transition-all duration-300 animate-in slide-in-from-left" style={{animationDelay: `${index * 100}ms`}}>
-                  <div className="flex items-center gap-3">
+            <div className="bg-green-500/10 border border-green-500/20 rounded-2xl p-6 backdrop-blur-sm hover:bg-green-500/15 transition-all duration-300 animate-in slide-in-from-left">
+              <div className="space-y-4">
+                {recipe.ingredients.map((ingredient, index) => (
+                  <div key={index} className="flex items-center gap-4 py-2" style={{animationDelay: `${index * 100}ms`}}>
                     <div className="w-3 h-3 bg-gradient-to-br from-green-400 to-emerald-400 rounded-full flex-shrink-0 shadow-lg"></div>
-                    <span className="text-white">
-                      <span className="font-semibold text-green-300">{ingredient.quantity}</span> 
-                      <span className="ml-2">{ingredient.name}</span>
+                    <span className="text-white text-lg">
+                      <span className="font-bold text-green-300">{ingredient.quantity}</span> 
+                      <span className="ml-3 font-medium text-emerald-200">{ingredient.name}</span>
                     </span>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
 
