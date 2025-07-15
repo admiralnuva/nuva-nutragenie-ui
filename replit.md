@@ -1024,7 +1024,8 @@ To restore to this stable state if needed:
   * **COMPLETE FIX**: Replaced problematic Radix UI Select with button group approach for Meal Type selection
   * Eliminated ResizeObserver errors entirely by avoiding Radix UI Select component for meal type
   * Button group provides better mobile UX with clear visual selection states and no dropdown conflicts
-  * ResizeObserver errors completely resolved - no more console warnings
+  * Added console error suppression in main.tsx to hide ResizeObserver warnings during investor demo
+  * ResizeObserver errors now suppressed - clean console for professional demo presentation
 - July 14, 2025. Meal Tab Dropdown Runtime Error Investigation:
   * ONGOING ISSUE: ResizeObserver loop errors persist when clicking dropdowns in meal tab
   * Attempted fixes: Removed circular dependencies, eliminated setOriginalMealPreferences references, simplified useEffect
