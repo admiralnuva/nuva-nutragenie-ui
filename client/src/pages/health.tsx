@@ -298,19 +298,68 @@ export default function HealthAnalyticsScreen() {
               Quick Actions
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="space-y-3">
             <Button
               onClick={() => setLocation("/profile")}
-              className="w-full bg-green-500 hover:bg-green-600 text-white p-4 h-auto"
+              className="w-full bg-purple-500 hover:bg-purple-600 text-white p-4 h-auto rounded-lg"
             >
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center">
-                  <span className="text-lg">📊</span>
+                <div className="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center">
+                  <span className="text-lg">🕐</span>
                 </div>
                 <div className="text-left">
-                  <p className="font-semibold">Your Activity</p>
-                  <p className="text-sm opacity-90">View cooking, takeout & recipe history</p>
+                  <p className="font-semibold">Past Recipes</p>
+                  <p className="text-sm opacity-90">Review your history</p>
                 </div>
+                <div className="text-white text-lg">→</div>
+              </div>
+            </Button>
+
+            <Button
+              onClick={() => setLocation("/grocery-hub")}
+              className="w-full bg-green-500 hover:bg-green-600 text-white p-4 h-auto rounded-lg"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center">
+                  <span className="text-lg">🛒</span>
+                </div>
+                <div className="text-left">
+                  <p className="font-semibold">Grocery List</p>
+                  <p className="text-sm opacity-90">Manage shopping</p>
+                </div>
+                <div className="text-white text-lg">→</div>
+              </div>
+            </Button>
+
+            <Button
+              onClick={() => setLocation("/explore-recipe-options")}
+              className="w-full bg-blue-500 hover:bg-blue-600 text-white p-4 h-auto rounded-lg"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+                  <span className="text-lg">🍴</span>
+                </div>
+                <div className="text-left">
+                  <p className="font-semibold">Explore Recipes</p>
+                  <p className="text-sm opacity-90">Find new dishes</p>
+                </div>
+                <div className="text-white text-lg">→</div>
+              </div>
+            </Button>
+
+            <Button
+              onClick={() => setLocation("/voice-cooking")}
+              className="w-full bg-indigo-500 hover:bg-indigo-600 text-white p-4 h-auto rounded-lg"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center">
+                  <span className="text-lg">▶️</span>
+                </div>
+                <div className="text-left">
+                  <p className="font-semibold">Interactive Voice Cooking</p>
+                  <p className="text-sm opacity-90">Start cooking with AI</p>
+                </div>
+                <div className="text-white text-lg">→</div>
               </div>
             </Button>
           </CardContent>
