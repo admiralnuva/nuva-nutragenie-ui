@@ -9,7 +9,7 @@ export default function ChefsChoiceScreen() {
     {
       id: 1,
       name: "Classic Beef Stew",
-      image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop",
+      image: "https://images.unsplash.com/photo-1574484284002-952d92456975?w=400&h=300&fit=crop",
       calories: 420,
       protein: "35g",
       cookTime: "45 min",
