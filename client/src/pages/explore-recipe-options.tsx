@@ -42,7 +42,7 @@ export default function ExploreRecipeOptionsScreen() {
             <Link href="/pantry-dishes" className="block">
               <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-indigo-500 p-4 hover:shadow-xl hover:shadow-indigo-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-indigo-400">
                 <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center">
+                  <div className="w-12 h-12 bg-amber-400 rounded-lg flex items-center justify-center">
                     <span className="text-2xl">🏠</span>
                   </div>
                   <div className="flex-1">
@@ -74,7 +74,7 @@ export default function ExploreRecipeOptionsScreen() {
             <Link href="/takeout-orders" className="block">
               <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-indigo-500 p-4 hover:shadow-xl hover:shadow-indigo-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-indigo-400">
                 <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center">
+                  <div className="w-12 h-12 bg-emerald-400 rounded-lg flex items-center justify-center">
                     <span className="text-2xl">📦</span>
                   </div>
                   <div className="flex-1">
@@ -93,7 +93,7 @@ export default function ExploreRecipeOptionsScreen() {
         <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-purple-500 p-4 hover:shadow-xl hover:shadow-purple-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-purple-400">
           <Link href="/grocery-hub" className="block">
             <div className="flex items-center space-x-4">
-              <div className="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center">
+              <div className="w-12 h-12 bg-teal-400 rounded-lg flex items-center justify-center">
                 <span className="text-2xl">🛒</span>
               </div>
               <div className="flex-1">
