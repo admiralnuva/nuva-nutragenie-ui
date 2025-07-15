@@ -74,13 +74,20 @@ export default function PersonalizeDietPantryScreen() {
     );
   };
 
-  // Ingredient categories
+  // Comprehensive ingredient categories
   const ingredientCategories = {
-    "Meat": ["Chicken Breast", "Ground Beef", "Pork Chops", "Turkey", "Lamb", "Bacon", "Sausage", "Ham"],
-    "Fish & Seafood": ["Salmon", "Tuna", "Shrimp", "Cod", "Tilapia", "Crab", "Lobster", "Scallops"],
-    "Vegetables": ["Bell Peppers", "Onions", "Garlic", "Tomatoes", "Carrots", "Broccoli", "Spinach", "Mushrooms"],
-    "Dairy & Eggs": ["Eggs", "Milk", "Cheese", "Butter", "Yogurt", "Cream", "Sour Cream", "Mozzarella"],
-    "Grains & Pasta": ["Rice", "Pasta", "Bread", "Quinoa", "Oats", "Flour", "Noodles", "Couscous"]
+    "Meat": ["Chicken Breast", "Ground Beef", "Pork Chops", "Turkey", "Lamb", "Bacon", "Sausage", "Ham", "Ground Turkey", "Ribeye Steak", "Ground Pork", "Chicken Thighs"],
+    "Fish & Seafood": ["Salmon", "Tuna", "Shrimp", "Cod", "Tilapia", "Crab", "Lobster", "Scallops", "Mahi-Mahi", "Halibut", "Mussels", "Clams"],
+    "Vegetables": ["Bell Peppers", "Onions", "Garlic", "Tomatoes", "Carrots", "Broccoli", "Spinach", "Mushrooms", "Zucchini", "Eggplant", "Cauliflower", "Asparagus", "Green Beans", "Cucumber", "Celery", "Potatoes"],
+    "Fruits": ["Apples", "Bananas", "Oranges", "Lemons", "Limes", "Berries", "Avocados", "Pineapple", "Mangoes", "Grapes", "Strawberries", "Blueberries"],
+    "Dairy & Eggs": ["Eggs", "Milk", "Cheese", "Butter", "Yogurt", "Cream", "Sour Cream", "Mozzarella", "Cheddar", "Parmesan", "Feta", "Cream Cheese"],
+    "Grains & Pasta": ["Rice", "Pasta", "Bread", "Quinoa", "Oats", "Flour", "Noodles", "Couscous", "Barley", "Brown Rice", "Whole Wheat", "Bulgur"],
+    "Legumes & Beans": ["Black Beans", "Kidney Beans", "Chickpeas", "Lentils", "Navy Beans", "Pinto Beans", "Lima Beans", "Split Peas", "Edamame", "Soybeans"],
+    "Nuts & Seeds": ["Almonds", "Walnuts", "Pecans", "Cashews", "Peanuts", "Sunflower Seeds", "Chia Seeds", "Flax Seeds", "Pumpkin Seeds", "Pine Nuts"],
+    "Oils & Fats": ["Olive Oil", "Coconut Oil", "Vegetable Oil", "Canola Oil", "Sesame Oil", "Avocado Oil", "Butter", "Ghee", "Lard", "Palm Oil"],
+    "Herbs & Spices": ["Basil", "Oregano", "Thyme", "Rosemary", "Cilantro", "Parsley", "Salt", "Black Pepper", "Cumin", "Paprika", "Turmeric", "Ginger"],
+    "Condiments & Sauces": ["Soy Sauce", "Hot Sauce", "Ketchup", "Mustard", "Mayo", "BBQ Sauce", "Vinegar", "Honey", "Maple Syrup", "Worcestershire", "Fish Sauce", "Sriracha"],
+    "Pantry Staples": ["Canned Tomatoes", "Chicken Broth", "Vegetable Broth", "Coconut Milk", "Baking Powder", "Baking Soda", "Vanilla Extract", "Sugar", "Brown Sugar", "Cornstarch"]
   };
 
   return (
@@ -143,35 +150,79 @@ export default function PersonalizeDietPantryScreen() {
 
           {/* Diet Tab Content */}
           {selectedTab === "diet" && (
-            <div className="space-y-4">
-              <h3 className="text-lg font-bold text-yellow-300">Dietary Preferences</h3>
+            <div className="space-y-6 pb-24">
+              <h3 className="text-lg font-bold text-yellow-300">Diet Preferences Summary</h3>
               
-              {/* Display saved preferences */}
-              <div className="space-y-3">
-                <div className="bg-gray-700/50 p-3 rounded-lg">
-                  <h4 className="text-sm font-bold text-yellow-300 mb-2">Dietary Restrictions:</h4>
-                  <p className="text-gray-300 text-sm">{dietaryRestrictions.length > 0 ? dietaryRestrictions.join(", ") : "None selected"}</p>
+              {/* Dietary Restrictions */}
+              <div className="bg-gray-700/50 rounded-lg p-4 border border-gray-600">
+                <h4 className="text-yellow-300 font-bold text-sm mb-3">Dietary Restrictions</h4>
+                <div className="flex flex-wrap gap-2">
+                  <span className="bg-green-600 text-white px-3 py-1 rounded-full text-xs">Vegetarian</span>
+                  <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-xs">Low Sodium</span>
                 </div>
-                
-                <div className="bg-gray-700/50 p-3 rounded-lg">
-                  <h4 className="text-sm font-bold text-yellow-300 mb-2">Health Factors:</h4>
-                  <p className="text-gray-300 text-sm">{healthFactors.length > 0 ? healthFactors.join(", ") : "None selected"}</p>
+              </div>
+
+              {/* Health Factors */}
+              <div className="bg-gray-700/50 rounded-lg p-4 border border-gray-600">
+                <h4 className="text-yellow-300 font-bold text-sm mb-3">Health Factors</h4>
+                <div className="flex flex-wrap gap-2">
+                  <span className="bg-red-600 text-white px-3 py-1 rounded-full text-xs">Diabetes</span>
+                  <span className="bg-orange-600 text-white px-3 py-1 rounded-full text-xs">Blood Pressure</span>
                 </div>
-                
-                <div className="bg-gray-700/50 p-3 rounded-lg">
-                  <h4 className="text-sm font-bold text-yellow-300 mb-2">Fitness Goals:</h4>
-                  <p className="text-gray-300 text-sm">{fitnessGoals.length > 0 ? fitnessGoals.join(", ") : "None selected"}</p>
+              </div>
+
+              {/* Fitness Goals */}
+              <div className="bg-gray-700/50 rounded-lg p-4 border border-gray-600">
+                <h4 className="text-yellow-300 font-bold text-sm mb-3">Fitness Goals</h4>
+                <div className="flex flex-wrap gap-2">
+                  <span className="bg-purple-600 text-white px-3 py-1 rounded-full text-xs">Build Muscle</span>
+                  <span className="bg-indigo-600 text-white px-3 py-1 rounded-full text-xs">General Wellness</span>
                 </div>
-                
-                <div className="bg-gray-700/50 p-3 rounded-lg">
-                  <h4 className="text-sm font-bold text-yellow-300 mb-2">Nutritional Goals:</h4>
-                  <p className="text-gray-300 text-sm">
-                    Cal: {nutritionalGoals.calories || "1301-1500"}, 
-                    Protein: {nutritionalGoals.protein || "71-100g"}, 
-                    Carbs: {nutritionalGoals.carbs || "101-150g"}, 
-                    Fat: {nutritionalGoals.fat || "36-50g"}
-                  </p>
+              </div>
+
+              {/* Allergies & Restrictions */}
+              <div className="bg-gray-700/50 rounded-lg p-4 border border-gray-600">
+                <h4 className="text-yellow-300 font-bold text-sm mb-3">Allergies & Restrictions</h4>
+                <div className="flex flex-wrap gap-2">
+                  <span className="bg-yellow-600 text-white px-3 py-1 rounded-full text-xs">Tree Nuts</span>
+                  <span className="bg-pink-600 text-white px-3 py-1 rounded-full text-xs">Shellfish</span>
                 </div>
+              </div>
+
+              {/* Nutritional Goals */}
+              <div className="bg-gray-700/50 rounded-lg p-4 border border-gray-600">
+                <h4 className="text-yellow-300 font-bold text-sm mb-3">Daily Nutritional Goals</h4>
+                <div className="grid grid-cols-2 gap-3 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-gray-300">🔥 Calories:</span>
+                    <span className="text-white font-semibold">1801-2000</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-300">💪 Protein:</span>
+                    <span className="text-white font-semibold">121-140g</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-300">🌾 Carbs:</span>
+                    <span className="text-white font-semibold">201-250g</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-300">🥑 Fat:</span>
+                    <span className="text-white font-semibold">56-70g</span>
+                  </div>
+                  <div className="flex justify-between col-span-2">
+                    <span className="text-gray-300">🌿 Fiber:</span>
+                    <span className="text-white font-semibold">25-30g</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Additional Notes */}
+              <div className="bg-gray-700/50 rounded-lg p-4 border border-gray-600">
+                <h4 className="text-yellow-300 font-bold text-sm mb-3">Additional Notes</h4>
+                <p className="text-gray-300 text-sm leading-relaxed">
+                  "Prefer plant-based proteins when possible. Avoid processed foods and focus on whole grains. 
+                  Need recipes that are quick to prepare on weekdays (under 30 minutes)."
+                </p>
               </div>
             </div>
           )}
@@ -331,19 +382,20 @@ export default function PersonalizeDietPantryScreen() {
                     <h4 className="text-sm font-bold text-yellow-300 mb-2">
                       {category} ({ingredients.filter(ing => selectedIngredients.includes(ing)).length}/{ingredients.length})
                     </h4>
-                    <div className="grid grid-cols-2 gap-2">
+                    <div className="grid grid-cols-1 gap-2">
                       {ingredients.map((ingredient) => (
-                        <button
+                        <label
                           key={ingredient}
-                          onClick={() => toggleIngredient(ingredient)}
-                          className={`p-2 rounded-lg text-sm transition-all duration-300 ${
-                            selectedIngredients.includes(ingredient)
-                              ? "bg-purple-600 text-white border border-purple-500"
-                              : "bg-gray-700 text-gray-300 border border-gray-600 hover:bg-gray-600"
-                          }`}
+                          className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-600/30 cursor-pointer transition-all duration-200"
                         >
-                          {selectedIngredients.includes(ingredient) && "✓ "}{ingredient}
-                        </button>
+                          <input
+                            type="checkbox"
+                            checked={selectedIngredients.includes(ingredient)}
+                            onChange={() => toggleIngredient(ingredient)}
+                            className="w-4 h-4 text-purple-600 bg-gray-700 border-gray-600 rounded focus:ring-purple-500 focus:ring-2"
+                          />
+                          <span className="text-gray-300 text-sm select-text">{ingredient}</span>
+                        </label>
                       ))}
                     </div>
                     <div className="w-full h-px bg-gray-600 my-3"></div>

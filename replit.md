@@ -144,6 +144,13 @@ Changelog:
   * Added streaming interface below with cooking classes and live content for enhanced user engagement
   * Original design moved to test environment for backup and comparison purposes
   * Achieved 75% icon-to-container ratio (72px icons in 96px containers) for optimal mobile usability
+- July 15, 2025. Comprehensive Pantry and Diet Enhancement:
+  * Expanded pantry ingredient categories from 5 to 12 comprehensive categories with 140+ total ingredients
+  * Added new categories: Fruits, Legumes & Beans, Nuts & Seeds, Oils & Fats, Herbs & Spices, Condiments & Sauces, Pantry Staples
+  * Implemented checkbox-based ingredient selection for compact display and improved usability
+  * Enhanced Diet tab with comprehensive dummy data including colored tags for dietary restrictions, health factors, fitness goals
+  * Added detailed nutritional goals display with emoji indicators and realistic daily targets
+  * Improved visual organization with bordered cards and professional color-coded preference tags
 - July 15, 2025. Enhanced Explore Recipe Options layout with grouped containers and optimal spacing:
   * Reorganized 6 buttons into two bordered containers for better visual organization
   * Top container: 4 recipe options (Chef's Choice, Pantry Dishes, Create Dishes, Take-Out)
