@@ -1,11 +1,9 @@
-import { useState } from "react";
 import { Link } from "wouter";
-import { ArrowLeft, ChevronUp, ChevronDown } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { DishCard } from "@/components/ui/dish-card";
 
 export default function PantryDishesScreen() {
-  const [isCollapsed, setIsCollapsed] = useState(false);
 
   const pantryDishes = [
     {
@@ -82,26 +80,11 @@ export default function PantryDishesScreen() {
 
       <div className="max-w-lg mx-auto px-3 py-3 space-y-3 pb-20">
         <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
-          <div className="flex items-center justify-end mb-4">
-            <button
-              onClick={() => setIsCollapsed(!isCollapsed)}
-              className="text-purple-400 hover:text-purple-300"
-            >
-              {isCollapsed ? (
-                <ChevronDown className="w-10 h-10" />
-              ) : (
-                <ChevronUp className="w-10 h-10" />
-              )}
-            </button>
+          <div className="grid grid-cols-1 gap-4">
+            {pantryDishes.map((dish) => (
+              <DishCard key={dish.id} dish={dish} />
+            ))}
           </div>
-          
-          {!isCollapsed && (
-            <div className="grid grid-cols-1 gap-4">
-              {pantryDishes.map((dish) => (
-                <DishCard key={dish.id} dish={dish} />
-              ))}
-            </div>
-          )}
         </Card>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useLocation } from 'wouter';
-import { ArrowLeft, ChevronDown, ChevronUp, Repeat, BookOpen, Save, CookingPot, Plus, ArrowLeftRight, Heart } from 'lucide-react';
+import { ArrowLeft, ChevronDown, Repeat, BookOpen, Save, CookingPot, Plus, ArrowLeftRight, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -744,17 +744,6 @@ export default function CreateDishesScreen() {
         {showResults && !showTakeOut && (
           <Card className="bg-gray-800/90 backdrop-blur-sm border border-gray-700">
             <CardHeader className="pb-4">
-              <div className="flex items-center justify-end mb-4">
-                <button
-                  onClick={() => {
-                    setShowResults(false);
-                    setShowInputForm(true);
-                  }}
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  <ChevronUp size={20} />
-                </button>
-              </div>
               <div className="flex space-x-2">
                 <Button
                   variant="outline"

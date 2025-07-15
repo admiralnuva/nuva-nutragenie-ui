@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
-import { ArrowLeft, ChevronUp, ChevronDown, Calendar } from "lucide-react";
+import { ArrowLeft, Calendar } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -169,15 +169,6 @@ export default function TakeoutOrdersScreen() {
         {/* Results Card */}
         {showResults && (
           <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-6">
-            <div className="flex items-center justify-end mb-4">
-              <button
-                onClick={() => setShowResults(false)}
-                className="text-purple-400 hover:text-purple-300"
-              >
-                <ChevronUp className="w-10 h-10" />
-              </button>
-            </div>
-            
             <div className="grid grid-cols-1 gap-4">
               {takeoutDishes.map((dish) => (
                 <DishCard key={dish.id} dish={dish} />
