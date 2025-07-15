@@ -21,12 +21,12 @@ export default function ExploreRecipeOptionsScreen() {
 
       <div className="space-y-6">
         {/* Card 1 - Recipe & Dishes */}
-        <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-purple-500 p-4 hover:shadow-xl hover:shadow-purple-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-purple-400">
-          <div className="space-y-4">
+        <Card className="bg-gray-800/95 backdrop-blur-sm border-gray-600 p-6 hover:shadow-2xl transition-all duration-500 hover:scale-[1.01] hover:bg-gray-750/95 rounded-xl">
+          <div className="space-y-5">
             <Link href="/chefs-choice" className="block">
-              <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-4 hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center">
+              <Card className="bg-gray-750/70 backdrop-blur border-gray-600/40 p-5 hover:shadow-lg transition-all duration-400 hover:scale-[1.005] hover:bg-gray-700/80 rounded-lg">
+                <div className="flex items-center space-x-5">
+                  <div className="w-14 h-14 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl flex items-center justify-center shadow-md">
                     <span className="text-2xl">⭐</span>
                   </div>
                   <div className="flex-1">
@@ -40,9 +40,9 @@ export default function ExploreRecipeOptionsScreen() {
             </Link>
 
             <Link href="/pantry-dishes" className="block">
-              <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-4 hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-amber-400 rounded-lg flex items-center justify-center">
+              <Card className="bg-gray-750/70 backdrop-blur border-gray-600/40 p-5 hover:shadow-lg transition-all duration-400 hover:scale-[1.005] hover:bg-gray-700/80 rounded-lg">
+                <div className="flex items-center space-x-5">
+                  <div className="w-14 h-14 bg-gradient-to-br from-amber-300 to-amber-500 rounded-xl flex items-center justify-center shadow-md">
                     <span className="text-2xl">🏠</span>
                   </div>
                   <div className="flex-1">
@@ -56,9 +56,9 @@ export default function ExploreRecipeOptionsScreen() {
             </Link>
 
             <Link href="/create-dishes" className="block">
-              <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-4 hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center">
+              <Card className="bg-gray-750/70 backdrop-blur border-gray-600/40 p-5 hover:shadow-lg transition-all duration-400 hover:scale-[1.005] hover:bg-gray-700/80 rounded-lg">
+                <div className="flex items-center space-x-5">
+                  <div className="w-14 h-14 bg-gradient-to-br from-purple-400 to-purple-600 rounded-xl flex items-center justify-center shadow-md">
                     <span className="text-2xl">🎨</span>
                   </div>
                   <div className="flex-1">
@@ -72,9 +72,9 @@ export default function ExploreRecipeOptionsScreen() {
             </Link>
 
             <Link href="/takeout-orders" className="block">
-              <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 p-4 hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-emerald-400 rounded-lg flex items-center justify-center">
+              <Card className="bg-gray-750/70 backdrop-blur border-gray-600/40 p-5 hover:shadow-lg transition-all duration-400 hover:scale-[1.005] hover:bg-gray-700/80 rounded-lg">
+                <div className="flex items-center space-x-5">
+                  <div className="w-14 h-14 bg-gradient-to-br from-emerald-300 to-emerald-500 rounded-xl flex items-center justify-center shadow-md">
                     <span className="text-2xl">📦</span>
                   </div>
                   <div className="flex-1">
@@ -90,10 +90,10 @@ export default function ExploreRecipeOptionsScreen() {
         </Card>
 
         {/* Card 2 - Grocery List */}
-        <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-purple-500 p-4 hover:shadow-xl hover:shadow-purple-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-purple-400">
+        <Card className="bg-gray-800/95 backdrop-blur-sm border-gray-600 p-6 hover:shadow-2xl transition-all duration-500 hover:scale-[1.01] hover:bg-gray-750/95 rounded-xl">
           <Link href="/grocery-hub" className="block">
-            <div className="flex items-center space-x-4">
-              <div className="w-12 h-12 bg-teal-400 rounded-lg flex items-center justify-center">
+            <div className="flex items-center space-x-5">
+              <div className="w-14 h-14 bg-gradient-to-br from-teal-300 to-teal-500 rounded-xl flex items-center justify-center shadow-md">
                 <span className="text-2xl">🥬</span>
               </div>
               <div className="flex-1">
@@ -107,18 +107,18 @@ export default function ExploreRecipeOptionsScreen() {
         </Card>
 
         {/* Card 3 - Personalize Diet & Pantry */}
-        <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-indigo-500 p-4 hover:shadow-xl hover:shadow-indigo-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-indigo-400">
+        <Card className="bg-gray-800/95 backdrop-blur-sm border-gray-600 p-6 hover:shadow-2xl transition-all duration-500 hover:scale-[1.01] hover:bg-gray-750/95 rounded-xl">
           <Link href="/personalize-diet-pantry" className="block">
-            <div className="flex items-center space-x-4">
-              <div className="w-12 h-12 bg-indigo-500 rounded-lg flex items-center justify-center">
+            <div className="flex items-center space-x-5">
+              <div className="w-14 h-14 bg-gradient-to-br from-indigo-400 to-indigo-600 rounded-xl flex items-center justify-center shadow-md">
                 <span className="text-2xl">⚙️</span>
               </div>
-              <div className="flex-1">
-                <h3 className="text-lg font-semibold text-white">Personalize Diet & Pantry</h3>
-                <p className="text-blue-200 text-sm">Set your preferences</p>
-                <p className="text-blue-200 text-xs">Diet, meal types & pantry items</p>
+              <div className="flex-1 min-w-0">
+                <h3 className="text-lg font-semibold text-white truncate">Personalize Diet & Pantry</h3>
+                <p className="text-blue-200 text-sm truncate">Set your preferences</p>
+                <p className="text-blue-200 text-xs truncate">Diet, meal types & pantry items</p>
               </div>
-              <div className="text-blue-200">→</div>
+              <div className="text-blue-200 flex-shrink-0">→</div>
             </div>
           </Link>
         </Card>
