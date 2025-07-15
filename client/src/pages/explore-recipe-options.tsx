@@ -26,7 +26,7 @@ export default function ExploreRecipeOptionsScreen() {
         <div className="space-y-3">
           <Button
             onClick={() => setLocation("/chefs-choice")}
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white p-4 h-20 rounded-lg"
+            className="w-full bg-gray-800 hover:bg-gray-700 text-white p-4 h-20 rounded-lg"
           >
             <div className="flex items-center gap-3 h-full">
               <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -42,7 +42,7 @@ export default function ExploreRecipeOptionsScreen() {
 
           <Button
             onClick={() => setLocation("/pantry-dishes")}
-            className="w-full bg-amber-500 hover:bg-amber-600 text-white p-4 h-20 rounded-lg"
+            className="w-full bg-gray-800 hover:bg-gray-700 text-white p-4 h-20 rounded-lg"
           >
             <div className="flex items-center gap-3 h-full">
               <div className="w-10 h-10 bg-amber-600 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -58,7 +58,7 @@ export default function ExploreRecipeOptionsScreen() {
 
           <Button
             onClick={() => setLocation("/create-dishes")}
-            className="w-full bg-purple-500 hover:bg-purple-600 text-white p-4 h-20 rounded-lg"
+            className="w-full bg-gray-800 hover:bg-gray-700 text-white p-4 h-20 rounded-lg"
           >
             <div className="flex items-center gap-3 h-full">
               <div className="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -74,7 +74,7 @@ export default function ExploreRecipeOptionsScreen() {
 
           <Button
             onClick={() => setLocation("/takeout-orders")}
-            className="w-full bg-emerald-500 hover:bg-emerald-600 text-white p-4 h-20 rounded-lg"
+            className="w-full bg-gray-800 hover:bg-gray-700 text-white p-4 h-20 rounded-lg"
           >
             <div className="flex items-center gap-3 h-full">
               <div className="w-10 h-10 bg-emerald-600 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -93,7 +93,7 @@ export default function ExploreRecipeOptionsScreen() {
         <div className="space-y-3 mt-8">
           <Button
             onClick={() => setLocation("/grocery-hub")}
-            className="w-full bg-teal-500 hover:bg-teal-600 text-white p-4 h-20 rounded-lg"
+            className="w-full bg-gray-800 hover:bg-gray-700 text-white p-4 h-20 rounded-lg"
           >
             <div className="flex items-center gap-3 h-full">
               <div className="w-10 h-10 bg-teal-600 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -109,7 +109,7 @@ export default function ExploreRecipeOptionsScreen() {
 
           <Button
             onClick={() => setLocation("/personalize-diet-pantry")}
-            className="w-full bg-indigo-500 hover:bg-indigo-600 text-white p-4 h-20 rounded-lg"
+            className="w-full bg-gray-800 hover:bg-gray-700 text-white p-4 h-20 rounded-lg"
           >
             <div className="flex items-center gap-3 h-full">
               <div className="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center flex-shrink-0">
