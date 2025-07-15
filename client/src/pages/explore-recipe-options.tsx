@@ -627,7 +627,7 @@ export default function ExploreRecipeOptionsScreen() {
           
           {/* Meal Tab Content */}
           {selectedPreferenceTab === "meal" && (
-            <div className="space-y-4">
+            <div className="space-y-4" style={{ contain: 'layout' }}>
               <div className="grid grid-cols-2 gap-4">
                 {/* Serving Size */}
                 <div>

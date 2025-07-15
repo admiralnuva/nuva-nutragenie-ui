@@ -1021,7 +1021,9 @@ To restore to this stable state if needed:
   * **Solution**: Removed automatic "uncheck confirmation when values change" useEffect logic entirely
   * Users now manually control confirmation state without automatic interference from dropdown changes
   * Eliminated circular dependency: mealType change → useEffect → state update → re-render → useEffect loop
-  * **CONFIRMED WORKING**: Plugin error resolved, dropdown functions normally
+  * **PARTIAL FIX**: Removed circular dependency but ResizeObserver error persists - investigating layout containment solutions
+  * Added CSS `contain: layout` to meal tab content to isolate ResizeObserver from parent elements
+  * ResizeObserver errors appear to be harmless browser warnings, not functional breaks
 - July 14, 2025. Meal Tab Dropdown Runtime Error Investigation:
   * ONGOING ISSUE: ResizeObserver loop errors persist when clicking dropdowns in meal tab
   * Attempted fixes: Removed circular dependencies, eliminated setOriginalMealPreferences references, simplified useEffect
