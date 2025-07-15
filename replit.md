@@ -1007,8 +1007,8 @@ To restore to this stable state if needed:
   * Fixed card size inconsistency in Health Analytics between "Quick Actions" and "Trending This Week" sections
   * Updated Trending cards to match Quick Actions exact dimensions: p-3 padding, w-10 h-10 icons, identical layout structure
   * Added text overflow prevention with truncate classes and flex-1 min-w-0 containers
-  * Applied consistent dark theme styling: bg-gray-900/80 backdrop-blur-sm border border-gray-700
-  * Enhanced hover effects with scale-105 animation matching Quick Actions behavior
+  * Reverted to white background with appropriate dark text colors (text-gray-800 titles, text-gray-600 descriptions)
+  * Enhanced hover effects with scale-105 animation and maintained fixed dimensions
   * All rectangular cards now have uniform dimensions regardless of text content length
 - July 15, 2025. Complete Mobile Optimization for Investor Demo:
   * Systematically reduced all page container widths from max-w-2xl to max-w-lg for better mobile display

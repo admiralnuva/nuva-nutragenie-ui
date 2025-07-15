@@ -815,16 +815,16 @@ export default function HomeScreen() {
             {["Mediterranean Quinoa Bowl", "Spicy Korean Bibimbap", "Classic Italian Carbonara"].map((dish, index) => (
               <Card 
                 key={index} 
-                className="p-3 cursor-pointer hover:shadow-md transition-all duration-200 hover:scale-105 bg-gray-900/80 backdrop-blur-sm border border-gray-700"
+                className="p-3 cursor-pointer hover:shadow-md transition-all duration-200 hover:scale-105"
                 onClick={() => handleNavigation("/recipes")}
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center text-white">
+                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
                     🍽️
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="font-medium text-white truncate">{dish}</div>
-                    <div className="text-sm text-gray-300 truncate">Based on your preferences</div>
+                    <div className="font-medium text-gray-800 truncate">{dish}</div>
+                    <div className="text-sm text-gray-600 truncate">Based on your preferences</div>
                   </div>
                   <div className="flex items-center gap-2 flex-shrink-0">
                     <Badge variant="outline" className="text-xs">#{index + 1}</Badge>
