@@ -47,7 +47,7 @@ export default function ExploreRecipeOptionsScreen() {
       id: "personalize",
       title: "Personalize Diet",
       icon: CustomIcons.Settings,
-      color: "bg-indigo-600",
+      color: "bg-indigo-500",
       path: "/personalize-diet-pantry"
     },
     {
