@@ -20,9 +20,9 @@ export default function ExploreRecipeOptionsScreen() {
         <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22L12 18.77L5.82 22L7 14.14L2 9.27l6.91-1.01L12 2z"/>
       </svg>
     ),
-    Home: () => (
+    Refrigerator: () => (
       <svg viewBox="0 0 24 24" fill="currentColor" className="w-9 h-9">
-        <path d="M10 20v-6h4v6h5v-8h3L12 3L2 12h3v8h5z"/>
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM5 5h14v6H5V5zm0 8h14v6H5v-6zm2-6h2v2H7V7zm0 8h2v2H7v-2z"/>
       </svg>
     ),
     Chef: () => (
@@ -61,7 +61,7 @@ export default function ExploreRecipeOptionsScreen() {
     {
       id: "pantry",
       title: "Pantry Dishes", 
-      icon: CustomIcons.Home,
+      icon: CustomIcons.Refrigerator,
       color: "bg-amber-600",
       path: "/pantry-dishes"
     },
