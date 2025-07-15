@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useLocation } from 'wouter';
-import { ArrowLeft, ChevronDown, Repeat, BookOpen, Save, CookingPot, Plus, ArrowLeftRight, Heart } from 'lucide-react';
+import { ArrowLeft, ChevronDown, ChevronUp, Repeat, BookOpen, Save, CookingPot, Plus, ArrowLeftRight, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
