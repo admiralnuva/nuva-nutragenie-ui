@@ -517,11 +517,11 @@ export default function ExploreRecipeOptionsScreen() {
   return (
     <div className="bg-gradient-to-b from-gray-900 to-black min-h-screen">
       {/* Header */}
-      <div className="bg-warm-neutral-50 border-b border-warm-neutral-200 p-4">
+      <div className="bg-gray-900 border-b border-gray-700 p-4">
         <div className="flex items-center justify-center">
           <div className="flex flex-col items-center">
-            <h1 className="text-2xl font-bold text-warm-neutral-800">NutraGenie</h1>
-            <p className="text-lg font-semibold text-purple-700 mt-1">Explore Recipe Options</p>
+            <h1 className="text-2xl font-bold text-white">NutraGenie</h1>
+            <p className="text-lg font-semibold text-purple-600 mt-1">Explore Recipe Options</p>
           </div>
         </div>
       </div>
