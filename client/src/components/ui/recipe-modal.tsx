@@ -117,7 +117,7 @@ export function RecipeModal({ recipe, isOpen, onClose, onSave }: RecipeModalProp
 
         {/* Fixed Footer Action Bar */}
         <div className="bg-gray-800 p-3 border-t border-gray-700/50 flex-shrink-0">
-          <div className="flex gap-3 justify-end">
+          <div className="flex justify-between items-center">
             <button
               onClick={handleSave}
               disabled={isSaving || isSaved}
@@ -145,6 +145,13 @@ export function RecipeModal({ recipe, isOpen, onClose, onSave }: RecipeModalProp
                   <span>Save</span>
                 </>
               )}
+            </button>
+            <button
+              onClick={onClose}
+              className="w-8 h-8 bg-gray-700 hover:bg-gray-600 rounded-lg flex items-center justify-center transition-colors"
+              disabled={isSaving}
+            >
+              <X size={16} className="text-white" />
             </button>
           </div>
         </div>
