@@ -30,6 +30,42 @@ export default function PersonalizeDietPantryScreen() {
   // Pantry state
   const [selectedIngredients, setSelectedIngredients] = useState<string[]>(["Chicken Breast", "Salmon", "Bell Peppers"]);
 
+  // Wrapper functions to auto-uncheck meal confirmation when preferences change
+  const handleServingSizeChange = (value: string) => {
+    setServingSize(value);
+    setMealPreferencesConfirmed(false);
+  };
+
+  const handleCuisineChange = (value: string) => {
+    setCuisine(value);
+    setMealPreferencesConfirmed(false);
+  };
+
+  const handleMealTypeChange = (value: string) => {
+    setMealType(value);
+    setMealPreferencesConfirmed(false);
+  };
+
+  const handleSpiceLevelChange = (value: string) => {
+    setSpiceLevel(value);
+    setMealPreferencesConfirmed(false);
+  };
+
+  const handleSkillLevelChange = (value: string) => {
+    setSkillLevel(value);
+    setMealPreferencesConfirmed(false);
+  };
+
+  const handleCookMethodChange = (value: string) => {
+    setCookMethod(value);
+    setMealPreferencesConfirmed(false);
+  };
+
+  const handlePrepTimeChange = (value: string) => {
+    setPrepTime(value);
+    setMealPreferencesConfirmed(false);
+  };
+
   // Diet preferences (stored in localStorage)
   const [dietaryRestrictions] = useLocalStorage<string[]>("nutragenie_dietary_restrictions", []);
   const [healthFactors] = useLocalStorage<string[]>("nutragenie_health_factors", []);
@@ -80,6 +116,8 @@ export default function PersonalizeDietPantryScreen() {
         ? prev.filter(i => i !== ingredient)
         : [...prev, ingredient]
     );
+    // Auto-uncheck pantry confirmation when ingredients change
+    setPantryConfirmed(false);
   };
 
   // Comprehensive ingredient categories
@@ -218,7 +256,7 @@ export default function PersonalizeDietPantryScreen() {
                 <div className="grid grid-cols-1 gap-4">
                   <div>
                     <label className="text-yellow-300 font-bold text-sm mb-2 block">Serving Size *</label>
-                    <Select value={servingSize} onValueChange={setServingSize}>
+                    <Select value={servingSize} onValueChange={handleServingSizeChange}>
                       <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
                         <SelectValue placeholder="Select serving size" />
                       </SelectTrigger>
@@ -233,7 +271,7 @@ export default function PersonalizeDietPantryScreen() {
                   
                   <div>
                     <label className="text-yellow-300 font-bold text-sm mb-2 block">Cuisine *</label>
-                    <Select value={cuisine} onValueChange={setCuisine}>
+                    <Select value={cuisine} onValueChange={handleCuisineChange}>
                       <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
                         <SelectValue placeholder="Select cuisine" />
                       </SelectTrigger>
@@ -250,7 +288,7 @@ export default function PersonalizeDietPantryScreen() {
                   
                   <div>
                     <label className="text-yellow-300 font-bold text-sm mb-2 block">Meal Type *</label>
-                    <Select value={mealType} onValueChange={setMealType}>
+                    <Select value={mealType} onValueChange={handleMealTypeChange}>
                       <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
                         <SelectValue placeholder="Select meal type" />
                       </SelectTrigger>
@@ -271,7 +309,7 @@ export default function PersonalizeDietPantryScreen() {
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="text-yellow-300 font-bold text-sm mb-2 block">Spice Level</label>
-                    <Select value={spiceLevel} onValueChange={setSpiceLevel}>
+                    <Select value={spiceLevel} onValueChange={handleSpiceLevelChange}>
                       <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
                         <SelectValue placeholder="Select spice level" />
                       </SelectTrigger>
@@ -286,7 +324,7 @@ export default function PersonalizeDietPantryScreen() {
                   
                   <div>
                     <label className="text-yellow-300 font-bold text-sm mb-2 block">Skill Level</label>
-                    <Select value={skillLevel} onValueChange={setSkillLevel}>
+                    <Select value={skillLevel} onValueChange={handleSkillLevelChange}>
                       <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
                         <SelectValue placeholder="Select skill level" />
                       </SelectTrigger>
@@ -300,7 +338,7 @@ export default function PersonalizeDietPantryScreen() {
                   
                   <div>
                     <label className="text-yellow-300 font-bold text-sm mb-2 block">Cook Method</label>
-                    <Select value={cookMethod} onValueChange={setCookMethod}>
+                    <Select value={cookMethod} onValueChange={handleCookMethodChange}>
                       <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
                         <SelectValue placeholder="Select method" />
                       </SelectTrigger>
@@ -315,7 +353,7 @@ export default function PersonalizeDietPantryScreen() {
                   
                   <div>
                     <label className="text-yellow-300 font-bold text-sm mb-2 block">Prep Time</label>
-                    <Select value={prepTime} onValueChange={setPrepTime}>
+                    <Select value={prepTime} onValueChange={handlePrepTimeChange}>
                       <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
                         <SelectValue placeholder="Select prep time" />
                       </SelectTrigger>
