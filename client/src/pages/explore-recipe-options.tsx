@@ -1222,16 +1222,13 @@ export default function ExploreRecipeOptionsScreen() {
                 Cooked
               </button>
             </Link>
-            <button
-              className={`p-3 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg whitespace-nowrap ${
-                selectedHistoryItem === 'takeout-orders' 
-                  ? 'bg-blue-600 border-blue-500 text-white shadow-lg shadow-blue-500/40' 
-                  : 'bg-blue-500 border-blue-400 text-white shadow-lg shadow-blue-500/30'
-              }`}
-              onClick={() => setSelectedHistoryItem(selectedHistoryItem === 'takeout-orders' ? null : 'takeout-orders')}
-            >
-              Takeouts
-            </button>
+            <Link href="/profile?section=takeout" className="block">
+              <button
+                className="w-full p-3 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg whitespace-nowrap bg-blue-500 border-blue-400 text-white shadow-lg shadow-blue-500/30 hover:bg-blue-600 hover:border-blue-500 hover:shadow-blue-500/40"
+              >
+                Takeouts
+              </button>
+            </Link>
             <Link href="/grocery-hub" className="block">
               <button
                 className="w-full p-3 rounded-lg border text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg whitespace-nowrap bg-blue-500 border-blue-400 text-white shadow-lg shadow-blue-500/30 hover:bg-blue-600 hover:border-blue-500 hover:shadow-blue-500/40"

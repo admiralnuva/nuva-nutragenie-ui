@@ -21,7 +21,11 @@ import {
   FileText,
   BookOpen,
   ChefHat,
-  Activity
+  Activity,
+  Truck,
+  Calendar,
+  MapPin,
+  Clock
 } from "lucide-react";
 
 
@@ -36,7 +40,7 @@ export default function ProfileScreen() {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const section = urlParams.get('section');
-    if (section && ['account', 'dietary', 'health', 'grocery', 'orders', 'recipes', 'cooking'].includes(section)) {
+    if (section && ['account', 'dietary', 'health', 'grocery', 'takeout', 'recipes', 'cooking'].includes(section)) {
       setActiveSection(section);
     }
   }, []);
@@ -56,7 +60,7 @@ export default function ProfileScreen() {
     { id: "dietary", title: "Dietary Needs", icon: Apple },
     { id: "health", title: "Health & Tracking", icon: Activity },
     { id: "grocery", title: "Grocery List", icon: FileText },
-    { id: "orders", title: "Instacart Orders", icon: ShoppingCart },
+    { id: "takeout", title: "Takeout History", icon: Truck },
     { id: "recipes", title: "Recipes Created", icon: BookOpen },
     { id: "cooking", title: "Cooking History", icon: ChefHat }
   ];
@@ -442,6 +446,106 @@ export default function ProfileScreen() {
     );
   };
 
+  const renderTakeoutHistory = () => {
+    const takeoutOrders = [
+      { 
+        id: "TO-2025-001", 
+        date: "Jan 12, 2025", 
+        chef: "Chef Maria's Kitchen", 
+        dishes: ["Grilled Salmon", "Quinoa Bowl", "Green Salad"], 
+        servings: 4, 
+        total: 89.50,
+        status: "Delivered",
+        deliveryTime: "6:30 PM"
+      },
+      { 
+        id: "TO-2025-002", 
+        date: "Jan 8, 2025", 
+        chef: "Healthy Bites Co.", 
+        dishes: ["Turkey Meatballs", "Roasted Vegetables", "Brown Rice"], 
+        servings: 2, 
+        total: 45.25,
+        status: "Delivered",
+        deliveryTime: "7:15 PM"
+      },
+      { 
+        id: "TO-2025-003", 
+        date: "Jan 5, 2025", 
+        chef: "Farm Fresh Meals", 
+        dishes: ["Chicken Stir-fry", "Steamed Broccoli", "Jasmine Rice"], 
+        servings: 6, 
+        total: 112.75,
+        status: "Delivered",
+        deliveryTime: "6:45 PM"
+      },
+      { 
+        id: "TO-2025-004", 
+        date: "Dec 30, 2024", 
+        chef: "Protein Palace", 
+        dishes: ["Lean Beef Bowl", "Sweet Potato", "Mixed Greens"], 
+        servings: 3, 
+        total: 67.80,
+        status: "Delivered",
+        deliveryTime: "7:00 PM"
+      }
+    ];
+
+    return (
+      <CardContent className="p-6 space-y-6">
+        <div className="flex items-center justify-between">
+          <h3 className="text-lg font-semibold text-white">Takeout History</h3>
+        </div>
+
+        <div className="space-y-4">
+          {takeoutOrders.map((order) => (
+            <div key={order.id} className="bg-gray-700 rounded-lg p-4 space-y-3">
+              {/* Header with Order ID and Status */}
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <Truck className="w-4 h-4 text-blue-400" />
+                  <span className="text-white font-medium">{order.id}</span>
+                </div>
+                <Badge variant="secondary" className="bg-green-600 text-white">
+                  {order.status}
+                </Badge>
+              </div>
+
+              {/* Chef and Date Info */}
+              <div className="flex items-center gap-2 text-gray-300 text-sm">
+                <MapPin className="w-3 h-3" />
+                <span>{order.chef}</span>
+                <span>•</span>
+                <Calendar className="w-3 h-3" />
+                <span>{order.date}</span>
+                <span>•</span>
+                <Clock className="w-3 h-3" />
+                <span>{order.deliveryTime}</span>
+              </div>
+
+              {/* Dishes */}
+              <div className="space-y-1">
+                <div className="text-gray-400 text-xs font-medium">DISHES ORDERED:</div>
+                <div className="text-white text-sm">
+                  {order.dishes.join(" • ")}
+                </div>
+              </div>
+
+              {/* Bottom row with servings, total, and action button */}
+              <div className="flex items-center justify-between pt-2 border-t border-gray-600">
+                <div className="text-gray-300 text-sm">
+                  {order.servings} servings • ${order.total}
+                </div>
+                <Button size="sm" variant="outline" className="h-8">
+                  Reorder
+                </Button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </CardContent>
+    );
+  };
+
   const renderOrderHistory = () => {
     const orders = [
       { id: "ORD-12345", date: "Jan 4, 2025", items: 12, total: 67.89 },
@@ -695,7 +799,7 @@ export default function ProfileScreen() {
       case "dietary": return <DietaryPreferencesCard userData={currentUser} onSave={handleSaveDietary} />;
       case "health": return renderHealthSection();
       case "grocery": return renderGroceryHistory();
-      case "orders": return renderOrderHistory();
+      case "takeout": return renderTakeoutHistory();
       case "recipes": return renderRecipesCreated();
       case "cooking": return renderCookingHistory();
       default: return <ProfileCard userData={currentUser} onSave={handleSaveProfile} />;
