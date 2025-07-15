@@ -22,7 +22,6 @@ export default function ExploreRecipeOptionsScreen() {
       <div className="space-y-6">
         {/* Card 1 - Recipe & Dishes */}
         <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-purple-500 p-4 hover:shadow-xl hover:shadow-purple-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-purple-400">
-          <h2 className="text-xl font-bold text-white mb-4 text-center">Recipe & Dishes</h2>
           <div className="space-y-4">
             <Link href="/chefs-choice" className="block">
               <Card className="bg-gray-800/90 backdrop-blur-sm border-gray-700 border-l-4 border-l-indigo-500 p-4 hover:shadow-xl hover:shadow-indigo-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-l-indigo-400">
