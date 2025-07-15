@@ -13,42 +13,42 @@ export default function ExploreRecipeTestScreen() {
       id: "personalize",
       title: "Personalize Diet",
       icon: Settings,
-      color: "bg-blue-500",
+      color: "bg-indigo-600",
       path: "/personalize-diet-pantry"
     },
     {
       id: "chefs-choice", 
       title: "Chef's Choice",
       icon: Star,
-      color: "bg-amber-500",
+      color: "bg-blue-600",
       path: "/chefs-choice"
     },
     {
       id: "pantry",
       title: "Pantry Dishes", 
       icon: Home,
-      color: "bg-green-500",
+      color: "bg-amber-600",
       path: "/pantry-dishes"
     },
     {
       id: "create",
       title: "Create Dishes",
       icon: Palette,
-      color: "bg-purple-500", 
+      color: "bg-purple-600", 
       path: "/create-dishes"
     },
     {
       id: "takeout",
       title: "Take-Out",
       icon: Truck,
-      color: "bg-red-500",
+      color: "bg-emerald-600",
       path: "/takeout"
     },
     {
       id: "grocery",
       title: "Grocery Hub",
       icon: ShoppingBag,
-      color: "bg-indigo-500",
+      color: "bg-teal-600",
       path: "/grocery-hub"
     }
   ];
