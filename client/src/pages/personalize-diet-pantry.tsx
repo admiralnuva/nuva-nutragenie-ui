@@ -5,9 +5,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Settings } from "lucide-react";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useLocation } from "wouter";
+import { useToast } from "@/hooks/use-toast";
 
 export default function PersonalizeDietPantryScreen() {
   const [, setLocation] = useLocation();
+  const { toast } = useToast();
   
   // Tab selection state
   const [selectedTab, setSelectedTab] = useState<"diet" | "meal" | "pantry">("meal");
@@ -49,6 +51,12 @@ export default function PersonalizeDietPantryScreen() {
     // Save completion status to localStorage
     localStorage.setItem("nutragenie_diet_pantry_completed", "true");
     localStorage.setItem("nutragenie_pantry_at_bottom", "true");
+    
+    // Show toast message
+    toast({
+      title: "Pantry Confirmed",
+      description: `${selectedIngredients.length} ingredients saved to your pantry`,
+    });
   };
 
   // Check if coming from dietary preferences and handle completion
