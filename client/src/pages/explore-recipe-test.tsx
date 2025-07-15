@@ -105,7 +105,7 @@ export default function ExploreRecipeTestScreen() {
 
       {/* iOS-Style Grid Layout */}
       <div className="mb-8">
-        <div className="grid grid-cols-3 gap-6 max-w-md mx-auto">
+        <div className="grid grid-cols-3 gap-x-6 gap-y-3 max-w-md mx-auto">
           {recipeOptions.map((option) => {
             const IconComponent = option.icon;
             return (
