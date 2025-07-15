@@ -105,7 +105,7 @@ export default function ExploreRecipeTestScreen() {
 
       {/* iOS-Style Grid Layout */}
       <div className="mb-8">
-        <div className="grid grid-cols-3 gap-x-6 gap-y-3 max-w-md mx-auto">
+        <div className="grid grid-cols-3 gap-6 max-w-md mx-auto">
           {recipeOptions.map((option) => {
             const IconComponent = option.icon;
             return (
@@ -114,8 +114,8 @@ export default function ExploreRecipeTestScreen() {
                 onClick={() => setLocation(option.path)}
                 className="flex flex-col items-center p-4 bg-transparent hover:bg-gray-800/30 transition-all duration-200 h-auto space-y-2"
               >
-                <div className={`w-20 h-20 ${option.color} rounded-2xl flex items-center justify-center shadow-lg hover:scale-105 transition-transform`}>
-                  <IconComponent size={54} className="text-white" />
+                <div className={`w-16 h-16 ${option.color} rounded-2xl flex items-center justify-center shadow-lg hover:scale-105 transition-transform`}>
+                  <IconComponent size={28} className="text-white" />
                 </div>
                 <span className="text-sm font-medium text-white text-center leading-tight">{option.title}</span>
               </Button>
