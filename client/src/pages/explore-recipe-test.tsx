@@ -115,7 +115,7 @@ export default function ExploreRecipeTestScreen() {
                 className="flex flex-col items-center p-4 bg-transparent hover:bg-gray-800/30 transition-all duration-200 h-auto space-y-2"
               >
                 <div className={`w-20 h-20 ${option.color} rounded-2xl flex items-center justify-center shadow-lg hover:scale-105 transition-transform`}>
-                  <IconComponent size={36} className="text-white" />
+                  <IconComponent size={48} className="text-white" />
                 </div>
                 <span className="text-sm font-medium text-white text-center leading-tight">{option.title}</span>
               </Button>
