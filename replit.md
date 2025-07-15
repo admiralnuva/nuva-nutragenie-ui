@@ -141,6 +141,12 @@ Changelog:
   * Your Activity - consolidated access to all personal history (cooking, takeout, recipes)
   * Reduced cognitive load and visual clutter for users 40+
   * Improved information architecture separating "doing" from "reviewing"
+- July 15, 2025. Implemented dedicated page approach for Personalize Diet & Pantry:
+  * Moved complex logic (card positioning, tabs, confirmations) to /personalize-diet-pantry page
+  * Replaced complex expandable card with simple navigation card in main page
+  * Eliminated state management complexity, bell sounds, and localStorage positioning
+  * Follows successful pattern from Recipe & Dishes individual card approach
+  * Provides focused environment for diet/pantry setup without cluttering main page
 - July 03, 2025. Updated splash screen with NutraGenie branding, AI+Health logo placeholder, and 2-line app description explaining the AI nutrition platform vision
 - July 03, 2025. Enhanced recipes screen with comprehensive UX improvements:
   * Smart defaults based on dietary preferences (vegetarian/vegan get plant-based ingredients pre-selected)

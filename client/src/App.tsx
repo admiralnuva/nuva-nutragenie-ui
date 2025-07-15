@@ -26,6 +26,7 @@ import ChefsChoiceScreen from "@/pages/chefs-choice";
 import PantryDishesScreen from "@/pages/pantry-dishes";
 import CustomDishesScreen from "@/pages/custom-dishes";
 import TakeoutOrdersScreen from "@/pages/takeout-orders";
+import PersonalizeDietPantryScreen from "@/pages/personalize-diet-pantry";
 
 
 function Router() {
@@ -75,6 +76,7 @@ function Router() {
       <Route path="/pantry-dishes" component={PantryDishesScreen} />
       <Route path="/custom-dishes" component={CustomDishesScreen} />
       <Route path="/takeout-orders" component={TakeoutOrdersScreen} />
+      <Route path="/personalize-diet-pantry" component={PersonalizeDietPantryScreen} />
       <Route path="/profile" component={ProfileScreen} />
       <Route path="/health" component={HealthAnalyticsScreen} />
 
