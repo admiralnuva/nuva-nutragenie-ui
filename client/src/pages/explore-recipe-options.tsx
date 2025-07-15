@@ -22,9 +22,8 @@ export default function ExploreRecipeOptionsScreen() {
       </div>
 
       <div className="space-y-6">
-        {/* Card 1 - Recipe & Dishes */}
-        <Card className="mb-3 bg-gray-900 border-gray-700">
-          <CardContent className="space-y-3">
+        {/* Recipe & Dishes - No Card Container */}
+        <div className="mb-3 space-y-3">
             <Button
               onClick={() => setLocation("/chefs-choice")}
               className="w-full bg-gray-800 hover:bg-gray-700 text-white p-4 h-20 rounded-lg"
@@ -88,8 +87,7 @@ export default function ExploreRecipeOptionsScreen() {
                 <div className="text-white text-lg flex-shrink-0">→</div>
               </div>
             </Button>
-          </CardContent>
-        </Card>
+        </div>
 
         {/* Card 2 - Grocery Hub */}
         <Card className="mb-3 bg-gray-900 border-gray-700">
