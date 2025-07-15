@@ -98,7 +98,7 @@ export default function ExploreRecipeOptionsScreen() {
                 <span className="text-2xl">🛒</span>
               </div>
               <div className="flex-1">
-                <h3 className="text-lg font-semibold text-white">Grocery List</h3>
+                <h3 className="text-lg font-semibold text-white">Grocery Hub</h3>
                 <p className="text-gray-300 text-sm">Manage shopping lists</p>
                 <p className="text-gray-400 text-xs">Add & organize ingredients</p>
               </div>
