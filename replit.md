@@ -1014,6 +1014,11 @@ To restore to this stable state if needed:
 - July 15, 2025. Profile Navigation Fix:
   * Fixed Profile Settings back button to navigate to /explore-recipe-options instead of non-existent /recipes route
   * Proper navigation flow restored from Profile tab back to main recipe exploration area
+- July 15, 2025. Personalize Diet & Pantry Card Collapse Fix:
+  * Implemented navigation reset for card confirmation states (pantryConfirmed, mealPreferencesConfirmed)
+  * Card content now always starts collapsed when navigating from other screens
+  * Preserved card position logic - card stays at bottom if previously moved
+  * Users must click edit buttons to expand content, ensuring clean state on navigation entry
 - July 15, 2025. Complete Mobile Optimization for Investor Demo:
   * Systematically reduced all page container widths from max-w-2xl to max-w-lg for better mobile display
   * Updated padding and spacing across all major pages for mobile-first design

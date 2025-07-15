@@ -27,6 +27,11 @@ export default function ExploreRecipeOptionsScreen() {
       setPantryAtBottom(false);
       localStorage.removeItem('nutragenie_from_dietary');
     }
+    
+    // Reset confirmation states on every navigation to ensure collapsed content
+    // but preserve card position (pantryAtBottom)
+    setPantryConfirmed(false);
+    setMealPreferencesConfirmed(false);
   }, [setDietPantryCompleted, setPantryAtBottom]);
 
   // Separate effect to sync pantry position with completion status
