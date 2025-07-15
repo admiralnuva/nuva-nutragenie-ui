@@ -23,9 +23,9 @@ export default function ExploreRecipeOptionsScreen() {
 
       <div className="space-y-6">
         {/* Card 1 - Recipe & Dishes */}
-        <Card className="mb-3">
+        <Card className="mb-3 bg-gray-800/90 backdrop-blur-sm border-gray-700">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
+            <CardTitle className="flex items-center gap-2 text-white">
               <span className="text-lg">🍴</span>
               Recipe & Dishes
             </CardTitle>
@@ -98,7 +98,7 @@ export default function ExploreRecipeOptionsScreen() {
         </Card>
 
         {/* Card 2 - Grocery Hub */}
-        <Card className="mb-3">
+        <Card className="mb-3 bg-gray-800/90 backdrop-blur-sm border-gray-700">
           <CardContent className="p-3">
             <Button
               onClick={() => setLocation("/grocery-hub")}
@@ -119,7 +119,7 @@ export default function ExploreRecipeOptionsScreen() {
         </Card>
 
         {/* Card 3 - Personalize Diet & Pantry */}
-        <Card className="mb-3">
+        <Card className="mb-3 bg-gray-800/90 backdrop-blur-sm border-gray-700">
           <CardContent className="p-3">
             <Button
               onClick={() => setLocation("/personalize-diet-pantry")}
