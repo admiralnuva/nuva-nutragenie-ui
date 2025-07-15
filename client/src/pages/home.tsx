@@ -365,14 +365,14 @@ export default function HomeScreen() {
       label: "Grocery List", 
       icon: ShoppingCart, 
       color: "bg-emerald-500", 
-      path: "/grocery-list",
+      path: "/grocery-hub",
       description: "Manage shopping"
     },
     { 
       label: "Explore Recipes", 
       icon: Utensils, 
       color: "bg-blue-500", 
-      path: "/recipes",
+      path: "/create-dishes",
       description: "Find new dishes"
     },
     { 
