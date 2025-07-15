@@ -635,12 +635,12 @@ export default function CreateDishesScreen() {
                     <SelectValue placeholder="2 people" />
                   </SelectTrigger>
                   <SelectContent className="bg-gray-700 border-gray-600">
-                    <SelectItem value="1">1 person</SelectItem>
-                    <SelectItem value="2">2 people</SelectItem>
-                    <SelectItem value="3">3 people</SelectItem>
-                    <SelectItem value="4">4 people</SelectItem>
-                    <SelectItem value="6">6 people</SelectItem>
-                    <SelectItem value="8">8 people</SelectItem>
+                    <SelectItem value="1" className="text-white">1 person</SelectItem>
+                    <SelectItem value="2" className="text-white">2 people</SelectItem>
+                    <SelectItem value="3" className="text-white">3 people</SelectItem>
+                    <SelectItem value="4" className="text-white">4 people</SelectItem>
+                    <SelectItem value="6" className="text-white">6 people</SelectItem>
+                    <SelectItem value="8" className="text-white">8 people</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -654,14 +654,14 @@ export default function CreateDishesScreen() {
                     <SelectValue placeholder="Indian" />
                   </SelectTrigger>
                   <SelectContent className="bg-gray-700 border-gray-600">
-                    <SelectItem value="American">American</SelectItem>
-                    <SelectItem value="Chinese">Chinese</SelectItem>
-                    <SelectItem value="Indian">Indian</SelectItem>
-                    <SelectItem value="Italian">Italian</SelectItem>
-                    <SelectItem value="Japanese">Japanese</SelectItem>
-                    <SelectItem value="Mediterranean">Mediterranean</SelectItem>
-                    <SelectItem value="Mexican">Mexican</SelectItem>
-                    <SelectItem value="Thai">Thai</SelectItem>
+                    <SelectItem value="American" className="text-white">American</SelectItem>
+                    <SelectItem value="Chinese" className="text-white">Chinese</SelectItem>
+                    <SelectItem value="Indian" className="text-white">Indian</SelectItem>
+                    <SelectItem value="Italian" className="text-white">Italian</SelectItem>
+                    <SelectItem value="Japanese" className="text-white">Japanese</SelectItem>
+                    <SelectItem value="Mediterranean" className="text-white">Mediterranean</SelectItem>
+                    <SelectItem value="Mexican" className="text-white">Mexican</SelectItem>
+                    <SelectItem value="Thai" className="text-white">Thai</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -678,10 +678,10 @@ export default function CreateDishesScreen() {
                     <SelectValue placeholder="Dinner" />
                   </SelectTrigger>
                   <SelectContent className="bg-gray-700 border-gray-600">
-                    <SelectItem value="Breakfast">Breakfast</SelectItem>
-                    <SelectItem value="Lunch">Lunch</SelectItem>
-                    <SelectItem value="Dinner">Dinner</SelectItem>
-                    <SelectItem value="Snack">Snack</SelectItem>
+                    <SelectItem value="Breakfast" className="text-white">Breakfast</SelectItem>
+                    <SelectItem value="Lunch" className="text-white">Lunch</SelectItem>
+                    <SelectItem value="Dinner" className="text-white">Dinner</SelectItem>
+                    <SelectItem value="Snack" className="text-white">Snack</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -695,12 +695,12 @@ export default function CreateDishesScreen() {
                     <SelectValue placeholder="Stove-top" />
                   </SelectTrigger>
                   <SelectContent className="bg-gray-700 border-gray-600">
-                    <SelectItem value="Stove-top">Stove-top</SelectItem>
-                    <SelectItem value="Oven">Oven</SelectItem>
-                    <SelectItem value="Grill">Grill</SelectItem>
-                    <SelectItem value="Air Fryer">Air Fryer</SelectItem>
-                    <SelectItem value="Slow Cooker">Slow Cooker</SelectItem>
-                    <SelectItem value="Instant Pot">Instant Pot</SelectItem>
+                    <SelectItem value="Stove-top" className="text-white">Stove-top</SelectItem>
+                    <SelectItem value="Oven" className="text-white">Oven</SelectItem>
+                    <SelectItem value="Grill" className="text-white">Grill</SelectItem>
+                    <SelectItem value="Air Fryer" className="text-white">Air Fryer</SelectItem>
+                    <SelectItem value="Slow Cooker" className="text-white">Slow Cooker</SelectItem>
+                    <SelectItem value="Instant Pot" className="text-white">Instant Pot</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
