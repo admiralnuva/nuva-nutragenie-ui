@@ -18,7 +18,7 @@ export default function PantryDishesScreen() {
     {
       id: 2,
       name: "Garlic Bread",
-      image: "https://images.unsplash.com/photo-1573140247632-f8fd74997d5c?w=400&h=300&fit=crop",
+      image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400&h=300&fit=crop",
       calories: 180,
       protein: "6g",
       cookTime: "10 min",
