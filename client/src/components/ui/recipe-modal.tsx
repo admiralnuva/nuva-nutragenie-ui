@@ -104,7 +104,7 @@ export function RecipeModal({ recipe, isOpen, onClose, onSave }: RecipeModalProp
               {recipe.steps.map((step, index) => (
                 <div key={index} className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-3">
                   <div className="flex gap-3">
-                    <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    <div className="w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
                       <span className="text-white font-bold text-sm">{index + 1}</span>
                     </div>
                     <p className="text-white leading-relaxed text-sm pt-0.5">{step}</p>
