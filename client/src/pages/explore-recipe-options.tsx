@@ -12,11 +12,18 @@ export default function ExploreRecipeOptionsScreen() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white p-4 pb-24">
       {/* Header */}
-      <div className="flex items-center justify-center mb-6">
+      <div className="flex items-center justify-between mb-6">
+        <div className="w-8"></div>
         <div className="text-center">
           <h1 className="text-2xl font-bold text-white">NutraGenie</h1>
           <h2 className="text-lg font-semibold text-purple-300 mt-1">Explore Recipe Options</h2>
         </div>
+        <Button
+          onClick={() => setLocation("/explore-recipe-test")}
+          className="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 text-sm rounded-lg"
+        >
+          Test
+        </Button>
       </div>
 
       <div className="space-y-4">

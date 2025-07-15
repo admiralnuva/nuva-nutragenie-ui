@@ -15,6 +15,7 @@ import NuvaSplashScreen from "@/pages/nuva-splash";
 import NuvaSignupScreen from "@/pages/nuva-signup";
 import CreateDishesScreen from "@/pages/create-dishes";
 import ExploreRecipeOptionsScreen from "@/pages/explore-recipe-options";
+import ExploreRecipeTestScreen from "@/pages/explore-recipe-test";
 
 import ProfileScreen from "@/pages/profile";
 
@@ -63,6 +64,7 @@ function Router() {
           return <div className="p-4 text-white bg-red-900">Error loading page: {String(error)}</div>;
         }
       }} />
+      <Route path="/explore-recipe-test" component={() => <ExploreRecipeTestScreen />} />
       <Route path="/home" component={HomeScreen} />
 
 
