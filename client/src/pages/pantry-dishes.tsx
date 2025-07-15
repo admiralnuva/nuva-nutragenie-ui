@@ -27,7 +27,7 @@ export default function PantryDishesScreen() {
     {
       id: 3,
       name: "Simple Pasta",
-      image: "https://images.unsplash.com/photo-1563379091339-03246963d7d3?w=400&h=300&fit=crop",
+      image: "https://images.unsplash.com/photo-1572441713132-51c75654db73?w=400&h=300&fit=crop",
       calories: 280,
       protein: "10g",
       cookTime: "12 min",
