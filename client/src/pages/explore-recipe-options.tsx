@@ -145,18 +145,55 @@ export default function ExploreRecipeOptionsScreen() {
                             option.id === 'pantry' ? 'bg-blue-500/30' :
                             option.id === 'create' ? 'bg-emerald-500/25' :
                             option.id === 'takeout' ? 'bg-blue-500/30' : '';
+            // Enhanced styling based on button type
+            const getEnhancedStyles = (id: string) => {
+              switch(id) {
+                case 'personalize':
+                  return {
+                    className: 'shadow-2xl border-2 border-indigo-400 hover:shadow-2xl hover:scale-110 hover:border-purple-400',
+                    style: { boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 20px rgba(99, 102, 241, 0.3)' }
+                  };
+                case 'chefs-choice':
+                  return {
+                    className: 'shadow-2xl border-2 border-emerald-400 hover:shadow-2xl hover:scale-110 hover:border-green-400',
+                    style: { boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 20px rgba(16, 185, 129, 0.3)' }
+                  };
+                case 'pantry':
+                  return {
+                    className: 'shadow-2xl border-2 border-blue-400 hover:shadow-2xl hover:scale-110 hover:border-cyan-400',
+                    style: { boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 20px rgba(59, 130, 246, 0.3)' }
+                  };
+                case 'create':
+                  return {
+                    className: 'shadow-2xl border-2 border-emerald-400 hover:shadow-2xl hover:scale-110 hover:border-green-400',
+                    style: { boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 20px rgba(16, 185, 129, 0.3)' }
+                  };
+                case 'takeout':
+                  return {
+                    className: 'shadow-2xl border-2 border-blue-400 hover:shadow-2xl hover:scale-110 hover:border-cyan-400',
+                    style: { boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 20px rgba(59, 130, 246, 0.3)' }
+                  };
+                case 'grocery':
+                  return {
+                    className: 'shadow-2xl border-2 border-teal-400 hover:shadow-2xl hover:scale-110 hover:border-cyan-400',
+                    style: { boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 20px rgba(20, 184, 166, 0.3)' }
+                  };
+                default:
+                  return {
+                    className: 'shadow-2xl border-2 border-gray-400 hover:shadow-2xl hover:scale-110 hover:border-gray-300',
+                    style: { boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 20px rgba(156, 163, 175, 0.3)' }
+                  };
+              }
+            };
+
+            const enhancedStyles = getEnhancedStyles(option.id);
+
             return (
               <div key={option.id} className="flex flex-col items-center space-y-2">
                 <button
                   onClick={() => setLocation(option.path)}
-                  className={`w-20 h-20 rounded-2xl flex items-center justify-center transition-all duration-300 ${option.color} ${buttonBg} ${
-                    option.id === 'personalize' 
-                      ? 'shadow-2xl border-2 border-indigo-400 hover:shadow-indigo-500/50 hover:shadow-2xl hover:scale-110 hover:border-purple-400 hover:glow' 
-                      : 'shadow-lg hover:scale-105 transition-transform'
-                  }`}
-                  style={option.id === 'personalize' ? {
-                    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 20px rgba(99, 102, 241, 0.3)'
-                  } : {}}
+                  className={`w-20 h-20 rounded-2xl flex items-center justify-center transition-all duration-300 ${option.color} ${buttonBg} ${enhancedStyles.className}`}
+                  style={enhancedStyles.style}
                 >
                   <IconComponent />
                 </button>
