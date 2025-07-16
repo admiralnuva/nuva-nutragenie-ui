@@ -508,7 +508,7 @@ export default function HomeScreen() {
               {/* Add Health Reading Button - Enhanced */}
               <button 
                 onClick={toggleHealthForm}
-                className="w-full px-4 py-3 mb-2 bg-slate-500 text-white rounded-xl text-sm font-medium hover:bg-slate-600 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-[1.02] flex items-center justify-center gap-2"
+                className="w-full px-4 py-3 mb-2 bg-teal-400 text-white rounded-xl text-sm font-medium hover:bg-teal-500 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-[1.02] flex items-center justify-center gap-2"
               >
                 <div className={`transition-transform duration-200 ${showHealthForm ? 'rotate-180' : ''}`}>
                   {showHealthForm ? '✕' : '+'}
@@ -605,7 +605,7 @@ export default function HomeScreen() {
                     {/* Submit Button */}
                     <Button 
                       type="submit" 
-                      className="w-full bg-stone-500 hover:bg-stone-600 text-white h-10 text-sm font-semibold rounded-lg shadow-md hover:shadow-lg transform hover:scale-[1.02] transition-all duration-200"
+                      className="w-full bg-cyan-400 hover:bg-cyan-500 text-white h-10 text-sm font-semibold rounded-lg shadow-md hover:shadow-lg transform hover:scale-[1.02] transition-all duration-200"
                     >
                       Save Health Data
                     </Button>
