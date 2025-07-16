@@ -149,7 +149,14 @@ export default function ExploreRecipeOptionsScreen() {
               <div key={option.id} className="flex flex-col items-center space-y-2">
                 <button
                   onClick={() => setLocation(option.path)}
-                  className={`w-20 h-20 rounded-2xl flex items-center justify-center shadow-lg hover:scale-105 transition-transform ${option.color} ${buttonBg}`}
+                  className={`w-20 h-20 rounded-2xl flex items-center justify-center transition-all duration-300 ${option.color} ${buttonBg} ${
+                    option.id === 'personalize' 
+                      ? 'shadow-2xl border-2 border-indigo-400 hover:shadow-indigo-500/50 hover:shadow-2xl hover:scale-110 hover:border-purple-400 hover:glow' 
+                      : 'shadow-lg hover:scale-105 transition-transform'
+                  }`}
+                  style={option.id === 'personalize' ? {
+                    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 20px rgba(99, 102, 241, 0.3)'
+                  } : {}}
                 >
                   <IconComponent />
                 </button>
