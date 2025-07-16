@@ -77,7 +77,7 @@ export default function ExploreRecipeOptionsScreen() {
       title: "Take-Out",
       icon: CustomIcons.Truck,
       color: "bg-blue-600",
-      path: "/takeout"
+      path: "/takeout-orders"
     },
     {
       id: "grocery",
