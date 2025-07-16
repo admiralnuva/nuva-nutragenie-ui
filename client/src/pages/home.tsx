@@ -199,8 +199,8 @@ export default function HomeScreen() {
       {
         label: 'Recipes Cooked',
         data: monthlyData.recipes,
-        backgroundColor: 'rgba(139, 92, 246, 0.4)',
-        borderColor: 'rgba(139, 92, 246, 0.8)',
+        backgroundColor: 'rgba(156, 163, 175, 0.3)',
+        borderColor: 'rgba(156, 163, 175, 0.6)',
         borderWidth: 2,
         borderRadius: 8,
       },
@@ -213,10 +213,10 @@ export default function HomeScreen() {
       {
         label: 'Cooking Points',
         data: monthlyData.cookingPoints,
-        borderColor: 'rgba(139, 92, 246, 0.7)',
-        backgroundColor: 'rgba(139, 92, 246, 0.05)',
+        borderColor: 'rgba(134, 154, 184, 0.8)',
+        backgroundColor: 'rgba(134, 154, 184, 0.1)',
         tension: 0.4,
-        pointBackgroundColor: 'rgba(139, 92, 246, 0.8)',
+        pointBackgroundColor: 'rgba(134, 154, 184, 0.9)',
         pointBorderColor: '#fff',
         pointBorderWidth: 2,
         pointRadius: 4,
@@ -224,10 +224,10 @@ export default function HomeScreen() {
       {
         label: 'Shopping Orders',
         data: monthlyData.orders,
-        borderColor: 'rgba(107, 114, 128, 0.7)',
-        backgroundColor: 'rgba(107, 114, 128, 0.05)',
+        borderColor: 'rgba(152, 162, 179, 0.8)',
+        backgroundColor: 'rgba(152, 162, 179, 0.1)',
         tension: 0.4,
-        pointBackgroundColor: 'rgba(107, 114, 128, 0.8)',
+        pointBackgroundColor: 'rgba(152, 162, 179, 0.9)',
         pointBorderColor: '#fff',
         pointBorderWidth: 2,
         pointRadius: 4,
@@ -241,14 +241,14 @@ export default function HomeScreen() {
       {
         data: [3, 2, 5],
         backgroundColor: [
-          'rgba(139, 92, 246, 0.6)',
-          'rgba(107, 114, 128, 0.6)',
-          'rgba(75, 85, 99, 0.6)',
+          'rgba(165, 180, 202, 0.5)',
+          'rgba(156, 163, 175, 0.5)',
+          'rgba(148, 163, 184, 0.4)',
         ],
         borderColor: [
-          'rgba(139, 92, 246, 0.8)',
-          'rgba(107, 114, 128, 0.8)',
-          'rgba(75, 85, 99, 0.8)',
+          'rgba(165, 180, 202, 0.7)',
+          'rgba(156, 163, 175, 0.7)',
+          'rgba(148, 163, 184, 0.6)',
         ],
         borderWidth: 2,
       },
@@ -357,28 +357,28 @@ export default function HomeScreen() {
     { 
       label: "Past Recipes", 
       icon: History, 
-      color: "bg-purple-500", 
+      color: "bg-slate-400", 
       path: "/profile?tab=recipes",
       description: "Review your history"
     },
     { 
       label: "Grocery List", 
       icon: ShoppingCart, 
-      color: "bg-emerald-500", 
+      color: "bg-stone-400", 
       path: "/grocery-hub",
       description: "Manage shopping"
     },
     { 
       label: "Explore Recipes", 
       icon: Utensils, 
-      color: "bg-blue-500", 
+      color: "bg-gray-400", 
       path: "/create-dishes",
       description: "Find new dishes"
     },
     { 
       label: "Interactive Voice Cooking", 
       icon: Play, 
-      color: "bg-indigo-500", 
+      color: "bg-zinc-400", 
       path: "/voice-cooking",
       description: "Start cooking with AI"
     }
