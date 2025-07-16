@@ -150,8 +150,8 @@ export default function ExploreRecipeOptionsScreen() {
               switch(id) {
                 case 'personalize':
                   return {
-                    className: 'shadow-2xl border-2 border-indigo-400 hover:shadow-2xl hover:scale-110 hover:border-purple-400',
-                    style: { boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 20px rgba(99, 102, 241, 0.3)' }
+                    className: 'shadow-2xl border-2 border-yellow-400 hover:shadow-2xl hover:scale-110 hover:border-orange-400',
+                    style: { boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 20px rgba(250, 204, 21, 0.3)' }
                   };
                 case 'chefs-choice':
                   return {
